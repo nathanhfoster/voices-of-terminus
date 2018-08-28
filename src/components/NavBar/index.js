@@ -38,14 +38,14 @@ class NavBar extends Component {
   static defaultProps = {
     navItems: [
       {name: 'HOME', link: '/', icon: faHome},
-      {name: 'NEWS', link: '/', icon: faNewspaper},
-      {name: 'GUILD', link: '/login', icon: faUsers},
-      {name: 'CONTESTS', link: '/login', icon: faGamepad},
-      {name: 'MEDIA', link: '/login', icon: faFilm},
-      {name: 'ARTICLES', link: '/login', icon: faFileAlt},
-      {name: 'TEAM', link: '/login', icon: faIdCard},
-      {name: 'PANTHEON: ROFF', link: '/login', icon: faExternalLinkAlt},
-      {name: 'JOIN', link: '/login', icon: faSignInAlt},
+      {name: 'NEWS', link: '/news', icon: faNewspaper},
+      {name: 'GUILD', link: '/guild', icon: faUsers},
+      {name: 'CONTESTS', link: '/contests', icon: faGamepad},
+      {name: 'MEDIA', link: '/media', icon: faFilm},
+      {name: 'ARTICLES', link: '/articles', icon: faFileAlt},
+      {name: 'TEAM', link: '/team', icon: faIdCard},
+      {name: 'PANTHEON: ROFF', link: '/', icon: faExternalLinkAlt},
+      {name: 'JOIN', link: '/join', icon: faSignInAlt},
       {name: 'Sign In/Up', link: '/login', icon: faUserCircle},
     ]
   }

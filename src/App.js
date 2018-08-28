@@ -4,8 +4,14 @@ import PropTypes from 'prop-types'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
 import { BrowserRouter as Router, Route } from "react-router-dom"
-//import JobMap from './views/GoogleMap'
+import Articles from './views/Articles'
+import Contests from './views/Contests'
+import Guild from './views/Guild'
 import Home from './views/Home'
+import Join from './views/Join'
+import Media from './views/Media'
+import News from './views/News'
+import Team from './views/Team'
 import Login from './components/Login'
 import BotNavBar from './components/NavBar'
 import bg1 from './images/bg1.jpg'
@@ -32,7 +38,17 @@ class App extends Component {
   }
 
   static defaultProps = {
-
+    routeItems: [
+      {path: '/articles', component: Articles},
+      {path: '/contests', component: Contests},
+      {path: '/guild', component: Guild},
+      {path: '/', component: Home},
+      {path: '/join', component: Join},
+      {path: '/media', component: Media},
+      {path: '/news', component: News},
+      {path: '/team', component: Team},
+      {path: '/login', component: Login},
+    ]
   }
 
   componentWillMount() {
@@ -53,7 +69,14 @@ class App extends Component {
   componentWillUnmount() {
   }
 
+  renderRouteItems = routeItems => Object.keys(routeItems).map(k => {
+    return (
+      <Route exact path={routeItems[k].path} component={routeItems[k].component}/>
+    )
+  })
+
   render() {
+    const {routeItems} = this.props
 
     return (
       <Router>
@@ -66,9 +89,7 @@ class App extends Component {
         </Fadethrough>
           <BotNavBar />
           <div className="routeOverlay">
-            <Route exact path="/" component={Home}/>
-            <Route path="/Location" component={Location}/>
-            <Route path="/Login" component={Login}/>
+            {this.renderRouteItems(routeItems)}
           </div>
         </div>
      </Router>
