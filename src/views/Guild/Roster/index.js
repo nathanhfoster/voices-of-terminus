@@ -3,10 +3,12 @@ import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 
+
 const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
+  
 }
 
 class Roster extends Component {
@@ -14,6 +16,8 @@ class Roster extends Component {
     super(props)
  
     this.state = {
+      discordData: {},
+      guildMembers: []
     }
   }
 
@@ -52,7 +56,9 @@ class Roster extends Component {
   componentWillReceiveProps(nextProps) {
   }
 
-  getState = props => {
+  getState = props => {   
+    this.getGuildRoster("https://discordapp.com/api/guilds/161500442088439808/widget.json")
+    //this.getGuildRoleRoster("https://discordapp.com/api/oauth2/guilds/351071354667139072/members")
     this.setState({
       })
   }
@@ -66,6 +72,38 @@ class Roster extends Component {
   componentWillUnmount() {
   }
 
+//   getGuildRoleRoster = (url) => {
+//     let req = new XMLHttpRequest()
+//     req.onreadystatechange = () => {
+//         if (req.readyState == 4 && req.status == 200) {
+//           console.log("getGuildRoleRoster: ", req.responseText)
+//         }
+//     }
+//     req.open("GET", url, true)
+//     req.setRequestHeader('Authorization', 'Bot ' + 'MzUxMTcwNTk3MzYxMDI1MDI2.DmdkcQ.HVSLJIl5dgcOT39KrTOsiI2_S9k')
+//     req.send()
+// }
+
+  getGuildRoster = (url) => {
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = () => {
+        if (req.readyState == 4 && req.status == 200) {
+          const discordData = JSON.parse(req.responseText)
+          const discordMembers = Object.keys(discordData.members).map(i => { 
+            discordData.members[i].guildMember = false
+            if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
+              discordData.members[i].guildMember = true
+            }
+            return discordData.members[i]
+          })
+          const guildMembers = discordMembers.filter(i => i.guildMember)
+          this.setState({ discordData, guildMembers })
+        }
+    }
+    req.open("GET", url, true)
+    req.send()
+}
+
   renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
       <Col lg={3} md={3} sm={3} xs={4}>
@@ -74,26 +112,36 @@ class Roster extends Component {
     )
   })
 
+  renderGuildMembers = (color, members) => members.map(k => {
+    return(
+      <Col lg={3} md={3} sm={3} xs={4}>
+        <p style={{color: color}}>{k.nick}</p>
+      </Col>
+    )
+  })
+
   render() {
+    console.log(this.state)
     const {Leaders, Council, Officers, Members} = this.props
+    const {guildMembers} = this.state
     return (
       <div className="RosterContainer">
         <Grid>
           <Row>
-            <h2>Leader(s)</h2>
+            <h3>Leader(s)</h3>
             {this.renderPeople('#ba0bfb', Leaders)}
           </Row>
           <Row>
-            <h2>Council</h2>
+            <h3>Council</h3>
             {this.renderPeople('var(--primaryColor)', Council)}
           </Row>
           <Row>
-            <h2>Officers</h2>
+            <h3>Officers</h3>
             {this.renderPeople('#f00', Officers)}
           </Row>
           <Row>
-            <h2>Members</h2>
-            {this.renderPeople('#0f0', Members)}
+            <h3>Members</h3>
+            {this.renderGuildMembers('#0f0', guildMembers)}
           </Row>
         </Grid>
       </div>

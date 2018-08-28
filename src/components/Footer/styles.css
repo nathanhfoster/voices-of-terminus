@@ -1,6 +1,6 @@
 .FooterContainer {
     color: white;
-    box-shadow: 4px 4px 10px 6px var(--primaryColor);
+    box-shadow: 2px 2px 10px 2px var(--primaryColor);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -8,6 +8,7 @@
     background-color: var(--quaternaryBackGroundOpacity);
     position: fixed;
     bottom: 0;
+    height: var(--footerHeight);
     width: 100%;
     z-index: 3;
 }

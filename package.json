@@ -21,6 +21,8 @@
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.4",
+    "react-twitter-widgets": "^1.7.1",
+    "react-youtube": "^7.6.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0"
   },

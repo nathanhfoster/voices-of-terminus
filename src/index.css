@@ -1,5 +1,6 @@
 :root {
   --navBarHeight: 76px;
+  --footerHeight: 126px;
   --primaryColor: #ff9800;
   --secondaryColor: #00aaf8;
   --tertiaryColor: #00bcf6;
@@ -16,7 +17,8 @@
   --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, .5);
   --quaternaryBackGroundOpacity: rgba(0, 0, 0, .8);
-  --main-padding: 15px;
+  --main-padding: 20px;
+  --primaryBoxShadow: 0 -8px 16px black;
 }
 
 @font-face {
@@ -54,6 +56,10 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+.shadowContainer {
+  box-shadow: var(--primaryBoxShadow);
 }
 
 /* When app is launched from home screen */

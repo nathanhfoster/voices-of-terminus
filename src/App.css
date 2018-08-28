@@ -75,7 +75,7 @@ a[href^="https://maps.google.com/maps"]{display:none !important}
   position: absolute;
   z-index: 1;
   left: 0; right: 0;
-  top: var(--navBarHeight); bottom: 0;
+  top: var(--navBarHeight); bottom: var(--footerHeight);
   margin: auto;
 }
 
