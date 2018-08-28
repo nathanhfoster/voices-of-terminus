@@ -37,8 +37,8 @@ class Roster extends Component {
     'Sydor', 'Adira', 'Broonsbane', 'Osiris Benderly',
     'Bailrock', 'Karnix', 'Sheidar', 'Halifax',
     'Raziel', 'Kadrio', 'CreepySneed', 'Sinisster',
-    'draeznor', 'MonsterKoala', 'Siggard',
-    'KrankKazgoroth', 'LyonheartRhovan'
+    'draeznor', 'MonsterKoala', 'Siggard', 'Krank',
+    'Kazgoroth', 'Lyonheart', 'Rhovan'
     ]
   }
   
@@ -66,9 +66,12 @@ class Roster extends Component {
   componentWillUnmount() {
   }
 
-  renderPeople = routeItems => routeItems.map(k => {
+  renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
-      <p>{k}</p>
+      <Col lg={3} md={3} sm={3} xs={4}>
+        <p style={{color: color}}>{k}</p>
+      </Col>
+      
     )
   })
 
@@ -79,27 +82,19 @@ class Roster extends Component {
         <Grid>
           <Row>
             <h2>Leader(s)</h2>
-            <Col>
-              {this.renderPeople(Leaders)}
-            </Col>
+            {this.renderPeople('#ba0bfb', Leaders)}
           </Row>
           <Row>
             <h2>Council</h2>
-            <Col>
-             {this.renderPeople(Council)}
-            </Col>
+            {this.renderPeople('var(--primaryColor)', Council)}
           </Row>
           <Row>
             <h2>Officers</h2>
-            <Col>
-              {this.renderPeople(Officers)}
-            </Col>
+            {this.renderPeople('#f00', Officers)}
           </Row>
           <Row>
             <h2>Members</h2>
-            <Col>
-            {this.renderPeople(Members)}
-            </Col>
+            {this.renderPeople('#0f0', Members)}
           </Row>
         </Grid>
       </div>

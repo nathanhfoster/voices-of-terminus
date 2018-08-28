@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
+import {Tabs, Tab} from 'react-bootstrap'
 import Charters from './Charters'
 import Lore from './Lore'
 import Roster from './Roster'
@@ -52,9 +53,20 @@ class Guild extends Component {
   render() {
     return (
       <div className="GuildContainer">
-        <Charters />
-        <Lore />
-        <Roster />
+        <Tabs defaultActiveKey={1} className="Tabs">
+          <Tab eventKey={1} title="ROSTER">
+            <Roster />
+          </Tab>
+
+          <Tab eventKey={2} title="CHARTERS">
+            <Charters />
+          </Tab>
+
+          <Tab eventKey={3} title="LORE">
+            <Lore />
+          </Tab>
+          
+        </Tabs>
       </div>
     )
   }

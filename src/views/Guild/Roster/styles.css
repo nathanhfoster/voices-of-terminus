@@ -1,15 +1,11 @@
 .RosterContainer {
     background-color: rgba(0, 0, 0, 0.5);
     color: white;
-    margin: 20px;
-}
-
-.RosterContainer h2 {
-    color: var(--primaryColor);
+    height: 100%;
+    width: 100%;
 }
 
 .RosterContainer p {
     font-size: 16px;
-    display: inline-block;
     margin: 4px;
 }

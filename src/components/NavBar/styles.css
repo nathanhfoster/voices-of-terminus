@@ -14,7 +14,7 @@
 
   .NavBarContainer:hover {
     transition: background-color 1s ease-in-out;
-    background-color: var(--tertiaryBackGroundOpacity);
+    background-color: var(--quaternaryBackGroundOpacity);
   }
 
 .NavBarContainer a {
