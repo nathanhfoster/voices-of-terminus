@@ -1,6 +1,10 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import { Grid, Row, Col, Image } from 'react-bootstrap'
 import './styles.css'
+import whispersOfTheVoices from '../../../images/jorconn.png'
+import allForOne from '../../../images/allforone-start.png'
+import intoTheKeep from '../../../images/teila.png'
 
 const mapStateToProps = (state) => ({
 })
@@ -20,6 +24,13 @@ class Lore extends Component {
   }
 
   static defaultProps = {
+    guildLore: [
+      {link: 'https://www.yumpu.com/en/embed/view/9RweQIy8hYtfs7k3', img: whispersOfTheVoices},
+    ],
+    contestWinners: [
+      {link: 'https://www.yumpu.com/en/embed/view/gyCLvhBQNGFK1YuS', img: allForOne},
+      {link: 'https://www.yumpu.com/en/embed/view/BxFJtZzRsNvLTEg8', img: intoTheKeep},
+    ]
   }
   
   componentWillMount() {
@@ -46,10 +57,30 @@ class Lore extends Component {
   componentWillUnmount() {
   }
 
+  renderLoreItems = loreItems => loreItems.map(k => {
+    return (
+      <Col lg={5} md={5} sm={12} xs={12}>
+        <a href={k.link} target="_blank">
+          <Image src={k.img} responsive/>
+        </a>
+      </Col>
+    )
+  })
+
   render() {
+    const {guildLore, contestWinners} = this.props
     return (
       <div className="LoreContainer">
-        Lore
+        <Grid>
+          <Row>
+            <h3><b>Guild Lore</b></h3>
+            {this.renderLoreItems(guildLore)}
+          </Row>
+          <Row>
+            <h3><b>08/2016 Contest Winners</b></h3>
+            {this.renderLoreItems(contestWinners)}
+          </Row>          
+        </Grid>
       </div>
     )
   }

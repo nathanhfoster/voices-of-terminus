@@ -78,7 +78,6 @@ class App extends Component {
 
   render() {
     const {routeItems} = this.props
-
     return (
       <Router>
         <div className="App">
