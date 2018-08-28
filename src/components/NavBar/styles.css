@@ -3,13 +3,18 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: var(--primaryBackGroundOpacity);
+    background-color: var(--secondaryBackGroundOpacity);
     position: fixed;
     top: 0;
     width: 100%;
     height: var(--navBarHeight);
     z-index: 3;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+  }
+
+  .NavBarContainer:hover {
+    transition: background-color 1s ease-in-out;
+    background-color: var(--tertiaryBackGroundOpacity);
   }
 
 .NavBarContainer a {

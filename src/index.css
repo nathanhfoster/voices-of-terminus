@@ -12,9 +12,10 @@
   --loadColor_5: radial-gradient(closest-side at 50% 50%,var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),rgba(0,0,0,0));
   --primaryTextColor: rgba(0, 0, 0, 0.87);
   --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
-  --primaryBackGroundOpacity: rgba(0, 0, 0, .5);
-  --main-padding: 15px; 
-  --primaryBoxShadow: rgba(0, 0, 0, 0.2);
+  --primaryBackGroundOpacity: rgba(0, 0, 0, 0);
+  --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
+  --tertiaryBackGroundOpacity: rgba(0, 0, 0, .75);
+  --main-padding: 15px;
 }
 
 body {
@@ -22,7 +23,7 @@ body {
   padding: 0;
   font-family: 'Roboto', sans-serif;
   background-repeat: no-repeat;
-  background-image: url('./images/about_bg.jpg');
+  /* background-image: url('./images/about_bg.jpg'); */
   /* background: black; */
 }
 

@@ -26,7 +26,7 @@ vertical-align: middle;
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px var(--primaryBoxShadow);
+  box-shadow: inset 0 0 5px var(--secondaryBackGroundOpacity);
   border-radius: 10px;
 }
 
