@@ -1,0 +1,46 @@
+{
+  "short_name": "VoT",
+  "name": "Voices of Terminus",
+  "icons": [
+    {
+      "src": "everHire-36.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    },
+    {
+      "src": "everHire-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "everHire-72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "everHire-96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "everHire-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "everHire-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "everHire-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "description": "We are the voices of those longing for community, for a family that transcends beliefs, race or blood. There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. We invite you to share in our adventure in Pantheon: Rise of the Fallen.",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF"
+}

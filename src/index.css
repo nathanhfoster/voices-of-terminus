@@ -1,0 +1,91 @@
+:root {
+  --navBarHeight: 76px;
+  --primaryColor: #ff9800;
+  --secondaryColor: #00aaf8;
+  --tertiaryColor: #00bcf6;
+  --quaternaryColor: #00dae4;
+  --quinaryColor: #2DE5D2;
+  --loadColor_1: radial-gradient(closest-side at 50% 50%,var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),rgba(0,0,0,0));
+  --loadColor_2: radial-gradient(closest-side at 50% 50%,var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),rgba(0,0,0,0));
+  --loadColor_3: radial-gradient(closest-side at 50% 50%,var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),rgba(0,0,0,0));
+  --loadColor_4: radial-gradient(closest-side at 50% 50%,var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),rgba(0,0,0,0));
+  --loadColor_5: radial-gradient(closest-side at 50% 50%,var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),rgba(0,0,0,0));
+  --primaryTextColor: rgba(0, 0, 0, 0.87);
+  --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
+  --primaryBackGroundOpacity: rgba(0, 0, 0, .5);
+  --main-padding: 15px; 
+  --primaryBoxShadow: rgba(0, 0, 0, 0.2);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  background-repeat: no-repeat;
+  background-image: url('./images/about_bg.jpg');
+  /* background: black; */
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* When app is launched from home screen */
+@media all and (display-mode: standalone) {
+  body .searchListWrapper {
+      margin-top: calc(100vh - 68px);
+  }
+}
+
+@media all and (display-mode: minimal-ui) {
+}
+
+@media all and (display-mode: browser) {
+  body .searchListWrapper {
+    margin-top: calc(100vh - 68px);
+  }
+}
+
+/*Running on mobile browser*/
+@media (max-width: 676px) {
+  @media only all and (display-mode: browser) {
+    body .searchListWrapper {
+      margin-top: calc(100vh - 124px);
+    }
+  }
+}
+
+@media all and (display-mode: fullscreen) {
+}
+
+.sheen::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  bottom: -50%;
+  left: -50%;
+  background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+  transform: rotateZ(60deg) translate(-5em, 7.5em);
+}
+
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+
+.sheen:hover::after, .sheen:focus::after {
+  animation: sheen 1.25s forwards;
+}
+
+.zoomFocus:focus {
+  transition: all .5s ease-in-out;
+  transform: scale(1.1, 1.1);
+  color: black;
+}
+
+@keyframes sheen {
+  100% {
+    transform: rotateZ(60deg) translate(1em, -9em);
+  }
+}

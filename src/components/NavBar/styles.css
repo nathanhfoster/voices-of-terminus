@@ -1,0 +1,35 @@
+.NavBarContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--primaryBackGroundOpacity);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: var(--navBarHeight);
+    z-index: 3;
+    box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
+  }
+
+.NavBarContainer a {
+    color: var(--primaryColor);
+    margin: auto;
+    align-content: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.NavBarContainer a:hover {
+    color: white;
+}
+
+.navLinkLabel {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 676px) {
+    .navLinkLabel {
+        font-size: .91rem;
+    }
+}
