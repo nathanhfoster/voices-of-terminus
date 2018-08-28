@@ -1,0 +1,47 @@
+.FooterContainer {
+    color: white;
+    box-shadow: 4px 4px 10px 6px var(--primaryColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background-color: var(--quaternaryBackGroundOpacity);
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 3;
+}
+
+.FooterContainer h5 {
+    font-family: "Goblin Hand";
+    font-size: 1.1em;
+}
+
+.FooterContainer a {
+    color: white;
+}
+
+.FooterContainer a:hover {
+    color: var(--primaryColor);
+}
+
+.footerImages {
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    z-index: 4;
+}
+
+.Female {
+    left: 0;
+}
+
+.Male {
+    right: 0;
+}
+
+@media (max-width: 676px) {
+    .footerImages {
+        display: none;
+    }
+}

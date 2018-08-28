@@ -14,11 +14,12 @@ import Media from './views/Media'
 import News from './views/News'
 import Team from './views/Team'
 import Login from './components/Login'
-import BotNavBar from './components/NavBar'
+import NavBar from './components/NavBar'
 import bg1 from './images/bg1.jpg'
 import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
 import bg4 from './images/bg4.jpg'
+import Footer from './components/Footer'
 
 const mapStateToProps = (state) => ({})
 
@@ -81,17 +82,18 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-        <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
-          <Image src={ bg1 } width="100%" height="100%" />
-          <Image src={ bg2 } width="100%" height="100%" />
-          <Image src={ bg3 } width="100%" height="100%" />
-          <Image src={ bg4 } width="100%" height="100%" />
-        </Fadethrough>
-          <BotNavBar />
+          <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
+            <Image src={ bg1 } width="100%" height="100%" />
+            <Image src={ bg2 } width="100%" height="100%" />
+            <Image src={ bg3 } width="100%" height="100%" />
+            <Image src={ bg4 } width="100%" height="100%" />
+          </Fadethrough>
+          <NavBar />
+          <Footer />
           <div className="routeOverlay">
-            {this.renderRouteItems(routeItems)}
+            {this.renderRouteItems(routeItems)} 
           </div>
-        </div>
+        </div>    
      </Router>
     )
   }
