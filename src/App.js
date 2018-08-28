@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
 import { BrowserRouter as Router, Route } from "react-router-dom"
+import { Image } from 'react-bootstrap'
 import Articles from './views/Articles'
 import Contests from './views/Contests'
 import Guild from './views/Guild'
@@ -82,10 +83,10 @@ class App extends Component {
       <Router>
         <div className="App">
         <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
-          <img src={ bg1 } width="100%" height="100%" />
-          <img src={ bg2 } width="100%" height="100%" />
-          <img src={ bg3 } width="100%" height="100%" />
-          <img src={ bg4 } width="100%" height="100%" />
+          <Image src={ bg1 } width="100%" height="100%" />
+          <Image src={ bg2 } width="100%" height="100%" />
+          <Image src={ bg3 } width="100%" height="100%" />
+          <Image src={ bg4 } width="100%" height="100%" />
         </Fadethrough>
           <BotNavBar />
           <div className="routeOverlay">

@@ -1,3 +1,5 @@
-.TemplateContainer {
-    margin: 20px;
+.ArticlesContainer {
+    overflow-y: scroll;
+    height: 100%;
+    width: 100%;
 }

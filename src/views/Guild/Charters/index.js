@@ -3,7 +3,7 @@ import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import leadershipCharter from '../../../images/leadership_charter.png'
 import rules from '../../../images/rules_and_regulations.png'
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Grid, Row, Col, Image} from 'react-bootstrap'
 
 const mapStateToProps = (state) => ({
 })
@@ -62,9 +62,9 @@ class Charters extends Component {
             <p>Whether you are a new member or the guild leader himself, we understand that our actions and our voices reflect upon not just ourselves, but resonate the family as a whole. We hold ourselves to the highest standard in all aspects so that our community as a whole properly reflects the quality of its constituent members. We let our actions, our teamwork, and our unity speak where words might sometime fail. This is who we are and together... we are the Voices of Terminus.</p>
 
             <h5><b>Leadership Charter</b></h5>
-            <img src={leadershipCharter} />
+            <Image src={leadershipCharter} responsive/>
             <h5><b>Member Charter</b></h5>
-            <img src={rules} />
+            <Image src={rules} responsive/>
           </Row>
         </Grid>
       </div>
