@@ -71,7 +71,6 @@ class Roster extends Component {
       <Col lg={3} md={3} sm={3} xs={4}>
         <p style={{color: color}}>{k}</p>
       </Col>
-      
     )
   })
 

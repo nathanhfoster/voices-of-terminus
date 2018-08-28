@@ -1,12 +1,8 @@
 .GuildContainer {
+    overflow-y: scroll;
     height: 100%;
     width: 100%;
     background-color: var(--tertiaryBackGroundOpacity);
-}
-
-.Tabs {
-    height: 100%;
-    
 }
 
 .Tabs a {
