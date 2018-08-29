@@ -41,17 +41,7 @@
       "src": "VoT-512.png",
       "sizes": "512x512",
       "type": "image/png"
-    },
-    {
-      "src": "/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-  },
-  {
-      "src": "/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-  }
+    }
   ],
   "description": "We are the voices of those longing for community, for a family that transcends beliefs, race or blood. There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. We invite you to share in our adventure in Pantheon: Rise of the Fallen.",
   "start_url": "/",
