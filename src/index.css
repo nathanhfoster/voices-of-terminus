@@ -1,5 +1,5 @@
 :root {
-  --navBarHeight: 76px;
+  --navBarHeight: 52px;
   --footerHeight: 126px;
   --primaryColor: #ff9800;
   --secondaryColor: #00aaf8;
@@ -46,8 +46,6 @@
 }
 
 body {
-  margin: 0;
-  padding: 0;
   font-family: "Omnia", "Cinzel Decorative";
   background-repeat: no-repeat;
   /* background-image: url('./images/about_bg.jpg'); */
@@ -56,10 +54,6 @@ body {
 
 body::-webkit-scrollbar {
   display: none;
-}
-
-.shadowContainer {
-  box-shadow: var(--primaryBoxShadow);
 }
 
 /* When app is launched from home screen */

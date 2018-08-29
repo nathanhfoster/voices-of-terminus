@@ -1,4 +1,4 @@
 .ChartersContainer {
+    overflow-x: hidden;
     color: white;
-    height: 100%;
 }

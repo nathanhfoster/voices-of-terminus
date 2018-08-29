@@ -65,8 +65,6 @@ class Home extends Component {
       <Grid className="HomeContainer">
         <Row>
           <Col lg={3} md={3} sm={3} xs={12}>
-            <div className="shadowContainer">
-              <h2><b>SCHEDULE</b></h2>
               <Timeline
                 dataSource={{
                   sourceType: 'profile',
@@ -78,9 +76,6 @@ class Home extends Component {
                 }}
                 onLoad={() => console.log('Timeline is loaded!')}
               />
-            </div>
-            
-            <div className="shadowContainer">
               <Timeline
                 dataSource={{
                   sourceType: 'profile',
@@ -92,12 +87,10 @@ class Home extends Component {
                 }}
                 onLoad={() => console.log('Timeline is loaded!')}
               />
-            </div>
           </Col>
 
           <Col lg={6} md={6} sm={6} xs={12}>
-            <div className="shadowContainer">
-              <h2><b>Latest Voices of Terminus Episode:</b></h2>
+            <div>
               <YouTube
                 videoId="3R-zraIkFQI"                // defaults -> null
                 // id={string}                       // defaults -> null
@@ -117,8 +110,7 @@ class Home extends Component {
           </Col>
 
           <Col lg={3} md={3} sm={3} xs={12}>
-            <div className="shadowContainer">
-              <h2><b>SCHEDULE</b></h2>
+            <div>
               <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" width="100%" height="724px" allowtransparency="true" frameborder="0"/>
             </div>
           </Col>

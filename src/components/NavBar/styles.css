@@ -1,25 +1,18 @@
 .NavBarContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    background-color: var(--secondaryBackGroundOpacity);
+    font-family: 'Goblin Hand';
     position: fixed;
     top: 0;
     width: 100%;
-    height: var(--navBarHeight);
     z-index: 3;
     box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
   }
 
   .NavBarContainer:hover {
     transition: background-color 1s ease-in-out;
-    background-color: var(--quaternaryBackGroundOpacity);
   }
 
 .NavBarContainer a {
     color: var(--primaryColor);
-    margin: auto;
     align-content: center;
     justify-content: center;
     text-align: center;
@@ -29,13 +22,46 @@
     color: white;
 }
 
-.navLinkLabel {
-    font-family: 'Goblin Hand';
-    font-size: 1.5rem;
-}
+.navbar {
+    margin: 0;
+    border-radius: 0%;
+    flex-grow: 1;
+  }
+  
+  .navbar-inverse {
+    background-color: rgba(0, 0, 0, .7);
+  }
+  
+  .navbar-inverse .navbar-brand {
+    color: white;
+  }
 
-@media (max-width: 676px) {
-    .navLinkLabel {
-        font-size: .91rem;
-    }
-}
+  .navbar-inverse .navbar-brand:hover {
+    color: var(--primaryColor);
+  }
+  
+  .navbar-inverse:hover {
+    background-color: rgba(0, 0, 0, 1);
+    -webkit-transition:  background-color 1s ease-out;
+    -moz-transition:  background-color 1s ease-out;
+    -o-transition:  background-color 1s ease-out;
+    transition:  background-color 1s ease-out;
+  }
+  
+  .navbar-inverse .navbar-nav>li>a,
+  .dropdown-menu>li>a {
+    color: white;
+  }
+
+  .dropdown-menu>li>a:hover {
+      background-color: inherit;
+  }
+
+  .navbar-inverse .navbar-nav>li>a:hover,
+  .dropdown-menu>li>a:hover {
+    color: var(--primaryColor);
+  }
+  
+  .dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.75);
+  }

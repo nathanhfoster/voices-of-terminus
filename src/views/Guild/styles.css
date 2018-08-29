@@ -1,7 +1,7 @@
 .GuildContainer {
+    overflow-x: hidden;
     overflow-y: scroll;
     height: 100%;
-    width: 100%;
     background-color: var(--tertiaryBackGroundOpacity);
 }
 

@@ -51,23 +51,23 @@ class Charters extends Component {
 
   render() {
     return (
-      <div className="ChartersContainer">
-        <Grid>
-          <Row>
-            <h5><b>The Voice of Terminus Principles</b></h5>
-            <p>Founded upon the principles of family-type bonds, game enjoyment, and teamwork through personal excellence, Voices of Terminus is a collection of tight-knit individuals seeking to explore all aspects of Terminus through teamwork and devotion to enjoyment - without a rabid focus on all-night raiding and non-stop zerging.</p>
-            <p>We remain true to each other and to our mission of honing our individual skills to their very utmost so that we can advance together, as one, with the knowledge and satisfaction that advancement was earned through teamwork, shared vision, and like-mind spirits.</p>
-            <p>As a guild we stress quality over quantity. We recognize each other as a family and unite as a guild above our own self interest. We value teamwork and thoughtful tactics over blind, brute force. We value each other with the understanding that we are apart of something bigger than ourselves. We are united as a whole, unifying not just to as guild, but to create a family that will meet challenges head on and stand the test of time.</p>
-            <p>We are composed of many different people each of us coming from different walks of life, backgrounds, and gaming expertise. As individuals, we impart our unique characteristics to the game and to the guild, but each member branches from the same foundational principles.</p>
-            <p>Whether you are a new member or the guild leader himself, we understand that our actions and our voices reflect upon not just ourselves, but resonate the family as a whole. We hold ourselves to the highest standard in all aspects so that our community as a whole properly reflects the quality of its constituent members. We let our actions, our teamwork, and our unity speak where words might sometime fail. This is who we are and together... we are the Voices of Terminus.</p>
+      <Grid className="ChartersContainer">
+        <Row>
+          <Col>
+          <h5><b>The Voice of Terminus Principles</b></h5>
+          <p>Founded upon the principles of family-type bonds, game enjoyment, and teamwork through personal excellence, Voices of Terminus is a collection of tight-knit individuals seeking to explore all aspects of Terminus through teamwork and devotion to enjoyment - without a rabid focus on all-night raiding and non-stop zerging.</p>
+          <p>We remain true to each other and to our mission of honing our individual skills to their very utmost so that we can advance together, as one, with the knowledge and satisfaction that advancement was earned through teamwork, shared vision, and like-mind spirits.</p>
+          <p>As a guild we stress quality over quantity. We recognize each other as a family and unite as a guild above our own self interest. We value teamwork and thoughtful tactics over blind, brute force. We value each other with the understanding that we are apart of something bigger than ourselves. We are united as a whole, unifying not just to as guild, but to create a family that will meet challenges head on and stand the test of time.</p>
+          <p>We are composed of many different people each of us coming from different walks of life, backgrounds, and gaming expertise. As individuals, we impart our unique characteristics to the game and to the guild, but each member branches from the same foundational principles.</p>
+          <p>Whether you are a new member or the guild leader himself, we understand that our actions and our voices reflect upon not just ourselves, but resonate the family as a whole. We hold ourselves to the highest standard in all aspects so that our community as a whole properly reflects the quality of its constituent members. We let our actions, our teamwork, and our unity speak where words might sometime fail. This is who we are and together... we are the Voices of Terminus.</p>
 
-            <h5><b>Leadership Charter</b></h5>
-            <Image src={leadershipCharter} responsive/>
-            <h5><b>Member Charter</b></h5>
-            <Image src={rules} responsive/>
-          </Row>
-        </Grid>
-      </div>
+          <h5><b>Leadership Charter</b></h5>
+          <Image src={leadershipCharter} responsive/>
+          <h5><b>Member Charter</b></h5>
+          <Image src={rules} responsive/>
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }
