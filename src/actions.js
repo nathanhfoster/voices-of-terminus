@@ -1,12 +1,12 @@
 import C from './constants'
 
-export const setUserLocation = (accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp) => ({
-    type: C.SET_USER_LOCATION,
-    payload: {accuracy, altitude, altitudeAccuracy, heading, latitude, longitude, speed, timestamp} 
+export const setGuildMembers = (guildMembers) => ({
+    type: C.SET_GUILD_MEMBERS,
+    payload: guildMembers
  })
 
-export const getUserLocation = () => (dispatch, getState) => 
+export const getGuildMembers = () => (dispatch, getState) => 
     dispatch({ 
-        type: C.GET_USER_LOCATION, 
-        payload: getState().userLocation,
+        type: C.GET_GUILD_MEMBERS, 
+        payload: getState().guildMembers,
 })

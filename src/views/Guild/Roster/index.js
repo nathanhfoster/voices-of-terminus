@@ -1,14 +1,17 @@
 import React, { Component } from 'react'
+import ImmutableProptypes from 'react-immutable-proptypes'
+import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
+import {getGuildMembers} from '../../../actions'
 
-
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({ guildMembers }) => ({
+  guildMembers
 })
 
 const mapDispatchToProps = {
-  
+  getGuildMembers
 }
 
 class Roster extends Component {
@@ -21,7 +24,10 @@ class Roster extends Component {
     }
   }
 
-  static propTypes = { 
+  static propTypes = {
+    discordData: PropTypes.object,
+    guildMembers: PropTypes.array,
+    getGuildMembers: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -51,15 +57,16 @@ class Roster extends Component {
   }
 
   componentDidMount() {
+    this.props.getGuildMembers()
   }
 
   componentWillReceiveProps(nextProps) {
   }
 
-  getState = props => {   
-    this.getGuildRoster("https://discordapp.com/api/guilds/161500442088439808/widget.json")
-    //this.getGuildRoleRoster("https://discordapp.com/api/oauth2/guilds/351071354667139072/members")
+  getState = props => {  
+    const {guildMembers} = props
     this.setState({
+      guildMembers
       })
   }
 
@@ -71,38 +78,6 @@ class Roster extends Component {
 
   componentWillUnmount() {
   }
-
-//   getGuildRoleRoster = (url) => {
-//     let req = new XMLHttpRequest()
-//     req.onreadystatechange = () => {
-//         if (req.readyState == 4 && req.status == 200) {
-//           console.log("getGuildRoleRoster: ", req.responseText)
-//         }
-//     }
-//     req.open("GET", url, true)
-//     req.setRequestHeader('Authorization', 'Bot ' + 'MzUxMTcwNTk3MzYxMDI1MDI2.DmdkcQ.HVSLJIl5dgcOT39KrTOsiI2_S9k')
-//     req.send()
-// }
-
-  getGuildRoster = (url) => {
-    let req = new XMLHttpRequest()
-    req.onreadystatechange = () => {
-        if (req.readyState == 4 && req.status == 200) {
-          const discordData = JSON.parse(req.responseText)
-          const discordMembers = Object.keys(discordData.members).map(i => { 
-            discordData.members[i].guildMember = false
-            if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
-              discordData.members[i].guildMember = true
-            }
-            return discordData.members[i]
-          })
-          const guildMembers = discordMembers.filter(i => i.guildMember)
-          this.setState({ discordData, guildMembers })
-        }
-    }
-    req.open("GET", url, true)
-    req.send()
-}
 
   renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
@@ -121,7 +96,6 @@ class Roster extends Component {
   })
 
   render() {
-    console.log(this.state)
     const {Leaders, Council, Officers, Members} = this.props
     const {guildMembers} = this.state
     return (

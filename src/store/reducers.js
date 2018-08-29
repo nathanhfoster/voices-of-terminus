@@ -1,9 +1,9 @@
 import C from '../constants.js'
 import { combineReducers } from 'redux'
 
-export const userLocation = (state = {}, action) =>
-(action.type === C.SET_USER_LOCATION) ? action.payload : state
+export const guildMembers = (state = {}, action) =>
+(action.type === C.SET_GUILD_MEMBERS) ? action.payload : state
 
 export default combineReducers({
-  userLocation
+  guildMembers
 })

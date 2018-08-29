@@ -8,7 +8,6 @@
     background-color: var(--quaternaryBackGroundOpacity);
     position: fixed;
     bottom: 0;
-    height: var(--footerHeight);
     width: 100%;
     z-index: 3;
 }
@@ -31,6 +30,20 @@
     position: fixed;
     bottom: 0;
     z-index: 4;
+}
+
+.footerButton {
+    display: flex;
+    position: fixed;
+    left: 50%;
+    right: 50%;
+    bottom: var(--footerHeight);
+    z-index: 4;
+    color: rgba(255, 255, 255, 1);
+}
+
+.footerButton:hover {
+    color: var(--primaryColor);
 }
 
 .Female {
