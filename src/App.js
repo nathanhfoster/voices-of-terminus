@@ -20,11 +20,12 @@ import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
 import bg4 from './images/bg4.jpg'
 import Footer from './components/Footer'
+import {setGuildMembers} from './actions'
 
 const mapStateToProps = (state) => ({})
 
 const mapDispatchToProps = {
-
+  setGuildMembers
 }
 
 class App extends Component {
@@ -36,6 +37,7 @@ class App extends Component {
   }
 
   static propTypes = {
+    setGuildMembers: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -57,7 +59,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    
+    this.fetchGuildRoster("https://discordapp.com/api/guilds/161500442088439808/widget.json")
   }
 
   componentWillReceiveProps(nextProps) {
@@ -69,6 +71,28 @@ class App extends Component {
 
   componentWillUnmount() {
   }
+
+  fetchGuildRoster = (url) => {
+    let req = new XMLHttpRequest()
+    req.onreadystatechange = () => {
+        if (req.readyState == 4 && req.status == 200) {
+          const discordData = JSON.parse(req.responseText)
+          const discordMembers = Object.keys(discordData.members).map(i => { 
+            discordData.members[i].guildMember = false
+            if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
+              discordData.members[i].guildMember = true
+            }
+            return discordData.members[i]
+          })
+          const guildMembers = discordMembers.filter(i => i.guildMember)
+          
+          this.props.setGuildMembers(guildMembers)
+          this.setState({ discordData, guildMembers })
+        }
+    }
+    req.open("GET", url, true)
+    req.send()
+}
 
   renderRouteItems = routeItems => Object.keys(routeItems).map(k => {
     return (

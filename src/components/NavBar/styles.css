@@ -33,11 +33,12 @@
   }
   
   .navbar-inverse .navbar-brand {
-    color: white;
+    padding: 0;
   }
 
-  .navbar-inverse .navbar-brand:hover {
-    color: var(--primaryColor);
+  .navbar-brand>img {
+    padding: 4px;
+    background-repeat: no-repeat;
   }
   
   .navbar-inverse:hover {
@@ -57,9 +58,13 @@
       background-color: inherit;
   }
 
+  .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a {
+    color: var(--primaryColor);
+  }
+
   .navbar-inverse .navbar-nav>li>a:hover,
   .dropdown-menu>li>a:hover {
-    color: var(--primaryColor);
+    color: white;
   }
   
   .dropdown-menu {

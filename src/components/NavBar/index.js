@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import { Link } from 'react-router-dom'
 import './styles.css'
-import {Navbar, Nav, NavItem, NavDropdown, MenuItem, Image} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, NavDropdown, Image} from 'react-bootstrap'
+import votLogo from '../../images/VoT-Logo-White.png'
+import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 
 const mapStateToProps = () => ({
 })
@@ -49,31 +52,25 @@ class NavBar extends Component {
         <Navbar inverse collapseOnSelect className="NavBarContainer">
           <Navbar.Header>
             <Navbar.Brand>
-              <a href="/">VoT</a>
+              <Link to ="/"><Image src={votLogo} height="52px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1} href="news">
-                NEWS
-              </NavItem>
-              <NavItem eventKey={2} href="/guild">GUILD</NavItem>
-              <NavItem eventKey={3} href="/contests">CONTESTS</NavItem>
-              <NavItem eventKey={4} href="/media">MEDIA</NavItem>
-              <NavItem eventKey={5} href="/articles">ARTICLES</NavItem>
-              <NavItem eventKey={6} href="/team">TEAM</NavItem>
+              <NavItem eventKey={1}><Link to ="/news">NEWS</Link></NavItem>
+              <NavItem eventKey={2}><Link to ="/guild">GUILD</Link></NavItem>
+              <NavItem eventKey={3}><Link to ="/contests">CONTESTS</Link></NavItem>
+              <NavItem eventKey={4}><Link to ="/media">MEDIA</Link></NavItem>
+              <NavItem eventKey={5}><Link to ="/articles">ARTICLES</Link></NavItem>
+              <NavItem eventKey={6}><Link to ="/team">TEAM</Link></NavItem>
               <NavDropdown eventKey={7} title="VR" id="basic-nav-dropdown">
-                <MenuItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</MenuItem>
-                <MenuItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</MenuItem>
-                <MenuItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</MenuItem>
+                <NavItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
+                <NavItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
+                <NavItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
               </NavDropdown>
-              <NavItem eventKey={8} href="/join">
-                JOIN
-              </NavItem>
-              <NavItem eventKey={9} href="/login">
-                Sing In/Up
-              </NavItem>
+              <NavItem eventKey={8} href="/join">JOIN</NavItem>
+              <NavItem eventKey={9} href="/login">Sing In/Up</NavItem>
             </Nav>
             <Nav pullRight>
               <NavDropdown eventKey={10} title="CONNECT" id="basic-nav-dropdown">
@@ -83,7 +80,7 @@ class NavBar extends Component {
                 <NavItem eventKey={10.4} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"><span> FACEBOOK</span></NavItem>
                 <NavItem eventKey={10.5} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
               </NavDropdown>
-              <NavItem eventKey={11} href="/donate">DONATE</NavItem>
+              <NavItem componentClass={Link} eventKey={11} to="/donate" href="/donate">DONATE</NavItem>
             </Nav>
           </Navbar.Collapse>
   </Navbar>

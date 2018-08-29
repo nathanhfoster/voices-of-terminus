@@ -5,13 +5,13 @@ import {Tabs, Tab} from 'react-bootstrap'
 import Charters from './Charters'
 import Lore from './Lore'
 import Roster from './Roster'
-import {setGuildMembers} from '../../actions'
+
 
 const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  setGuildMembers
+  
 }
 
 class Guild extends Component {
@@ -39,7 +39,7 @@ class Guild extends Component {
   }
 
   getState = props => {
-    this.fetchGuildRoster("https://discordapp.com/api/guilds/161500442088439808/widget.json")
+    
     this.setState({
       })
   }
@@ -53,26 +53,7 @@ class Guild extends Component {
   componentWillUnmount() {
   }
 
-  fetchGuildRoster = (url) => {
-    let req = new XMLHttpRequest()
-    req.onreadystatechange = () => {
-        if (req.readyState == 4 && req.status == 200) {
-          const discordData = JSON.parse(req.responseText)
-          const discordMembers = Object.keys(discordData.members).map(i => { 
-            discordData.members[i].guildMember = false
-            if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
-              discordData.members[i].guildMember = true
-            }
-            return discordData.members[i]
-          })
-          const guildMembers = discordMembers.filter(i => i.guildMember)
-          this.props.setGuildMembers(guildMembers)
-          this.setState({ discordData, guildMembers })
-        }
-    }
-    req.open("GET", url, true)
-    req.send()
-}
+ 
 
   render() {
     return (
