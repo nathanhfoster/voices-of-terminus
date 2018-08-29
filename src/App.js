@@ -88,6 +88,7 @@ class App extends Component {
             <Image src={ bg4 } width="100%" height="100%" />
           </Fadethrough>
           <NavBar />
+          <Footer />
           <div className="routeOverlay">
             {this.renderRouteItems(routeItems)} 
           </div>

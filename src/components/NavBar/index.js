@@ -66,6 +66,7 @@ class NavBar extends Component {
               <NavDropdown eventKey={7} title="VR" id="basic-nav-dropdown">
                 <MenuItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</MenuItem>
                 <MenuItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</MenuItem>
+                <MenuItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</MenuItem>
               </NavDropdown>
               <NavItem eventKey={8} href="/join">
                 JOIN
@@ -75,13 +76,14 @@ class NavBar extends Component {
               </NavItem>
             </Nav>
             <Nav pullRight>
-            <NavDropdown eventKey={7} title="CONNECT" id="basic-nav-dropdown">
-              <NavItem eventKey={10} href="http://discord.me/vot" class="fab fa-discord" target="_blank"><span> DISCORD</span></NavItem>
-              <NavItem eventKey={11} href="http://twitch.tv/pantheon_vot" class="fab fa-twitch" target="_blank"><span> TWITCH</span></NavItem>
-              <NavItem eventKey={12} href="https://www.youtube.com/channel/UCQ0BiIpfN9b5kUP8TA9eG1A" class="fab fa-youtube" target="_blank"><span> YOUTUBE</span></NavItem>
-              <NavItem eventKey={13} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"><span> FACEBOOK</span></NavItem>
-              <NavItem eventKey={14} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
-            </NavDropdown>
+              <NavDropdown eventKey={10} title="CONNECT" id="basic-nav-dropdown">
+                <NavItem eventKey={10.1} href="http://discord.me/vot" class="fab fa-discord" target="_blank"><span> DISCORD</span></NavItem>
+                <NavItem eventKey={10.2} href="http://twitch.tv/pantheon_vot" class="fab fa-twitch" target="_blank"><span> TWITCH</span></NavItem>
+                <NavItem eventKey={10.3} href="https://www.youtube.com/channel/UCQ0BiIpfN9b5kUP8TA9eG1A" class="fab fa-youtube" target="_blank"><span> YOUTUBE</span></NavItem>
+                <NavItem eventKey={10.4} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"><span> FACEBOOK</span></NavItem>
+                <NavItem eventKey={10.5} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
+              </NavDropdown>
+              <NavItem eventKey={11} href="/donate">DONATE</NavItem>
             </Nav>
           </Navbar.Collapse>
   </Navbar>

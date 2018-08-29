@@ -14,10 +14,13 @@
     text-align: center;
     color: white;
 }
+.timeline-Widget {
+    background-color: transparent !important;
+}
 
 .votDifferenceContainer {
     padding: 10px; 
     font-family: "Goblin Hand";
     color: white;
-    background-color: black;
+    background-color: #1e2124;
 }

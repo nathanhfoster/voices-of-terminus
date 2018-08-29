@@ -72,7 +72,8 @@ class Home extends Component {
                 }}
                 options={{
                   username: 'Pantheon_VoT',
-                  height: '355'
+                  height: '355',
+                  theme: 'dark'
                 }}
                 onLoad={() => console.log('Timeline is loaded!')}
               />
@@ -83,7 +84,8 @@ class Home extends Component {
                 }}
                 options={{
                   username: 'Pantheon',
-                  height: '355'
+                  height: '355',
+                  theme: 'dark'
                 }}
                 onLoad={() => console.log('Timeline is loaded!')}
               />
