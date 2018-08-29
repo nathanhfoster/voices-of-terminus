@@ -4,7 +4,6 @@
     top: 0;
     width: 100%;
     z-index: 3;
-    box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
   }
 
   .NavBarContainer:hover {
@@ -24,6 +23,7 @@
 
 .navbar {
     margin: 0;
+    border-bottom: 1px solid var(--primaryColor);
     border-radius: 0%;
     flex-grow: 1;
   }
@@ -64,4 +64,8 @@
   
   .dropdown-menu {
     background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
+    border-top: 1px solid var(--primaryColor);
   }
