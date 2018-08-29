@@ -5,6 +5,7 @@
 
 @media (max-width: 676px) { 
     .HomeContainer {
+        margin: 0;
         padding: 0;
     }
 }
