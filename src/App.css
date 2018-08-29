@@ -17,6 +17,7 @@ vertical-align: middle;
 }
 
 ::-webkit-scrollbar {
+  display: none;
   width: 6px;
 }
 
