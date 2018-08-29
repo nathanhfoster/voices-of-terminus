@@ -90,7 +90,17 @@ class Home extends Component {
           </Col>
 
           <Col lg={6} md={6} sm={6} xs={12}>
-            <div>
+            <Row>
+            <Col className="votDifferenceContainer">
+              <h5>The VOT Difference</h5>
+                <p class="grey-text text-lighten-4">
+                  We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
+                  There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. We
+                  invite you to share in our adventure in Pantheon: Rise of the Fallen.
+                </p>
+              </Col>
+            </Row>
+            <Row>
               <YouTube
                 videoId="3R-zraIkFQI"                // defaults -> null
                 // id={string}                       // defaults -> null
@@ -106,7 +116,7 @@ class Home extends Component {
                 // onPlaybackRateChange={func}       // defaults -> noop
                 // onPlaybackQualityChange={func}    // defaults -> noop
               />
-            </div>
+            </Row>
           </Col>
 
           <Col lg={3} md={3} sm={3} xs={12}>

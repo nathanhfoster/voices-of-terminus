@@ -65,7 +65,3 @@
   .dropdown-menu {
     background-color: rgba(0, 0, 0, 0.75);
   }
-
-  .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-top: 1px solid var(--primaryColor);
-  }

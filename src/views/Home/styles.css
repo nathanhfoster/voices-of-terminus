@@ -14,3 +14,10 @@
     text-align: center;
     color: white;
 }
+
+.votDifferenceContainer {
+    padding: 10px; 
+    font-family: "Goblin Hand";
+    color: white;
+    background-color: black;
+}

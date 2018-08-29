@@ -75,11 +75,13 @@ class NavBar extends Component {
               </NavItem>
             </Nav>
             <Nav pullRight>
-              <NavItem eventKey={10} href="http://discord.me/vot" class="fab fa-discord" target="_blank"/>
-              <NavItem eventKey={11} href="http://twitch.tv/pantheon_vot" class="fab fa-twitch" target="_blank"/>
-              <NavItem eventKey={12} href="https://www.youtube.com/channel/UCQ0BiIpfN9b5kUP8TA9eG1A" class="fab fa-youtube" target="_blank"/>
-              <NavItem eventKey={13} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"/>
-              <NavItem eventKey={14} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"/>
+            <NavDropdown eventKey={7} title="CONNECT" id="basic-nav-dropdown">
+              <NavItem eventKey={10} href="http://discord.me/vot" class="fab fa-discord" target="_blank"><span> DISCORD</span></NavItem>
+              <NavItem eventKey={11} href="http://twitch.tv/pantheon_vot" class="fab fa-twitch" target="_blank"><span> TWITCH</span></NavItem>
+              <NavItem eventKey={12} href="https://www.youtube.com/channel/UCQ0BiIpfN9b5kUP8TA9eG1A" class="fab fa-youtube" target="_blank"><span> YOUTUBE</span></NavItem>
+              <NavItem eventKey={13} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"><span> FACEBOOK</span></NavItem>
+              <NavItem eventKey={14} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
+            </NavDropdown>
             </Nav>
           </Navbar.Collapse>
   </Navbar>
