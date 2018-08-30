@@ -9,10 +9,9 @@ import femaleHalfling from '../../images/halfling_female.png'
 import maleHalfling from '../../images/halfling_male.png'
 import femaleHuman from '../../images/human_female.png'
 import maleHuman from '../../images/human_male.png'
-import {Collapse} from 'react-collapse'
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import faArrowUp from '@fortawesome/fontawesome-free-solid/faArrowUp'
 import faArrowDown from '@fortawesome/fontawesome-free-solid/faArrowDown'
+import {getRandomInt} from '../../helpers/helpers'
 
 const mapStateToProps = (state) => ({
 })
@@ -72,19 +71,11 @@ class Footer extends Component {
     this.setState({ showFooter: !this.state.showFooter })
   }
 
-  /**
- * Returns a random integer between min (inclusive) and max (inclusive)
- * Using Math.round() will give you a non-uniform distribution!
- */
-  getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
-
   render() {
     const { showFooter, showFooterIcon } = this.state
     return ([
-      <Image className="Female footerImages" src={this.props.femaleImages[this.getRandomInt(0, 2)]} height="400px"/>,
-      <Image className="Male footerImages"   src={this.props.maleImgaes[this.getRandomInt(0, 2)]}   height="400px"/>,
+      <Image className="Female footerImages" src={this.props.femaleImages[getRandomInt(0, 2)]} height="400px"/>,
+      <Image className="Male footerImages"   src={this.props.maleImgaes[getRandomInt(0, 2)]}   height="400px"/>,
     ])
   }
 }

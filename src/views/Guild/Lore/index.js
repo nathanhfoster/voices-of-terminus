@@ -73,11 +73,11 @@ class Lore extends Component {
       <div className="LoreContainer">
         <Grid>
           <Row>
-            <h3><b>Guild Lore</b></h3>
+            <h3>Guild Lore</h3>
             {this.renderLoreItems(guildLore)}
           </Row>
           <Row>
-            <h3><b>08/2016 Contest Winners</b></h3>
+            <h3>08/2016 Contest Winners</h3>
             {this.renderLoreItems(contestWinners)}
           </Row>          
         </Grid>

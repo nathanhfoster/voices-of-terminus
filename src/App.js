@@ -20,25 +20,51 @@ import bg1 from './images/bg1.jpg'
 import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
 import bg4 from './images/bg4.jpg'
+import bg1Mobile from './images/elf_female.png'
+import bg2Mobile from './images/elf_male.png'
+import bg3Mobile from './images/halfling_female.png'
+import bg4Mobile from './images/halfling_male.png'
+import bg5Mobile from './images/human_female.png'
+import bg6Mobile from './images/human_male.png'
+// import bg1Mobile from './images/bg1-mobile.jpg'
+// import bg2Mobile from './images/bg2-mobile.jpg'
+// import bg3Mobile from './images/bg3-mobile.jpg'
+// import bg4Mobile from './images/bg4-mobile.jpg'
+// import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
-import {setGuildMembers} from './actions'
+import {setGuildMembers, setWindow, getWindow} from './actions'
 
-const mapStateToProps = (state) => ({})
+const mapStateToProps = ({ Window }) => ({
+  Window
+})
 
 const mapDispatchToProps = {
+  setWindow,
+  getWindow,
   setGuildMembers
 }
 
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      
+    this.state = { 
+      width: 0,
+      height: 0 ,
+      isMobile: false
     }
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this);
   }
 
   static propTypes = {
-    setGuildMembers: PropTypes.func.isRequired
+    setWindow: PropTypes.func.isRequired,
+    getWindow: PropTypes.func.isRequired,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    isMobile: PropTypes.bool,
+    setGuildMembers: PropTypes.func.isRequired,
+    routeItems: PropTypes.array,
+    images: PropTypes.array,
+    imagesMobile: PropTypes.array
   }
 
   static defaultProps = {
@@ -55,7 +81,9 @@ class App extends Component {
       {path: '/team', component: Team},
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},
-    ]
+    ],
+    images: [bg1, bg2, bg3, bg4],
+    imagesMobile: [bg1Mobile, bg2Mobile, bg3Mobile, bg4Mobile, bg5Mobile, bg6Mobile]
   }
 
   componentWillMount() {
@@ -63,6 +91,9 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.updateWindowDimensions()
+    window.addEventListener('resize', this.updateWindowDimensions)
+    this.props.getWindow()
     this.fetchGuildRoster("https://discordapp.com/api/guilds/161500442088439808/widget.json")
   }
 
@@ -74,6 +105,13 @@ class App extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.updateWindowDimensions)
+  }
+
+  updateWindowDimensions() {
+    const { innerHeight, innerWidth } = window
+    this.props.setWindow({ innerHeight, innerWidth })
+    this.setState({height: innerHeight, width: innerWidth, isMobile: innerWidth < 676})
   }
 
   fetchGuildRoster = (url) => {
@@ -121,17 +159,21 @@ class App extends Component {
     )
   })
 
+  renderBackgroundImages = images => images.map(k => {
+    return (
+      <Image src={k} width="100%" height="100%"/>
+    )
+  })
+
   render() {
-    const {routeItems} = this.props
+    const {isMobile} = this.state
+    const {routeItems, images, imagesMobile} = this.props
     return (
       <Router>
         <div className="App">
           <NavBar />
           <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
-            <Image src={ bg1 } width="100%" height="100%" />
-            <Image src={ bg2 } width="100%" height="100%" />
-            <Image src={ bg3 } width="100%" height="100%" />
-            <Image src={ bg4 } width="100%" height="100%" />
+            {isMobile ? this.renderBackgroundImages(imagesMobile) : this.renderBackgroundImages(images)}
           </Fadethrough>
           <Footer />
           <div className="routeOverlay">

@@ -8,7 +8,6 @@ import Charters from './Charters'
 import Lore from './Lore'
 import Roster from './Roster'
 
-
 const mapStateToProps = (state) => ({
 })
 
@@ -64,7 +63,7 @@ class Guild extends Component {
     return (
       <Grid className="GuildContainer">
         <Row>
-          <PageHeader>ARTICLES</PageHeader>
+          <PageHeader>GUILD</PageHeader>
         </Row>
         <Tabs defaultActiveKey={history.location.pathname} className="Tabs" animation onSelect={(key) => history.push(key)}>
           <Tab eventKey={'/guild/roster'} title="ROSTER">

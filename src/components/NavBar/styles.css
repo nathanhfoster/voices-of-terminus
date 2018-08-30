@@ -11,14 +11,14 @@
   }
 
 .NavBarContainer a {
-    color: var(--primaryColor) !important;
+    color: white !important;
     align-content: center;
     justify-content: center;
     text-align: center;
 }
 
 .NavBarContainer a:hover {
-    color: white !important;
+    color: var(--primaryColor) !important;
 }
 
 /* ADJUST BREAKPOINT NAVBAR*/
@@ -101,20 +101,21 @@
   
   .navbar-inverse .navbar-nav>li>a,
   .dropdown-menu>li>a {
-    color: white;
+    color: var(--primaryColor);
   }
 
   .dropdown-menu>li>a:hover {
-      background-color: inherit;
+      color: white !important;
+      background-color: var(--primaryColor);
   }
 
   .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a {
-    color: var(--primaryColor);
+    color: white;
   }
 
   .navbar-inverse .navbar-nav>li>a:hover,
   .dropdown-menu>li>a:hover {
-    color: white;
+    color: var(--primaryColor) @;
   }
   
   .dropdown-menu {

@@ -56,32 +56,11 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-/* When app is launched from home screen */
-@media all and (display-mode: standalone) {
-  body .searchListWrapper {
-      margin-top: calc(100vh - 68px);
-  }
-}
-
-@media all and (display-mode: minimal-ui) {
-}
-
-@media all and (display-mode: browser) {
-  body .searchListWrapper {
-    margin-top: calc(100vh - 68px);
-  }
-}
-
-/*Running on mobile browser*/
-@media (max-width: 676px) {
-  @media only all and (display-mode: browser) {
-    body .searchListWrapper {
-      margin-top: calc(100vh - 124px);
-    }
-  }
-}
-
-@media all and (display-mode: fullscreen) {
+.Center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .sheen::after {
