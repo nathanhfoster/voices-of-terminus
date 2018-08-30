@@ -7,12 +7,7 @@
     margin: 0;
 }
 
-@media (max-width: 676px) { 
-    .HomeContainer {
-        margin: 0;
-        padding: 0;
-    }
-}
+
 
 .HomeContainer h2 {
     text-align: center;
@@ -20,8 +15,22 @@
 }
 
 .votDifferenceContainer {
-    padding: 30px; 
+    padding: 30px;
+    margin-bottom: 20px;
     font-family: "Goblin Hand";
     color: white;
     background-color: #1e2124;
+    border: 2px solid var(--primaryColor);
+}
+
+
+@media (max-width: 676px) { 
+    .HomeContainer {
+        margin: 0;
+        padding: 0;
+    }
+    .votDifferenceContainer {
+        border-top: 0;
+        margin-bottom: 6px;
+    }
 }
