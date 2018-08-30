@@ -3,10 +3,14 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import './styles.css'
-import {Grid, Row, Col, Tabs, Tab, PageHeader} from 'react-bootstrap'
+import {Grid, Tabs, Tab, PageHeader} from 'react-bootstrap'
+
+import Roster from './Roster'
 import Charters from './Charters'
 import Lore from './Lore'
-import Roster from './Roster'
+import Contests from './Contests'
+import Team from './Team'
+import Join from './Join'
 
 const mapStateToProps = (state) => ({
 })
@@ -62,9 +66,7 @@ class Guild extends Component {
     console.log(history.location.pathname)
     return (
       <Grid className="GuildContainer">
-        <Row>
-          <PageHeader>GUILD</PageHeader>
-        </Row>
+        <PageHeader>GUILD</PageHeader>
         <Tabs defaultActiveKey={history.location.pathname} className="Tabs" animation onSelect={(key) => history.push(key)}>
           <Tab eventKey={'/guild/roster'} title="ROSTER">
             <Roster />
@@ -77,7 +79,19 @@ class Guild extends Component {
           <Tab eventKey={'/guild/lore'} title="LORE">
             <Lore />
           </Tab>
-          
+
+          <Tab eventKey={'/guild/contests'} title="CONTESTS">
+            <Contests />
+          </Tab>
+
+          <Tab eventKey={'/guild/team'} title="TEAM">
+            <Team />
+          </Tab>
+
+          <Tab eventKey={'/guild/join'} title="JOIN">
+            <Join />
+          </Tab>
+
         </Tabs>
       </Grid>
     )

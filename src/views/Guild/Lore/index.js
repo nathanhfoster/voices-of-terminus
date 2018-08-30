@@ -70,18 +70,17 @@ class Lore extends Component {
   render() {
     const {guildLore, contestWinners} = this.props
     return (
-      <div className="LoreContainer">
-        <Grid>
-          <Row>
-            <h3>Guild Lore</h3>
-            {this.renderLoreItems(guildLore)}
-          </Row>
-          <Row>
-            <h3>08/2016 Contest Winners</h3>
-            {this.renderLoreItems(contestWinners)}
-          </Row>          
-        </Grid>
-      </div>
+      <Grid className="LoreContainer">
+        <Row>
+          <h3>Guild Lore</h3>
+          {this.renderLoreItems(guildLore)}
+        </Row>
+        <Row>
+          <h3>08/2016 Contest Winners</h3>
+          {this.renderLoreItems(contestWinners)}
+        </Row>          
+      </Grid>
+
     )
   }
 }

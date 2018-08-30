@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, Image, Tab, Tabs, PageHeader } from 'react-bootstrap'
 import './styles.css'
-import contestImage from '../../images/contest.png'
+import contestImage from '../../../images/contest.png'
 
 const mapStateToProps = (state) => ({
 })

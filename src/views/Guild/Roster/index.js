@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import PropTypes from 'prop-types'
+import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'

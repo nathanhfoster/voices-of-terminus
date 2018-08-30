@@ -2,6 +2,10 @@
     color: white;
 }
 
+.JoinContainer h1 {
+    margin-left: 4px;
+}
+
 .JoinContainer h1, h3 {
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;

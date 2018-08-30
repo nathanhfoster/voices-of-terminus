@@ -6,6 +6,8 @@
   --tertiaryColor: #00bcf6;
   --quaternaryColor: #00dae4;
   --quinaryColor: #2DE5D2;
+  --grey: #292F33;
+  --dark_grey: #1e2124;
   --loadColor_1: radial-gradient(closest-side at 50% 50%,var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),rgba(0,0,0,0));
   --loadColor_2: radial-gradient(closest-side at 50% 50%,var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),rgba(0,0,0,0));
   --loadColor_3: radial-gradient(closest-side at 50% 50%,var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),rgba(0,0,0,0));

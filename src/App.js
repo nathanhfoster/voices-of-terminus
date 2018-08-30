@@ -1,21 +1,20 @@
 import React, { Component } from 'react'
-import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { connect as reduxConnect } from 'react-redux'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import { Image } from 'react-bootstrap'
-import Articles from './views/Articles'
-import Contests from './views/Contests'
-import Guild from './views/Guild'
+
 import Home from './views/Home'
-import Join from './views/Join'
-import Media from './views/Media'
 import News from './views/News'
-import Team from './views/Team'
+import Guild from './views/Guild'
+import Media from './views/Media'
+import Articles from './views/Articles'
 import Login from './components/Login'
 import Donate from './views/Donate'
 import NavBar from './components/NavBar'
+
 import bg1 from './images/bg1.jpg'
 import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
@@ -69,16 +68,16 @@ class App extends Component {
 
   static defaultProps = {
     routeItems: [
-      {path: '/articles', component: Articles},
-      {path: '/contests', component: Contests},
+      {path: '/', component: Home},
+      {path: '/news', component: News},
       {path: '/guild/roster', component: Guild},
       {path: '/guild/charters', component: Guild},
       {path: '/guild/lore', component: Guild},
-      {path: '/', component: Home},
-      {path: '/join', component: Join},
+      {path: '/guild/contests', component: Guild},
+      {path: '/guild/team', component: Guild},
+      {path: '/guild/join', component: Guild},
+      {path: '/articles', component: Articles},
       {path: '/media', component: Media},
-      {path: '/news', component: News},
-      {path: '/team', component: Team},
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},
     ],

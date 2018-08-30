@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import {Grid, Row, Col, Image, PageHeader} from 'react-bootstrap'
 import imageGallery from '../../images/media-images.png'
@@ -23,11 +23,11 @@ class Media extends Component {
   }
 
   static propTypes = {
-
+    images: PropTypes.array
   }
 
   static defaultProps = {
-
+    images: [imageGallery, videoGallery, streamGallery, podcastGallery]
   }
   
   componentWillMount() {
@@ -54,28 +54,23 @@ class Media extends Component {
   componentWillUnmount() {
   }
 
+  renderImages = images => images.map(k => {
+    return (
+      <Col lg={6} md={6} sm={12} xs={12}>
+        <Image src={k} responsive />
+      </Col>
+    )
+  })
+
   render() {
+    const {images} = this.props
     return (
       <Grid className="MediaContainer">
         <Row>
-        <PageHeader>MEDIA</PageHeader>
-      </Row>
-        <Row>
-          <Col lg={6} md={6} sm={12} xs={12}>
-            <Image src={imageGallery} responsive />
-          </Col>
-          <Col lg={6} md={6} sm={12} xs={12}>
-            <Image src={videoGallery} responsive />
-          </Col>
+          <PageHeader>MEDIA</PageHeader>
         </Row>
-
         <Row>
-          <Col lg={6} md={6} sm={12} xs={12}>
-            <Image src={streamGallery} responsive />
-          </Col>
-          <Col lg={6} md={6} sm={12} xs={12}>
-            <Image src={podcastGallery} responsive />
-          </Col>
+          {this.renderImages(images)}
         </Row>
       </Grid>
     )

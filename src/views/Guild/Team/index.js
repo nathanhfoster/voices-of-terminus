@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, Image, PageHeader } from 'react-bootstrap'
 import './styles.css'
-import Yarnilla from '../../images/yarnilla.png'
-import Kodiack from '../../images/kodiack.png'
-import Leksur from '../../images/leksur.png'
+import Yarnilla from '../../../images/yarnilla.png'
+import Kodiack from '../../../images/kodiack.png'
+import Leksur from '../../../images/leksur.png'
 
 const mapStateToProps = (state) => ({
 })

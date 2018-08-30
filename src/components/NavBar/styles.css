@@ -22,7 +22,7 @@
 }
 
 /* ADJUST BREAKPOINT NAVBAR*/
-@media (max-width: 1200px) {
+@media (max-width: 991px) {
   .navbar-header {
       float: none;
   }
@@ -65,6 +65,12 @@
   }
 }
 
+@media (max-width: 767px) {
+.navbar-nav .open .dropdown-menu {
+    background-color: var(--dark_grey);
+    }
+}
+
 /* STYLE NAVBAR */
 .navbar {
     margin: 0;
@@ -105,17 +111,12 @@
   }
 
   .dropdown-menu>li>a:hover {
-      color: white !important;
-      background-color: var(--primaryColor);
+    color: white !important;
+    background-color: black;
   }
 
   .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a {
     color: white;
-  }
-
-  .navbar-inverse .navbar-nav>li>a:hover,
-  .dropdown-menu>li>a:hover {
-    color: var(--primaryColor) @;
   }
   
   .dropdown-menu {

@@ -56,8 +56,6 @@ class Home extends Component {
 
   render() {
     const youTubeOpts = {
-      height: '329px',
-      width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: false,
         color: 'white',
@@ -82,36 +80,41 @@ class Home extends Component {
         </Row>
         <Row>
           <Col lg={3} md={3} sm={3} xs={12}>
+           <div className="twitter">
               <Timeline
-                dataSource={{
-                  sourceType: 'profile',
-                  screenName: 'pantheon_VoT'
-                }}
-                options={{
-                  username: 'Pantheon_VoT',
-                  height: '275px',
-                  theme: 'dark'
-                }}
-                onLoad={() => console.log('Timeline is loaded!')}
-              />
-              <Timeline
-                dataSource={{
-                  sourceType: 'profile',
-                  screenName: 'PantheonMMO'
-                }}
-                options={{
-                  username: 'Pantheon',
-                  height: '275px',
-                  theme: 'dark'
-                }}
-                onLoad={() => console.log('Timeline is loaded!')}
-              />
+                    dataSource={{
+                      sourceType: 'profile',
+                      screenName: 'pantheon_VoT'
+                    }}
+                    options={{
+                      username: 'Pantheon_VoT',
+                      height: '275px',
+                      theme: 'dark'
+                    }}
+                    onLoad={() => console.log('Timeline is loaded!')}
+                  />
+           </div>
+           <div className="twitter">
+            <Timeline
+                  dataSource={{
+                    sourceType: 'profile',
+                    screenName: 'PantheonMMO'
+                  }}
+                  options={{
+                    username: 'Pantheon',
+                    height: '275px',
+                    theme: 'dark'
+                  }}
+                  onLoad={() => console.log('Timeline is loaded!')}
+                />
+           </div>
+              
           </Col>
           <Col lg={6} md={6} sm={6} xs={12}>
               <YouTube
                 videoId="3R-zraIkFQI"                // defaults -> null
                 // id={string}                       // defaults -> null
-                // className={string}                // defaults -> null
+                className="youTube"              // defaults -> null
                 // containerClassName={string}       // defaults -> ''
                 opts={youTubeOpts}                   // defaults -> {}
                 onReady={this._onReady}              // defaults -> noop
@@ -126,7 +129,7 @@ class Home extends Component {
           </Col>
 
           <Col lg={3} md={3} sm={12} xs={12}>
-              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" height="557px" width="100%" allowtransparency="true" frameborder="0"/>
+              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" className="discord"/>
           </Col>
       </Row>
       </Grid>
