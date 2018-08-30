@@ -1,10 +1,17 @@
 .MediaContainer {
-    background-color: var(--secondaryBackGroundOpacity);
     height: 100%;
     overflow-x: hidden;
     overflow-y: scroll;
 }
 
 .MediaContainer img {
-    
+    max-height: 380px;
+    margin: auto;
+}
+
+.MediaContainer img:hover {
+    transform: scale(1.1);
+    will-change: transform;
+    background-repeat: no-repeat;
+    transition: -webkit-transform .425s cubic-bezier(0.485, 1.65, 0.545, 0.835);
 }

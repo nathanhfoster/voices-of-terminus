@@ -5,23 +5,17 @@
     height: 100%;    
 }
 
+.Card {
+    padding: 40px;
+}
+
 .TeamContainer h1 {
     text-align: center;
 }
 
-@media (max-width: 676px) {
-    .TeamContainer small {
-       text-align: center;
-       display: inherit;
-       color: white;
-    }
-}
-
-@media (min-width: 676px) {
 .TeamContainer small {
     color: white;
     display: flex;
-    }
 }
 
 .TeamContainer p {

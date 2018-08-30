@@ -107,13 +107,13 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
+          <NavBar />
           <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
             <Image src={ bg1 } width="100%" height="100%" />
             <Image src={ bg2 } width="100%" height="100%" />
             <Image src={ bg3 } width="100%" height="100%" />
             <Image src={ bg4 } width="100%" height="100%" />
           </Fadethrough>
-          <NavBar />
           <Footer />
           <div className="routeOverlay">
             {this.renderRouteItems(routeItems)} 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
-import {Tabs, Tab} from 'react-bootstrap'
+import {Grid, Tabs, Tab} from 'react-bootstrap'
 import Charters from './Charters'
 import Lore from './Lore'
 import Roster from './Roster'
@@ -53,12 +53,11 @@ class Guild extends Component {
   componentWillUnmount() {
   }
 
- 
-
   render() {
+    console.log(this.props)
     return (
-      <div className="GuildContainer">
-        <Tabs defaultActiveKey={1} className="Tabs">
+      <Grid className="GuildContainer">
+        <Tabs defaultActiveKey={1} className="Tabs" animation>
           <Tab eventKey={1} title="ROSTER">
             <Roster />
           </Tab>
@@ -72,7 +71,7 @@ class Guild extends Component {
           </Tab>
           
         </Tabs>
-      </div>
+      </Grid>
     )
   }
 }

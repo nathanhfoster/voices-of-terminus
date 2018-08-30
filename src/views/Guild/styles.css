@@ -2,7 +2,6 @@
     overflow-x: hidden;
     overflow-y: scroll;
     height: 100%;
-    background-color: var(--tertiaryBackGroundOpacity);
 }
 
 .Tabs a {
@@ -12,6 +11,6 @@
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
     color: white;
     background-color: var(--primaryColor);
-    border: 0;
+    border-color: var(--primaryColor);
     border-bottom-color: transparent;
 }

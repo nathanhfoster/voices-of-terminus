@@ -53,13 +53,7 @@
     right: 0;
 }
 
-@media (max-width: 676px), (max-height: 1200px ) {
-    .footerImages {
-        display: none;
-    }
-}
-
-@media screen and (orientation: landscape) {
+@media (max-width: 1200px) {
     .footerImages {
         display: none;
     }
