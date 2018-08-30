@@ -58,19 +58,19 @@ class Media extends Component {
     return (
       <Grid className="MediaContainer">
         <Row>
-          <Col md={6}>
+          <Col lg={6} md={6} sm={6} xs={12}>
             <Image src={imageGallery} responsive />
           </Col>
-          <Col md={6}>
+          <Col lg={6} md={6} sm={6} xs={12}>
             <Image src={videoGallery} responsive />
           </Col>
         </Row>
 
         <Row>
-          <Col md={6}>
+          <Col lg={6} md={6} sm={6} xs={12}>
             <Image src={streamGallery} responsive />
           </Col>
-          <Col md={6}>
+          <Col lg={6} md={6} sm={6} xs={12}>
             <Image src={podcastGallery} responsive />
           </Col>
         </Row>

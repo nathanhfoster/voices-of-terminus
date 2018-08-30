@@ -5,7 +5,6 @@
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background-color: var(--quaternaryBackGroundOpacity);
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -54,7 +53,7 @@
     right: 0;
 }
 
-@media (max-width: 676px) and (max-height: 1200px ) {
+@media (max-width: 676px), (max-height: 1200px ) {
     .footerImages {
         display: none;
     }
