@@ -120,9 +120,9 @@ class Home extends Component {
               />
           </Col>
 
-          <Col lg={3} md={3} sm={3} xs={12}>
+          <Col lg={3} md={3} sm={12} xs={12}>
             <div>
-              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" height="557px" allowtransparency="true" frameborder="0"/>
+              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" height="557px" width="100%" allowtransparency="true" frameborder="0"/>
             </div>
           </Col>
         </Row>
