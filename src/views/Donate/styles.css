@@ -29,7 +29,3 @@
 .donateButton:hover {
     background-color: white;
 }
-
-.donateButton:hover a {
-    color: black;
-}
