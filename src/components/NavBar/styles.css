@@ -11,14 +11,14 @@
   }
 
 .NavBarContainer a {
-    color: var(--primaryColor);
+    color: var(--primaryColor) !important;
     align-content: center;
     justify-content: center;
     text-align: center;
 }
 
 .NavBarContainer a:hover {
-    color: white;
+    color: white !important;
 }
 
 /* ADJUST BREAKPOINT NAVBAR*/
@@ -57,6 +57,12 @@
   .collapse.in{
       display:block !important;
   }
+  .dropdown-menu {
+    width: auto !important;
+    position: inherit !important;
+    left: 0 !important;
+    float: none !important;
+  }
 }
 
 /* STYLE NAVBAR */
@@ -66,9 +72,14 @@
     border-radius: 0%;
     flex-grow: 1;
   }
+
+.navbar-toggle:hover, .navbar-toggle:focus {
+    background-color: var(--primaryColor) !important;
+    border-color: var(--primaryColor) !important;
+}
   
   .navbar-inverse {
-    background-color: rgba(0, 0, 0, .7);
+    background-color: var(--primaryBackGroundOpacity);
   }
   
   .navbar-inverse .navbar-brand {

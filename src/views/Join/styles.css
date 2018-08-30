@@ -1,3 +1,13 @@
-.TemplateContainer {
-    margin: 20px;
+.JoinContainer {
+    color: white;
+    height: 100%;
+}
+
+.JoinContainer h1, h3 {
+    font-family: "Cinzel Decorative", serif;
+    font-weight: 900;
+}
+
+.JoinContainer a {
+    color: var(--primaryColor);
 }

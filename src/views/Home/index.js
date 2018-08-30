@@ -73,7 +73,7 @@ class Home extends Component {
                 }}
                 options={{
                   username: 'Pantheon_VoT',
-                  height: '355',
+                  height: '338px',
                   theme: 'dark'
                 }}
                 onLoad={() => console.log('Timeline is loaded!')}
@@ -85,7 +85,7 @@ class Home extends Component {
                 }}
                 options={{
                   username: 'Pantheon',
-                  height: '355',
+                  height: '338px',
                   theme: 'dark'
                 }}
                 onLoad={() => console.log('Timeline is loaded!')}
@@ -124,7 +124,7 @@ class Home extends Component {
 
           <Col lg={3} md={3} sm={3} xs={12}>
             <div>
-              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" width="100%" height="724px" allowtransparency="true" frameborder="0"/>
+              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" width="100%" height="684px" allowtransparency="true" frameborder="0"/>
             </div>
           </Col>
         </Row>

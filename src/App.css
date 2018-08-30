@@ -11,11 +11,6 @@ body {
   background-color: rgba(0, 0, 0, 0.75);
 }
 
-li > *{
-display: inline-block;
-vertical-align: middle;
-}
-
 ::-webkit-scrollbar {
   display: none;
   width: 6px;
@@ -53,10 +48,11 @@ a, a:focus, a:active, a:visited {
 }
 
 .routeOverlay {
+  overflow-x: hidden;
+  overflow-y: scroll;
   background-color: var(--primaryBackGroundOpacity);
   position: absolute;
   z-index: 1;
   left: 0; right: 0;
   top: var(--navBarHeight); bottom: 0;
-  margin: auto;
 }

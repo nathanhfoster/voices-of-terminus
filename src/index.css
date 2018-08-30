@@ -13,10 +13,10 @@
   --loadColor_5: radial-gradient(closest-side at 50% 50%,var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),rgba(0,0,0,0));
   --primaryTextColor: rgba(0, 0, 0, 0.87);
   --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
-  --primaryBackGroundOpacity: rgba(0, 0, 0, .8);
+  --primaryBackGroundOpacity: rgba(0, 0, 0, .65);
   --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, .5);
-  --quaternaryBackGroundOpacity: rgba(0, 0, 0, .8);
+  --quaternaryBackGroundOpacity: rgba(0, 0, 0, .7);
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
 }
