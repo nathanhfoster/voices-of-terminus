@@ -1,6 +1,8 @@
 .ArticlesContainer {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    height: 100%;
-    width: 100%;
+    color: white;
+}
+
+.ArticlesContainer h1 {
+    font-family: "Cinzel Decorative", serif;
+    font-weight: 900;
 }

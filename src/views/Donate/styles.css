@@ -1,5 +1,4 @@
 .DonateContainer {
-    height: 100%;
     color: white;
 }
 
@@ -21,7 +20,7 @@
 }
 
 .donateButton {
-    background-color: var(--primaryColor);;
+    background-color: var(--primaryColor);
     border: 0;
 }
 

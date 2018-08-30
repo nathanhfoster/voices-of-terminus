@@ -1,6 +1,14 @@
 .ContestsContainer {
     color: white;
-    height: 100%;
+}
+
+.ContestsContainer h1, h4 {
+    font-family: "Cinzel Decorative", serif;
+    font-weight: 900;
+}
+
+.currentTab {
+    
 }
 
 .currentTab a {

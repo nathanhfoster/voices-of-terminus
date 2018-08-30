@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.css'
-import {Grid, Row, Col, Image} from 'react-bootstrap'
+import {Grid, Row, Col, Image, PageHeader} from 'react-bootstrap'
 import imageGallery from '../../images/media-images.png'
 import videoGallery from '../../images/media-videos.png'
 import streamGallery from '../../images/media-streams.png'
@@ -57,6 +57,9 @@ class Media extends Component {
   render() {
     return (
       <Grid className="MediaContainer">
+        <Row>
+        <PageHeader>MEDIA</PageHeader>
+      </Row>
         <Row>
           <Col lg={6} md={6} sm={12} xs={12}>
             <Image src={imageGallery} responsive />

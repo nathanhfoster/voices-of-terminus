@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
-import {Grid, Tabs, Tab} from 'react-bootstrap'
+import {Grid, Row, Col, Tabs, Tab, PageHeader} from 'react-bootstrap'
 import Charters from './Charters'
 import Lore from './Lore'
 import Roster from './Roster'
@@ -57,6 +57,9 @@ class Guild extends Component {
     console.log(this.props)
     return (
       <Grid className="GuildContainer">
+        <Row>
+          <PageHeader>ARTICLES</PageHeader>
+        </Row>
         <Tabs defaultActiveKey={1} className="Tabs" animation>
           <Tab eventKey={1} title="ROSTER">
             <Roster />

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import './styles.css'
 
 const mapStateToProps = (state) => ({
@@ -48,9 +49,17 @@ class Articles extends Component {
 
   render() {
     return (
-      <div className="ArticlesContainer">
-        <h1>Articles</h1>
-      </div>
+      <Grid className="ArticlesContainer">
+        <Row>
+            <PageHeader>ARTICLES</PageHeader>
+        </Row>
+        <Row>
+          <Col>
+            
+          </Col>
+        </Row>
+
+      </Grid>
     )
   }
 }

@@ -35,8 +35,50 @@ body {
   background-color: rgba(50, 58, 68, 0.5);
 }
 
+.btn-default {
+  color: white;
+}
+
+.btn-default:hover {
+  color: black;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {   
+  border-color: var(--primaryColor);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor);
+  outline: 0 none;
+}
+
+input, select, textarea{
+  color: white !important;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: white !important;
   opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: white !important;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: white !important;
 }
 
 a, a:focus, a:active, a:visited {

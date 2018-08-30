@@ -69,8 +69,8 @@ class NavBar extends Component {
                 <NavItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
                 <NavItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
               </NavDropdown>
-              <NavItem eventKey={8} href="/join">JOIN</NavItem>
-              <NavItem eventKey={9} href="/login">Sing In/Up</NavItem>
+              <NavItem eventKey={8}><Link to ="/articles">ARTICLES</Link></NavItem>
+              <NavItem eventKey={9}><Link to ="/login">Sing In/Up</Link></NavItem>
             </Nav>
             <Nav pullRight>
               <NavDropdown eventKey={10} title="CONNECT" id="basic-nav-dropdown">

@@ -1,8 +1,5 @@
 .TeamContainer {
-    overflow-x: hidden;
-    overflow-y: scroll;
-    color: white;
-    height: 100%;    
+    color: white;    
 }
 
 .Card {

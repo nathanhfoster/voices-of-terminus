@@ -51,11 +51,13 @@ class Contests extends Component {
   render() {
     return (
       <Grid className="ContestsContainer">
+         <Row>
+          <PageHeader>CONTESTS</PageHeader>
+        </Row>
         <Tabs defaultActiveKey={1} className="currentTab" animation>
           <Tab eventKey={1} title="CURRENT">
             <Image src={contestImage} responsive />
           </Tab>
-
           <Tab eventKey={2} title="PAST">
             <Row>
               <Col sm={12}>
