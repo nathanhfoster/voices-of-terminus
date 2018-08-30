@@ -96,7 +96,6 @@
 }
 
 .youTube {
-    border: 2px solid var(--primaryColor);
     animation-name: youTube;
     animation-duration: 2s;
     animation-fill-mode: forwards;
