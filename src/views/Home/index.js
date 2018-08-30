@@ -55,10 +55,11 @@ class Home extends Component {
 
   render() {
     const youTubeOpts = {
-      height: '355',
+      height: '329px',
       width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
-        autoplay: false
+        autoplay: false,
+        color: 'white',
       }
     }
     return (
@@ -95,7 +96,7 @@ class Home extends Component {
             <Row>
             <Col className="votDifferenceContainer">
               <h5>The VOT Difference</h5>
-                <p class="grey-text text-lighten-4">
+                <p>
                   We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
                   There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. We
                   invite you to share in our adventure in Pantheon: Rise of the Fallen.

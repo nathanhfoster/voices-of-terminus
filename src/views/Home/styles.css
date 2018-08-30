@@ -3,6 +3,11 @@
     margin-top: 20px;
 }
 
+.HomeContainer iframe {
+    padding: 0;
+    margin: 0;
+}
+
 @media (max-width: 676px) { 
     .HomeContainer {
         margin: 0;
@@ -13,9 +18,6 @@
 .HomeContainer h2 {
     text-align: center;
     color: white;
-}
-.timeline-Widget {
-    background-color: transparent !important;
 }
 
 .votDifferenceContainer {

@@ -1,3 +1,10 @@
-.TemplateContainer {
-    margin: 20px;
+.MediaContainer {
+    background-color: var(--secondaryBackGroundOpacity);
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.MediaContainer img {
+    
 }

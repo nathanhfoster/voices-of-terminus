@@ -14,6 +14,7 @@ import Media from './views/Media'
 import News from './views/News'
 import Team from './views/Team'
 import Login from './components/Login'
+import Donate from './views/Donate'
 import NavBar from './components/NavBar'
 import bg1 from './images/bg1.jpg'
 import bg2 from './images/bg2.jpg'
@@ -51,6 +52,7 @@ class App extends Component {
       {path: '/news', component: News},
       {path: '/team', component: Team},
       {path: '/login', component: Login},
+      {path: '/donate', component: Donate},
     ]
   }
 
