@@ -45,7 +45,9 @@ class App extends Component {
     routeItems: [
       {path: '/articles', component: Articles},
       {path: '/contests', component: Contests},
-      {path: '/guild', component: Guild},
+      {path: '/guild/roster', component: Guild},
+      {path: '/guild/charters', component: Guild},
+      {path: '/guild/lore', component: Guild},
       {path: '/', component: Home},
       {path: '/join', component: Join},
       {path: '/media', component: Media},
@@ -75,25 +77,42 @@ class App extends Component {
   }
 
   fetchGuildRoster = (url) => {
-    let req = new XMLHttpRequest()
-    req.onreadystatechange = () => {
-        if (req.readyState == 4 && req.status == 200) {
-          const discordData = JSON.parse(req.responseText)
-          const discordMembers = Object.keys(discordData.members).map(i => { 
-            discordData.members[i].guildMember = false
-            if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
-              discordData.members[i].guildMember = true
-            }
-            return discordData.members[i]
-          })
-          const guildMembers = discordMembers.filter(i => i.guildMember)
+    fetch(url).then(Response => {
+      Response.json()
+      .then(discordData => {
+        const discordMembers = Object.keys(discordData.members).map(i => { 
+          discordData.members[i].guildMember = false
+          if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
+            discordData.members[i].guildMember = true
+          }
+          return discordData.members[i]
+        })
+        const guildMembers = discordMembers.filter(i => i.guildMember)
           
           this.props.setGuildMembers(guildMembers)
           this.setState({ discordData, guildMembers })
-        }
-    }
-    req.open("GET", url, true)
-    req.send()
+      })
+    })
+
+    // let req = new XMLHttpRequest()
+    // req.onreadystatechange = () => {
+    //     if (req.readyState == 4 && req.status == 200) {
+    //       const discordData = JSON.parse(req.responseText)
+    //       const discordMembers = Object.keys(discordData.members).map(i => { 
+    //         discordData.members[i].guildMember = false
+    //         if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
+    //           discordData.members[i].guildMember = true
+    //         }
+    //         return discordData.members[i]
+    //       })
+    //       const guildMembers = discordMembers.filter(i => i.guildMember)
+          
+    //       this.props.setGuildMembers(guildMembers)
+    //       this.setState({ discordData, guildMembers })
+    //     }
+    // }
+    // req.open("GET", url, true)
+    // req.send()
 }
 
   renderRouteItems = routeItems => Object.keys(routeItems).map(k => {

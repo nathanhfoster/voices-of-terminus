@@ -59,7 +59,11 @@ class NavBar extends Component {
           <Navbar.Collapse>
             <Nav>
               <NavItem eventKey={1}><Link to ="/news">NEWS</Link></NavItem>
-              <NavItem eventKey={2}><Link to ="/guild">GUILD</Link></NavItem>
+              <NavDropdown eventKey={2} title="GUILD" id="basic-nav-dropdown">
+                <NavItem eventKey={2.1}><Link to ="/guild/roster">ROSTER</Link></NavItem>
+                <NavItem eventKey={2.2}><Link to ="/guild/charters">CHARTERS</Link></NavItem>
+                <NavItem eventKey={2.2}><Link to ="/guild/lore">LORE</Link></NavItem>
+              </NavDropdown>
               <NavItem eventKey={3}><Link to ="/contests">CONTESTS</Link></NavItem>
               <NavItem eventKey={4}><Link to ="/media">MEDIA</Link></NavItem>
               <NavItem eventKey={5}><Link to ="/articles">ARTICLES</Link></NavItem>

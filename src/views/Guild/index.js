@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import './styles.css'
 import {Grid, Row, Col, Tabs, Tab, PageHeader} from 'react-bootstrap'
 import Charters from './Charters'
@@ -19,10 +21,12 @@ class Guild extends Component {
     super(props)
  
     this.state = {
+      history: {}
     }
   }
 
   static propTypes = { 
+    history: PropTypes.object
   }
 
   static defaultProps = {
@@ -39,8 +43,9 @@ class Guild extends Component {
   }
 
   getState = props => {
-    
+    const {history} = props
     this.setState({
+      history
       })
   }
 
@@ -54,22 +59,23 @@ class Guild extends Component {
   }
 
   render() {
-    console.log(this.props)
+    const {history} = this.state
+    console.log(history.location.pathname)
     return (
       <Grid className="GuildContainer">
         <Row>
           <PageHeader>ARTICLES</PageHeader>
         </Row>
-        <Tabs defaultActiveKey={1} className="Tabs" animation>
-          <Tab eventKey={1} title="ROSTER">
+        <Tabs defaultActiveKey={history.location.pathname} className="Tabs" animation onSelect={(key) => history.push(key)}>
+          <Tab eventKey={'/guild/roster'} title="ROSTER">
             <Roster />
           </Tab>
 
-          <Tab eventKey={2} title="CHARTERS">
+          <Tab eventKey={'/guild/charters'} title="CHARTERS">
             <Charters />
           </Tab>
 
-          <Tab eventKey={3} title="LORE">
+          <Tab eventKey={'/guild/lore'} title="LORE">
             <Lore />
           </Tab>
           
@@ -78,4 +84,4 @@ class Guild extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Guild)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Guild))
