@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, Button} from 'react-bootstrap'
+import {Grid, Row, Col, Button, PageHeader} from 'react-bootstrap'
 import './styles.css'
 
 const mapStateToProps = (state) => ({
@@ -52,9 +52,8 @@ class Donate extends Component {
   render() {
     return (
       <Grid className="DonateContainer">
-        <Row>
           <Col className="textContainer">
-            <h1>Donations</h1>
+            <PageHeader>DONATIONS</PageHeader>
             <p className="donationText">VoT (Voices of Terminus) Show is community/fan-based podcast/show started March 23, 2016. Its is made for the community and fans of Pantheon during it’s development and thereafter. 
               The show is never based on tips or donations nor does it budget for them. It is for the community, by the community, for the fans, by the fans. Donations are NEVER required, but 
               if you feel like supporting the show, then click the following link/button. Always take care of yourself first! Otherwise feel free to support the show by retweeting, following 
@@ -62,7 +61,6 @@ class Donate extends Component {
             </p>
             <Button type="submit" className="donateButton" href="https://paypal.me/VoicesofTerminus" target="_blank">Donate</Button>
           </Col>
-        </Row>
       </Grid>
     )
   }

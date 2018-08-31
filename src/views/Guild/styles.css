@@ -2,10 +2,33 @@
     color: white;
 }
 
+.GuildContainer h1:before {
+    content: '';
+    width: 93px;
+    height: 6px;
+    position: absolute;
+    left: calc(50% - 156px);
+    margin-top: -5px;
+    top: 8%;
+    background: url('../../images/left_arrow.png') no-repeat;
+}
+
 .GuildContainer h1 {
+    text-align: center;
     margin-left: 4px;
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
+}
+
+.GuildContainer h1:after {
+    content: '';
+    width: 93px;
+    height: 6px;
+    position: absolute;
+    right: calc(50% - 160px);
+    margin-top: -5px;
+    top: 8%;
+    background: url('../../images/right_arrow.png') no-repeat;
 }
 
 .Tabs a {
