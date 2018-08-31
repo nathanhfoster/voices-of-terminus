@@ -49,7 +49,7 @@ class NavBar extends Component {
   render() {
     const {navItems} = this.props
     return (
-        <Navbar inverse collapseOnSelect className="NavBarContainer">
+        <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
             <Navbar.Brand>
               <Link to ="/"><Image src={votLogo} height="52px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></Link>

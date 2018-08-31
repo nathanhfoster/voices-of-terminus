@@ -67,7 +67,7 @@ class Media extends Component {
     return (
       <Grid className="MediaContainer">
         <Row>
-          <PageHeader>MEDIA</PageHeader>
+          <PageHeader className="pageHeader">MEDIA</PageHeader>
         </Row>
         <Row>
           {this.renderImages(images)}

@@ -51,7 +51,7 @@ class News extends Component {
     return (
       <Grid className="NewsContainer">
         <Row>
-            <PageHeader>NEWS</PageHeader>
+            <PageHeader className="pageHeader">NEWS</PageHeader>
         </Row>
         <Row>
           <Col>

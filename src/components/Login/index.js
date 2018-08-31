@@ -39,11 +39,9 @@ class Login extends Component {
 
   render() {
     return (
-      <Grid className="LoginContainer">
+      <Grid className="Login Container">
         <Form className="LoginForm">
-          <Row>
-            <PageHeader>LOGIN</PageHeader>
-          </Row>
+            <PageHeader className="pageHeader">LOGIN</PageHeader>
           <Row>
             <Col md={6} smOffset={3} sm={6}>
               <FormGroup controlId="formHorizontalEmail">

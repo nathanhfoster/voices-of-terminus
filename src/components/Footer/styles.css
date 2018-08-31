@@ -1,27 +1,4 @@
 .FooterContainer {
-    color: white;
-    box-shadow: 2px 2px 10px 2px var(--primaryColor);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 3;
-}
-
-.FooterContainer h5 {
-    font-family: "Goblin Hand";
-    font-size: 1.1em;
-}
-
-.FooterContainer a {
-    color: white;
-}
-
-.FooterContainer a:hover {
-    color: var(--primaryColor);
 }
 
 .footerImages {
@@ -29,16 +6,6 @@
     position: fixed;
     bottom: 0;
     z-index: 4;
-}
-
-.footerButton {
-    display: flex;
-    position: fixed;
-    left: 50%;
-    right: 50%;
-    bottom: var(--footerHeight);
-    z-index: 4;
-    color: rgba(255, 255, 255, 1);
 }
 
 .footerButton:hover {

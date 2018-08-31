@@ -49,11 +49,11 @@ class Join extends Component {
 
   render() {
     return (
-      <Grid className="JoinContainer">
+      <Grid className="Join Container">
         <Row>
           <Col>
             <div class="section no-pad-top">
-            <PageHeader>Join</PageHeader>
+            <PageHeader className="pageHeader">Join</PageHeader>
             <h3>About VoT</h3>
             <p>The <strong>Voices of Terminus</strong>, Pantheon: Rise of the Fallen guild is always seeking out quality
               individuals to share in the adventure as we wait for and eventually enjoy Pantheon. We will never base our

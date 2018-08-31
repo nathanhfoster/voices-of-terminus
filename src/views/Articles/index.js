@@ -49,9 +49,9 @@ class Articles extends Component {
 
   render() {
     return (
-      <Grid className="ArticlesContainer">
+      <Grid className="Articles Container">
         <Row>
-            <PageHeader>ARTICLES</PageHeader>
+            <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
         <Row>
           <Col>

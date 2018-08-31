@@ -51,7 +51,7 @@ class Charters extends Component {
 
   render() {
     return (
-      <Grid className="ChartersContainer">
+      <Grid className="Charters Container">
         <Row>
           <Col>
           <h3>The Voice of Terminus Principles</h3>

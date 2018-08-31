@@ -1,25 +1,23 @@
-.TeamContainer {
-    margin: auto;
-    color: white;    
+.Team {
 }
 
 .Card {
     padding: 40px;
 }
 
-.TeamContainer h1 {
+.Team h1 {
     text-align: center;
 }
 
-.TeamContainer small {
+.Team small {
     color: white;
-    display: flex;
+    display: block;
 }
 
-.TeamContainer p {
+.Team p {
     font-size: 2rem;
 }
 
-.TeamContainer h1 {
-    margin: 0;
+.Team h1 {
+   
 }

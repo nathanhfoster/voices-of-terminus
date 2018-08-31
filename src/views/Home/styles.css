@@ -1,5 +1,4 @@
 .HomeContainer {
-    margin: auto;
     margin-top: 20px;
 }
 
@@ -14,7 +13,6 @@
 }
 
 .votDifferenceContainer {
-    margin: auto;
     text-align: center;
     padding: 20px;
     margin-bottom: 20px;
@@ -28,7 +26,6 @@
 
 
 .AboutContainer {
-    margin: auto;
     text-align: center;
     font-size: 18px;
     font-family: 'Cinzel', serif;

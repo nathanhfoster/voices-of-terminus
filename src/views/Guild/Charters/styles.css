@@ -1,13 +1,11 @@
-.ChartersContainer {
-    margin: auto;
-    color: white;
+.Charters {
 }
 
-.ChartersContainer h3 {
+.Charters h3 {
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
 }
 
-.ChartersContainer p {
+.Charters p {
     font-size: 16px;
 }

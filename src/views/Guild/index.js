@@ -65,8 +65,8 @@ class Guild extends Component {
     const {history} = this.state
     console.log(history.location.pathname)
     return (
-      <Grid className="GuildContainer">
-        <PageHeader>GUILD</PageHeader>
+      <Grid className="Guild Container">
+        <PageHeader className="pageHeader">GUILD</PageHeader>
         <Tabs defaultActiveKey={history.location.pathname} className="Tabs" animation onSelect={(key) => history.push(key)}>
           <Tab eventKey={'/guild/roster'} title="ROSTER">
             <Roster />

@@ -1,40 +1,4 @@
-.DonateContainer {
-    margin: auto;
-    color: white;
-}
-
-.textContainer {
-    padding: 20px;
-}
-
-.DonateContainer h1:before {
-    content: '';
-    width: 93px;
-    height: 6px;
-    position: absolute;
-    left: calc(50% - 204px);
-    margin-top: -2px;
-    top: 10.25%;
-    background: url('../../images/left_arrow.png') no-repeat;
-}
-
-.DonateContainer h1 {
-    position: flex;
-    text-align: center;
-    margin-left: 4px;
-    font-family: "Cinzel Decorative", serif;
-    font-weight: 900;
-}
-
-.DonateContainer h1:after {
-    content: '';
-    width: 93px;
-    height: 6px;
-    position: absolute;
-    right: calc(50% - 210px);
-    margin-top: -2px;
-    top: 10.25%;
-    background: url('../../images/right_arrow.png') no-repeat;
+.Donate {
 }
 
 .DonateContainer a {

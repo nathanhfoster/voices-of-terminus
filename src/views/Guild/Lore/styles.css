@@ -1,13 +1,11 @@
-.LoreContainer {
-    margin: auto;
-    color: white;   
+.Lore { 
 }
 
-.LoreContainer h3 {
+.Lore h3 {
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
 }
 
-.LoreContainer a {
+.Lore a {
     margin: 20px;
 }

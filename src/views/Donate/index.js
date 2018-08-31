@@ -51,9 +51,9 @@ class Donate extends Component {
 
   render() {
     return (
-      <Grid className="DonateContainer">
-          <Col className="textContainer">
-            <PageHeader>DONATIONS</PageHeader>
+      <Grid className="Donate Container">
+          <Col>
+            <PageHeader className="pageHeader">DONATIONS</PageHeader>
             <p className="donationText">VoT (Voices of Terminus) Show is community/fan-based podcast/show started March 23, 2016. Its is made for the community and fans of Pantheon during it’s development and thereafter. 
               The show is never based on tips or donations nor does it budget for them. It is for the community, by the community, for the fans, by the fans. Donations are NEVER required, but 
               if you feel like supporting the show, then click the following link/button. Always take care of yourself first! Otherwise feel free to support the show by retweeting, following 

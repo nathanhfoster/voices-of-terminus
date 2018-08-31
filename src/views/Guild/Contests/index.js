@@ -50,9 +50,9 @@ class Contests extends Component {
 
   render() {
     return (
-      <Grid className="ContestsContainer">
+      <Grid className="Contests Container">
          <Row>
-          <PageHeader>CONTESTS</PageHeader>
+          <PageHeader className="pageHeader">CONTESTS</PageHeader>
         </Row>
         <Tabs defaultActiveKey={1} className="currentTab" animation>
           <Tab eventKey={1} title="CURRENT">
@@ -61,15 +61,15 @@ class Contests extends Component {
           <Tab eventKey={2} title="PAST">
             <Row>
               <Col sm={12}>
-              <PageHeader>Stream Layout Contest</PageHeader>
+              <PageHeader className="pageHeader">Stream Layout Contest</PageHeader>
                 <h4>Ended:  November 2, 2017.<br/>Winner(s): Rezum</h4>
-              <PageHeader>Skarface Contest</PageHeader>
+              <PageHeader className="pageHeader">Skarface Contest</PageHeader>
                 <h4>Ended: Jan 31st 2017.<br/>Winner(s): Moxxie</h4>
-              <PageHeader>Joke Contest</PageHeader>
+              <PageHeader className="pageHeader">Joke Contest</PageHeader>
                 <h4>Ended: Nov 9th 2016.<br/>Winner(s): Syntro</h4>
-              <PageHeader>Meme Contest</PageHeader>
+              <PageHeader className="pageHeader">Meme Contest</PageHeader>
                 <h4>Ended: Sept 29th 2016. <br/>Winner(s): Lyrina</h4>
-              <PageHeader>Short Story Contest</PageHeader>
+              <PageHeader className="pageHeader">Short Story Contest</PageHeader>
                 <h4>Ended: Aug 18th 2016. <br/>Winner(s): DarkSoulOmega &amp; Teila</h4>
               </Col>
             </Row>

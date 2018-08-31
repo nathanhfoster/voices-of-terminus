@@ -1,18 +1,16 @@
-.JoinContainer {
-    margin: auto;
-    color: white;
+.Join {
 }
 
-.JoinContainer h1 {
+.Join h1 {
     margin-left: 4px;
 }
 
-.JoinContainer h1, h3 {
+.Join h1, h3 {
     position: flex;
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
 }
 
-.JoinContainer a {
+.Join a {
     color: var(--primaryColor);
 }

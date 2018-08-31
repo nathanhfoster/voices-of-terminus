@@ -1,31 +1,14 @@
-.ContestsContainer {
-    margin: auto;
-    color: white;
+.Contests {
 }
 
-.ContestsContainer h1 {
+.Contests h1 {
     text-align: center;
     margin-left: 4px;
 }
 
-.ContestsContainer h1, h4 {
+.Contests h1, h4 {
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
-}
-
-.currentTab {
-    
-}
-
-.currentTab a {
-    color: white;
-}
-
-.currentTab .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
-    color: white;
-    background-color: var(--primaryColor);
-    border-color: var(--primaryColor);
-    border-bottom-color: transparent;
 }
 
 .currentTab img {

@@ -1,4 +1,4 @@
-.NavBarContainer {
+.NavBar {
     font-family: 'Goblin Hand';
     position: fixed;
     top: 0;
@@ -6,18 +6,18 @@
     z-index: 3;
   }
 
-  .NavBarContainer:hover {
+  .NavBar:hover {
     transition: background-color 1s ease-in-out;
   }
 
-.NavBarContainer a {
+.NavBar a {
     color: white !important;
     align-content: center;
     justify-content: center;
     text-align: center;
 }
 
-.NavBarContainer a:hover {
+.NavBar a:hover {
     color: var(--primaryColor) !important;
 }
 
@@ -65,6 +65,7 @@
   }
 }
 
+
 @media (max-width: 767px) {
 .navbar-nav .open .dropdown-menu {
     background-color: var(--dark_grey);
@@ -111,8 +112,8 @@
   }
 
   .dropdown-menu>li>a:hover {
-    color: white !important;
-    background-color: black;
+    color: var(--primaryColor) !important;
+    background-color: inherit;
   }
 
   .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a {

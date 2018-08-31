@@ -58,11 +58,60 @@ body::-webkit-scrollbar {
   display: none;
 }
 
+.Container {
+  color: white;
+}
+
 .Center {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.pageHeader {
+  margin: 0;
+  text-align: center;
+}
+
+.pageHeader h1:before {
+  content: '';
+  width: 93px;
+  height: 6px;
+  position: absolute;
+  right: calc(100% + 8px);
+  margin-top: -5px;
+  top: 50%;
+  background: url('./images/left_arrow.png') no-repeat;
+}
+
+.pageHeader h1 {
+  display: inline-block;
+  position: relative;
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+}
+
+.pageHeader h1::after {
+  content: '';
+  width: 93px;
+  height: 6px;
+  position: absolute;
+  left: calc(100% + 8px);
+  margin-top: -5px;
+  top: 50%;
+  background: url('./images/right_arrow.png') no-repeat;
+}
+
+.Tabs a {
+  color: white;
+}
+
+.Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  color: white;
+  background-color: var(--primaryColor);
+  border-color: var(--primaryColor);
+  border-bottom-color: transparent;
 }
 
 .sheen::after {

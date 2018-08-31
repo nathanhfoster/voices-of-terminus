@@ -158,9 +158,9 @@ class App extends Component {
     )
   })
 
-  renderBackgroundImages = images => images.map(k => {
+  renderBackgroundImages = (images, shouldRespond) => images.map(k => {
     return (
-      <Image src={k} width="100%" height="100%" responsive/>
+      <Image src={k} width="100%" height="100%" responsive={shouldRespond}/>
     )
   })
 
@@ -172,7 +172,7 @@ class App extends Component {
         <div className="App">
           <NavBar />
           <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
-            {isMobile ? this.renderBackgroundImages(imagesMobile) : this.renderBackgroundImages(images)}
+            {isMobile ? this.renderBackgroundImages(imagesMobile, true) : this.renderBackgroundImages(images, false)}
           </Fadethrough>
           <Footer />
           <div className="routeOverlay">
