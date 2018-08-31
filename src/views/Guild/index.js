@@ -71,7 +71,7 @@ class Guild extends Component {
 
   renderTabs = TabItems => TabItems.map(k => {
     return (
-      <Tab eventKey={k.Key} title={k.Title}>
+      <Tab eventKey={k.Key} title={k.Title} className="fadeIn-2">
         {<k.Component />}
       </Tab>
     )
@@ -83,7 +83,7 @@ class Guild extends Component {
     return (
       <Grid className="Guild Container">
         <PageHeader className="pageHeader">GUILD</PageHeader>
-        <Tabs defaultActiveKey={history.location.pathname} className="Tabs" animation onSelect={(key) => history.push(key)}>
+        <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={(key) => history.push(key)}>
           {this.renderTabs(TabItems)}
         </Tabs>
       </Grid>
