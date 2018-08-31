@@ -1,5 +1,4 @@
 .Card {
-   
     width: 100%;
     height: 100%;
     background-color: #404048;
@@ -10,6 +9,13 @@
     cursor: pointer;
     position: relative;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.25);
+}
+
+.Card:hover {
+    transform: scale(1.068);
+    will-change: transform;
+    background-repeat: no-repeat;
+    transition: -webkit-transform .425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
 }
 
 @media (max-width: 991px) {

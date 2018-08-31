@@ -22,6 +22,12 @@ class Articles extends Component {
   }
 
   static defaultProps = {
+    Cards: [
+      { Preview: '1 Contents of a document', Title: 'TITLE 1', Author: 'AUTHOR 1', Tags: ['Review', 'Blog'] },
+      { Preview: '2 Contents of a document', Title: 'TITLE 2', Author: 'AUTHOR 2', Tags: ['FanFiction', 'Blog'] },
+      { Preview: '3 Contents of a document', Title: 'TITLE 3', Author: 'AUTHOR 3', Tags: ['Blog', 'Review'] },
+      { Preview: '4 Contents of a document', Title: 'TITLE 4', Author: 'AUTHOR4 ', Tags: ['Blog'] }
+    ]
   }
   
   componentWillMount() {
@@ -48,7 +54,17 @@ class Articles extends Component {
   componentWillUnmount() {
   }
 
+  renderCards = (Cards) => Cards.map(card => {
+    //console.log(card.summary)
+    return (
+      <Col md={3} sm={12} xs={12}>
+        <Card Preview = {card.Preview} Title = {card.Title} Author = {card.Author} Tags = {card.Tags}/>
+      </Col>
+    )
+  })
+
   render() {
+    const {Cards} = this.props
     return (
       <Grid className="Articles Container">
         <Row>
@@ -56,26 +72,12 @@ class Articles extends Component {
         </Row>
 
         <Row>
-          <h3>Higlights</h3>
-          <Col md={3} sm={12} xs={12}>
-            <Card />
-          </Col>
-          <Col md={3} sm={12} xs={12}>
-            <Card />
-          </Col>
-          <Col md={3} sm={12} xs={12}>
-            <Card />
-          </Col>
-          <Col md={3} sm={12} xs={12}>
-            <Card />
-          </Col>
+          <h3>Highlights</h3>
+          {this.renderCards(Cards)}
         </Row>
 
         <Row>
           <h3>Recent</h3>
-          <Col>
-            
-          </Col>
         </Row>
 
       </Grid>

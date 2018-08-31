@@ -13,33 +13,26 @@ const mapDispatchToProps = {
 class Card extends Component {
   constructor(props) {
     super(props)
- 
     this.state = {
       Preview: null,
-      Summary: {
-        title: '',
-        author: '',
-        tags: {}
-      }
-
+      Title: '',
+      Author: '',
+      Tags: []
     }
   }
 
   static propTypes = { 
     Preview: PropTypes.object,
-    Summary: PropTypes.object,
-    title: PropTypes.string,
-    author: PropTypes.string,
-    tags: PropTypes.object,
+    Title: PropTypes.string,
+    Author: PropTypes.string,
+    Tags: PropTypes.array,
   }
 
   static defaultProps = {
     Preview: null,
-      Summary: {
-        title: '',
-        author: '',
-        tags: {}
-      }
+    Title: '',
+    Author: '',
+    Tags: []
   }
   
   componentWillMount() {
@@ -53,7 +46,12 @@ class Card extends Component {
   }
 
   getState = props => {
+    const {Preview, Title, Author, Tags} = props
     this.setState({
+      Preview,
+      Title,
+      Author,
+      Tags
       })
   }
 
@@ -67,17 +65,18 @@ class Card extends Component {
   }
 
   render() {
+    const {Preview, Title, Author, Tags} = this.state
     return (
       <Grid className="Card">
         <div className="Preview">
           <div className="previewItem">
-            PREVIEW ITEM CONTENT
+            {Preview}
           </div>
         </div>
         <div className="Summary">
-          <h4>Title</h4>
-          <h5>Author</h5>
-          <h6>Tags</h6>
+          <h4>{Title}</h4>
+          <h5>{Author}</h5>
+          <h6>[{Tags.map(k => <b>{k} </b>)}]</h6>
         </div>
       </Grid>
     )

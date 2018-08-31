@@ -114,7 +114,7 @@
     background-color: inherit;
   }
 
-  .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a {
+  .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a,   .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
     color: white;
   }
   
