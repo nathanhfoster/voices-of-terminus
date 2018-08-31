@@ -79,7 +79,7 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col lg={3} md={3} sm={3} xs={12}>
+          <Col lg={3} md={3} sm={3}>
            <div className="twitter">
               <Timeline
                     dataSource={{
@@ -110,7 +110,7 @@ class Home extends Component {
            </div>
               
           </Col>
-          <Col lg={6} md={6} sm={6} xs={12}>
+          <Col lg={6} md={6}>
               <YouTube
                 videoId="3R-zraIkFQI"                // defaults -> null
                 // id={string}                       // defaults -> null
@@ -128,7 +128,7 @@ class Home extends Component {
               />
           </Col>
 
-          <Col lg={3} md={3} sm={12} xs={12}>
+          <Col lg={3} md={3} sm={12}>
               <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" className="discord"/>
           </Col>
       </Row>

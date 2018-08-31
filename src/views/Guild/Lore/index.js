@@ -59,7 +59,7 @@ class Lore extends Component {
 
   renderLoreItems = loreItems => loreItems.map(k => {
     return (
-      <Col lg={5} md={5} sm={12} xs={12}>
+      <Col lg={5} md={5} sm={12}>
         <a href={k.link} target="_blank">
           <Image src={k.img} responsive/>
         </a>

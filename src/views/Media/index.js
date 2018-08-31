@@ -56,7 +56,7 @@ class Media extends Component {
 
   renderImages = images => images.map(k => {
     return (
-      <Col lg={6} md={6} sm={12} xs={12}>
+      <Col lg={6} md={6} sm={12}>
         <Image src={k} responsive />
       </Col>
     )

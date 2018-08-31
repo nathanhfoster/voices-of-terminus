@@ -81,7 +81,7 @@ class Roster extends Component {
 
   renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
-      <Col lg={3} md={3} sm={3} xs={4}>
+      <Col lg={3} md={3} sm={3}>
         <p style={{color: color}}>{k}</p>
       </Col>
     )
@@ -89,7 +89,7 @@ class Roster extends Component {
 
   renderGuildMembers = (color, members) => members.map(k => {
     return(
-      <Col lg={3} md={3} sm={3} xs={4}>
+      <Col lg={3} md={3} sm={3}>
         <p style={{color: color}}>{k.nick}</p>
       </Col>
     )
