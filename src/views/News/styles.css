@@ -1,5 +1,6 @@
 .NewsContainer {
     color: white;
+    margin: auto;
 }
 
 .NewsContainer h1:before {
