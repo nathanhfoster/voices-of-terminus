@@ -14,6 +14,7 @@
 }
 
 .NewsContainer h1 {
+    position: flex;
     text-align: center;
     margin-left: 4px;
     font-family: "Cinzel Decorative", serif;

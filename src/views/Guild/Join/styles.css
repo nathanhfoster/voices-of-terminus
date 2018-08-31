@@ -7,6 +7,7 @@
 }
 
 .JoinContainer h1, h3 {
+    position: flex;
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
 }
