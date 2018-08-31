@@ -64,7 +64,7 @@ class Home extends Component {
     return (
       <Grid className="HomeContainer">
         <Row>
-          <Col className="votDifferenceContainer">
+          <Col className="votDifferenceContainer fadeIn-4">
             <h5>The VOT Difference</h5>
             <p>
               We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
@@ -75,7 +75,7 @@ class Home extends Component {
         </Row>
         <Row>
           <Col className="AboutContainer">
-            <Link to="/guild/roster" className="AboutButton">GUILD</Link>
+            <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
           </Col>
         </Row>
         <Row>

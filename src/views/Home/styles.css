@@ -53,7 +53,7 @@
     background: url('../../images/about_btn.png') left top no-repeat;
 
     animation-name: about;
-    animation-duration: 2s;
+    animation-duration: 3s;
     animation-fill-mode: forwards;
 }
 

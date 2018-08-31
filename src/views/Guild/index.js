@@ -33,6 +33,14 @@ class Guild extends Component {
   }
 
   static defaultProps = {
+    TabItems: [
+      {Key: "/guild/roster", Title: "ROSTER", Component: Roster},
+      {Key: "/guild/charters", Title: "CHARTERS", Component: Charters},
+      {Key: "/guild/lore", Title: "LORE", Component: Lore},
+      {Key: "/guild/contests", Title: "CONTESTS", Component: Contests},
+      {Key: "/guild/team", Title: "TEAM", Component: Team},
+      {Key: "/guild/join", Title: "JOIN", Component: Join}
+    ]
   }
   
   componentWillMount() {
@@ -61,37 +69,22 @@ class Guild extends Component {
   componentWillUnmount() {
   }
 
+  renderTabs = TabItems => TabItems.map(k => {
+    return (
+      <Tab eventKey={k.Key} title={k.Title}>
+        {<k.Component />}
+      </Tab>
+    )
+  })
   render() {
     const {history} = this.state
+    const {TabItems} = this.props
     console.log(history.location.pathname)
     return (
       <Grid className="Guild Container">
         <PageHeader className="pageHeader">GUILD</PageHeader>
         <Tabs defaultActiveKey={history.location.pathname} className="Tabs" animation onSelect={(key) => history.push(key)}>
-          <Tab eventKey={'/guild/roster'} title="ROSTER">
-            <Roster />
-          </Tab>
-
-          <Tab eventKey={'/guild/charters'} title="CHARTERS">
-            <Charters />
-          </Tab>
-
-          <Tab eventKey={'/guild/lore'} title="LORE">
-            <Lore />
-          </Tab>
-
-          <Tab eventKey={'/guild/contests'} title="CONTESTS">
-            <Contests />
-          </Tab>
-
-          <Tab eventKey={'/guild/team'} title="TEAM">
-            <Team />
-          </Tab>
-
-          <Tab eventKey={'/guild/join'} title="JOIN">
-            <Join />
-          </Tab>
-
+          {this.renderTabs(TabItems)}
         </Tabs>
       </Grid>
     )

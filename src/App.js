@@ -152,9 +152,9 @@ class App extends Component {
     // req.send()
 }
 
-  renderRouteItems = routeItems => Object.keys(routeItems).map(k => {
+  renderRouteItems = routeItems => routeItems.map(k => {
     return (
-      <Route exact path={routeItems[k].path} component={routeItems[k].component}/>
+      <Route exact path={k.path} component={k.component}/>
     )
   })
 

@@ -52,7 +52,7 @@ class NavBar extends Component {
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to ="/"><Image src={votLogo} height="52px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></Link>
+              <Link to ="/"><Image src={votLogo} height="50px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></Link>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
@@ -75,7 +75,6 @@ class NavBar extends Component {
                 <NavItem eventKey={5.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
                 <NavItem eventKey={5.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
               </NavDropdown>
-              <NavItem eventKey={6}><Link to ="/articles">ARTICLES</Link></NavItem>
             </Nav>
             <Nav pullRight>
               <NavDropdown eventKey={7} title="CONNECT" id="basic-nav-dropdown">
