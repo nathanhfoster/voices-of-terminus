@@ -1,20 +1,19 @@
-.MediaContainer {
-    color: white;
+.Media {
+    
 }
 
-.MediaContainer h1 {
+.Media h1 {
     margin-left: 4px;
     font-family: "Cinzel Decorative", serif;
     font-weight: 900;
-    margin-left: 4px;
 }
 
-.MediaContainer img {
+.Media img {
     max-height: 380px;
     margin: auto;
 }
 
-.MediaContainer img:hover {
+.Media img:hover {
     transform: scale(1.1);
     will-change: transform;
     background-repeat: no-repeat;

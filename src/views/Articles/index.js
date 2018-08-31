@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import './styles.css'
+import Card from '../../components/Card'
 
 const mapStateToProps = (state) => ({
 })
@@ -53,7 +54,25 @@ class Articles extends Component {
         <Row>
             <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
+
         <Row>
+          <h3>Higlights</h3>
+          <Col md={3} sm={12} xs={12}>
+            <Card />
+          </Col>
+          <Col md={3} sm={12} xs={12}>
+            <Card />
+          </Col>
+          <Col md={3} sm={12} xs={12}>
+            <Card />
+          </Col>
+          <Col md={3} sm={12} xs={12}>
+            <Card />
+          </Col>
+        </Row>
+
+        <Row>
+          <h3>Recent</h3>
           <Col>
             
           </Col>

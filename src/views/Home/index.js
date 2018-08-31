@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import { Timeline } from 'react-twitter-widgets'
-import { Grid, Row, Col, Image } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import YouTube from 'react-youtube'
 
@@ -56,16 +56,17 @@ class Home extends Component {
 
   render() {
     const youTubeOpts = {
+      width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: false,
         color: 'white',
       }
     }
     return (
-      <Grid className="HomeContainer">
+      <Grid className="Home Container">
         <Row>
           <Col className="votDifferenceContainer fadeIn-4">
-            <h5>The VOT Difference</h5>
+            <h3>The VoT Difference</h3>
             <p>
               We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
               There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. We
@@ -74,13 +75,19 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col className="AboutContainer">
+          <Col className="AboutContainer" md={4}>
+            <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
+          </Col>
+          <Col className="AboutContainer" md={4}>
+            <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
+          </Col>
+          <Col className="AboutContainer" md={4}>
             <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
           </Col>
         </Row>
         <Row>
           <Col lg={3} md={3} sm={3}>
-           <div className="twitter">
+           <div>
               <Timeline
                     dataSource={{
                       sourceType: 'profile',
@@ -94,7 +101,7 @@ class Home extends Component {
                     onLoad={() => console.log('Timeline is loaded!')}
                   />
            </div>
-           <div className="twitter">
+           <div>
             <Timeline
                   dataSource={{
                     sourceType: 'profile',
@@ -111,21 +118,43 @@ class Home extends Component {
               
           </Col>
           <Col lg={6} md={6}>
+            <Row>
+                <h2>Latest VoT</h2>
               <YouTube
-                videoId="3R-zraIkFQI"                // defaults -> null
-                // id={string}                       // defaults -> null
-                className="youTube"              // defaults -> null
-                // containerClassName={string}       // defaults -> ''
-                opts={youTubeOpts}                   // defaults -> {}
-                onReady={this._onReady}              // defaults -> noop
-                // onPlay={func}                     // defaults -> noop
-                // onPause={func}                    // defaults -> noop
-                // onEnd={func}                      // defaults -> noop
-                // onError={func}                    // defaults -> noop
-                // onStateChange={func}              // defaults -> noop
-                // onPlaybackRateChange={func}       // defaults -> noop
-                // onPlaybackQualityChange={func}    // defaults -> noop
-              />
+              videoId="3R-zraIkFQI"                // defaults -> null
+              // id={string}                       // defaults -> null
+              // className="youTube"              // defaults -> null
+              // containerClassName={string}       // defaults -> ''
+              opts={youTubeOpts}                   // defaults -> {}
+              onReady={this._onReady}              // defaults -> noop
+              // onPlay={func}                     // defaults -> noop
+              // onPause={func}                    // defaults -> noop
+              // onEnd={func}                      // defaults -> noop
+              // onError={func}                    // defaults -> noop
+              // onStateChange={func}              // defaults -> noop
+              // onPlaybackRateChange={func}       // defaults -> noop
+              // onPlaybackQualityChange={func}    // defaults -> noop
+            />
+            </Row>
+            <Row>
+              <h2>Latest VR</h2>
+              <YouTube
+              videoId="eq6ftMk21FA"                // defaults -> null
+              // id={string}                       // defaults -> null
+              // className="youTube"              // defaults -> null
+              // containerClassName={string}       // defaults -> ''
+              opts={youTubeOpts}                   // defaults -> {}
+              onReady={this._onReady}              // defaults -> noop
+              // onPlay={func}                     // defaults -> noop
+              // onPause={func}                    // defaults -> noop
+              // onEnd={func}                      // defaults -> noop
+              // onError={func}                    // defaults -> noop
+              // onStateChange={func}              // defaults -> noop
+              // onPlaybackRateChange={func}       // defaults -> noop
+              // onPlaybackQualityChange={func}    // defaults -> noop
+            />
+            </Row>
+             
           </Col>
 
           <Col lg={3} md={3} sm={12}>

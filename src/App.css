@@ -35,14 +35,6 @@ body {
   background-color: rgba(50, 58, 68, 0.5);
 }
 
-.btn-default {
-  color: white;
-}
-
-.btn-default:hover {
-  color: black;
-}
-
 textarea:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -79,14 +71,6 @@ input, select, textarea{
 
 ::-ms-input-placeholder { /* Microsoft Edge */
   color: white !important;
-}
-
-a, a:focus, a:active, a:visited {
-  text-decoration: none !important;
-}
-
-*:focus {
-  outline: none !important;
 }
 
 .routeOverlay {

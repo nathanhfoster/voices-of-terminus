@@ -49,7 +49,7 @@ class News extends Component {
 
   render() {
     return (
-      <Grid className="NewsContainer">
+      <Grid className="News Container">
         <Row>
             <PageHeader className="pageHeader">NEWS</PageHeader>
         </Row>

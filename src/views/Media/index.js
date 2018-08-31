@@ -65,7 +65,7 @@ class Media extends Component {
   render() {
     const {images} = this.props
     return (
-      <Grid className="MediaContainer">
+      <Grid className="Media Container">
         <Row>
           <PageHeader className="pageHeader">MEDIA</PageHeader>
         </Row>

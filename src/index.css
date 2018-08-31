@@ -15,7 +15,7 @@
   --loadColor_5: radial-gradient(closest-side at 50% 50%,var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),rgba(0,0,0,0));
   --primaryTextColor: rgba(0, 0, 0, 0.87);
   --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
-  --primaryBackGroundOpacity: rgba(0, 0, 0, .65);
+  --primaryBackGroundOpacity: rgba(0, 0, 0, .4);
   --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, .5);
   --quaternaryBackGroundOpacity: rgba(0, 0, 0, .7);
@@ -103,8 +103,13 @@ body::-webkit-scrollbar {
   background: url('./images/right_arrow.png') no-repeat;
 }
 
-.Tabs a {
-  color: white;
+a, a:focus, a:active, a:visited {
+  color: inherit;
+  text-decoration: none !important;
+}
+
+*:focus {
+  outline: none !important;
 }
 
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
