@@ -6,8 +6,8 @@
   --tertiaryColor: #00bcf6;
   --quaternaryColor: #00dae4;
   --quinaryColor: #2DE5D2;
-  --grey: #292F33;
-  --dark_grey: #1e2124;
+  --grey: #404048;
+  --dark_grey: #2d2d32;
   --loadColor_1: radial-gradient(closest-side at 50% 50%,var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),rgba(0,0,0,0));
   --loadColor_2: radial-gradient(closest-side at 50% 50%,var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),rgba(0,0,0,0));
   --loadColor_3: radial-gradient(closest-side at 50% 50%,var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),rgba(0,0,0,0));
@@ -112,7 +112,9 @@ a, a:focus, a:active, a:visited {
   outline: none !important;
 }
 
+
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  border-radius: 0;
   color: white;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);

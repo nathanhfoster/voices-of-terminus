@@ -5,7 +5,7 @@
     display: flex;
     position: fixed;
     bottom: 0;
-    z-index: 2;
+    z-index: 3;
 }
 
 .footerButton:hover {

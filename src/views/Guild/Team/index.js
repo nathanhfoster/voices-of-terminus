@@ -53,7 +53,7 @@ class Team extends Component {
   render() {
     return (
       <Grid className="Team Container">
-        <Row className="Card">
+        <Row bsClass="teanCard">
           <Col md={3}>
             <Image src={Yarnilla} responsive />
           </Col>
@@ -62,7 +62,7 @@ class Team extends Component {
             <p>I never gave Leksur a bio, so now I'm prancing around in the streets completely nude screaming "Bless me Oh Mighty Aradune! Blessss meeee!"</p>
           </Col>
         </Row>
-        <Row className="Card">
+        <Row bsClass="teanCard">
           <Col md={3}>
             <Image src={Leksur} responsive />
           </Col>
@@ -72,7 +72,7 @@ class Team extends Component {
               perspective from a software developer's point of view. Hobbies include: Gaming, tinkering, rc racing and eating Halflings.</p>
           </Col>
         </Row>
-        <Row className="Card">
+        <Row bsClass="teanCard">
           <Col md={3}>
             <Image src={Kodiack} responsive />
           </Col>

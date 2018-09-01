@@ -75,13 +75,7 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col className="AboutContainer" md={4} sm={4}>
-            <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
-          </Col>
-          <Col className="AboutContainer" md={4} sm={4}>
-            <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
-          </Col>
-          <Col className="AboutContainer" md={4} sm={4}>
+          <Col className="AboutContainer">
             <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
           </Col>
         </Row>
@@ -98,7 +92,7 @@ class Home extends Component {
                       height: '275px',
                       theme: 'dark'
                     }}
-                    onLoad={() => console.log('Timeline is loaded!')}
+                    onLoad={() => null}
                   />
            </div>
            <div>
@@ -112,7 +106,7 @@ class Home extends Component {
                     height: '275px',
                     theme: 'dark'
                   }}
-                  onLoad={() => console.log('Timeline is loaded!')}
+                  onLoad={() => null}
                 />
            </div>
               

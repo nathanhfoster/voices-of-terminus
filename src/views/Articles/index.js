@@ -26,7 +26,11 @@ class Articles extends Component {
       { Preview: '1 Contents of a document', Title: 'TITLE 1', Author: 'AUTHOR 1', Tags: ['Review', 'Blog'] },
       { Preview: '2 Contents of a document', Title: 'TITLE 2', Author: 'AUTHOR 2', Tags: ['FanFiction', 'Blog'] },
       { Preview: '3 Contents of a document', Title: 'TITLE 3', Author: 'AUTHOR 3', Tags: ['Blog', 'Review'] },
-      { Preview: '4 Contents of a document', Title: 'TITLE 4', Author: 'AUTHOR4 ', Tags: ['Blog'] }
+      { Preview: '4 Contents of a document', Title: 'TITLE 4', Author: 'AUTHOR 4 ', Tags: ['Blog'] },
+      { Preview: '5 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 5', Tags: ['Review', 'Blog'] },
+      { Preview: '6 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 6', Tags: ['FanFiction', 'Blog'] },
+      { Preview: '7 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 7', Tags: ['FanFiction', 'Review'] },
+      { Preview: '8 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 8 ', Tags: ['Blog'] }
     ]
   }
   
@@ -55,10 +59,9 @@ class Articles extends Component {
   }
 
   renderCards = (Cards) => Cards.map(card => {
-    //console.log(card.summary)
     return (
-      <Col md={3} sm={12} xs={12}>
-        <Card Preview = {card.Preview} Title = {card.Title} Author = {card.Author} Tags = {card.Tags}/>
+      <Col className="CardContainer" md={3}>
+        <Card {...card} />
       </Col>
     )
   })
