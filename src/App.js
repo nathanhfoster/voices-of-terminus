@@ -122,6 +122,8 @@ class App extends Component {
           if(discordData.members[i].nick && discordData.members[i].nick.includes("VoT")) {
             discordData.members[i].guildMember = true
           }
+          // Remove <VoT>
+          discordData.members[i].nick ? discordData.members[i].nick = discordData.members[i].nick.replace('<VoT>', '') : null
           return discordData.members[i]
         })
         const guildMembers = discordMembers.filter(i => i.guildMember)
