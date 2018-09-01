@@ -114,6 +114,7 @@ a, a:focus, a:active, a:visited {
 
 
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+  color: white;
   border-radius: 0;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);
