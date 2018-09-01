@@ -75,13 +75,13 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col className="AboutContainer" md={4} sm={3}>
+          <Col className="AboutContainer" md={4} sm={4}>
             <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
           </Col>
-          <Col className="AboutContainer" md={4} sm={3}>
+          <Col className="AboutContainer" md={4} sm={4}>
             <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
           </Col>
-          <Col className="AboutContainer" md={4} sm={3}>
+          <Col className="AboutContainer" md={4} sm={4}>
             <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
           </Col>
         </Row>
