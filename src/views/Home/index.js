@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import { Timeline } from 'react-twitter-widgets'
-import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import YouTube from 'react-youtube'
 
@@ -56,6 +56,7 @@ class Home extends Component {
 
   render() {
     const youTubeOpts = {
+      height: '329px',
       width: '100%',
       playerVars: { // https://developers.google.com/youtube/player_parameters
         autoplay: false,
@@ -68,9 +69,9 @@ class Home extends Component {
           <Col className="votDifferenceContainer fadeIn-4">
             <h3>The VoT Difference</h3>
             <p>
-              We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
-              There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. We
-              invite you to share in our adventure in Pantheon: Rise of the Fallen.
+              We are the voices of those longing for community, for a family that trancends beliefs, race or blood. <br/>
+              There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. <br/>
+              We invite you to share in our adventure in Pantheon: Rise of the Fallen.
             </p>
           </Col>
         </Row>
@@ -113,7 +114,7 @@ class Home extends Component {
           </Col>
           <Col lg={6} md={6}>
             <Row>
-                <h2>Latest VoT</h2>
+                <h2>Latest From VoT</h2>
               <YouTube
               videoId="3R-zraIkFQI"                // defaults -> null
               // id={string}                       // defaults -> null
@@ -131,28 +132,18 @@ class Home extends Component {
             />
             </Row>
             <Row>
-              <h2>Latest VR</h2>
+              <h2>Latest From VR</h2>
               <YouTube
               videoId="eq6ftMk21FA"                // defaults -> null
-              // id={string}                       // defaults -> null
-              // className="youTube"              // defaults -> null
-              // containerClassName={string}       // defaults -> ''
               opts={youTubeOpts}                   // defaults -> {}
               onReady={this._onReady}              // defaults -> noop
-              // onPlay={func}                     // defaults -> noop
-              // onPause={func}                    // defaults -> noop
-              // onEnd={func}                      // defaults -> noop
-              // onError={func}                    // defaults -> noop
-              // onStateChange={func}              // defaults -> noop
-              // onPlaybackRateChange={func}       // defaults -> noop
-              // onPlaybackQualityChange={func}    // defaults -> noop
             />
             </Row>
              
           </Col>
 
           <Col lg={3} md={3} sm={12}>
-              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" className="discord"/>
+              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" height="557px" width="100%"/>
           </Col>
       </Row>
       </Grid>
