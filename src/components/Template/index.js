@@ -31,6 +31,7 @@ class Template extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {

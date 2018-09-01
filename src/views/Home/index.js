@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
+import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
 import { Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'

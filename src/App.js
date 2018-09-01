@@ -101,6 +101,15 @@ class App extends Component {
   }
 
   getState = props => {
+    const {Window} = props
+    //console.log('props: ', props)
+    this.setState({Window})
+  }
+
+  componentWillUpdate() {
+  }
+
+  componentDidUpdate() {
   }
 
   componentWillUnmount() {
@@ -109,8 +118,9 @@ class App extends Component {
 
   updateWindowDimensions() {
     const { innerHeight, innerWidth } = window
-    this.props.setWindow({ innerHeight, innerWidth })
-    this.setState({height: innerHeight, width: innerWidth, isMobile: innerWidth < 676})
+    const isMobile = innerWidth < 676
+    this.props.setWindow({ innerHeight, innerWidth, isMobile })
+    this.setState({height: innerHeight, width: innerWidth, isMobile})
   }
 
   fetchGuildRoster = (url) => {

@@ -10,11 +10,14 @@ import maleHalfling from '../../images/halfling_male.png'
 import femaleHuman from '../../images/human_female.png'
 import maleHuman from '../../images/human_male.png'
 import {getRandomInt} from '../../helpers/helpers'
+import {getWindow} from '../../actions'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({Window}) => ({
+  Window
 })
 
 const mapDispatchToProps = {
+  getWindow
 }
 
 class Footer extends Component {
@@ -22,12 +25,15 @@ class Footer extends Component {
     super(props)
  
     this.state = {
+      isMobile: false
     }
   }
 
   static propTypes = { 
     femaleImages: PropTypes.array,
-    maleImgaes: PropTypes.array
+    maleImgaes: PropTypes.array,
+    getWindow: PropTypes.func.isRequired,
+    isMobile: PropTypes.bool
   }
 
   static defaultProps = {
@@ -44,13 +50,17 @@ class Footer extends Component {
   }
 
   componentDidMount() {
+    this.props.getWindow()
   }
 
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {
+    const {Window} = props
     this.setState({
+      isMobile: Window.innerWidth < 1200
       })
   }
 
@@ -64,11 +74,20 @@ class Footer extends Component {
   }
 
   render() {
+    console.log("STATE: ", this.state)
+   const {isMobile} = this.state
     const randInt = getRandomInt(0, 2)
-    return ([
-      <Image className="Female footerImages" src={this.props.femaleImages[randInt]} height="400px"/>,
-      <Image className="Male footerImages"   src={this.props.maleImgaes[randInt]}   height="400px"/>,
-    ])
+    return (
+      <div>
+      {!isMobile ? [
+        <Image className="Female footerImages" src={this.props.femaleImages[randInt]} height="400px"/>,
+        <Image className="Male footerImages"   src={this.props.maleImgaes[randInt]}   height="400px"/>,
+      ]: null }
+      
+      </div>
+   
+  
+    )
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Footer)
