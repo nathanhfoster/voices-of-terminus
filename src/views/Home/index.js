@@ -3,7 +3,7 @@ import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
-import { Grid, Row, Col } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import YouTube from 'react-youtube'
 
@@ -91,7 +91,7 @@ class Home extends Component {
                     }}
                     options={{
                       username: 'Pantheon_VoT',
-                      height: '275px',
+                      height: '300px',
                       theme: 'dark'
                     }}
                     onLoad={() => null}
@@ -105,7 +105,7 @@ class Home extends Component {
                   }}
                   options={{
                     username: 'Pantheon',
-                    height: '275px',
+                    height: '300px',
                     theme: 'dark'
                   }}
                   onLoad={() => null}
@@ -115,7 +115,7 @@ class Home extends Component {
           </Col>
           <Col lg={6} md={6}>
             <Row>
-                <h2>Latest From VoT</h2>
+                <PageHeader>Latest From VoT</PageHeader>
               <YouTube
               videoId="3R-zraIkFQI"                // defaults -> null
               // id={string}                       // defaults -> null
@@ -133,7 +133,7 @@ class Home extends Component {
             />
             </Row>
             <Row>
-              <h2>Latest From VR</h2>
+              <PageHeader>Latest From VR</PageHeader>
               <YouTube
               videoId="eq6ftMk21FA"                // defaults -> null
               opts={youTubeOpts}                   // defaults -> {}
