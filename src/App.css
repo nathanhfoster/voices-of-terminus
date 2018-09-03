@@ -1,7 +1,7 @@
 .App {
   margin-top: var(--navBarHeight);
   height: 100vh;
-  width: 100vw;
+  width: 100vw; 
 }
 
 .fadeThrough {
@@ -13,8 +13,10 @@
 }
 
 ::-webkit-scrollbar {
-  display: none;
-  width: 6px;
+  width: 8px;
+  background-color: rgba(189,189,189,0.4);
+  -webkit-border-radius: 100px;
+  transition: 200ms linear;
 }
 
 ::-webkit-scrollbar-track-piece {
@@ -23,17 +25,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px var(--secondaryBackGroundOpacity);
+  /* box-shadow: inset 0 0 5px var(--grey);
+  background: var(--grey); */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(0, 0, 0, 0.1);
+  background: black;
   border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(50, 58, 68, 0.5);
 }
 
 textarea:focus,

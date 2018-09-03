@@ -69,14 +69,14 @@ class Home extends Component {
       <Grid className="Home Container">
         <Row>
           <Col className="votDifferenceContainer fadeIn-4">
-            <h3>The VoT Difference</h3>
             <div className="votDifferenceText">
+              <h3>The VoT Difference</h3>
               <p>
               We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
               There is nothing more glorious than sharing an adventure and forming bonds with wonderful people.
               We invite you to share in our adventure in Pantheon: Rise of the Fallen.
               </p>
-            </div>
+            </div> 
           </Col>
         </Row>
         <Row>
@@ -94,7 +94,7 @@ class Home extends Component {
                     }}
                     options={{
                       username: 'Pantheon_VoT',
-                      height: '300px',
+                      height: '366px',
                       theme: 'dark'
                     }}
                     onLoad={() => null}
@@ -108,7 +108,7 @@ class Home extends Component {
                   }}
                   options={{
                     username: 'Pantheon',
-                    height: '300px',
+                    height: '366px',
                     theme: 'dark'
                   }}
                   onLoad={() => null}
@@ -147,7 +147,7 @@ class Home extends Component {
           </Col>
 
           <Col lg={3} md={3} sm={12}>
-              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" height="557px" width="100%"/>
+              <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" height="742px" width="100%"/>
           </Col>
       </Row>
       </Grid>

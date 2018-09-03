@@ -50,12 +50,9 @@
 body {
   font-family: "Omnia", "Cinzel Decorative";
   background-repeat: no-repeat;
+  overflow: hidden;
   /* background-image: url('./images/about_bg.jpg'); */
   /* background: black; */
-}
-
-body::-webkit-scrollbar {
-  display: none;
 }
 
 .Container {

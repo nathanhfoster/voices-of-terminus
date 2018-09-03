@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
+import './AppM.css'
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
