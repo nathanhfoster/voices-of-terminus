@@ -1,0 +1,49 @@
+.GuildCalendar {
+}
+
+.DatePicker {
+    height: 100%;
+    padding: 0;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    background-color: var(--dark_grey) !important;
+}
+
+.react-calendar__navigation button {
+    height: 28px;
+    background-color: var(--grey);
+    border:  1px solid var(--dark_grey);
+}
+
+.react-calendar__month-view__weekdays {
+    text-align: center;
+    background-color: rgba(0, 0, 0, 1);
+}
+
+.react-calendar__month-view  button {
+    text-align: justify;
+    height: 118px;
+    background-color: var(--grey);
+    border: 1px solid var(--dark_border);
+}
+
+/* .react-calendar__tile--now {
+    background-color: var(--primaryColor);
+} */
+
+.react-calendar__tile--active {
+    color: var(--primaryColor);
+    /* background-color: var(--primaryColor) !important; */
+}
+
+.EventList {
+    height: 100%;
+    overflow-y: auto;
+}
+
+.EventList h2 {
+    background-color: var(--dark_grey);
+    text-align: center;
+    margin: 0;
+}

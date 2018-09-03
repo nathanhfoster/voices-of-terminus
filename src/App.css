@@ -76,7 +76,7 @@ input, select, textarea{
 .routeOverlay {
   height: 100%;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   background-color: var(--primaryBackGroundOpacity);
   position: absolute;
   z-index: 1;

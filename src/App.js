@@ -8,10 +8,12 @@ import { BrowserRouter as Router, Route } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
 import Home from './views/Home'
+import Articles from './views/Articles'
+import GuildCalendar from './views/GuildCalendar'
 import News from './views/News'
 import Guild from './views/Guild'
 import Media from './views/Media'
-import Articles from './views/Articles'
+
 import Login from './components/Login'
 import Donate from './views/Donate'
 import NavBar from './components/NavBar'
@@ -73,6 +75,8 @@ class App extends Component {
   static defaultProps = {
     routeItems: [
       {path: '/', component: Home},
+      {path: '/articles', component: Articles},
+      {path: '/calendar', component: GuildCalendar},
       {path: '/news', component: News},
       {path: '/guild/roster', component: Guild},
       {path: '/guild/charters', component: Guild},
@@ -80,7 +84,6 @@ class App extends Component {
       {path: '/guild/contests', component: Guild},
       {path: '/guild/team', component: Guild},
       {path: '/guild/join', component: Guild},
-      {path: '/articles', component: Articles},
       {path: '/media', component: Media},
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},

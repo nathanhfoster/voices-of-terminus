@@ -74,7 +74,6 @@ class Footer extends Component {
   }
 
   render() {
-    console.log("STATE: ", this.state)
    const {isMobile} = this.state
     const randInt = getRandomInt(0, 2)
     return (

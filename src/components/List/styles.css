@@ -1,0 +1,11 @@
+.List {
+    overflow-x: hidden;
+    overflow-y: auto;
+    max-height: 599px;
+}
+
+.listItem {
+    background-color: var(--grey);
+    border: 1px solid var(--dark_border);
+    padding: 8px;
+}
