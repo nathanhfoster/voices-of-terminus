@@ -15,7 +15,6 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 @media (max-width: 676px) { 
     .Home {
         margin: 0;
-        padding: 0;
     }
     .votDifferenceContainer {
         width: auto;
@@ -24,8 +23,5 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
         margin-bottom: 6px;
         background: black;
         border-bottom: 1px solid var(--primaryColor);
-    }
-    .AboutContainer {
-        margin-bottom: 14px;
     }
 }
