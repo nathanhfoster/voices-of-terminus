@@ -18,8 +18,12 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
         padding: 0;
     }
     .votDifferenceContainer {
+        width: auto;
         border-top: 0;
+        margin: 0;
         margin-bottom: 6px;
+        background: black;
+        border-bottom: 1px solid var(--primaryColor);
     }
     .AboutContainer {
         margin-bottom: 14px;

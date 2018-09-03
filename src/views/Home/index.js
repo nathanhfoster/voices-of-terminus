@@ -70,11 +70,13 @@ class Home extends Component {
         <Row>
           <Col className="votDifferenceContainer fadeIn-4">
             <h3>The VoT Difference</h3>
-            <p>
-              We are the voices of those longing for community, for a family that trancends beliefs, race or blood. <br/>
-              There is nothing more glorious than sharing an adventure and forming bonds with wonderful people. <br/>
+            <div className="votDifferenceText">
+              <p>
+              We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
+              There is nothing more glorious than sharing an adventure and forming bonds with wonderful people.
               We invite you to share in our adventure in Pantheon: Rise of the Fallen.
-            </p>
+              </p>
+            </div>
           </Col>
         </Row>
         <Row>

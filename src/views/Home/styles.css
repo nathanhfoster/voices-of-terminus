@@ -20,14 +20,39 @@
     color: var(--primaryColor);
 }
 
-.votDifferenceContainer {
-    text-align: center;
-    padding: 16px;
-    background-color: black;
-    border: 2px solid var(--primaryColor);
+.votDifferenceContainer::before {
+    content: '';
+    width: inherit;
+    position: absolute;
+    left: 0px;
+    bottom: -110px;
+    height: 110px;
+    background: url('../../images/lore_bottom.png') no-repeat;
 }
 
-.votDifferenceContainer p {
+.votDifferenceContainer {
+    margin: 110px auto;
+    padding: 0 32px;
+    width: 751px;
+    position: relative;
+    text-align: center;
+    background-color: var(--quaternaryBackGroundOpacity);
+    background: url('../../images/lore_mid.png') center repeat-y;
+    /* background: url('../../images/lore_top.png') top no-repeat, url('../../images/lore_bottom.png') bottom no-repeat; */
+    /* background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0),rgba(0,0,0,.4), rgba(0,0,0,.5), black, rgba(0,0,0,.5), rgba(0,0,0,.4), rgba(0,0,0,0), rgba(0,0,0,0)); */
+}
+
+.votDifferenceContainer::after {
+    content: '';
+    width: inherit;
+    position: absolute;
+    left: 0px;
+    top: -110px;
+    height: 110px;
+    background: url('../../images/lore_top.png') no-repeat;
+} 
+
+.votDifferenceText {
     font-size: 18px;
 }
 
