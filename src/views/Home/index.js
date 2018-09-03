@@ -6,6 +6,7 @@ import { Timeline } from 'react-twitter-widgets'
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import YouTube from 'react-youtube'
+import ScrollTextBox from '../../components/ScrollTextBox'
 
 const mapStateToProps = (state) => ({
 })
@@ -78,7 +79,7 @@ class Home extends Component {
         </Row>
         <Row>
           <Col className="AboutContainer">
-            <Link to="/guild/roster" className="AboutButton"><span className="fadeIn-8">DISCOVER</span></Link>
+            <ScrollTextBox URL = {"/guild/roster"} Title = {"Discover"}/>
           </Col>
         </Row>
         <Row>
