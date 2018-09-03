@@ -20,6 +20,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
     .votDifferenceContainer {
         width: auto;
         border-top: 0;
+        padding: 8px;
         margin: 0;
         margin-bottom: 6px;
         background: black;
