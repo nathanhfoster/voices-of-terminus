@@ -1,4 +1,5 @@
 .GuildCalendar {
+
 }
 
 .DatePicker {
@@ -23,7 +24,7 @@
 
 .react-calendar__month-view  button {
     text-align: justify;
-    height: 118px;
+    height: 138px;
     background-color: var(--grey);
     border: 1px solid var(--dark_border);
 }
