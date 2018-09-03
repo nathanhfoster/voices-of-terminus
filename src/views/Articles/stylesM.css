@@ -13,12 +13,5 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 @media(min-width:1200px){}
 
 @media (max-width: 991px) {
-    .CardContainer {
-        padding: 0;
-        margin: 0 4px 0 4px;
-    }
 
-    .CardContainer:hover {
-        transform: scale(1.0175);
-    }
 }

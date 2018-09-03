@@ -10,6 +10,7 @@
 
 .Home h1 {
     text-align: center;
+    margin: 0;
 }
 
 .Home h3 {
@@ -36,7 +37,6 @@
     font-family: 'Cinzel', serif;
     font-weight: 900;
     color: black;
-    margin-bottom: 20px;
 }
 
 @keyframes about {

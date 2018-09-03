@@ -3,7 +3,7 @@ import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
-import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import YouTube from 'react-youtube'
 import ScrollTextBox from '../../components/ScrollTextBox'
@@ -116,7 +116,7 @@ class Home extends Component {
           </Col>
           <Col lg={6} md={6}>
             <Row>
-                <PageHeader>Latest From VoT</PageHeader>
+                <h1>Latest From VoT</h1>
               <YouTube
               videoId="3R-zraIkFQI"                // defaults -> null
               // id={string}                       // defaults -> null
@@ -134,7 +134,7 @@ class Home extends Component {
             />
             </Row>
             <Row>
-              <PageHeader>Latest From VR</PageHeader>
+              <h1>Latest From VR</h1>
               <YouTube
               videoId="eq6ftMk21FA"                // defaults -> null
               opts={youTubeOpts}                   // defaults -> {}

@@ -19,6 +19,9 @@ import bg1 from './images/bg1.jpg'
 import bg2 from './images/bg2.jpg'
 import bg3 from './images/bg3.jpg'
 import bg4 from './images/bg4.jpg'
+import bg5 from './images/bg5.jpg'
+import bg6 from './images/bg6.jpg'
+import bg7 from './images/bg7.jpg'
 import bg1Mobile from './images/elf_female.png'
 import bg2Mobile from './images/elf_male.png'
 import bg3Mobile from './images/halfling_female.png'
@@ -81,7 +84,7 @@ class App extends Component {
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},
     ],
-    images: [bg1, bg2, bg3, bg4],
+    images: [bg1, bg2, bg3, bg4, bg5, bg6, bg7],
     imagesMobile: [bg1Mobile, bg2Mobile, bg3Mobile, bg4Mobile, bg5Mobile, bg6Mobile]
   }
 
@@ -183,9 +186,11 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar />
-          <Fadethrough width={ '100%' } height={ '100%' } interval={ 14000 }>
-            {isMobile ? this.renderBackgroundImages(imagesMobile, true) : this.renderBackgroundImages(images, false)}
-          </Fadethrough>
+          <div className="fadeThrough">
+            <Fadethrough interval={14000}>
+              {isMobile ? this.renderBackgroundImages(imagesMobile, true) : this.renderBackgroundImages(images, false)}
+            </Fadethrough>
+          </div>
           <Footer />
           <div className="routeOverlay">
             {this.renderRouteItems(routeItems)} 

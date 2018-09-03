@@ -21,4 +21,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
         border-top: 0;
         margin-bottom: 6px;
     }
+    .AboutContainer {
+        margin-bottom: 14px;
+    }
 }
