@@ -22,6 +22,7 @@
   --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, .5);
   --quaternaryBackGroundOpacity: rgba(0, 0, 0, .7);
+  --mainOpacity: 0.9;
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
 }

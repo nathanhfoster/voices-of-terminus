@@ -5,6 +5,7 @@ import Calendar from 'react-calendar/dist/entry.nostyle'
 import List from '../../components/List'
 import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
 import Moment from 'react-moment'
+import MomentJS from 'moment'
 import './styles.css'
 import './stylesM.css'
 
@@ -34,46 +35,16 @@ class GuildCalendar extends Component {
     monthToString: {"01": 'Jan', "02": 'Feb', "03": 'Mar', "04": 'Apr', "05": 'May', "06": 'Jun',
                     "07": 'Jul', "08": 'Aug', "09": 'Sep', "10": 'Oct', "11": 'Nov', "12": 'Dec'},
     events: [
-      {key: 1, name: 'Event 1',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 2, name: 'Event 2',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 3, name: 'Event 3',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 4, name: 'Event 4',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 5, name: 'Event 5',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 6, name: 'Event 6',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 7, name: 'Event 7',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 8, name: 'Event 8',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 9, name: 'Event 9',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 10, name: 'Event 10', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 11, name: 'Event 11', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 12, name: 'Event 12', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 13, name: 'Event 13', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 14, name: 'Event 14', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 15, name: 'Event 15', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 16, name: 'Event 16', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 17, name: 'Event 17', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 18, name: 'Event 18', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 19, name: 'Event 19', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 20, name: 'Event 20', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 21, name: 'Event 21', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 22, name: 'Event 22', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 23, name: 'Event 23', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 24, name: 'Event 24', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 25, name: 'Event 25', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 26, name: 'Event 26', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 27, name: 'Event 27', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 28, name: 'Event 28', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 29, name: 'Event 29', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 30, name: 'Event 30', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 31, name: 'Event 31', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 32, name: 'Event 32', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 33, name: 'Event 33', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 34, name: 'Event 34', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 35, name: 'Event 35', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 36, name: 'Event 36', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 37, name: 'Event 37', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 38, name: 'Event 38', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 39, name: 'Event 39', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 40, name: 'Event 40', startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
+      {key: 1, name: 'Event 1',   startTime: new Date(2018, 8, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
+      {key: 2, name: 'Event 2',   startTime: new Date(2018, 8, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
+      {key: 3, name: 'Event 3',   startTime: new Date(2018, 8, 4, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
+      {key: 4, name: 'Event 4',   startTime: new Date(2018, 8, 4, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
+      {key: 5, name: 'Event 5',   startTime: new Date(2018, 8, 24, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
+      {key: 6, name: 'Event 6',   startTime: new Date(2018, 8, 5, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
+      {key: 7, name: 'Event 7',   startTime: new Date(2018, 8, 5, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 8, name: 'Event 8',   startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 9, name: 'Event 9',   startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 10, name: 'Event 10', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
     ]
   }
   
@@ -112,6 +83,13 @@ class GuildCalendar extends Component {
     return this.props.monthToString[split[0]] + ' ' + split[1]
   }
 
+  hasEvents = ({ date, view }) => this.state.events.map( k => {
+    const calendarDay = MomentJS(date)
+    const eventStartTime = MomentJS(k.startTime)
+    const eventFound = eventStartTime.isSame(calendarDay, 'day')
+    return view === 'month' && eventFound ? <div ><span className="hasEvents"/></div> : null
+  })
+
   render() {
     const {events, activeDate} = this.state
     return (
@@ -125,11 +103,13 @@ class GuildCalendar extends Component {
             onChange={this.onChange}
             value={activeDate}
             activeStartDate={activeDate} // fallback if value not set
+            tileContent={this.hasEvents}
+            showFixedNumberOfWeeks={true}
             />
           </Col>
           <Col className="EventList" md={2} sm={12}>
             <h2><Moment format="MM-D" filter={this.formatDate}>{activeDate}</Moment></h2>
-            <List data={events}/>
+            <List data={events} activeDate={activeDate}/>
           </Col>
         </Row>
       </Grid>

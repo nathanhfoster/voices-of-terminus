@@ -1,6 +1,6 @@
 .List {
     overflow-y: auto;
-    max-height: 690px;
+    max-height: 720px;
 }
 
 .listItem {
@@ -8,6 +8,7 @@
     border: 1px solid var(--dark_border);
     padding: 8px;
     cursor: pointer;
+    opacity: var(--mainOpacity);
 }
 
 .listItem:hover {

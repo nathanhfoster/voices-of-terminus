@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Moment from 'react-moment'
+import MomentJS from 'moment'
 import './styles.css'
 import './stylesM.css'
 
@@ -17,15 +18,18 @@ class List extends Component {
     super(props)
  
     this.state = {
+      activeDate: Date,
       data: []
     }
   }
 
   static propTypes = { 
+    activeDate: PropTypes.Date,
     data: PropTypes.array
   }
 
   static defaultProps = {
+    activeDate: Date,
     data: []
   }
   
@@ -41,8 +45,9 @@ class List extends Component {
   }
 
   getState = props => {
-    const {data} = props
+    const {activeDate, data} = props
     this.setState({
+      activeDate,
       data
       })
   }
@@ -57,12 +62,20 @@ class List extends Component {
   }
 
   renderItems = data => data.map(k => {
+    const activeDate = MomentJS(this.state.activeDate)
+    const startTime = MomentJS(k.startTime)
+    const sameDayEvent = startTime.isSame(activeDate, 'day')
+  
     return(
+     <div>{
+       sameDayEvent ? 
       <ListGroupItem className="listItem"  header={k.name}>
-        <span className="EventColorLabelContainer" />
-        <Moment format="HH:mm a - ">{k.startTime}</Moment>
-        <Moment format="HH:mm a">{k.endTime}</Moment>
-      </ListGroupItem>
+       <span className="EventColorLabelContainer" />
+       <Moment format="HH:mm a - ">{k.startTime}</Moment>
+       <Moment format="HH:mm a">{k.endTime}</Moment>
+      </ListGroupItem> 
+      : null }
+     </div>
     )
   })
 

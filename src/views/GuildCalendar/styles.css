@@ -1,4 +1,14 @@
 .GuildCalendar {
+    
+}
+
+.hasEvents  {
+    width: 8px;
+    height: 8px;
+    margin: auto;
+    display: block;
+    border-radius: 100%;
+    background-color: var(--primaryColor);
 }
 
 .DatePicker {
@@ -8,6 +18,7 @@
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
+    opacity: var(--mainOpacity);
     border: 1px solid var(--dark_border);
     background-color: var(--dark_grey);
 }
@@ -21,21 +32,25 @@
 .react-calendar__month-view__days__day--neighboringMonth {
     background-color: var(--dark_grey) !important;
     color: var(--grey_out);
+    opacity: var(--mainOpacity);
 }
 
 .react-calendar__navigation button {
     height: 40px;
     background-color: var(--grey);
     border: 0;
+    opacity: var(--mainOpacity);
 }
 
 .react-calendar__month-view__weekdays {
     text-align: center;
     background-color: var(--grey);
+    opacity: var(--mainOpacity);
 }
 
 .react-calendar__month-view  button {
-    height: 138px;
+    opacity: var(--mainOpacity);
+    height: 120px;
     background-color: var(--slate_grey);
     border: 1px solid var(--dark_border);
 }
@@ -46,7 +61,8 @@
 
 .react-calendar__month-view  time{
     float: left;
-    margin-top: -62px;
+    margin-top: -45px;
+    margin-left: 8px;
 }
 
 /* .react-calendar__tile--now {
@@ -57,8 +73,6 @@
     line-height: 25px;
     width: 25px;
     text-align: center;
-    font-size: 16px;
-    flex-shrink: 0;
     background: var(--primaryColor);
     border-radius: 100%;
     /* background-color: var(--primaryColor) !important; */
@@ -68,6 +82,11 @@
     margin: 0;
     padding: 0;
     overflow-y: auto;
+
+    
+    top: 0;
+    bottom: 0;
+    height: 100%;
 }
 
 .EventList ::-webkit-scrollbar {
@@ -75,6 +94,7 @@
 }
 
 .EventList h2 {
+    opacity: var(--mainOpacity);
     height: 60px;
     line-height: 60px;
     background-color: var(--dark_grey);
