@@ -87,7 +87,7 @@ class GuildCalendar extends Component {
     const calendarDay = MomentJS(date)
     const eventStartTime = MomentJS(k.startTime)
     const eventFound = eventStartTime.isSame(calendarDay, 'day')
-    return view === 'month' && eventFound ? <div ><span className="hasEvents"/></div> : null
+    return view === 'month' && eventFound ? <div class="TileContent"><div className="hasEvents"/></div> : null
   })
 
   render() {
