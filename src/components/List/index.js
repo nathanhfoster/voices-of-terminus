@@ -59,12 +59,9 @@ class List extends Component {
   renderItems = data => data.map(k => {
     return(
       <ListGroupItem className="listItem"  header={k.name}>
-        <span className="EventColorLabelContainer">
-        
-        </span>
+        <span className="EventColorLabelContainer" />
         <Moment format="HH:mm a - ">{k.startTime}</Moment>
         <Moment format="HH:mm a">{k.endTime}</Moment>
-        
       </ListGroupItem>
     )
   })

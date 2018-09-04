@@ -1,10 +1,21 @@
 .GuildCalendar {
-
 }
 
 .DatePicker {
-    height: 100%;
     padding: 0;
+}
+
+.react-calendar__year-view .react-calendar__tile,
+.react-calendar__decade-view .react-calendar__tile,
+.react-calendar__century-view .react-calendar__tile {
+    border: 1px solid var(--dark_border);
+    background-color: var(--dark_grey);
+}
+
+.react-calendar__year-view .react-calendar__tile:hover,
+.react-calendar__decade-view .react-calendar__tile:hover,
+.react-calendar__century-view .react-calendar__tile:hover {
+    background-color: var(--slate_grey);
 }
 
 .react-calendar__month-view__days__day--neighboringMonth {
@@ -15,12 +26,12 @@
 .react-calendar__navigation button {
     height: 40px;
     background-color: var(--grey);
-    border:  1px solid var(--dark_grey);
+    border: 0;
 }
 
 .react-calendar__month-view__weekdays {
     text-align: center;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: var(--grey);
 }
 
 .react-calendar__month-view  button {
