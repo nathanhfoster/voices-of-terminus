@@ -67,7 +67,7 @@ class List extends Component {
     const sameDayEvent = startTime.isSame(activeDate, 'day')
   
     return(
-     <div>{
+     <div> {
        sameDayEvent ? 
       <ListGroupItem className="Clickable listItem"  header={k.name}>
        <span className="EventColorLabelContainer" />
