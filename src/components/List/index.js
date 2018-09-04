@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { ListGroup, ListGroupItem } from 'react-bootstrap'
+import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
 
@@ -56,16 +58,23 @@ class List extends Component {
 
   renderItems = data => data.map(k => {
     return(
-      <div className="listItem">{k.name}</div>
+      <ListGroupItem className="listItem"  header={k.name}>
+        <span className="EventColorLabelContainer">
+        
+        </span>
+        <Moment format="HH:mm a - ">{k.startTime}</Moment>
+        <Moment format="HH:mm a">{k.endTime}</Moment>
+        
+      </ListGroupItem>
     )
   })
 
   render() {
     const {data} = this.state
     return (
-      <div className="List">
+      <ListGroup className="List">
         {this.renderItems(data)}
-      </div>
+      </ListGroup>
     )
   }
 }

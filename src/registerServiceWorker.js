@@ -8,7 +8,7 @@
 // To learn more about the benefits of this model, read https://goo.gl/KwvDNy.
 // This link also includes instructions on opting out of this behavior.
 
-const CACHE_NAME = 'ever-hire-cache-v1'
+const CACHE_NAME = 'voices-of-terminus-cache-v1'
 const urlsToCache = [
   '/',
   '/App.css',

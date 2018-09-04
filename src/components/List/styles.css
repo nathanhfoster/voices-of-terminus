@@ -5,7 +5,22 @@
 }
 
 .listItem {
-    background-color: var(--grey);
+    background-color: var(--slate_grey);
     border: 1px solid var(--dark_border);
     padding: 8px;
+    cursor: pointer;
+}
+
+.listItem:hover {
+    background-color: var(--grey);
+}
+
+.EventColorLabelContainer {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    display: inline-block;
+    margin-right: 6px;
+    border-radius: 100%;
+    background-color: var(--primaryColor);
 }

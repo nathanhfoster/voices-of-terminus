@@ -11,6 +11,12 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
     .react-calendar__month-view  button {
         height: 7vh;
     }
+
+    .react-calendar__month-view  time{
+        float: none;
+        margin: 0 auto;
+        display: block;
+    }
 }
 @media(min-width:768px){}
 @media(min-width:992px){}
