@@ -67,7 +67,7 @@ class Card extends Component {
   render() {
     const {Preview, Title, Author, Tags} = this.state
     return (
-      <Grid className="Card">
+      <Grid className="Clickable Card">
         <div className="Preview">
           <div className="previewItem">
             {Preview}

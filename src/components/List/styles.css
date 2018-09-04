@@ -7,7 +7,6 @@
     background-color: var(--slate_grey);
     border: 1px solid var(--dark_border);
     padding: 8px;
-    cursor: pointer;
     opacity: var(--mainOpacity);
 }
 

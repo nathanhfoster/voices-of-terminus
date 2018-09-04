@@ -1,7 +1,7 @@
 .App {
   margin-top: var(--navBarHeight);
   height: 100vh;
-  width: 100vw; 
+  width: 100vw;
 }
 
 .fadeThrough {
