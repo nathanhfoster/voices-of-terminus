@@ -120,14 +120,14 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <Col className="DatePicker" md={10}>
+          <Col className="DatePicker" md={10} sm={12}>
             <Calendar
             onChange={this.onChange}
             value={activeDate}
             activeStartDate={activeDate} // fallback if value not set
             />
           </Col>
-          <Col className="EventList">
+          <Col className="EventList" md={2} sm={12}>
             <h2><Moment format="MM-D" filter={this.formatDate}>{activeDate}</Moment></h2>
             <List data={events}/>
           </Col>

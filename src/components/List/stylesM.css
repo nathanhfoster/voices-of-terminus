@@ -9,7 +9,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 */
 @media(max-width:767px){
     .List {
-        max-height: calc(7vh * 6);
+        margin: 0;
     }
 }
 @media(min-width:768px){}
