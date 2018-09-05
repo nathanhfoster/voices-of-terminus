@@ -61,7 +61,7 @@ class NavBar extends Component {
             <Nav>
               <LinkContainer to ="/articles"><NavItem eventKey={1}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to ="/calendar"><NavItem eventKey={2}>CALENDAR</NavItem></LinkContainer>
-              <LinkContainer to ="/news"><NavItem eventKey={3}>NEWS></NavItem></LinkContainer>
+              <LinkContainer to ="/news"><NavItem eventKey={3}>NEWS</NavItem></LinkContainer>
               <NavDropdown eventKey={4} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to ="/guild/roster"><NavItem eventKey={5.1}>ROSTER</NavItem></LinkContainer>
                 <LinkContainer to ="/guild/charters"><NavItem eventKey={5.2}>CHARTERS</NavItem></LinkContainer>
@@ -87,7 +87,7 @@ class NavBar extends Component {
                 <NavItem eventKey={8.5} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
-              <LinkContainer to ="/login"><NavItem eventKey={10}>Sing In/Up></NavItem></LinkContainer>
+              <LinkContainer to ="/login"><NavItem eventKey={10}>Sing In/Up</NavItem></LinkContainer>
             </Nav>
           </Navbar.Collapse>
   </Navbar>

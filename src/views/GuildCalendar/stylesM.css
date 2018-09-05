@@ -8,6 +8,11 @@ max-width: 767px = “If [device width] is less than or equal to 767px, then do 
 min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
 */
 @media(max-width:767px){
+    .react-calendar__year-view .react-calendar__tile,
+    .react-calendar__decade-view .react-calendar__tile,
+    .react-calendar__century-view .react-calendar__tile {
+        height: 10.95vh;
+    }
     .react-calendar__month-view  button {
         height: 7vh;
     }

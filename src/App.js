@@ -140,7 +140,7 @@ class App extends Component {
             discordData.members[i].guildMember = true
           }
           // Remove <VoT>
-          discordData.members[i].nick ? discordData.members[i].nick = discordData.members[i].nick.replace('<VoT>', '') : null
+          discordData.members[i].nick ? discordData.members[i].nick = discordData.members[i].nick.replace('<VoT>', '').replace(/[^\x00-\x7F]/g, '') : null
           return discordData.members[i]
         })
         const guildMembers = discordMembers.filter(i => i.guildMember)

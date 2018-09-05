@@ -74,14 +74,19 @@ class Articles extends Component {
         <Row>
             <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
-
         <Row>
-          <h3>Highlights</h3>
+          <Col sm={12}>
+            <h3>Highlights</h3>
+          </Col>
+        </Row>
+        <Row>
           {this.renderCards(Cards)}
         </Row>
 
         <Row>
-          <h3>Recent</h3>
+          <Col sm={12}>
+            <h3>Recent</h3>
+          </Col>
         </Row>
 
       </Grid>

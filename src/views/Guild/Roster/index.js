@@ -81,7 +81,7 @@ class Roster extends Component {
 
   renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
-      <Col lg={3} md={3} sm={3}>
+      <Col lg={3} md={3} sm={3} xs={12}>
         <p style={{color: color}}>{k}</p>
       </Col>
     )
@@ -89,14 +89,14 @@ class Roster extends Component {
 
   renderGuildMembers = (color, members) => members.map(k => {
     return(
-      <Col lg={3} md={3} sm={3}>
+      <Col lg={3} md={3} sm={3} xs={12}>
         <p style={{color: color}}>{k.nick}</p>
       </Col>
     )
   })
 
   render() {
-    const {Leaders, Council, Officers, Members} = this.props
+    const {Leaders, Council, Officers} = this.props
     const {guildMembers} = this.state
     return (
       <div className="Roster Container">

@@ -105,6 +105,7 @@ class GuildCalendar extends Component {
             activeStartDate={activeDate} // fallback if value not set
             tileContent={this.hasEvents}
             showFixedNumberOfWeeks={true}
+           
             />
           </Col>
           <Col className="EventList" md={2} sm={12}>

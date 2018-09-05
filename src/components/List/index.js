@@ -69,7 +69,7 @@ class List extends Component {
     return(
      <div> {
        sameDayEvent ? 
-      <ListGroupItem className="Clickable listItem"  header={k.name}>
+      <ListGroupItem className="Clickable listItem" header={k.name}>
        <span className="EventColorLabelContainer" />
        <Moment format="HH:mm a - ">{k.startTime}</Moment>
        <Moment format="HH:mm a">{k.endTime}</Moment>

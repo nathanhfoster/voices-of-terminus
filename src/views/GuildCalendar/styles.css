@@ -21,6 +21,7 @@
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
+    height: 185px;
     opacity: var(--mainOpacity);
     border: 1px solid var(--dark_border);
     background-color: var(--dark_grey);
@@ -39,19 +40,25 @@
 }
 
 .react-calendar__navigation button {
+    border: 1px solid var(--dark_border);
     height: 40px;
     background-color: var(--grey);
-    border: 0;
     opacity: var(--mainOpacity);
 }
 
+.react-calendar__navigation button:hover {
+    background-color: var(--slate_grey);
+}
+
 .react-calendar__month-view__weekdays {
+    border-left: 1px solid var(--dark_border);
+    border-right: 1px solid var(--dark_border);
     text-align: center;
     background-color: var(--grey);
     opacity: var(--mainOpacity);
 }
 
-.react-calendar__month-view  button {
+.react-calendar__month-view button {
     opacity: var(--mainOpacity);
     height: 120px;
     background-color: var(--slate_grey);
@@ -85,11 +92,6 @@
     margin: 0;
     padding: 0;
     overflow-y: auto;
-
-    
-    top: 0;
-    bottom: 0;
-    height: 100%;
 }
 
 .EventList ::-webkit-scrollbar {
