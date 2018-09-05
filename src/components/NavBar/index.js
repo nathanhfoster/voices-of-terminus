@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
-import { Link } from 'react-router-dom'
 import './styles.css'
 import './stylesM.css'
 import {Navbar, Nav, NavItem, NavDropdown, Image} from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 
@@ -53,24 +53,24 @@ class NavBar extends Component {
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
             <Navbar.Brand>
-              <Link to ="/"><Image src={votLogo} height="50px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></Link>
+              <NavItem to ="/"><Image src={votLogo} height="50px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <NavItem eventKey={1}><Link to ="/articles">ARTICLES</Link></NavItem>
-              <NavItem eventKey={2}><Link to ="/calendar">CALENDAR</Link></NavItem>
-              <NavItem eventKey={3}><Link to ="/news">NEWS</Link></NavItem>
+              <LinkContainer to ="/articles"><NavItem eventKey={1}>ARTICLES</NavItem></LinkContainer>
+              <LinkContainer to ="/calendar"><NavItem eventKey={2}>CALENDAR</NavItem></LinkContainer>
+              <LinkContainer to ="/news"><NavItem eventKey={3}>NEWS></NavItem></LinkContainer>
               <NavDropdown eventKey={4} title="GUILD" id="basic-nav-dropdown">
-                <NavItem eventKey={5.1}><Link to ="/guild/roster">ROSTER</Link></NavItem>
-                <NavItem eventKey={5.2}><Link to ="/guild/charters">CHARTERS</Link></NavItem>
-                <NavItem eventKey={5.3}><Link to ="/guild/lore">LORE</Link></NavItem>
-                <NavItem eventKey={5.4}><Link to ="/guild/contests">CONTESTS</Link></NavItem>
-                <NavItem eventKey={5.5}><Link to ="/guild/team">TEAM</Link></NavItem>
-                <NavItem eventKey={5.6}><Link to ="/guild/join">JOIN</Link></NavItem>
+                <LinkContainer to ="/guild/roster"><NavItem eventKey={5.1}>ROSTER</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/charters"><NavItem eventKey={5.2}>CHARTERS</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/lore"><NavItem eventKey={5.3}>LORE</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/contests"><NavItem eventKey={5.4}>CONTESTS</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/team"><NavItem eventKey={5.5}>TEAM</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/join"><NavItem eventKey={5.6}>JOIN</NavItem></LinkContainer>
               </NavDropdown>
-              <NavItem eventKey={6}><Link to ="/media">MEDIA</Link></NavItem>             
+              <LinkContainer to ="/media"><NavItem eventKey={6}>MEDIA</NavItem></LinkContainer>          
               <NavDropdown eventKey={7} title="VR" id="basic-nav-dropdown">
                 <NavItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
                 <NavItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
@@ -86,8 +86,8 @@ class NavBar extends Component {
                 <NavItem eventKey={8.4} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"><span> FACEBOOK</span></NavItem>
                 <NavItem eventKey={8.5} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
               </NavDropdown>
-              <NavItem componentClass={Link} eventKey={9} to="/donate" href="/donate">DONATE</NavItem>
-              <NavItem eventKey={10}><Link to ="/login">Sing In/Up</Link></NavItem>
+              <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
+              <LinkContainer to ="/login"><NavItem eventKey={10}>Sing In/Up></NavItem></LinkContainer>
             </Nav>
           </Navbar.Collapse>
   </Navbar>
