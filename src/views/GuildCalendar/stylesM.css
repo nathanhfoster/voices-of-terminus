@@ -13,8 +13,13 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
     .react-calendar__century-view .react-calendar__tile {
         height: 10.95vh;
     }
+
     .react-calendar__month-view  button {
-        height: 7vh;
+        min-height: 7vh;
+    }
+
+    .hasEventsContainer {
+        display: none;
     }
 
     .react-calendar__month-view  time{
