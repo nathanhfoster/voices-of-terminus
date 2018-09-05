@@ -45,6 +45,10 @@ class GuildCalendar extends Component {
       {key: 8, name: 'Event 8',   startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 9, name: 'Event 9',   startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 10, name: 'Event 10', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 11, name: 'Event 11', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 12, name: 'Event 12', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 13, name: 'Event 13', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 14, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
     ]
   }
   
@@ -83,12 +87,25 @@ class GuildCalendar extends Component {
     return this.props.monthToString[split[0]] + ' ' + split[1]
   }
 
-  hasEvents = ({ date, view }) => this.state.events.map( k => {
-    const calendarDay = MomentJS(date)
-    const eventStartTime = MomentJS(k.startTime)
-    const eventFound = eventStartTime.isSame(calendarDay, 'day')
-    return view === 'month' && eventFound ? <div class="TileContent"><div className="hasEvents"/></div> : null
-  })
+  hasEvents = ({ date, view }) => {
+    const {events} = this.state
+    return(
+      <div class="TileContent">
+        {events.map( k => {
+        const calendarDay = MomentJS(date)
+        const eventStartTime = MomentJS(k.startTime)
+        const eventFound = eventStartTime.isSame(calendarDay, 'day')
+        return view === 'month' && eventFound ? 
+        <div className="hasEventsContainer">
+          <span className="eventLabelColor" />
+          <span className="eventStartTime"><Moment format="HH:mma">{k.startTime}</Moment></span>
+          <h6 className="eventTitle">{k.name}</h6>
+        </div>
+        : null
+      })}
+    </div>
+    )
+}
 
   render() {
     const {events, activeDate} = this.state
@@ -98,17 +115,20 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <Col className="DatePicker" md={10} sm={12}>
+          <Col className="DatePicker" lg={12} md={12} sm={12}>
             <Calendar
             onChange={this.onChange}
             value={activeDate}
             activeStartDate={activeDate} // fallback if value not set
             tileContent={this.hasEvents}
             showFixedNumberOfWeeks={true}
-           
+            next2Label={null}
+            prev2Label={null}
+            nextLabel={<i class="fa fa-chevron-circle-right"/>}
+            prevLabel={<i class="fa fa-chevron-circle-left"/>}
             />
           </Col>
-          <Col className="EventList" md={2} sm={12}>
+          <Col className="EventList" lgHidden mdHidden sm={12}>
             <h2><Moment format="MM-D" filter={this.formatDate}>{activeDate}</Moment></h2>
             <List data={events} activeDate={activeDate}/>
           </Col>

@@ -4,6 +4,7 @@ import './styles.css'
 import './stylesM.css'
 import {Navbar, Nav, NavItem, NavDropdown, Image} from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 
@@ -53,16 +54,18 @@ class NavBar extends Component {
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
             <Navbar.Brand>
-              <NavItem to ="/"><Image src={votLogo} height="50px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
+              <LinkContainer to ="/">
+                <NavItem eventKey={1}><Image src={votLogo} height="50px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
+              </LinkContainer>
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <LinkContainer to ="/articles"><NavItem eventKey={1}>ARTICLES</NavItem></LinkContainer>
-              <LinkContainer to ="/calendar"><NavItem eventKey={2}>CALENDAR</NavItem></LinkContainer>
-              <LinkContainer to ="/news"><NavItem eventKey={3}>NEWS</NavItem></LinkContainer>
-              <NavDropdown eventKey={4} title="GUILD" id="basic-nav-dropdown">
+              <LinkContainer to ="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
+              <LinkContainer to ="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
+              <LinkContainer to ="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
+              <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to ="/guild/roster"><NavItem eventKey={5.1}>ROSTER</NavItem></LinkContainer>
                 <LinkContainer to ="/guild/charters"><NavItem eventKey={5.2}>CHARTERS</NavItem></LinkContainer>
                 <LinkContainer to ="/guild/lore"><NavItem eventKey={5.3}>LORE</NavItem></LinkContainer>
@@ -70,8 +73,9 @@ class NavBar extends Component {
                 <LinkContainer to ="/guild/team"><NavItem eventKey={5.5}>TEAM</NavItem></LinkContainer>
                 <LinkContainer to ="/guild/join"><NavItem eventKey={5.6}>JOIN</NavItem></LinkContainer>
               </NavDropdown>
-              <LinkContainer to ="/media"><NavItem eventKey={6}>MEDIA</NavItem></LinkContainer>          
+              <LinkContainer to ="/media"><NavItem eventKey={7}>MEDIA</NavItem></LinkContainer>          
               <NavDropdown eventKey={7} title="VR" id="basic-nav-dropdown">
+                <Image src={vrLogo} className="vrLogo"/>
                 <NavItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
                 <NavItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
                 <NavItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>

@@ -9,6 +9,13 @@
     background: rgba(0, 0, 0, 1);
   }
 
+  .vrLogo {
+    width: auto;
+    padding: 8px;
+    margin: auto;
+    display: block;
+  }
+
   /* .NavBar:hover {
     background-color: rgba(0, 0, 0, 1);
     -webkit-transition:  background-color 1s ease-out;

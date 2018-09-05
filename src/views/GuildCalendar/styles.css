@@ -3,15 +3,62 @@
 }
 
 .TileContent {
-    
+    overflow-y: auto;
+    position: relative;
+    line-height: 86px;
+    max-height: 86px;
+    font-size: 13px;
+    min-width: 0;
+    align-items: center;
+    text-align: left;
 }
 
-.hasEvents  {
+.hasEventsContainer {
+    overflow: hidden;
+    line-height: 24px;
+    height: 24px;
+    font-size: 13px;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    text-align: left;
+}
+
+.hasEventsContainer:hover {
+    background-color: var(--slate_grey);
+}
+
+.eventLabelColor {
     width: 8px;
     height: 8px;
-    margin: auto;
+    flex-shrink: 0;
+    display: inline-block;
+    margin-right: 4px;
     border-radius: 100%;
     background-color: var(--primaryColor);
+}
+
+.eventStartTime {
+    margin-right: 4px;
+}
+
+.eventTitle {
+    flex: 1 0 0;
+    user-select: none;
+    font-family: 'proxima_novasemibold', Arial, sans-serif;
+    font-weight: 700;
+    overflow: hidden;
+    white-space: nowrap;
+    -webkit-mask-image: linear-gradient(to right, #000, #000 calc(100% - 16px), transparent calc(100% - 8px), transparent);
+}
+
+.react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time{
+    display: inherit;
+    position: inherit;
+    line-height: 0;
+    width: auto;
+    border-radius: 0;
+    background-color: inherit;
 }
 
 .DatePicker {
@@ -21,7 +68,8 @@
 .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
-    height: 185px;
+    font-size: 2em;
+    height: 125px;
     opacity: var(--mainOpacity);
     border: 1px solid var(--dark_border);
     background-color: var(--dark_grey);
@@ -41,9 +89,18 @@
 
 .react-calendar__navigation button {
     border: 1px solid var(--dark_border);
-    height: 40px;
+    height: 2em;
     background-color: var(--grey);
     opacity: var(--mainOpacity);
+}
+
+.react-calendar__navigation__arrow {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.react-calendar__navigation__label {
+    font-size: 2em;
 }
 
 .react-calendar__navigation button:hover {
@@ -59,20 +116,30 @@
 }
 
 .react-calendar__month-view button {
+    flex: 1 0 0;
+    position: relative;
     opacity: var(--mainOpacity);
-    height: 120px;
+    min-height: 160px;
     background-color: var(--slate_grey);
     border: 1px solid var(--dark_border);
+}
+
+.react-calendar__month-view button ::-webkit-scrollbar {
+    width: 4px;
 }
 
 .react-calendar__month-view  button:hover {
     background-color: var(--grey);
 }
 
-.react-calendar__month-view  time{
-    float: left;
-    margin-top: -45px;
-    margin-left: 8px;
+.react-calendar__month-view {
+    position: relative;
+}
+
+.react-calendar__month-view time {
+    position: absolute;
+    left: 8px;
+    top: 8px;
 }
 
 /* .react-calendar__tile--now {
