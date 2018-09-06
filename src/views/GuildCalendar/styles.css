@@ -93,7 +93,7 @@
     color: white;
     display: inherit;
     position: inherit;
-    line-height: 0;
+    line-height: inherit;
     width: auto;
     border-radius: 0;
     background-color: inherit;
