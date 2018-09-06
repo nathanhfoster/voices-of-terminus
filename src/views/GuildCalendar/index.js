@@ -9,7 +9,8 @@ import MomentJS from 'moment'
 import './styles.css'
 import './stylesM.css'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({ Window }) => ({
+  Window
 })
 
 const mapDispatchToProps = {
@@ -21,13 +22,15 @@ class GuildCalendar extends Component {
  
     this.state = {
       activeDate: Date,
-      events: []
+      events: [],
+      isMobile: false
     }
   }
 
   static propTypes = { 
     activeDate: PropTypes.Date,
-    events: PropTypes.array
+    events: PropTypes.array,
+    isMobile: PropTypes.bool
   }
 
   static defaultProps = {
@@ -49,6 +52,7 @@ class GuildCalendar extends Component {
       {key: 12, name: 'Event 12', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 13, name: 'Event 13', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 14, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 15, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
     ]
   }
   
@@ -64,10 +68,11 @@ class GuildCalendar extends Component {
   }
 
   getState = props => {
-    const {activeDate, events} = props
+    const {activeDate, events, Window} = props
     this.setState({
       activeDate,
-      events
+      events,
+      Window
       })
   }
 
@@ -89,19 +94,24 @@ class GuildCalendar extends Component {
 
   hasEvents = ({ date, view }) => {
     const {events} = this.state
+    const {isMobile} = this.state.Window
+    let mapCounter = {} // Use to display only 1 eventLabelColor for mobile
     return(
       <div class="TileContent">
         {events.map( k => {
         const calendarDay = MomentJS(date)
         const eventStartTime = MomentJS(k.startTime)
         const eventFound = eventStartTime.isSame(calendarDay, 'day')
-        return view === 'month' && eventFound ? 
-        <div className="hasEventsContainer">
-          <span className="eventLabelColor" />
-          <span className="eventStartTime"><Moment format="HH:mma">{k.startTime}</Moment></span>
-          <h6 className="eventTitle">{k.name}</h6>
-        </div>
-        : null
+        mapCounter[eventStartTime._d] = (mapCounter[eventStartTime._d]+1) || 1
+        return view === 'month' && eventFound && !isMobile ? 
+          <div className="hasEventsContainer">
+            <span className="eventLabelColor" />
+            <span className="eventStartTime"><Moment format="HH:mma">{k.startTime}</Moment></span>
+            <h6 className="eventTitle">{k.name}</h6>
+          </div>
+          : view === 'month' && eventFound && mapCounter[eventStartTime._d] < 2 ? 
+          <div class="hasEventsContainerMobile"><span className="eventLabelColor" /></div>
+          : null
       })}
     </div>
     )

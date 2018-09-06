@@ -14,11 +14,41 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
         height: 10.95vh;
     }
 
+    .hasEventsContainerMobile {
+        position: relative;
+        overflow: hidden;
+        line-height: 16px;
+        height: 16px;
+        font-size: 13px;
+        min-width: 0;
+        display: block;
+        align-items: center;
+        text-align: left;
+    }
+
+     .eventLabelColor {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        flex-shrink: 0;
+        display: inline-flex;
+        margin: 4px auto 0 auto;
+    }
+    
+
     .react-calendar__month-view  button {
         min-height: 7vh;
     }
 
-    .hasEventsContainer {
+    .react-calendar__month-view time {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+
+    .react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time,
+    .hasEventsContainer h6 {
         display: none;
     }
 
