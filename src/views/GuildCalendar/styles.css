@@ -161,7 +161,8 @@
     -moz-transition:  background-color 1s ease-out;
     -o-transition:  background-color 1s ease-out;
     transition:  background-color 1s ease-out;
-    transform: scale(1.25);
+    
+    transform: scale(1.1);
     will-change: transform;
     transition: -webkit-transform .425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
 }
