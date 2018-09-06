@@ -59,7 +59,7 @@ class Donate extends Component {
               if you feel like supporting the show, then click the following link/button. Always take care of yourself first! Otherwise feel free to support the show by retweeting, following 
               and spreading the word!
             </p>
-            <Button type="submit" className="donateButton" href="https://paypal.me/VoicesofTerminus" target="_blank">Donate</Button>
+            <Button type="submit" href="https://paypal.me/VoicesofTerminus" target="_blank">Donate</Button>
           </Col>
       </Grid>
     )

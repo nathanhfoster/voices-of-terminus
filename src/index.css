@@ -138,7 +138,11 @@ a, a:focus, a:active, a:visited {
   border-radius: 0;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);
-  border-bottom-color: transparent;
+  border-bottom: 0;
+  -webkit-transition:  background-color 1s ease-out;
+  -moz-transition:  background-color 1s ease-out;
+  -o-transition:  background-color 1s ease-out;
+  transition:  background-color 1s ease-out;
 }
 
 .fadeIn-2 {

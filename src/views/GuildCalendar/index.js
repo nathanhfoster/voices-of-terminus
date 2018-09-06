@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import Calendar from 'react-calendar/dist/entry.nostyle'
 import List from '../../components/List'
-import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import MomentJS from 'moment'
 import './styles.css'
@@ -117,12 +117,19 @@ class GuildCalendar extends Component {
     )
 }
 
+  Today = () => {
+    this.setState({activeDate: new Date()})
+  }
+
   render() {
     const {events, activeDate} = this.state
     return (
       <Grid className="GuildCalendar Container">
         <Row>
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
+        </Row>
+        <Row>
+          <Button onClick={this.Today}>Today</Button>
         </Row>
         <Row>
           <Col>

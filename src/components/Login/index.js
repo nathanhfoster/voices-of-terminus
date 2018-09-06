@@ -69,7 +69,7 @@ class Login extends Component {
           <Row>
             <Col smOffset={3} sm={6}>
               <FormGroup>
-                  <Button type="submit" className="loginButton">Sign in</Button>
+                  <Button type="submit">Sign in</Button>
               </FormGroup>
             </Col>
           </Row>

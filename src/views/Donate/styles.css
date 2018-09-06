@@ -8,12 +8,3 @@
 .donationText {
     font-size: 18px;
 }
-
-.donateButton {
-    background-color: var(--primaryColor);
-    border: 0;
-}
-
-.donateButton:hover {
-    background-color: white;
-}
