@@ -125,7 +125,7 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <Col className="DatePicker" lg={12} md={12} sm={12}>
+          <Col>
             <Calendar
             onChange={this.onChange}
             value={activeDate}

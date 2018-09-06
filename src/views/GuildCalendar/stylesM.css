@@ -7,23 +7,10 @@ lg (for laptops and desktops - screens equal to or greater than 1200px wide)
 max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
 min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
 */
-@media(max-width:767px){
-    .react-calendar__year-view .react-calendar__tile,
-    .react-calendar__decade-view .react-calendar__tile,
-    .react-calendar__century-view .react-calendar__tile {
-        height: 10.95vh;
-    }
-
+@media(max-width:676px){
     .hasEventsContainerMobile {
         position: relative;
-        overflow: hidden;
-        line-height: 16px;
-        height: 16px;
-        font-size: 13px;
-        min-width: 0;
-        display: block;
-        align-items: center;
-        text-align: left;
+        height: 2vh;
     }
 
      .eventLabelColor {
@@ -39,6 +26,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 
     .react-calendar__month-view  button {
         min-height: 7vh;
+        max-height: 15vh;
     }
 
     .react-calendar__month-view time {
