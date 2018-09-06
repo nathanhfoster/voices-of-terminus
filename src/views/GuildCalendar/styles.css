@@ -25,6 +25,11 @@
     opacity: var(--mainOpacity);
 }
 
+
+.react-calendar__navigation button:hover {
+    background-color: var(--slate_grey);
+}
+
 .react-calendar__navigation__arrow {
     font-size: 2em;
     font-weight: bold;
@@ -34,9 +39,6 @@
     font-size: 2em;
 }
 
-.react-calendar__navigation button:hover {
-    background-color: var(--slate_grey);
-}
 
 .TileContent {
     overflow-y: auto;
@@ -68,7 +70,7 @@
     height: 8px;
     flex-shrink: 0;
     display: inline-block;
-    margin-right: 4px;
+    margin-right: 6px;
     border-radius: 100%;
     background-color: var(--primaryColor);
 }
@@ -139,19 +141,29 @@
     font-size: 1em;
 }
 
-/* .react-calendar__tile--now {
+.react-calendar__tile--now time {
+    line-height: 25px;
+    width: 25px;
     background-color: var(--primaryColor);
-} */
+    color: var(--slate_grey);
+    font-weight: 900;
+    border-radius: 100%;
+}
 
 .react-calendar__tile--active time {
     line-height: 25px;
     width: 25px;
-    text-align: center;
-    background: var(--primaryColor);
-    color: var(--slate_grey);
+    background-color: rgba(0, 0, 0, .55);
     font-weight: 900;
     border-radius: 100%;
-    /* background-color: var(--primaryColor) !important; */
+    color: white;
+    -webkit-transition:  background-color 1s ease-out;
+    -moz-transition:  background-color 1s ease-out;
+    -o-transition:  background-color 1s ease-out;
+    transition:  background-color 1s ease-out;
+    transform: scale(1.25);
+    will-change: transform;
+    transition: -webkit-transform .425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
 }
 
 .EventList {
