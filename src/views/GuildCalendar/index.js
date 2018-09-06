@@ -121,6 +121,8 @@ class GuildCalendar extends Component {
     this.setState({activeDate: new Date()})
   }
 
+  onActiveDateChange = ({ activeStartDate, view }) => this.setState({activeDate: activeStartDate})
+
   render() {
     const {events, activeDate} = this.state
     return (
@@ -129,7 +131,7 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <Button onClick={this.Today}>Today</Button>
+          <Button onClick={this.Today} className="todayButton">Today</Button>
         </Row>
         <Row>
           <Col>
@@ -138,6 +140,8 @@ class GuildCalendar extends Component {
             value={activeDate}
             activeStartDate={activeDate} // fallback if value not set
             tileContent={this.hasEvents}
+            minDetail={"month"}
+            onActiveDateChange={this.onActiveDateChange}
             showFixedNumberOfWeeks={true}
             next2Label={null}
             prev2Label={null}

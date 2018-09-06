@@ -12,10 +12,10 @@
 
 .btn-default:hover {
   background-color: white;
-  -webkit-transition:  all 1s ease-out;
-  -moz-transition:  all 1s ease-out;
-  -o-transition:  all 1s ease-out;
-  transition:  all 1s ease-out;
+  -webkit-transition:  all .3s ease-out;
+  -moz-transition:  all .3s ease-out;
+  -o-transition:  all .3s ease-out;
+  transition:  all .3s ease-out;
 }
 
 .fadeThrough {

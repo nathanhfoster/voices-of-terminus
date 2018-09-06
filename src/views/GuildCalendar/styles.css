@@ -1,5 +1,9 @@
 .GuildCalendar {
-    
+}
+
+.todayButton {
+    float: right;
+    margin: 8px  8px 0 0;
 }
 
 .react-calendar__navigation {
@@ -24,6 +28,10 @@
 
 .react-calendar__navigation__prev-button:hover, .react-calendar__navigation__next-button:hover {
     color: var(--primaryColor);
+    -webkit-transition:  all .3s ease-out;
+    -moz-transition:  all .3s ease-out;
+    -o-transition:  all .3s ease-out;
+    transition:  all .4s ease-out;
 }
 
 .react-calendar__navigation__label {
@@ -31,7 +39,7 @@
     font-size: 2em;
 }
 
-.react-calendar__year-view .react-calendar__tile,
+/* .react-calendar__year-view .react-calendar__tile,
 .react-calendar__decade-view .react-calendar__tile,
 .react-calendar__century-view .react-calendar__tile {
     font-size: 2em;
@@ -45,7 +53,7 @@
 .react-calendar__decade-view .react-calendar__tile:hover,
 .react-calendar__century-view .react-calendar__tile:hover {
     background-color: var(--slate_grey);
-}
+} */
 
 .TileContent {
     overflow-y: auto;

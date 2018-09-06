@@ -35,10 +35,10 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
         left: 0;
     }
 
-    .react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time,
+    /* .react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time,
     .hasEventsContainer h6 {
         display: none;
-    }
+    } */
 
     .react-calendar__month-view  time{
         float: none;
