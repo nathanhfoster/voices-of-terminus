@@ -5,10 +5,10 @@ import {Grid, Row, Col, FormGroup, FormControl, ButtonToolbar, Button} from 'rea
 import './styles.css'
 import './stylesM.css'
 import { EditorState, convertToRaw, ContentState } from 'draft-js'
-import { Editor } from 'react-draft-wysiwyg';
-import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
-import draftToHtml from 'draftjs-to-html';
-import htmlToDraft from 'html-to-draftjs';
+import { Editor } from 'react-draft-wysiwyg'
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import draftToHtml from 'draftjs-to-html'
+import htmlToDraft from 'html-to-draftjs'
 
 const mapStateToProps = (state) => ({
 })

@@ -19,7 +19,7 @@
     background-color: var(--primaryColor);
   }
   .TextEditor .Wrapper .rdw-editor-toolbar {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, );
+    box-shadow: 0 4px 8px rgba(0, 0, 0, var(--mainOpacity));
   }
   .TextEditor .Wrapper .rdw-dropdownoption-active, .TextEditor .Wrapper .rdw-dropdown-selectedtext, .TextEditor .Wrapper .rdw-dropdown-optionwrapper {
     background-color: var(--grey);
@@ -59,7 +59,8 @@
     min-height: 320px;
   }
   .TextEditor .Editor {
-    background: rgba(0, 0, 0, );
+    opacity: var(--mainOpacity);
+    background: var(--slate_grey);
     border: 0;
     border-radius: 0;
     border: 1px solid var(--gray);
@@ -70,7 +71,8 @@
     margin-bottom: 20px;
   }
   .TextEditor .Toolbar {
-    background: rgba(0, 0, 0, );
+    opacity: var(--mainOpacity);
+    background: var(--slate_grey);
     border: 0;
     border-radius: 0;
     border: 1px solid var(--gray);
