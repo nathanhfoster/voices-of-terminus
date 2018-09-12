@@ -49,7 +49,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {navItems} = this.props
+    const {navItemsm} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>

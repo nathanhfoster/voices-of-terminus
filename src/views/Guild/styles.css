@@ -2,8 +2,5 @@
     border-color: #eee;
     border-style: solid;
     border-width: 0 1px 1px 1px;
+   
   }
-  .Guild .nav-tabs > li, .Guild .nav-tabs > li > a, .Guild .nav-tabs > li > a:hover {
-    border: 0;
-    margin: 0;
-  }  
