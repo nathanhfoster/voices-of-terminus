@@ -4,7 +4,7 @@ import { Grid, Row, Col, Image, Tab, Tabs, PageHeader } from 'react-bootstrap'
 import './styles.css'
 import contestImage from '../../../images/contest.png'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -28,12 +28,20 @@ class Contests extends Component {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate() {
+  }
+
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
   componentDidMount() {
   }
-
+  
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
-
   getState = props => {
     this.setState({
       })

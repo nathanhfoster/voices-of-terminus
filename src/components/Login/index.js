@@ -29,12 +29,37 @@ class Login extends Component {
 
   }
   
-  componentDidMount() {
+  componentWillMount() {
+    this.getState(this.props)
+  }
 
+  shouldComponentUpdate() {
+  }
+
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
- 
+    this.getState(nextProps)
+  }
+
+  getState = props => {
+    this.setState({
+      })
+  }
+
+  componentWillUpdate() {
+  }
+
+  componentDidUpdate() {
+  }
+
+  componentWillUnmount() {
   }
 
   render() {

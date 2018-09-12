@@ -4,7 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import { Link } from 'react-router-dom'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -34,9 +34,16 @@ class ScrollTextBox extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }
@@ -62,7 +69,7 @@ class ScrollTextBox extends Component {
     const {URL, Title} = this.state
     return (
       <Link to={URL}className="ScrollTextBox">
-        <span className="fadeIn-10">{Title}</span>
+        <p className="fadeIn-10">{Title}</p>
       </Link>
     )
   }

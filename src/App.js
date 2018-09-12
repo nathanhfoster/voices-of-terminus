@@ -106,6 +106,14 @@ class App extends Component {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate() {
+  }
+
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
   componentDidMount() {
     this.props.setVoTYouTubeChannelData()
     this.props.setAllVRYouTube()

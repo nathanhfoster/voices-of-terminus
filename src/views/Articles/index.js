@@ -6,7 +6,7 @@ import './stylesM.css'
 import Card from '../../components/Card'
 import TextEditor from '../../components/TextEditor'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -40,10 +40,19 @@ class Articles extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {

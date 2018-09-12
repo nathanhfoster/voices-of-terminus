@@ -6,7 +6,7 @@ import Yarnilla from '../../../images/yarnilla.png'
 import Kodiack from '../../../images/kodiack.png'
 import Leksur from '../../../images/leksur.png'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -30,10 +30,19 @@ class Team extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {

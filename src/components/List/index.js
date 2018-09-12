@@ -7,7 +7,7 @@ import MomentJS from 'moment'
 import './styles.css'
 import './stylesM.css'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -37,9 +37,16 @@ class List extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }

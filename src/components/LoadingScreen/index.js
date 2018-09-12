@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -26,10 +26,19 @@ class LoadingScreen extends Component {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate() {
+  }
+
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {

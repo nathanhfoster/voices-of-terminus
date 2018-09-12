@@ -60,9 +60,17 @@ class GuildCalendar extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }

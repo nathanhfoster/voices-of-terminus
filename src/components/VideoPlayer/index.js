@@ -32,14 +32,21 @@ class VideoPlayer extends Component {
 
   static defaultProps = {
   }
-  
   componentWillMount() {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }

@@ -6,7 +6,7 @@ import whispersOfTheVoices from '../../../images/jorconn.png'
 import allForOne from '../../../images/allforone-start.png'
 import intoTheKeep from '../../../images/teila.png'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -32,15 +32,23 @@ class Lore extends Component {
       {link: 'https://www.yumpu.com/en/embed/view/BxFJtZzRsNvLTEg8', img: intoTheKeep},
     ]
   }
-  
   componentWillMount() {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {

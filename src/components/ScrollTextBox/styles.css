@@ -22,4 +22,6 @@
     background-position-x: left;
     background-position-y: bottom;
   }
-  
+.ScrollTextBox p {
+  font-size: 1.25em;
+}

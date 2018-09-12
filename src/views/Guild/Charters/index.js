@@ -5,7 +5,7 @@ import leadershipCharter from '../../../images/leadership_charter.png'
 import rules from '../../../images/rules_and_regulations.png'
 import {Grid, Row, Col, Image} from 'react-bootstrap'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
@@ -29,10 +29,19 @@ class Charters extends Component {
     this.getState(this.props)
   }
 
-  componentDidMount() {
+  shouldComponentUpdate() {
   }
 
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
+  componentDidMount() {
+  }
+  
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {
