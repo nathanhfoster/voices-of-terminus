@@ -56,12 +56,13 @@ const mapDispatchToProps = {
 class App extends Component {
   constructor(props) {
     super(props)
+    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
+
     this.state = { 
       width: 0,
       height: 0 ,
       isMobile: false
     }
-    this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
   }
 
   static propTypes = {

@@ -91,7 +91,7 @@ class NavBar extends Component {
                 <NavItem eventKey={7.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
-              <LinkContainer to ="/login"><NavItem eventKey={10}>Sing In/Up</NavItem></LinkContainer>
+              <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>
             </Nav>
           </Navbar.Collapse>
   </Navbar>
