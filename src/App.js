@@ -141,17 +141,9 @@ class App extends Component {
     this.setState({height: innerHeight, width: innerWidth, isMobile})
   }
 
-  renderRouteItems = routeItems => routeItems.map(k => {
-    return (
-      <Route exact path={k.path} component={k.component}/>
-    )
-  })
+  renderRouteItems = routeItems => routeItems.map(k => (<Route exact path={k.path} component={k.component}/>))
 
-  renderBackgroundImages = (images, shouldRespond) => images.map(k => {
-    return (
-      <Image src={k} width="100%" height="100%" responsive={shouldRespond}/>
-    )
-  })
+  renderBackgroundImages = (images, shouldRespond) => images.map(k => (<Image src={k} width="100%" height="100%" responsive={shouldRespond}/>))
 
   render() {
     const {isMobile} = this.state

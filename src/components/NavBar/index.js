@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'
@@ -22,21 +23,24 @@ class NavBar extends Component {
     }
   }
 
-  static propTypes = { 
+  static propTypes = {
+  }
+
+  componentWillMount() {
+    this.getState(this.props)
   }
   
   componentDidMount() {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {
     this.setState({
-      });
-  }
-
-  componentWillMount() {
+      
+      })
   }
 
   componentWillUpdate() {
@@ -49,7 +53,7 @@ class NavBar extends Component {
   }
 
   render() {
-    const {navItemsm} = this.props
+    const {navItem} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>

@@ -81,7 +81,6 @@ class Guild extends Component {
   render() {
     const {history} = this.state
     const {TabItems} = this.props
-    console.log(history.location.pathname)
     return (
       <Grid className="Guild Container">
         <Row>

@@ -1,10 +1,10 @@
 .CardContainer {
     margin: 0;
   }
-  .CardContainer:hover {
-    transform: scale(1.075);
-    will-change: transform;
-    background-repeat: no-repeat;
-    transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
-  }
+.CardContainer:hover {
+  transform: scale(1.075);
+  will-change: transform;
+  background-repeat: no-repeat;
+  transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
+}
   

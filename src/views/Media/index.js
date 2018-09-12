@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, TabPane} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, Tab} from 'react-bootstrap'
 import './styles.css'
 import Moment from 'react-moment'
 import { LinkContainer } from 'react-router-bootstrap'
@@ -86,9 +86,9 @@ class Media extends Component {
 
   renderTabs = TabItems => TabItems.map(k => {
     return (
-      <TabPane eventKey={k.Route} title={k.Title} className="fadeIn-2" unmountOnExit={true}>
+      <Tab eventKey={k.Route} title={k.Title} className="fadeIn-2" unmountOnExit={true}>
         {<k.Component />}
-      </TabPane>
+      </Tab>
     )
   })
 
