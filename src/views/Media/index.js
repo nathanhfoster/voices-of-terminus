@@ -125,7 +125,7 @@ class Media extends Component {
         </Row>
         <Row>
         <Col>
-          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={(Route) => history.push(Route)}>
+          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={(Route) => history.push(Route)} animation={false}>
           {this.renderTabs(TabItems)}
           </Tabs>
         </Col>

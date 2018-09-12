@@ -64,7 +64,7 @@ class News extends Component {
         </Row>
         <Row>
           <Col>
-            <Tabs defaultActiveKey={1} className="Tabs">
+            <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
               <Tab eventKey={1} title="Latest" className="fadeIn-2">
                 Tab 1 
               </Tab>

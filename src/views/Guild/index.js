@@ -51,6 +51,7 @@ class Guild extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {
@@ -80,13 +81,14 @@ class Guild extends Component {
   render() {
     const {history} = this.state
     const {TabItems} = this.props
+    console.log(history.location.pathname)
     return (
       <Grid className="Guild Container">
         <Row>
          <PageHeader className="pageHeader">GUILD</PageHeader>
         </Row>
         <Row>
-          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={(Route) => history.push(Route)}>
+          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={Route => history.push(Route)} animation={false}>
             {this.renderTabs(TabItems)}
           </Tabs>
         </Row>
