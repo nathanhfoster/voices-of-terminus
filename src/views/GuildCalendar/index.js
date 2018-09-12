@@ -95,7 +95,7 @@ class GuildCalendar extends Component {
   hasEvents = ({ date, view }) => {
     const {events} = this.state
     const {isMobile} = this.state.Window
-    let mapCounter = {} // Use to display only 1 eventLabelColor for mobile
+    let mapCounter = {} // Use to display only 1 eventLabelColor per day for mobile
     return(
       <div class="TileContent">
         {events.map( k => {

@@ -64,7 +64,7 @@ class NavBar extends Component {
             <Nav>
               <LinkContainer to ="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to ="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
-              <LinkContainer to ="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
+              <LinkContainer to ="/news/1"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to ="/guild/roster"><NavItem eventKey={5.1}>ROSTER</NavItem></LinkContainer>
                 <LinkContainer to ="/guild/charters"><NavItem eventKey={5.2}>CHARTERS</NavItem></LinkContainer>
@@ -73,22 +73,18 @@ class NavBar extends Component {
                 <LinkContainer to ="/guild/team"><NavItem eventKey={5.5}>TEAM</NavItem></LinkContainer>
                 <LinkContainer to ="/guild/join"><NavItem eventKey={5.6}>JOIN</NavItem></LinkContainer>
               </NavDropdown>
-              <LinkContainer to ="/media"><NavItem eventKey={7}>MEDIA</NavItem></LinkContainer>          
-              <NavDropdown eventKey={7} title="VR" id="basic-nav-dropdown">
+              <NavDropdown eventKey={6} title="MEDIA" id="basic-nav-dropdown">
+              <LinkContainer to ="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>
+              <LinkContainer to ="/media/videos"><NavItem eventKey={6.2}>VIDEOS</NavItem></LinkContainer>
+              <LinkContainer to ="/media/streams"><NavItem eventKey={6.3}>STREAMS</NavItem></LinkContainer>
+              <LinkContainer to ="/media/podcasts"><NavItem eventKey={6.4}>PODCASTS</NavItem></LinkContainer>
+            </NavDropdown>        
+              <NavDropdown eventKey={7} title="VR" id="connect-nav-dropdown">
                 <Image src={vrLogo} className="vrLogo"/>
                 <NavItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
                 <NavItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
                 <NavItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
                 <NavItem eventKey={7.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
-              </NavDropdown>
-            </Nav>
-            <Nav pullRight>
-              <NavDropdown eventKey={8} title="CONNECT" id="basic-nav-dropdown">
-                <NavItem eventKey={8.1} href="http://discord.me/vot" class="fab fa-discord" target="_blank"><span> DISCORD</span></NavItem>
-                <NavItem eventKey={8.2} href="http://twitch.tv/pantheon_vot" class="fab fa-twitch" target="_blank"><span> TWITCH</span></NavItem>
-                <NavItem eventKey={8.3} href="https://www.youtube.com/channel/UCQ0BiIpfN9b5kUP8TA9eG1A" class="fab fa-youtube" target="_blank"><span> YOUTUBE</span></NavItem>
-                <NavItem eventKey={8.4} href="https://www.facebook.com/VoicesofTerminus/" class="fab fa-facebook" target="_blank"><span> FACEBOOK</span></NavItem>
-                <NavItem eventKey={8.5} href="http://twitter.com/pantheon_vot" class="fab fa-twitter" target="_blank"><span> TWITTER</span></NavItem>
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
               <LinkContainer to ="/login"><NavItem eventKey={10}>Sing In/Up</NavItem></LinkContainer>

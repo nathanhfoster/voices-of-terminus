@@ -1,7 +1,7 @@
-import C from '../constants'
 import appReducer from './reducers'
 import thunk from 'redux-thunk'
 import { createStore, applyMiddleware } from 'redux'
+import { composeWithDevTools } from 'redux-devtools-extension'
 
 const consoleMessages = store => next => action => {
   let result
@@ -15,5 +15,5 @@ const consoleMessages = store => next => action => {
  }
 
  export default (initialState={}) => {
-   return applyMiddleware(thunk, consoleMessages)(createStore)(appReducer, initialState)
+   return composeWithDevTools(applyMiddleware(thunk, consoleMessages))(createStore)(appReducer, initialState)
  }

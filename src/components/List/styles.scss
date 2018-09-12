@@ -1,0 +1,24 @@
+.List {
+    overflow-y: auto;
+    max-height: 720px;
+}
+
+.listItem {
+    background-color: $slate_grey;
+    border: 1px solid $dark_border;
+    padding: 8px;
+    opacity: $mainOpacity;
+    &:hover {
+        background-color: $grey;
+    }
+}
+
+.EventColorLabelContainer {
+    width: 8px;
+    height: 8px;
+    flex-shrink: 0;
+    display: inline-block;
+    margin-right: 6px;
+    border-radius: 100%;
+    background-color: $primaryColor;
+}

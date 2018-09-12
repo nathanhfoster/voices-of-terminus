@@ -4,6 +4,7 @@ import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
+import TextEditor from '../../components/TextEditor'
 
 const mapStateToProps = (state) => ({
 })
@@ -72,13 +73,19 @@ class Articles extends Component {
     return (
       <Grid className="Articles Container">
         <Row>
+          <TextEditor />
+        </Row>
+
+        <Row>
             <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
+
         <Row>
           <Col sm={12}>
             <h3>Highlights</h3>
           </Col>
         </Row>
+        
         <Row>
           {this.renderCards(Cards)}
         </Row>
@@ -88,7 +95,6 @@ class Articles extends Component {
             <h3>Recent</h3>
           </Col>
         </Row>
-
       </Grid>
     )
   }

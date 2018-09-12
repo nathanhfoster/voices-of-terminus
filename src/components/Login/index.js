@@ -14,11 +14,11 @@ const mapDispatchToProps = dispatch => {
 class Login extends Component {
   
   constructor(props) {
-    super();
+    super()
  
     this.state = {
     
-    };
+    }
   }
 
   static propTypes = {
@@ -40,8 +40,12 @@ class Login extends Component {
   render() {
     return (
       <Grid className="Login Container">
-        <Form className="LoginForm">
-            <PageHeader className="pageHeader">LOGIN</PageHeader>
+        <Row>
+          <PageHeader className="pageHeader">LOGIN</PageHeader>
+        </Row>
+        <Row>
+          <Col>
+            <Form className="LoginForm">
           <Row>
             <Col md={6} smOffset={3} sm={6}>
               <FormGroup controlId="formHorizontalEmail">
@@ -74,6 +78,9 @@ class Login extends Component {
             </Col>
           </Row>
         </Form>
+          </Col>
+        </Row>
+        
       </Grid>
     );
   }

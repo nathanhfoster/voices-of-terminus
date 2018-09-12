@@ -1,0 +1,90 @@
+.TextEditor {
+    font-family: 'proxima_novasemibold', Arial, sans-serif;
+    .newArticleButton {
+        margin: 10px 0 10px;
+        float: right;
+    }
+    ::-webkit-scrollbar {
+        width: 4px;
+    }
+    .editorForm {
+        input {
+            background: transparent;
+        }
+    }
+    .rdw-option-wrapper {
+        height: 38px;
+        width: 38px;
+        &:hover {
+            background-color: $primaryColor;
+        }
+    }
+    .Wrapper {
+        .rdw-editor-toolbar  {
+            box-shadow: 0 4px 8px rgba($dark_grey, 0.8);
+        }
+        .rdw-dropdownoption-active, .rdw-dropdown-selectedtext, .rdw-dropdown-optionwrapper {
+            background-color: $grey;
+            color: white;
+        }
+        .rdw-dropdownoption-default {
+            &:hover {
+                color: $primaryColor;
+                background-color: inherit;
+            }
+        }
+        .rdw-dropdown-carettoopen {
+            border-top: 6px solid white;
+        }
+        .rdw-dropdown-carettoclose {
+            border-bottom: 6px solid white;
+        }
+        .rdw-embedded-modal {
+            box-shadow: transparent;
+        }
+        .rdw-colorpicker-modal-options {
+            overflow-x: hidden;
+        }
+        .rdw-link-modal, .rdw-image-modal, .rdw-embedded-modal, .rdw-colorpicker-modal,
+        .rdw-link-modal-input, .rdw-embedded-modal-link-input, .rdw-embedded-modal-size-input,
+        .rdw-emoji-modal, .rdw-image-modal-url-input, .rdw-image-modal-size-input, button {
+            background-color: $grey;
+            box-shadow: 0 0 0 transparent;
+        }
+        .rdw-colorpicker-modal-style-label-active{
+            border-color: white;
+        }
+        .rdw-image-modal-header-label, .rdw-embedded-modal-header-label, .rdw-image-modal-header-label-highlighted {
+            border: 0;
+        }
+        button:hover{
+            background-color: $primaryColor;
+            color: white;
+        }
+    }
+    .rdw-editor-main {
+        min-height: 320px;  
+    }
+    @mixin TextEditor {
+        background: rgba($grey,  $mainOpacity);
+        border: 0;
+        border-radius: 0;
+        border: 1px solid $gray;
+    }
+    .Editor {
+        @include TextEditor;
+        padding: 8px;
+        letter-spacing: 2px;
+        
+    }
+    .rdw-editor-toolbar {
+        margin-bottom: 20px; 
+    }
+    .Toolbar {
+        @include TextEditor;
+    }
+    .TextEditorOutput {
+        width: 100%;
+        background-color: $grey;
+    }
+}

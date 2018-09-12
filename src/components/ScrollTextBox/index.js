@@ -62,7 +62,7 @@ class ScrollTextBox extends Component {
     const {URL, Title} = this.state
     return (
       <Link to={URL}className="ScrollTextBox">
-        <span className="fadeIn-8">{Title}</span>
+        <span className="fadeIn-10">{Title}</span>
       </Link>
     )
   }

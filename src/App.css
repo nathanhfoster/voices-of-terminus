@@ -1,21 +1,21 @@
 .App {
-  margin-top: var(--navBarHeight);
+  margin-top: $navBarHeight;
   height: 100vh;
   width: 100vw;
 }
 
 .btn-default {
   color: white;
-  background-color: var(--primaryColor);
+  background-color: $primaryColor;
   border: 0;
-}
-
-.btn-default:hover {
-  background-color: white;
-  -webkit-transition:  all .3s ease-out;
-  -moz-transition:  all .3s ease-out;
-  -o-transition:  all .3s ease-out;
-  transition:  all .3s ease-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  &:hover {
+    background-color: white;
+    -webkit-transition:  all .3s ease-out;
+    -moz-transition:  all .3s ease-out;
+    -o-transition:  all .3s ease-out;
+    transition:  all .3s ease-out;
+  }
 }
 
 .fadeThrough {
@@ -23,7 +23,7 @@
 }
 
 .dropdown-menu {
-  background-color: rgba(0, 0, 0, var(--mainOpacity));
+  background-color: rgba(0, 0, 0, $mainOpacity);
 }
 
 ::-webkit-scrollbar {
@@ -39,13 +39,13 @@
 }
 
 ::-webkit-scrollbar-track {
-  /* box-shadow: inset 0 0 5px var(--grey);
-  background: var(--grey); */
+  /* box-shadow: inset 0 0 5px $grey;
+  background: $grey; */
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--dark_grey);
+  background: $dark_grey;
   border-radius: 10px;
 }
 
@@ -65,8 +65,8 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: var(--primaryColor);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor);
+  border-color: $primaryColor;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px $primaryColor;
   outline: 0 none;
 }
 
@@ -88,12 +88,11 @@ input, select, textarea{
 }
 
 .routeOverlay {
-  height: calc(100vh - var(--navBarHeight));
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: var(--primaryBackGroundOpacity);
+  background-color: $primaryBackGroundOpacity;
   position: absolute;
   z-index: 1;
   left: 0; right: 0;
-  top: var(--navBarHeight); bottom: 0;
+  top: $navBarHeight; bottom: 0;
 }

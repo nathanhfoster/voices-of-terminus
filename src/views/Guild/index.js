@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import './styles.css'
-import {Grid, Tabs, Tab, PageHeader} from 'react-bootstrap'
+import {Grid, Row, Tabs, Tab, PageHeader} from 'react-bootstrap'
 
 import Roster from './Roster'
 import Charters from './Charters'
@@ -29,17 +29,17 @@ class Guild extends Component {
   }
 
   static propTypes = { 
-    history: PropTypes.object
+    history: ImmutableProptypes.map
   }
 
   static defaultProps = {
     TabItems: [
-      {Key: "/guild/roster", Title: "ROSTER", Component: Roster},
-      {Key: "/guild/charters", Title: "CHARTERS", Component: Charters},
-      {Key: "/guild/lore", Title: "LORE", Component: Lore},
-      {Key: "/guild/contests", Title: "CONTESTS", Component: Contests},
-      {Key: "/guild/team", Title: "TEAM", Component: Team},
-      {Key: "/guild/join", Title: "JOIN", Component: Join}
+      {Route: "/guild/roster", Title: "ROSTER", Component: Roster},
+      {Route: "/guild/charters", Title: "CHARTERS", Component: Charters},
+      {Route: "/guild/lore", Title: "LORE", Component: Lore},
+      {Route: "/guild/contests", Title: "CONTESTS", Component: Contests},
+      {Route: "/guild/team", Title: "TEAM", Component: Team},
+      {Route: "/guild/join", Title: "JOIN", Component: Join}
     ]
   }
   
@@ -71,20 +71,25 @@ class Guild extends Component {
 
   renderTabs = TabItems => TabItems.map(k => {
     return (
-      <Tab eventKey={k.Key} title={k.Title} className="fadeIn-2">
+      <Tab eventKey={k.Route} title={k.Title} className="fadeIn-2">
         {<k.Component />}
       </Tab>
     )
   })
+  
   render() {
     const {history} = this.state
     const {TabItems} = this.props
     return (
       <Grid className="Guild Container">
-        <PageHeader className="pageHeader">GUILD</PageHeader>
-        <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={(key) => history.push(key)}>
-          {this.renderTabs(TabItems)}
-        </Tabs>
+        <Row>
+         <PageHeader className="pageHeader">GUILD</PageHeader>
+        </Row>
+        <Row>
+          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={(Route) => history.push(Route)}>
+            {this.renderTabs(TabItems)}
+          </Tabs>
+        </Row>
       </Grid>
     )
   }

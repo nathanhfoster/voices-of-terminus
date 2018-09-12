@@ -4,14 +4,14 @@ import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
-import {getGuildMembers} from '../../../actions'
 
-const mapStateToProps = ({ guildMembers }) => ({
-  guildMembers
+
+const mapStateToProps = ({ DiscordData }) => ({
+  DiscordData
 })
 
 const mapDispatchToProps = {
-  getGuildMembers
+  
 }
 
 class Roster extends Component {
@@ -27,7 +27,6 @@ class Roster extends Component {
   static propTypes = {
     discordData: PropTypes.object,
     guildMembers: PropTypes.array,
-    getGuildMembers: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -57,14 +56,14 @@ class Roster extends Component {
   }
 
   componentDidMount() {
-    this.props.getGuildMembers()
+    
   }
 
   componentWillReceiveProps(nextProps) {
   }
 
-  getState = props => {  
-    const {guildMembers} = props
+  getState = props => {
+    const guildMembers = this.props.DiscordData.members
     this.setState({
       guildMembers
       })
@@ -107,7 +106,7 @@ class Roster extends Component {
           </Row>
           <Row>
             <h3>Council</h3>
-            {this.renderPeople('var(--primaryColor)', Council)}
+            {this.renderPeople('#ff9800', Council)}
           </Row>
           <Row>
             <h3>Officers</h3>

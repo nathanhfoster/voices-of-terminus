@@ -29,31 +29,8 @@
 }
 
 a:-webkit-any-link, button, html input[type=button], input[type=reset], input[type=submit], .Clickable {
-  cursor: var(--cursor);
-}
-
-@font-face {
-  font-family: "Goblin Hand";
-  font-style: normal;
-  font-weight: 400;
-  src: local('Goblin Hand'),
-  url('./fonts/VTCGoblinHand.ttf') format('embedded-opentype'), /* IE6-IE8 */
-  url('./fonts/VTCGoblinHand.ttf') format('woff2'), /* Super Modern Browsers */
-  url('./fonts/VTCGoblinHand.ttf') format('woff'), /* Modern Browsers */
-  url('./fonts/VTCGoblinHand.ttf') format('truetype'), /* Safari, Android, iOS */
-  url('./fonts/VTCGoblinHand.ttf') format('svg'); /* Legacy iOS */
-}
-
-@font-face {
-  font-family: "Omnia";
-  font-style: normal;
-  font-weight: 400;
-  src: local('Omnia'),
-  url('./fonts/omnia.woff') format('embedded-opentype'), /* IE6-IE8 */
-  url('./fonts/omnia.woff') format('woff2'), /* Super Modern Browsers */
-  url('./fonts/omnia.woff') format('woff'), /* Modern Browsers */
-  url('./fonts/omnia.woff') format('truetype'), /* Safari, Android, iOS */
-  url('./fonts/omnia.woff') format('svg'); /* Legacy iOS */
+  cursor: url('./images/Cursor.png'), auto;
+  
 }
 
 body {
@@ -75,57 +52,51 @@ body {
   transform: translate(-50%, -50%);
 }
 
-/* .pageHeader::before {
-  content: "";
-  width: 100%;
-  max-width: 600px;
-  height: 180px;
-  background: url("./images/icon_overlay.png") 50% 50% no-repeat;
-  background-size: 100% 100% !important;
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%);
-} */
+.floatLeft {
+  float: left;
+}
+
+.floatRight {
+  float: right;
+}
 
 .pageHeader {
   padding: 0;
   margin: 0;
   text-align: center;
-}
-
-.pageHeader h1:before {
-  content: '';
-  width: 93px;
-  height: 6px;
-  position: absolute;
-  right: calc(100% + 8px);
-  margin-top: -5px;
-  top: 50%;
-  background: url('./images/left_arrow.png') no-repeat;
-}
-
-.pageHeader h1 {
-  display: inline-block;
-  position: relative;
-  font-family: "Cinzel Decorative", serif;
-  font-weight: 900;
-}
-
-.pageHeader h1::after {
-  content: '';
-  width: 93px;
-  height: 6px;
-  position: absolute;
-  left: calc(100% + 8px);
-  margin-top: -5px;
-  top: 50%;
-  background: url('./images/right_arrow.png') no-repeat;
+  h1 {
+    display: inline-block;
+    position: relative;
+    font-family: "Cinzel Decorative", serif;
+    font-weight: 900;
+    &:before {
+      content: '';
+      width: 93px;
+      height: 6px;
+      position: absolute;
+      right: calc(100% + 8px);
+      margin-top: -5px;
+      top: 50%;
+      background: url('./images/left_arrow.png') no-repeat;
+    }
+    &::after {
+      content: '';
+      width: 93px;
+      height: 6px;
+      position: absolute;
+      left: calc(100% + 8px);
+      margin-top: -5px;
+      top: 50%;
+      background: url('./images/right_arrow.png') no-repeat;
+    }
+  }
 }
 
 a, a:focus, a:active, a:visited {
   color: inherit;
+  outline: none !important;
   text-decoration: none !important;
+  
 }
 
 *:focus {
@@ -136,13 +107,13 @@ a, a:focus, a:active, a:visited {
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
   color: white;
   border-radius: 0;
-  background-color: var(--primaryColor);
-  border-color: var(--primaryColor);
+  background-color: $primaryColor;
+  border-color: $primaryColor;
   border-bottom: 0;
-  -webkit-transition:  background-color 1s ease-out;
-  -moz-transition:  background-color 1s ease-out;
-  -o-transition:  background-color 1s ease-out;
-  transition:  background-color 1s ease-out;
+  -webkit-transition:  background-color .5s ease-out;
+  -moz-transition:  background-color .5s ease-out;
+  -o-transition:  background-color .5s ease-out;
+  transition:  background-color .5s ease-out;
 }
 
 .fadeIn-2 {
@@ -161,12 +132,12 @@ a, a:focus, a:active, a:visited {
        animation: fadein 4s;
 }
 
-.fadeIn-8 {
-  -webkit-animation: fadein 8s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 8s; /* Firefox < 16 */
-   -ms-animation: fadein 8s; /* Internet Explorer */
-    -o-animation: fadein 8s; /* Opera < 12.1 */
-       animation: fadein 8s;
+.fadeIn-10 {
+  -webkit-animation: fadein 10s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 10s; /* Firefox < 16 */
+   -ms-animation: fadein 10s; /* Internet Explorer */
+    -o-animation: fadein 10s; /* Opera < 12.1 */
+       animation: fadein 10s;
 }
 
 @keyframes fadein {

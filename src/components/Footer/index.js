@@ -10,14 +10,12 @@ import maleHalfling from '../../images/halfling_male.png'
 import femaleHuman from '../../images/human_female.png'
 import maleHuman from '../../images/human_male.png'
 import {getRandomInt} from '../../helpers/helpers'
-import {getWindow} from '../../actions'
 
 const mapStateToProps = ({Window}) => ({
   Window
 })
 
 const mapDispatchToProps = {
-  getWindow
 }
 
 class Footer extends Component {
@@ -32,7 +30,6 @@ class Footer extends Component {
   static propTypes = { 
     femaleImages: PropTypes.array,
     maleImgaes: PropTypes.array,
-    getWindow: PropTypes.func.isRequired,
     isMobile: PropTypes.bool
   }
 
@@ -50,7 +47,6 @@ class Footer extends Component {
   }
 
   componentDidMount() {
-    this.props.getWindow()
   }
 
   componentWillReceiveProps(nextProps) {

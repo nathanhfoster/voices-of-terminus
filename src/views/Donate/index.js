@@ -52,6 +52,7 @@ class Donate extends Component {
   render() {
     return (
       <Grid className="Donate Container">
+        <Row>
           <Col>
             <PageHeader className="pageHeader">DONATIONS</PageHeader>
             <p className="donationText">VoT (Voices of Terminus) Show is community/fan-based podcast/show started March 23, 2016. Its is made for the community and fans of Pantheon during it’s development and thereafter. 
@@ -61,6 +62,7 @@ class Donate extends Component {
             </p>
             <Button type="submit" href="https://paypal.me/VoicesofTerminus" target="_blank">Donate</Button>
           </Col>
+        </Row>
       </Grid>
     )
   }

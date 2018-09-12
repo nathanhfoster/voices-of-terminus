@@ -1,9 +1,13 @@
 import React, { Component } from 'react'
+import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, Tab,} from 'react-bootstrap'
 import './styles.css'
+import Moment from 'react-moment'
+import { LinkContainer } from 'react-router-bootstrap'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
+  
 })
 
 const mapDispatchToProps = {
@@ -14,13 +18,16 @@ class News extends Component {
     super(props)
  
     this.state = {
+   
     }
   }
 
   static propTypes = { 
+
   }
 
   static defaultProps = {
+ 
   }
   
   componentWillMount() {
@@ -31,10 +38,12 @@ class News extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    this.getState(nextProps)
   }
 
   getState = props => {
     this.setState({
+  
       })
   }
 
@@ -45,7 +54,7 @@ class News extends Component {
   }
 
   componentWillUnmount() {
-  }
+  }  
 
   render() {
     return (
@@ -55,10 +64,16 @@ class News extends Component {
         </Row>
         <Row>
           <Col>
-            
+            <Tabs defaultActiveKey={1} className="Tabs">
+              <Tab eventKey={1} title="Latest" className="fadeIn-2">
+                Tab 1 
+              </Tab>
+              <Tab eventKey={2} title="Tab 2" className="fadeIn-2">
+                Tab 2 content
+              </Tab>
+            </Tabs>
           </Col>
         </Row>
-
       </Grid>
     )
   }

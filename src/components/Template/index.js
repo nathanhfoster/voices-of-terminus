@@ -4,7 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {

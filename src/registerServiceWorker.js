@@ -14,7 +14,6 @@ const urlsToCache = [
   '/App.css',
   '/App.js',
   '/index.css',
-  '/index.css'
 ]
 
 window.self.addEventListener('install', function(e) {

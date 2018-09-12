@@ -1,0 +1,25 @@
+.ScrollTextBox {
+    padding-top: $navBarHeight;
+    display: inline-block;
+    transition: none;
+    line-height: 24px;
+    -webkit-transition: none;
+    width: 248px;
+    height: 122px;
+    text-align: center;
+    color: black;
+    font-size: 18px;
+    font-family: 'Cinzel', serif;
+    font-weight: 900;
+    background: url('../../images/about_btn.png') left top no-repeat;
+
+    animation-name: about;
+    animation-duration: 5s;
+    animation-fill-mode: forwards;
+    &:hover {
+        color: black;
+        background-position: left bottom;
+        background-position-x: left;
+        background-position-y: bottom;
+    }
+}

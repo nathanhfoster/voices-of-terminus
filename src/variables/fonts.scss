@@ -1,0 +1,23 @@
+@font-face {
+    font-family: "Goblin Hand";
+    font-style: normal;
+    font-weight: 400;
+    src: local('Goblin Hand'),
+    url('./fonts/VTCGoblinHand.ttf') format('embedded-opentype'), /* IE6-IE8 */
+    url('./fonts/VTCGoblinHand.ttf') format('woff2'), /* Super Modern Browsers */
+    url('./fonts/VTCGoblinHand.ttf') format('woff'), /* Modern Browsers */
+    url('./fonts/VTCGoblinHand.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('./fonts/VTCGoblinHand.ttf') format('svg'); /* Legacy iOS */
+  }
+  
+  @font-face {
+    font-family: "Omnia";
+    font-style: normal;
+    font-weight: 400;
+    src: local('Omnia'),
+    url('./fonts/omnia.woff') format('embedded-opentype'), /* IE6-IE8 */
+    url('./fonts/omnia.woff') format('woff2'), /* Super Modern Browsers */
+    url('./fonts/omnia.woff') format('woff'), /* Modern Browsers */
+    url('./fonts/omnia.woff') format('truetype'), /* Safari, Android, iOS */
+    url('./fonts/omnia.woff') format('svg'); /* Legacy iOS */
+  }
