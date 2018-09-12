@@ -12,15 +12,14 @@
     font-family: 'Cinzel', serif;
     font-weight: 900;
     background: url('../../images/about_btn.png') left top no-repeat;
-
     animation-name: about;
-    animation-duration: 3s;
+    animation-duration: 5s;
     animation-fill-mode: forwards;
-}
-
-.ScrollTextBox:hover {
+  }
+  .ScrollTextBox:hover {
     color: black;
     background-position: left bottom;
     background-position-x: left;
     background-position-y: bottom;
-}
+  }
+  

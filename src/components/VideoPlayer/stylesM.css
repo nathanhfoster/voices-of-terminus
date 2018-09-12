@@ -6,21 +6,17 @@
  max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
  min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
  */
- @media (max-width: 676px) {
-    .Home {
-      margin: 0;
-      padding: 0;
+ @media (max-width: 992px) {
+    .VideoPlayer .videoPlayerContainer {
+      height: 50vh;
     }
-    .Home .votDifferenceContainer {
-      width: auto;
-      border-top: 0;
-      padding-top: 8px;
-      margin: 0;
-      margin-bottom: 6px;
-      border-bottom: 1px solid var(--primaryColor);
+  }
+  @media (max-width: 992px) and (orientation: landscape) {
+    .VideoPlayer {
+      width: 100vw;
     }
-    .Home .votDifferenceContainer .votDifferenceText {
-      margin: 0;
+    .VideoPlayer .videoPlayerContainer {
+      height: calc(100vh - 50px);
     }
   }
   

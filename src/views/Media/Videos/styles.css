@@ -1,0 +1,43 @@
+.Videos {
+    list-style-type: none;
+  }
+  .Videos .nav-tabs {
+    border-color: #eee;
+    border-style: solid;
+    border-width: 0 1px 1px 1px;
+  }
+  .Videos .nav-tabs > li, .Videos .nav-tabs > li > a, .Videos .nav-tabs > li > a:hover {
+    border: 0;
+    margin: 0;
+  }
+  .Videos a:hover {
+    color: white;
+  }
+  .Videos h1 {
+    margin-left: 4px;
+    font-family: "Cinzel Decorative", serif;
+    font-weight: 900;
+  }
+  .Videos .youTubeContainer {
+    padding: 0;
+    margin: 20px 0 0 0;
+    background-color: var(--grey);
+    opacity: var(--mainOpacity);
+    border-radius: 4px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+  }
+  .Videos .youTubeContainer:hover {
+    transform: scale(1.012);
+    will-change: transform;
+    background-repeat: no-repeat;
+    transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
+  }
+  .Videos .youTubeContainer .videoTitleContainer {
+    text-align: left;
+  }
+  .Videos .youTubeContainer .videoImageContainer img {
+    max-height: 380px;
+    width: 100%;
+    border-radius: 4px;
+    margin: 15px 0 15px 0;
+  }  

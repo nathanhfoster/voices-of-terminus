@@ -8,10 +8,6 @@
     z-index: 3;
 }
 
-.footerButton:hover {
-    color: var(--primaryColor);
-}
-
 .Female {
     left: 0;
 }

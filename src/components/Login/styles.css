@@ -1,10 +1,7 @@
-.Login {
-}
-
 .Login input {
     background-color: rgba(0, 0, 0, 0.5);
-}
-
-.LoginForm {
-   
-}
+  }
+  .LoginForm {
+    margin: 40px;
+  }
+  

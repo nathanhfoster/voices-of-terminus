@@ -1,0 +1,82 @@
+.TextEditor {
+    font-family: 'proxima_novasemibold', Arial, sans-serif;
+  }
+  .TextEditor .newArticleButton {
+    margin: 10px 0 10px;
+    float: right;
+  }
+  .TextEditor ::-webkit-scrollbar {
+    width: 4px;
+  }
+  .TextEditor .editorForm input {
+    background: transparent;
+  }
+  .TextEditor .rdw-option-wrapper {
+    height: 38px;
+    width: 38px;
+  }
+  .TextEditor .rdw-option-wrapper:hover {
+    background-color: var(--primaryColor);
+  }
+  .TextEditor .Wrapper .rdw-editor-toolbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, );
+  }
+  .TextEditor .Wrapper .rdw-dropdownoption-active, .TextEditor .Wrapper .rdw-dropdown-selectedtext, .TextEditor .Wrapper .rdw-dropdown-optionwrapper {
+    background-color: var(--grey);
+    color: white;
+  }
+  .TextEditor .Wrapper .rdw-dropdownoption-default:hover {
+    color: var(--primaryColor);
+    background-color: inherit;
+  }
+  .TextEditor .Wrapper .rdw-dropdown-carettoopen {
+    border-top: 6px solid white;
+  }
+  .TextEditor .Wrapper .rdw-dropdown-carettoclose {
+    border-bottom: 6px solid white;
+  }
+  .TextEditor .Wrapper .rdw-embedded-modal {
+    box-shadow: transparent;
+  }
+  .TextEditor .Wrapper .rdw-colorpicker-modal-options {
+    overflow-x: hidden;
+  }
+  .TextEditor .Wrapper .rdw-link-modal, .TextEditor .Wrapper .rdw-image-modal, .TextEditor .Wrapper .rdw-embedded-modal, .TextEditor .Wrapper .rdw-colorpicker-modal, .TextEditor .Wrapper .rdw-link-modal-input, .TextEditor .Wrapper .rdw-embedded-modal-link-input, .TextEditor .Wrapper .rdw-embedded-modal-size-input, .TextEditor .Wrapper .rdw-emoji-modal, .TextEditor .Wrapper .rdw-image-modal-url-input, .TextEditor .Wrapper .rdw-image-modal-size-input, .TextEditor .Wrapper button {
+    background-color: var(--grey);
+    box-shadow: 0 0 0 transparent;
+  }
+  .TextEditor .Wrapper .rdw-colorpicker-modal-style-label-active {
+    border-color: white;
+  }
+  .TextEditor .Wrapper .rdw-image-modal-header-label, .TextEditor .Wrapper .rdw-embedded-modal-header-label, .TextEditor .Wrapper .rdw-image-modal-header-label-highlighted {
+    border: 0;
+  }
+  .TextEditor .Wrapper button:hover {
+    background-color: var(--primaryColor);
+    color: white;
+  }
+  .TextEditor .rdw-editor-main {
+    min-height: 320px;
+  }
+  .TextEditor .Editor {
+    background: rgba(0, 0, 0, );
+    border: 0;
+    border-radius: 0;
+    border: 1px solid var(--gray);
+    padding: 8px;
+    letter-spacing: 2px;
+  }
+  .TextEditor .rdw-editor-toolbar {
+    margin-bottom: 20px;
+  }
+  .TextEditor .Toolbar {
+    background: rgba(0, 0, 0, );
+    border: 0;
+    border-radius: 0;
+    border: 1px solid var(--gray);
+  }
+  .TextEditor .TextEditorOutput {
+    width: 100%;
+    background-color: var(--grey);
+  }
+  

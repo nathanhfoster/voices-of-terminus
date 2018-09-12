@@ -1,67 +1,117 @@
 .NavBar {
-    font-family: 'Goblin Hand';
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 3;
-    list-style-type: none;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
-    background: rgba(0, 0, 0, 1);
-  }
-
-  .vrLogo {
-    width: auto;
-    padding: 8px;
-    margin: auto;
-    display: block;
-  }
-
-  /* .NavBar:hover {
-    background-color: rgba(0, 0, 0, 1);
-    -webkit-transition:  background-color 1s ease-out;
-    -moz-transition:  background-color 1s ease-out;
-    -o-transition:  background-color 1s ease-out;
-    transition:  background-color 1s ease-out;
-  } */
-
+  font-family: 'Goblin Hand';
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+  background: rgba(0, 0, 0, 1);
+}
 .NavBar a {
-    text-align: center;
+  text-align: center;
 }
-
 .NavBar a:hover {
-    color: var(--primaryColor);
+  color: var(--primaryColor);
 }
-
-.dropdown-menu>.active>a, .dropdown-menu>.active>a:focus, .dropdown-menu>.active>a:hover {
+/* Custom Hamburger Menu Animation*/
+.navbar-toggle {
+  overflow: hidden;
+}
+.navbar-toggle .icon-bar {
+  transition: opacity, transform;
+  transition-duration: var(--speed);
+  transition-timing-function: var(--easing);
+}
+.navbar-toggle:not(.collapsed) {
+  /* nth-child 2-4 refers to the 3 <span> horizontal bars in the hamburger menu */
+}
+.navbar-toggle:not(.collapsed) .icon-bar:nth-child(2) {
+  transform: translateY(6px) rotate(45deg);
+}
+.navbar-toggle:not(.collapsed) .icon-bar:nth-child(3) {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.navbar-toggle:not(.collapsed) .icon-bar:nth-child(4) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+/* Adjust height when hamburger menu is opened */
+.collapse.in {
+  height: calc(100vh - 56px);
+}
+.vrLogo {
+  width: auto;
+  padding: 4px;
+  margin: auto;
+  display: block;
+}
+/* .NavBar:hover {
+ background-color: rgba(0, 0, 0, 1);
+ -webkit-transition:  background-color 1s ease-out;
+ -moz-transition:  background-color 1s ease-out;
+ -o-transition:  background-color 1s ease-out;
+ transition:  background-color 1s ease-out;
+ } */
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
   background-color: inherit;
 }
-
 /* Bootstrap Navbar */
 .navbar {
-    margin: 0;
-    border-bottom: 1px solid var(--primaryColor);
-    border-radius: 0%;
-    flex-grow: 1;
-  }
-
-.navbar-toggle:hover, .navbar-toggle:focus {
-    background-color: var(--primaryColor) !important;
-    border-color: var(--primaryColor);
+  list-style-type: none;
+  margin: 0;
+  border-bottom: 1px solid var(--primaryColor);
+  border-radius: 0%;
+  flex-grow: 1;
 }
-  
-  .navbar-inverse .navbar-brand {
-    padding: 0;
-  }
-
-  .navbar-brand>img {
-    background-repeat: no-repeat;
-  }
-
-  .navbar-inverse .navbar-nav>li>a:hover, .dropdown-menu>li>a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu>li>a:hover {
-    color: var(--primaryColor);
-    background-color: inherit;
-  }
-
-  .navbar-inverse .navbar-nav>li>a, .dropdown-menu>li>a,   .navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
-    color: white;
-  }
+.navbar-toggle:hover, .navbar-toggle:focus {
+  background-color: var(--primaryColor !important);
+  border-color: var(--primaryColor);
+}
+.navbar-inverse .navbar-brand {
+  padding: 0;
+}
+.navbar-brand > img {
+  background-repeat: no-repeat;
+}
+.navbar-inverse .navbar-nav > li > a, .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  color: white;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
+  color: var(--primaryColor);
+  background-color: inherit;
+}
+/* button */
+.navbar-toggle {
+  border-color: inherit;
+  border: none;
+}
+.navbar-toggle:hover {
+  background: transparent;
+  background-color: inherit;
+}
+.navbar-toggle .icon-bar {
+  width: 22px;
+  transition: all 0.5s;
+}
+.navbar-toggle .top-bar {
+  transform: translate(3px) rotate(45deg);
+  transform-origin: 10% 10%;
+}
+.navbar-toggle .middle-bar {
+  transform: translate(-34px);
+  opacity: 0;
+}
+.navbar-toggle .bottom-bar {
+  transform: translate(3px) rotate(-45deg);
+  transform-origin: 10% 90%;
+}
+.navbar-toggle.collapsed .top-bar {
+  transform: rotate(0);
+}
+.navbar-toggle.collapsed .middle-bar {
+  transform: translate(0px);
+  opacity: 1;
+}
+.navbar-toggle.collapsed .bottom-bar {
+  transform: rotate(0);
+}

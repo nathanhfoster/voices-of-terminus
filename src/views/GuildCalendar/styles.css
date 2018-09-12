@@ -1,61 +1,24 @@
-.GuildCalendar {
-}
-
 .todayButton {
     float: right;
-    margin: 8px  8px 0 0;
-}
-
-.react-calendar__navigation {
-    
-}
-
-.react-calendar__navigation button {
+    margin: 8px 8px 0 0;
+  }
+  .react-calendar__navigation button {
     border: 0;
     height: 2em;
     background-color: transparent;
     opacity: var(--mainOpacity);
-}
-
-.react-calendar__navigation button:hover {
+  }
+  .react-calendar__navigation button:hover {
     /* background-color: var(--slate_grey); */
-}
-
-.react-calendar__navigation__arrow {
+  }
+  .react-calendar__navigation__arrow:hover {
+    color: var(--primaryColor);
+  }
+  .react-calendar__navigation__arrow, .react-calendar__navigation__label {
     font-size: 2em;
     font-weight: bold;
-}
-
-.react-calendar__navigation__prev-button:hover, .react-calendar__navigation__next-button:hover {
-    color: var(--primaryColor);
-    -webkit-transition:  all .3s ease-out;
-    -moz-transition:  all .3s ease-out;
-    -o-transition:  all .3s ease-out;
-    transition:  all .4s ease-out;
-}
-
-.react-calendar__navigation__label {
-    font-family: 'proxima_novasemibold', Arial, sans-serif;
-    font-size: 2em;
-}
-
-/* .react-calendar__year-view .react-calendar__tile,
-.react-calendar__decade-view .react-calendar__tile,
-.react-calendar__century-view .react-calendar__tile {
-    font-size: 2em;
-    height: 11.125vh;
-    opacity: var(--mainOpacity);
-    border: 1px solid var(--dark_border);
-    background-color: var(--dark_grey);
-}
-
-.react-calendar__year-view .react-calendar__tile:hover,
-.react-calendar__decade-view .react-calendar__tile:hover,
-.react-calendar__century-view .react-calendar__tile:hover {
-    background-color: var(--slate_grey);
-} */
-
-.TileContent {
+  }
+  .TileContent {
     overflow-y: auto;
     position: relative;
     line-height: 86px;
@@ -64,9 +27,8 @@
     min-width: 0;
     align-items: center;
     text-align: left;
-}
-
-.hasEventsContainer {
+  }
+  .hasEventsContainer {
     overflow: hidden;
     height: 24px;
     font-size: 13px;
@@ -74,13 +36,11 @@
     display: flex;
     align-items: center;
     text-align: left;
-}
-
-.hasEventsContainer:hover {
+  }
+  .hasEventsContainer:hover {
     background-color: var(--slate_grey);
-}
-
-.eventLabelColor {
+  }
+  .eventLabelColor {
     width: 8px;
     height: 8px;
     flex-shrink: 0;
@@ -88,117 +48,96 @@
     margin-right: 6px;
     border-radius: 100%;
     background-color: var(--primaryColor);
-}
-
-.eventStartTime {
+  }
+  .eventStartTime {
     margin-right: 4px;
-}
-
-.eventTitle {
+  }
+  .eventTitle {
     flex: 1 0 0;
     user-select: none;
     font-family: 'proxima_novasemibold', Arial, sans-serif;
-    font-weight: 600;
+    font-weight: 700;
     overflow: hidden;
     white-space: nowrap;
     -webkit-mask-image: linear-gradient(to right, #000, #000 calc(100% - 16px), transparent calc(100% - 8px), transparent);
-}
-
-.react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time{
-    color: white;
-    display: inherit;
+  }
+  .react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time {
     position: inherit;
-    line-height: inherit;
-    width: auto;
+    border: 0;
     border-radius: 0;
     background-color: inherit;
-}
-
-.react-calendar__month-view__days__day--neighboringMonth {
-    background-color: var(--dark_grey) !important;
+  }
+  .react-calendar__month-view__days__day--neighboringMonth {
+    background-color: var(--dark_grey !important);
     color: var(--grey_out);
     opacity: var(--mainOpacity);
-}
-
-.react-calendar__month-view__weekdays {
+  }
+  .react-calendar__month-view__weekdays {
     border-left: 1px solid var(--dark_border);
     border-right: 1px solid var(--dark_border);
     text-align: center;
     background-color: var(--grey);
     opacity: var(--mainOpacity);
-}
-
-.react-calendar__month-view button {
+  }
+  .react-calendar__month-view button {
     flex: 1 0 0;
     position: relative;
     opacity: var(--mainOpacity);
     min-height: 160px;
     background-color: var(--slate_grey);
     border: 1px solid var(--dark_border);
-}
-
-.react-calendar__month-view button ::-webkit-scrollbar {
-    width: 4px;
-}
-
-.react-calendar__month-view  button:hover {
+  }
+  .react-calendar__month-view button:hover {
     background-color: var(--grey);
-}
-
-.react-calendar__month-view {
-    position: relative;
-}
-
-.react-calendar__month-view time {
+  }
+  .react-calendar__month-view button ::-webkit-scrollbar {
+    width: 4px;
+  }
+  .react-calendar__month-view time {
     position: absolute;
     left: 8px;
     top: 8px;
     font-size: 1em;
-}
-
-.react-calendar__tile--now time {
+  }
+  .react-calendar__tile--now time {
     line-height: 25px;
     width: 25px;
+    font-weight: 600;
+    border-radius: 100%;
     background-color: var(--primaryColor);
     color: var(--slate_grey);
-    font-weight: 600;
-    border-radius: 100%;
-}
-
-.react-calendar__tile--active time {
+  }
+  .react-calendar__tile--active time {
     line-height: 25px;
     width: 25px;
-    background-color: rgba(0, 0, 0, .55);
     font-weight: 600;
     border-radius: 100%;
+    background-color: rgba(0, 0, 0, .55);
     color: white;
-    -webkit-transition:  background-color 1s ease-out;
-    -moz-transition:  background-color 1s ease-out;
-    -o-transition:  background-color 1s ease-out;
-    transition:  background-color 1s ease-out;
+    -webkit-transition: background-color 1s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
     text-align: center;
     transform: scale(1.1);
     will-change: transform;
-    transition: -webkit-transform .425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
-}
-
-.EventList {
+    transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
+  }
+  .EventList {
     margin: 0;
     padding: 0;
     overflow-y: auto;
-}
-
-.EventList ::-webkit-scrollbar {
+  }
+  .EventList ::-webkit-scrollbar {
     width: 1px;
-}
-
-.EventList h2 {
+  }
+  .EventList h2 {
     opacity: var(--mainOpacity);
+    background-color: var(--grey);
     height: 60px;
     line-height: 60px;
-    background-color: var(--dark_grey);
     border-bottom: 1px solid var(--dark_border);
     text-align: center;
     margin: 0;
     padding: 0;
-}
+  }  

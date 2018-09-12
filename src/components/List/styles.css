@@ -1,20 +1,17 @@
 .List {
     overflow-y: auto;
     max-height: 720px;
-}
-
-.listItem {
+  }
+  .listItem {
     background-color: var(--slate_grey);
     border: 1px solid var(--dark_border);
     padding: 8px;
     opacity: var(--mainOpacity);
-}
-
-.listItem:hover {
+  }
+  .listItem:hover {
     background-color: var(--grey);
-}
-
-.EventColorLabelContainer {
+  }
+  .EventColorLabelContainer {
     width: 8px;
     height: 8px;
     flex-shrink: 0;
@@ -22,4 +19,5 @@
     margin-right: 6px;
     border-radius: 100%;
     background-color: var(--primaryColor);
-}
+  }
+  

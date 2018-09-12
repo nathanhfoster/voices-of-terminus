@@ -1,36 +1,23 @@
 .Home {
     margin-top: 20px;
     color: white;
-}
-
-.Home iframe {
+  }
+  .Home iframe {
     padding: 0;
     margin: 0;
-}
-
-.Home h1 {
+  }
+  .Home h1 {
     text-align: center;
     margin: 0;
-}
-
-.Home h3 {
+  }
+  .Home h3 {
     margin-top: 0;
     margin-bottom: 16px;
     font-family: "Goblin Hand";
     color: var(--primaryColor);
-}
-
-.votDifferenceContainer::before {
-    content: '';
-    width: inherit;
-    position: absolute;
-    left: 0px;
-    bottom: -110px;
-    height: 110px;
-    background: url('../../images/lore_bottom.png') no-repeat;
-}
-
-.votDifferenceContainer {
+  }
+  .Home .votDifferenceContainer {
+    list-style-type: none;
     margin: 110px auto;
     padding: 0 8px;
     width: 751px;
@@ -40,9 +27,17 @@
     background: url('../../images/lore_mid.png') center repeat-y;
     /* background: url('../../images/lore_top.png') top no-repeat, url('../../images/lore_bottom.png') bottom no-repeat; */
     /* background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0),rgba(0,0,0,.4), rgba(0,0,0,.5), black, rgba(0,0,0,.5), rgba(0,0,0,.4), rgba(0,0,0,0), rgba(0,0,0,0)); */
-}
-
-.votDifferenceContainer::after {
+  }
+  .Home .votDifferenceContainer::before {
+    content: '';
+    width: inherit;
+    position: absolute;
+    left: 0px;
+    bottom: -110px;
+    height: 110px;
+    background: url('../../images/lore_bottom.png') no-repeat;
+  }
+  .Home .votDifferenceContainer::after {
     content: '';
     width: inherit;
     position: absolute;
@@ -50,61 +45,88 @@
     top: -110px;
     height: 110px;
     background: url('../../images/lore_top.png') no-repeat;
-} 
-
-.votDifferenceText {
-    line-height: 40px;
+  }
+  .Home .votDifferenceContainer .votDifferenceText {
     font-size: 24px;
     padding: 16px;
     margin: -55px 0 -55px 0;
     display: inline-block;
     position: relative;
     z-index: 1;
-}
-
-.AboutContainer {
+  }
+  .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks {
+    display: flex;
+    flex-wrap: nowrap;
+    padding: 0 30% 0 30%;
+    bottom: 0;
+  }
+  .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks li, .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks a {
+    margin: 0 auto;
+  }
+  .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks li:hover, .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks a:hover {
+    color: var(--primaryColor);
+  }
+  .AboutContainer {
     text-align: center;
     font-size: 18px;
     font-family: 'Cinzel', serif;
     font-weight: 900;
     color: black;
-}
-
-@keyframes about {
-	0% {height: 122px; width: 0%;}
-	100% {height: 122px; width: 248px;}
-}
-
-@keyframes twitter {
-	0% {height: 50px; width: 100%;}
-	100% {height: 275px; width: 100%;}
-}
-
-.twitter {
+  }
+  @keyframes about {
+    0% {
+      height: 122px;
+      width: 0%;
+    }
+    100% {
+      height: 122px;
+      width: 248px;
+    }
+  }
+  @keyframes twitter {
+    0% {
+      height: 50px;
+      width: 100%;
+    }
+    100% {
+      height: 275px;
+      width: 100%;
+    }
+  }
+  .twitter {
     margin-bottom: 4px;
     animation-name: twitter;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-}
-
-@keyframes youTube {
-	0% {height: 70px; width: 100%;}
-	100% {height: 329px; width: 100%;}
-}
-
-.youTube {
+  }
+  @keyframes youTube {
+    0% {
+      height: 70px;
+      width: 100%;
+    }
+    100% {
+      height: 329px;
+      width: 100%;
+    }
+  }
+  .youTube {
     animation-name: youTube;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-}
-
-@keyframes discord {
-	0% {height: 70px; width: 190px;}
-	100% {height: 557px; width: 100%;}
-}
-
-.discord {
+  }
+  @keyframes discord {
+    0% {
+      height: 70px;
+      width: 190px;
+    }
+    100% {
+      height: 557px;
+      width: 100%;
+    }
+  }
+  .discord {
     animation-name: discord;
     animation-duration: 2s;
     animation-fill-mode: forwards;
-}
+  }
+  
