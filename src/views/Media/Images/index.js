@@ -28,7 +28,8 @@ class Images extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate() {
+  shouldComponentUpdate(nextProps) {
+    return true
   }
 
   componentWillUpdate() {
