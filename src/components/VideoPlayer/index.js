@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import YouTube from 'react-youtube'
+import { Map } from 'immutable'
 
 const mapStateToProps = ({VideoToWatch}) => ({
   VideoToWatch
@@ -26,7 +26,7 @@ class VideoPlayer extends Component {
 
   static propTypes = {
     id: PropTypes.string,
-    Video: ImmutableProptypes.map,
+    Video: new Map(),
     setVideoToWatch: PropTypes.func.isRequired
   }
 

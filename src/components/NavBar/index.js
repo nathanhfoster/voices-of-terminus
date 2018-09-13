@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'

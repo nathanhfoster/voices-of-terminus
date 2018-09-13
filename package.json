@@ -15,7 +15,6 @@
     "react-dom": "^16.5.0",
     "react-draft-wysiwyg": "^1.12.13",
     "react-fadethrough": "^2.0.1",
-    "react-immutable-proptypes": "^2.1.0",
     "react-moment": "^0.7.9",
     "react-motion": "^0.5.2",
     "react-pure-render": "^1.0.2",

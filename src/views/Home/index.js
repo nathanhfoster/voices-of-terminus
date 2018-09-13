@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import './styles.css'
 import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
 import { Grid, Row, Col, NavItem } from 'react-bootstrap'
 import YouTube from 'react-youtube'
 import ScrollTextBox from '../../components/ScrollTextBox'
+import { Map } from 'immutable'
 
 const mapStateToProps = ({VoTYouTubeChannelData, VRYouTubeChannelData}) => ({
   VoTYouTubeChannelData,
@@ -27,9 +27,9 @@ class Home extends Component {
   }
 
   static propTypes = {
-    VoTYouTubeChannelData: ImmutableProptypes.map,
-    VRYouTubeChannelData: ImmutableProptypes.map,
-    votLatestVideo: ImmutableProptypes.map
+    VoTYouTubeChannelData: new Map(),
+    VRYouTubeChannelData: new Map(),
+    votLatestVideo: new Map()
   }
 
   static defaultProps = {

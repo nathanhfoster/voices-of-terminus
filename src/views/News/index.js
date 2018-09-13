@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, Tab,} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, Tabs, Tab,} from 'react-bootstrap'
 import './styles.css'
-import Moment from 'react-moment'
-import { LinkContainer } from 'react-router-bootstrap'
 
 const mapStateToProps = ({}) => ({
   

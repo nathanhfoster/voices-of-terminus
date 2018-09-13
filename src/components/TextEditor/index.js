@@ -9,11 +9,16 @@ import { Editor } from 'react-draft-wysiwyg'
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
+import {setEditorState} from '../../actions/TextEditor'
+import {Map} from 'immutable'
+import {isEmpty} from '../../helpers/helpers'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({editorState}) => ({
+  editorState
 })
 
 const mapDispatchToProps = {
+  setEditorState
 }
 
 class TextEditor extends Component {
@@ -27,11 +32,13 @@ class TextEditor extends Component {
     }
   }
 
-  static propTypes = { 
+  static propTypes = {
+    editorState: new Map()
   }
 
   static defaultProps = {
   }
+  
   
   componentWillMount() {
     this.getState(this.props)
@@ -45,7 +52,10 @@ class TextEditor extends Component {
   }
 
   getState = props => {
+    // Set the editorState from Redux if it exists else set an initial value
+    const editorState = props.editorState._immutable._map ? props.editorState : EditorState.createEmpty()
     this.setState({
+        editorState
       })
   }
 
@@ -58,10 +68,8 @@ class TextEditor extends Component {
   componentWillUnmount() {
   }
 
-  onEditorStateChange = (editorState) => {
-    this.setState({
-      editorState,
-    })
+  onEditorStateChange = editorState => {
+    this.props.setEditorState(editorState)
   }
 
   render() {
@@ -97,7 +105,7 @@ class TextEditor extends Component {
             toolbarClassName="Toolbar"
             editorState={editorState}
             onEditorStateChange={this.onEditorStateChange}
-          />
+              />
         </Col>
       </Row>
       <Row>

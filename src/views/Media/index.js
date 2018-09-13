@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, Tab} from 'react-bootstrap'
 import './styles.css'
@@ -13,6 +12,7 @@ import Images from './Images'
 import Videos from './Videos'
 import Streams from './Streams'
 import Podcasts from './Podcasts'
+import { Map, List } from 'immutable'
 
 const mapStateToProps = ({YouTubeChannelData}) => ({
   YouTubeChannelData
@@ -33,9 +33,9 @@ class Media extends Component {
   }
 
   static propTypes = {
-    images: ImmutableProptypes.listOf,
-    YouTubeChannelData: ImmutableProptypes.listOf,
-    history: ImmutableProptypes.map
+    images: new List(),
+    YouTubeChannelData: new List(),
+    history: new Map()
   }
 
   static defaultProps = {

@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, Image, NavItem} from 'react-bootstrap'
 import './styles.css'
 import Moment from 'react-moment'
 import {LinkContainer} from 'react-router-bootstrap'
 import {setVideoToWatch} from '../../../actions/Videos'
+import {List} from 'immutable'
 
 const mapStateToProps = ({VoTYouTubeChannelData}) => ({
   VoTYouTubeChannelData
@@ -27,7 +27,7 @@ class Videos extends Component {
   }
 
   static propTypes = {
-    VoTYouTubeChannelData: ImmutableProptypes.listOf,
+    VoTYouTubeChannelData: new List(),
     setVideoToWatch: PropTypes.func.isRequired
   }
 

@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import ImmutableProptypes from 'react-immutable-proptypes'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import './styles.css'
@@ -11,6 +10,7 @@ import Lore from './Lore'
 import Contests from './Contests'
 import Team from './Team'
 import Join from './Join'
+import { Map } from 'immutable'
 
 const mapStateToProps = ({}) => ({
 })
@@ -29,7 +29,7 @@ class Guild extends Component {
   }
 
   static propTypes = { 
-    history: ImmutableProptypes.map
+    history: new Map()
   }
 
   static defaultProps = {
