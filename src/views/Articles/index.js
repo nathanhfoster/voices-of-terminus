@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
+import Drag from '../../components/Drag'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
@@ -84,6 +85,10 @@ class Articles extends Component {
       <Grid className="Articles Container">
         <Row>
           <TextEditor />
+        </Row>
+
+        <Row>
+          <Drag />
         </Row>
 
         <Row>

@@ -52,9 +52,7 @@
  -o-transition:  background-color 1s ease-out;
  transition:  background-color 1s ease-out;
  } */
-.dropdown-menu > .active > a, .dropdown-menu > .active > a:focus, .dropdown-menu > .active > a:hover {
-  background-color: inherit;
-}
+
 /* Bootstrap Navbar */
 .navbar {
   list-style-type: none;
@@ -63,9 +61,11 @@
   border-radius: 0%;
   flex-grow: 1;
 }
+.navbar-toggle {
+  border: 1px solid var(--grey) !important;
+}
 .navbar-toggle:hover, .navbar-toggle:focus {
-  background-color: var(--primaryColor !important);
-  border-color: var(--primaryColor);
+background-color: inherit !important;  
 }
 .navbar-inverse .navbar-brand {
   padding: 0;
@@ -77,8 +77,8 @@
   color: white;
 }
 .navbar-inverse .navbar-nav > li > a:hover, .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover {
-  color: var(--primaryColor);
-  background-color: inherit;
+  color: var(--primaryColor) !important;
+  background-color: inherit !important;
 }
 /* button */
 .navbar-toggle {

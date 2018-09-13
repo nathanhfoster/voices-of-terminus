@@ -66,12 +66,9 @@
   .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks li:hover, .Home .votDifferenceContainer .votDifferenceText .SocialMediaLinks a:hover {
     color: var(--primaryColor);
   }
-  .AboutContainer {
-    text-align: center;
-    font-size: 18px;
-    font-family: 'Cinzel', serif;
-    font-weight: 900;
-    color: black;
+
+  .Home .newsFeed {
+    margin-top: 20px;
   }
   @keyframes about {
     0% {

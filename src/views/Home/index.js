@@ -5,7 +5,6 @@ import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
 import { Grid, Row, Col, NavItem } from 'react-bootstrap'
 import YouTube from 'react-youtube'
-import ScrollTextBox from '../../components/ScrollTextBox'
 import { Map } from 'immutable'
 
 const mapStateToProps = ({VoTYouTubeChannelData, VRYouTubeChannelData}) => ({
@@ -109,12 +108,7 @@ class Home extends Component {
           </Col>
         </Row>
         <Row>
-          <Col className="AboutContainer">
-            <ScrollTextBox URL = {"/guild/roster"} Title = {"Discover"}/>
-          </Col>
-        </Row>
-        <Row>
-          <Col lg={3} md={3} sm={3}>
+          <Col lg={3} md={3} sm={3} className="newsFeed">
            <div>
               <Timeline
                     dataSource={{
@@ -145,40 +139,37 @@ class Home extends Component {
            </div>
               
           </Col>
-          <Col lg={6} md={6}>
-            <Row>
-                <h1>Latest From VoT</h1>
-                {votLatestVideo ? 
-                  <YouTube
-                  videoId={votLatestVideo.videoId}              // defaults -> null
-                  // id={string}                       // defaults -> null
-                  className="Clickable"              // defaults -> null
-                  // containerClassName={string}       // defaults -> ''
-                  opts={youTubeOpts}                   // defaults -> {}
-                  onReady={this._onReady}              // defaults -> noop
-                  // onPlay={func}                     // defaults -> noop
-                  // onPause={func}                    // defaults -> noop
-                  // onEnd={func}                      // defaults -> noop
-                  // onError={func}                    // defaults -> noop
-                  // onStateChange={func}              // defaults -> noop
-                  // onPlaybackRateChange={func}       // defaults -> noop
-                  // onPlaybackQualityChange={func}    // defaults -> noop
-                /> : null
-                }
-            </Row>
-            <Row>
-              <h1>Latest From VR</h1>
-                {vrLatestVideo ? 
-                <YouTube
-                  videoId={vrLatestVideo.videoId}              // defaults -> null
-                  opts={youTubeOpts}                   // defaults -> {}
-                  onReady={this._onReady}              // defaults -> noop
-                /> : null
-                }
-            </Row>
+          <Col lg={6} md={6} className="newsFeed">
+            <h1>Latest From VoT</h1>
+            {votLatestVideo ? 
+              <YouTube
+              videoId={votLatestVideo.videoId}              // defaults -> null
+              // id={string}                       // defaults -> null
+              className="Clickable"              // defaults -> null
+              // containerClassName={string}       // defaults -> ''
+              opts={youTubeOpts}                   // defaults -> {}
+              onReady={this._onReady}              // defaults -> noop
+              // onPlay={func}                     // defaults -> noop
+              // onPause={func}                    // defaults -> noop
+              // onEnd={func}                      // defaults -> noop
+              // onError={func}                    // defaults -> noop
+              // onStateChange={func}              // defaults -> noop
+              // onPlaybackRateChange={func}       // defaults -> noop
+              // onPlaybackQualityChange={func}    // defaults -> noop
+            /> : null
+            }
+
+            <h1>Latest From VR</h1>
+            {vrLatestVideo ? 
+            <YouTube
+              videoId={vrLatestVideo.videoId}              // defaults -> null
+              opts={youTubeOpts}                   // defaults -> {}
+              onReady={this._onReady}              // defaults -> noop
+            /> : null
+            }
           </Col>
 
-          <Col lg={3} md={3} sm={12}>
+          <Col lg={3} md={3} sm={12} className="newsFeed">
               <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" height="742px" width="100%"/>
           </Col>
       </Row>

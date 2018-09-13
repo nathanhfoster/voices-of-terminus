@@ -91,7 +91,7 @@ input, select, textarea{
 .routeOverlay {
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: var(--primaryBackGroundOpacity);
+  background-color: rgba(0, 0, 0, .6);
   position: absolute;
   z-index: 1;
   left: 0; right: 0;
