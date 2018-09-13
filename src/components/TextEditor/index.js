@@ -11,7 +11,6 @@ import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
 import {Map} from 'immutable'
-import {isEmpty} from '../../helpers/helpers'
 
 const mapStateToProps = ({editorState}) => ({
   editorState
@@ -53,9 +52,9 @@ class TextEditor extends Component {
 
   getState = props => {
     // Set the editorState from Redux if it exists else set an initial value
-    const editorState = props.editorState.hasOwnProperty('_immutable') ? props.editorState : EditorState.createEmpty()
+    const editorState = props.editorState.hasOwnProperty('_immutable') && props.editorState._immutable.hasOwnProperty('_map') ? props.editorState : EditorState.createEmpty()
     this.setState({
-        editorState
+       editorState
       })
   }
 
