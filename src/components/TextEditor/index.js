@@ -53,7 +53,7 @@ class TextEditor extends Component {
 
   getState = props => {
     // Set the editorState from Redux if it exists else set an initial value
-    const editorState = props.editorState._immutable._map ? props.editorState : EditorState.createEmpty()
+    const editorState = props.editorState.hasOwnProperty('_immutable') ? props.editorState : EditorState.createEmpty()
     this.setState({
         editorState
       })
