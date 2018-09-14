@@ -85,6 +85,7 @@ class App extends Component {
       {path: '/articles', component: Articles},
       {path: '/calendar', component: GuildCalendar},
       {path: '/news/:id', component: News},
+      {path: '/guild/about', component: Guild},
       {path: '/guild/roster', component: Guild},
       {path: '/guild/charters', component: Guild},
       {path: '/guild/lore', component: Guild},

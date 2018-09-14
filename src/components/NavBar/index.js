@@ -69,12 +69,13 @@ class NavBar extends Component {
               <LinkContainer to ="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
               <LinkContainer to ="/news/1"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
-                <LinkContainer to ="/guild/roster"><NavItem eventKey={5.1}>ROSTER</NavItem></LinkContainer>
-                <LinkContainer to ="/guild/charters"><NavItem eventKey={5.2}>CHARTERS</NavItem></LinkContainer>
-                <LinkContainer to ="/guild/lore"><NavItem eventKey={5.3}>LORE</NavItem></LinkContainer>
-                <LinkContainer to ="/guild/contests"><NavItem eventKey={5.4}>CONTESTS</NavItem></LinkContainer>
-                <LinkContainer to ="/guild/team"><NavItem eventKey={5.5}>TEAM</NavItem></LinkContainer>
-                <LinkContainer to ="/guild/join"><NavItem eventKey={5.6}>JOIN</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/roster"><NavItem eventKey={5.2}>ROSTER</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/charters"><NavItem eventKey={5.3}>CHARTERS</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/lore"><NavItem eventKey={5.4}>LORE</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/contests"><NavItem eventKey={5.5}>CONTESTS</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/team"><NavItem eventKey={5.6}>TEAM</NavItem></LinkContainer>
+                <LinkContainer to ="/guild/join"><NavItem eventKey={5.7}>JOIN</NavItem></LinkContainer>
               </NavDropdown>
               <NavDropdown eventKey={6} title="MEDIA" id="basic-nav-dropdown">
               <LinkContainer to ="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>
