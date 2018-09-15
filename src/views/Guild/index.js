@@ -4,6 +4,7 @@ import {withRouter} from 'react-router-dom'
 import './styles.css'
 import {Grid, Row, Tabs, Tab, PageHeader} from 'react-bootstrap'
 
+import About from './About'
 import Roster from './Roster'
 import Charters from './Charters'
 import Lore from './Lore'
@@ -11,6 +12,7 @@ import Contests from './Contests'
 import Team from './Team'
 import Join from './Join'
 import { Map } from 'immutable'
+import ScrollTextBox from '../../components/ScrollTextBox'
 
 const mapStateToProps = ({}) => ({
 })
@@ -34,6 +36,7 @@ class Guild extends Component {
 
   static defaultProps = {
     TabItems: [
+      {Route: "/guild/about", Title: "ABOUT", Component: About},
       {Route: "/guild/roster", Title: "ROSTER", Component: Roster},
       {Route: "/guild/charters", Title: "CHARTERS", Component: Charters},
       {Route: "/guild/lore", Title: "LORE", Component: Lore},
