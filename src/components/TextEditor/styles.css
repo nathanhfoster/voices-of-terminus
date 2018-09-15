@@ -67,8 +67,11 @@
 .TextEditor .rdw-editor-toolbar {
   margin-bottom: 20px;
 }
-.TextEditor .Toolbar {
+
+.TextEditor {
   opacity: var(--mainOpacity);
+}
+.TextEditor .Toolbar {
   background: var(--slate_grey);
   border: 0;
   border-radius: 4px;
