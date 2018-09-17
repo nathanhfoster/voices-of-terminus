@@ -6,6 +6,7 @@ import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
 import TextEditor from '../../components/TextEditor'
+import {postEditorState} from '../../actions/TextEditor'
 
 const mapStateToProps = ({}) => ({
 })
@@ -51,6 +52,7 @@ class Articles extends Component {
   /* render() */
 
   componentDidMount() {
+    postEditorState('AXIOS FTW')
   }
   
   componentWillReceiveProps(nextProps) {
