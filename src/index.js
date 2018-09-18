@@ -5,6 +5,7 @@ import App from './App'
 import registerServiceWorker from './registerServiceWorker'
 import storeFactory from './store'
 import { Provider } from 'react-redux'
+require('dotenv').config()
 
 // Register service worker to control making site work offline
 

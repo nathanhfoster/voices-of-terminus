@@ -1,17 +1,15 @@
 import C from '../constants'
 import axios from 'axios'
 const qs = require('qs')
+const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : process.env.REACT_APP_API_URL
 const Axios = axios.create({
-    //baseURL: 'http://localhost:8000/',
-    baseURL: 'https://voices-of-terminus-db.herokuapp.com/',
-    timeout: 5000,
+    baseURL: API_URL,
+    timeout: 30000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   }
 })
-
-
 
 export const setEditorState = (editorState) => ({
     type: C.SET_EDITOR_STATE,
@@ -31,6 +29,7 @@ export const setEditorState = (editorState) => ({
  }
 
  export function getEditorState(){
+   console.log("API_URL: ", API_URL)
   Axios.get('api/v1/articles/')
  .then(response => {
    console.log("GET: ", response.data)

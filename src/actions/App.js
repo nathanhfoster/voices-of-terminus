@@ -1,11 +1,11 @@
 import C from '../constants'
 import axios from 'axios'
 import YTube from 'ytube'
-const youTubeKey = "AIzaSyC6MMK9-cwILUqSJBDomKobEE30q_77CZ4"
+const youTubeKey = process.env.REACT_APP_YOUTUBE_API_KEY
 const ytube = new YTube(youTubeKey)
-const votYouTubeChanneID = "UCQ0BiIpfN9b5kUP8TA9eG1A"
-const vrYouTubeChanneID = "UC4MbaiykerIrjKWRA6407tQ"
-const DISCORD_URL = "https://discordapp.com/api/guilds/161500442088439808/widget.json"
+const votYouTubeChanneID = process.env.REACT_APP_VOT_YOUTUBE_CHANNEL_ID
+const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID
+const DISCORD_URL = process.env.REACT_APP_DISCORD_API_URL
 
 export function setVoTYouTubeChannelData() {
     return (dispatch) => ytube.getChannelsLatestVideos(votYouTubeChanneID, 50)
