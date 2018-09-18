@@ -17,7 +17,7 @@ export const setEditorState = (editorState) => ({
  })
 
  export function postEditorState(title){
-    Axios.post('admin/api/v1/articles/',
+    Axios.post("admin/api/v1/articles/",
      qs.stringify({ 'title': title })
    )
    .then(response => {
@@ -29,9 +29,10 @@ export const setEditorState = (editorState) => ({
  }
 
  export function getEditorState(){
+   console.log("API_URL typeof: ", typeof API_URL)
    console.log("API_URL: ", API_URL)
    console.log("process.env: ", process.env)
-  Axios.get('api/v1/articles/')
+  Axios.get("api/v1/articles/")
  .then(response => {
    console.log("GET: ", response.data)
  })
