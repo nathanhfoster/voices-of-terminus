@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
 import Drag from '../../components/Drag'
@@ -7,11 +8,14 @@ import './stylesM.css'
 import Card from '../../components/Card'
 import TextEditor from '../../components/TextEditor'
 import {postEditorState, getEditorState} from '../../actions/TextEditor'
+import { Map, List} from 'immutable'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({Articles}) => ({
+  Articles
 })
 
 const mapDispatchToProps = {
+  getEditorState
 }
 
 class Articles extends Component {
@@ -19,10 +23,13 @@ class Articles extends Component {
     super(props)
  
     this.state = {
+      Articles: []
     }
   }
 
-  static propTypes = { 
+  static propTypes = {
+    Articles: new List(),
+    getEditorState: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -53,7 +60,7 @@ class Articles extends Component {
 
   componentDidMount() {
     //postEditorState('AXIOS FTW')
-    getEditorState()
+    this.props.getEditorState()
   }
   
   componentWillReceiveProps(nextProps) {
@@ -61,8 +68,10 @@ class Articles extends Component {
   }
 
   getState = props => {
+    const {Articles} = props
     this.setState({
-      })
+      Articles
+    })
   }
 
   componentWillUpdate() {
@@ -83,7 +92,9 @@ class Articles extends Component {
   })
 
   render() {
+    const {Articles} = this.state
     const {Cards} = this.props
+    console.log(Articles)
     return (
       <Grid className="Articles Container">
         <Row>

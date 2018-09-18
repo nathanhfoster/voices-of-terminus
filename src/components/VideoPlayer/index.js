@@ -56,7 +56,7 @@ class VideoPlayer extends Component {
     const { match: { params: {id} } } = props
     this.setState({
       id
-      })
+    })
   }
 
   componentWillUpdate() {

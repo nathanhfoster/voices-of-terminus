@@ -3,7 +3,7 @@ import axios from 'axios'
 const qs = require('qs')
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 30000,
+    timeout: 20000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
@@ -28,14 +28,11 @@ export const setEditorState = (editorState) => ({
  }
 
  export function getEditorState(){
-   console.log("API_URL typeof: ", typeof process.env.REACT_APP_API_URL)
-   console.log("API_URL: ", process.env.REACT_APP_API_URL)
-   console.log("process.env: ", process.env)
-  Axios.get("api/v1/articles/")
- .then(response => {
-   console.log("GET: ", response.data)
- })
- .catch(error => {
-   console.log(error)
- })
+   return (dispatch) => Axios.get("api/v1/articles/")
+      .then(res=> {
+          dispatch ({
+            type: C.GET_ARTICLE_STATE,
+            payload: res.data
+        })
+      })
 }

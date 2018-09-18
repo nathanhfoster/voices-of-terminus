@@ -22,6 +22,9 @@ export const DiscordData = (state = {}, action) =>
 export const editorState = (state = {}, action) =>
 (action.type === C.SET_EDITOR_STATE) ? action.payload : state
 
+export const Articles = (state = {}, action) =>
+(action.type === C.GET_ARTICLE_STATE) ? action.payload : state
+
 export default combineReducers({
   VoTYouTubeChannelData,
   VRAllYouTubeChannelData,
@@ -29,5 +32,6 @@ export default combineReducers({
   VideoToWatch,
   Window,
   DiscordData,
-  editorState
+  editorState,
+  Articles
 })
