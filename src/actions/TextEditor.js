@@ -1,7 +1,7 @@
 import C from '../constants'
 import axios from 'axios'
 const qs = require('qs')
-const API_URL = process.env.NODE_ENV === 'development' ? 'http://localhost:8000/' : process.env.REACT_APP_API_URL
+const API_URL = process.env.REACT_APP_API_URL
 const Axios = axios.create({
     baseURL: API_URL,
     timeout: 30000,
