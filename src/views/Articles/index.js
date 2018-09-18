@@ -6,7 +6,7 @@ import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
 import TextEditor from '../../components/TextEditor'
-import {postEditorState} from '../../actions/TextEditor'
+import {postEditorState, getEditorState} from '../../actions/TextEditor'
 
 const mapStateToProps = ({}) => ({
 })
@@ -52,7 +52,8 @@ class Articles extends Component {
   /* render() */
 
   componentDidMount() {
-    postEditorState('AXIOS FTW')
+    //postEditorState('AXIOS FTW')
+    getEditorState()
   }
   
   componentWillReceiveProps(nextProps) {
