@@ -1,9 +1,8 @@
 import C from '../constants'
 import axios from 'axios'
 const qs = require('qs')
-const API_URL = process.env.REACT_APP_API_URL
 const Axios = axios.create({
-    baseURL: API_URL,
+    baseURL: process.env.REACT_APP_API_URL,
     timeout: 30000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
@@ -29,8 +28,8 @@ export const setEditorState = (editorState) => ({
  }
 
  export function getEditorState(){
-   console.log("API_URL typeof: ", typeof API_URL)
-   console.log("API_URL: ", API_URL)
+   console.log("API_URL typeof: ", typeof process.env.REACT_APP_API_URL)
+   console.log("API_URL: ", process.env.REACT_APP_API_URL)
    console.log("process.env: ", process.env)
   Axios.get("api/v1/articles/")
  .then(response => {
