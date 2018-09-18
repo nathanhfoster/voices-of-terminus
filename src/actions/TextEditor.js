@@ -30,6 +30,7 @@ export const setEditorState = (editorState) => ({
 
  export function getEditorState(){
    console.log("API_URL: ", API_URL)
+   console.log("process.env: ", process.env)
   Axios.get('api/v1/articles/')
  .then(response => {
    console.log("GET: ", response.data)
