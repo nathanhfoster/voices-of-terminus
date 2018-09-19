@@ -116,7 +116,7 @@ class Articles extends Component {
         </Row>
         
         <Row>
-          {this.renderCards(Cards)}
+          {this.renderCards(Articles)}
         </Row>
 
         <Row>

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid} from 'react-bootstrap'
+import Moment from 'react-moment'
 import './styles.css'
 
 const mapStateToProps = ({}) => ({
@@ -15,24 +16,34 @@ class Card extends Component {
     super(props)
     this.state = {
       Preview: null,
-      Title: '',
-      Author: '',
-      Tags: []
+      author: null,
+      body: '',
+      date_created: '',
+      date_modified: '',
+      id: null,
+      last_modified: null,
+      last_modified_by: null,
+      slug: null,
+      tags: '',
+      title: ''
     }
   }
 
   static propTypes = { 
     Preview: PropTypes.object,
-    Title: PropTypes.string,
-    Author: PropTypes.string,
-    Tags: PropTypes.array,
+    author: PropTypes.number,
+    body: PropTypes.string,
+    date_created: PropTypes.object,
+    date_modified: PropTypes.object,
+    id: PropTypes.number,
+    last_modified: PropTypes.object,
+    last_modified_by: PropTypes.object,
+    slug: PropTypes.string,
+    tags: PropTypes.string,
+    title: PropTypes.string
   }
 
   static defaultProps = {
-    Preview: null,
-    Title: '',
-    Author: '',
-    Tags: []
   }
   
   componentWillMount() {
@@ -55,12 +66,9 @@ class Card extends Component {
   }
 
   getState = props => {
-    const {Preview, Title, Author, Tags} = props
+    const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
     this.setState({
-      Preview,
-      Title,
-      Author,
-      Tags
+      author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title
       })
   }
 
@@ -74,18 +82,19 @@ class Card extends Component {
   }
 
   render() {
-    const {Preview, Title, Author, Tags} = this.state
+    const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
     return (
       <Grid className="Clickable Card">
         <div className="Preview">
           <div className="previewItem">
-            {Preview}
+            {body}
           </div>
         </div>
         <div className="Summary">
-          <h4>{Title}</h4>
-          <h5>{Author}</h5>
-          <h6>[{Tags.map(k => <b>{k} </b>)}]</h6>
+          <h4>Title: {title}</h4>
+          <h5>Author: {author}</h5>
+          <h6>Tags: [{tags}]</h6>
+          <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>
         </div>
       </Grid>
     )
