@@ -10,14 +10,3 @@ export const setWindow = (Window) => ({
         type: C.GET_WINDOW, 
         payload: getState().Window,
 })
-
-export const setGuildMembers = (guildMembers) => ({
-    type: C.SET_GUILD_MEMBERS,
-    payload: guildMembers
- })
-
-export const getGuildMembers = () => (dispatch, getState) => 
-    dispatch({ 
-        type: C.GET_GUILD_MEMBERS, 
-        payload: getState().guildMembers,
-})

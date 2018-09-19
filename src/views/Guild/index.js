@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import './styles.css'
@@ -11,14 +12,16 @@ import Lore from './Lore'
 import Contests from './Contests'
 import Team from './Team'
 import Join from './Join'
-import { Map } from 'immutable'
+import { Map, List } from 'immutable'
 import ScrollTextBox from '../../components/ScrollTextBox'
+import {getGuildMembers} from '../../actions/Guild'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({DiscordData}) => ({
+  DiscordData
 })
 
 const mapDispatchToProps = {
-  
+  getGuildMembers
 }
 
 class Guild extends Component {
@@ -26,12 +29,17 @@ class Guild extends Component {
     super(props)
  
     this.state = {
-      history: {}
+      history: {},
+      discordData: {},
+      guildMembers: []
     }
   }
 
   static propTypes = { 
-    history: new Map()
+    history: new Map(),
+    getGuildMembers: PropTypes.func.isRequired,
+    discordData: new Map(),
+    guildMembers: new List(),
   }
 
   static defaultProps = {
@@ -47,6 +55,7 @@ class Guild extends Component {
   }
   
   componentWillMount() {
+    this.props.getGuildMembers()
     this.getState(this.props)
   }
 
@@ -67,9 +76,11 @@ class Guild extends Component {
   }
 
   getState = props => {
+    const guildMembers = props.DiscordData.members
     const {history} = props
     this.setState({
-      history
+      history,
+      guildMembers
       })
   }
 
@@ -91,8 +102,9 @@ class Guild extends Component {
   })
   
   render() {
-    const {history} = this.state
+    const {history, guildMembers} = this.state
     const {TabItems} = this.props
+    console.log(guildMembers)
     return (
       <Grid className="Guild Container">
         <Row>
@@ -100,7 +112,7 @@ class Guild extends Component {
         </Row>
         <Row>
           <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={Route => history.push(Route)} animation={false}>
-            {this.renderTabs(TabItems)}
+            {guildMembers != null ? this.renderTabs(TabItems) : null}
           </Tabs>
         </Row>
       </Grid>

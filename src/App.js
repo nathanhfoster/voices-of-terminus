@@ -39,7 +39,7 @@ import bg6Mobile from './images/bg6M.png'
 // import bg4Mobile from './images/bg4-mobile.jpg'
 // import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
-import {setWindow, setVoTYouTubeChannelData, setAllVRYouTube, setVRYouTubeChannelData, setGuildMembers} from './actions/App'
+import {setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
 
 const mapStateToProps = ({ Window }) => ({
   Window
@@ -47,10 +47,9 @@ const mapStateToProps = ({ Window }) => ({
 
 const mapDispatchToProps = {
   setWindow,
-  setGuildMembers,
-  setVoTYouTubeChannelData,
-  setAllVRYouTube,
-  setVRYouTubeChannelData
+  getVoTYouTubeChannelData,
+  getAllVRYouTube,
+  getVRYouTubeChannelData
 }
 
 class App extends Component {
@@ -70,10 +69,9 @@ class App extends Component {
     width: PropTypes.number,
     height: PropTypes.number,
     isMobile: PropTypes.bool,
-    setGuildMembers: PropTypes.func.isRequired,
-    setVoTYouTubeChannelData: PropTypes.func.isRequired,
-    setAllVRYouTube: PropTypes.func.isRequired,
-    setVRYouTubeChannelData: PropTypes.func.isRequired,
+    getVoTYouTubeChannelData: PropTypes.func.isRequired,
+    getAllVRYouTube: PropTypes.func.isRequired,
+    getVRYouTubeChannelData: PropTypes.func.isRequired,
     routeItems: PropTypes.array,
     images: PropTypes.array,
     imagesMobile: PropTypes.array
@@ -118,10 +116,9 @@ class App extends Component {
   /* render() */
 
   componentDidMount() {
-    this.props.setVoTYouTubeChannelData()
-    this.props.setAllVRYouTube()
-    this.props.setVRYouTubeChannelData()
-    this.props.setGuildMembers()
+    this.props.getVoTYouTubeChannelData()
+    this.props.getAllVRYouTube()
+    this.props.getVRYouTubeChannelData()
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
   }

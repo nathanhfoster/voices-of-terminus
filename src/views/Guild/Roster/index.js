@@ -4,13 +4,11 @@ import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 
-
 const mapStateToProps = ({ DiscordData }) => ({
   DiscordData
 })
 
 const mapDispatchToProps = {
-  
 }
 
 class Roster extends Component {
@@ -64,6 +62,7 @@ class Roster extends Component {
   /* render() */
 
   componentDidMount() {
+
   }
   
   componentWillReceiveProps(nextProps) {
