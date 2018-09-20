@@ -15,10 +15,9 @@ export const setEditorState = (editorState) => ({
     payload: editorState
  })
 
- export function postEditorState(title){
-    Axios.post("admin/api/v1/articles/",
-     qs.stringify({ 'title': title })
-   )
+ export function postEditorState(payload){
+   const {author, body, slug, tags, title} = payload
+   Axios.post("admin/api/v1/articles/", qs.stringify({author, body, slug, tags, title }))
    .then(response => {
      console.log(response)
    })

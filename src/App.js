@@ -132,9 +132,6 @@ class App extends Component {
     this.setState({Window})
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

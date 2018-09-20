@@ -49,9 +49,6 @@ class Podcasts extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

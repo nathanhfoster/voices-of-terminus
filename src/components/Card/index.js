@@ -15,7 +15,6 @@ class Card extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      Preview: null,
       author: null,
       body: '',
       date_created: '',
@@ -30,7 +29,6 @@ class Card extends Component {
   }
 
   static propTypes = { 
-    Preview: PropTypes.object,
     author: PropTypes.number,
     body: PropTypes.string,
     date_created: PropTypes.object,
@@ -72,13 +70,17 @@ class Card extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 
   componentWillUnmount() {
+  }
+
+  removeHtmlTags = (body) => {
+    let html = body
+    let div = document.createElement("div");
+    div.innerHTML = html;
+    return div.textContent || div.innerText || "";
   }
 
   render() {
@@ -87,7 +89,7 @@ class Card extends Component {
       <Grid className="Clickable Card">
         <div className="Preview">
           <div className="previewItem">
-            {body}
+            {this.removeHtmlTags(body)}
           </div>
         </div>
         <div className="Summary">

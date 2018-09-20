@@ -9,7 +9,7 @@ import { Editor } from 'react-draft-wysiwyg'
 import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
-import {setEditorState} from '../../actions/TextEditor'
+import {setEditorState, postEditorState, getEditorState} from '../../actions/TextEditor'
 import {Map} from 'immutable'
 
 const mapStateToProps = ({editorState}) => ({
@@ -17,13 +17,15 @@ const mapStateToProps = ({editorState}) => ({
 })
 
 const mapDispatchToProps = {
-  setEditorState
+  setEditorState,
+  getEditorState
 }
 
 class TextEditor extends Component {
   constructor(props) {
     super(props)
     this.onEditorStateChange = this.onEditorStateChange.bind(this)
+    this.newArticle = this.newArticle.bind(this)
 
     this.state = {
       editorState: EditorState.createEmpty(),
@@ -43,7 +45,18 @@ class TextEditor extends Component {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate(nextProps) {
+    return true
+  }
+
+  componentWillUpdate() {
+  }
+
+  /* render() */
+
   componentDidMount() {
+    //postEditorState('AXIOS FTW')
+    this.props.getEditorState()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,9 +71,6 @@ class TextEditor extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 
@@ -71,6 +81,12 @@ class TextEditor extends Component {
     this.props.setEditorState(editorState)
   }
 
+  newArticle = () => {
+    const {editorState} = this.state
+    postEditorState({author: 2, body: draftToHtml(convertToRaw(editorState.getCurrentContent())), slug: 'Doc', tags: 'Lore', title:'Document 1'})
+    this.props.getEditorState()
+   }
+
   render() {
     const { editorState } = this.state
     return (
@@ -78,7 +94,7 @@ class TextEditor extends Component {
         <Row>
           <Col sm={12}>
             <ButtonToolbar>
-              <Button onClick={this.handleShow} className="newArticleButton">
+              <Button onClick={this.newArticle} className="newArticleButton">
                 New Article
               </Button>
             </ButtonToolbar>

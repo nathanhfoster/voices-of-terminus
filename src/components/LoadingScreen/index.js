@@ -46,10 +46,7 @@ class LoadingScreen extends Component {
     this.setState({
       })
   }
-
-  componentWillUpdate() {
-  }
-
+  
   componentDidUpdate() {
   }
 

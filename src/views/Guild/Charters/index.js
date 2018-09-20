@@ -50,9 +50,6 @@ class Charters extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

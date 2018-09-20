@@ -51,9 +51,6 @@ class Drag extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

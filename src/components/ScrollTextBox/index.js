@@ -57,9 +57,6 @@ class ScrollTextBox extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

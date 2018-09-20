@@ -51,9 +51,6 @@ class PageNotFound extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

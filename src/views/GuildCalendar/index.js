@@ -85,9 +85,6 @@ class GuildCalendar extends Component {
       })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

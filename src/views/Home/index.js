@@ -63,9 +63,6 @@ class Home extends Component {
     })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

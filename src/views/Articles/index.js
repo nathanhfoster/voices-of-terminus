@@ -7,7 +7,7 @@ import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
 import TextEditor from '../../components/TextEditor'
-import {postEditorState, getEditorState} from '../../actions/TextEditor'
+import {getEditorState} from '../../actions/TextEditor'
 import { Map, List} from 'immutable'
 
 const mapStateToProps = ({Articles}) => ({
@@ -62,6 +62,7 @@ class Articles extends Component {
     //postEditorState('AXIOS FTW')
     this.props.getEditorState()
   }
+
   
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
@@ -72,9 +73,6 @@ class Articles extends Component {
     this.setState({
       Articles
     })
-  }
-
-  componentWillUpdate() {
   }
 
   componentDidUpdate() {

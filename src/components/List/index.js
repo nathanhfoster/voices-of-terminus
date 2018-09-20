@@ -59,10 +59,7 @@ class List extends Component {
       data
       })
   }
-
-  componentWillUpdate() {
-  }
-
+  
   componentDidUpdate() {
   }
 

@@ -50,9 +50,6 @@ class Donate extends Component {
     })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 

@@ -59,9 +59,6 @@ class VideoPlayer extends Component {
     })
   }
 
-  componentWillUpdate() {
-  }
-
   componentDidUpdate() {
   }
 
