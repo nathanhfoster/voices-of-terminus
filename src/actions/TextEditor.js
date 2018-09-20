@@ -15,23 +15,34 @@ export const setEditorState = (editorState) => ({
     payload: editorState
  })
 
+ export function getEditorState(){
+  return (dispatch) => Axios.get("api/v1/articles/")
+     .then(res=> {
+         dispatch ({
+           type: C.GET_ARTICLE_STATE,
+           payload: res.data
+       })
+     })
+}
+
  export function postEditorState(payload){
    const {author, body, slug, tags, title} = payload
-   Axios.post("admin/api/v1/articles/", qs.stringify({author, body, slug, tags, title }))
+   Axios.post("api/v1/articles/", qs.stringify({author, body, slug, tags, title }))
    .then(response => {
-     console.log(response)
+     //console.log(response)
    })
    .catch(error => {
      console.log(error)
    })
  }
 
- export function getEditorState(){
-   return (dispatch) => Axios.get("api/v1/articles/")
-      .then(res=> {
-          dispatch ({
-            type: C.GET_ARTICLE_STATE,
-            payload: res.data
-        })
-      })
+ export function deleteArticle(id){
+   console.log("DELETE")
+   Axios.delete("api/v1/articles/", qs.stringify({id}))
+   .then(response => {
+    console.log(response)
+  })
+  .catch(error => {
+    console.log(error)
+  })
 }

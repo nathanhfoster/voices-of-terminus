@@ -11,6 +11,7 @@ import { Image } from 'react-bootstrap'
 import NavBar from './components/NavBar'
 import Home from './views/Home'
 import Articles from './views/Articles'
+import TextEditor from './views/Articles/TextEditor'
 import GuildCalendar from './views/GuildCalendar'
 import News from './views/News'
 import Guild from './views/Guild'
@@ -81,6 +82,7 @@ class App extends Component {
     routeItems: [
       {path: '/', component: Home},
       {path: '/articles', component: Articles},
+      {path: '/articles/new', component: TextEditor},
       {path: '/calendar', component: GuildCalendar},
       {path: '/news/:id', component: News},
       {path: '/guild/about', component: Guild},

@@ -1,5 +1,6 @@
 .TextEditor {
     font-family: 'proxima_novasemibold', Arial, sans-serif;
+    margin-top: 20px;
 }
 .TextEditor .newArticleButton {
   margin: 10px 0 10px;
@@ -83,4 +84,3 @@
   background-color: var(--grey);
   border-radius: 4px;
 }
-  

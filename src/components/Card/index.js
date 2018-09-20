@@ -3,17 +3,30 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid} from 'react-bootstrap'
 import Moment from 'react-moment'
+import {getEditorState} from '../../actions/TextEditor'
 import './styles.css'
+import axios from 'axios'
+
+const Axios = axios.create({
+    baseURL: process.env.REACT_APP_API_URL,
+    timeout: 20000,
+    headers: {
+      'Content-type': 'application/x-www-form-urlencoded',
+      'Accept': 'application/json'
+  }
+})
 
 const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
+  getEditorState
 }
 
 class Card extends Component {
   constructor(props) {
     super(props)
+    this.deleteArticle = this.deleteArticle.bind(this)
     this.state = {
       author: null,
       body: '',
@@ -38,7 +51,8 @@ class Card extends Component {
     last_modified_by: PropTypes.object,
     slug: PropTypes.string,
     tags: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    getEditorState: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -83,6 +97,18 @@ class Card extends Component {
     return div.textContent || div.innerText || "";
   }
 
+deleteArticle = event => {
+  const {id} = this.state
+    Axios.delete("api/v1/articles/" + id)
+    .then(response => {
+     console.log("DELETED: ", response)
+     this.props.getEditorState()
+   })
+   .catch(error => {
+     console.log(error)
+   })
+ }
+
   render() {
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
     return (
@@ -93,7 +119,7 @@ class Card extends Component {
           </div>
         </div>
         <div className="Summary">
-          <h4>Title: {title}</h4>
+          <h4>Title: {title}<div onClick={this.deleteArticle}><i class="deleteCard fa fa-trash-alt"/></div></h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>
           <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>

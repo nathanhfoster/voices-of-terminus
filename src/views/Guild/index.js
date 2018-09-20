@@ -101,7 +101,6 @@ class Guild extends Component {
   render() {
     const {history, guildMembers} = this.state
     const {TabItems} = this.props
-    console.log(guildMembers)
     return (
       <Grid className="Guild Container">
         <Row>

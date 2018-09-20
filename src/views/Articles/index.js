@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader,ButtonToolbar, Button } from 'react-bootstrap'
 import Drag from '../../components/Drag'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
-import TextEditor from '../../components/TextEditor'
 import {getEditorState} from '../../actions/TextEditor'
 import { Map, List} from 'immutable'
+import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = ({Articles}) => ({
   Articles
@@ -92,11 +92,14 @@ class Articles extends Component {
   render() {
     const {Articles} = this.state
     const {Cards} = this.props
-    console.log(Articles)
     return (
       <Grid className="Articles Container">
         <Row>
-          <TextEditor />
+        <ButtonToolbar>
+          <Button onClick={() => this.props.history.push('/articles/new')} className="newArticleButton">
+            New Article
+          </Button>
+          </ButtonToolbar>
         </Row>
 
         <Row>
@@ -126,4 +129,4 @@ class Articles extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Articles)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Articles))

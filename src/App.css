@@ -4,21 +4,6 @@
   width: 100vw;
 }
 
-.btn-default {
-  color: white;
-  background-color: var(--primaryColor);
-  border: 0;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-}
-.btn-default:hover {
-  background-color: white;
-  -webkit-transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
-  transition: all 0.3s ease-out;
-}
-
-
 .fadeThrough {
   height: 100%;
 }
