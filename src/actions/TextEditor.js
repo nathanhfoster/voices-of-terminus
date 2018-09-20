@@ -1,5 +1,6 @@
 import C from '../constants'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 const qs = require('qs')
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -7,7 +8,9 @@ const Axios = axios.create({
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
-  }
+  },
+  // xsrfCookieName: Cookies.get('csrftoken'),
+  // xsrfHeaderName: "X-CSRFToken"
 })
 
 export const setEditorState = (editorState) => ({

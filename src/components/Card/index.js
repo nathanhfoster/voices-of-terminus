@@ -119,7 +119,7 @@ deleteArticle = event => {
           </div>
         </div>
         <div className="Summary">
-          <h4>Title: {title}<div onClick={this.deleteArticle}><i class="deleteCard fa fa-trash-alt"/></div></h4>
+          <h4>Title: {title}<div onClick={this.deleteArticle}><div className="deleteCard"><i class="fa fa-trash-alt"/></div></div></h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>
           <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>

@@ -24,7 +24,7 @@ class TextEditor extends Component {
   constructor(props) {
     super(props)
     this.onEditorStateChange = this.onEditorStateChange.bind(this)
-    this.newArticle = this.newArticle.bind(this)
+    this.postArticle = this.postArticle.bind(this)
 
     this.state = {
       author: null,
@@ -91,13 +91,13 @@ class TextEditor extends Component {
 
   onChange = event => {
     event.target.name === 'title' ? this.setState({title: event.target.value})
-    : event.target.name === 'tags' ? this.setState({tags: event.target.value})
-    : event.target.name === 'slug' ? this.setState({slug: event.target.value}) : null
+    : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
   }
 
-  newArticle = () => {
+  postArticle = () => {
     const {editorState, title, tags} = this.state
-    postEditorState({author: 2, body: draftToHtml(convertToRaw(editorState.getCurrentContent())), slug: 'Doc', tags, title})
+    const body = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+    postEditorState({author: 2, body, slug: 'Doc', tags, title})
     this.setState({editorState: EditorState.createEmpty(), title: '', tags: '', slug: ''})
    }
 
@@ -113,9 +113,6 @@ class TextEditor extends Component {
               </FormGroup>
               <FormGroup className="editorForm">
                 <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
-              </FormGroup>
-              <FormGroup className="editorForm">
-                <FormControl value={slug} type="text" placeholder="Slug" name="slug" onChange={this.onChange.bind(this)}/>
               </FormGroup>
             </form>
           </Col>
@@ -143,7 +140,7 @@ class TextEditor extends Component {
         <Row>
           <Col sm={12}>
             <ButtonToolbar>
-              <Button onClick={this.newArticle} className="newArticleButton">
+              <Button onClick={this.postArticle} className="newArticleButton">
                 Post
               </Button>
             </ButtonToolbar>

@@ -8,6 +8,7 @@
     "draftjs-to-html": "^0.8.4",
     "html-to-draftjs": "^1.4.0",
     "immutable": "^3.8.2",
+    "js-cookie": "^2.2.0",
     "moment": "^2.22.2",
     "qs": "^6.5.2",
     "react": "^16.5.0",

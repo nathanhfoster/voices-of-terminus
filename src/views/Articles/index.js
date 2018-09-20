@@ -59,7 +59,6 @@ class Articles extends Component {
   /* render() */
 
   componentDidMount() {
-    //postEditorState('AXIOS FTW')
     this.props.getEditorState()
   }
 
