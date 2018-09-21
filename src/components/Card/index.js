@@ -13,7 +13,7 @@ const Axios = axios.create({
     password: 'voices123456'
     },
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 20000,
+    timeout: 5000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
