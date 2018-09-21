@@ -10,6 +10,7 @@
     "immutable": "^3.8.2",
     "js-cookie": "^2.2.0",
     "moment": "^2.22.2",
+    "moment-timezone": "^0.5.21",
     "qs": "^6.5.2",
     "react": "^16.5.0",
     "react-bootstrap": "^0.32.4",

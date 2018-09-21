@@ -41,6 +41,7 @@ import bg6Mobile from './images/bg6M.png'
 // import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
 import {setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
+import 'moment-timezone'
 
 const mapStateToProps = ({ Window }) => ({
   Window
