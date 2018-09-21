@@ -3,14 +3,18 @@ import axios from 'axios'
 import Cookies from 'js-cookie'
 const qs = require('qs')
 const Axios = axios.create({
+  auth: {
+    username: 'admin',
+    password: 'voices123456'
+    },
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 20000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   },
-  // xsrfCookieName: Cookies.get('csrftoken'),
-  // xsrfHeaderName: "X-CSRFToken"
+  xsrfCookieName: Cookies.get('csrftoken'),
+  xsrfHeaderName: "X-CSRFToken"
 })
 
 export const setEditorState = (editorState) => ({
@@ -29,8 +33,8 @@ export const setEditorState = (editorState) => ({
 }
 
  export function postEditorState(payload){
-   const {author, body, slug, tags, title} = payload
-   Axios.post("api/v1/articles/", qs.stringify({author, body, slug, tags, title }))
+   const {title, slug, author, body, tags, last_modified_by} = payload
+   Axios.post("api/v1/articles/", qs.stringify({title, slug, author, body, tags, last_modified_by}))
    .then(response => {
      //console.log(response)
    })

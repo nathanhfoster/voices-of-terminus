@@ -8,6 +8,10 @@ import './styles.css'
 import axios from 'axios'
 
 const Axios = axios.create({
+  auth: {
+    username: 'admin',
+    password: 'voices123456'
+    },
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 20000,
     headers: {
@@ -111,6 +115,7 @@ deleteArticle = event => {
 
   render() {
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
+    console.log(this.state.id)
     return (
       <Grid className="Clickable Card">
         <div className="Preview">

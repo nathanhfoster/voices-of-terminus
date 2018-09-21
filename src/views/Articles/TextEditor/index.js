@@ -97,7 +97,7 @@ class TextEditor extends Component {
   postArticle = () => {
     const {editorState, title, tags} = this.state
     const body = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    postEditorState({author: 2, body, slug: 'Doc', tags, title})
+    postEditorState({title, slug: 'Doc4', author: 8, body, tags, last_modified_by: 8})
     this.setState({editorState: EditorState.createEmpty(), title: '', tags: '', slug: ''})
    }
 
