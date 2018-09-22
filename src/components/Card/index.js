@@ -13,7 +13,7 @@ const Axios = axios.create({
     password: 'voices123456'
     },
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 5000,
+    timeout: 25000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
@@ -103,7 +103,7 @@ class Card extends Component {
 
 deleteArticle = event => {
   const {id} = this.state
-    Axios.delete("api/v1/articles/" + id)
+    Axios.delete('api/v1/articles/' + id)
     .then(response => {
      console.log("DELETED: ", response)
      this.props.getEditorState()

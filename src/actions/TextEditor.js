@@ -8,13 +8,13 @@ const Axios = axios.create({
     password: 'voices123456'
     },
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 5000,
+    timeout: 25000,
     headers: {
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   },
-  xsrfCookieName: Cookies.get('csrftoken'),
-  xsrfHeaderName: "X-CSRFToken"
+  // xsrfCookieName: Cookies.get('csrftoken'),
+  // xsrfHeaderName: "X-CSRFToken"
 })
 
 export const setEditorState = (editorState) => ({
@@ -34,7 +34,7 @@ export const setEditorState = (editorState) => ({
 
  export function postEditorState(payload){
    const {title, slug, author, body, tags, last_modified_by} = payload
-   Axios.post("api/v1/articles/", qs.stringify({title, slug, author, body, tags, last_modified_by}))
+   Axios.post('api/v1/articles/', qs.stringify({title, slug, author, body, tags, last_modified_by}))
    .then(response => {
      //console.log(response)
    })
