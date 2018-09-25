@@ -5,7 +5,7 @@ const qs = require('qs')
 const Axios = axios.create({
   auth: {
     username: 'admin',
-    password: 'voices123456'
+    password: 'vot123456'
     },
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 25000,

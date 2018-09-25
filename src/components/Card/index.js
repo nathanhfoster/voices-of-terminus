@@ -10,7 +10,7 @@ import axios from 'axios'
 const Axios = axios.create({
   auth: {
     username: 'admin',
-    password: 'voices123456'
+    password: 'vot123456'
     },
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 25000,
@@ -96,9 +96,9 @@ class Card extends Component {
 
   removeHtmlTags = (body) => {
     let html = body
-    let div = document.createElement("div");
+    let div = document.createElement("div")
     div.innerHTML = html;
-    return div.textContent || div.innerText || "";
+    return div.textContent || div.innerText || ""
   }
 
 deleteArticle = event => {
