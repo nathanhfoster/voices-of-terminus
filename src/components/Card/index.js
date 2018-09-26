@@ -103,7 +103,6 @@ deleteArticle = event => {
   const {id} = this.state
     Axios.delete('api/v1/articles/' + id)
     .then(response => {
-     console.log("DELETED: ", response)
      this.props.getEditorState()
    })
    .catch(error => {
@@ -113,7 +112,6 @@ deleteArticle = event => {
 
   render() {
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
-    console.log(this.state.id)
     return (
       <Grid className="Clickable Card">
         <div className="Preview">

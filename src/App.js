@@ -43,8 +43,9 @@ import Footer from './components/Footer'
 import {setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
 import 'moment-timezone'
 
-const mapStateToProps = ({ Window }) => ({
-  Window
+const mapStateToProps = ({Window, LoginToken}) => ({
+  Window,
+  LoginToken
 })
 
 const mapDispatchToProps = {

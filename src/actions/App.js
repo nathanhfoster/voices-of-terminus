@@ -51,10 +51,18 @@ export const setWindow = (Window) => ({
     payload: Window
  })
 
- export const login = (username, password) => {
-     Axios.post('api/v1/login/', qs.stringify({username, password}))
-     .then(res => {
+ export function setLoginToken(username, password) {
+    return (dispatch) => Axios.post('api/v1/login/', qs.stringify({username, password}))
+    .then(res => {
         Cookies.set('LoginToken', res.data.token, {expires: 365})
-        console.log('COOKIES: ', Cookies.get('LoginToken'))
-     }).catch((e)=>console.log(e))
+        dispatch({
+            type: C.SET_LOGIN_TOKEN,
+            payload: res.data.token
+         })
+    }).catch((e)=>console.log(e))
 }
+
+export const logout = () => ({
+    type: C.SET_LOGIN_TOKEN,
+    payload: null
+})

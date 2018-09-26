@@ -1,16 +1,18 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Cookies from 'js-cookie'
 import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, Checkbox, Button, PageHeader} from 'react-bootstrap'
-import {login} from '../../actions/App'
+import {setLoginToken} from '../../actions/App'
+import {withRouter} from 'react-router-dom'
 
-const mapStateToProps = () => ({
-
+const mapStateToProps = ({}) => ({
+  
 })
 
-const mapDispatchToProps = dispatch => {
-
+const mapDispatchToProps = {
+  setLoginToken
 }
 
 class Login extends Component {
@@ -26,7 +28,8 @@ class Login extends Component {
 
   static propTypes = {
     username: PropTypes.string,
-    password: PropTypes.string
+    password: PropTypes.string,
+    setLoginToken: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -75,9 +78,9 @@ class Login extends Component {
     }
   }
 
-  submit = () => {
+  login = () => {
     const {username, password} = this.state
-    login(username, password)
+    this.props.setLoginToken(username, password)
   }
 
   render() {
@@ -88,7 +91,7 @@ class Login extends Component {
         </Row>
         <Row>
           <Col>
-            <Form className="LoginForm" onSubmit={this.submit.bind(this)}>
+            <Form className="LoginForm">
           <Row>
             <Col md={6} smOffset={3} sm={6}>
               <FormGroup controlId="formHorizontalUsername">
@@ -116,7 +119,7 @@ class Login extends Component {
           <Row>
             <Col smOffset={3} sm={6}>
               <FormGroup>
-                  <Button onClick={this.submit}>Sign in</Button>
+                  <Button onClick={this.login}>Sign in</Button>
               </FormGroup>
             </Col>
           </Row>
@@ -129,4 +132,4 @@ class Login extends Component {
   }
 }
  
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Login)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Login))

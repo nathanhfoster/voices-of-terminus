@@ -38,7 +38,6 @@ export const setEditorState = (editorState) => ({
  }
 
  export function deleteArticle(id){
-   console.log("DELETE")
    Axios.delete("api/v1/articles/", qs.stringify({id}))
    .then(response => {
     console.log(response)

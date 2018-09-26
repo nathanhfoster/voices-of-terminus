@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import PropTypes from 'prop-types'
 import './styles.css'
 import './stylesM.css'
 import {Navbar, Nav, NavItem, NavDropdown, Image} from 'react-bootstrap'
@@ -7,12 +8,14 @@ import { LinkContainer } from 'react-router-bootstrap'
 import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
-import Cookies from 'js-cookie'
+import {logout} from '../../actions/App'
 
-const mapStateToProps = () => ({
+const mapStateToProps = ({LoginToken}) => ({
+  LoginToken
 })
 
 const mapDispatchToProps = {
+  logout
 }
 
 class NavBar extends Component {
@@ -25,6 +28,8 @@ class NavBar extends Component {
   }
 
   static propTypes = {
+    isLoginIn: PropTypes.bool,
+    logout: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -39,9 +44,9 @@ class NavBar extends Component {
   }
 
   getState = props => {
-    const isLoginIn = Cookies.get('LoginToken') ? true : false
+    const {LoginToken} = props
     this.setState({
-      isLoginIn
+      isLoginIn: LoginToken ? true : false
       })
   }
 
@@ -54,14 +59,8 @@ class NavBar extends Component {
   componentWillUnmount() {
   }
 
-  logout = () => {
-    console.log("LOGOUT")
-    Cookies.remove('LoginToken')
-  }
-
   render() {
     const {isLoginIn} = this.state
-    console.log(isLoginIn)
     const {navItem} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
@@ -102,7 +101,7 @@ class NavBar extends Component {
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
               {!isLoginIn ? <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>
-              : <NavItem onClick={this.logout}>Logout</NavItem>}
+              : <NavItem onClick={this.props.logout}>Logout</NavItem>}
             </Nav>
           </Navbar.Collapse>
   </Navbar>
