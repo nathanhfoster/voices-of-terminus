@@ -6,10 +6,10 @@ const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 25000,
     headers: {
-      'Authorization': "Token d91df0561d811c82c0c28c6c3ebe6b0863c451d1",
+      'Authorization': "Token " + Cookies.get('LoginToken'),
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
-  },
+    },
   // xsrfCookieName: Cookies.get('csrftoken'),
   // xsrfHeaderName: "X-CSRFToken"
 })
@@ -34,10 +34,7 @@ export const setEditorState = (editorState) => ({
    Axios.post('api/v1/articles/', qs.stringify({title, slug, author, body, tags, last_modified_by}))
    .then(response => {
      //console.log(response)
-   })
-   .catch(error => {
-     console.log(error)
-   })
+   }).catch((e)=>console.log(e))
  }
 
  export function deleteArticle(id){
@@ -45,8 +42,5 @@ export const setEditorState = (editorState) => ({
    Axios.delete("api/v1/articles/", qs.stringify({id}))
    .then(response => {
     console.log(response)
-  })
-  .catch(error => {
-    console.log(error)
-  })
+  }).catch((e)=>console.log(e))
 }

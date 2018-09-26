@@ -25,6 +25,9 @@ export const editorState = (state = {}, action) =>
 export const Articles = (state = {}, action) =>
 (action.type === C.GET_ARTICLE_STATE) ? action.payload : state
 
+export const LoginToken = (state = {}, action) =>
+(action.type === C.GET_LOGIN_TOKEN) ? action.payload : state
+
 export default combineReducers({
   VoTYouTubeChannelData,
   VRAllYouTubeChannelData,
@@ -33,5 +36,6 @@ export default combineReducers({
   Window,
   DiscordData,
   editorState,
-  Articles
+  Articles,
+  LoginToken
 })

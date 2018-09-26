@@ -140,7 +140,7 @@ class TextEditor extends Component {
         <Row>
           <Col sm={12}>
             <ButtonToolbar>
-              <Button onClick={this.postArticle} className="newArticleButton">
+              <Button type="submit" onClick={this.postArticle} className="newArticleButton">
                 Post
               </Button>
             </ButtonToolbar>

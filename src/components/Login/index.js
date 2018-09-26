@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import PropTypes from 'prop-types'
 import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, Checkbox, Button, PageHeader} from 'react-bootstrap'
+import {login} from '../../actions/App'
 
 const mapStateToProps = () => ({
 
@@ -17,12 +19,14 @@ class Login extends Component {
     super()
  
     this.state = {
-    
+      username: '',
+      password: ''
     }
   }
 
   static propTypes = {
-    
+    username: PropTypes.string,
+    password: PropTypes.string
   }
 
   static defaultProps = {
@@ -60,6 +64,22 @@ class Login extends Component {
   componentWillUnmount() {
   }
 
+  onChange = (e) => {
+    switch(e.target.type) {
+      case 'text':
+        this.setState({username: e.target.value})
+        break;
+      case 'password':
+      this.setState({password: e.target.value})
+      break;
+    }
+  }
+
+  submit = () => {
+    const {username, password} = this.state
+    login(username, password)
+  }
+
   render() {
     return (
       <Grid className="Login Container">
@@ -68,11 +88,11 @@ class Login extends Component {
         </Row>
         <Row>
           <Col>
-            <Form className="LoginForm">
+            <Form className="LoginForm" onSubmit={this.submit.bind(this)}>
           <Row>
             <Col md={6} smOffset={3} sm={6}>
-              <FormGroup controlId="formHorizontalEmail">
-                <FormControl type="email" placeholder="Email"/>
+              <FormGroup controlId="formHorizontalUsername">
+                <FormControl type="text" placeholder="Username" onChange={this.onChange}/>
               </FormGroup>
             </Col>
           </Row>
@@ -80,7 +100,7 @@ class Login extends Component {
           <Row>
             <Col md={6} smOffset={3} sm={6}>
               <FormGroup controlId="formHorizontalPassword">
-                <FormControl type="password" placeholder="Password" />
+                <FormControl type="password" placeholder="Password" onChange={this.onChange}/>
               </FormGroup>
             </Col>
           </Row>
@@ -96,7 +116,7 @@ class Login extends Component {
           <Row>
             <Col smOffset={3} sm={6}>
               <FormGroup>
-                  <Button type="submit">Sign in</Button>
+                  <Button onClick={this.submit}>Sign in</Button>
               </FormGroup>
             </Col>
           </Row>

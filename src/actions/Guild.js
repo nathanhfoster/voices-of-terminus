@@ -2,15 +2,6 @@ import C from '../constants'
 import axios from 'axios'
 const DISCORD_URL = process.env.REACT_APP_DISCORD_API_URL
 
-export function createUser(values) {
-    const request = axios.post('${ROOT_URL}/api/create_user/', values);
-    console.log("CREATE USER");
-    return {
-        //type: create_user,
-       // payload: request
-    }
-}
-
 export function getGuildMembers() {
     return (dispatch) => axios.get(DISCORD_URL)
         .then(res => res.data)

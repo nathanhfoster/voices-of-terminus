@@ -7,6 +7,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
+import Cookies from 'js-cookie'
 
 const mapStateToProps = () => ({
 })
@@ -19,6 +20,7 @@ class NavBar extends Component {
     super(props);
  
     this.state = {
+      isLoginIn: false,
     }
   }
 
@@ -37,8 +39,9 @@ class NavBar extends Component {
   }
 
   getState = props => {
+    const isLoginIn = Cookies.get('LoginToken') ? true : false
     this.setState({
-      
+      isLoginIn
       })
   }
 
@@ -51,7 +54,14 @@ class NavBar extends Component {
   componentWillUnmount() {
   }
 
+  logout = () => {
+    console.log("LOGOUT")
+    Cookies.remove('LoginToken')
+  }
+
   render() {
+    const {isLoginIn} = this.state
+    console.log(isLoginIn)
     const {navItem} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
@@ -91,7 +101,8 @@ class NavBar extends Component {
                 <NavItem eventKey={7.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
-              <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>
+              {!isLoginIn ? <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>
+              : <NavItem onClick={this.logout}>Logout</NavItem>}
             </Nav>
           </Navbar.Collapse>
   </Navbar>

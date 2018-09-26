@@ -6,12 +6,13 @@ import Moment from 'react-moment'
 import {getEditorState} from '../../actions/TextEditor'
 import './styles.css'
 import axios from 'axios'
+import Cookies from 'js-cookie'
 
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 25000,
     headers: {
-      'Authorization': "Token d91df0561d811c82c0c28c6c3ebe6b0863c451d1",
+      'Authorization': "Token " + Cookies.get('LoginToken'),
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   }
