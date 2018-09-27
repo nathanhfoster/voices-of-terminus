@@ -8,14 +8,15 @@ import { LinkContainer } from 'react-router-bootstrap'
 import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
-import {logout} from '../../actions/App'
+import {Logout} from '../../actions/App'
+import Cookies from 'js-cookie'
 
 const mapStateToProps = ({LoginToken}) => ({
   LoginToken
 })
 
 const mapDispatchToProps = {
-  logout
+  Logout
 }
 
 class NavBar extends Component {
@@ -29,7 +30,7 @@ class NavBar extends Component {
 
   static propTypes = {
     isLoginIn: PropTypes.bool,
-    logout: PropTypes.func.isRequired
+    Logout: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -57,6 +58,11 @@ class NavBar extends Component {
   }
   
   componentWillUnmount() {
+  }
+
+  Logout = () => {
+    Cookies.remove('LoginToken')
+    this.props.Logout()
   }
 
   render() {
@@ -101,7 +107,7 @@ class NavBar extends Component {
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
               {!isLoginIn ? <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>
-              : <NavItem onClick={this.props.logout}>Logout</NavItem>}
+              : <NavItem onClick={this.Logout}>Logout</NavItem>}
             </Nav>
           </Navbar.Collapse>
   </Navbar>

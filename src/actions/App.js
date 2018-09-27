@@ -62,7 +62,7 @@ export const setWindow = (Window) => ({
     }).catch((e)=>console.log(e))
 }
 
-export const logout = () => ({
-    type: C.SET_LOGIN_TOKEN,
+export const Logout = () => ({
+    type: C.SET_LOGOUT,
     payload: null
 })

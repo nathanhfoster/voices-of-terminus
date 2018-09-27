@@ -108,7 +108,7 @@ class Guild extends Component {
         </Row>
         <Row>
           <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={Route => history.push(Route)} animation={false}>
-            {guildMembers.length ? this.renderTabs(TabItems) : null}
+            {guildMembers != null ? this.renderTabs(TabItems) : null}
           </Tabs>
         </Row>
       </Grid>

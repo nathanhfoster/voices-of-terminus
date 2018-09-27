@@ -116,7 +116,7 @@ class Articles extends Component {
         </Row>
         
         <Row>
-          {Articles.length ? this.renderCards(Articles) : null}
+          {Articles != null  ? this.renderCards(Articles) : null}
         </Row>
 
         <Row>
