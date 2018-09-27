@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import Calendar from 'react-calendar/dist/entry.nostyle'
-import List from '../../components/List'
+import { Map, List} from 'immutable'
+import EventList from '../../components/EventList'
 import {Grid, Row, Col, PageHeader, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import MomentJS from 'moment'
@@ -29,7 +30,7 @@ class GuildCalendar extends Component {
 
   static propTypes = { 
     activeDate: PropTypes.Date,
-    events: PropTypes.array,
+    events: new List(),
     isMobile: PropTypes.bool
   }
 
@@ -157,7 +158,7 @@ class GuildCalendar extends Component {
           </Col>
           <Col className="EventList" lgHidden mdHidden sm={12}>
             <h2><Moment format="MM-D" filter={this.formatDate}>{activeDate}</Moment></h2>
-            <List data={events} activeDate={activeDate}/>
+            <EventList data={events} activeDate={activeDate}/>
           </Col>
         </Row>
       </Grid>

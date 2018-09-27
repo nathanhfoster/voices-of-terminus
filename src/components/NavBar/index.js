@@ -11,8 +11,8 @@ import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 import {Logout} from '../../actions/App'
 import Cookies from 'js-cookie'
 
-const mapStateToProps = ({LoginToken}) => ({
-  LoginToken
+const mapStateToProps = ({User}) => ({
+  User
 })
 
 const mapDispatchToProps = {
@@ -24,12 +24,10 @@ class NavBar extends Component {
     super(props);
  
     this.state = {
-      isLoginIn: false,
     }
   }
 
   static propTypes = {
-    isLoginIn: PropTypes.bool,
     Logout: PropTypes.func.isRequired
   }
 
@@ -45,9 +43,9 @@ class NavBar extends Component {
   }
 
   getState = props => {
-    const {LoginToken} = props
+    const {User} = props
     this.setState({
-      isLoginIn: LoginToken ? true : false
+      User
       })
   }
 
@@ -61,12 +59,13 @@ class NavBar extends Component {
   }
 
   Logout = () => {
-    Cookies.remove('LoginToken')
+    // Cookies.remove('User_LoginToken') when redirected to Articles from login the first get articles sends a 401
+    Cookies.remove('User_ID')
     this.props.Logout()
   }
 
   render() {
-    const {isLoginIn} = this.state
+    const {User} = this.state
     const {navItem} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
@@ -106,8 +105,8 @@ class NavBar extends Component {
                 <NavItem eventKey={7.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
-              {!isLoginIn ? <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>
-              : <NavItem onClick={this.Logout}>Logout</NavItem>}
+              {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> 
+              : <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>}
             </Nav>
           </Navbar.Collapse>
   </Navbar>

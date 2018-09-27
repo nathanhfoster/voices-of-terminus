@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { Map, List} from 'immutable'
 import { ListGroup, ListGroupItem } from 'react-bootstrap'
 import Moment from 'react-moment'
 import MomentJS from 'moment'
@@ -13,7 +14,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class List extends Component {
+class EventList extends Component {
   constructor(props) {
     super(props)
  
@@ -25,7 +26,7 @@ class List extends Component {
 
   static propTypes = { 
     activeDate: PropTypes.Date,
-    data: PropTypes.array
+    data: new List()
   }
 
   static defaultProps = {
@@ -93,4 +94,4 @@ class List extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(List)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(EventList)

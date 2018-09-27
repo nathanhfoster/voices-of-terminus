@@ -6,7 +6,7 @@ const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 25000,
     headers: {
-      'Authorization': "Token " + Cookies.get('LoginToken'),
+      'Authorization': "Token " + Cookies.get('User_LoginToken'),
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
     },
@@ -22,11 +22,12 @@ export const setEditorState = (editorState) => ({
  export function getEditorState(){
   return (dispatch) => Axios.get("api/v1/articles/")
      .then(res=> {
+       
          dispatch ({
            type: C.GET_ARTICLE_STATE,
            payload: res.data
        })
-     })
+     }).catch((e)=>console.log(e))
 }
 
  export function postEditorState(payload){

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { Map, List} from 'immutable'
 import {Grid} from 'react-bootstrap'
 import Moment from 'react-moment'
 import {getEditorState} from '../../actions/TextEditor'
@@ -12,7 +13,7 @@ const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 25000,
     headers: {
-      'Authorization': "Token " + Cookies.get('LoginToken'),
+      'Authorization': "Token " + Cookies.get('User_LoginToken'),
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   }
@@ -46,11 +47,11 @@ class Card extends Component {
   static propTypes = { 
     author: PropTypes.number,
     body: PropTypes.string,
-    date_created: PropTypes.object,
-    date_modified: PropTypes.object,
+    date_created: new Map(),
+    date_modified: new Map(),
     id: PropTypes.number,
-    last_modified: PropTypes.object,
-    last_modified_by: PropTypes.object,
+    last_modified: new Map(),
+    last_modified_by: new Map(),
     slug: PropTypes.string,
     tags: PropTypes.string,
     title: PropTypes.string,

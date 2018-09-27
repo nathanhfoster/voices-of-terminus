@@ -10,8 +10,9 @@ import {getEditorState} from '../../actions/TextEditor'
 import { Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
-const mapStateToProps = ({Articles}) => ({
-  Articles
+const mapStateToProps = ({Articles, User}) => ({
+  Articles,
+  User
 })
 
 const mapDispatchToProps = {
@@ -33,19 +34,10 @@ class Articles extends Component {
   }
 
   static defaultProps = {
-    Cards: [
-      { Preview: '1 Contents of a document', Title: 'TITLE 1', Author: 'AUTHOR 1', Tags: ['Review', 'Blog'] },
-      { Preview: '2 Contents of a document', Title: 'TITLE 2', Author: 'AUTHOR 2', Tags: ['FanFiction', 'Blog'] },
-      { Preview: '3 Contents of a document', Title: 'TITLE 3', Author: 'AUTHOR 3', Tags: ['Blog', 'Review'] },
-      { Preview: '4 Contents of a document', Title: 'TITLE 4', Author: 'AUTHOR 4 ', Tags: ['Blog'] },
-      { Preview: '5 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 5', Tags: ['Review', 'Blog'] },
-      { Preview: '6 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 6', Tags: ['FanFiction', 'Blog'] },
-      { Preview: '7 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 7', Tags: ['FanFiction', 'Review'] },
-      { Preview: '8 Contents of a document', Title: 'TITLE 8', Author: 'AUTHOR 8 ', Tags: ['Blog'] }
-    ]
   }
   
   componentWillMount() {
+    this.props.getEditorState()
     this.getState(this.props)
   }
 
@@ -59,18 +51,18 @@ class Articles extends Component {
   /* render() */
 
   componentDidMount() {
-    this.props.getEditorState()
+    
   }
-
   
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }
 
   getState = props => {
-    const {Articles} = props
+    const {Articles, User} = props
     this.setState({
-      Articles
+      Articles,
+      User
     })
   }
 
@@ -80,7 +72,7 @@ class Articles extends Component {
   componentWillUnmount() {
   }
 
-  renderCards = (Cards) => Cards.map(card => {
+  renderCards = (Articles) => Articles.map(card => {
     return (
       <Col className="CardContainer" md={3}>
         <Card {...card} />
@@ -89,15 +81,14 @@ class Articles extends Component {
   })
 
   render() {
-    const {Articles} = this.state
-    const {Cards} = this.props
+    const {Articles, User} = this.state
     return (
       <Grid className="Articles Container">
         <Row>
         <ButtonToolbar>
-          <Button onClick={() => this.props.history.push('/articles/new')} className="newArticleButton">
+          {User.token ? <Button onClick={() => this.props.history.push('/articles/new')} className="newArticleButton">
             New Article
-          </Button>
+          </Button> : null}
           </ButtonToolbar>
         </Row>
 
@@ -114,11 +105,10 @@ class Articles extends Component {
             <h3>Highlights</h3>
           </Col>
         </Row>
-        
         <Row>
-          {Articles != null  ? this.renderCards(Articles) : null}
+          
         </Row>
-
+          {Articles.length ? this.renderCards(Articles) : null}
         <Row>
           <Col sm={12}>
             <h3>Recent</h3>

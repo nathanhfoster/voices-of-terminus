@@ -11,8 +11,10 @@ import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState, postEditorState} from '../../../actions/TextEditor'
 import {Map} from 'immutable'
+import {Redirect} from 'react-router-dom'
 
-const mapStateToProps = ({editorState}) => ({
+const mapStateToProps = ({User, editorState}) => ({
+  User,
   editorState
 })
 
@@ -72,11 +74,13 @@ class TextEditor extends Component {
   }
 
   getState = props => {
+    const {User} = props
     // Set the editorState from Redux if it exists else set an initial value
     const editorState = props.editorState.hasOwnProperty('_immutable') && props.editorState._immutable.hasOwnProperty('_map') ? props.editorState : EditorState.createEmpty()
     this.setState({
-       editorState
-      })
+      User,
+      editorState
+    })
   }
 
   componentDidUpdate() {
@@ -102,9 +106,10 @@ class TextEditor extends Component {
    }
 
   render() {
-    const { editorState, title, tags, slug } = this.state
+    const {User, editorState, title, tags, slug } = this.state
     return (
-      <Grid className="TextEditor Container">
+      !User.token ? <Redirect to="/login"/>
+      :<Grid className="TextEditor Container">
         <Row>
           <Col sm={12}>
             <form>

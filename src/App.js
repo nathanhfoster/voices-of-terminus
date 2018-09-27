@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { Map, List} from 'immutable'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
 import './AppM.css'
@@ -43,9 +44,9 @@ import Footer from './components/Footer'
 import {setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
 import 'moment-timezone'
 
-const mapStateToProps = ({Window, LoginToken}) => ({
+const mapStateToProps = ({Window, User}) => ({
   Window,
-  LoginToken
+  User
 })
 
 const mapDispatchToProps = {
@@ -63,7 +64,8 @@ class App extends Component {
     this.state = { 
       width: 0,
       height: 0 ,
-      isMobile: false
+      isMobile: false,
+      User: {}
     }
   }
 
@@ -72,12 +74,13 @@ class App extends Component {
     width: PropTypes.number,
     height: PropTypes.number,
     isMobile: PropTypes.bool,
+    User: new Map(),
     getVoTYouTubeChannelData: PropTypes.func.isRequired,
     getAllVRYouTube: PropTypes.func.isRequired,
     getVRYouTubeChannelData: PropTypes.func.isRequired,
-    routeItems: PropTypes.array,
-    images: PropTypes.array,
-    imagesMobile: PropTypes.array
+    routeItems: new List(),
+    images: new List(),
+    imagesMobile: new List()
   }
 
   static defaultProps = {
@@ -132,8 +135,8 @@ class App extends Component {
   }
 
   getState = props => {
-    const {Window} = props
-    this.setState({Window})
+    const {Window, User} = props
+    this.setState({Window, User})
   }
 
   componentDidUpdate() {
@@ -150,7 +153,9 @@ class App extends Component {
     this.setState({height: innerHeight, width: innerWidth, isMobile})
   }
 
-  renderRouteItems = routeItems => routeItems.map(k => (<Route exact path={k.path} component={k.component}/>))
+  renderRouteItems = routeItems => routeItems.map(k => (
+  <Route exact path={k.path} component={k.component}/>
+  ))
 
   renderBackgroundImages = (images, shouldRespond) => images.map(k => (<Image src={k} width="100%" height="100%" responsive={shouldRespond}/>))
 

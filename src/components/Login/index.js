@@ -4,15 +4,15 @@ import PropTypes from 'prop-types'
 import Cookies from 'js-cookie'
 import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, Checkbox, Button, PageHeader} from 'react-bootstrap'
-import {setLoginToken} from '../../actions/App'
-import {withRouter} from 'react-router-dom'
+import {setUser} from '../../actions/App'
+import {withRouter, Redirect} from 'react-router-dom'
 
-const mapStateToProps = ({}) => ({
-  
+const mapStateToProps = ({User}) => ({
+  User
 })
 
 const mapDispatchToProps = {
-  setLoginToken
+  setUser
 }
 
 class Login extends Component {
@@ -29,7 +29,7 @@ class Login extends Component {
   static propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
-    setLoginToken: PropTypes.func.isRequired
+    setUser: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -57,7 +57,10 @@ class Login extends Component {
   }
 
   getState = props => {
+    const {User} = props
+
     this.setState({
+      User
       })
   }
 
@@ -80,12 +83,15 @@ class Login extends Component {
 
   login = () => {
     const {username, password} = this.state
-    this.props.setLoginToken(username, password)
+    this.props.setUser(username, password)
   }
 
   render() {
+    const {User} = this.state
+    const {history} = this.props
     return (
-      <Grid className="Login Container">
+      User.token ? <Redirect to={history.goBack()}/>
+      :<Grid className="Login Container">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
         </Row>
@@ -126,9 +132,8 @@ class Login extends Component {
         </Form>
           </Col>
         </Row>
-        
       </Grid>
-    );
+    )
   }
 }
  
