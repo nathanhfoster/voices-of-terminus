@@ -23,7 +23,7 @@ class GuildCalendar extends Component {
  
     this.state = {
       activeDate: Date,
-      events: [],
+      events: new List(),
       isMobile: false
     }
   }
@@ -38,7 +38,7 @@ class GuildCalendar extends Component {
     activeDate: new Date(),
     monthToString: {"01": 'Jan', "02": 'Feb', "03": 'Mar', "04": 'Apr', "05": 'May', "06": 'Jun',
                     "07": 'Jul', "08": 'Aug', "09": 'Sep', "10": 'Oct', "11": 'Nov', "12": 'Dec'},
-    events: [
+    events: List([
       {key: 1, name: 'Event 1',   startTime: new Date(2018, 8, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
       {key: 2, name: 'Event 2',   startTime: new Date(2018, 8, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
       {key: 3, name: 'Event 3',   startTime: new Date(2018, 8, 4, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
@@ -54,7 +54,7 @@ class GuildCalendar extends Component {
       {key: 13, name: 'Event 13', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 14, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 15, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
-    ]
+    ])
   }
   
   componentWillMount() {
