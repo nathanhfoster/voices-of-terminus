@@ -5,12 +5,14 @@ import { Map, List} from 'immutable'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 import EventList from '../../../components/EventList'
+import {getGuildMembers} from '../../../actions/Guild'
 
 const mapStateToProps = ({ DiscordData }) => ({
   DiscordData
 })
 
 const mapDispatchToProps = {
+  getGuildMembers
 }
 
 class Roster extends Component {
@@ -26,6 +28,7 @@ class Roster extends Component {
   static propTypes = {
     discordData: new Map(),
     guildMembers: new List(),
+    getGuildMembers: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -51,6 +54,7 @@ class Roster extends Component {
   }
   
   componentWillMount() {
+    this.props.getGuildMembers()
     this.getState(this.props)
   }
 
@@ -120,7 +124,7 @@ class Roster extends Component {
           </Row>
           <Row>
             <h3>Members</h3>
-            {this.renderGuildMembers('#0f0', guildMembers)}
+            {guildMembers != null ? this.renderGuildMembers('#0f0', guildMembers) : null}
           </Row>
         </Grid>
       </div>

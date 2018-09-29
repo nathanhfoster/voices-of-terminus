@@ -14,14 +14,11 @@ import Team from './Team'
 import Join from './Join'
 import { Map, List } from 'immutable'
 import ScrollTextBox from '../../components/ScrollTextBox'
-import {getGuildMembers} from '../../actions/Guild'
 
-const mapStateToProps = ({DiscordData}) => ({
-  DiscordData
+const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
-  getGuildMembers
 }
 
 class Guild extends Component {
@@ -30,16 +27,13 @@ class Guild extends Component {
  
     this.state = {
       history: {},
-      discordData: {},
-      guildMembers: []
+      discordData: new Map(),
     }
   }
 
   static propTypes = { 
     history: new Map(),
-    getGuildMembers: PropTypes.func.isRequired,
     discordData: new Map(),
-    guildMembers: new List(),
   }
 
   static defaultProps = {
@@ -55,7 +49,6 @@ class Guild extends Component {
   }
   
   componentWillMount() {
-    this.props.getGuildMembers()
     this.getState(this.props)
   }
 
@@ -76,11 +69,9 @@ class Guild extends Component {
   }
 
   getState = props => {
-    const guildMembers = props.DiscordData.members
     const {history} = props
     this.setState({
-      history,
-      guildMembers
+      history
       })
   }
 
@@ -99,7 +90,7 @@ class Guild extends Component {
   })
   
   render() {
-    const {history, guildMembers} = this.state
+    const {history} = this.state
     const {TabItems} = this.props
     return (
       <Grid className="Guild Container">
@@ -108,7 +99,7 @@ class Guild extends Component {
         </Row>
         <Row>
           <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={Route => history.push(Route)} animation={false}>
-            {guildMembers != null ? this.renderTabs(TabItems) : null}
+            {this.renderTabs(TabItems)}
           </Tabs>
         </Row>
       </Grid>

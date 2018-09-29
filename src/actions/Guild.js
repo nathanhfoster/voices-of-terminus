@@ -3,7 +3,6 @@ import axios from 'axios'
 const DISCORD_URL = process.env.REACT_APP_DISCORD_API_URL
 
 export function getGuildMembers() {
-    console.log("HERE")
     return (dispatch) => axios.get(DISCORD_URL)
         .then(res => res.data)
         .then(payload => {

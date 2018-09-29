@@ -22,7 +22,6 @@ export const setEditorState = (editorState) => ({
  export function getEditorState(){
   return (dispatch) => Axios.get("api/v1/articles/")
      .then(res=> {
-       
          dispatch ({
            type: C.GET_ARTICLE_STATE,
            payload: res.data
