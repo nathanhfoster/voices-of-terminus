@@ -11,8 +11,8 @@ const mapStateToProps = ({User}) => ({
 })
 
 const mapDispatchToProps = {
+  setUser,
   createUser,
-  setUser
 }
 
 class Login extends Component {
@@ -133,7 +133,7 @@ class Login extends Component {
             </Row>
             <Row className="centerButton">
               <ButtonGroup >
-                <Button type="submit" onClick={this.login}>Sign in</Button>
+                <Button onClick={this.login}>Sign in</Button>
                 <Button onClick={this.handleShow}>Create Account</Button>
                 <Button onClick={this.handleShow}>Forgot Password</Button>
               </ButtonGroup>
