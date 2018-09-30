@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Cookies from 'js-cookie'
 import './styles.css'
-import { Form, FormGroup, Grid, Row, Col, FormControl, Checkbox, Button, PageHeader} from 'react-bootstrap'
-import {setUser} from '../../actions/App'
-import {withRouter, Redirect} from 'react-router-dom'
+import { Form, FormGroup, Grid, Row, Col, FormControl, Checkbox, Button, PageHeader, ButtonGroup, Modal} from 'react-bootstrap'
+import {createUser, setUser} from '../../actions/App'
+import {Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({User}) => ({
   User
 })
 
 const mapDispatchToProps = {
+  createUser,
   setUser
 }
 
@@ -19,16 +19,21 @@ class Login extends Component {
   
   constructor(props) {
     super()
+    this.onChange = this.onChange.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+    this.handleHide = this.handleHide.bind(this)
  
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      show: false
     }
   }
 
   static propTypes = {
     username: PropTypes.string,
     password: PropTypes.string,
+    createUser: PropTypes.func.isRequired,
     setUser: PropTypes.func.isRequired
   }
 
@@ -71,19 +76,25 @@ class Login extends Component {
   }
 
   onChange = (e) => {
-    switch(e.target.type) {
-      case 'text':
-        this.setState({username: e.target.value})
-        break;
-      case 'password':
-      this.setState({password: e.target.value})
-      break;
-    }
+    this.setState({[e.target.name]: e.target.value})
   }
 
   login = () => {
     const {username, password} = this.state
     this.props.setUser(username, password)
+  }
+
+  handleShow() {
+    this.setState({show: true});
+  }
+
+  handleHide() {
+    this.setState({show: false});
+  }
+
+  createUserAccount = () => {
+    const {username, password, email, bio, primary_role, primary_class} = this.state
+    this.props.createUser(username, password, email, bio, primary_role, primary_class)
   }
 
   render() {
@@ -96,45 +107,85 @@ class Login extends Component {
           <PageHeader className="pageHeader">LOGIN</PageHeader>
         </Row>
         <Row>
-          <Col>
-            <Form className="LoginForm">
-          <Row>
-            <Col md={6} smOffset={3} sm={6}>
-              <FormGroup controlId="formHorizontalUsername">
-                <FormControl type="text" placeholder="Username" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-          </Row>
+          <Form className="LoginForm" onSubmit={(e)=>console.log(e.target)}>
+            <Row>
+              <Col md={6} smOffset={3} sm={6}>
+                <FormGroup controlId="formHorizontalUsername">
+                  <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+                </FormGroup>
+              </Col>
+            </Row>
 
-          <Row>
-            <Col md={6} smOffset={3} sm={6}>
-              <FormGroup controlId="formHorizontalPassword">
-                <FormControl type="password" placeholder="Password" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-          </Row>
+            <Row>
+              <Col md={6} smOffset={3} sm={6}>
+                <FormGroup controlId="formHorizontalPassword">
+                  <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                </FormGroup>
+              </Col>
+            </Row>
 
-          <Row>
-            <Col smOffset={3} sm={6}>
-              <FormGroup>
-                <Checkbox>Remember me</Checkbox>
-              </FormGroup>
-            </Col>
-          </Row>
-
-          <Row>
-            <Col smOffset={3} sm={6}>
-              <FormGroup>
-                  <Button onClick={this.login}>Sign in</Button>
-              </FormGroup>
-            </Col>
-          </Row>
-        </Form>
-          </Col>
+            <Row>
+              <Col smOffset={3} sm={6}>
+                <FormGroup>
+                  <Checkbox>Remember me</Checkbox>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row className="centerButton">
+              <ButtonGroup >
+                <Button type="submit" onClick={this.login}>Sign in</Button>
+                <Button onClick={this.handleShow}>Create Account</Button>
+                <Button onClick={this.handleShow}>Forgot Password</Button>
+              </ButtonGroup>
+            </Row>
+          </Form>
+            
+            <Row>
+              <Modal
+                {...this.props}
+                show={this.state.show}
+                onHide={this.handleHide}
+                dialogClassName="custom-modal"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title id="contained-modal-title-lg">
+                    Account Creation
+                  </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form className="Container">
+                    <Row>
+                      <FormGroup>
+                        <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <FormControl type="email" name="email" placeholder="Email" onChange={this.onChange}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <FormControl type="text" name="bio" placeholder="Bio" onChange={this.onChange}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <FormControl type="text" name="primary_role" placeholder="Primary Role" onChange={this.onChange}/>
+                      </FormGroup>
+                      <FormGroup>
+                        <FormControl type="text" name="primary_class" placeholder="Primary Class" onChange={this.onChange}/>
+                      </FormGroup>
+                    </Row>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.createUserAccount}>Create</Button>
+                </Modal.Footer>
+              </Modal>
+            </Row>
+         
         </Row>
       </Grid>
     )
   }
 }
  
-export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Login))
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Login)

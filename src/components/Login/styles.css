@@ -1,10 +1,10 @@
-  .Login .btn-default {
+  .Login .btn-default, .modal-content .btn-default {
     color: white;
     background-color: var(--primaryColor);
     border: 0;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   }
-  .Login .btn-default:hover {
+  .Login .btn-default:hover, .modal-content .btn-default:hover {
     background-color: white;
     color: black;
     -webkit-transition: all 0.3s ease-out;
@@ -15,4 +15,36 @@
   
   .LoginForm {
     margin: 40px;
+  }
+
+  .centerButton {
+    text-align: center;
+  }
+
+  .btn-group {
+    margin: 0 auto; 
+}
+
+  .modal-header {
+    text-align: center;
+  }
+
+.modal-content {
+    background-color: black;
+    color: white;
+  }
+
+.modal-content .close {
+    color: white;
+    opacity: 1;
+    text-shadow: none;
+  }
+
+  .modal-content .close:hover {
+    color: var(--primaryColor);
+    opacity: 1;
+  }
+  
+  .modal-footer {
+    text-align: center;
   }

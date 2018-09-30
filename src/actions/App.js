@@ -51,7 +51,20 @@ export const setWindow = (Window) => ({
     payload: Window
  })
 
- export function setUser(username, password) {
+ export function createUser(username, password, email, bio, primary_role, primary_class) {
+    return (dispatch) => Axios.post('api/v1/users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
+    .then(res => {
+        // dispatch({
+        //     type: C.SET_LOGIN_TOKEN,
+        //     payload: {token, id}
+        //  })
+
+    })
+    .then(() => this.setUser(username, password))
+    .catch((e)=>console.log(e))
+}
+
+export function setUser(username, password) {
     return (dispatch) => Axios.post('api/v1/login/', qs.stringify({username, password}))
     .then(res => {
         Cookies.set('User_LoginToken', res.data.token, {expires: 365})
