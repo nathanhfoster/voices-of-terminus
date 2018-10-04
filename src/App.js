@@ -9,12 +9,15 @@ import "regenerator-runtime/runtime"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
+import Admin from './views/Admin'
 import NavBar from './components/NavBar'
 import Home from './views/Home'
 import Articles from './views/Articles'
-import TextEditor from './views/Articles/TextEditor'
+import TextEditor from './components/TextEditor'
+import NewsLetterGenerator from './views/Articles/NewsLetterGenerator'
 import GuildCalendar from './views/GuildCalendar'
 import News from './views/News'
+import Forums from './views/Forums'
 import Guild from './views/Guild'
 import Media from './views/Media'
 import VideoPlayer from './components/VideoPlayer'
@@ -86,10 +89,14 @@ class App extends Component {
   static defaultProps = {
     routeItems: [
       {path: '/', component: Home},
+      {path: '/admin', component: Admin},
       {path: '/articles', component: Articles},
-      {path: '/articles/new', component: TextEditor},
+      {path: '/articles/new/article', component: TextEditor},
+      {path: '/articles/new/newsletter', component: NewsLetterGenerator},
+      {path: '/articles/view/:id', component: Articles},
       {path: '/calendar', component: GuildCalendar},
       {path: '/news/:id', component: News},
+      {path: '/forums/', component: Forums},
       {path: '/guild/about', component: Guild},
       {path: '/guild/roster', component: Guild},
       {path: '/guild/charters', component: Guild},
@@ -103,7 +110,7 @@ class App extends Component {
       {path: '/media/streams', component: Media},
       {path: '/media/podcasts', component: Media},
       {path: '/login', component: Login},
-      {path: '/donate', component: Donate}
+      {path: '/donate', component: Donate},
     ],
     images: [bg1, bg2, bg3, bg4, bg5, bg6, bg7],
     imagesMobile: [bg1Mobile, bg2Mobile, bg3Mobile, bg4Mobile, bg5Mobile, bg6Mobile]

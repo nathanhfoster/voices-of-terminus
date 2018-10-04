@@ -66,6 +66,7 @@
     border: 0;
     border-radius: 0;
     background-color: inherit;
+    color: inherit;
   }
   .react-calendar__month-view__days__day--neighboringMonth {
     background-color: var(--dark_grey !important);

@@ -10,8 +10,8 @@ export const VRAllYouTubeChannelData = (state = [], action) =>
 export const VRYouTubeChannelData = (state = [], action) =>
 (action.type === C.GET_VR_YOUTUBE_CHANNEL_DATA) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
 
-export const VideoToWatch = (state = [], action) =>
-(action.type === C.SET_VIDEO_TO_WATCH) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
+export const VideoToWatch = (state = {}, action) =>
+(action.type === C.SET_VIDEO_TO_WATCH) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
 
 export const Window = (state = {}, action) =>
 (action.type === C.SET_WINDOW) ? action.payload : {...state}

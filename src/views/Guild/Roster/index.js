@@ -108,7 +108,7 @@ class Roster extends Component {
     const {Leaders, Council, Officers} = this.props
     const {guildMembers} = this.state
     return (
-      <div className="Roster Container">
+      <div className="Roster">
         <Grid>
           <Row>
             <h3>Leader(s)</h3>

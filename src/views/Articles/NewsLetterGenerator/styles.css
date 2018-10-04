@@ -1,0 +1,7 @@
+.NewsLetterGenerator {
+    width: calc(100% - 446px);
+}
+
+.NewsLetterGenerator .buttonToolbar {
+    margin: 16px;
+}

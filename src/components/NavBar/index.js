@@ -79,30 +79,32 @@ class NavBar extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
+              {User.isSuperUser ? <LinkContainer to="/admin"><NavItem eventKey={9}>ADMIN</NavItem></LinkContainer> : null}
               <LinkContainer to="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
               <LinkContainer to="/news/1"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
+              <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
-                <LinkContainer to="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
-                <LinkContainer to="/guild/roster"><NavItem eventKey={5.2}>ROSTER</NavItem></LinkContainer>
-                <LinkContainer to="/guild/charters"><NavItem eventKey={5.3}>CHARTERS</NavItem></LinkContainer>
-                <LinkContainer to="/guild/lore"><NavItem eventKey={5.4}>LORE</NavItem></LinkContainer>
-                <LinkContainer to="/guild/contests"><NavItem eventKey={5.5}>CONTESTS</NavItem></LinkContainer>
-                <LinkContainer to="/guild/team"><NavItem eventKey={5.6}>TEAM</NavItem></LinkContainer>
-                <LinkContainer to="/guild/join"><NavItem eventKey={5.7}>JOIN</NavItem></LinkContainer>
+                <LinkContainer to="/guild/about"><NavItem eventKey={6.1}>ABOUT</NavItem></LinkContainer>
+                <LinkContainer to="/guild/roster"><NavItem eventKey={6.2}>ROSTER</NavItem></LinkContainer>
+                <LinkContainer to="/guild/charters"><NavItem eventKey={6.3}>CHARTERS</NavItem></LinkContainer>
+                <LinkContainer to="/guild/lore"><NavItem eventKey={6.4}>LORE</NavItem></LinkContainer>
+                <LinkContainer to="/guild/contests"><NavItem eventKey={6.5}>CONTESTS</NavItem></LinkContainer>
+                <LinkContainer to="/guild/team"><NavItem eventKey={6.6}>TEAM</NavItem></LinkContainer>
+                <LinkContainer to="/guild/join"><NavItem eventKey={6.7}>JOIN</NavItem></LinkContainer>
               </NavDropdown>
               <NavDropdown eventKey={6} title="MEDIA" id="basic-nav-dropdown">
-              <LinkContainer to="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>
-              <LinkContainer to="/media/videos"><NavItem eventKey={6.2}>VIDEOS</NavItem></LinkContainer>
-              <LinkContainer to="/media/streams"><NavItem eventKey={6.3}>STREAMS</NavItem></LinkContainer>
-              <LinkContainer to="/media/podcasts"><NavItem eventKey={6.4}>PODCASTS</NavItem></LinkContainer>
+              <LinkContainer to="/media/images"><NavItem eventKey={7.1}>IMAGES</NavItem></LinkContainer>
+              <LinkContainer to="/media/videos"><NavItem eventKey={7.2}>VIDEOS</NavItem></LinkContainer>
+              <LinkContainer to="/media/streams"><NavItem eventKey={7.3}>STREAMS</NavItem></LinkContainer>
+              <LinkContainer to="/media/podcasts"><NavItem eventKey={7.4}>PODCASTS</NavItem></LinkContainer>
             </NavDropdown>        
-              <NavDropdown eventKey={7} title="VR" id="connect-nav-dropdown">
+              <NavDropdown eventKey={8} title="VR" id="connect-nav-dropdown">
                 <Image src={vrLogo} className="vrLogo"/>
-                <NavItem eventKey={7.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
-                <NavItem eventKey={7.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
-                <NavItem eventKey={7.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
-                <NavItem eventKey={7.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
+                <NavItem eventKey={8.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
+                <NavItem eventKey={8.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
+                <NavItem eventKey={8.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
+                <NavItem eventKey={8.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
               <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
               {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> 

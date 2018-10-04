@@ -84,7 +84,7 @@ class Home extends Component {
       }
     }
     return (
-      <Grid className="Home Container">
+      <Grid className="Home Container ">
         <Row>
           <Col lg={3} md={3} sm={3} className="newsFeed">
            <div>

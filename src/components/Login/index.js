@@ -79,7 +79,8 @@ class Login extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
-  login = () => {
+  login = (e) => {
+    e.preventDefault()
     const {username, password} = this.state
     this.props.setUser(username, password)
   }
@@ -92,7 +93,8 @@ class Login extends Component {
     this.setState({show: false});
   }
 
-  createUserAccount = () => {
+  createUserAccount = (e) => {
+    e.preventDefault()
     const {username, password, email, bio, primary_role, primary_class} = this.state
     this.props.createUser(username, password, email, bio, primary_role, primary_class)
   }
@@ -107,7 +109,7 @@ class Login extends Component {
           <PageHeader className="pageHeader">LOGIN</PageHeader>
         </Row>
         <Row>
-          <Form className="LoginForm" onSubmit={(e)=>console.log(e.target)}>
+          <Form className="LoginForm" onSubmit={this.login} method="post">
             <Row>
               <Col md={6} smOffset={3} sm={6}>
                 <FormGroup controlId="formHorizontalUsername">
@@ -133,7 +135,7 @@ class Login extends Component {
             </Row>
             <Row className="centerButton">
               <ButtonGroup >
-                <Button onClick={this.login}>Sign in</Button>
+                <Button type="submit">Sign in</Button>
                 <Button onClick={this.handleShow}>Create Account</Button>
                 <Button onClick={this.handleShow}>Forgot Password</Button>
               </ButtonGroup>

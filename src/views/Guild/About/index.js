@@ -58,7 +58,7 @@ class About extends Component {
 
   render() {
     return (
-      <Grid className="About">
+      <Grid className="About Container">
         <Row>
           <Col className="votDifferenceContainer">
             <div className="votDifferenceText">

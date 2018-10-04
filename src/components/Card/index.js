@@ -8,6 +8,7 @@ import {getEditorState} from '../../actions/TextEditor'
 import './styles.css'
 import axios from 'axios'
 import Cookies from 'js-cookie'
+import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
@@ -32,7 +33,7 @@ class Card extends Component {
     this.deleteArticle = this.deleteArticle.bind(this)
     this.state = {
       author: null,
-      body: '',
+      body: '', 
       date_created: '',
       date_modified: '',
       id: null,
@@ -93,23 +94,20 @@ class Card extends Component {
   componentWillUnmount() {
   }
 
-  removeHtmlTags = (body) => {
-    let html = body
-    let div = document.createElement("div")
-    div.innerHTML = html;
-    return div.textContent || div.innerText || ""
+  showArticle = e => {
+
   }
 
-deleteArticle = event => {
-  const {id} = this.state
-    Axios.delete('api/v1/articles/' + id)
-    .then(response => {
-     this.props.getEditorState()
-   })
-   .catch(error => {
-     console.log(error)
-   })
- }
+  deleteArticle = e => {
+    const {id} = this.state
+      Axios.delete('api/v1/articles/' + id)
+      .then(response => {
+      this.props.getEditorState()
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  }
 
   render() {
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
@@ -117,7 +115,7 @@ deleteArticle = event => {
       <Grid className="Clickable Card">
         <div className="Preview">
           <div className="previewItem">
-            {this.removeHtmlTags(body)}
+            {ReactHtmlParser(body)}
           </div>
         </div>
         <div className="Summary">

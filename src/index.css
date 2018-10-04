@@ -142,6 +142,20 @@ body {
 .Container {
   color: white;
 }
+.Container .btn-default, .modal-content .btn-default {
+  color: white;
+  background-color: var(--primaryColor);
+  border: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+.Container .btn-default:hover, .modal-content .btn-default:hover {
+  background-color: white;
+  color: black;
+  -webkit-transition: all 0.3s ease-out;
+  -moz-transition: all 0.3s ease-out;
+  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-out;
+}
 .Container input {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);

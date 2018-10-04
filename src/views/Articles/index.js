@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader,ButtonToolbar, Button } from 'react-bootstrap'
-import Drag from '../../components/Drag'
+import NewsLetterGenerator from './/NewsLetterGenerator'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
@@ -86,14 +86,15 @@ class Articles extends Component {
       <Grid className="Articles Container">
         <Row>
         <ButtonToolbar>
-          {User.token ? <Button onClick={() => this.props.history.push('/articles/new')} className="newArticleButton">
+          {User.token ? 
+            <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
             New Article
-          </Button> : null}
+            </Button> : null}
+            {User.isStaff ? 
+              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+              Create Newsletter
+              </Button> : null}
           </ButtonToolbar>
-        </Row>
-
-        <Row>
-          <Drag />
         </Row>
 
         <Row>

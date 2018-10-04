@@ -6,10 +6,10 @@ import './styles.css'
 import './stylesM.css'
 import { EditorState, convertToRaw, ContentState } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
-import '../../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
+import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
-import {setEditorState, postEditorState} from '../../../actions/TextEditor'
+import {setEditorState, postEditorState} from '../../actions/TextEditor'
 import {Map} from 'immutable'
 import {Redirect} from 'react-router-dom'
 
@@ -99,9 +99,9 @@ class TextEditor extends Component {
   }
 
   postArticle = () => {
-    const {editorState, title, tags} = this.state
+    const {editorState, title, tags, User} = this.state
     const body = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    postEditorState({title, slug: 'Doc', author: 1, body, tags, last_modified_by: 1})
+    postEditorState({title, slug: 'Doc', author: User.id, body, tags, last_modified_by: User.id})
     this.setState({editorState: EditorState.createEmpty(), title: '', tags: '', slug: ''})
    }
 
