@@ -67,9 +67,9 @@ class Card extends Component {
   }
 
   getState = props => {
-    const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
+    const {author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
     this.setState({
-      author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title
+      author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title
       })
   }
 
@@ -87,12 +87,12 @@ class Card extends Component {
  
 
   render() {
-    const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
+    const {author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
     return (
       <Grid className="Clickable Card">
         <div className="Preview">
           <div className="previewItem">
-            {ReactHtmlParser(body)}
+            {ReactHtmlParser(html)}
           </div>
         </div>
         <div className="Summary">

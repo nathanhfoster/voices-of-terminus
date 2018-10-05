@@ -63,15 +63,18 @@ class NewsLetterGenerator extends Component {
   exportHtml = () => {
     const {User} = this.state
     this.editor.exportHtml(data => {
-      const { design, html } = data
-      console.log('exportHtml', html)
-      createNewsletter({title: 'Test', slug:"news", author: User.id, body: html, tags: 'tag', last_modified_by: User.id})
+      let { design, html } = data
+      design = JSON.stringify(design)
+      createNewsletter({title: 'Test', slug:"news", author: User.id, html, design, last_modified_by: User.id})
     })
   }
 
   saveDesign = () => {
     this.editor.saveDesign(design => {
-      console.log(design)
+      let j = JSON.stringify(design)
+      console.log("STRINGFY: ", j)
+      let p = JSON.parse(j)
+      console.log("PARSE: ", p)
       this.setState({savedDesign: design})
     })
   }

@@ -20,7 +20,7 @@ export const createDocument = payload =>
   }).catch((e)=>console.log(e))
 
 
-export const getArticles = () =>{
+export const getArticles = () => {
   return async (dispatch) => await Axios.get("articles/")
      .then(res => {
          dispatch ({

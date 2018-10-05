@@ -21,7 +21,7 @@ export const createNewsletter = payload => {
 }
 
 export const getNewsletters = () =>{
-    return (dispatch) => Axios.get("newsletters/")
+    return async (dispatch) => await Axios.get("newsletters/")
        .then(res => {
            //console.log(res)
            dispatch ({
