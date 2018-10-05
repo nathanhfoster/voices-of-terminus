@@ -14,7 +14,7 @@ export const VideoToWatch = (state = {}, action) =>
 (action.type === C.SET_VIDEO_TO_WATCH) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
 
 export const Window = (state = {}, action) =>
-(action.type === C.SET_WINDOW) ? action.payload : {...state}
+(action.type === C.SET_WINDOW) ? action.payload : state
 
 export const DiscordData = (state = {}, action) =>
 (action.type === C.GET_GUILD_MEMBERS) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : {...state}
