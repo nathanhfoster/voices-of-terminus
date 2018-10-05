@@ -72,7 +72,7 @@ class NavBar extends Component {
           <Navbar.Header>
             <Navbar.Brand>
               <LinkContainer to="/">
-                <NavItem eventKey={1}><Image src={votLogo} height="50px" onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
+                <NavItem eventKey={1}><Image src={votLogo} onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
               </LinkContainer>
             </Navbar.Brand>
             <Navbar.Toggle />

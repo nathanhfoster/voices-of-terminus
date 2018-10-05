@@ -11,6 +11,7 @@
     margin-bottom: 20px;
     border: 1px solid var(--gray);
     border-radius: 4px;
+    transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
 }
 .Preview {
   padding: 16px;

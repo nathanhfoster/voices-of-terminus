@@ -6,13 +6,11 @@ import {Grid} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './styles.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-import {deleteArticle} from '../../actions/Articles'
 
 const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
-  deleteArticle
 }
 
 class Card extends Component {
@@ -85,9 +83,10 @@ class Card extends Component {
 
   }
 
-  deleteThisCard = id => this.props.deleteArticle(id)
+  deleteThisCard = id => this.props.deleteItem(id)
 
   render() {
+    console.log(this.props)
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
     return (
       <Grid className="Clickable Card">

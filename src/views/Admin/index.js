@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { Grid, Row, Col, PageHeader,ButtonToolbar, Button } from 'react-bootstrap'
 import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import {Redirect} from 'react-router-dom'
+import NewsLetterGenerator from '../../components/NewsLetterGenerator'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -64,9 +66,20 @@ class Admin extends Component {
     const {User} = this.state
     return (
       !User.isSuperUser ? <Redirect to="/login"/>
-      : <div className="Admin">
-        Admin
-      </div>
+      :<Grid className="Admin Container">
+        <Row>
+        <ButtonToolbar>
+          {User.token ? 
+            <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
+            New Article
+            </Button> : null}
+            {User.isStaff ? 
+              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+              Create Newsletter
+              </Button> : null}
+          </ButtonToolbar>
+        </Row>
+      </Grid>
     )
   }
 }

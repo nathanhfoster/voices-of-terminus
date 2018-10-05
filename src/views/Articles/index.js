@@ -2,13 +2,13 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader,ButtonToolbar, Button } from 'react-bootstrap'
-import NewsLetterGenerator from './NewsLetterGenerator'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
 import {getArticles} from '../../actions/Articles'
 import { Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
+import {deleteArticle} from '../../actions/Articles'
 
 const mapStateToProps = ({Articles, User}) => ({
   Articles,
@@ -16,7 +16,8 @@ const mapStateToProps = ({Articles, User}) => ({
 })
 
 const mapDispatchToProps = {
-  getArticles
+  getArticles,
+  deleteArticle
 }
 
 class Articles extends Component {
@@ -60,7 +61,7 @@ class Articles extends Component {
   renderCards = (Articles) => Articles.map(card => {
     return (
       <Col className="CardContainer" md={3}>
-        <Card {...card} />
+        <Card {...card} deleteItem={this.props.deleteArticle}/>
       </Col>
     )
   })
@@ -70,16 +71,16 @@ class Articles extends Component {
     return (
       <Grid className="Articles Container">
         <Row>
-        <ButtonToolbar>
-          {User.token ? 
-            <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
-            New Article
-            </Button> : null}
-            {User.isStaff ? 
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
-              Create Newsletter
+          <ButtonToolbar>
+            {User.token ? 
+              <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
+              New Article
               </Button> : null}
-          </ButtonToolbar>
+              {User.isStaff ? 
+                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+                Create Newsletter
+                </Button> : null}
+            </ButtonToolbar>
         </Row>
 
         <Row>

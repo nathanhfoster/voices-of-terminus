@@ -14,7 +14,7 @@ const Axios = axios.create({
 })
 
 export const createNewsletter = payload => {
-    Axios.post('newsletter/', qs.stringify(payload))
+    Axios.post('newsletters/', qs.stringify(payload))
     .then(res => {
         console.log(res)
     }).catch(e => console.log(e))

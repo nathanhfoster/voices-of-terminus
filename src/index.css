@@ -279,11 +279,6 @@ a, a:focus, a:active, a:visited {
 .sheen:hover::after, .sheen:focus::after {
   animation: sheen 1.25s forwards;
 }
-.zoomFocus:focus {
-  transition: all .5s ease-in-out;
-  transform: scale(1.1, 1.1);
-  color: black;
-}
 @keyframes sheen {
   100% {
     transform: rotateZ(60deg) translate(1em, -9em);

@@ -6,7 +6,7 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {createNewsletter, getNewsletters} from '../../../actions/NewsLetter'
+import {createNewsletter, getNewsletters} from '../../actions/NewsLetter'
 
 const mapStateToProps = ({Newsletters, User}) => ({
   Newsletters,
@@ -46,8 +46,10 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
-    const {User} = props
+    const {User, Newsletters} = props
+    console.log(Newsletters)
     this.setState({
+      Newsletters,
       User
       })
   }
@@ -67,16 +69,34 @@ class NewsLetterGenerator extends Component {
     })
   }
 
+  saveDesign = () => {
+    this.editor.saveDesign(design => {
+      console.log(design)
+      this.setState({savedDesign: design})
+    })
+  }
+
+  loadDesign = () => {
+    const {savedDesign} = this.state
+    console.log(savedDesign)
+    this.editor.loadDesign(savedDesign)
+  }
+
   render() {
+    const styles = {
+      boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)',
+    }
     return (
       <Grid className="NewsLetterGenerator Container">
         <Row>
           <ButtonToolbar className="ButtonToolbar">
             <Button onClick={this.exportHtml}>Export HTML</Button>
+            <Button onClick={this.saveDesign}>Save HTML</Button>
+            <Button onClick={this.loadDesign}>Load HTML</Button>
           </ButtonToolbar>
         </Row>
-        <Row className="EmailEditorContainer">
-          <EmailEditor minHeight="85vh" ref={editor => this.editor = editor}/>
+        <Row className="">
+          <EmailEditor minHeight="85vh" ref={editor => this.editor = editor} style={styles}/>
         </Row>
         
       </Grid>

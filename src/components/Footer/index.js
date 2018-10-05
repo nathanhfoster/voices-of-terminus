@@ -79,12 +79,11 @@ class Footer extends Component {
    const {isMobile} = this.state
     const randInt = getRandomInt(0, 2)
     return (
-      <div>
-      {!isMobile ? [
-        <Image className="Female footerImages" src={this.props.femaleImages[randInt]} height="400px"/>,
-        <Image className="Male footerImages"   src={this.props.maleImgaes[randInt]}   height="400px"/>,
-      ]: null }
-      
+      <div className="Footer">
+        {!isMobile ? [
+          <Image className="Female footerImages" src={this.props.femaleImages[randInt]} />,
+          <Image className="Male footerImages"   src={this.props.maleImgaes[randInt]}  />,
+        ]: null }
       </div>
    
   
