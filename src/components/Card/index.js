@@ -1,36 +1,24 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect as reduxConnect } from 'react-redux'
+import { connect as reduxConnect, bindActionCreators  } from 'react-redux'
 import { Map, List} from 'immutable'
 import {Grid} from 'react-bootstrap'
 import Moment from 'react-moment'
-import {getEditorState} from '../../actions/TextEditor'
 import './styles.css'
-import axios from 'axios'
-import Cookies from 'js-cookie'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-
-const Axios = axios.create({
-    baseURL: process.env.REACT_APP_API_URL,
-    timeout: 25000,
-    headers: {
-      'Authorization': "Token " + Cookies.get('User_LoginToken'),
-      'Content-type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json'
-  }
-})
+import {deleteArticle} from '../../actions/Articles'
 
 const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
-  getEditorState
+  deleteArticle
 }
 
 class Card extends Component {
   constructor(props) {
     super(props)
-    this.deleteArticle = this.deleteArticle.bind(this)
+    this.deleteThisCard = this.deleteThisCard.bind(this)
     this.state = {
       author: null,
       body: '', 
@@ -48,15 +36,14 @@ class Card extends Component {
   static propTypes = { 
     author: PropTypes.number,
     body: PropTypes.string,
-    date_created: new Map(),
-    date_modified: new Map(),
+    date_created: PropTypes.Date,
+    date_modified: PropTypes.Date,
     id: PropTypes.number,
-    last_modified: new Map(),
-    last_modified_by: new Map(),
+    last_modified: PropTypes.Date,
+    last_modified_by: PropTypes.Date,
     slug: PropTypes.string,
     tags: PropTypes.string,
-    title: PropTypes.string,
-    getEditorState: PropTypes.func.isRequired
+    title: PropTypes.string
   }
 
   static defaultProps = {
@@ -94,20 +81,11 @@ class Card extends Component {
   componentWillUnmount() {
   }
 
-  showArticle = e => {
+  showArticle = id => {
 
   }
 
-  deleteArticle = e => {
-    const {id} = this.state
-      Axios.delete('api/v1/articles/' + id)
-      .then(response => {
-      this.props.getEditorState()
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  }
+  deleteThisCard = id => this.props.deleteArticle(id)
 
   render() {
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
@@ -119,7 +97,7 @@ class Card extends Component {
           </div>
         </div>
         <div className="Summary">
-          <h4>Title: {title}<div onClick={this.deleteArticle}><div className="deleteCard"><i class="fa fa-trash-alt"/></div></div></h4>
+          <h4>Title: {title}<div onClick={() => this.deleteThisCard(id)}><div className="deleteCard"><i class="fa fa-trash-alt"/></div></div></h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>
           <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>

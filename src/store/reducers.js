@@ -23,7 +23,10 @@ export const editorState = (state = {}, action) =>
 (action.type === C.SET_EDITOR_STATE) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
 
 export const Articles = (state = [], action) =>
-(action.type === C.GET_ARTICLE_STATE) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
+(action.type === C.GET_ARTICLES) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
+
+export const Newsletters = (state = [], action) =>
+(action.type === C.GET_NEWSLETTERS) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
 
 export const User = (state = {}, action) =>
 (action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : {...state}
@@ -37,5 +40,6 @@ export const appReducer = combineReducers({
   DiscordData,
   editorState,
   Articles,
+  Newsletters,
   User
 })

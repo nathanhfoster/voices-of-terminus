@@ -6,11 +6,15 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
+import {createNewsletter, getNewsletters} from '../../../actions/NewsLetter'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({Newsletters, User}) => ({
+  Newsletters,
+  User
 })
 
 const mapDispatchToProps = {
+  getNewsletters
 }
 
 class NewsLetterGenerator extends Component {
@@ -21,26 +25,20 @@ class NewsLetterGenerator extends Component {
     }
   }
 
-  static propTypes = { 
+  static propTypes = {
+    getNewsletters: PropTypes.func.isRequired
   }
 
   static defaultProps = {
   }
   
   componentWillMount() {
+    this.props.getNewsletters()
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
+    
   }
   
   componentWillReceiveProps(nextProps) {
@@ -48,7 +46,9 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
+    const {User} = props
     this.setState({
+      User
       })
   }
 
@@ -59,9 +59,11 @@ class NewsLetterGenerator extends Component {
   }
 
   exportHtml = () => {
+    const {User} = this.state
     this.editor.exportHtml(data => {
       const { design, html } = data
       console.log('exportHtml', html)
+      createNewsletter({title: 'Test', slug:"news", author: User.id, body: html, tags: 'tag', last_modified_by: User.id})
     })
   }
 
@@ -69,13 +71,14 @@ class NewsLetterGenerator extends Component {
     return (
       <Grid className="NewsLetterGenerator Container">
         <Row>
-          <ButtonToolbar className="buttonToolbar">
+          <ButtonToolbar className="ButtonToolbar">
             <Button onClick={this.exportHtml}>Export HTML</Button>
           </ButtonToolbar>
         </Row>
-        <Row>
+        <Row className="EmailEditorContainer">
           <EmailEditor minHeight="85vh" ref={editor => this.editor = editor}/>
         </Row>
+        
       </Grid>
     )
   }

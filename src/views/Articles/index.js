@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader,ButtonToolbar, Button } from 'react-bootstrap'
-import NewsLetterGenerator from './/NewsLetterGenerator'
+import NewsLetterGenerator from './NewsLetterGenerator'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
-import {getEditorState} from '../../actions/TextEditor'
+import {getArticles} from '../../actions/Articles'
 import { Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
 
@@ -16,7 +16,7 @@ const mapStateToProps = ({Articles, User}) => ({
 })
 
 const mapDispatchToProps = {
-  getEditorState
+  getArticles
 }
 
 class Articles extends Component {
@@ -30,25 +30,16 @@ class Articles extends Component {
 
   static propTypes = {
     Articles: new List(),
-    getEditorState: PropTypes.func.isRequired
+    getArticles: PropTypes.func.isRequired
   }
 
   static defaultProps = {
   }
   
   componentWillMount() {
-    this.props.getEditorState()
+    this.props.getArticles()
     this.getState(this.props)
   }
-
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
 
   componentDidMount() {
     
@@ -64,12 +55,6 @@ class Articles extends Component {
       Articles,
       User
     })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   renderCards = (Articles) => Articles.map(card => {
