@@ -67,7 +67,7 @@ export const setWindow = (Window) => ({
 export function setUser(username, password) {
     return (dispatch) => Axios.post('api/v1/login/', qs.stringify({username, password}))
     .then(res => {
-        console.log(res)
+        //console.log(res)
         Cookies.set('User_LoginToken', res.data.token, {expires: 365})
         Cookies.set('User_ID', res.data.id, {expires: 365})
         dispatch({

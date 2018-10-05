@@ -21,7 +21,7 @@ export const createDocument = payload =>
 
 
 export const getArticles = () =>{
-  return (dispatch) => Axios.get("articles/")
+  return async (dispatch) => await Axios.get("articles/")
      .then(res => {
          dispatch ({
            type: C.GET_ARTICLES,
@@ -31,12 +31,13 @@ export const getArticles = () =>{
 }
 
 export const deleteArticle = id => {
-  return (dispatch) => Axios.delete('articles/' + id)
+  return async (dispatch, getState) => await Axios.delete('articles/' + id)
   .then(res => {
-    //console.log(res)
-    dispatch ({
-      type: C.GET_ARTICLES,
-      payload: res.data
-    })
+      let {Articles} = getState()
+      const payload = Articles.filter(article => article.id !== id)
+      dispatch ({
+        type: C.GET_ARTICLES,
+        payload: payload
+  })
   }).catch((e)=>console.log(e))
 }

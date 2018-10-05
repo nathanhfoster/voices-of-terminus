@@ -84,9 +84,9 @@ class Card extends Component {
   }
 
   deleteThisCard = id => this.props.deleteItem(id)
+ 
 
   render() {
-    console.log(this.props)
     const {author, body, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
     return (
       <Grid className="Clickable Card">
