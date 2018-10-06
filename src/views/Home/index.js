@@ -38,15 +38,6 @@ class Home extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -63,11 +54,6 @@ class Home extends Component {
     })
   }
 
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
-  }
   _onReady(event) {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();

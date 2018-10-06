@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 const qs = require('qs')
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL + 'api/v1/',
-    timeout: 25000,
+    timeout: 2000,
     headers: {
       'Authorization': "Token " + Cookies.get('User_LoginToken'),
       'Content-type': 'application/x-www-form-urlencoded',
@@ -20,7 +20,7 @@ export const createNewsletter = payload => {
     }).catch(e => console.log(e))
 }
 
-export const getNewsletters = () =>{
+export const getNewsletters = () => {
     return async (dispatch) => await Axios.get("newsletters/")
        .then(res => {
            //console.log(res)
@@ -29,7 +29,18 @@ export const getNewsletters = () =>{
              payload: res.data
          })
        }).catch((e)=>console.log(e))
-  }
+}
+
+export const getNewsLetter = id => {
+    return async (dispatch) => await Axios.get("newsletters/" + id)
+       .then(res => {
+           //console.log(res)
+           dispatch ({
+             type: C.GET_HTML_DOCUMENT,
+             payload: res.data
+         })
+       }).catch((e)=>console.log(e))
+}
 
 export const deleteNewsLetter = id => {
     return async (dispatch, getState) => await Axios.delete('newsletters/' + id)

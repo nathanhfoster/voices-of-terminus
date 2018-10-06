@@ -45,15 +45,6 @@ class Login extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
 
@@ -67,12 +58,6 @@ class Login extends Component {
     this.setState({
       User
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   onChange = (e) => {
@@ -133,7 +118,7 @@ class Login extends Component {
                 </FormGroup>
               </Col>
             </Row>
-            <Row className="centerButton">
+            <Row className="centerButtons">
               <ButtonGroup >
                 <Button type="submit">Sign in</Button>
                 <Button onClick={this.handleShow}>Create Account</Button>

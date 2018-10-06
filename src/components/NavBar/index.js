@@ -82,7 +82,7 @@ class NavBar extends Component {
               {User.isSuperUser ? <LinkContainer to="/admin"><NavItem eventKey={9}>ADMIN</NavItem></LinkContainer> : null}
               <LinkContainer to="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
-              <LinkContainer to="/news/1"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
+              <LinkContainer to="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
               <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to="/guild/about"><NavItem eventKey={6.1}>ABOUT</NavItem></LinkContainer>

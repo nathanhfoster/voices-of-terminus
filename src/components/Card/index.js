@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import { connect as reduxConnect, bindActionCreators  } from 'react-redux'
+import { connect as reduxConnect } from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import { Map, List} from 'immutable'
-import {Grid} from 'react-bootstrap'
+import {Grid, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './styles.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
@@ -17,6 +18,7 @@ class Card extends Component {
   constructor(props) {
     super(props)
     this.deleteThisCard = this.deleteThisCard.bind(this)
+    this.editThisCard = this.editThisCard.bind(this)
     this.state = {
       author: null,
       body: '', 
@@ -51,17 +53,9 @@ class Card extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
+
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
   }
@@ -84,19 +78,27 @@ class Card extends Component {
   }
 
   deleteThisCard = id => this.props.deleteItem(id)
- 
+
+  editThisCard = id => {
+    this.props.editCard(id)
+    this.props.history.push('/articles/new/newsletter')
+  }
 
   render() {
     const {author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
     return (
-      <Grid className="Clickable Card">
+      <Grid className="Clickable Card" onClick={()=>this.props.history.push('/news/' + id.toString())}>
         <div className="Preview">
           <div className="previewItem">
             {ReactHtmlParser(html)}
           </div>
         </div>
         <div className="Summary">
-          <h4>Title: {title}<div onClick={() => this.deleteThisCard(id)}><div className="deleteCard"><i class="fa fa-trash-alt"/></div></div></h4>
+          <h4>
+            Title: {title}
+            <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions"><i class="fa fa-trash-alt"/></Button>
+            <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions"><i class="fa fa-pencil-alt"/></Button>
+          </h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>
           <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>
@@ -105,4 +107,4 @@ class Card extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Card)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Card))

@@ -36,15 +36,6 @@ class Lore extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -55,12 +46,6 @@ class Lore extends Component {
   getState = props => {
     this.setState({
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   renderLoreItems = loreItems => loreItems.map(k => {

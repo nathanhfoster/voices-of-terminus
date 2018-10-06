@@ -17,6 +17,7 @@ import TextEditor from './components/TextEditor'
 import NewsLetterGenerator from './components/NewsLetterGenerator'
 import GuildCalendar from './views/GuildCalendar'
 import News from './views/News'
+import HtmlParser from './components/HtmlParser'
 import Forums from './views/Forums'
 import Guild from './views/Guild'
 import Media from './views/Media'
@@ -95,7 +96,8 @@ class App extends Component {
       {path: '/articles/new/newsletter', component: NewsLetterGenerator},
       {path: '/articles/view/:id', component: Articles},
       {path: '/calendar', component: GuildCalendar},
-      {path: '/news/:id', component: News},
+      {path: '/news/', component: News},
+      {path: '/news/:id', component: HtmlParser},
       {path: '/forums/', component: Forums},
       {path: '/guild/about', component: Guild},
       {path: '/guild/roster', component: Guild},

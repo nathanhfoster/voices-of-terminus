@@ -38,12 +38,11 @@ class Articles extends Component {
   }
   
   componentWillMount() {
-    this.props.getArticles()
     this.getState(this.props)
   }
 
   componentDidMount() {
-    
+    this.props.getArticles()
   }
   
   componentWillReceiveProps(nextProps) {
@@ -58,13 +57,13 @@ class Articles extends Component {
     })
   }
 
-  renderCards = (Articles) => Articles.map(card => {
-    return (
+  renderCards = Articles => Articles.map(card => 
+    
       <Col className="CardContainer" md={3}>
         <Card {...card} deleteItem={this.props.deleteArticle}/>
       </Col>
-    )
-  })
+    
+  )
 
   render() {
     const {Articles, User} = this.state

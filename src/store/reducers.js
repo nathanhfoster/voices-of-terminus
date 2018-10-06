@@ -28,6 +28,9 @@ export const Articles = (state = [], action) =>
 export const Newsletters = (state = [], action) =>
 (action.type === C.GET_NEWSLETTERS) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
 
+export const HtmlDocument = (state = {}, action) =>
+(action.type === C.GET_HTML_DOCUMENT) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
+
 export const User = (state = {}, action) =>
 (action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : {...state}
 
@@ -41,5 +44,6 @@ export const appReducer = combineReducers({
   editorState,
   Articles,
   Newsletters,
+  HtmlDocument,
   User
 })

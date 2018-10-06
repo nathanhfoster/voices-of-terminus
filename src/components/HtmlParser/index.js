@@ -1,15 +1,19 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { Grid, Row} from 'react-bootstrap'
 import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
+import {getNewsLetter} from '../../actions/NewsLetter'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({HtmlDocument}) => ({
+  HtmlDocument
 })
 
 const mapDispatchToProps = {
+  getNewsLetter
 }
 
 class HtmlParser extends Component {
@@ -30,16 +34,8 @@ class HtmlParser extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
+    this.props.getNewsLetter(this.props.match.params.id)
   }
   
   componentWillReceiveProps(nextProps) {
@@ -47,9 +43,9 @@ class HtmlParser extends Component {
   }
 
   getState = props => {
-    const {htmlDocument} = props
+    const {HtmlDocument} = props
     this.setState({
-      props
+      HtmlDocument
       })
   }
 
@@ -60,11 +56,13 @@ class HtmlParser extends Component {
   }
 
   render() {
-    const {htmlDocument} = this.state
+    const {html} = this.state.HtmlDocument
     return (
-      <div className="HtmlParser">
-        {ReactHtmlParser(htmlDocument) }
-      </div>
+      <Grid className="HtmlParser Container">
+        <Row>
+          {ReactHtmlParser(html)}
+        </Row> 
+      </Grid>
     )
   }
 }

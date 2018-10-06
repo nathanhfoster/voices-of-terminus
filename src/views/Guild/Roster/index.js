@@ -54,21 +54,11 @@ class Roster extends Component {
   }
   
   componentWillMount() {
-    this.props.getGuildMembers()
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
-
+    this.props.getGuildMembers()
   }
   
   componentWillReceiveProps(nextProps) {
@@ -80,12 +70,6 @@ class Roster extends Component {
     this.setState({
       guildMembers
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   renderPeople = (color, routeItems) => routeItems.map(k => {

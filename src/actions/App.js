@@ -9,7 +9,7 @@ const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID
 const qs = require('qs')
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL,
-    timeout: 25000,
+    timeout: 2000,
     headers: {
         'Content-type': 'application/x-www-form-urlencoded',
         'Accept': 'application/json'

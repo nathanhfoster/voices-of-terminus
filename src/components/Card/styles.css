@@ -1,6 +1,6 @@
 .Card {
     width: 100%;
-    min-height: 268px;
+    height: 300px;
     background-color: var(--grey);
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -36,14 +36,15 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
-.deleteCard {
+.cardActions {
   color: var(--grey);
-  float: right !important;
+  float: right;
+  margin-left: 8px;
 }
-.deleteCard:hover {
+.cardActions:hover {
   color: white;
 }
 
-.deleteCard .caret {
+.cardActions .caret {
   display: none;
 }

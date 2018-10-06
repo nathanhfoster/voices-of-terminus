@@ -39,15 +39,6 @@ class Videos extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -60,12 +51,6 @@ class Videos extends Component {
     this.setState({
       VoTYouTubeChannelData
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
     //(k.videoId) => this.props.history.push(k.videoId)

@@ -27,16 +27,6 @@ class Images extends Component {
   componentWillMount() {
     this.getState(this.props)
   }
-
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -47,12 +37,6 @@ class Images extends Component {
   getState = props => {
     this.setState({
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   render() {

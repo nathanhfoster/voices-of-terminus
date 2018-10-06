@@ -1,44 +1,44 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, ButtonToolbar, Button} from 'react-bootstrap'
+import {Grid, Row, ButtonToolbar, Button, Modal, Form} from 'react-bootstrap'
 import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {createNewsletter, getNewsletters} from '../../actions/NewsLetter'
+import {createNewsletter} from '../../actions/NewsLetter'
 
-const mapStateToProps = ({Newsletters, User}) => ({
+const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
   Newsletters,
+  HtmlDocument,
   User
 })
 
 const mapDispatchToProps = {
-  getNewsletters
 }
 
 class NewsLetterGenerator extends Component {
   constructor(props) {
     super(props)
+    this.handleShow = this.handleShow.bind(this)
+    this.handleHide = this.handleHide.bind(this)
  
     this.state = {
+      show: false
     }
   }
 
   static propTypes = {
-    getNewsletters: PropTypes.func.isRequired
   }
 
   static defaultProps = {
   }
   
   componentWillMount() {
-    this.props.getNewsletters()
     this.getState(this.props)
   }
 
   componentDidMount() {
-    
   }
   
   componentWillReceiveProps(nextProps) {
@@ -46,18 +46,12 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
-    const {User, Newsletters} = props
-    console.log(Newsletters)
+    const {User, Newsletters, HtmlDocument} = props
     this.setState({
       Newsletters,
+      HtmlDocument,
       User
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   exportHtml = () => {
@@ -72,17 +66,26 @@ class NewsLetterGenerator extends Component {
   saveDesign = () => {
     this.editor.saveDesign(design => {
       let j = JSON.stringify(design)
-      console.log("STRINGFY: ", j)
-      let p = JSON.parse(j)
-      console.log("PARSE: ", p)
       this.setState({savedDesign: design})
     })
   }
 
+  renderDesigns = () => {
+    
+  }
+
   loadDesign = () => {
-    const {savedDesign} = this.state
-    console.log(savedDesign)
-    this.editor.loadDesign(savedDesign)
+    let {design} = this.state.HtmlDocument
+    design = JSON.parse(design)
+    this.editor.loadDesign(design)
+  }
+
+  handleShow() {
+    this.setState({show: true});
+  }
+
+  handleHide() {
+    this.setState({show: false});
   }
 
   render() {
@@ -95,13 +98,34 @@ class NewsLetterGenerator extends Component {
           <ButtonToolbar className="ButtonToolbar">
             <Button onClick={this.exportHtml}>Export HTML</Button>
             <Button onClick={this.saveDesign}>Save HTML</Button>
-            <Button onClick={this.loadDesign}>Load HTML</Button>
+            <Button onClick={this.loadDesign}>Load Design</Button>
+            <Button onClick={this.handleShow}>All Designs</Button>
           </ButtonToolbar>
         </Row>
         <Row className="">
           <EmailEditor minHeight="85vh" ref={editor => this.editor = editor} style={styles}/>
         </Row>
-        
+        <Row>
+          <Modal
+            {...this.props}
+            show={this.state.show}
+            onHide={this.handleHide}
+            dialogClassName="custom-modal"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-lg">
+                Load Design
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <Form className="Container">
+                <Row>
+
+                </Row>
+              </Form>
+            </Modal.Body>
+          </Modal>
+        </Row>
       </Grid>
     )
   }

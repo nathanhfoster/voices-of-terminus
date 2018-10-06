@@ -29,15 +29,6 @@ class About extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -48,12 +39,6 @@ class About extends Component {
   getState = props => {
     this.setState({
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   render() {

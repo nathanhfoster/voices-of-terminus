@@ -52,15 +52,6 @@ class Guild extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -73,12 +64,6 @@ class Guild extends Component {
     this.setState({
       history
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   renderTabs = TabItems => TabItems.map(k => {

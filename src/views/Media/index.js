@@ -53,15 +53,6 @@ class Media extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -75,12 +66,6 @@ class Media extends Component {
       YouTubeChannelData,
       history
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   renderImages = images => images.map(k => {

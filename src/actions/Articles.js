@@ -5,7 +5,7 @@ import Cookies from 'js-cookie'
 const qs = require('qs')
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL + 'api/v1/',
-    timeout: 25000,
+    timeout: 2000,
     headers: {
       'Authorization': "Token " + Cookies.get('User_LoginToken'),
       'Content-type': 'application/x-www-form-urlencoded',

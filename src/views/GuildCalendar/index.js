@@ -61,15 +61,6 @@ class GuildCalendar extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
   }
   
@@ -84,12 +75,6 @@ class GuildCalendar extends Component {
       events,
       Window
       })
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   onChange = activeDate => this.setState({activeDate})

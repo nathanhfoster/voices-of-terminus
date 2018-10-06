@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab,} from 'react-bootstrap'
 import './styles.css'
-import {getNewsletters, deleteNewsLetter} from '../../actions/NewsLetter'
+import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
 
 const mapStateToProps = ({Newsletters}) => ({
@@ -12,6 +12,7 @@ const mapStateToProps = ({Newsletters}) => ({
 
 const mapDispatchToProps = {
   getNewsletters,
+  getNewsLetter,
   deleteNewsLetter
 }
 
@@ -57,10 +58,10 @@ class News extends Component {
   componentWillUnmount() {
   }
 
-  renderCards = (Newsletters) => Newsletters.map(card => {
+  renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
       <Col className="CardContainer" md={6}>
-        <Card {...card} deleteItem={this.props.deleteNewsLetter}/>
+        <Card {...card} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter}/>
       </Col>
     )
   })
@@ -70,7 +71,7 @@ class News extends Component {
     return (
       <Grid className="News Container">
         <Row>
-            <PageHeader className="pageHeader">NEWS</PageHeader>
+          <PageHeader className="pageHeader">NEWS</PageHeader>
         </Row>
         <Row>
           <Col>
