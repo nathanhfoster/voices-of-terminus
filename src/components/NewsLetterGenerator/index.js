@@ -6,7 +6,7 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {createNewsletter, getNewsLetter, clearNewsLetter} from '../../actions/NewsLetter'
+import {createNewsletter, getNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
 import {withRouter} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
 
@@ -18,6 +18,7 @@ const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
 
 const mapDispatchToProps = {
   getNewsLetter,
+  updateNewsLetter,
   clearNewsLetter
 }
 
@@ -80,10 +81,11 @@ class NewsLetterGenerator extends Component {
   }
 
   saveDesign = () => {
+    const {id} = this.props.match.params
     this.editor.saveDesign(design => {
-      let j = JSON.stringify(design)
-      console.log(j)
-      this.setState({savedDesign: design})
+      // design = JSON.stringify(design)
+      const title = "CHANGED"
+      this.props.updateNewsLetter(id, {design, title})
     })
   }
 
@@ -106,7 +108,7 @@ class NewsLetterGenerator extends Component {
    
     const styles = {
       boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)',
-      //maxWidth: '100vw'
+      maxWidth: '50px !important'
     }
       
     return (
@@ -114,9 +116,9 @@ class NewsLetterGenerator extends Component {
         <Row>
           <ButtonToolbar className="ButtonToolbar">
             <Button onClick={() => this.loadDesign(defaultDesign)}>NEW</Button>
-            <Button onClick={this.exportHtml}>EXPORT</Button>
+            <Button onClick={this.exportHtml}>POST</Button>
             <Button onClick={this.saveDesign}>SAVE</Button>
-            <Button onClick={this.onDesignLoad}>UPDATE</Button>
+            <Button onClick={this.saveDesign}>UPDATE</Button>
             <Button onClick={this.handleShow}>LOAD</Button>
           </ButtonToolbar>
         </Row>

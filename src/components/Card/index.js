@@ -79,7 +79,7 @@ class Card extends Component {
 
   editThisCard = id => {
     this.props.editCard(id)
-    this.props.history.push('/articles/edit/newsletter/' + id)
+    this.props.history.push('/articles/edit/newsletter/' + id + '/')
   }
 
   render() {

@@ -31,7 +31,7 @@ export const getArticles = () => {
 }
 
 export const deleteArticle = id => {
-  return async (dispatch, getState) => await Axios.delete('articles/' + id)
+  return async (dispatch, getState) => await Axios.delete('articles/' + id + '/')
   .then(res => {
       let {Articles} = getState()
       const payload = Articles.filter(article => article.id !== id)

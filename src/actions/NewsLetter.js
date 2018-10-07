@@ -32,7 +32,7 @@ export const getNewsletters = () => {
 }
 
 export const getNewsLetter = id => {
-    return async (dispatch) => await Axios.get("newsletters/" + id)
+    return async (dispatch) => await Axios.get("newsletters/" + id + '/')
        .then(res => {
            //console.log(res)
            dispatch ({
@@ -47,8 +47,30 @@ export const clearNewsLetter = () => ({
     payload: null
 })
 
+export const updateNewsLetter = (id, payload) => {
+    //console.log(payload)
+    return async (dispatch, getState) => await Axios.patch('newsletters/' + id + '/', qs.stringify({payload}))
+    .then(res => {
+        console.log(res.data.design)
+        let {Newsletters} = getState()
+        // payload = Newsletters.map((newsletter) => {
+        //     if (newsletter.id == id){
+        //         // console.log(newsletter)
+        //         // console.log(res.data)
+        //         return newsletter = res.data
+        //     }
+        //     return newsletter
+        // })
+        //console.log(payload)
+        dispatch ({
+            type: C.GET_NEWSLETTERS,
+            payload: []
+    })
+    }).catch((e)=>console.log(e))
+}
+
 export const deleteNewsLetter = id => {
-    return async (dispatch, getState) => await Axios.delete('newsletters/' + id)
+    return async (dispatch, getState) => await Axios.delete('newsletters/' + id + '/')
     .then(res => {
         let {Newsletters} = getState()
         const payload = Newsletters.filter(newsletter => newsletter.id !== id)
