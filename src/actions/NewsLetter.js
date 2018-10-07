@@ -8,6 +8,7 @@ const Axios = axios.create({
     timeout: 2000,
     headers: {
       'Authorization': "Token " + Cookies.get('User_LoginToken'),
+      'Cache-Control': 'no-cache',
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   }
@@ -48,23 +49,21 @@ export const clearNewsLetter = () => ({
 })
 
 export const updateNewsLetter = (id, payload) => {
-    //console.log(payload)
-    return async (dispatch, getState) => await Axios.patch('newsletters/' + id + '/', qs.stringify({payload}))
+    return  async (dispatch, getState) => await Axios.patch('newsletters/' + id + '/', qs.stringify(payload))
     .then(res => {
-        console.log(res.data.design)
-        let {Newsletters} = getState()
-        // payload = Newsletters.map((newsletter) => {
-        //     if (newsletter.id == id){
-        //         // console.log(newsletter)
-        //         // console.log(res.data)
-        //         return newsletter = res.data
-        //     }
-        //     return newsletter
-        // })
-        //console.log(payload)
+       let {Newsletters} = getState()
+       payload = Newsletters.map(newsletter => {
+            if (newsletter.id == id){
+                console.log(newsletter)
+                console.log(res.data)
+                return newsletter = res.data
+            }
+            return newsletter
+        })
+        console.log("CHANGED PAYLOAD: ", payload)
         dispatch ({
             type: C.GET_NEWSLETTERS,
-            payload: []
+            payload: payload
     })
     }).catch((e)=>console.log(e))
 }

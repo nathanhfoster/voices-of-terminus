@@ -29,8 +29,8 @@ class Footer extends Component {
   }
 
   static propTypes = { 
-    femaleImages: new List(),
-    maleImgaes: new List(),
+    femaleImages: PropTypes.array,
+    maleImgaes: PropTypes.array,
     isMobile: PropTypes.bool
   }
 

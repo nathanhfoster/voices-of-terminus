@@ -78,13 +78,13 @@ class App extends Component {
     width: PropTypes.number,
     height: PropTypes.number,
     isMobile: PropTypes.bool,
-    User: new Map(),
+    User: PropTypes.object,
     getVoTYouTubeChannelData: PropTypes.func.isRequired,
     getAllVRYouTube: PropTypes.func.isRequired,
     getVRYouTubeChannelData: PropTypes.func.isRequired,
-    routeItems: new List(),
-    images: new List(),
-    imagesMobile: new List()
+    routeItems: PropTypes.array,
+    images: PropTypes.array,
+    imagesMobile: PropTypes.array
   }
 
   static defaultProps = {

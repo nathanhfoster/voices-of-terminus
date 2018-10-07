@@ -9,6 +9,7 @@ import EmailEditor from 'react-email-editor'
 import {createNewsletter, getNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
 import {withRouter} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
+const qs = require('qs')
 
 const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
   Newsletters,
@@ -41,16 +42,17 @@ class NewsLetterGenerator extends Component {
   }
   
   componentWillMount() {
-    if(this.props.match) {
-      this.props.getNewsLetter(this.props.match.params.id)
-    }
     this.getState(this.props)
   }
 
   componentDidMount() {
+    if(this.props.match) {
+      this.props.getNewsLetter(this.props.match.params.id)
+    }
   }
   
   componentWillReceiveProps(nextProps) {
+    console.log("NEXTPROPS: ", nextProps)
     this.getState(nextProps)
   }
 
@@ -83,9 +85,9 @@ class NewsLetterGenerator extends Component {
   saveDesign = () => {
     const {id} = this.props.match.params
     this.editor.saveDesign(design => {
-      // design = JSON.stringify(design)
-      const title = "CHANGED"
-      this.props.updateNewsLetter(id, {design, title})
+      design = JSON.stringify(design)
+      const title = "YESsssss"
+      this.props.updateNewsLetter(id, {title, design})
     })
   }
 

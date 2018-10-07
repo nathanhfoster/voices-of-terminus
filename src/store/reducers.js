@@ -26,7 +26,7 @@ export const Articles = (state = [], action) =>
 (action.type === C.GET_ARTICLES) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
 
 export const Newsletters = (state = [], action) =>
-(action.type === C.GET_NEWSLETTERS) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
+(action.type === C.GET_NEWSLETTERS) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : state
 
 export const HtmlDocument = (state = {}, action) =>
 (action.type === C.GET_HTML_DOCUMENT) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : (action.type === C.DELETE_HTML_DOCUMENT) ? {} : state
