@@ -4,8 +4,23 @@
   width: 100%;
 }
 
-.fadeThrough {
-  height: inherit;
+/* When app is launched from home screen */
+@media all and (display-mode: standalone) {
+ .fadeThrough {
+    height: calc(100vh - 50px);
+  }
+}
+
+@media all and (display-mode: minimal-ui) {
+}
+
+/*Running on mobile browser*/
+@media (max-width: 676px) {
+  @media only all and (display-mode: browser) {
+   .fadeThrough {
+      height: calc(100vh - 102px);
+    }
+  }
 }
 
 .dropdown-menu {
@@ -23,7 +38,6 @@
   background-color: transparent;
   border-radius: 6px;
 }
-
 ::-webkit-scrollbar-track {
   /* box-shadow: inset 0 0 5px var(--grey;
   background: var(--grey; */
