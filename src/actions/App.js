@@ -17,7 +17,7 @@ const Axios = axios.create({
 })
 
 export function getVoTYouTubeChannelData() {
-    return (dispatch) => ytube.getChannelsLatestVideos(votYouTubeChanneID, 50)
+    return async (dispatch) => await ytube.getChannelsLatestVideos(votYouTubeChanneID, 50)
         .then(res => {
             dispatch ({
                 type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
@@ -27,7 +27,7 @@ export function getVoTYouTubeChannelData() {
 }
 
 export function getAllVRYouTube() {
-    return (dispatch) => ytube.fetchAllYouTube("Voices of Terminus")
+    return async (dispatch) => await ytube.fetchAllYouTube("Voices of Terminus")
         .then(res => {
             dispatch({
                 type: C.GET_ALL_VR_YOUTUBE_CHANNEL_DATA,
@@ -37,7 +37,7 @@ export function getAllVRYouTube() {
 }
 
 export function getVRYouTubeChannelData() {
-    return (dispatch) => ytube.getChannelsLatestVideos(vrYouTubeChanneID, 50)
+    return async (dispatch) => await ytube.getChannelsLatestVideos(vrYouTubeChanneID, 50)
         .then(res => {
             dispatch ({
                 type: C.GET_VR_YOUTUBE_CHANNEL_DATA,
@@ -52,20 +52,19 @@ export const setWindow = (Window) => ({
  })
 
  export function createUser(username, password, email, bio, primary_role, primary_class) {
-    return (dispatch) => Axios.post('api/v1/users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
+    return async (dispatch) => await Axios.post('api/v1/users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
     .then(res => {
         // dispatch({
         //     type: C.SET_LOGIN_TOKEN,
         //     payload: {token, id}
         //  })
-
     })
     .then(() => this.setUser(username, password))
     .catch((e)=>console.log(e))
 }
 
 export function setUser(username, password) {
-    return (dispatch) => Axios.post('api/v1/login/', qs.stringify({username, password}))
+    return async (dispatch) => await Axios.post('api/v1/login/', qs.stringify({username, password}))
     .then(res => {
         //console.log(res)
         Cookies.set('User_LoginToken', res.data.token, {expires: 365})

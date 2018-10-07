@@ -48,10 +48,7 @@ class Home extends Component {
   getState = props => {
     const votLatestVideo = props.VoTYouTubeChannelData[0]
     const vrLatestVideo = props.VRYouTubeChannelData[0]
-    this.setState({
-      votLatestVideo,
-      vrLatestVideo
-    })
+    this.setState({votLatestVideo, vrLatestVideo})
   }
 
   _onReady(event) {

@@ -44,9 +44,7 @@ class NavBar extends Component {
 
   getState = props => {
     const {User} = props
-    this.setState({
-      User
-      })
+    this.setState({User})
   }
 
   componentWillUpdate() {

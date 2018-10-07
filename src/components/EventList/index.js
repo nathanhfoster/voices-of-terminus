@@ -55,10 +55,7 @@ class EventList extends Component {
 
   getState = props => {
     const {activeDate, data} = props
-    this.setState({
-      activeDate,
-      data
-      })
+    this.setState({activeDate,data})
   }
   
   componentDidUpdate() {

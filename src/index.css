@@ -130,7 +130,7 @@
   url('./fonts/omnia.woff') format('svg'); /* Legacy iOS */
 }
 a:-webkit-any-link, button, html input[type=button], input[type=reset], input[type=submit], .Clickable {
-  cursor: url('./images/Cursor.png'), auto;
+  cursor: url('./images/Cursor.png'), auto !important;
 }
 body {
   font-family: "Omnia", "Cinzel Decorative";
@@ -141,6 +141,9 @@ body {
 }
 .Container {
   color: white;
+}
+.Container .btn-toolbar {
+  margin-top: 10px;
 }
 .Container .btn-default, .modal-content .btn-default {
   color: white;

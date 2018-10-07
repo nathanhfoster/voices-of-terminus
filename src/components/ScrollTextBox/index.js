@@ -51,10 +51,7 @@ class ScrollTextBox extends Component {
 
   getState = props => {
     const {URL, Title} = props
-    this.setState({
-      URL,
-      Title
-      })
+    this.setState({URL, Title})
   }
 
   componentDidUpdate() {

@@ -42,6 +42,11 @@ export const getNewsLetter = id => {
        }).catch((e)=>console.log(e))
 }
 
+export const clearNewsLetter = () => ({
+    type: C.DELETE_HTML_DOCUMENT,
+    payload: null
+})
+
 export const deleteNewsLetter = id => {
     return async (dispatch, getState) => await Axios.delete('newsletters/' + id)
     .then(res => {

@@ -62,10 +62,7 @@ class Media extends Component {
 
   getState = props => {
     const {YouTubeChannelData, history} = props
-    this.setState({
-      YouTubeChannelData,
-      history
-      })
+    this.setState({YouTubeChannelData, history})
   }
 
   renderImages = images => images.map(k => {

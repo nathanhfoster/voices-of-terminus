@@ -46,8 +46,7 @@ class Template extends Component {
   }
 
   getState = props => {
-    this.setState({
-      })
+    this.setState({})
   }
 
   componentDidUpdate() {

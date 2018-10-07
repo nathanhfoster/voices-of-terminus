@@ -61,9 +61,7 @@ class Guild extends Component {
 
   getState = props => {
     const {history} = props
-    this.setState({
-      history
-      })
+    this.setState({history})
   }
 
   renderTabs = TabItems => TabItems.map(k => {

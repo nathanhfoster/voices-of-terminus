@@ -70,11 +70,7 @@ class GuildCalendar extends Component {
 
   getState = props => {
     const {activeDate, events, Window} = props
-    this.setState({
-      activeDate,
-      events,
-      Window
-      })
+    this.setState({activeDate, events, Window})
   }
 
   onChange = activeDate => this.setState({activeDate})

@@ -44,8 +44,7 @@ class Lore extends Component {
   }
 
   getState = props => {
-    this.setState({
-      })
+    this.setState({})
   }
 
   renderLoreItems = loreItems => loreItems.map(k => {

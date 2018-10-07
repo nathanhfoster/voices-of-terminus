@@ -94,6 +94,7 @@ class App extends Component {
       {path: '/articles', component: Articles},
       {path: '/articles/new/article', component: TextEditor},
       {path: '/articles/new/newsletter', component: NewsLetterGenerator},
+      {path: '/articles/edit/newsletter/:id', component: NewsLetterGenerator},
       {path: '/articles/view/:id', component: Articles},
       {path: '/calendar', component: GuildCalendar},
       {path: '/news/', component: News},

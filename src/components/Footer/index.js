@@ -64,9 +64,7 @@ class Footer extends Component {
 
   getState = props => {
     const {Window} = props
-    this.setState({
-      isMobile: Window.innerWidth < 1200
-      })
+    this.setState({isMobile: Window.innerWidth < 1200})
   }
 
   componentDidUpdate() {

@@ -62,9 +62,7 @@ class Card extends Component {
 
   getState = props => {
     const {author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
-    this.setState({
-      author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title
-      })
+    this.setState({author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title})
   }
 
   componentDidUpdate() {
@@ -81,7 +79,7 @@ class Card extends Component {
 
   editThisCard = id => {
     this.props.editCard(id)
-    this.props.history.push('/articles/new/newsletter')
+    this.props.history.push('/articles/edit/newsletter/' + id)
   }
 
   render() {

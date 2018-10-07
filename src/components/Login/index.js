@@ -55,9 +55,7 @@ class Login extends Component {
   getState = props => {
     const {User} = props
 
-    this.setState({
-      User
-      })
+    this.setState({User})
   }
 
   onChange = (e) => {
@@ -70,13 +68,9 @@ class Login extends Component {
     this.props.setUser(username, password)
   }
 
-  handleShow() {
-    this.setState({show: true});
-  }
+  handleShow = () => this.setState({show: true})
 
-  handleHide() {
-    this.setState({show: false});
-  }
+  handleHide = () => this.setState({show: false})
 
   createUserAccount = (e) => {
     e.preventDefault()

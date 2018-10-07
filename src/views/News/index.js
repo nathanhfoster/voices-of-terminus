@@ -47,9 +47,7 @@ class News extends Component {
 
   getState = props => {
     const {Newsletters} = props
-    this.setState({
-      Newsletters
-    })
+    this.setState({Newsletters})
   }
 
   componentDidUpdate() {

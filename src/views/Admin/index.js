@@ -51,9 +51,7 @@ class Admin extends Component {
 
   getState = props => {
     const {User} = props
-    this.setState({
-      User
-      })
+    this.setState({User})
   }
 
   componentDidUpdate() {
@@ -68,16 +66,16 @@ class Admin extends Component {
       !User.isSuperUser ? <Redirect to="/login"/>
       :<Grid className="Admin Container">
         <Row>
-        <ButtonToolbar>
-          {User.token ? 
-            <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
-            New Article
-            </Button> : null}
-            {User.isStaff ? 
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
-              Create Newsletter
+          <ButtonToolbar>
+            {User.token ? 
+              <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
+              New Article
               </Button> : null}
-          </ButtonToolbar>
+              {User.isStaff ? 
+                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+                Create Newsletter
+                </Button> : null}
+            </ButtonToolbar>
         </Row>
       </Grid>
     )

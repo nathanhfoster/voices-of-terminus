@@ -6,7 +6,9 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {createNewsletter} from '../../actions/NewsLetter'
+import {createNewsletter, getNewsLetter, clearNewsLetter} from '../../actions/NewsLetter'
+import {withRouter} from 'react-router-dom'
+import defaultDesign from './defaultDesign.json'
 
 const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
   Newsletters,
@@ -15,6 +17,8 @@ const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
 })
 
 const mapDispatchToProps = {
+  getNewsLetter,
+  clearNewsLetter
 }
 
 class NewsLetterGenerator extends Component {
@@ -32,9 +36,13 @@ class NewsLetterGenerator extends Component {
   }
 
   static defaultProps = {
+   
   }
   
   componentWillMount() {
+    if(this.props.match) {
+      this.props.getNewsLetter(this.props.match.params.id)
+    }
     this.getState(this.props)
   }
 
@@ -47,11 +55,12 @@ class NewsLetterGenerator extends Component {
 
   getState = props => {
     const {User, Newsletters, HtmlDocument} = props
-    this.setState({
-      Newsletters,
-      HtmlDocument,
-      User
-      })
+    this.setState({Newsletters, HtmlDocument, User})
+  }
+
+  componentWillUnmount(){
+    this.props.clearNewsLetter()
+    this.setState({HtmlDocument: null})
   }
 
   exportHtml = () => {
@@ -63,9 +72,17 @@ class NewsLetterGenerator extends Component {
     })
   }
 
+  loadDesign = design => this.editor.loadDesign(design)
+
+  onDesignLoad = data => {
+   console.log('onDesignLoad', data)
+   //this.editor.setMergeTags([{name: 'First Name'}])
+  }
+
   saveDesign = () => {
     this.editor.saveDesign(design => {
       let j = JSON.stringify(design)
+      console.log(j)
       this.setState({savedDesign: design})
     })
   }
@@ -74,37 +91,38 @@ class NewsLetterGenerator extends Component {
     
   }
 
-  loadDesign = () => {
-    let {design} = this.state.HtmlDocument
-    design = JSON.parse(design)
-    this.editor.loadDesign(design)
-  }
+  handleShow = () => this.setState({show: true})
+  
+  handleHide = () => this.setState({show: false})
 
-  handleShow() {
-    this.setState({show: true});
-  }
+  isEditingDesign = (hasUrlParams, design, editorLoaded) => {
 
-  handleHide() {
-    this.setState({show: false});
   }
-
+  
   render() {
+    const design = this.state.HtmlDocument.hasOwnProperty('design') ? JSON.parse(this.state.HtmlDocument.design) : null
+    // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
+    const isEditingDesign = this.props.match && design && this.editor && window.unlayer
+   
     const styles = {
       boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)',
+      //maxWidth: '100vw'
     }
+      
     return (
       <Grid className="NewsLetterGenerator Container">
         <Row>
           <ButtonToolbar className="ButtonToolbar">
-            <Button onClick={this.exportHtml}>Export HTML</Button>
-            <Button onClick={this.saveDesign}>Save HTML</Button>
-            <Button onClick={this.loadDesign}>Load Design</Button>
-            <Button onClick={this.handleShow}>All Designs</Button>
+            <Button onClick={() => this.loadDesign(defaultDesign)}>NEW</Button>
+            <Button onClick={this.exportHtml}>EXPORT</Button>
+            <Button onClick={this.saveDesign}>SAVE</Button>
+            <Button onClick={this.onDesignLoad}>UPDATE</Button>
+            <Button onClick={this.handleShow}>LOAD</Button>
           </ButtonToolbar>
         </Row>
-        <Row className="">
-          <EmailEditor minHeight="85vh" ref={editor => this.editor = editor} style={styles}/>
-        </Row>
+        <Row>
+          <EmailEditor minHeight="85vh" ref={editor => this.editor = editor} style={styles} onLoad={isEditingDesign ? this.loadDesign(design) : null}/>
+        </Row> 
         <Row>
           <Modal
             {...this.props}
@@ -130,4 +148,4 @@ class NewsLetterGenerator extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(NewsLetterGenerator)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(NewsLetterGenerator))

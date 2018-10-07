@@ -29,7 +29,7 @@ export const Newsletters = (state = [], action) =>
 (action.type === C.GET_NEWSLETTERS) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
 
 export const HtmlDocument = (state = {}, action) =>
-(action.type === C.GET_HTML_DOCUMENT) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
+(action.type === C.GET_HTML_DOCUMENT) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : (action.type === C.DELETE_HTML_DOCUMENT) ? {} : state
 
 export const User = (state = {}, action) =>
 (action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : {...state}

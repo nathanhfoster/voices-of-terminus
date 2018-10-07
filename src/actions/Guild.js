@@ -2,8 +2,8 @@ import C from '../constants'
 import axios from 'axios'
 const DISCORD_URL = process.env.REACT_APP_DISCORD_API_URL
 
-export function getGuildMembers() {
-    return (dispatch) => axios.get(DISCORD_URL)
+export const getGuildMembers = () => {
+    return async (dispatch) => await axios.get(DISCORD_URL)
         .then(res => res.data)
         .then(payload => {
             const discordMembers = Object.keys(payload.members).map(i => { 

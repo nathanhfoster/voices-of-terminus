@@ -51,18 +51,13 @@ class Articles extends Component {
 
   getState = props => {
     const {Articles, User} = props
-    this.setState({
-      Articles,
-      User
-    })
+    this.setState({Articles, User})
   }
 
   renderCards = Articles => Articles.map(card => 
-    
       <Col className="CardContainer" md={3}>
         <Card {...card} deleteItem={this.props.deleteArticle}/>
       </Col>
-    
   )
 
   render() {
@@ -70,20 +65,21 @@ class Articles extends Component {
     return (
       <Grid className="Articles Container">
         <Row>
+            <PageHeader className="pageHeader">ARTICLES</PageHeader>
+        </Row>
+        <Row>
           <ButtonToolbar>
             {User.token ? 
+              [
               <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
               New Article
-              </Button> : null}
-              {User.isStaff ? 
-                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
-                Create Newsletter
-                </Button> : null}
+              </Button>,
+              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+              Create Newsletter
+              </Button>
+              ]
+              : null}
             </ButtonToolbar>
-        </Row>
-
-        <Row>
-            <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
 
         <Row>
@@ -98,6 +94,7 @@ class Articles extends Component {
         <Row>
           <Col sm={12}>
             <h3>Recent</h3>
+            {Articles.length ? this.renderCards(Articles.sort((a, b) => new Date(b.date_created) - new Date(a.date_created))) : null}
           </Col>
         </Row>
       </Grid>

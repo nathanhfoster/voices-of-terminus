@@ -67,9 +67,7 @@ class Roster extends Component {
 
   getState = props => {
     const guildMembers = this.props.DiscordData.members
-    this.setState({
-      guildMembers
-      })
+    this.setState({guildMembers})
   }
 
   renderPeople = (color, routeItems) => routeItems.map(k => {

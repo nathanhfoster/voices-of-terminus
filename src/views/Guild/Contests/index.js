@@ -35,8 +35,7 @@ class Contests extends Component {
     this.getState(nextProps)
   }
   getState = props => {
-    this.setState({
-      })
+    this.setState({})
   }
 
   render() {

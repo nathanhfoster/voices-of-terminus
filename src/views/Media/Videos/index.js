@@ -48,9 +48,7 @@ class Videos extends Component {
 
   getState = props => {
     const {VoTYouTubeChannelData} = props
-    this.setState({
-      VoTYouTubeChannelData
-      })
+    this.setState({VoTYouTubeChannelData})
   }
 
     //(k.videoId) => this.props.history.push(k.videoId)

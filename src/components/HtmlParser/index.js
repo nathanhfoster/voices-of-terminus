@@ -44,9 +44,7 @@ class HtmlParser extends Component {
 
   getState = props => {
     const {HtmlDocument} = props
-    this.setState({
-      HtmlDocument
-      })
+    this.setState({HtmlDocument})
   }
 
   componentDidUpdate() {

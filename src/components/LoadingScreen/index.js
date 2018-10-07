@@ -43,8 +43,7 @@ class LoadingScreen extends Component {
   }
 
   getState = props => {
-    this.setState({
-      })
+    this.setState({})
   }
   
   componentDidUpdate() {
