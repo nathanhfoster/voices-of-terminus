@@ -1,6 +1,6 @@
 .Card {
     width: 100%;
-    height: 300px;
+    height: var(--cardHeight);
     background-color: var(--grey);
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -15,13 +15,13 @@
 }
 .Preview {
   padding: 16px;
-  max-height: 400px;
+  max-height: var(--cardHeight);
   overflow: hidden;
-  opacity: 0.7;
-  -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - 105px), transparent calc(100% - 5px), transparent);
-  mask-image: linear-gradient(to bottom, #000, #000 calc(100% - 105px), transparent calc(100% - 5px), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - var(--cardHeight)), transparent calc(100% - 5px), transparent);
   pointer-events: none;
-  flex: 1 1 auto;
+}
+.previewItem {
+  
 }
 .Summary {
   position: absolute;

@@ -1,6 +1,9 @@
 .Articles {
   margin-top: 20px;
 }
+.Articles .Card {
+  height: calc(var(--cardHeight) / 1.25);
+}
 .CardContainer {
     margin: 0;
   }
