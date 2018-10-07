@@ -28,7 +28,7 @@ export const getNewsletters = () => {
            dispatch ({
              type: C.GET_NEWSLETTERS,
              payload: res.data
-         })
+            })
        }).catch((e)=>console.log(e))
 }
 
@@ -39,7 +39,7 @@ export const getNewsLetter = id => {
            dispatch ({
              type: C.GET_HTML_DOCUMENT,
              payload: res.data
-         })
+            })
        }).catch((e)=>console.log(e))
 }
 
@@ -51,20 +51,13 @@ export const clearNewsLetter = () => ({
 export const updateNewsLetter = (id, payload) => {
     return  async (dispatch, getState) => await Axios.patch('newsletters/' + id + '/', qs.stringify(payload))
     .then(res => {
-       let {Newsletters} = getState()
-       payload = Newsletters.map(newsletter => {
-            if (newsletter.id == id){
-                console.log(newsletter)
-                console.log(res.data)
-                return newsletter = res.data
-            }
-            return newsletter
-        })
+       let {HtmlDocument} = getState()
+       payload = HtmlDocument.map(newsletter => newsletter = res.data)
         console.log("CHANGED PAYLOAD: ", payload)
         dispatch ({
-            type: C.GET_NEWSLETTERS,
+            type: C.GET_HTML_DOCUMENT,
             payload: payload
-    })
+        })
     }).catch((e)=>console.log(e))
 }
 
@@ -76,6 +69,6 @@ export const deleteNewsLetter = id => {
         dispatch ({
             type: C.GET_NEWSLETTERS,
             payload: payload
-    })
+        })
     }).catch((e)=>console.log(e))
 }

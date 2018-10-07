@@ -86,7 +86,7 @@ class NewsLetterGenerator extends Component {
     const {id} = this.props.match.params
     this.editor.saveDesign(design => {
       design = JSON.stringify(design)
-      const title = "YESsssss"
+      const title = "Changed"
       this.props.updateNewsLetter(id, {title, design})
     })
   }

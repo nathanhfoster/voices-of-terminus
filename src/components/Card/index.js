@@ -94,8 +94,8 @@ class Card extends Component {
         <div className="Summary">
           <h4>
             Title: {title}
-            <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions"><i class="fa fa-trash-alt"/></Button>
-            <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions"><i class="fa fa-pencil-alt"/></Button>
+            <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions"><i className="fa fa-trash-alt"/></Button>
+            <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions"><i className="fa fa-pencil-alt"/></Button>
           </h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>

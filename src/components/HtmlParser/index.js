@@ -6,14 +6,15 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-import {getNewsLetter} from '../../actions/NewsLetter'
+import {getNewsLetter, clearNewsLetter} from '../../actions/NewsLetter'
 
 const mapStateToProps = ({HtmlDocument}) => ({
   HtmlDocument
 })
 
 const mapDispatchToProps = {
-  getNewsLetter
+  getNewsLetter,
+  clearNewsLetter
 }
 
 class HtmlParser extends Component {
@@ -47,10 +48,9 @@ class HtmlParser extends Component {
     this.setState({HtmlDocument})
   }
 
-  componentDidUpdate() {
-  }
-
   componentWillUnmount() {
+    this.props.clearNewsLetter()
+    this.setState({HtmlDocument: null})
   }
 
   render() {
