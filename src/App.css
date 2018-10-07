@@ -4,6 +4,10 @@
   width: 100%;
 }
 
+.fadeThrough {
+  height: 100vh;
+ } 
+
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {
  .fadeThrough {
@@ -18,7 +22,7 @@
 @media (max-width: 767px) {
   @media only all and (display-mode: browser) {
    .fadeThrough {
-      height: calc(100vh - 102px);
+      height: calc(100vh - 52px);
     }
   }
 }
