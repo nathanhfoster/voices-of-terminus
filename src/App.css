@@ -7,7 +7,7 @@
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {
  .fadeThrough {
-    height: calc(100vh - 50px);
+    height: calc(100vh - 52px);
   }
 }
 
