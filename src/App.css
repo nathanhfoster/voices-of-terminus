@@ -15,7 +15,7 @@
 }
 
 /*Running on mobile browser*/
-@media (max-width: 676px) {
+@media (max-width: 767px) {
   @media only all and (display-mode: browser) {
    .fadeThrough {
       height: calc(100vh - 102px);
