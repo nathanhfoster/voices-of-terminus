@@ -134,6 +134,7 @@ a:-webkit-any-link, button, html input[type=button], input[type=reset], input[ty
   cursor: url('./images/Cursor.png'), auto !important;
 }
 body {
+  height: 100vh;
   font-family: "Omnia", "Cinzel Decorative";
   background-repeat: no-repeat;
   overflow: hidden;
