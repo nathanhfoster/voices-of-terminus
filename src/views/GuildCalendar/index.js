@@ -4,7 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import Calendar from 'react-calendar/dist/entry.nostyle'
 import { Map, List} from 'immutable'
 import EventList from '../../components/EventList'
-import {Grid, Row, Col, PageHeader, Button} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, ButtonToolbar, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import MomentJS from 'moment'
 import './styles.css'
@@ -119,7 +119,9 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <Button onClick={this.Today} className="todayButton">Today</Button>
+          <ButtonToolbar className="actionButtons">
+            <Button onClick={this.Today} className="todayButton pull-right">Today</Button>
+          </ButtonToolbar>
         </Row>
         <Row>
           <Col>

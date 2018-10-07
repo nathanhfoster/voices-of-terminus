@@ -142,8 +142,8 @@ class TextEditor extends Component {
         </Row>
         <Row>
           <Col sm={12}>
-            <ButtonToolbar>
-              <Button type="submit" onClick={this.postArticle} className="newArticleButton">
+            <ButtonToolbar className="actionButtons">
+              <Button type="submit" onClick={this.postArticle} className="actionButtons pull-right">
                 Post
               </Button>
             </ButtonToolbar>

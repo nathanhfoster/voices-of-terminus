@@ -158,7 +158,7 @@ class App extends Component {
 
   updateWindowDimensions() {
     const { innerHeight, innerWidth } = window
-    const isMobile = innerWidth < 676
+    const isMobile = innerWidth < 768
     this.props.setWindow({ innerHeight, innerWidth, isMobile })
     this.setState({height: innerHeight, width: innerWidth, isMobile})
   }

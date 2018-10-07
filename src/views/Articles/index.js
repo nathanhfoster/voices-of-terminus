@@ -68,13 +68,13 @@ class Articles extends Component {
             <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
         <Row>
-          <ButtonToolbar>
+          <ButtonToolbar className="actionButtons">
             {User.token ? 
               [
-              <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
+              <Button onClick={() => this.props.history.push('/articles/new/article')} className="actionButtons">
               New Article
               </Button>,
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="actionButtons">
               Create Newsletter
               </Button>
               ]
@@ -85,12 +85,10 @@ class Articles extends Component {
         <Row>
           <Col sm={12}>
             <h3>Highlights</h3>
-          </Col>
+            {Articles.length ? this.renderCards(Articles) : null}
+          </Col>          
         </Row>
-        <Row>
           
-        </Row>
-          {Articles.length ? this.renderCards(Articles) : null}
         <Row>
           <Col sm={12}>
             <h3>Recent</h3>

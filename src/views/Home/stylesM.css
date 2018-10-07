@@ -6,7 +6,7 @@
  max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
  min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
  */
- @media (max-width: 676px) {
+ @media (max-width: 767px) {
     .Home {
       margin: 0;
       padding: 0;

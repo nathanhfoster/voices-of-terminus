@@ -2,10 +2,6 @@
     font-family: 'proxima_novasemibold', Arial, sans-serif;
     margin-top: 20px;
 }
-.TextEditor .newArticleButton {
-  margin: 10px 0 10px;
-  float: right;
-}
 .TextEditor ::-webkit-scrollbar {
   width: 4px;
 }

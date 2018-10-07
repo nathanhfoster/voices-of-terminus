@@ -1,11 +1,16 @@
 .NewsLetterGenerator {
+    width: calc(100% - 446px);
 }
 
-.ButtonToolbar {
-    margin-top: 16px;
-    margin-bottom: 16px;
+.customModal {
+    margin-top: 0;
+    position: absolute;
+    top: var(--navBarHeight);
+    left: 0;
+    right: 0;
+    width: 75%;
 }
 
 .emailEditorContainer .sc-bdVaJa {
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+    
 }

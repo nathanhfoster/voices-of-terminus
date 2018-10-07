@@ -66,13 +66,13 @@ class Admin extends Component {
       !User.isSuperUser ? <Redirect to="/login"/>
       :<Grid className="Admin Container">
         <Row>
-          <ButtonToolbar>
+          <ButtonToolbar className="actionButtons">
             {User.token ? 
-              <Button onClick={() => this.props.history.push('/articles/new/article')} className="newArticleButton">
+              <Button onClick={() => this.props.history.push('/articles/new/article')} className="actionButtons">
               New Article
               </Button> : null}
               {User.isStaff ? 
-                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="newArticleButton">
+                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="actionButtons">
                 Create Newsletter
                 </Button> : null}
             </ButtonToolbar>

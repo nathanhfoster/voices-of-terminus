@@ -46,7 +46,7 @@ export function getVRYouTubeChannelData() {
         }).catch((e)=>console.log(e))
 }
 
-export const setWindow = (Window) => ({
+export const setWindow = Window => ({
     type: C.SET_WINDOW,
     payload: Window
  })

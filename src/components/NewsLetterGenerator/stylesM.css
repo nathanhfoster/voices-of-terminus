@@ -12,7 +12,10 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 @media(min-width:1200px){}
 
 @media(max-width:767px) {
-   .NewsLetterGenerator {
-        width: 100%;
-}
+  .NewsLetterGenerator {
+    width: 100%;
+  }
+  .customModal {
+    width: inherit;
+  }
 }

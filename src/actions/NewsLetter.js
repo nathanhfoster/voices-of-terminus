@@ -14,7 +14,7 @@ const Axios = axios.create({
   }
 })
 
-export const createNewsletter = payload => {
+export const postNewsletter = payload => {
     Axios.post('newsletters/', qs.stringify(payload))
     .then(res => {
         //console.log(res)
@@ -37,7 +37,7 @@ export const getNewsLetter = id => {
        .then(res => {
            //console.log(res)
            dispatch ({
-             type: C.GET_HTML_DOCUMENT,
+             type: C.GET_NEWSLETTER,
              payload: res.data
             })
        }).catch((e)=>console.log(e))
@@ -49,14 +49,11 @@ export const clearNewsLetter = () => ({
 })
 
 export const updateNewsLetter = (id, payload) => {
-    return  async (dispatch, getState) => await Axios.patch('newsletters/' + id + '/', qs.stringify(payload))
+    return  async (dispatch) => await Axios.patch('newsletters/' + id + '/', qs.stringify(payload))
     .then(res => {
-       let {HtmlDocument} = getState()
-       payload = HtmlDocument.map(newsletter => newsletter = res.data)
-        console.log("CHANGED PAYLOAD: ", payload)
         dispatch ({
-            type: C.GET_HTML_DOCUMENT,
-            payload: payload
+            type: C.GET_NEWSLETTER,
+            payload: res.data
         })
     }).catch((e)=>console.log(e))
 }

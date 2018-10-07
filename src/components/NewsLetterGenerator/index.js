@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, ButtonToolbar, Button, Modal, Form} from 'react-bootstrap'
+import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form} from 'react-bootstrap'
 import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {createNewsletter, getNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
-import {withRouter} from 'react-router-dom'
+import {postNewsletter, getNewsLetter, deleteNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
+import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
-const qs = require('qs')
+import Card from '../Card'
 
 const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
   Newsletters,
@@ -19,6 +19,7 @@ const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
 
 const mapDispatchToProps = {
   getNewsLetter,
+  deleteNewsLetter,
   updateNewsLetter,
   clearNewsLetter
 }
@@ -52,13 +53,12 @@ class NewsLetterGenerator extends Component {
   }
   
   componentWillReceiveProps(nextProps) {
-    console.log("NEXTPROPS: ", nextProps)
     this.getState(nextProps)
   }
 
   getState = props => {
     const {User, Newsletters, HtmlDocument} = props
-    this.setState({Newsletters, HtmlDocument, User})
+    this.setState({User, Newsletters, HtmlDocument})
   }
 
   componentWillUnmount(){
@@ -66,73 +66,77 @@ class NewsLetterGenerator extends Component {
     this.setState({HtmlDocument: null})
   }
 
-  exportHtml = () => {
+  postNewsletter = () => {
     const {User} = this.state
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
-      createNewsletter({title: 'Test', slug:"news", author: User.id, html, design, last_modified_by: User.id})
+      postNewsletter({title: 'Test', slug:"news", author: User.id, html, design, last_modified_by: User.id})
     })
   }
 
-  loadDesign = design => this.editor.loadDesign(design)
+  loadNewsletterDesign = design => this.editor.loadDesign(design)
 
   onDesignLoad = data => {
    console.log('onDesignLoad', data)
    //this.editor.setMergeTags([{name: 'First Name'}])
   }
 
-  saveDesign = () => {
+  updateNewsletter = () => {
     const {id} = this.props.match.params
-    this.editor.saveDesign(design => {
+    this.editor.exportHtml(data => {
+      let { design, html } = data
       design = JSON.stringify(design)
       const title = "Changed"
-      this.props.updateNewsLetter(id, {title, design})
+      this.props.updateNewsLetter(id, {title, design, html})
     })
   }
 
-  renderDesigns = () => {
-    
-  }
+  renderDesigns = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
+    return (
+      <Col className="CardContainer" md={6}>
+        <Card {...card} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter}/>
+      </Col>
+    )
+  })
 
   handleShow = () => this.setState({show: true})
   
   handleHide = () => this.setState({show: false})
-
-  isEditingDesign = (hasUrlParams, design, editorLoaded) => {
-
-  }
   
   render() {
+    const {User, Newsletters} = this.state
     const design = this.state.HtmlDocument.hasOwnProperty('design') ? JSON.parse(this.state.HtmlDocument.design) : null
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
     const isEditingDesign = this.props.match && design && this.editor && window.unlayer
    
     const styles = {
-      boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)',
-      maxWidth: '50px !important'
+      boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)'
     }
+    console.log(User.token ? true : false)
       
     return (
-      <Grid className="NewsLetterGenerator Container">
+      !User.token ? <Redirect to={this.props.history.push("/login")}/>
+      :<Grid className="NewsLetterGenerator Container">
         <Row>
-          <ButtonToolbar className="ButtonToolbar">
-            <Button onClick={() => this.loadDesign(defaultDesign)}>NEW</Button>
-            <Button onClick={this.exportHtml}>POST</Button>
-            <Button onClick={this.saveDesign}>SAVE</Button>
-            <Button onClick={this.saveDesign}>UPDATE</Button>
+          <ButtonToolbar className="ButtonToolbar actionButtons">
+            <Button onClick={() => this.loadNewsletterDesign(defaultDesign)}>NEW</Button>
+            <Button onClick={this.postNewsletter}>POST</Button>
+            <Button onClick={this.updateNewsletter}>UPDATE</Button>
+            <Button onClick={this.updateNewsletter}>SAVE</Button>
             <Button onClick={this.handleShow}>LOAD</Button>
           </ButtonToolbar>
         </Row>
         <Row>
-          <EmailEditor minHeight="85vh" ref={editor => this.editor = editor} style={styles} onLoad={isEditingDesign ? this.loadDesign(design) : null}/>
+          <EmailEditor minHeight="calc(100vh - 108px)" ref={editor => this.editor = editor} style={styles} 
+          onDesignLoad={this.onDesignLoad} onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}/>
         </Row> 
         <Row>
           <Modal
             {...this.props}
             show={this.state.show}
             onHide={this.handleHide}
-            dialogClassName="custom-modal"
+            dialogClassName="customModal"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-lg">
@@ -142,7 +146,7 @@ class NewsLetterGenerator extends Component {
             <Modal.Body>
               <Form className="Container">
                 <Row>
-
+                  {this.renderDesigns(Newsletters)}
                 </Row>
               </Form>
             </Modal.Body>

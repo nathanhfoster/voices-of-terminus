@@ -34,11 +34,11 @@ class News extends Component {
   }
   
   componentWillMount() {
-    this.props.getNewsletters()
     this.getState(this.props)
   }
 
   componentDidMount() {
+    this.props.getNewsletters()
   }
   
   componentWillReceiveProps(nextProps) {

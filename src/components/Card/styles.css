@@ -38,7 +38,6 @@
 }
 .cardActions {
   color: var(--grey);
-  float: right;
   margin-left: 8px;
 }
 .cardActions:hover {

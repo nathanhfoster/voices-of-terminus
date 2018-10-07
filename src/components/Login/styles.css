@@ -1,35 +1,7 @@
-  .LoginForm {
-    margin: 40px;
-  }
-
-  .centerButtons {
-    text-align: center;
-  }
-
-  .btn-group {
-    margin: 0 auto; 
+.LoginForm {
+  margin: 40px;
 }
 
-  .modal-header {
-    text-align: center;
-  }
-
-.modal-content {
-    background-color: black;
-    color: white;
-  }
-
-.modal-content .close {
-    color: white;
-    opacity: 1;
-    text-shadow: none;
-  }
-
-  .modal-content .close:hover {
-    color: var(--primaryColor);
-    opacity: 1;
-  }
-  
-  .modal-footer {
-    text-align: center;
-  }
+.accontForm .form-group {
+  margin: 20px 80px 20px 80px;
+}

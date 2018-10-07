@@ -80,9 +80,8 @@ class Login extends Component {
 
   render() {
     const {User} = this.state
-    const {history} = this.props
     return (
-      User.token ? <Redirect to={history.goBack()}/>
+      User.token ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Login Container">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
@@ -113,7 +112,7 @@ class Login extends Component {
               </Col>
             </Row>
             <Row className="centerButtons">
-              <ButtonGroup >
+              <ButtonGroup className="actionButtons">
                 <Button type="submit">Sign in</Button>
                 <Button onClick={this.handleShow}>Create Account</Button>
                 <Button onClick={this.handleShow}>Forgot Password</Button>
@@ -126,7 +125,7 @@ class Login extends Component {
                 {...this.props}
                 show={this.state.show}
                 onHide={this.handleHide}
-                dialogClassName="custom-modal"
+                dialogClassName="customModal"
               >
                 <Modal.Header closeButton>
                   <Modal.Title id="contained-modal-title-lg">
@@ -134,7 +133,7 @@ class Login extends Component {
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form className="Container">
+                  <Form className="accontForm Container">
                     <Row>
                       <FormGroup>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>

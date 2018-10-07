@@ -2,11 +2,47 @@
   margin-top: var(--navBarHeight);
   height: 100%;
   width: 100%;
+  touch-action: none;
+}
+
+.actionButtons button {
+  border: 0;
+  border-radius: 4px !important;
+  margin-right: 8px;
+  margin-bottom: 8px;
 }
 
 .fadeThrough {
   height: 100vh;
- } 
+}
+
+.centerButtons {
+  text-align: center;
+}
+
+.modal-header {
+  text-align: center;
+}
+
+.modal-content {
+  background-color: black;
+  color: white;
+}
+
+.modal-content .close {
+  color: white;
+  opacity: 1;
+  text-shadow: none;
+}
+
+.modal-content .close:hover {
+  color: var(--primaryColor);
+  opacity: 1;
+}
+
+.modal-footer {
+  text-align: center;
+}
 
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {

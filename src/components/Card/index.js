@@ -8,7 +8,9 @@ import Moment from 'react-moment'
 import './styles.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({User, Window}) => ({
+  User,
+  Window
 })
 
 const mapDispatchToProps = {
@@ -61,8 +63,9 @@ class Card extends Component {
   }
 
   getState = props => {
-    const {author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
-    this.setState({author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title})
+    const {isMobile} = props.Window
+    const {User, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
+    this.setState({User, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile})
   }
 
   componentDidUpdate() {
@@ -82,8 +85,17 @@ class Card extends Component {
     this.props.history.push('/articles/edit/newsletter/' + id + '/')
   }
 
+  hasPermission = (User, author) => {
+    let permission = false
+    if(User.id == author) permission = true
+    if(User.isStaff) permission = true
+
+    return permission
+  }
+
   render() {
-    const {author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = this.state
+    const {User, author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile} = this.state
+    const hasPermission = this.hasPermission(User, author)
     return (
       <Grid className="Clickable Card" onClick={()=>this.props.history.push('/news/' + id.toString())}>
         <div className="Preview">
@@ -94,8 +106,8 @@ class Card extends Component {
         <div className="Summary">
           <h4>
             Title: {title}
-            <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions"><i className="fa fa-trash-alt"/></Button>
-            <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions"><i className="fa fa-pencil-alt"/></Button>
+           {hasPermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button> : null}
+           {!isMobile && hasPermission ? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
           </h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>
