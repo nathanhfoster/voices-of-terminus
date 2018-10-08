@@ -1,6 +1,6 @@
 .App {
   margin-top: var(--navBarHeight);
-  height: 100%;
+  height: 100vh;
   width: 100%;
   touch-action: none;
 }
@@ -10,10 +10,6 @@
   border-radius: 4px !important;
   margin-right: 8px;
   margin-bottom: 8px;
-}
-
-.fadeThrough {
-  height: 100vh;
 }
 
 .centerButtons {
@@ -44,6 +40,9 @@
   text-align: center;
 }
 
+.fadeThrough {
+  height: 100vh;
+}
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {
  .fadeThrough {

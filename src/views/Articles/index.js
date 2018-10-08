@@ -56,7 +56,7 @@ class Articles extends Component {
 
   renderCards = Articles => Articles.map(card => 
       <Col className="CardContainer" md={3}>
-        <Card {...card} deleteItem={this.props.deleteArticle}/>
+        <Card {...card} summary={true} deleteItem={this.props.deleteArticle}/>
       </Col>
   )
 

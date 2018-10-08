@@ -10,19 +10,18 @@
   transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
 }
 .Card {
-    height: 100%;
-    width: 100%;
-    background-color: var(--grey);
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    position: relative;
-    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
-    margin-bottom: 20px;
-    border: 1px solid var(--gray);
-    border-radius: 4px;
-    transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
 }
 .Preview {
   padding-top: 12px;
