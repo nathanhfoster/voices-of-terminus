@@ -5,6 +5,7 @@ import { Grid, Row, Col, PageHeader, Tabs, Tab,} from 'react-bootstrap'
 import './styles.css'
 import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
+import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = ({Newsletters}) => ({
   Newsletters
@@ -59,7 +60,7 @@ class News extends Component {
   renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
       <Col className="CardContainer" md={6}>
-        <Card {...card} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter}/>
+        <Card {...card} summary={true} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter} click={() => this.props.history.push('/news/' + card.id.toString())} />
       </Col>
     )
   })
@@ -89,4 +90,4 @@ class News extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(News)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(News))

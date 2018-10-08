@@ -6,7 +6,7 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {postNewsletter, getNewsLetter, deleteNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
+import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
 import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
 import Card from '../Card'
@@ -18,6 +18,7 @@ const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
 })
 
 const mapDispatchToProps = {
+  getNewsletters,
   getNewsLetter,
   deleteNewsLetter,
   updateNewsLetter,
@@ -94,15 +95,21 @@ class NewsLetterGenerator extends Component {
 
   renderDesigns = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
-      <Col className="CardContainer" md={6}>
-        <Card {...card} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter}/>
+      <Col className="NewsletterCardContainer" md={6} >
+        <Card {...card} summary={false} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter} click={() => this.handleHide(card.id)} />
       </Col>
     )
   })
 
-  handleShow = () => this.setState({show: true})
+  handleShow = () => {
+    this.props.getNewsletters()
+    this.setState({show: true})
+  }
   
-  handleHide = () => this.setState({show: false})
+  handleHide = id => {
+    if(id) { this.props.getNewsLetter(id.toString()) }
+    this.setState({show: false})
+  }
   
   render() {
     const {User, Newsletters} = this.state
@@ -113,7 +120,6 @@ class NewsLetterGenerator extends Component {
     const styles = {
       boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)'
     }
-    console.log(User.token ? true : false)
       
     return (
       !User.token ? <Redirect to={this.props.history.push("/login")}/>
@@ -123,12 +129,12 @@ class NewsLetterGenerator extends Component {
             <Button onClick={() => this.loadNewsletterDesign(defaultDesign)}>NEW</Button>
             <Button onClick={this.postNewsletter}>POST</Button>
             <Button onClick={this.updateNewsletter}>UPDATE</Button>
-            <Button onClick={this.updateNewsletter}>SAVE</Button>
-            <Button onClick={this.handleShow}>LOAD</Button>
+            <Button onClick={this.handleShow} className="pull-right">LOAD</Button>
+            <Button onClick={this.updateNewsletter} className="pull-right">SAVE</Button>
           </ButtonToolbar>
         </Row>
         <Row>
-          <EmailEditor minHeight="calc(100vh - 108px)" ref={editor => this.editor = editor} style={styles} 
+          <EmailEditor minHeight="calc(100vh - 102px)" ref={editor => this.editor = editor} style={styles} 
           onDesignLoad={this.onDesignLoad} onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}/>
         </Row> 
         <Row>
@@ -144,7 +150,7 @@ class NewsLetterGenerator extends Component {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form className="Container">
+              <Form>
                 <Row>
                   {this.renderDesigns(Newsletters)}
                 </Row>

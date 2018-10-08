@@ -64,8 +64,8 @@ class Card extends Component {
 
   getState = props => {
     const {isMobile} = props.Window
-    const {User, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
-    this.setState({User, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile})
+    const {User, summary, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
+    this.setState({User, summary, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile})
   }
 
   componentDidUpdate() {
@@ -94,16 +94,16 @@ class Card extends Component {
   }
 
   render() {
-    const {User, author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile} = this.state
+    const {User, summary, author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile} = this.state
     const hasPermission = this.hasPermission(User, author)
     return (
-      <Grid className="Clickable Card" onClick={()=>this.props.history.push('/news/' + id.toString())}>
+      <Grid className="Clickable Card" onClick={this.props.click}>
         <div className="Preview">
           <div className="previewItem">
             {ReactHtmlParser(html)}
           </div>
         </div>
-        <div className="Summary">
+        {summary ? <div className="Summary">
           <h4>
             Title: {title}
            {hasPermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button> : null}
@@ -113,6 +113,7 @@ class Card extends Component {
           <h6>Tags: [{tags}]</h6>
           <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>
         </div>
+        : null}
       </Grid>
     )
   }
