@@ -8,6 +8,7 @@ const Axios = axios.create({
     timeout: 2000,
     headers: {
       'Authorization': "Token " + Cookies.get('User_LoginToken'),
+      'Cache-Control': 'no-cache',
       'Content-type': 'application/x-www-form-urlencoded',
       'Accept': 'application/json'
   }
@@ -28,6 +29,30 @@ export const getArticles = () => {
            payload: res.data
        })
      }).catch((e)=>console.log(e))
+}
+
+export const getArticle = id => {
+  console.log(id)
+  return async (dispatch) => await Axios.get('articles/' + id + '/')
+     .then(res => {
+         dispatch ({
+           type: C.GET_HTML_DOCUMENT,
+           payload: res.data
+       })
+     }).catch((e)=>console.log(e))
+}
+
+export const updateArticle = (id, payload) => {
+  return  async (dispatch, getState) => await Axios.patch('articles/' + id + '/', qs.stringify(payload))
+  .then(res => {
+    let {HtmlDocument} = getState()
+    HtmlDocument = res.data
+    console.log(res.data)
+      dispatch ({
+          type: C.GET_HTML_DOCUMENT,
+          payload: HtmlDocument
+      })
+  }).catch((e)=>console.log(e))
 }
 
 export const deleteArticle = id => {

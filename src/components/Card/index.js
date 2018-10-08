@@ -7,6 +7,7 @@ import {Grid, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './styles.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
+import HtmlParser from '../HtmlParser'
 
 const mapStateToProps = ({User, Window}) => ({
   User,
@@ -74,15 +75,16 @@ class Card extends Component {
   componentWillUnmount() {
   }
 
-  showArticle = id => {
-
-  }
-
-  deleteThisCard = id => this.props.deleteItem(id)
+  deleteThisCard = id => this.props.deleteCard(id)
 
   editThisCard = id => {
+    // Get current path in url
+    const {pathname} = this.props.history.location
+    // Call passed edit function
     this.props.editCard(id)
-    this.props.history.push('/articles/edit/newsletter/' + id + '/')
+    // Determine route
+    if(pathname.includes('articles')) { this.props.history.push('/articles/edit/article/' + id + '/') }
+    if(pathname.includes('news')) { this.props.history.push('/articles/edit/newsletter/' + id + '/') }
   }
 
   hasPermission = (User, author) => {
@@ -100,14 +102,17 @@ class Card extends Component {
       <Grid className="Clickable Card" onClick={this.props.click}>
         <div className="Preview">
           <div className="previewItem">
-            {ReactHtmlParser(html)}
+            <HtmlParser html={html} />
           </div>
         </div>
         {summary ? <div className="Summary">
           <h4>
             Title: {title}
-           {hasPermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button> : null}
-           {!isMobile && hasPermission ? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
+           {hasPermission ?
+            [
+             <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>,
+             <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> 
+            ]: null}
           </h4>
           <h5>Author: {author}</h5>
           <h6>Tags: [{tags}]</h6>

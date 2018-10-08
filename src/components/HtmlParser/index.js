@@ -6,7 +6,9 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-import {getNewsLetter, clearNewsLetter} from '../../actions/NewsLetter'
+import {getNewsLetter} from '../../actions/NewsLetter'
+import {getArticle} from '../../actions/Articles'
+import {clearHtmlDocument} from '../../actions/App'
 
 const mapStateToProps = ({HtmlDocument}) => ({
   HtmlDocument
@@ -14,7 +16,8 @@ const mapStateToProps = ({HtmlDocument}) => ({
 
 const mapDispatchToProps = {
   getNewsLetter,
-  clearNewsLetter
+  getArticle,
+  clearHtmlDocument
 }
 
 class HtmlParser extends Component {
@@ -36,7 +39,9 @@ class HtmlParser extends Component {
   }
 
   componentDidMount() {
-    this.props.getNewsLetter(this.props.match.params.id)
+    const path = this.props.match ? this.props.match.path : ' '
+    if(path.includes('news')) this.props.getNewsLetter(this.props.match.params.id)
+    if(path.includes('articles')) this.props.getArticle(this.props.match.params.id)
   }
   
   componentWillReceiveProps(nextProps) {
@@ -44,17 +49,18 @@ class HtmlParser extends Component {
   }
 
   getState = props => {
-    const {HtmlDocument} = props
-    this.setState({HtmlDocument})
+    const {HtmlDocument, html} = props
+    this.setState({HtmlDocument, html})
   }
 
   componentWillUnmount() {
-    this.props.clearNewsLetter()
+    this.props.clearHtmlDocument()
     this.setState({HtmlDocument: null})
   }
 
   render() {
-    const {html} = this.state.HtmlDocument
+    // Checks if the html document came from an api call or was passed as a prop from another parent
+    const html = this.state.html ? this.state.html : this.state.HtmlDocument.html
     return (
       <Grid className="HtmlParser Container">
         <Row>

@@ -37,22 +37,17 @@ export const getNewsLetter = id => {
        .then(res => {
            //console.log(res)
            dispatch ({
-             type: C.GET_NEWSLETTER,
+             type: C.GET_HTML_DOCUMENT,
              payload: res.data
             })
        }).catch((e)=>console.log(e))
 }
 
-export const clearNewsLetter = () => ({
-    type: C.DELETE_HTML_DOCUMENT,
-    payload: null
-})
-
 export const updateNewsLetter = (id, payload) => {
     return  async (dispatch) => await Axios.patch('newsletters/' + id + '/', qs.stringify(payload))
     .then(res => {
         dispatch ({
-            type: C.GET_NEWSLETTER,
+            type: C.GET_HTML_DOCUMENT,
             payload: res.data
         })
     }).catch((e)=>console.log(e))

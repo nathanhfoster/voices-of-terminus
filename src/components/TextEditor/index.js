@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, FormGroup, FormControl, ButtonToolbar, Button} from 'react-bootstrap'
+import {Grid, Row, Col, FormGroup, FormControl, ControlLabel, ButtonToolbar, Button} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import { EditorState, convertToRaw, ContentState } from 'draft-js'
@@ -10,17 +10,21 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
-import {createDocument} from '../../actions/Articles'
+import {clearHtmlDocument} from '../../actions/App'
+import {createDocument, updateArticle} from '../../actions/Articles'
 import {Map} from 'immutable'
 import {Redirect} from 'react-router-dom'
 
-const mapStateToProps = ({User, editorState}) => ({
+const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
+  editorState,
+  HtmlDocument,
   User,
-  editorState
 })
 
 const mapDispatchToProps = {
-  setEditorState
+  clearHtmlDocument,
+  setEditorState,
+  updateArticle
 }
 
 class TextEditor extends Component {
@@ -68,27 +72,43 @@ class TextEditor extends Component {
   /* render() */
 
   componentDidMount() {
+    const {HtmlDocument} = this.props
+    if(HtmlDocument.hasOwnProperty('html')) {
+      const blocksFromHtml = htmlToDraft(HtmlDocument.html)
+      const { contentBlocks, entityMap } = blocksFromHtml
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
+      const editorState = EditorState.createWithContent(contentState)
+      this.props.setEditorState(editorState)
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log("NEXTPROPS: ", nextProps)
     this.getState(nextProps)
   }
 
   getState = props => {
-    const {User} = props
+    //htmlToDraft
+    const {User, HtmlDocument, match} = props
+    const {id} = match ? match.params : null
+    const {author, tags, title} = HtmlDocument
     // Set the editorState from Redux if it exists else set an initial value
-    const editorState = props.editorState.hasOwnProperty('_immutable') && props.editorState._immutable.hasOwnProperty('_map') ? props.editorState : EditorState.createEmpty()
-    this.setState({User, editorState})
+    let editorState = props.editorState.hasOwnProperty('_immutable') && props.editorState._immutable.hasOwnProperty('_map') ? props.editorState : EditorState.createEmpty()
+   
+    this.setState({User, HtmlDocument, id, author, tags, title, editorState})
   }
 
   componentDidUpdate() {
   }
 
-  componentWillUnmount() {
+  componentWillUnmount(){
+    this.props.clearHtmlDocument()
+    this.setState({HtmlDocument: null})
   }
 
   onEditorStateChange = editorState => {
-    this.props.setEditorState(editorState)
+    this.setState({editorState})
+    // this.props.setEditorState(editorState)
   }
 
   onChange = event => {
@@ -103,8 +123,15 @@ class TextEditor extends Component {
     this.setState({editorState: EditorState.createEmpty(), title: '', tags: '', slug: ''})
    }
 
+   updateArticle = (id) => {
+     const {author, tags, title, editorState} = this.state
+     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
+     this.props.updateArticle(id, {author, html, tags, title})
+     this.setState({editorState: null})
+    }
+
   render() {
-    const {User, editorState, title, tags, slug } = this.state
+    const {User, id, author, tags, title, editorState} = this.state
     return (
       !User.token ? <Redirect to="/login"/>
       :<Grid className="TextEditor Container">
@@ -112,9 +139,11 @@ class TextEditor extends Component {
           <Col sm={12}>
             <form>
               <FormGroup className="editorForm">
+                <ControlLabel>Title</ControlLabel>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
               </FormGroup>
               <FormGroup className="editorForm">
+                <ControlLabel>Tags</ControlLabel>
                 <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
               </FormGroup>
             </form>
@@ -133,16 +162,15 @@ class TextEditor extends Component {
         </Row>
         <Row>
           <Col sm={12}>
-            <textarea
-              className="TextEditorOutput"
-              disabled
-              value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-            />
+            
           </Col>
         </Row>
         <Row>
           <Col sm={12}>
             <ButtonToolbar className="actionButtons">
+              <Button type="submit" onClick={() => this.updateArticle(id)} className="actionButtons">
+                Update
+              </Button>
               <Button type="submit" onClick={this.postArticle} className="actionButtons pull-right">
                 Post
               </Button>

@@ -76,6 +76,11 @@ export function setUser(username, password) {
     }).catch((e)=>console.log(e))
 }
 
+export const clearHtmlDocument = () => ({
+    type: C.DELETE_HTML_DOCUMENT,
+    payload: null
+})
+
 export const Logout = () => ({
     type: C.SET_LOGOUT,
     payload: null

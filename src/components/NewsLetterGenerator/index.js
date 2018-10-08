@@ -6,7 +6,8 @@ import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, clearNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
+import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
+import {clearHtmlDocument} from '../../actions/App'
 import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
 import Card from '../Card'
@@ -22,7 +23,7 @@ const mapDispatchToProps = {
   getNewsLetter,
   deleteNewsLetter,
   updateNewsLetter,
-  clearNewsLetter
+  clearHtmlDocument
 }
 
 class NewsLetterGenerator extends Component {
@@ -48,9 +49,6 @@ class NewsLetterGenerator extends Component {
   }
 
   componentDidMount() {
-    if(this.props.match) {
-      this.props.getNewsLetter(this.props.match.params.id)
-    }
   }
   
   componentWillReceiveProps(nextProps) {
@@ -63,7 +61,7 @@ class NewsLetterGenerator extends Component {
   }
 
   componentWillUnmount(){
-    this.props.clearNewsLetter()
+    this.props.clearHtmlDocument()
     this.setState({HtmlDocument: null})
   }
 
@@ -96,7 +94,7 @@ class NewsLetterGenerator extends Component {
   renderDesigns = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
       <Col className="NewsletterCardContainer" md={6} >
-        <Card {...card} summary={false} deleteItem={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter} click={() => this.handleHide(card.id)} />
+        <Card {...card} summary={false} deleteCard={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter} click={() => this.handleHide(card.id)} />
       </Col>
     )
   })
@@ -107,7 +105,7 @@ class NewsLetterGenerator extends Component {
   }
   
   handleHide = id => {
-    if(id) { this.props.getNewsLetter(id.toString()) }
+    if(id) { this.props.getNewsLetter(id) }
     this.setState({show: false})
   }
   

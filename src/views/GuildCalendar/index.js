@@ -36,8 +36,6 @@ class GuildCalendar extends Component {
 
   static defaultProps = {
     activeDate: new Date(),
-    monthToString: {"01": 'Jan', "02": 'Feb', "03": 'Mar', "04": 'Apr', "05": 'May', "06": 'Jun',
-                    "07": 'Jul', "08": 'Aug', "09": 'Sep', "10": 'Oct', "11": 'Nov', "12": 'Dec'},
     events: List([
       {key: 1, name: 'Event 1',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
       {key: 2, name: 'Event 2',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
@@ -74,11 +72,6 @@ class GuildCalendar extends Component {
   }
 
   onChange = activeDate => this.setState({activeDate})
-
-  formatDate = monthDay => {
-    const split = monthDay.split("-")
-    return this.props.monthToString[split[0]] + ' ' + split[1]
-  }
 
   hasEvents = ({ date, view }) => {
     const {events} = this.state
@@ -140,7 +133,7 @@ class GuildCalendar extends Component {
             />
           </Col>
           <Col className="EventList" lgHidden mdHidden sm={12}>
-            <h2><Moment format="MM-D" filter={this.formatDate}>{activeDate}</Moment></h2>
+            <h2><Moment format="MMM D">{activeDate}</Moment></h2>
             <EventList data={events} activeDate={activeDate}/>
           </Col>
         </Row>

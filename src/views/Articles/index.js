@@ -8,7 +8,8 @@ import Card from '../../components/Card'
 import {getArticles} from '../../actions/Articles'
 import { Map, List} from 'immutable'
 import {withRouter} from 'react-router-dom'
-import {deleteArticle} from '../../actions/Articles'
+import {getArticle, updateArticle, deleteArticle} from '../../actions/Articles'
+import {clearHtmlDocument} from '../../actions/App'
 
 const mapStateToProps = ({Articles, User}) => ({
   Articles,
@@ -16,8 +17,11 @@ const mapStateToProps = ({Articles, User}) => ({
 })
 
 const mapDispatchToProps = {
+  getArticle,
   getArticles,
-  deleteArticle
+  updateArticle,
+  deleteArticle,
+  clearHtmlDocument
 }
 
 class Articles extends Component {
@@ -56,7 +60,10 @@ class Articles extends Component {
 
   renderCards = Articles => Articles.map(card => 
       <Col className="CardContainer" md={3}>
-        <Card {...card} summary={true} deleteItem={this.props.deleteArticle}/>
+        <Card {...card} summary={true}
+        editCard={this.props.getArticle}
+        deleteCard={this.props.deleteArticle}
+        click={() => this.props.history.push('/articles/' + card.id)}/>
       </Col>
   )
 

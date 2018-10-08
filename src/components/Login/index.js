@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.css'
-import { Form, FormGroup, Grid, Row, Col, FormControl, Checkbox, Button, PageHeader, ButtonGroup, Modal} from 'react-bootstrap'
+import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal} from 'react-bootstrap'
 import {createUser, setUser} from '../../actions/App'
 import {Redirect} from 'react-router-dom'
 
@@ -91,6 +91,7 @@ class Login extends Component {
             <Row>
               <Col md={6} smOffset={3} sm={6}>
                 <FormGroup controlId="formHorizontalUsername">
+                  <ControlLabel>Username</ControlLabel>
                   <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                 </FormGroup>
               </Col>
@@ -99,6 +100,7 @@ class Login extends Component {
             <Row>
               <Col md={6} smOffset={3} sm={6}>
                 <FormGroup controlId="formHorizontalPassword">
+                  <ControlLabel>Password</ControlLabel>
                   <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                 </FormGroup>
               </Col>
