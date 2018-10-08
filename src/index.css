@@ -136,7 +136,7 @@ a:-webkit-any-link, button, html input[type=button], input[type=reset], input[ty
 body {
   touch-action: none;
   height: 100%;
-  font-family: "Omnia", "Cinzel Decorative";
+  font-family: "Arial", "Cinzel Decorative";
   background-repeat: no-repeat;
   overflow: hidden;
   /* background-image: url('./images/about_bg.jpg'); */
@@ -162,10 +162,11 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-.Container input {
+.Container input, .Container select, .Container textarea {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);
 }
+
 .Center {
   position: absolute;
   top: 50%;

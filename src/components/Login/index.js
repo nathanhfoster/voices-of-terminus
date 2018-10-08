@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.css'
-import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal} from 'react-bootstrap'
+import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal, Image} from 'react-bootstrap'
 import {createUser, setUser} from '../../actions/App'
 import {Redirect} from 'react-router-dom'
+import cleric from '../../images/cleric.png'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -62,6 +63,10 @@ class Login extends Component {
     this.setState({[e.target.name]: e.target.value})
   }
 
+  setImage = (e) => {
+    this.setState({profile_image: e.target.files[0]})
+  }
+
   login = (e) => {
     e.preventDefault()
     const {username, password} = this.state
@@ -74,11 +79,12 @@ class Login extends Component {
 
   createUserAccount = (e) => {
     e.preventDefault()
-    const {username, password, email, bio, primary_role, primary_class} = this.state
+    const {username, password, email, bio, primary_role, primary_class, profile_image} = this.state
     this.props.createUser(username, password, email, bio, primary_role, primary_class)
   }
 
   render() {
+    console.log(this.state)
     const {User} = this.state
     return (
       User.token ? <Redirect to={this.props.history.goBack()}/>
@@ -127,7 +133,6 @@ class Login extends Component {
                 {...this.props}
                 show={this.state.show}
                 onHide={this.handleHide}
-                dialogClassName="customModal"
               >
                 <Modal.Header closeButton>
                   <Modal.Title id="contained-modal-title-lg">
@@ -138,23 +143,57 @@ class Login extends Component {
                   <Form className="accontForm Container">
                     <Row>
                       <FormGroup>
+                        <ControlLabel>Username</ControlLabel>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
                       <FormGroup>
+                        <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                       </FormGroup>
                       <FormGroup>
+                        <ControlLabel>Email</ControlLabel>
                         <FormControl type="email" name="email" placeholder="Email" onChange={this.onChange}/>
                       </FormGroup>
+                    { /* <FormGroup>
+                          <ControlLabel>Profile picture</ControlLabel>
+                          <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
+                        </FormGroup> */}
                       <FormGroup>
-                        <FormControl type="text" name="bio" placeholder="Bio" onChange={this.onChange}/>
+                        <ControlLabel>Bio</ControlLabel>
+                        <FormControl componentClass="textarea" placeholder="Bio" onChange={this.onChange}/>
                       </FormGroup>
-                      <FormGroup>
-                        <FormControl type="text" name="primary_role" placeholder="Primary Role" onChange={this.onChange}/>
-                      </FormGroup>
-                      <FormGroup>
-                        <FormControl type="text" name="primary_class" placeholder="Primary Class" onChange={this.onChange}/>
-                      </FormGroup>
+                      <Col md={6}>
+                        <FormGroup >
+                          <ControlLabel>Primary Role</ControlLabel>
+                          <FormControl name="primary_role" componentClass="select" onChange={this.onChange}>
+                            <option value="">SELECT</option>
+                            <option value="Tank">TANK</option>
+                            <option value="Healer">HEALER</option>
+                            <option value="Tank">DPS</option>
+                            <option value="Healer">SUPPORT</option>
+                          </FormControl>
+                        </FormGroup>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup >
+                          <ControlLabel>Primary Class</ControlLabel>
+                          <FormControl name="primary_class" componentClass="select" onChange={this.onChange} name="dropDown" id="dropDown">
+                            <option value="">SELECT</option>
+                            <option value="Cleric">CLERIC</option>
+                            <option value="Dire Lord">DIRE LORD</option>
+                            <option value="Druid">DRUID</option>
+                            <option value="Enchanter">ENCHANTER</option>
+                            <option value="Monk">MONK</option>
+                            <option value="Paladin">PALADIN</option>
+                            <option value="Ranger">RANGER</option>
+                            <option value="Rogue">ROGUE</option>
+                            <option value="Shaman">SHAMAN</option>
+                            <option value="Summoner">SUMMONER</option>
+                            <option value="Warrior">WARRIOR</option>
+                            <option value="Wizard">WIZARD</option>
+                          </FormControl>
+                        </FormGroup>
+                      </Col>
                     </Row>
                   </Form>
                 </Modal.Body>

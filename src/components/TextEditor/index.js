@@ -62,15 +62,6 @@ class TextEditor extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
     const {HtmlDocument} = this.props
     if(HtmlDocument.hasOwnProperty('html')) {
@@ -83,7 +74,6 @@ class TextEditor extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("NEXTPROPS: ", nextProps)
     this.getState(nextProps)
   }
 
@@ -96,9 +86,6 @@ class TextEditor extends Component {
     let editorState = props.editorState.hasOwnProperty('_immutable') && props.editorState._immutable.hasOwnProperty('_map') ? props.editorState : EditorState.createEmpty()
    
     this.setState({User, HtmlDocument, id, author, tags, title, editorState})
-  }
-
-  componentDidUpdate() {
   }
 
   componentWillUnmount(){

@@ -87,8 +87,8 @@
   background: var(--dark_grey);
   border-radius: 10px;
 }
-
 textarea:focus,
+select:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="datetime"]:focus,
@@ -104,9 +104,9 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: var(--primaryColor);
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor);
-  outline: 0 none;
+  border-color: var(--primaryColor) !important;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor) !important;
+  outline: 0 none !important;
 }
 
 input, select, textarea{

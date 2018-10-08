@@ -24,14 +24,14 @@ class Footer extends Component {
     super(props)
  
     this.state = {
-      isMobile: false
+      shouldShow: false
     }
   }
 
   static propTypes = { 
     femaleImages: PropTypes.array,
     maleImgaes: PropTypes.array,
-    isMobile: PropTypes.bool
+    shouldShow: PropTypes.bool
   }
 
   static defaultProps = {
@@ -64,7 +64,7 @@ class Footer extends Component {
 
   getState = props => {
     const {Window} = props
-    this.setState({isMobile: Window.innerWidth < 1200})
+    this.setState({Footer, shouldShow: Window.innerWidth > 1550})
   }
 
   componentDidUpdate() {
@@ -74,11 +74,11 @@ class Footer extends Component {
   }
 
   render() {
-   const {isMobile} = this.state
+   const {shouldShow} = this.state
     const randInt = getRandomInt(0, 2)
     return (
       <div className="Footer">
-        {!isMobile ? [
+        {shouldShow ? [
           <Image className="Female footerImages" src={this.props.femaleImages[randInt]} />,
           <Image className="Male footerImages"   src={this.props.maleImgaes[randInt]}  />,
         ]: null }

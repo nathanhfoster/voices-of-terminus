@@ -23,7 +23,7 @@ const mapDispatchToProps = {
   getNewsLetter,
   deleteNewsLetter,
   updateNewsLetter,
-  clearHtmlDocument
+  clearHtmlDocument,
 }
 
 class NewsLetterGenerator extends Component {
