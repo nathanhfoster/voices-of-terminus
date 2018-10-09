@@ -42,7 +42,7 @@ class About extends Component {
 
   render() {
     return (
-      <Grid className="About Container">
+      <Grid className="About Container fadeIn-2">
         <Row>
           <Col className="votDifferenceContainer">
             <div className="votDifferenceText">

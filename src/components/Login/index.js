@@ -19,7 +19,7 @@ const mapDispatchToProps = {
 class Login extends Component {
   
   constructor(props) {
-    super()
+    super(props)
     this.onChange = this.onChange.bind(this)
     this.handleShow = this.handleShow.bind(this)
     this.handleHide = this.handleHide.bind(this)
@@ -62,9 +62,8 @@ class Login extends Component {
     this.setState({User})
   }
 
-  onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value})
-  }
+  onChange = (e) => this.setState({[e.target.name]: e.target.value})
+  
 
   setImage = (e) => {
     this.setState({profile_image: e.target.files[0]})
@@ -104,7 +103,7 @@ class Login extends Component {
     const {User, isNotValid} = this.state
     return (
       User.token ? <Redirect to={this.props.history.goBack()}/>
-      :<Grid className="Login Container">
+      :<Grid className="Login Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
         </Row>
@@ -157,7 +156,7 @@ class Login extends Component {
                   </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                  <Form className="accontForm Container">
+                  <Form className="accontForm Container fadeIn-2">
                     <Row>
                       <FormGroup>
                         <ControlLabel>Username</ControlLabel>

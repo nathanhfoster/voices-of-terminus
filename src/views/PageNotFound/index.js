@@ -43,7 +43,7 @@ class PageNotFound extends Component {
 
   render() {
     return (
-      <Grid className="PageNotFound Container">
+      <Grid className="PageNotFound Container fadeIn-2">
         <Row className="pageNotFoundContainer">
           <Col className="pageNotFoundImage" md={4} xs={6}>
             <Image src={skar}  responsive/>

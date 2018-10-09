@@ -41,7 +41,7 @@ class Donate extends Component {
 
   render() {
     return (
-      <Grid className="Donate Container">
+      <Grid className="Donate Container fadeIn-2">
         <Row>
           <Col>
             <PageHeader className="pageHeader">DONATIONS</PageHeader>

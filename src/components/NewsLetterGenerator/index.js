@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form} from 'react-bootstrap'
+import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form, FormGroup, FormControl} from 'react-bootstrap'
 import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
@@ -58,20 +58,24 @@ class NewsLetterGenerator extends Component {
 
   getState = props => {
     const {User, Newsletters, HtmlDocument, match} = props
-    this.setState({User, Newsletters, HtmlDocument, match})
+    const {author, tags, title} = HtmlDocument
+    const {id} = match ? match.params : null
+    this.setState({User, Newsletters, HtmlDocument, author, tags, title, id})
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.clearHtmlDocument()
     this.setState({HtmlDocument: null})
   }
 
   postNewsletter = () => {
-    const {User} = this.state
+    const {User, title} = this.state
+    let {tags} = this.state
+    tags = 'newsletter ' + tags
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
-      this.props.postNewsletter({title: 'Test', slug:"news", author: User.id, html, design, last_modified_by: User.id})
+      this.props.postNewsletter({title, slug:"news", author: User.id, tags, html, design, last_modified_by: User.id})
     })
   }
 
@@ -83,12 +87,12 @@ class NewsLetterGenerator extends Component {
   }
 
   updateNewsletter = () => {
+    const {title, tags} = this.state
     const {id} = this.props.match.params
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
-      const title = "Changed"
-      this.props.updateNewsLetter(id, {title, design, html})
+      this.props.updateNewsLetter(id, {title, tags, design, html})
     })
   }
 
@@ -113,11 +117,15 @@ class NewsLetterGenerator extends Component {
     }
     this.setState({show: false})
   }
+
+  onChange = event => {
+    event.target.name === 'title' ? this.setState({title: event.target.value})
+    : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
+  }
   
   render() {
-    const {User, Newsletters, HtmlDocument, match} = this.state
+    const {User, Newsletters, HtmlDocument, author, tags, title, id} = this.state
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
-    const {id} =  match.params
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
     const design = HtmlDocument.hasOwnProperty('design') ? JSON.parse(HtmlDocument.design) : null
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
@@ -129,16 +137,27 @@ class NewsLetterGenerator extends Component {
       
     return (
       !User.token ? <Redirect to={this.props.history.push("/login")}/>
-      :<Grid className="NewsLetterGenerator Container">
+      :<Grid className="NewsLetterGenerator Container fadeIn-2">
         <Row>
-          <ButtonToolbar className="ButtonToolbar actionButtons">
-            
+          <Col md={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.postNewsletter}>POST</Button>
             <Button onClick={this.updateNewsletter} disabled={!isEditingDesign}>UPDATE</Button>
             <Button onClick={this.handleShow} className="pull-right">LOAD</Button>
             <Button onClick={this.updateNewsletter} className="pull-right" disabled>SAVE</Button>
             <Button onClick={() => this.loadNewsletterDesign(defaultDesign)} className="pull-right">CLEAR</Button>
-          </ButtonToolbar>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12}>
+            <Form>
+              <FormGroup className="editorForm">
+                <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
+              </FormGroup>
+              <FormGroup className="editorForm">
+                <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
+              </FormGroup>
+            </Form>
+          </Col>
         </Row>
         <Row>
           <EmailEditor minHeight="calc(100vh - 102px)" ref={editor => this.editor = editor} style={styles} 

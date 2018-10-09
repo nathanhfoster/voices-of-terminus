@@ -108,7 +108,7 @@ class Media extends Component {
     const {history} = this.state
     const {TabItems} = this.props
     return (
-      <Grid className="Media Container">
+      <Grid className="Media Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">MEDIA</PageHeader>
         </Row>

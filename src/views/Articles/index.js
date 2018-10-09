@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, ButtonToolbar, Button } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, ButtonToolbar, Button, InputGroup, FormControl} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
@@ -34,7 +34,7 @@ class Articles extends Component {
   }
 
   static propTypes = {
-    Articles: new List(),
+    Articles: PropTypes.array,
     getArticles: PropTypes.func.isRequired
   }
 
@@ -59,41 +59,51 @@ class Articles extends Component {
   }
 
   renderCards = Articles => Articles.map(card => 
-      <Col className="CardContainer" md={3}>
+      <Col className="CardContainer translateHover" md={3}>
         <Card
-        {...card}
-        click={() => this.props.history.push('/articles/' + card.id)}
-        editCard={this.props.getArticle}
-        deleteCard={this.props.deleteArticle}
-        summary={true}
+          {...card}
+          click={() => this.props.history.push('/articles/' + card.id)}
+          editCard={this.props.getArticle}
+          deleteCard={this.props.deleteArticle}
+          summary={true}
         />
       </Col>
   )
 
+  onChange = (e) => {
+    const query = e.target.value.toLowerCase()
+    const Articles = this.props.Articles.filter(article => {
+      const title = article.title ? article.title.toLowerCase() : ' '
+      const tags = article.tags ? article.tags.toLowerCase() : ' '
+      if(title.includes(query) || tags.includes(query)) return true
+      return false
+    })
+    this.setState({Articles, [e.target.name]: e.target.value})
+}
+
   render() {
     const {Articles, User} = this.state
     return (
-      <Grid className="Articles Container">
+      <Grid className="Articles Container fadeIn-2 fadeIn-2">
         <Row>
             <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
         <Row>
-          <ButtonToolbar className="actionButtons">
-            {User.token ? 
-              [
-              <Button onClick={() => this.props.history.push('/articles/new/article')} className="actionButtons">
-              New Article
-              </Button>,
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="actionButtons">
-              Create Newsletter
-              </Button>
-              ]
-              : null}
-            </ButtonToolbar>
+          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+              {User.token ? 
+                <Button onClick={() => this.props.history.push('/articles/new/article')}>
+                New Article
+                </Button>
+                : null}
+            </Col>
+          <Col md={8} className="ActionToolbar" componentClass={InputGroup}>
+            <InputGroup.Addon><i className="fa fa-search"/></InputGroup.Addon>
+            <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange}/>
+          </Col>
         </Row>
         <Row>
           <h3>Highlights</h3>
-          {Articles.length ? this.renderCards(Articles) : null}          
+          {/* Articles.length ? this.renderCards(Articles) : null */}
         </Row>
         <Row>
           <h3>Recent</h3>

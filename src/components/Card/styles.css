@@ -1,12 +1,6 @@
 .CardContainer {
+  margin-top: 8px;
   height: var(--cardHeight);
-}
-.CardContainer:hover {
-  -webkit-transform: translateY(8px);
-  transform: translateY(8px);
-  will-change: transform;
-  background-repeat: no-repeat;
-  transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
 }
 .Card {
   height: 100%;
@@ -57,12 +51,6 @@
 
 .Summary .summaryTitleDivider{
   margin: 0 0 10px 0;
-}
-.Summary .summaryActionButtons {
-
-}
-.Summary .summaryActionButtons button {
-
 }
 
 .cardActions {

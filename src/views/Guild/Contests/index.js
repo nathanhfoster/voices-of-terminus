@@ -40,7 +40,7 @@ class Contests extends Component {
 
   render() {
     return (
-      <Grid className="Contests Container">
+      <Grid className="Contests Container fadeIn-2">
         <Row>
           <PageHeader>CURRENT</PageHeader>
           <Col sm={12}>

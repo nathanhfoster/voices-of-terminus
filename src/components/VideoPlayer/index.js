@@ -65,7 +65,7 @@ class VideoPlayer extends Component {
   render() {
     const {id} = this.state
     return (
-      <Grid className="VideoPlayer Container">
+      <Grid className="VideoPlayer Container fadeIn-2">
       <Row>
         <PageHeader className="pageHeader">Watch</PageHeader>
       </Row>

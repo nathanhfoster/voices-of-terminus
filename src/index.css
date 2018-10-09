@@ -146,9 +146,6 @@ body {
 .Container {
   color: white;
 }
-.Container .btn-toolbar {
-  margin-top: 10px;
-}
 .Container .btn-default, .modal-content .btn-default {
   color: white;
   background-color: var(--primaryColor);
@@ -167,7 +164,20 @@ body {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);
 }
+.translateHover:hover {
+  -webkit-transform: translateY(4px);
+  transform: translateY(4px);
+  will-change: transform;
+  background-repeat: no-repeat;
+  transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.35);
+}
+.ActionToolbar {
+  margin: 8px 0 8px 0;
+  padding: 0;
+}
+.ActionToolbarButtons {
 
+}
 .Center {
   position: absolute;
   top: 50%;
@@ -178,6 +188,7 @@ body {
   padding: 0;
   margin: 0;
   text-align: center;
+  border: 0;
 }
 .pageHeader h1 {
   display: inline-block;
@@ -214,9 +225,16 @@ a, a:focus, a:active, a:visited {
 *:focus {
   outline: none !important;
 }
+.Tabs .nav-tabs {
+    border: 0;
+    /* border-color: #eee;
+    border-style: solid;
+    border-width: 0 1px 1px 1px; */
+}
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
   color: white;
-  border-radius: 0;
+  border-radius: 4px;
+  margin: 4px;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);
   box-shadow: -1px 4px 21px 3px rgba(0,0,0,0.8);

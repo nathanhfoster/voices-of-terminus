@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, FormGroup, FormControl, ControlLabel, ButtonToolbar, Button} from 'react-bootstrap'
+import {Grid, Row, Col, Form, FormGroup, FormControl, ButtonToolbar, Button} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import { EditorState, convertToRaw, ContentState } from 'draft-js'
@@ -95,43 +95,40 @@ class TextEditor extends Component {
   onEditorStateChange = editorState => {
     this.setState({editorState})
   }
-
-  onChange = event => {
-    event.target.name === 'title' ? this.setState({title: event.target.value})
-    : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
-  }
-
   postArticle = () => {
-    const {editorState, title, tags, User} = this.state
+    const {editorState, title, User} = this.state
+    let {tags} = this.state
+    tags = 'article ' + tags
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    this.props.postDocument({title, slug: 'Doc', author: User.id, html, tags, last_modified_by: User.id})
-    this.setState({editorState: EditorState.createEmpty(), title: '', tags: '', slug: ''})
+    this.props.postDocument({title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
    }
 
    updateArticle = (id) => {
      const {author, tags, title, editorState} = this.state
      const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
      this.props.updateArticle(id, {author, html, tags, title})
-     this.setState({editorState: null})
+    }
+
+    onChange = event => {
+      event.target.name === 'title' ? this.setState({title: event.target.value})
+      : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
     }
 
   render() {
     const {User, id, author, tags, title, editorState, HtmlDocument} = this.state
     return (
       !User.token ? <Redirect to="/login"/>
-      :<Grid className="TextEditor Container">
+      :<Grid className="TextEditor Container fadeIn-2">
         <Row>
           <Col sm={12}>
-            <form>
+            <Form>
               <FormGroup className="editorForm">
-                <ControlLabel>Title</ControlLabel>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
               </FormGroup>
               <FormGroup className="editorForm">
-                <ControlLabel>Tags</ControlLabel>
                 <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
               </FormGroup>
-            </form>
+            </Form>
           </Col>
         </Row>
         <Row>
@@ -142,19 +139,23 @@ class TextEditor extends Component {
               toolbarClassName="Toolbar"
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
-stripPastedStyles={true}
-   spellCheck="false"
-   autoCapitalize="off"
-   autoComplete="off"
-   autoCorrect="off"
+              stripPastedStyles={true}
+              spellCheck="false"
+              autoCapitalize={false}
+              autoComplete={false}
+              autoCorrect={false}
                 />
           </Col>
         </Row>
-        <Row>
+        {/* <Row>
           <Col sm={12}>
-            
+            <textarea
+            style={{height: '500px', width: '100%'}}
+            disabled
+            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
+            />
           </Col>
-        </Row>
+        </Row> */}
         <Row>
           <Col sm={12}>
             <ButtonToolbar className="actionButtons">

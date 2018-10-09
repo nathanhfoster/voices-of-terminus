@@ -16,6 +16,8 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
     .modalWrapper {
         width: 100%;
         margin: 0;
-       
     }
+    .TextEditor .rdw-editor-main {
+        min-height: calc(100vh - 396px);
+      }
 }

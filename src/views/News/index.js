@@ -1,14 +1,15 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, Tabs, Tab,} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
 import './styles.css'
 import {clearHtmlDocument} from '../../actions/App'
 import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
 
-const mapStateToProps = ({Newsletters}) => ({
+const mapStateToProps = ({User, Newsletters}) => ({
+  User,
   Newsletters
 })
 
@@ -22,7 +23,7 @@ const mapDispatchToProps = {
 class News extends Component {
   constructor(props) {
     super(props)
- 
+    this.onChange = this.onChange.bind(this)
     this.state = {
    
     }
@@ -49,8 +50,8 @@ class News extends Component {
   }
 
   getState = props => {
-    const {Newsletters} = props
-    this.setState({Newsletters})
+    const {User, Newsletters} = props
+    this.setState({User, Newsletters})
   }
 
   componentDidUpdate() {
@@ -62,39 +63,58 @@ class News extends Component {
 
   renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
-      <Col className="CardContainer" md={6}>
+      <Col className="CardContainer translateHover" md={6}>
         <Card
-        {...card}
-        
-        click={() => this.props.history.push('/news/' + card.id)}
-        editCard={this.props.getNewsLetter}
-        deleteCard={this.props.deleteNewsLetter}
-        summary={true}
+          {...card}
+          click={() => this.props.history.push('/news/' + card.id)}
+          editCard={this.props.getNewsLetter}
+          deleteCard={this.props.deleteNewsLetter}
+          summary={true}
          />
       </Col>
     )
   })
 
+  onChange = (e) => {
+    const query = e.target.value.toLowerCase()
+    const Newsletters = this.props.Newsletters.filter(newsletter => {
+      const title = newsletter.title ? newsletter.title.toLowerCase() : ' '
+      const tags = newsletter.tags ? newsletter.tags.toLowerCase() : ' '
+      if(title.includes(query) || tags.includes(query)) return true
+      return false
+    })
+    this.setState({Newsletters, [e.target.name]: e.target.value})
+}
+
   render() {
-    const {Newsletters} = this.state
+    const {User, Newsletters} = this.state
     return (
-      <Grid className="News Container">
+      <Grid className="News Container fadeIn-2 fadeIn-2">
+        <PageHeader className="pageHeader">NEWS</PageHeader>
         <Row>
-          <PageHeader className="pageHeader">NEWS</PageHeader>
+          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+              {User.token ? 
+                <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>
+                Create Newsletter
+                </Button>
+                : null}
+          </Col>
+          <Col md={8} className="ActionToolbar" componentClass={InputGroup}>
+            <InputGroup.Addon><i className="fa fa-search"/></InputGroup.Addon>
+            <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange}/>
+          </Col>
         </Row>
         <Row>
-          <Col>
-            <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
-              <Tab eventKey={1} title="Latest" className="fadeIn-2">
-                <Row>
-                  {Newsletters.length ? this.renderCards(Newsletters) : null}
-                </Row>
-              </Tab>
-              <Tab eventKey={2} title="Tab 2" className="fadeIn-2">
-                Tab 2 content
-              </Tab>
-            </Tabs>
-          </Col>
+          <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
+            <Tab eventKey={1} title="Latest" className="fadeIn-2">
+              <Row>
+                {Newsletters.length ? this.renderCards(Newsletters) : null}
+              </Row>
+            </Tab>
+            <Tab eventKey={2} title="Suggested" className="fadeIn-2">
+              Suggested
+            </Tab>
+          </Tabs>
         </Row>
       </Grid>
     )

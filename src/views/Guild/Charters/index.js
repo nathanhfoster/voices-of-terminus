@@ -42,7 +42,7 @@ class Charters extends Component {
 
   render() {
     return (
-      <Grid className="Charters Container">
+      <Grid className="Charters Container fadeIn-2">
         <Row>
           <Col>
           <h3>The Voice of Terminus Principles</h3>

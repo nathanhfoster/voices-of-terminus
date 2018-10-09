@@ -39,9 +39,10 @@ class HtmlParser extends Component {
   }
 
   componentDidMount() {
-    const path = this.props.match ? this.props.match.path : ' '
-    if(path.includes('news')) this.props.getNewsLetter(this.props.match.params.id)
-    if(path.includes('articles')) this.props.getArticle(this.props.match.params.id)
+    const {match} = this.props
+    const path = match ? match.path : ' '
+    if(path.includes('news')) this.props.getNewsLetter(match.params.id)
+    if(path.includes('articles')) this.props.getArticle(match.params.id)
   }
   
   componentWillReceiveProps(nextProps) {
@@ -64,7 +65,7 @@ class HtmlParser extends Component {
     // Checks if the html document came from an api call or was passed as a prop from another parent
     const html = this.state.html ? this.state.html : this.state.HtmlDocument.html
     return (
-      <Grid className="HtmlParser Container">
+      <Grid className="HtmlParser Container fadeIn-2">
         { match ?
           <div className="ViewHtmlDocument">
             {ReactHtmlParser(html)}

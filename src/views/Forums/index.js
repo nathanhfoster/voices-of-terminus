@@ -43,7 +43,7 @@ class Forums extends Component {
 
   render() {
     return (
-      <Grid className="Forums Container">
+      <Grid className="Forums Container fadeIn-2">
         <Row>
             <PageHeader className="pageHeader">FORUMS</PageHeader>
         </Row>

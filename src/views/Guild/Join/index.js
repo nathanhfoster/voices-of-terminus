@@ -40,7 +40,7 @@ class Join extends Component {
 
   render() {
     return (
-      <Grid className="Join Container">
+      <Grid className="Join Container fadeIn-2">
         <Row>
           <Col>
             <div class="section no-pad-top">

@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader,ButtonToolbar, Button } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader,ButtonToolbar, Button, InputGroup, FormControl } from 'react-bootstrap'
 import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 import {Redirect} from 'react-router-dom'
-import NewsLetterGenerator from '../../components/NewsLetterGenerator'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -64,9 +63,10 @@ class Admin extends Component {
     const {User} = this.state
     return (
       !User.isSuperUser ? <Redirect to="/login"/>
-      :<Grid className="Admin Container">
+      :<Grid className="Admin Container fadeIn-2">
+      <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row>
-          <ButtonToolbar className="actionButtons">
+          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             {User.token ? 
               <Button onClick={() => this.props.history.push('/articles/new/article')} className="actionButtons">
               New Article
@@ -75,7 +75,11 @@ class Admin extends Component {
                 <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="actionButtons">
                 Create Newsletter
                 </Button> : null}
-            </ButtonToolbar>
+            </Col>
+          <Col md={8} className="ActionToolbar" componentClass={InputGroup}>
+            <InputGroup.Addon><i className="fa fa-search"/></InputGroup.Addon>
+            <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange}/>
+          </Col>
         </Row>
       </Grid>
     )

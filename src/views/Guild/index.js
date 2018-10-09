@@ -76,7 +76,7 @@ class Guild extends Component {
     const {history} = this.state
     const {TabItems} = this.props
     return (
-      <Grid className="Guild Container">
+      <Grid className="Guild Container fadeIn-2">
         <Row>
          <PageHeader className="pageHeader">GUILD</PageHeader>
         </Row>

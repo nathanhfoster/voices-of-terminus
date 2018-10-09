@@ -5,13 +5,6 @@
   touch-action: none;
 }
 
-.actionButtons button {
-  border: 0;
-  border-radius: 4px !important;
-  margin-right: 8px;
-  margin-bottom: 8px;
-}
-
 .centerButtons {
   text-align: center;
 }

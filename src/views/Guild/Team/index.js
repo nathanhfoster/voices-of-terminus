@@ -43,7 +43,7 @@ class Team extends Component {
 
   render() {
     return (
-      <Grid className="Team Container">
+      <Grid className="Team Container fadeIn-2">
         <Row bsClass="teanCard">
           <Col md={3}>
             <Image src={Yarnilla} responsive />

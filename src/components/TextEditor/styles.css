@@ -6,8 +6,21 @@
   width: 4px;
 }
 .TextEditor .rdw-option-wrapper {
-  height: 38px;
-  width: 38px;
+  border: 1px solid #F1F1F1;
+  padding: 5px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 2px;
+  margin: 0 4px;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  background: white;
+  text-transform: capitalize;
 }
 .TextEditor .rdw-option-wrapper:hover {
   background-color: var(--primaryColor);
@@ -50,7 +63,7 @@
   color: white;
 }
 .TextEditor .rdw-editor-main {
-  min-height: 320px;
+  min-height: calc(100vh - 322px);
 }
 
 .TextEditor .DraftEditor-root {
@@ -83,4 +96,31 @@
   width: 100%;
   background-color: var(--grey);
   border-radius: 4px;
+}
+
+/* Wrap text around images */
+.TextEditor figure {
+  margin: 0;
+}
+.TextEditor .rdw-image-left {
+  display: unset;
+  float: left;
+}
+.TextEditor .rdw-image-right {
+  display: unset;
+  justify-content: unset;
+  float: right;
+}
+
+.TextEditor .rdw-image-alignment-options-popup {
+  background: var(--slate_grey);
+  width: 120px;
+}
+
+.TextEditor .rdw-image-alignment-option {
+  background: var(--primaryColor);
+  text-align: center;
+  height: 30px;
+  width: 30px;
+  min-width: 30px;
 }
