@@ -183,7 +183,7 @@ body {
   border: 0;
   margin: 0;
   padding: 0;
-  width: 100pt;
+  width: 50pt;
 }
 .ActionToolbar .input-group-addon select {
   background: var(--slate_grey);
