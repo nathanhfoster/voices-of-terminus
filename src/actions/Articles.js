@@ -32,7 +32,10 @@ export const postDocument = payload => {
 export const getArticles = () => {
   return async (dispatch) => await Axios.get("articles/")
      .then(res => {
-         
+       dispatch({
+         type: C.GET_ARTICLES,
+         payload: res.data
+       })
      }).catch((e) => dispatch({
       type: C.SET_API_RESPONSE,
       payload: e.response
