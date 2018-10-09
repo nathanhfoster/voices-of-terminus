@@ -27,6 +27,9 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      email: '',
+      primary_role: '',
+      primary_class: '',
       show: false,
     }
   }
@@ -160,7 +163,7 @@ class Login extends Component {
                         <ControlLabel>Username</ControlLabel>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
-                      <FormGroup validationState={this.getValidationState()}>
+                      <FormGroup validationState={this.getValidationState()} controlId="formHorizontalPassword">
                         <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
@@ -192,7 +195,7 @@ class Login extends Component {
                       <Col md={6}>
                         <FormGroup >
                           <ControlLabel>Primary Class</ControlLabel>
-                          <FormControl name="primary_class" componentClass="select" onChange={this.onChange} name="dropDown" id="dropDown">
+                          <FormControl name="primary_class" componentClass="select" onChange={this.onChange} id="dropDown">
                             <option value="">SELECT</option>
                             <option value="Cleric">CLERIC</option>
                             <option value="Dire Lord">DIRE LORD</option>

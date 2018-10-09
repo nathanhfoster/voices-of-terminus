@@ -151,12 +151,8 @@ class App extends Component {
 
   getState = props => {
     const {ApiResponse, Window, User} = props
-    if(ApiResponse.hasOwnProperty('status')) {
-      this.props.setApiResponse({})
-      this.alertApiResponse(ApiResponse)
-    }
-    else 
-      this.setState({ApiResponse, Window, User})
+    if(ApiResponse.hasOwnProperty('status')) {console.log(ApiResponse);  this.alertApiResponse(ApiResponse)}
+    else this.setState({ApiResponse, Window, User})
   }
 
   componentDidUpdate() {
@@ -166,20 +162,14 @@ class App extends Component {
     window.removeEventListener('resize', this.updateWindowDimensions)
   }
 
-  stringifyObjectOfArrays = (data) => {
-    for(let key in data) {
-      console.log(key)
-    }
-    return console.log("CALLED")
-  }
-
-  alertApiResponse = (ApiResponse) => {
+  alertApiResponse = ApiResponse => {
     const {data, status, statusText, headers, config, request} = ApiResponse
       
     this.props.alert.error([
       <div>{status} {statusText}</div>,
-      <div style={{overflow: 'auto'}}>{JSON.stringify(data)}</div>
+      <div style={{}}>{JSON.stringify(data)}</div>
     ])
+    this.props.setApiResponse({})
   }
 
   updateWindowDimensions() {

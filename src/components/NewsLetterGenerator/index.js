@@ -57,8 +57,8 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
-    const {User, Newsletters, HtmlDocument} = props
-    this.setState({User, Newsletters, HtmlDocument})
+    const {User, Newsletters, HtmlDocument, match} = props
+    this.setState({User, Newsletters, HtmlDocument, match})
   }
 
   componentWillUnmount(){
@@ -78,7 +78,7 @@ class NewsLetterGenerator extends Component {
   loadNewsletterDesign = design => this.editor.loadDesign(design)
 
   onDesignLoad = data => {
-   console.log('onDesignLoad', data)
+   //console.log('onDesignLoad', data)
    //this.editor.setMergeTags([{name: 'First Name'}])
   }
 
@@ -104,15 +104,22 @@ class NewsLetterGenerator extends Component {
     this.props.getNewsletters()
     this.setState({show: true})
   }
-  
+
+  // Call back function passed into <Card> as a prop
   handleHide = id => {
-    if(id) { this.props.getNewsLetter(id) }
+    if(id) {
+      this.props.getNewsLetter(id)
+      this.props.history.push("/articles/edit/newsletter/" + id)
+    }
     this.setState({show: false})
   }
   
   render() {
-    const {User, Newsletters} = this.state
-    const design = this.state.HtmlDocument.hasOwnProperty('design') ? JSON.parse(this.state.HtmlDocument.design) : null
+    const {User, Newsletters, HtmlDocument, match} = this.state
+    // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
+    const {id} =  match.params
+    // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
+    const design = HtmlDocument.hasOwnProperty('design') ? JSON.parse(HtmlDocument.design) : null
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
     const isEditingDesign = this.props.match && design && this.editor && window.unlayer
    
@@ -141,7 +148,7 @@ class NewsLetterGenerator extends Component {
             backdrop={false}
             {...this.props}
             show={this.state.show}
-            onHide={this.handleHide}
+            onHide={() => this.handleHide(id)}
             dialogClassName="customModal"
           >
             <Modal.Header closeButton>

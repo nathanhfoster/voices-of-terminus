@@ -22,8 +22,8 @@ export const postDocument = payload => {
         payload: res
         })
     }).catch((e) => dispatch({
-    type: C.SET_API_RESPONSE,
-    payload: e.response
+      type: C.SET_API_RESPONSE,
+      payload: e.response
     }))
   }
 }
@@ -32,10 +32,7 @@ export const postDocument = payload => {
 export const getArticles = () => {
   return async (dispatch) => await Axios.get("articles/")
      .then(res => {
-         dispatch ({
-           type: C.GET_ARTICLES,
-           payload: res.data
-       })
+         
      }).catch((e) => dispatch({
       type: C.SET_API_RESPONSE,
       payload: e.response
@@ -43,7 +40,6 @@ export const getArticles = () => {
 }
 
 export const getArticle = id => {
-  console.log(id)
   return async (dispatch) => await Axios.get('articles/' + id + '/')
      .then(res => {
          dispatch ({
@@ -57,14 +53,15 @@ export const getArticle = id => {
 }
 
 export const updateArticle = (id, payload) => {
-  return  async (dispatch, getState) => await Axios.patch('articles/' + id + '/', qs.stringify(payload))
+  return  async (dispatch) => await Axios.patch('articles/' + id + '/', qs.stringify(payload))
   .then(res => {
-    let {HtmlDocument} = getState()
-    HtmlDocument = res.data
-    console.log(res.data)
       dispatch ({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: res.data
+      })
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: res
       })
   }).catch((e) => dispatch({
     type: C.SET_API_RESPONSE,
@@ -75,12 +72,11 @@ export const updateArticle = (id, payload) => {
 export const deleteArticle = id => {
   return async (dispatch, getState) => await Axios.delete('articles/' + id + '/')
   .then(res => {
-      let {Articles} = getState()
-      const payload = Articles.filter(article => article.id !== id)
+      const {Articles} = getState()
       dispatch ({
         type: C.GET_ARTICLES,
-        payload: payload
-  })
+        payload: Articles.filter(article => article.id !== id)
+      })
   }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response

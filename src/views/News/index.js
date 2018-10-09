@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab,} from 'react-bootstrap'
 import './styles.css'
+import {clearHtmlDocument} from '../../actions/App'
 import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
@@ -14,6 +15,7 @@ const mapStateToProps = ({Newsletters}) => ({
 const mapDispatchToProps = {
   getNewsletters,
   getNewsLetter,
+  clearHtmlDocument,
   deleteNewsLetter
 }
 
@@ -55,6 +57,7 @@ class News extends Component {
   }
 
   componentWillUnmount() {
+    this.props.clearHtmlDocument()
   }
 
   renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {

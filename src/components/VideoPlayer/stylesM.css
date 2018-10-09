@@ -16,7 +16,7 @@
       width: 100vw;
     }
     .VideoPlayer .videoPlayerContainer {
-      height: calc(100vh - 50px);
+      height: calc(100vh - var(--navBarHeight));
     }
   }
   

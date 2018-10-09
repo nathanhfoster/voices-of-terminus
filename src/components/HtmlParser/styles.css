@@ -1,5 +1,13 @@
 @media(min-width:1200px){
-    .HtmlParser {
-        width: calc(100% - 416px);
-    }
+
+}
+
+.HtmlParser {
+    padding: 0;
+}
+
+.ViewHtmlDocument {
+    background-color: rgba(0, 0, 0, 0.5);
+    min-height: calc(100vh - var(--navBarHeight));
+    padding: 40px 40px 0 40px;
 }

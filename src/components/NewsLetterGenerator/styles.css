@@ -1,15 +1,6 @@
 .NewsLetterGenerator {
-    width: calc(100% - 446px);
 }
 
-.NewsletterCardContainer  {
-    max-height: calc(100vh - var(--navBarHeight));
-}
-
-.customModal {
-    margin-top: 0;
-    position: absolute;
-    top: var(--navBarHeight);
-    right: 0;
-    width: 35%;
+.NewsletterCardContainer  .Card {
+    height: 240px;
 }

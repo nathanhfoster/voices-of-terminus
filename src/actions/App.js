@@ -91,10 +91,13 @@ export const setUser = (username, password) => {
     }))
 }
 
-export const setApiResponse = (response) => ({
-    type: C.SET_API_RESPONSE,
-    payload: response
-})
+export const setApiResponse = response => {
+    console.log("setApiResponse: ", response)
+    return async (dispatch) => await dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: response
+    })
+}
 
 export const clearHtmlDocument = () => ({
     type: C.CLEAR_HTML_DOCUMENT,

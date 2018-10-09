@@ -45,17 +45,16 @@ class TextEditor extends Component {
       tags: '',
       title: '',
 
-      editorState: EditorState.createEmpty(),
+      editorState: null,
       show: false
     }
   }
 
   static propTypes = {
-    editorState: null
+    editorState: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    editorState: null
   }
   
   

@@ -62,6 +62,10 @@ export const updateNewsLetter = (id, payload) => {
             type: C.GET_HTML_DOCUMENT,
             payload: res.data
         })
+        dispatch ({
+            type: C.SET_API_RESPONSE,
+            payload: res
+        })
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response

@@ -1,5 +1,6 @@
 .CardContainer {
   height: var(--cardHeight);
+  margin-top: 8px;
   margin-bottom: 8px;
 }
 .CardContainer:hover {
@@ -23,17 +24,23 @@
   border-radius: 4px;
   transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
 }
+.Card .HtmlParser {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
 .Preview {
-  padding-top: 12px;
-  max-height: var(--cardHeight);
+  padding-top: 14px;
+  max-height: calc(var(--cardHeight) - var(--cardSummaryHeight));
   overflow: hidden;
-  -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - var(--cardHeight)), transparent calc(100% - 5px), transparent);
+  /* -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - var(--cardHeight)), transparent calc(100% - 5px), transparent); */
   pointer-events: none;
 }
 .previewItem {
   
 }
 .Summary {
+  height: 176px;
   position: absolute;
   background-color: var(--dark_grey);
   flex: 0 0 100px;

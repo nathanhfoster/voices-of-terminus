@@ -16,8 +16,17 @@
   text-align: center;
 }
 
+.customModal {
+  margin-top: 0;
+  position: absolute;
+  top: var(--navBarHeight);
+  right: 0;
+  width: 40%;
+}
+
 .modal-header {
   text-align: center;
+  height: 50px;
 }
 
 .modal-content {
@@ -46,7 +55,7 @@
 /* When app is launched from home screen */
 @media all and (display-mode: standalone) {
  .fadeThrough {
-    height: calc(100vh - 52px);
+    height: calc(100vh - var(--navBarHeight));
   }
 }
 
@@ -57,7 +66,7 @@
 @media (max-width: 767px) {
   @media only all and (display-mode: browser) {
    .fadeThrough {
-      height: calc(100vh - 52px);
+      height: calc(100vh - var(--navBarHeight));
     }
   }
 }
