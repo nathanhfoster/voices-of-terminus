@@ -1,7 +1,5 @@
 .CardContainer {
   height: var(--cardHeight);
-  margin-top: 8px;
-  margin-bottom: 8px;
 }
 .CardContainer:hover {
   -webkit-transform: translateY(8px);
@@ -40,7 +38,7 @@
   
 }
 .Summary {
-  height: 176px;
+  height: var(--cardSummaryHeight);
   position: absolute;
   background-color: var(--dark_grey);
   flex: 0 0 100px;
@@ -48,11 +46,25 @@
   padding: 8px;
   left: 0;
   bottom: 0;
-  display: flex;
+
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
+.Summary .summaryTitle {
+  overflow: hidden;
+}
+
+.Summary .summaryTitleDivider{
+  margin: 0 0 10px 0;
+}
+.Summary .summaryActionButtons {
+
+}
+.Summary .summaryActionButtons button {
+
+}
+
 .cardActions {
   color: var(--grey);
   margin-left: 8px;

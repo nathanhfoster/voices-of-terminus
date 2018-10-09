@@ -63,7 +63,14 @@ class News extends Component {
   renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
       <Col className="CardContainer" md={6}>
-        <Card {...card} summary={true} deleteCard={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter} click={() => this.props.history.push('/news/' + card.id)} />
+        <Card
+        {...card}
+        
+        click={() => this.props.history.push('/news/' + card.id)}
+        editCard={this.props.getNewsLetter}
+        deleteCard={this.props.deleteNewsLetter}
+        summary={true}
+         />
       </Col>
     )
   })

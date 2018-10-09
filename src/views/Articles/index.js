@@ -60,10 +60,13 @@ class Articles extends Component {
 
   renderCards = Articles => Articles.map(card => 
       <Col className="CardContainer" md={3}>
-        <Card {...card} summary={true}
+        <Card
+        {...card}
+        click={() => this.props.history.push('/articles/' + card.id)}
         editCard={this.props.getArticle}
         deleteCard={this.props.deleteArticle}
-        click={() => this.props.history.push('/articles/' + card.id)}/>
+        summary={true}
+        />
       </Col>
   )
 
@@ -88,19 +91,13 @@ class Articles extends Component {
               : null}
             </ButtonToolbar>
         </Row>
-
         <Row>
-          <Col sm={12}>
-            <h3>Highlights</h3>
-            {Articles.length ? this.renderCards(Articles) : null}
-          </Col>          
+          <h3>Highlights</h3>
+          {Articles.length ? this.renderCards(Articles) : null}          
         </Row>
-          
         <Row>
-          <Col sm={12}>
-            <h3>Recent</h3>
-            {Articles.length ? this.renderCards(Articles.sort((a, b) => new Date(b.date_created) - new Date(a.date_created))) : null}
-          </Col>
+          <h3>Recent</h3>
+          {Articles.length ? this.renderCards(Articles.sort((a, b) => new Date(b.date_created) - new Date(a.date_created))) : null}
         </Row>
       </Grid>
     )

@@ -105,18 +105,22 @@ class Card extends Component {
             <HtmlParser html={html} />
           </div>
         </div>
-        {summary ? <div className="Summary">
-          <h4>
-            Title: {title}
-           {hasPermission ?
-            [
-             <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>,
-             <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> 
-            ]: null}
-          </h4>
-          <h5>Author: {author}</h5>
-          <h6>Tags: [{tags}]</h6>
-          <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>
+        {summary ?
+          <div className="Summary">
+            <div className="summaryTitle">
+              <h4>{title}</h4>
+            </div>
+            <hr className="summaryTitleDivider"/>
+            <div className="summaryActionButtons">
+              {hasPermission ?
+                [
+                <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>,
+                <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> 
+                ]: null}
+            </div>
+            <h5>Author: {author}</h5>
+            <h6>Tags: [{tags}]</h6>
+            <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>
         </div>
         : null}
       </Grid>
