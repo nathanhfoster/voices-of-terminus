@@ -132,11 +132,12 @@ class NewsLetterGenerator extends Component {
       :<Grid className="NewsLetterGenerator Container">
         <Row>
           <ButtonToolbar className="ButtonToolbar actionButtons">
-            <Button onClick={() => this.loadNewsletterDesign(defaultDesign)}>NEW</Button>
+            
             <Button onClick={this.postNewsletter}>POST</Button>
-            <Button onClick={this.updateNewsletter}>UPDATE</Button>
+            <Button onClick={this.updateNewsletter} disabled={!isEditingDesign}>UPDATE</Button>
             <Button onClick={this.handleShow} className="pull-right">LOAD</Button>
-            <Button onClick={this.updateNewsletter} className="pull-right">SAVE</Button>
+            <Button onClick={this.updateNewsletter} className="pull-right" disabled>SAVE</Button>
+            <Button onClick={() => this.loadNewsletterDesign(defaultDesign)} className="pull-right">CLEAR</Button>
           </ButtonToolbar>
         </Row>
         <Row>
