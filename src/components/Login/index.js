@@ -163,7 +163,7 @@ class Login extends Component {
                         <ControlLabel>Username</ControlLabel>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
-                      <FormGroup validationState={this.getValidationState()} controlId="formHorizontalPassword">
+                      <FormGroup validationState={this.getValidationState()}>
                         <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
