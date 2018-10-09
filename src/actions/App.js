@@ -23,7 +23,10 @@ export function getVoTYouTubeChannelData() {
                 type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
                 payload: res.latest
             })
-        }).catch((e)=>console.log(e))
+        }).catch((e) => dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: e.response
+        }))
 }
 
 export function getAllVRYouTube() {
@@ -33,7 +36,10 @@ export function getAllVRYouTube() {
                 type: C.GET_ALL_VR_YOUTUBE_CHANNEL_DATA,
                 payload:res
             })
-        }).catch((e)=>console.log(e))
+        }).catch((e) => dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: e.response
+        }))
 }
 
 export function getVRYouTubeChannelData() {
@@ -43,7 +49,10 @@ export function getVRYouTubeChannelData() {
                 type: C.GET_VR_YOUTUBE_CHANNEL_DATA,
                 payload: res.latest
             })
-        }).catch((e)=>console.log(e))
+        }).catch((e) => dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: e.response
+        }))
 }
 
 export const setWindow = Window => ({
@@ -51,7 +60,7 @@ export const setWindow = Window => ({
     payload: Window
  })
 
- export function createUser(username, password, email, bio, primary_role, primary_class) {
+ export const createUser = (username, password, email, bio, primary_role, primary_class) => {
     return async (dispatch) => await Axios.post('api/v1/users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
     .then(res => {
         // dispatch({
@@ -60,10 +69,13 @@ export const setWindow = Window => ({
         //  })
     })
     .then(() => this.setUser(username, password))
-    .catch((e)=>console.log(e))
+    .catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
-export function setUser(username, password) {
+export const setUser = (username, password) => {
     return async (dispatch) => await Axios.post('api/v1/login/', qs.stringify({username, password}))
     .then(res => {
         //console.log(res)
@@ -73,11 +85,19 @@ export function setUser(username, password) {
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
          })
-    }).catch((e)=>console.log(e))
+    }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
+export const setApiResponse = (response) => ({
+    type: C.SET_API_RESPONSE,
+    payload: response
+})
+
 export const clearHtmlDocument = () => ({
-    type: C.DELETE_HTML_DOCUMENT,
+    type: C.CLEAR_HTML_DOCUMENT,
     payload: null
 })
 

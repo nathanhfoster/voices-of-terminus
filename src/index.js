@@ -2,10 +2,19 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
+import { Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from 'react-alert-template-basic'
 import registerServiceWorker from './registerServiceWorker'
 import storeFactory from './store'
 import { Provider } from 'react-redux'
 require('dotenv').config()
+
+const options = {
+  position: 'bottom center',
+  timeout: 5000,
+  offset: '30px',
+  transition: 'scale'
+}
 
 // Register service worker to control making site work offline
 
@@ -22,7 +31,9 @@ window.store = store
 
 ReactDOM.render(
   <Provider store={store}>
-  <App/>
+    <AlertProvider template={AlertTemplate} {...options}>
+      <App />
+    </AlertProvider>
   </Provider>, document.getElementById('root')
 );
 registerServiceWorker();

@@ -15,21 +15,30 @@ const Axios = axios.create({
 })
 
 export const postNewsletter = payload => {
-    Axios.post('newsletters/', qs.stringify(payload))
-    .then(res => {
-        //console.log(res)
-    }).catch(e => console.log(e))
+    return async (dispatch) => { await  Axios.post('newsletters/', qs.stringify(payload))
+      .then(res => {
+        dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: res
+            })
+      }).catch((e) => dispatch({
+      type: C.SET_API_RESPONSE,
+      payload: e.response
+      }))
+    }
 }
 
 export const getNewsletters = () => {
     return async (dispatch) => await Axios.get("newsletters/")
        .then(res => {
-           //console.log(res)
            dispatch ({
              type: C.GET_NEWSLETTERS,
              payload: res.data
             })
-       }).catch((e)=>console.log(e))
+       }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
 export const getNewsLetter = id => {
@@ -40,7 +49,10 @@ export const getNewsLetter = id => {
              type: C.GET_HTML_DOCUMENT,
              payload: res.data
             })
-       }).catch((e)=>console.log(e))
+       }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
 export const updateNewsLetter = (id, payload) => {
@@ -50,7 +62,10 @@ export const updateNewsLetter = (id, payload) => {
             type: C.GET_HTML_DOCUMENT,
             payload: res.data
         })
-    }).catch((e)=>console.log(e))
+    }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
 export const deleteNewsLetter = id => {
@@ -62,5 +77,8 @@ export const deleteNewsLetter = id => {
             type: C.GET_NEWSLETTERS,
             payload: payload
         })
-    }).catch((e)=>console.log(e))
+    }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }

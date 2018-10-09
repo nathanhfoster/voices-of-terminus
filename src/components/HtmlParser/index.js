@@ -54,7 +54,7 @@ class HtmlParser extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearHtmlDocument()
+    //this.props.clearHtmlDocument()
     this.setState({HtmlDocument: null})
   }
 

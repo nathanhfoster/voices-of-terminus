@@ -11,7 +11,7 @@ import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
 import {clearHtmlDocument} from '../../actions/App'
-import {createDocument, updateArticle} from '../../actions/Articles'
+import {postDocument, updateArticle} from '../../actions/Articles'
 import {Map} from 'immutable'
 import {Redirect} from 'react-router-dom'
 
@@ -22,6 +22,7 @@ const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
 })
 
 const mapDispatchToProps = {
+  postDocument,
   clearHtmlDocument,
   setEditorState,
   updateArticle
@@ -31,7 +32,6 @@ class TextEditor extends Component {
   constructor(props) {
     super(props)
     this.onEditorStateChange = this.onEditorStateChange.bind(this)
-    this.postArticle = this.postArticle.bind(this)
 
     this.state = {
       author: null,
@@ -51,10 +51,11 @@ class TextEditor extends Component {
   }
 
   static propTypes = {
-    editorState: new Map()
+    editorState: null
   }
 
   static defaultProps = {
+    editorState: null
   }
   
   
@@ -63,14 +64,6 @@ class TextEditor extends Component {
   }
 
   componentDidMount() {
-    const {HtmlDocument} = this.props
-    if(HtmlDocument.hasOwnProperty('html')) {
-      const blocksFromHtml = htmlToDraft(HtmlDocument.html)
-      const { contentBlocks, entityMap } = blocksFromHtml
-      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
-      const editorState = EditorState.createWithContent(contentState)
-      this.props.setEditorState(editorState)
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -78,24 +71,30 @@ class TextEditor extends Component {
   }
 
   getState = props => {
-    //htmlToDraft
+    let {editorState} = props
     const {User, HtmlDocument, match} = props
-    const {id} = match ? match.params : null
     const {author, tags, title} = HtmlDocument
-    // Set the editorState from Redux if it exists else set an initial value
-    let editorState = props.editorState.hasOwnProperty('_immutable') && props.editorState._immutable.hasOwnProperty('_map') ? props.editorState : EditorState.createEmpty()
-   
+    const {id} = match ? match.params : null
+    
+    // Set the editorState from Redux if it exists else create an empty state
+    if(HtmlDocument.hasOwnProperty('html')) {
+      const blocksFromHtml = htmlToDraft(HtmlDocument.html)
+      const { contentBlocks, entityMap } = blocksFromHtml
+      const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
+      editorState = EditorState.createWithContent(contentState)
+    } else editorState = EditorState.createEmpty()
+
     this.setState({User, HtmlDocument, id, author, tags, title, editorState})
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
+    const {editorState} = this.state
     this.props.clearHtmlDocument()
-    this.setState({HtmlDocument: null})
+    this.props.setEditorState(editorState)
   }
 
   onEditorStateChange = editorState => {
     this.setState({editorState})
-    // this.props.setEditorState(editorState)
   }
 
   onChange = event => {
@@ -106,7 +105,7 @@ class TextEditor extends Component {
   postArticle = () => {
     const {editorState, title, tags, User} = this.state
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    createDocument({title, slug: 'Doc', author: User.id, html, tags, last_modified_by: User.id})
+    this.props.postDocument({title, slug: 'Doc', author: User.id, html, tags, last_modified_by: User.id})
     this.setState({editorState: EditorState.createEmpty(), title: '', tags: '', slug: ''})
    }
 
@@ -118,7 +117,7 @@ class TextEditor extends Component {
     }
 
   render() {
-    const {User, id, author, tags, title, editorState} = this.state
+    const {User, id, author, tags, title, editorState, HtmlDocument} = this.state
     return (
       !User.token ? <Redirect to="/login"/>
       :<Grid className="TextEditor Container">

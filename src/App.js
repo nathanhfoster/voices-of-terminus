@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
+import { withAlert } from 'react-alert'
 import { Map, List} from 'immutable'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
@@ -45,15 +46,17 @@ import bg6Mobile from './images/bg6M.png'
 // import bg4Mobile from './images/bg4-mobile.jpg'
 // import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
-import {setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
+import {setApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
 import 'moment-timezone'
 
-const mapStateToProps = ({Window, User}) => ({
+const mapStateToProps = ({ApiResponse, Window, User}) => ({
+  ApiResponse,
   Window,
   User
 })
 
 const mapDispatchToProps = {
+  setApiResponse,
   setWindow,
   getVoTYouTubeChannelData,
   getAllVRYouTube,
@@ -147,8 +150,13 @@ class App extends Component {
   }
 
   getState = props => {
-    const {Window, User} = props
-    this.setState({Window, User})
+    const {ApiResponse, Window, User} = props
+    if(ApiResponse.hasOwnProperty('status')) {
+      this.props.setApiResponse({})
+      this.alertApiResponse(ApiResponse)
+    }
+    else 
+      this.setState({ApiResponse, Window, User})
   }
 
   componentDidUpdate() {
@@ -156,6 +164,22 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
+  }
+
+  stringifyObjectOfArrays = (data) => {
+    for(let key in data) {
+      console.log(key)
+    }
+    return console.log("CALLED")
+  }
+
+  alertApiResponse = (ApiResponse) => {
+    const {data, status, statusText, headers, config, request} = ApiResponse
+      
+    this.props.alert.error([
+      <div>{status} {statusText}</div>,
+      <div style={{overflow: 'auto'}}>{JSON.stringify(data)}</div>
+    ])
   }
 
   updateWindowDimensions() {
@@ -172,7 +196,7 @@ class App extends Component {
   renderBackgroundImages = (images, shouldRespond) => images.map(k => (<Image src={k} width="100%" height="100%" responsive={shouldRespond}/>))
 
   render() {
-    const {isMobile} = this.state
+    const {ApiResponse, isMobile} = this.state
     const {routeItems, images, imagesMobile} = this.props
     return (
       <Router>
@@ -196,4 +220,4 @@ class App extends Component {
   }
 }
  
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(App)
+export default withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(App))

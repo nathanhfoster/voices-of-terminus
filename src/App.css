@@ -104,9 +104,9 @@ input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
 .uneditable-input:focus {   
-  border-color: var(--primaryColor) !important;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor) !important;
-  outline: 0 none !important;
+  border-color: var(--primaryColor);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor);
+  outline: 0 none ;
 }
 
 input, select, textarea{

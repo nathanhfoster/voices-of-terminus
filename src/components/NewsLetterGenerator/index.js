@@ -19,6 +19,7 @@ const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
 })
 
 const mapDispatchToProps = {
+  postNewsletter,
   getNewsletters,
   getNewsLetter,
   deleteNewsLetter,
@@ -70,7 +71,7 @@ class NewsLetterGenerator extends Component {
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
-      postNewsletter({title: 'Test', slug:"news", author: User.id, html, design, last_modified_by: User.id})
+      this.props.postNewsletter({title: 'Test', slug:"news", author: User.id, html, design, last_modified_by: User.id})
     })
   }
 
@@ -137,6 +138,7 @@ class NewsLetterGenerator extends Component {
         </Row> 
         <Row>
           <Modal
+            backdrop={false}
             {...this.props}
             show={this.state.show}
             onHide={this.handleHide}

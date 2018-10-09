@@ -52,6 +52,10 @@
 .TextEditor .rdw-editor-main {
   min-height: 320px;
 }
+
+.TextEditor .DraftEditor-root {
+  padding: 0 20px 0 20px;
+}
 .TextEditor .Editor {
   opacity: var(--mainOpacity);
   background: var(--slate_grey);

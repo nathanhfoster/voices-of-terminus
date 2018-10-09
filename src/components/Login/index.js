@@ -13,7 +13,7 @@ const mapStateToProps = ({User}) => ({
 
 const mapDispatchToProps = {
   setUser,
-  createUser,
+  createUser
 }
 
 class Login extends Component {
@@ -27,7 +27,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-      show: false
+      show: false,
     }
   }
 
@@ -83,9 +83,22 @@ class Login extends Component {
     this.props.createUser(username, password, email, bio, primary_role, primary_class)
   }
 
+  getValidationState() {
+    const {password} = this.state
+    const {length} = password
+    if (length > 7 || this.hasSpecialChar(password)) return 'success'
+    else if (length > 3) return 'warning'
+    else if (length > 0) return 'error'
+    return null
+  }
+
+  hasSpecialChar(s){
+    return /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
+   }
+
   render() {
-    console.log(this.state)
-    const {User} = this.state
+    //console.log(this.state)
+    const {User, isNotValid} = this.state
     return (
       User.token ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Login Container">
@@ -130,6 +143,7 @@ class Login extends Component {
             
             <Row>
               <Modal
+                backdrop={false}
                 {...this.props}
                 show={this.state.show}
                 onHide={this.handleHide}
@@ -146,9 +160,10 @@ class Login extends Component {
                         <ControlLabel>Username</ControlLabel>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
-                      <FormGroup>
+                      <FormGroup validationState={this.getValidationState()}>
                         <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                        <FormControl.Feedback />
                       </FormGroup>
                       <FormGroup>
                         <ControlLabel>Email</ControlLabel>
