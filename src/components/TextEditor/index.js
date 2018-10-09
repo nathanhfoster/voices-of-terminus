@@ -142,6 +142,11 @@ class TextEditor extends Component {
               toolbarClassName="Toolbar"
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
+stripPastedStyles={true}
+   spellCheck="false"
+   autoCapitalize="off"
+   autoComplete="off"
+   autoCorrect="off"
                 />
           </Col>
         </Row>
