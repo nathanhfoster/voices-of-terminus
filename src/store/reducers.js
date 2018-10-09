@@ -2,7 +2,7 @@ import C from '../constants.js'
 import { combineReducers } from 'redux'
 
 export const ApiResponse = (state = {}, action) =>
-(action.type === C.SET_API_RESPONSE) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
+(action.type === C.SET_API_RESPONSE) ? action.payload : state
 
 export const VoTYouTubeChannelData = (state = [], action) =>
 (action.type === C.GET_VOT_YOUTUBE_CHANNEL_DATA) ? action.payload : (action.type === C.SET_LOGOUT) ? [] : [...state]
