@@ -120,19 +120,31 @@ class TextEditor extends Component {
       !User.token ? <Redirect to="/login"/>
       :<Grid className="TextEditor Container fadeIn-2">
         <Row>
-          <Col sm={12}>
+          <Col md={6} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button type="submit" onClick={() => this.updateArticle(id)} className="actionButtons">
+              Update
+            </Button>
+          </Col>
+          <Col md={6} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button type="submit" onClick={this.postArticle} className="actionButtons pull-right">
+              Post
+            </Button>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={12} style={{padding: '0'}}>
             <Form>
-              <FormGroup className="editorForm">
+              <FormGroup>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
               </FormGroup>
-              <FormGroup className="editorForm">
+              <FormGroup>
                 <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
               </FormGroup>
             </Form>
           </Col>
         </Row>
         <Row>
-          <Col sm={12}>
+          <Col>
             <Editor
               wrapperClassName="Wrapper"
               editorClassName="Editor"
@@ -156,18 +168,6 @@ class TextEditor extends Component {
             />
           </Col>
         </Row> */}
-        <Row>
-          <Col sm={12}>
-            <ButtonToolbar className="actionButtons">
-              <Button type="submit" onClick={() => this.updateArticle(id)} className="actionButtons">
-                Update
-              </Button>
-              <Button type="submit" onClick={this.postArticle} className="actionButtons pull-right">
-                Post
-              </Button>
-            </ButtonToolbar>
-          </Col>
-        </Row>
       </Grid>
     )
   }

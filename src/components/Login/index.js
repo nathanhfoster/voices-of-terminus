@@ -126,14 +126,6 @@ class Login extends Component {
                 </FormGroup>
               </Col>
             </Row>
-
-            <Row>
-              <Col smOffset={3} sm={6}>
-                <FormGroup>
-                  <Checkbox>Remember me</Checkbox>
-                </FormGroup>
-              </Col>
-            </Row>
             <Row className="centerButtons">
               <ButtonGroup className="actionButtons">
                 <Button type="submit">Sign in</Button>

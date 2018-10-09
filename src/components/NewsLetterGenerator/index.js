@@ -139,28 +139,30 @@ class NewsLetterGenerator extends Component {
       !User.token ? <Redirect to={this.props.history.push("/login")}/>
       :<Grid className="NewsLetterGenerator Container fadeIn-2">
         <Row>
-          <Col md={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={6} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.postNewsletter}>POST</Button>
             <Button onClick={this.updateNewsletter} disabled={!isEditingDesign}>UPDATE</Button>
+         </Col>
+          <Col md={6} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.handleShow} className="pull-right">LOAD</Button>
             <Button onClick={this.updateNewsletter} className="pull-right" disabled>SAVE</Button>
             <Button onClick={() => this.loadNewsletterDesign(defaultDesign)} className="pull-right">CLEAR</Button>
           </Col>
         </Row>
         <Row>
-          <Col sm={12}>
+          <Col>
             <Form>
-              <FormGroup className="editorForm">
+              <FormGroup>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
               </FormGroup>
-              <FormGroup className="editorForm">
+              <FormGroup>
                 <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
               </FormGroup>
             </Form>
           </Col>
         </Row>
         <Row>
-          <EmailEditor minHeight="calc(100vh - 102px)" ref={editor => this.editor = editor} style={styles} 
+          <EmailEditor minHeight="calc(100vh - 58px)" ref={editor => this.editor = editor} style={styles} 
           onDesignLoad={this.onDesignLoad} onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}/>
         </Row> 
         <Row>

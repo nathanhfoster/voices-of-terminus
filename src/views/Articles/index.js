@@ -96,10 +96,15 @@ class Articles extends Component {
                 </Button>
                 : null}
             </Col>
-          <Col md={8} className="ActionToolbar" componentClass={InputGroup}>
-            <InputGroup.Addon><i className="fa fa-search"/></InputGroup.Addon>
-            <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange}/>
-          </Col>
+            <Col md={8} className="ActionToolbar" componentClass={InputGroup}>
+              <InputGroup.Addon>
+                <FormControl name="filter" componentClass="select" onChange={this.onChange}>
+                  <option value="article">article</option>
+                  <option value="newsletter">newsletter</option>
+                </FormControl>
+              </InputGroup.Addon>
+              <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange} />
+            </Col>
         </Row>
         <Row>
           <h3>Highlights</h3>

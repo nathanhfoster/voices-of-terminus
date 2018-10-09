@@ -26,6 +26,7 @@
   --mainOpacity: 0.9;
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
+  --inputHeight: 34px;
   --cardHeight: 400px;
   --cardSummaryHeight: 176px;
 
@@ -163,6 +164,7 @@ body {
 .Container input, .Container select, .Container textarea {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);
+  height: var(--inputHeight);
 }
 .translateHover:hover {
   -webkit-transform: translateY(4px);
@@ -171,9 +173,24 @@ body {
   background-repeat: no-repeat;
   transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.35);
 }
+
 .ActionToolbar {
   margin: 8px 0 8px 0;
   padding: 0;
+}
+.ActionToolbar .input-group-addon {
+  background: var(--slate_grey);
+  border: 0;
+  margin: 0;
+  padding: 0;
+  width: 100pt;
+}
+.ActionToolbar .input-group-addon select {
+  background: var(--slate_grey);
+  height: var(--inputHeight);
+}
+.ActionToolbar button {
+  margin: 0;
 }
 .ActionToolbarButtons {
 

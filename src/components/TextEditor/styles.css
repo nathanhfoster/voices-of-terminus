@@ -1,6 +1,5 @@
 .TextEditor {
     font-family: 'proxima_novasemibold', Arial, sans-serif;
-    margin-top: 20px;
 }
 .TextEditor ::-webkit-scrollbar {
   width: 4px;
