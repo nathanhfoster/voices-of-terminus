@@ -99,6 +99,7 @@ class Articles extends Component {
             <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
               <InputGroup.Addon>
                 <FormControl name="filter" componentClass="select" onChange={this.onChange}>
+                  <option value=" ">TAGS</option>
                   <option value="article">article</option>
                   <option value="newsletter">newsletter</option>
                 </FormControl>

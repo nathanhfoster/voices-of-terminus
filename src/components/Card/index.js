@@ -111,7 +111,7 @@ class Card extends Component {
               <h4>{title}</h4>
             </div>
             <hr className="summaryTitleDivider"/>
-            <div className="summaryActionButtons">
+            <div>
               {hasPermission ?
                 [
                 <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>,

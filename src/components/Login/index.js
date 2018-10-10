@@ -127,7 +127,7 @@ class Login extends Component {
               </Col>
             </Row>
             <Row className="centerButtons">
-              <ButtonGroup className="actionButtons">
+              <ButtonGroup>
                 <Button type="submit">Sign in</Button>
                 <Button onClick={this.handleShow}>Create Account</Button>
                 <Button onClick={this.handleShow}>Forgot Password</Button>

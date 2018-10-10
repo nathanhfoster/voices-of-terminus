@@ -112,7 +112,7 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <ButtonToolbar className="actionButtons">
+          <ButtonToolbar>
             <Button onClick={this.Today} className="todayButton pull-right">Today</Button>
           </ButtonToolbar>
         </Row>

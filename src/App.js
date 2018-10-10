@@ -149,8 +149,8 @@ class App extends Component {
 
   getState = props => {
     const {ApiResponse, Window, User} = props
-    if(ApiResponse.hasOwnProperty('status')) {console.log(ApiResponse);  this.alertApiResponse(ApiResponse)}
-    else this.setState({ApiResponse, Window, User})
+    ApiResponse ? this.alertApiResponse(ApiResponse) : null
+    this.setState({ApiResponse, Window, User})
   }
 
   componentDidUpdate() {
@@ -177,7 +177,7 @@ class App extends Component {
       ])
     }
 
-    this.props.setApiResponse({})
+    this.props.setApiResponse(null)
   }
 
   updateWindowDimensions() {

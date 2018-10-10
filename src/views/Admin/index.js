@@ -68,11 +68,11 @@ class Admin extends Component {
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             {User.token ? 
-              <Button onClick={() => this.props.history.push('/articles/new/article')} className="actionButtons">
+              <Button onClick={() => this.props.history.push('/articles/new/article')}>
               New Article
               </Button> : null}
               {User.isStaff ? 
-                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} className="actionButtons">
+                <Button onClick={() => this.props.history.push('/articles/new/newsletter')} >
                 Create Newsletter
                 </Button> : null}
             </Col>

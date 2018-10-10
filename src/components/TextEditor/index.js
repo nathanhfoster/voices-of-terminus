@@ -121,12 +121,12 @@ class TextEditor extends Component {
       :<Grid className="TextEditor Container fadeIn-2">
         <Row>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={() => this.updateArticle(id)} className="actionButtons">
+            <Button type="submit" onClick={() => this.updateArticle(id)}>
               Update
             </Button>
           </Col>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={this.postArticle} className="actionButtons">
+            <Button type="submit" onClick={this.postArticle} className="pull-right">
               Post
             </Button>
           </Col>
