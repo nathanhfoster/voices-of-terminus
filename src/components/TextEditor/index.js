@@ -120,12 +120,12 @@ class TextEditor extends Component {
       !User.token ? <Redirect to="/login"/>
       :<Grid className="TextEditor Container fadeIn-2">
         <Row>
-          <Col md={6} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={6} sm={6} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button type="submit" onClick={() => this.updateArticle(id)} className="actionButtons">
               Update
             </Button>
           </Col>
-          <Col md={6} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={6} sm={6} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button type="submit" onClick={this.postArticle} className="actionButtons pull-right">
               Post
             </Button>
