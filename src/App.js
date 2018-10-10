@@ -149,7 +149,7 @@ class App extends Component {
 
   getState = props => {
     const {ApiResponse, Window, User} = props
-    if(ApiResponse.hasOwnProperty('status')) this.alertApiResponse(ApiResponse)
+    if(ApiResponse && ApiResponse.hasOwnProperty('status')) this.alertApiResponse(ApiResponse)
     this.setState({ApiResponse, Window, User})
   }
 
