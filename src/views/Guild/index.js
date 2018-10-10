@@ -28,6 +28,7 @@ class Guild extends Component {
     this.state = {
       history: {},
       discordData: new Map(),
+      eventKey: ''
     }
   }
 
@@ -38,13 +39,13 @@ class Guild extends Component {
 
   static defaultProps = {
     TabItems: [
-      {Route: "/guild/about", Title: "ABOUT", Component: About},
-      {Route: "/guild/roster", Title: "ROSTER", Component: Roster},
-      {Route: "/guild/charters", Title: "CHARTERS", Component: Charters},
-      {Route: "/guild/lore", Title: "LORE", Component: Lore},
-      {Route: "/guild/contests", Title: "CONTESTS", Component: Contests},
-      {Route: "/guild/team", Title: "TEAM", Component: Team},
-      {Route: "/guild/join", Title: "JOIN", Component: Join}
+      {eventKey : "/guild/about", Title: "ABOUT", Component: About},
+      {eventKey : "/guild/roster", Title: "ROSTER", Component: Roster},
+      {eventKey : "/guild/charters", Title: "CHARTERS", Component: Charters},
+      {eventKey : "/guild/lore", Title: "LORE", Component: Lore},
+      {eventKey : "/guild/contests", Title: "CONTESTS", Component: Contests},
+      {eventKey : "/guild/team", Title: "TEAM", Component: Team},
+      {eventKey : "/guild/join", Title: "JOIN", Component: Join}
     ]
   }
   
@@ -61,27 +62,29 @@ class Guild extends Component {
 
   getState = props => {
     const {history} = props
-    this.setState({history})
+    const {pathname} = history.location
+    this.setState({eventKey: pathname, history})
   }
 
   renderTabs = TabItems => TabItems.map(k => {
     return (
-      <Tab eventKey={k.Route} title={k.Title} className="fadeIn-2">
+      <Tab eventKey={k.eventKey} title={k.Title} className="fadeIn-2">
         {<k.Component />}
       </Tab>
     )
   })
   
   render() {
-    const {history} = this.state
+    const {eventKey, history} = this.state
     const {TabItems} = this.props
+    console.log(history)
     return (
       <Grid className="Guild Container fadeIn-2">
         <Row>
          <PageHeader className="pageHeader">GUILD</PageHeader>
         </Row>
         <Row>
-          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={Route => history.push(Route)} animation={false}>
+          <Tabs defaultActiveKey={eventKey} activeKey={eventKey} className="Tabs" onSelect={eventKey => {this.setState({eventKey}); history.push(eventKey)}} animation={false}>
             {this.renderTabs(TabItems)}
           </Tabs>
         </Row>

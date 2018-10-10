@@ -35,17 +35,18 @@ class Media extends Component {
   static propTypes = {
     images: new List(),
     YouTubeChannelData: new List(),
-    history: new Map()
+    history: new Map(),
+    eventKey: ''
   }
 
   static defaultProps = {
     images: [imageGallery, videoGallery, streamGallery, podcastGallery],
     YouTubeChannelData: [],
     TabItems: [
-      {Route: "/media/images", Title: "IMAGES", Component: Images},
-      {Route: "/media/videos", Title: "VIDEOS", Component: Videos},
-      {Route: "/media/streams", Title: "STREAMS", Component: Streams},
-      {Route: "/media/podcasts", Title: "PODCASTS", Component: Podcasts},
+      {eventKey: "/media/images", Title: "IMAGES", Component: Images},
+      {eventKey: "/media/videos", Title: "VIDEOS", Component: Videos},
+      {eventKey: "/media/streams", Title: "STREAMS", Component: Streams},
+      {eventKey: "/media/podcasts", Title: "PODCASTS", Component: Podcasts},
     ]
   }
   
@@ -62,7 +63,8 @@ class Media extends Component {
 
   getState = props => {
     const {YouTubeChannelData, history} = props
-    this.setState({YouTubeChannelData, history})
+    const {pathname} = history.location
+    this.setState({eventKey: pathname, YouTubeChannelData, history})
   }
 
   renderImages = images => images.map(k => {
@@ -105,7 +107,7 @@ class Media extends Component {
     })
 
   render() {
-    const {history} = this.state
+    const {eventKey, history} = this.state
     const {TabItems} = this.props
     return (
       <Grid className="Media Container fadeIn-2">
@@ -114,7 +116,7 @@ class Media extends Component {
         </Row>
         <Row>
         <Col>
-          <Tabs defaultActiveKey={history.location.pathname} className="Tabs" onSelect={eventKey => history.push(eventKey)} animation={false}>
+          <Tabs defaultActiveKey={eventKey} className="Tabs" onSelect={eventKey => {this.setState({eventKey}); history.push(eventKey)}} animation={false}>
             {this.renderTabs(TabItems)}
           </Tabs>
         </Col>

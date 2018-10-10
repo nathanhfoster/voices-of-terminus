@@ -139,6 +139,7 @@ body {
   touch-action: none;
   height: 100%;
   font-family: "Arial", "Cinzel Decorative";
+  font-size: 16px;
   background-repeat: no-repeat;
   overflow: hidden;
   /* background-image: url('./images/about_bg.jpg'); */
@@ -189,7 +190,7 @@ body {
   height: var(--inputHeight);
 }
 .ActionToolbar button {
-  margin: 0;
+  
 }
 .ActionToolbarButtons {
 
@@ -249,8 +250,8 @@ a, a:focus, a:active, a:visited {
 }
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
   color: white;
-  border-radius: 4px;
-  margin: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);
   box-shadow: -1px 4px 21px 3px rgba(0,0,0,0.8);

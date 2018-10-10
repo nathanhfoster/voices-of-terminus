@@ -111,12 +111,12 @@ class News extends Component {
         </Row>
         <Row>
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
-            <Tab eventKey={1} title="Latest" className="fadeIn-2">
+            <Tab eventKey={1} title="LATEST" className="fadeIn-2">
               <Row>
                 {Newsletters.length ? this.renderCards(Newsletters) : null}
               </Row>
             </Tab>
-            <Tab eventKey={2} title="Suggested" className="fadeIn-2">
+            <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2">
               Suggested
             </Tab>
           </Tabs>
