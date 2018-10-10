@@ -66,7 +66,7 @@ class Admin extends Component {
       :<Grid className="Admin Container fadeIn-2">
       <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row>
-          <Col md={4} sm={6} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             {User.token ? 
               <Button onClick={() => this.props.history.push('/articles/new/article')} className="actionButtons">
               New Article
@@ -76,7 +76,7 @@ class Admin extends Component {
                 Create Newsletter
                 </Button> : null}
             </Col>
-            <Col md={8} sm={6} className="ActionToolbar" componentClass={InputGroup}>
+            <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
               <InputGroup.Addon>
                 <FormControl name="filter" componentClass="select" onChange={this.onChange}>
                   <option value="article">article</option>

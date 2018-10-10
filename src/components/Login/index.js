@@ -110,7 +110,7 @@ class Login extends Component {
         <Row>
           <Form className="LoginForm" onSubmit={this.login} method="post">
             <Row>
-              <Col md={6} smOffset={3} sm={6}>
+              <Col md={6} smOffset={3} xs={6}>
                 <FormGroup controlId="formHorizontalUsername">
                   <ControlLabel>Username</ControlLabel>
                   <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
@@ -119,7 +119,7 @@ class Login extends Component {
             </Row>
 
             <Row>
-              <Col md={6} smOffset={3} sm={6}>
+              <Col md={6} smOffset={3} xs={6}>
                 <FormGroup controlId="formHorizontalPassword">
                   <ControlLabel>Password</ControlLabel>
                   <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
