@@ -78,8 +78,6 @@ export const setWindow = Window => ({
 export const login = (username, password) => {
     return async (dispatch) => await Axios.post('api/v1/login/', qs.stringify({username, password}))
     .then(res => {
-        let apiResponse = res
-        res.statusText = 'WELCOME'
         Cookies.set('User_LoginToken', res.data.token, {expires: 365})
         Cookies.set('User_ID', res.data.id, {expires: 365})
         dispatch({
@@ -88,7 +86,7 @@ export const login = (username, password) => {
          })
          dispatch({
              type: C.SET_API_RESPONSE,
-             payload: apiResponse
+             payload: res
          })
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
