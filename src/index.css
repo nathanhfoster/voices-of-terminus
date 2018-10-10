@@ -173,7 +173,6 @@ body {
   background-repeat: no-repeat;
   transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.35);
 }
-
 .ActionToolbar {
   margin: 8px 0 8px 0;
   padding: 0;
@@ -183,7 +182,7 @@ body {
   border: 0;
   margin: 0;
   padding: 0;
-  width: 100px;
+  width: 120px;
 }
 .ActionToolbar .input-group-addon select {
   background: var(--slate_grey);
