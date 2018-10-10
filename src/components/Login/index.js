@@ -85,7 +85,16 @@ class Login extends Component {
     this.props.createUser(username, password, email, bio, primary_role, primary_class)
   }
 
-  getValidationState() {
+  validateUsername() {
+    const {username} = this.state
+    const {length} = username
+    if (length > 4) return 'success'
+    else if (length > 2) return 'warning'
+    else if (length > 0) return 'error'
+    return null
+  }
+
+  validatePassword() {
     const {password} = this.state
     const {length} = password
     if (length > 7 || this.hasSpecialChar(password)) return 'success'
@@ -94,13 +103,30 @@ class Login extends Component {
     return null
   }
 
-  hasSpecialChar(s){
-    return /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
-   }
+  validateEmail() {
+    const {email} = this.state
+    const {length} = email
+    if (email.includes('@') && email.includes('.com') || email.includes('.net')) return 'success'
+    else if (length > 5) return 'warning'
+    else if (length > 3) return 'error'
+    return null
+  }
+
+  cantSubmit = () => {
+    if(
+      this.validateUsername() === 'success' &&
+      this.validatePassword() === 'success' &&
+      this.validateEmail() === 'success'
+    ) return true
+    
+    return false
+  }
+
+  hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
   render() {
-    //console.log(this.state)
     const {User, isNotValid} = this.state
+    const canSubmit = !this.cantSubmit()
     return (
       User.token ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Login Container fadeIn-2">
@@ -110,7 +136,7 @@ class Login extends Component {
         <Row>
           <Form className="LoginForm" onSubmit={this.login} method="post">
             <Row>
-              <Col md={6} smOffset={3} xs={6}>
+              <Col md={6} smOffset={3} xs={12}>
                 <FormGroup controlId="formHorizontalUsername">
                   <ControlLabel>Username</ControlLabel>
                   <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
@@ -119,7 +145,7 @@ class Login extends Component {
             </Row>
 
             <Row>
-              <Col md={6} smOffset={3} xs={6}>
+              <Col md={6} smOffset={3} xs={12}>
                 <FormGroup controlId="formHorizontalPassword">
                   <ControlLabel>Password</ControlLabel>
                   <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
@@ -141,6 +167,7 @@ class Login extends Component {
                 {...this.props}
                 show={this.state.show}
                 onHide={this.handleHide}
+                dialogClassName="loginModal"
               >
                 <Modal.Header closeButton>
                   <Modal.Title id="contained-modal-title-lg">
@@ -150,16 +177,16 @@ class Login extends Component {
                 <Modal.Body>
                   <Form className="accontForm Container fadeIn-2">
                     <Row>
-                      <FormGroup>
+                      <FormGroup validationState={this.validateUsername()}>
                         <ControlLabel>Username</ControlLabel>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
-                      <FormGroup validationState={this.getValidationState()}>
+                      <FormGroup validationState={this.validatePassword()}>
                         <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
                       </FormGroup>
-                      <FormGroup>
+                      <FormGroup validationState={this.validateEmail()}>
                         <ControlLabel>Email</ControlLabel>
                         <FormControl type="email" name="email" placeholder="Email" onChange={this.onChange}/>
                       </FormGroup>
@@ -207,7 +234,7 @@ class Login extends Component {
                   </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                  <Button onClick={this.createUserAccount}>Create</Button>
+                  <Button onClick={this.createUserAccount} disabled={canSubmit}>Create</Button>
                 </Modal.Footer>
               </Modal>
             </Row>

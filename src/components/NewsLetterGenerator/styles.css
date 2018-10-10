@@ -1,6 +1,19 @@
 .NewsLetterGenerator {
 }
 
-.NewsletterCardContainer  .Card {
-    height: 240px;
+.NewsletterCardContainer .Card {
+    height: 640px;
 }
+
+.NewsletterCardContainer .Preview {
+    max-height: 638px;
+}
+
+.newsletterModal {
+    margin-top: 0;
+    position: absolute;
+    top: var(--navBarHeight);
+    left: 0;
+    right: 0;
+    width: 1180px;
+  }

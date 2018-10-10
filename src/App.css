@@ -9,14 +9,6 @@
   text-align: center;
 }
 
-.customModal {
-  margin-top: 0;
-  position: absolute;
-  top: var(--navBarHeight);
-  right: 0;
-  width: 40%;
-}
-
 .modal-header {
   text-align: center;
   height: 50px;
@@ -30,12 +22,13 @@
 .modal-content .close {
   color: white;
   opacity: 1;
-  text-shadow: none;
+  text-shadow: 1px 1px white;
 }
 
 .modal-content .close:hover {
   color: var(--primaryColor);
   opacity: 1;
+  text-shadow: 1px 1px var(--primaryColor);
 }
 
 .modal-footer {

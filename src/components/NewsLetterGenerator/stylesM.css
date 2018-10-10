@@ -15,7 +15,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
   .NewsLetterGenerator {
     width: 100%;
   }
-  .customModal {
+  .newsletterModal {
     width: inherit;
   }
 }

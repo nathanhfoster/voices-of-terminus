@@ -71,7 +71,7 @@ class NewsLetterGenerator extends Component {
   postNewsletter = () => {
     const {User, title} = this.state
     let {tags} = this.state
-    tags = 'newsletter ' + tags
+    tags = tags ? tags : 'newsletter'
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
@@ -171,7 +171,7 @@ class NewsLetterGenerator extends Component {
             {...this.props}
             show={this.state.show}
             onHide={() => this.handleHide(id)}
-            dialogClassName="customModal"
+            dialogClassName="newsletterModal"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-lg">
