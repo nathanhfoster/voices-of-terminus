@@ -129,7 +129,7 @@ class NewsLetterGenerator extends Component {
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
     const design = HtmlDocument.hasOwnProperty('design') ? JSON.parse(HtmlDocument.design) : null
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
-    const isEditingDesign = this.props.match && design && this.editor && window.unlayer
+    const isEditingDesign = id && design && this.editor && window.unlayer
    
     const styles = {
       boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)'

@@ -84,7 +84,7 @@ class Media extends Component {
 
     //(k.videoId) => this.props.history.push(k.videoId)
 
-    renderVideos = (videos) => videos.map(k => {
+    renderVideos = videos => videos.map(k => {
       const route = k.videoId
       const {TabItems} = this.props
       return (

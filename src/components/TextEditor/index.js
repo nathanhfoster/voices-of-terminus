@@ -13,7 +13,7 @@ import {setEditorState} from '../../actions/TextEditor'
 import {clearHtmlDocument} from '../../actions/App'
 import {postDocument, updateArticle} from '../../actions/Articles'
 import {Map} from 'immutable'
-import {Redirect} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
   editorState,
@@ -116,12 +116,13 @@ class TextEditor extends Component {
 
   render() {
     const {User, id, author, tags, title, editorState, HtmlDocument} = this.state
+    
     return (
       !User.token ? <Redirect to="/login"/>
       :<Grid className="TextEditor Container fadeIn-2">
         <Row>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={() => this.updateArticle(id)}>
+            <Button type="submit" onClick={() => this.updateArticle(id)} disabled={!id}>
               Update
             </Button>
           </Col>
@@ -172,4 +173,4 @@ class TextEditor extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(TextEditor)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(TextEditor))
