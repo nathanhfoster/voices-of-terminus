@@ -126,7 +126,7 @@ class TextEditor extends Component {
             </Button>
           </Col>
           <Col md={6} sm={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={this.postArticle} className="actionButtons pull-right">
+            <Button type="submit" onClick={this.postArticle} className="actionButtons">
               Post
             </Button>
           </Col>
@@ -152,10 +152,10 @@ class TextEditor extends Component {
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
               stripPastedStyles={true}
-              spellCheck="false"
-              autoCapitalize={false}
-              autoComplete={false}
-              autoCorrect={false}
+              spellCheck={true} 
+              autoCapitalize={true}
+              autoComplete={true}
+              autoCorrect={true}
                 />
           </Col>
         </Row>
