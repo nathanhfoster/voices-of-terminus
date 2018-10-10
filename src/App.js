@@ -149,7 +149,7 @@ class App extends Component {
 
   getState = props => {
     const {ApiResponse, Window, User} = props
-    ApiResponse ? this.alertApiResponse(ApiResponse) : null
+    if(ApiResponse.hasOwnProperty('status')) this.alertApiResponse(ApiResponse)
     this.setState({ApiResponse, Window, User})
   }
 
@@ -161,23 +161,14 @@ class App extends Component {
   }
 
   alertApiResponse = ApiResponse => {
+    const reset = {}
     const {data, status, statusText, headers, config, request} = ApiResponse
     const {alert} = this.props
 
-    if(status === 200 || status === 201) {
-      alert.success([
-        <div>{status} {statusText}</div>
-      ])
-    }
-
-    if(status === 400 || status === 401) {
-      alert.error([
-        <div>{status} {statusText}</div>,
-        <div>{JSON.stringify(data)}</div>
-      ])
-    }
-
-    this.props.setApiResponse(null)
+    if(status === 200 || status === 201) alert.success([<div>{status} {statusText}</div>])
+    if(status === 400 || status === 401) alert.error([<div>{status} {statusText}</div>, <div>{JSON.stringify(data)}</div>])
+       
+    this.props.setApiResponse(reset)
   }
 
   updateWindowDimensions() {

@@ -97,26 +97,25 @@ class Login extends Component {
   validatePassword() {
     const {password} = this.state
     const {length} = password
-    if (length > 7 || this.hasSpecialChar(password)) return 'success'
-    else if (length > 3) return 'warning'
+    if (this.hasSpecialChar(password)) return 'success'
+    else if (length > 7) return 'warning'
     else if (length > 0) return 'error'
     return null
   }
 
   validateEmail() {
+    const validator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const {email} = this.state
     const {length} = email
-    if (email.includes('@') && email.includes('.com') || email.includes('.net')) return 'success'
-    else if (length > 5) return 'warning'
-    else if (length > 3) return 'error'
+    if(validator.test(email)) return 'success'
     return null
   }
 
   cantSubmit = () => {
     if(
-      this.validateUsername() === 'success' &&
-      this.validatePassword() === 'success' &&
-      this.validateEmail() === 'success'
+      (this.validateUsername() === 'success' || this.validateUsername() === 'warning')  &&
+      (this.validatePassword() === 'success' || this.validatePassword() === 'warning') &&
+      (this.validateEmail()    === 'success' || this.validateEmail()    === 'warning')
     ) return true
     
     return false
