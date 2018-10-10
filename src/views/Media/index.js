@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import {withRouter} from 'react-router-dom'
 import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, Tab} from 'react-bootstrap'
 import './styles.css'
 import Moment from 'react-moment'
@@ -67,21 +68,19 @@ class Media extends Component {
     this.setState({eventKey: pathname, YouTubeChannelData, history})
   }
 
-  renderImages = images => images.map(k => {
-    return (
+  renderImages = images => images.map(k => (
       <Col lg={6} md={6} sm={12}>
         <Image src={k} responsive />
       </Col>
     )
-  })
+  )
 
-  renderTabs = TabItems => TabItems.map(k => {
-    return (
-      <Tab eventKey={k.Route} title={k.Title} className="fadeIn-2" unmountOnExit={true}>
+  renderTabs = TabItems => TabItems.map(k => (
+      <Tab eventKey={k.eventKey} title={k.Title} className="fadeIn-2" unmountOnExit={true}>
         {<k.Component />}
       </Tab>
     )
-  })
+  )
 
     //(k.videoId) => this.props.history.push(k.videoId)
 
@@ -116,7 +115,7 @@ class Media extends Component {
         </Row>
         <Row>
         <Col>
-          <Tabs defaultActiveKey={eventKey} className="Tabs" onSelect={eventKey => {this.setState({eventKey}); history.push(eventKey)}} animation={false}>
+          <Tabs defaultActiveKey={eventKey} activeKey={eventKey} className="Tabs" onSelect={eventKey => {this.setState({eventKey}); history.push(eventKey)}} animation={false}>
             {this.renderTabs(TabItems)}
           </Tabs>
         </Col>
@@ -125,4 +124,4 @@ class Media extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Media)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Media))

@@ -86,7 +86,7 @@ class Articles extends Component {
     return (
       <Grid className="Articles Container fadeIn-2 fadeIn-2">
         <Row>
-            <PageHeader className="pageHeader">ARTICLES</PageHeader>
+          <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>

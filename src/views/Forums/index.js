@@ -50,10 +50,10 @@ class Forums extends Component {
         <Row>
           <Col>
             <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
-              <Tab eventKey={1} title="CATEGORIES" className="fadeIn-2">
+              <Tab eventKey={1} title="CATEGORIES" className="fadeIn-2" unmountOnExit={true}>
                 Categories
               </Tab>
-              <Tab eventKey={2} title="ALL TOPICS" className="fadeIn-2">
+              <Tab eventKey={2} title="ALL TOPICS" className="fadeIn-2" unmountOnExit={true}>
                 All topics
               </Tab>
             </Tabs>

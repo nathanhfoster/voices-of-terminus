@@ -68,7 +68,7 @@ class Guild extends Component {
 
   renderTabs = TabItems => TabItems.map(k => {
     return (
-      <Tab eventKey={k.eventKey} title={k.Title} className="fadeIn-2">
+      <Tab eventKey={k.eventKey} title={k.Title} className="fadeIn-2" unmountOnExit={true}>
         {<k.Component />}
       </Tab>
     )
