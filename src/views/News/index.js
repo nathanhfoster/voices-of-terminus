@@ -95,7 +95,7 @@ class News extends Component {
           <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
               {User.token ? 
                 <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>
-                Create Newsletter
+                Create
                 </Button>
                 : null}
           </Col>
