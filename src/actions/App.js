@@ -81,13 +81,13 @@ export const login = (username, password) => {
         Cookies.set('User_LoginToken', res.data.token, {expires: 365})
         Cookies.set('User_ID', res.data.id, {expires: 365})
         dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-        })
-        dispatch({
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
          })
+         dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: res
+        })
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response

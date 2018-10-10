@@ -44,7 +44,6 @@ export const getNewsletters = () => {
 export const getNewsLetter = id => {
     return async (dispatch) => await Axios.get("newsletters/" + id + '/')
        .then(res => {
-           //console.log(res)
            dispatch ({
              type: C.GET_HTML_DOCUMENT,
              payload: res.data
@@ -59,12 +58,12 @@ export const updateNewsLetter = (id, payload) => {
     return  async (dispatch) => await Axios.patch('newsletters/' + id + '/', qs.stringify(payload))
     .then(res => {
         dispatch ({
-            type: C.SET_API_RESPONSE,
-            payload: res
-        })
-        dispatch ({
             type: C.GET_HTML_DOCUMENT,
             payload: res.data
+        })
+        dispatch ({
+            type: C.SET_API_RESPONSE,
+            payload: res
         })
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
