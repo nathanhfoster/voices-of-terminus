@@ -139,7 +139,7 @@ body {
   touch-action: none;
   height: 100%;
   font-family: "Arial", "Cinzel Decorative";
-  font-size: 16px;
+  font-size: medium;
   background-repeat: no-repeat;
   overflow: hidden;
   /* background-image: url('./images/about_bg.jpg'); */

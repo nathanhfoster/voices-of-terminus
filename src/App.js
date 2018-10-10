@@ -48,11 +48,14 @@ import bg6Mobile from './images/bg6M.png'
 import Footer from './components/Footer'
 import {setApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
 import 'moment-timezone'
+import MomentJS from 'moment'
 
-const mapStateToProps = ({ApiResponse, Window, User}) => ({
+const mapStateToProps = ({ApiResponse, Window, User, VoTYouTubeChannelData, VRYouTubeChannelData}) => ({
   ApiResponse,
   Window,
-  User
+  User,
+  VoTYouTubeChannelData,
+  VRYouTubeChannelData
 })
 
 const mapDispatchToProps = {
@@ -128,22 +131,17 @@ class App extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
-  componentWillUpdate() {
-  }
-
-  /* render() */
-
   componentDidMount() {
-    this.props.getVoTYouTubeChannelData()
-    this.props.getAllVRYouTube()
+    const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
+    if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
+    if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
     this.props.getVRYouTubeChannelData()
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
   }
+  /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
+  shouldUpdate = youtubeData => youtubeData ? MomentJS().diff(MomentJS(youtubeData.publishedAt), 'days') > 3 : true
+  
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)

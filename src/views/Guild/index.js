@@ -77,7 +77,6 @@ class Guild extends Component {
   render() {
     const {eventKey, history} = this.state
     const {TabItems} = this.props
-    console.log(history)
     return (
       <Grid className="Guild Container fadeIn-2">
         <Row>
