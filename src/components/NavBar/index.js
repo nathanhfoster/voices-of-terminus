@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import { withAlert } from 'react-alert'
 import PropTypes from 'prop-types'
 import './styles.css'
 import './stylesM.css'
@@ -60,6 +61,9 @@ class NavBar extends Component {
     // Cookies.remove('User_LoginToken') when redirected to Articles from login the first get articles sends a 401
     Cookies.remove('User_ID')
     this.props.Logout()
+    this.props.alert.show([
+      <div>GOODBYE</div>
+    ])
   }
 
   render() {
@@ -113,4 +117,4 @@ class NavBar extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar)
+export default withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar))

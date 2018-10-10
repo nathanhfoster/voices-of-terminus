@@ -3,7 +3,7 @@ import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal, Image} from 'react-bootstrap'
-import {createUser, setUser} from '../../actions/App'
+import {createUser, login} from '../../actions/App'
 import {Redirect} from 'react-router-dom'
 import cleric from '../../images/cleric.png'
 
@@ -12,7 +12,7 @@ const mapStateToProps = ({User}) => ({
 })
 
 const mapDispatchToProps = {
-  setUser,
+  login,
   createUser
 }
 
@@ -38,7 +38,7 @@ class Login extends Component {
     username: PropTypes.string,
     password: PropTypes.string,
     createUser: PropTypes.func.isRequired,
-    setUser: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -72,7 +72,7 @@ class Login extends Component {
   login = (e) => {
     e.preventDefault()
     const {username, password} = this.state
-    this.props.setUser(username, password)
+    this.props.login(username, password)
   }
 
   handleShow = () => this.setState({show: true})

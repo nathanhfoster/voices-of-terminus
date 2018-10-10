@@ -68,22 +68,27 @@ export const setWindow = Window => ({
         //     payload: {token, id}
         //  })
     })
-    .then(() => this.setUser(username, password))
+    .then(() => this.login(username, password))
     .catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response
     }))
 }
 
-export const setUser = (username, password) => {
+export const login = (username, password) => {
     return async (dispatch) => await Axios.post('api/v1/login/', qs.stringify({username, password}))
     .then(res => {
-        //console.log(res)
+        let apiResponse = res
+        res.statusText = 'WELCOME'
         Cookies.set('User_LoginToken', res.data.token, {expires: 365})
         Cookies.set('User_ID', res.data.id, {expires: 365})
         dispatch({
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
+         })
+         dispatch({
+             type: C.SET_API_RESPONSE,
+             payload: apiResponse
          })
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
@@ -92,7 +97,6 @@ export const setUser = (username, password) => {
 }
 
 export const setApiResponse = response => {
-    console.log("setApiResponse: ", response)
     return async (dispatch) => await dispatch({
         type: C.SET_API_RESPONSE,
         payload: response
@@ -104,7 +108,9 @@ export const clearHtmlDocument = () => ({
     payload: null
 })
 
-export const Logout = () => ({
-    type: C.SET_LOGOUT,
-    payload: null
-})
+export const Logout = () => {
+    return async (dispatch) => await dispatch({
+        type: C.SET_LOGOUT,
+        payload: null
+    })
+}
