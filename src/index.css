@@ -242,6 +242,10 @@ a, a:focus, a:active, a:visited {
 *:focus {
   outline: none !important;
 }
+
+.nav > li > a {
+  /* padding: 15px 15px 0 0; */
+}
 .Tabs .nav-tabs {
     border: 0;
     /* border-color: #eee;

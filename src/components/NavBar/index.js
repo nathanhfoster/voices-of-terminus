@@ -98,6 +98,7 @@ class NavBar extends Component {
 
   render() {
     const {User} = this.state
+    const {token, id,  isSuperUser, isStaff, bio, primaryRole, primaryClass} = User
     const {navItem, classIcon} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
@@ -139,7 +140,7 @@ class NavBar extends Component {
                 <NavItem eventKey={8.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
              
-              <NavDropdown eventKey={5} title={<i className="fas fa-user"/>} id="basic-nav-dropdown">
+              <NavDropdown eventKey={5} title={classIcon[primaryClass] ? <Image src={classIcon[primaryClass]} style={{height: '25px'}}/> : <i className="fas fa-user"/>} id="basic-nav-dropdown">
                 {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> 
                 : <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>}
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>

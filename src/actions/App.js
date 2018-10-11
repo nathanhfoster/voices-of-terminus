@@ -61,7 +61,6 @@ export const setWindow = Window => ({
  })
 
  export const createUser = (username, password, email, bio, primary_role, primary_class) => {
-     console.log(bio, primary_role, primary_class)
     return async (dispatch) => await Axios.post('api/v1/users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
     .then(res => {
         dispatch({
