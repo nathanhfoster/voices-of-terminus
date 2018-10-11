@@ -46,7 +46,7 @@ import bg6Mobile from './images/bg6M.png'
 // import bg4Mobile from './images/bg4-mobile.jpg'
 // import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
-import {setApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
+import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
 import 'moment-timezone'
 import MomentJS from 'moment'
 
@@ -59,7 +59,7 @@ const mapStateToProps = ({ApiResponse, Window, User, VoTYouTubeChannelData, VRYo
 })
 
 const mapDispatchToProps = {
-  setApiResponse,
+  clearApiResponse,
   setWindow,
   getVoTYouTubeChannelData,
   getAllVRYouTube,
@@ -167,7 +167,7 @@ class App extends Component {
     if(status === 200 || status === 201) alert.success([<div>{status} {statusText}</div>])
     if(status === 400 || status === 401) alert.error([<div>{status} {statusText}</div>, <div>{JSON.stringify(data)}</div>])
        
-    this.props.setApiResponse({})
+    this.props.clearApiResponse()
   }
 
   updateWindowDimensions() {

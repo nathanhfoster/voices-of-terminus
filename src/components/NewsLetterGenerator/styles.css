@@ -1,4 +1,7 @@
 .NewsLetterGenerator {
+    display: flex;
+    flex-direction: column;
+    position: relative;
 }
 
 .NewsletterCardContainer .Card {
