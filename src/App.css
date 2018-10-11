@@ -1,6 +1,6 @@
 .App {
   margin-top: var(--navBarHeight);
-  height: 100vh;
+  height: 100%;
   width: 100%;
   touch-action: none;
 }
@@ -38,24 +38,7 @@
 .fadeThrough {
   height: 100vh;
 }
-/* When app is launched from home screen */
-@media all and (display-mode: standalone) {
- .fadeThrough {
-    height: calc(100vh - var(--navBarHeight));
-  }
-}
 
-@media all and (display-mode: minimal-ui) {
-}
-
-/*Running on mobile browser*/
-@media (max-width: 767px) {
-  @media only all and (display-mode: browser) {
-   .fadeThrough {
-      height: calc(100vh - var(--navBarHeight));
-    }
-  }
-}
 
 .dropdown-menu {
   background-color: rgba(0, 0, 0, var(--mainOpacity));

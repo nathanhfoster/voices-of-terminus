@@ -3,3 +3,22 @@
         width: 4px;
     }
 }
+
+/* When app is launched from home screen */
+@media all and (display-mode: standalone) {
+    .fadeThrough {
+       min-height: calc(100vh - var(--navBarHeight));
+     }
+   }
+   
+   @media all and (display-mode: minimal-ui) {
+   }
+   
+   /*Running on mobile browser*/
+   @media (max-width: 767px) {
+     @media only all and (display-mode: browser) {
+      .fadeThrough {
+         min-height: calc(100vh - var(--navBarHeight));
+       }
+     }
+   }
