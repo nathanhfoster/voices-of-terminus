@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Map, List} from 'immutable'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 import EventList from '../../../components/EventList'
@@ -26,8 +25,8 @@ class Roster extends Component {
   }
 
   static propTypes = {
-    discordData: new Map(),
-    guildMembers: new List(),
+    discordData: PropTypes.object,
+    guildMembers: PropTypes.array,
     getGuildMembers: PropTypes.func.isRequired,
   }
 

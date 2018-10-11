@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import Calendar from 'react-calendar/dist/entry.nostyle'
-import { Map, List} from 'immutable'
 import EventList from '../../components/EventList'
 import {Grid, Row, Col, PageHeader, ButtonToolbar, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
@@ -23,20 +22,20 @@ class GuildCalendar extends Component {
  
     this.state = {
       activeDate: Date,
-      events: new List(),
+      events: PropTypes.array,
       isMobile: false
     }
   }
 
   static propTypes = { 
     activeDate: PropTypes.Date,
-    events: new List(),
+    events: PropTypes.array,
     isMobile: PropTypes.bool
   }
 
   static defaultProps = {
     activeDate: new Date(),
-    events: List([
+    events: [
       {key: 1, name: 'Event 1',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
       {key: 2, name: 'Event 2',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
       {key: 3, name: 'Event 3',   startTime: new Date(2018, 9, 4, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
@@ -52,7 +51,7 @@ class GuildCalendar extends Component {
       {key: 13, name: 'Event 13', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 14, name: 'Event 14', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
       {key: 15, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
-    ])
+    ]
   }
   
   componentWillMount() {

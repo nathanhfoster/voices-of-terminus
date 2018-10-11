@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { withAlert } from 'react-alert'
-import { Map, List} from 'immutable'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
 import './AppM.css'
@@ -23,6 +22,7 @@ import Forums from './views/Forums'
 import Guild from './views/Guild'
 import Media from './views/Media'
 import VideoPlayer from './components/VideoPlayer'
+import Profile from './views/Profile'
 import Login from './components/Login'
 import Donate from './views/Donate'
 import PageNotFound from './views/PageNotFound'
@@ -120,6 +120,7 @@ class App extends Component {
       {path: '/media/videos/:id', component: VideoPlayer},
       {path: '/media/streams', component: Media},
       {path: '/media/podcasts', component: Media},
+      {path: '/profile', component: Profile},
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},
     ],

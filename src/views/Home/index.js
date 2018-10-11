@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
+import PropTypes from 'prop-types'
 import './styles.css'
 import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
 import { Grid, Row, Col } from 'react-bootstrap'
 import YouTube from 'react-youtube'
-import { Map } from 'immutable'
 
 const mapStateToProps = ({VoTYouTubeChannelData, VRYouTubeChannelData}) => ({
   VoTYouTubeChannelData,
@@ -26,9 +26,9 @@ class Home extends Component {
   }
 
   static propTypes = {
-    VoTYouTubeChannelData: new Map(),
-    VRYouTubeChannelData: new Map(),
-    votLatestVideo: new Map()
+    VoTYouTubeChannelData: PropTypes.object,
+    VRYouTubeChannelData: PropTypes.object,
+    votLatestVideo: PropTypes.object
   }
 
   static defaultProps = {

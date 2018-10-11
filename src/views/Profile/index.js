@@ -11,7 +11,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class Template extends Component {
+class Profile extends Component {
   constructor(props) {
     super(props)
  
@@ -57,10 +57,10 @@ class Template extends Component {
 
   render() {
     return (
-      <Grid className="Template Container">
-        Template
+      <Grid className="Profile Container">
+        Profile
       </Grid>
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Template)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Profile)

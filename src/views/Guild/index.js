@@ -12,7 +12,6 @@ import Lore from './Lore'
 import Contests from './Contests'
 import Team from './Team'
 import Join from './Join'
-import { Map, List } from 'immutable'
 import ScrollTextBox from '../../components/ScrollTextBox'
 
 const mapStateToProps = ({}) => ({
@@ -27,14 +26,14 @@ class Guild extends Component {
  
     this.state = {
       history: {},
-      discordData: new Map(),
+      discordData: {},
       eventKey: ''
     }
   }
 
   static propTypes = { 
-    history: new Map(),
-    discordData: new Map(),
+    history: PropTypes.object,
+    discordData: PropTypes.object,
   }
 
   static defaultProps = {

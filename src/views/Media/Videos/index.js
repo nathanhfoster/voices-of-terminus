@@ -6,7 +6,6 @@ import './styles.css'
 import Moment from 'react-moment'
 import {LinkContainer} from 'react-router-bootstrap'
 import {setVideoToWatch} from '../../../actions/Videos'
-import {List} from 'immutable'
 
 const mapStateToProps = ({VoTYouTubeChannelData}) => ({
   VoTYouTubeChannelData
@@ -27,7 +26,7 @@ class Videos extends Component {
   }
 
   static propTypes = {
-    VoTYouTubeChannelData: new List(),
+    VoTYouTubeChannelData: PropTypes.array,
     setVideoToWatch: PropTypes.func.isRequired
   }
 

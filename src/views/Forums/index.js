@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Row, Col, PageHeader, Tabs, Tab} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
-import { Map, List} from 'immutable'
 import './styles.css'
 import './stylesM.css'
 

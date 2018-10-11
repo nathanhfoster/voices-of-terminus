@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Map, List} from 'immutable'
 import './styles.css'
 import { Image } from 'react-bootstrap'
 import femaleElf from '../../images/elf_female.png'

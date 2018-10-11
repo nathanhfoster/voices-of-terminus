@@ -12,7 +12,6 @@ import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
 import {clearHtmlDocument} from '../../actions/App'
 import {postDocument, updateArticle} from '../../actions/Articles'
-import {Map} from 'immutable'
 import {withRouter, Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({editorState, HtmlDocument, User}) => ({

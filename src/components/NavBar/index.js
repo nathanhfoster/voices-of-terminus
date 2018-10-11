@@ -108,9 +108,12 @@ class NavBar extends Component {
                 <NavItem eventKey={8.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
                 <NavItem eventKey={8.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
-              <LinkContainer to="/donate"><NavItem eventKey={9}>DONATE</NavItem></LinkContainer>
-              {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> 
-              : <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>}
+             
+              <NavDropdown eventKey={5} title={<i className="fas fa-user"/>} id="basic-nav-dropdown">
+                {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> 
+                : <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>}
+                <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
+              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
   </Navbar>

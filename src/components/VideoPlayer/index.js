@@ -5,7 +5,6 @@ import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import YouTube from 'react-youtube'
-import { Map } from 'immutable'
 
 const mapStateToProps = ({VideoToWatch}) => ({
   VideoToWatch
@@ -26,7 +25,7 @@ class VideoPlayer extends Component {
 
   static propTypes = {
     id: PropTypes.string,
-    Video: new Map(),
+    Video: {},
     setVideoToWatch: PropTypes.func.isRequired
   }
 
