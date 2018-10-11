@@ -61,18 +61,31 @@ export const setWindow = Window => ({
  })
 
  export const createUser = (username, password, email, bio, primary_role, primary_class) => {
+     console.log(bio, primary_role, primary_class)
     return async (dispatch) => await Axios.post('api/v1/users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
     .then(res => {
-        // dispatch({
-        //     type: C.SET_LOGIN_TOKEN,
-        //     payload: {token, id}
-        //  })
+        dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: res
+        })
+        Axios.post('api/v1/login/', qs.stringify({username, password}))
+        .then(res => {
+            Cookies.set('User_LoginToken', res.data.token, {expires: 365})
+            Cookies.set('User_ID', res.data.id, {expires: 365})
+            dispatch({
+                type: C.SET_LOGIN_TOKEN,
+                payload: res.data
+             })
+            //  dispatch({
+            //     type: C.SET_API_RESPONSE,
+            //     payload: res
+            // })
+        }).catch((e) => dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: e.response
+        }))
     })
-    .then(() => this.login(username, password))
-    .catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+    .catch((e) => console.log(e.response))
 }
 
 export const login = (username, password) => {

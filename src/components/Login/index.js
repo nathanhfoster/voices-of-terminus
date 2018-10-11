@@ -5,7 +5,6 @@ import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal, Image} from 'react-bootstrap'
 import {createUser, login} from '../../actions/App'
 import {Redirect} from 'react-router-dom'
-import cleric from '../../images/cleric.png'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -28,6 +27,7 @@ class Login extends Component {
       username: '',
       password: '',
       email: '',
+      bio: '',
       primary_role: '',
       primary_class: '',
       show: false,
@@ -124,6 +124,7 @@ class Login extends Component {
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
   render() {
+    console.log(this.state)
     const {User, isNotValid} = this.state
     const canSubmit = !this.cantSubmit()
     return (
@@ -195,7 +196,7 @@ class Login extends Component {
                         </FormGroup> */}
                       <FormGroup>
                         <ControlLabel>Bio</ControlLabel>
-                        <FormControl componentClass="textarea" placeholder="Bio" onChange={this.onChange}/>
+                        <FormControl componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
                       </FormGroup>
                       <Col md={6}>
                         <FormGroup >

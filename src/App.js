@@ -72,8 +72,8 @@ class App extends Component {
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
 
     this.state = { 
-      width: 0,
-      height: 0 ,
+      width: null,
+      height: null,
       isMobile: false,
       User: {}
     }
@@ -150,7 +150,7 @@ class App extends Component {
 
   getState = props => {
     const {ApiResponse, Window, User} = props
-    if(ApiResponse && ApiResponse.hasOwnProperty('status')) this.alertApiResponse(ApiResponse)
+    if(ApiResponse) this.alertApiResponse(ApiResponse)
     this.setState({ApiResponse, Window, User})
   }
 

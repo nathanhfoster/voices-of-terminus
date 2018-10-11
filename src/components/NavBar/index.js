@@ -12,6 +12,19 @@ import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 import {Logout} from '../../actions/App'
 import Cookies from 'js-cookie'
 
+import Cleric from '../../images/classIcons/cleric.png'
+import Paladin from '../../images/classIcons/paladin.png'
+import Warrior from '../../images/classIcons/warrior.png'
+import DireLord from '../../images/classIcons/dire-lord.png'
+import Ranger from '../../images/classIcons/ranger.png'
+import Rogue from '../../images/classIcons/rogue.png'
+import Monk from '../../images/classIcons/monk.png'
+import Summoner from '../../images/classIcons/summoner.png'
+import Enchanter from '../../images/classIcons/enchanter.png'
+import Wizard from '../../images/classIcons/wizard.png'
+import Druid from '../../images/classIcons/druid.png'
+import Shaman from '../../images/classIcons/shaman.png'
+
 const mapStateToProps = ({User}) => ({
   User
 })
@@ -30,6 +43,23 @@ class NavBar extends Component {
 
   static propTypes = {
     Logout: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    classIcon: {
+      Cleric: Cleric,
+      Paladin: Paladin,
+      Warrior: Warrior,
+      DireLord: DireLord,
+      Ranger: Ranger,
+      Rogue: Rogue,
+      Monk: Monk,
+      Summoner: Summoner,
+      Enchanter: Enchanter,
+      Wizard: Wizard,
+      Druid: Druid,
+      Shaman: Shaman
+    }
   }
 
   componentWillMount() {
@@ -68,7 +98,7 @@ class NavBar extends Component {
 
   render() {
     const {User} = this.state
-    const {navItem} = this.props
+    const {navItem, classIcon} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
