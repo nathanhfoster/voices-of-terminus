@@ -167,7 +167,7 @@ class App extends Component {
     if(status === 200 || status === 201) alert.success([<div>{status} {statusText}</div>])
     if(status === 400 || status === 401) alert.error([<div>{status} {statusText}</div>, <div>{JSON.stringify(data)}</div>])
        
-    this.props.setApiResponse(null)
+    this.props.setApiResponse({})
   }
 
   updateWindowDimensions() {
