@@ -5,10 +5,6 @@
   touch-action: none;
 }
 
-.centerButtons {
-  text-align: center;
-}
-
 .modal-header {
   text-align: center;
   height: 50px;
@@ -65,6 +61,11 @@
   background: var(--dark_grey);
   border-radius: 10px;
 }
+textarea {
+  min-height: calc(var(--inputHeight) * 4);
+  resize: none;
+}
+
 textarea:focus,
 select:focus,
 input[type="text"]:focus,
@@ -84,7 +85,7 @@ input[type="color"]:focus,
 .uneditable-input:focus {   
   border-color: var(--primaryColor);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor);
-  outline: 0 none ;
+  outline: 0 none;
 }
 
 input, select, textarea{

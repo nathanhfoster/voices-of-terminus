@@ -69,7 +69,7 @@ export const updateArticle = (id, payload) => {
   }).catch((e) => dispatch({
     type: C.SET_API_RESPONSE,
     payload: e.response
-}))
+    }))
 }
 
 export const deleteArticle = id => {

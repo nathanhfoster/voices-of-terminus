@@ -88,8 +88,6 @@ class NavBar extends Component {
   }
 
   Logout = () => {
-    // Cookies.remove('User_LoginToken') when redirected to Articles from login the first get articles sends a 401
-    Cookies.remove('User_ID')
     this.props.Logout()
     this.props.alert.show([
       <div>GOODBYE</div>
@@ -140,11 +138,11 @@ class NavBar extends Component {
                 <NavItem eventKey={8.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
              
-              <NavDropdown eventKey={5} title={classIcon[primaryClass] ? <Image src={classIcon[primaryClass]} style={{height: '25px'}}/> : <i className="fas fa-user"/>} id="basic-nav-dropdown">
-                {User.token ? <NavItem onClick={this.Logout}>Logout</NavItem> 
-                : <LinkContainer to ="/login"><NavItem eventKey={10}>Login</NavItem></LinkContainer>}
+              {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}>LOGIN</NavItem></LinkContainer>
+              :<NavDropdown eventKey={5} title={classIcon[primaryClass] ? <Image src={classIcon[primaryClass]} style={{height: '25px'}}/> : <i className="fas fa-user"/>} id="basic-nav-dropdown">
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
-              </NavDropdown>
+                <NavItem onClick={this.Logout}>LOGOUT</NavItem>
+              </NavDropdown>}
             </Nav>
           </Navbar.Collapse>
   </Navbar>

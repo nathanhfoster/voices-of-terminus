@@ -42,7 +42,26 @@ class Login extends Component {
   }
 
   static defaultProps = {
-
+    roleOptions: [
+      {value: 'Tank', text: 'TANK'},
+      {value: 'Healer', text: 'HEALER'},
+      {value: 'Dps', text: 'DPS'},
+      {value: 'Support', text: 'SUPPORT'}
+    ],
+    classOptions: [
+      {value: 'Cleric', text: 'CLERIC'},
+      {value: 'Dire Lord', text: 'DIRE LORD'},
+      {value: 'Druid', text: 'DRUID'},
+      {value: 'Enchanter', text: 'ENCHANTER'},
+      {value: 'Monk', text: 'MONK'},
+      {value: 'Paladin', text: 'PALADIN'},
+      {value: 'Ranger', text: 'RANGER'},
+      {value: 'Rogue', text: 'ROGUE'},
+      {value: 'Shaman', text: 'SHAMAN'},
+      {value: 'Summoner', text: 'SUMMONER'},
+      {value: 'Warrior', text: 'WARRIOR'},
+      {value: 'Wizard', text: 'WIZARD'}
+    ]
   }
   
   componentWillMount() {
@@ -106,7 +125,6 @@ class Login extends Component {
   validateEmail() {
     const validator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const {email} = this.state
-    const {length} = email
     if(validator.test(email)) return 'success'
     return null
   }
@@ -123,7 +141,10 @@ class Login extends Component {
 
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
+  renderOptions = Options => Options.map(option => <option value={option.value}>{option.text}</option>)
+
   render() {
+    const {roleOptions, classOptions} = this.props
     const {User, isNotValid} = this.state
     const canSubmit = !this.cantSubmit()
     return (
@@ -151,92 +172,88 @@ class Login extends Component {
                 </FormGroup>
               </Col>
             </Row>
-            <Row className="centerButtons">
-              <ButtonGroup>
-                <Button type="submit">Sign in</Button>
-                <Button onClick={this.handleShow}>Create Account</Button>
-                <Button onClick={this.handleShow}>Forgot Password</Button>
-              </ButtonGroup>
-            </Row>
-          </Form>
-            
             <Row>
-              <Modal
-                backdrop={false}
-                {...this.props}
-                show={this.state.show}
-                onHide={this.handleHide}
-                dialogClassName="loginModal"
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title id="contained-modal-title-lg">
-                    Account Creation
-                  </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form className="accontForm Container fadeIn-2">
-                    <Row>
+              <Col md={12} style={{textAlign: 'center'}}>
+                <ButtonGroup>
+                  <Button type="submit">Sign in</Button>
+                  <Button onClick={this.handleShow}>Create Account</Button>
+                  <Button onClick={this.handleShow}>Forgot Password</Button>
+                </ButtonGroup>
+              </Col>
+            </Row>
+          </Form> 
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={this.state.show}
+              onHide={this.handleHide}
+              dialogClassName="loginModal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Account Creation
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form className="accontForm Container fadeIn-2">
+                  <Row>
+                    <Col md={12}>
                       <FormGroup validationState={this.validateUsername()}>
                         <ControlLabel>Username</ControlLabel>
                         <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
+                    </Col>
+                    <Col md={12}>
                       <FormGroup validationState={this.validatePassword()}>
                         <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
                       </FormGroup>
+                    </Col>
+                    <Col md={12}>
                       <FormGroup validationState={this.validateEmail()}>
                         <ControlLabel>Email</ControlLabel>
                         <FormControl type="email" name="email" placeholder="Email" onChange={this.onChange}/>
                       </FormGroup>
-                    { /* <FormGroup>
-                          <ControlLabel>Profile picture</ControlLabel>
-                          <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
-                        </FormGroup> */}
+                    </Col>
+                    
+                  { /* <FormGroup>
+                        <ControlLabel>Profile picture</ControlLabel>
+                        <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
+                      </FormGroup> */}
+                    <Col md={12}>
                       <FormGroup>
                         <ControlLabel>Bio</ControlLabel>
                         <FormControl componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
                       </FormGroup>
-                      <Col md={6}>
-                        <FormGroup >
-                          <ControlLabel>Primary Role</ControlLabel>
-                          <FormControl name="primary_role" componentClass="select" onChange={this.onChange}>
-                            <option value="">SELECT</option>
-                            <option value="Tank">TANK</option>
-                            <option value="Healer">HEALER</option>
-                            <option value="Tank">DPS</option>
-                            <option value="Healer">SUPPORT</option>
-                          </FormControl>
-                        </FormGroup>
-                      </Col>
-                      <Col md={6}>
-                        <FormGroup >
-                          <ControlLabel>Primary Class</ControlLabel>
-                          <FormControl name="primary_class" componentClass="select" onChange={this.onChange} id="dropDown">
-                            <option value="">SELECT</option>
-                            <option value="Cleric">CLERIC</option>
-                            <option value="Dire Lord">DIRE LORD</option>
-                            <option value="Druid">DRUID</option>
-                            <option value="Enchanter">ENCHANTER</option>
-                            <option value="Monk">MONK</option>
-                            <option value="Paladin">PALADIN</option>
-                            <option value="Ranger">RANGER</option>
-                            <option value="Rogue">ROGUE</option>
-                            <option value="Shaman">SHAMAN</option>
-                            <option value="Summoner">SUMMONER</option>
-                            <option value="Warrior">WARRIOR</option>
-                            <option value="Wizard">WIZARD</option>
-                          </FormControl>
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.createUserAccount} disabled={canSubmit}>Create</Button>
-                </Modal.Footer>
-              </Modal>
-            </Row>
+                    </Col>
+                    <Col md={6}>
+                      <FormGroup>
+                        <ControlLabel>Primary Role</ControlLabel>
+                        <FormControl name="primary_role" componentClass="select" onChange={this.onChange}>
+                          <option value="">SELECT</option>
+                          {this.renderOptions(roleOptions)}
+                        </FormControl>
+                      </FormGroup>
+                    </Col>
+                    <Col md={6}>
+                      <FormGroup>
+                        <ControlLabel>Primary Class</ControlLabel>
+                        <FormControl name="primary_class" componentClass="select" onChange={this.onChange} id="dropDown">
+                          <option value="">SELECT</option>
+                          {this.renderOptions(classOptions)}
+                        </FormControl>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.createUserAccount} disabled={canSubmit}>Create</Button>
+              </Modal.Footer>
+            </Modal>
+          </Row>
          
         </Row>
       </Grid>
