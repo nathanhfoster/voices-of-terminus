@@ -1,7 +1,6 @@
 import C from '../constants'
 import axios from 'axios'
 import Cookies from 'js-cookie'
-
 const qs = require('qs')
 const Axios = axios.create({
     baseURL: process.env.REACT_APP_API_URL + 'api/v1/',

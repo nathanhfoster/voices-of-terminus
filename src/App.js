@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { withAlert } from 'react-alert'
+import Cookies from 'js-cookie'
 import Fadethrough from 'react-fadethrough'
 import './App.css'
 import './AppM.css'
@@ -46,7 +47,7 @@ import bg6Mobile from './images/bg6M.png'
 // import bg4Mobile from './images/bg4-mobile.jpg'
 // import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
-import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData} from './actions/App'
+import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
 import 'moment-timezone'
 import MomentJS from 'moment'
 
@@ -63,7 +64,8 @@ const mapDispatchToProps = {
   setWindow,
   getVoTYouTubeChannelData,
   getAllVRYouTube,
-  getVRYouTubeChannelData
+  getVRYouTubeChannelData,
+  Logout
 }
 
 class App extends Component {
@@ -133,6 +135,7 @@ class App extends Component {
   }
 
   componentDidMount() {
+    if(!Cookies.get('User_LoginToken')) this.props.Logout()
     const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()

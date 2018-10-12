@@ -4,7 +4,7 @@ import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, 
 import { connect as reduxConnect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Moment from 'react-moment'
-import {updateProfile} from '../../actions/App'
+import {updateProfile} from '../../actions/User'
 import './styles.css'
 import './stylesM.css'
 
@@ -29,8 +29,10 @@ class Profile extends Component {
         firstName: '',
         lastName: '',
         profileImage: null,
-        isSuperUser: false, 
         isStaff: false, 
+        isSuperUser: false, 
+        dateJoined: '',
+        lastLogin: '',
         bio: '', 
         primaryRole: '',
         primaryClass: '', 
@@ -137,7 +139,7 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = props.User
+    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = props.User
     /*Validate Data*/
     // const primaryRole = props.User.primaryRole ? props.User.primaryRole : props.defaultRole
     // const primaryClass = props.User.primaryClass ? props.User.primaryClass : props.defaultClass
@@ -146,7 +148,7 @@ class Profile extends Component {
     // const profession = props.User.profession ? props.User.profession : props.defaultProfession
     // const professionSpecialization = props.User.professionSpecialization ? props.User.professionSpecialization : props.defaultProfessionSpecialization
     const {password} = this.state
-    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl})
+    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl})
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -201,16 +203,15 @@ class Profile extends Component {
       discord_url: discordUrl, twitter_url: twitterUrl, twitch_url: twitchUrl, youtube_url: youtubeUrl
     }
 
-    this.props.updateProfile(token, id, payload)
+    this.props.updateProfile(id, payload)
   }
 
   defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
-    console.log(this.state)
     const {roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = this.state
+    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = this.state
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">
@@ -218,7 +219,8 @@ class Profile extends Component {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row>
-          <Col md={12} style={{textAlign: 'center'}}><h2>Joined:  <Moment format="MMMM DD, YYYY">{dateJoined}</Moment></h2></Col>
+          <Col md={6}><h2>Joined:  <Moment format="MMMM DD, YYYY">{dateJoined}</Moment></h2></Col>
+          <Col md={6}><h2>Last Login:  <Moment fromNow>{lastLogin}</Moment></h2></Col>
         </Row>
         <Row>
           <Col md={12}><h3>ACCOUNT</h3></Col>

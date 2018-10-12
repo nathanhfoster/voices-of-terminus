@@ -3,7 +3,8 @@ import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal, Image} from 'react-bootstrap'
-import {createUser, login} from '../../actions/App'
+import {login} from '../../actions/App'
+import {createUser} from '../../actions/User'
 import {Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({User}) => ({
@@ -43,25 +44,26 @@ class Login extends Component {
 
   static defaultProps = {
     roleOptions: [
-      {value: 'Tank', text: 'TANK'},
+      {value: 'Crowd Control', text: 'CROWD CONTROL'},
       {value: 'Healer', text: 'HEALER'},
-      {value: 'Dps', text: 'DPS'},
-      {value: 'Support', text: 'SUPPORT'}
+      {value: 'Melee Dps', text: 'MELEE DPS'},
+      {value: 'Off Tank', text: 'OFF TANK'},
+      {value: 'Ranged Dps', text: 'RANGED DPS'},
+      {value: 'Support', text: 'SUPPORT'},
+      {value: 'Tank', text: 'TANK'},
+      {value: 'Support', text: 'SUPPORT'},
+      {value: 'Utility', text: 'UTILITY'},     
     ],
-    classOptions: [
-      {value: 'Cleric', text: 'CLERIC'},
-      {value: 'Dire Lord', text: 'DIRE LORD'},
-      {value: 'Druid', text: 'DRUID'},
-      {value: 'Enchanter', text: 'ENCHANTER'},
-      {value: 'Monk', text: 'MONK'},
-      {value: 'Paladin', text: 'PALADIN'},
-      {value: 'Ranger', text: 'RANGER'},
-      {value: 'Rogue', text: 'ROGUE'},
-      {value: 'Shaman', text: 'SHAMAN'},
-      {value: 'Summoner', text: 'SUMMONER'},
-      {value: 'Warrior', text: 'WARRIOR'},
-      {value: 'Wizard', text: 'WIZARD'}
-    ]
+    classOptions: {
+      'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}, ],
+      'Melee Dps':     [{value: 'Monk', text: 'MONK'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
+      'Off Tank':      [{value: 'Monk', text: 'MONK'}],
+      'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
+      'Healer':        [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
+      'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
+      'Support':       [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
+      'Utility':       [{value: 'Cleric', text: 'CLERIC'}, {value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+    },
   }
   
   componentWillMount() {
@@ -141,11 +143,13 @@ class Login extends Component {
 
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
-  renderOptions = Options => Options.map(option => <option value={option.value}>{option.text}</option>)
+  renderOptions = Options => Options ? Options.map(option => <option value={option.value}>{option.text}</option>) : this.defaultOption()
+
+  defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
     const {roleOptions, classOptions} = this.props
-    const {User, isNotValid} = this.state
+    const {User, primaryRole, primaryClass} = this.state
     const canSubmit = !this.cantSubmit()
     return (
       User.token ? <Redirect to={this.props.history.goBack()}/>
@@ -231,21 +235,20 @@ class Login extends Component {
                     <Col md={6}>
                       <FormGroup>
                         <ControlLabel>Primary Role</ControlLabel>
-                        <FormControl name="primary_role" componentClass="select" onChange={this.onChange}>
-                          <option value="">SELECT</option>
-                          {this.renderOptions(roleOptions)}
+                        <FormControl value={primaryRole} name="primaryRole" componentClass="select" onChange={this.onChange} id="dropDown">
+                          {primaryRole ? this.renderOptions(roleOptions) : [this.defaultOption(), this.renderOptions(roleOptions)]}
                         </FormControl>
                       </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <ControlLabel>Primary Class</ControlLabel>
-                        <FormControl name="primary_class" componentClass="select" onChange={this.onChange} id="dropDown">
-                          <option value="">SELECT</option>
-                          {this.renderOptions(classOptions)}
-                        </FormControl>
-                      </FormGroup>
-                    </Col>
+                      </Col>
+                      <Col md={6}>
+                        <FormGroup>
+                          <ControlLabel>Primary Class</ControlLabel>
+                          <FormControl value={primaryClass} name="primaryClass" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!primaryRole}>
+                            {this.defaultOption()}
+                            {this.renderOptions(classOptions[primaryRole])}
+                          </FormControl>
+                        </FormGroup>
+                       </Col>
                   </Row>
                 </Form>
               </Modal.Body>
