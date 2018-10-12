@@ -32,6 +32,7 @@ class Login extends Component {
       primary_role: '',
       primary_class: '',
       show: false,
+      rememberMe: false,
     }
   }
 
@@ -92,8 +93,8 @@ class Login extends Component {
 
   login = (e) => {
     e.preventDefault()
-    const {username, password} = this.state
-    this.props.login(username, password)
+    const {username, password, rememberMe} = this.state
+    this.props.login(username, password, rememberMe)
   }
 
   handleShow = () => this.setState({show: true})
@@ -148,6 +149,7 @@ class Login extends Component {
   defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
+    console.log(this.state)
     const {roleOptions, classOptions} = this.props
     const {User, primaryRole, primaryClass} = this.state
     const canSubmit = !this.cantSubmit()
@@ -175,6 +177,13 @@ class Login extends Component {
                   <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                 </FormGroup>
               </Col>
+            </Row>
+            <Row>
+              <FormGroup>
+                <Col smOffset={3} xs={12}>
+                  <Checkbox onClick={e => this.setState({rememberMe: e.target.checked})}>Remeber me</Checkbox>
+                </Col>
+              </FormGroup>
             </Row>
             <Row>
               <Col md={12} style={{textAlign: 'center'}}>

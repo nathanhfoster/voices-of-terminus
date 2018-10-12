@@ -62,10 +62,11 @@ export const setWindow = Window => ({
 
 
 
-export const login = (username, password) => {
+export const login = (username, password, rememberMe) => {
     return async (dispatch) => await Axios.post('login/', qs.stringify({username, password}))
     .then(res => {
-        Cookies.set('User_LoginToken', res.data.token, {expires: 7})
+        const eightHours = 1/3
+        rememberMe ? Cookies.set('User_LoginToken', res.data.token) : Cookies.set('User_LoginToken', res.data.token, {expires: eightHours})
         dispatch({
             type: C.SET_LOGIN_TOKEN,
             payload: res.data

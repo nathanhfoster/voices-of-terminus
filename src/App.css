@@ -66,6 +66,11 @@ textarea {
   resize: none;
 }
 
+input[type=checkbox], input[type=radio] {
+  margin: 0 5px 0 0;
+  vertical-align: middle;
+  position: relative !important;
+}
 textarea:focus,
 select:focus,
 input[type="text"]:focus,
