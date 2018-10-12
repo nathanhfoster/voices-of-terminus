@@ -110,7 +110,7 @@
   font-weight: 600;
   border-radius: 100%;
   background-color: rgba(0, 0, 0, .55);
-  color: white;
+  color: var(--tertiarycolor);
   -webkit-transition: background-color 1s ease-out;
   -moz-transition: background-color 1s ease-out;
   -o-transition: background-color 1s ease-out;

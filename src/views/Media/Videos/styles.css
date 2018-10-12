@@ -2,7 +2,7 @@
     list-style-type: none;
 }
 .Videos a:hover {
-  color: white;
+  color: var(--tertiarycolor);
 }
 .Videos h1 {
   font-family: "Cinzel Decorative", serif;

@@ -9,7 +9,7 @@
 }
 
 .Team small {
-    color: white;
+    color: var(--tertiarycolor);
     display: block;
 }
 

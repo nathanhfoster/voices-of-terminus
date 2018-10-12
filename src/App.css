@@ -12,11 +12,11 @@
 
 .modal-content {
   background-color: black;
-  color: white;
+  color: var(--tertiarycolor);
 }
 
 .modal-content .close {
-  color: white;
+  color: var(--tertiarycolor);
   opacity: 1;
   text-shadow: 1px 1px white;
 }
@@ -89,20 +89,20 @@ input[type="color"]:focus,
 }
 
 input, select, textarea{
-  color: white !important;
+  color: var(--tertiarycolor) !important;
 }
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
-  color: white !important;
+  color: var(--tertiarycolor) !important;
   opacity: 1; /* Firefox */
 }
 
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-  color: white !important;
+  color: var(--tertiarycolor) !important;
 }
 
 ::-ms-input-placeholder { /* Microsoft Edge */
-  color: white !important;
+  color: var(--tertiarycolor) !important;
 }
 
 .routeOverlay {

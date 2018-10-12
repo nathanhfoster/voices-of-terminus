@@ -18,7 +18,7 @@
   -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
-  background: white;
+  background: var(--tertiarycolor);
   text-transform: capitalize;
 }
 .TextEditor .rdw-option-wrapper:hover {
@@ -29,7 +29,7 @@
 }
 .TextEditor .Wrapper .rdw-dropdownoption-active, .TextEditor .Wrapper .rdw-dropdown-selectedtext, .TextEditor .Wrapper .rdw-dropdown-optionwrapper {
   background-color: var(--grey);
-  color: white;
+  color: var(--tertiarycolor);
 }
 .TextEditor .Wrapper .rdw-dropdownoption-default:hover {
   color: var(--primaryColor);
@@ -52,14 +52,14 @@
   box-shadow: 0 0 0 transparent;
 }
 .TextEditor .Wrapper .rdw-colorpicker-modal-style-label-active {
-  border-color: white;
+  border-color: var(--tertiarycolor);
 }
 .TextEditor .Wrapper .rdw-image-modal-header-label, .TextEditor .Wrapper .rdw-embedded-modal-header-label, .TextEditor .Wrapper .rdw-image-modal-header-label-highlighted {
   border: 0;
 }
 .TextEditor .Wrapper button:hover {
   background-color: var(--primaryColor);
-  color: white;
+  color: var(--tertiarycolor);
 }
 .TextEditor .rdw-editor-main {
   min-height: calc(100vh - 322px);
