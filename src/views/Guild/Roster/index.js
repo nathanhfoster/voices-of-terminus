@@ -4,14 +4,12 @@ import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 import EventList from '../../../components/EventList'
-import {getGuildMembers} from '../../../actions/Guild'
 
 const mapStateToProps = ({ DiscordData }) => ({
   DiscordData
 })
 
 const mapDispatchToProps = {
-  getGuildMembers
 }
 
 class Roster extends Component {
@@ -27,7 +25,6 @@ class Roster extends Component {
   static propTypes = {
     discordData: PropTypes.object,
     guildMembers: PropTypes.array,
-    getGuildMembers: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -57,7 +54,6 @@ class Roster extends Component {
   }
 
   componentDidMount() {
-    this.props.getGuildMembers()
   }
   
   componentWillReceiveProps(nextProps) {

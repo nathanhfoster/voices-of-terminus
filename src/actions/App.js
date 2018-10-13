@@ -1,5 +1,5 @@
 import C from '../constants'
-import axios from 'axios'
+import {Axios} from './Axios'
 import Cookies from 'js-cookie'
 import YTube from 'ytube'
 const youTubeKey = process.env.REACT_APP_YOUTUBE_API_KEY
@@ -7,16 +7,8 @@ const ytube = new YTube(youTubeKey)
 const votYouTubeChanneID = process.env.REACT_APP_VOT_YOUTUBE_CHANNEL_ID
 const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID
 const qs = require('qs')
-const Axios = axios.create({
-    baseURL: process.env.REACT_APP_API_URL + 'api/v1/',
-    timeout: 2000,
-    headers: {
-        'Content-type': 'application/x-www-form-urlencoded',
-        'Accept': 'application/json'
-  }
-})
 
-export function getVoTYouTubeChannelData() {
+export const getVoTYouTubeChannelData = () => {
     return async (dispatch) => await ytube.getChannelsLatestVideos(votYouTubeChanneID, 50)
         .then(res => {
             dispatch ({
@@ -29,7 +21,7 @@ export function getVoTYouTubeChannelData() {
         }))
 }
 
-export function getAllVRYouTube() {
+export const getAllVRYouTube = () => {
     return async (dispatch) => await ytube.fetchAllYouTube("Voices of Terminus")
         .then(res => {
             dispatch({
@@ -42,7 +34,7 @@ export function getAllVRYouTube() {
         }))
 }
 
-export function getVRYouTubeChannelData() {
+export const getVRYouTubeChannelData = () => {
     return async (dispatch) => await ytube.getChannelsLatestVideos(vrYouTubeChanneID, 50)
         .then(res => {
             dispatch ({
@@ -59,8 +51,6 @@ export const setWindow = Window => ({
     type: C.SET_WINDOW,
     payload: Window
  })
-
-
 
 export const login = (username, password, rememberMe) => {
     return async (dispatch) => await Axios.post('login/', qs.stringify({username, password}))
@@ -102,7 +92,7 @@ export const clearHtmlDocument = () => ({
 })
 
 export const Logout = () => {
-    Cookies.remove('User_LoginToken') //when redirected to Articles from login the first get articles sends a 401
+    Cookies.remove('User_LoginToken')
     return async (dispatch) => await dispatch({
         type: C.SET_LOGOUT,
         payload: null

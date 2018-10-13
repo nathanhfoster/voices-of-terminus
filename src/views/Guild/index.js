@@ -13,11 +13,13 @@ import Contests from './Contests'
 import Team from './Team'
 import Join from './Join'
 import ScrollTextBox from '../../components/ScrollTextBox'
+import {getGuildMembers} from '../../actions/Guild'
 
 const mapStateToProps = ({}) => ({
 })
 
 const mapDispatchToProps = {
+  getGuildMembers
 }
 
 class Guild extends Component {
@@ -34,6 +36,7 @@ class Guild extends Component {
   static propTypes = { 
     history: PropTypes.object,
     discordData: PropTypes.object,
+    getGuildMembers: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -53,6 +56,7 @@ class Guild extends Component {
   }
 
   componentDidMount() {
+    this.props.getGuildMembers()
   }
   
   componentWillReceiveProps(nextProps) {
