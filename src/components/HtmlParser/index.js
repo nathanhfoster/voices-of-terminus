@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
@@ -59,6 +59,8 @@ class HtmlParser extends Component {
   }
 
   render() {
+    const {HtmlDocument} = this.state
+    const {author_username, title} = HtmlDocument
     // Check if there is an :id in the url params
     const {match} = this.props
     // Checks if the html document came from an api call or was passed as a prop from another parent
@@ -67,9 +69,21 @@ class HtmlParser extends Component {
       <Grid className="HtmlParser Container fadeIn-2">
         { match ?
           <div className="ViewHtmlDocument">
-            {ReactHtmlParser(html)}
+            <Row>
+              <Col md={12}>
+                <PageHeader className="pageHeader">{title}</PageHeader>
+              </Col>
+              <Col md={12} style={{textAlign: 'center'}}>
+                <h3>By: {author_username}</h3>
+              </Col>
+            </Row>
+            <Row>
+              {ReactHtmlParser(html)}
+            </Row>
+            
           </div> 
-        : ReactHtmlParser(html)}
+        :ReactHtmlParser(html)
+        }
       </Grid>
     )
   }
