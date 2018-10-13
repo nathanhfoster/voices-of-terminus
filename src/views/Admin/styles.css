@@ -17,11 +17,32 @@
 }
 
 .rt-table {
+  overflow-x: hidden;
   opacity: .96;
-  background: var(--grey);
+  background: var(--slate_grey);
 }
 
 .ReactTable .rt-thead.-filters input, .ReactTable .rt-thead.-filters select,
 .ReactTable .-pagination input, .ReactTable .-pagination select {
-  background: var(--dark_grey);
+  background: var(--grey);
+}
+
+.ReactTable .rt-tr-group .rt-td:hover {
+  background: var(--grey);
+}
+
+/* Links fill table height and width */
+.rt-td {
+  vertical-align: middle;
+  min-height: 36px;
+  padding: 0;
+}
+.rt-td a {
+  padding: 0;
+  display: block;
+  height:100%;
+  width:100%;
+}
+.rt-td a:hover {
+  color: var(--primaryColor);
 }

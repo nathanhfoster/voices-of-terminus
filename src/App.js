@@ -11,6 +11,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
 import Admin from './views/Admin'
+import UserProfile from './views/Admin/UserProfile'
 import NavBar from './components/NavBar'
 import Home from './views/Home'
 import Articles from './views/Articles'
@@ -99,6 +100,7 @@ class App extends Component {
     routeItems: [
       {path: '/', component: Home},
       {path: '/admin', component: Admin},
+      {path: '/admin/user/profile/:id', component: UserProfile},
       {path: '/articles', component: Articles},
       {path: '/articles/:id', component: HtmlParser},
       {path: '/articles/new/article', component: TextEditor},

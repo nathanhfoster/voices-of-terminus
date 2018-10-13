@@ -41,6 +41,7 @@
 }
 
 ::-webkit-scrollbar {
+  height: 8px;
   width: 8px;
   background-color: rgba(189,189,189,0.4);
   -webkit-border-radius: 100px;

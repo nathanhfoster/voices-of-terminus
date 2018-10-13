@@ -37,8 +37,18 @@ export const HtmlDocument = (state = {}, action) =>
 export const User = (state = {}, action) =>
 (action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
 
-export const Admin = (state = {}, action) =>
-(action.type === C.GET_USERS) ? {Users: action.payload} : (action.type === C.SET_LOGOUT) ? {} : state
+export const Admin = (state = {}, action) => {
+  switch(action.type) {
+    case C.GET_USERS:
+      return {...state, Users: action.payload}
+    case C.GET_USER:
+      return {...state, User: action.payload}
+    case C.SET_LOGOUT:
+      return {}
+    default:
+      return state
+  }
+}
 
 export const appReducer = combineReducers({
   ApiResponse,

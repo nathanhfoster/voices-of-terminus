@@ -8,8 +8,22 @@ import 'react-table/react-table.css'
 import { Grid, Row, Col, PageHeader,ButtonToolbar, Button, InputGroup, FormControl } from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
-import {Redirect} from 'react-router-dom'
+import {withRouter, Redirect, Link} from 'react-router-dom'
 import {getUsers} from '../../actions/Admin'
+
+const columns = [
+  {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100,
+    Cell: row => (<Link to={'admin/user/profile/' + row.original.id}>{row.value}</Link>)},
+  {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'Primary Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'Primary Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'Last Login', accessor: 'last_login', maxWidth: 100,
+    Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'Joined', accessor: 'date_joined', maxWidth: 100,
+    Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>,filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+]
 
 const mapStateToProps = ({Admin, User,}) => ({
   Admin, User
@@ -81,34 +95,30 @@ class Admin extends Component {
   }
 
   render() {
-    const {data,} = this.props
+    const {data} = this.props
     const {Admin, User} = this.state
     const {Users} = Admin
-    const columns = [
-      {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Primary Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Primary Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Last Login', accessor: 'last_login', Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-      {Header: 'Joined', accessor: 'date_joined', Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-    ]
 
     return (
-      !User.isSuperUser ? <Redirect to="/login"/>
+      !User.isSuperUser ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Admin Container fadeIn-2">
       <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row>
-          <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={12} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
+                Create User
+              </Button>
               <Button onClick={() => this.props.history.push('/articles/new/article')}>
-                New Article
+                Create Article
               </Button>
               <Button onClick={() => this.props.history.push('/articles/new/newsletter')} >
                 Create Newsletter
               </Button>
+              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
+                Create Event
+              </Button>
             </Col>
-            <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
+            {/* <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
               <InputGroup.Addon>
                 <FormControl name="filter" componentClass="select" onChange={this.onChange}>
                   <option value="article">article</option>
@@ -116,24 +126,32 @@ class Admin extends Component {
                 </FormControl>
               </InputGroup.Addon>
             <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange} />
-          </Col>
+          </Col> */}
         </Row>
         <Row>
-        <ReactTable
-          loading={!Users}
-          data={Users}
-          columns={columns}
-          filterable
-          // defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value)}
-          showFilters
-          showPageSizeOptions
-          showPaginationBottom
-          showPageJump
-          />
+          <ReactTable
+            loading={!Users}
+            data={Users}
+            columns={columns}
+            filterable
+            // defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value)}
+            showFilters
+            showPageSizeOptions
+            showPaginationBottom
+            showPageJump
+            // getTrProps = {
+            //   (state, rowInfo) => {
+            //     console.log("state: ", state)
+            //       console.log('rowInfo: ', rowInfo)
+            //     return {
+            //       onClick: () => this.props.history.push(`admin/user/profile/` + rowInfo.row.username)
+            //     }
+            //   }
+            // }
+            />
         </Row>
-
       </Grid>
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Admin)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Admin))

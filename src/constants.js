@@ -16,6 +16,7 @@ const constants = {
   SET_API_RESPONSE: "SET_API_RESPONSE",
   CLEAR_API_RESPONSE: "CLEAR_API_RESPONSE",
   SET_LOGOUT: "SET_LOGOUT",
-  GET_USERS: "GET_USERS"
+  GET_USERS: "GET_USERS",
+  GET_USER: "GET_USER"
  }
  export default constants
