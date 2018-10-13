@@ -37,6 +37,9 @@ export const HtmlDocument = (state = {}, action) =>
 export const User = (state = {}, action) =>
 (action.type === C.SET_LOGIN_TOKEN) ? action.payload : (action.type === C.SET_LOGOUT) ? {} : state
 
+export const Admin = (state = {}, action) =>
+(action.type === C.GET_USERS) ? {Users: action.payload} : (action.type === C.SET_LOGOUT) ? {} : state
+
 export const appReducer = combineReducers({
   ApiResponse,
   VoTYouTubeChannelData,
@@ -49,5 +52,6 @@ export const appReducer = combineReducers({
   Articles,
   Newsletters,
   HtmlDocument,
-  User
+  User,
+  Admin
 })

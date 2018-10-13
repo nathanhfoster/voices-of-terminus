@@ -149,7 +149,6 @@ class Login extends Component {
   defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
-    console.log(this.state)
     const {roleOptions, classOptions} = this.props
     const {User, primaryRole, primaryClass} = this.state
     const canSubmit = !this.cantSubmit()
