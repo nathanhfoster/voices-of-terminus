@@ -3,11 +3,11 @@
 }
 
 .HtmlParser {
-   // padding: 0;
+   padding: 0;
 }
 
 .ViewHtmlDocument {
+    padding: 20px;
     background-color: rgba(0, 0, 0, 0.5);
     min-height: calc(100vh - var(--navBarHeight));
-    
 }

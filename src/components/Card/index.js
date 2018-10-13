@@ -64,8 +64,8 @@ class Card extends Component {
 
   getState = props => {
     const {isMobile} = props.Window
-    const {User, summary, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
-    this.setState({User, summary, author, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile})
+    const {User, summary, author, author_username, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title} = props
+    this.setState({User, summary, author, author_username, html, design, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile})
   }
 
   componentDidUpdate() {
@@ -95,7 +95,7 @@ class Card extends Component {
   }
 
   render() {
-    const {User, summary, author, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile} = this.state
+    const {User, summary, author, author_username, html, desgin, date_created, date_modified, id, last_modified, last_modified_by, slug, tags, title, isMobile} = this.state
     const hasPermission = this.hasPermission(User, author)
     return (
       <Grid className="Clickable Card" onClick={this.props.click}>
@@ -117,7 +117,7 @@ class Card extends Component {
                 <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> 
                 ]: null}
             </div>
-            <h5>Author: {author}</h5>
+            <h5>Author: {author_username}</h5>
             <h6>Tags: [{tags}]</h6>
             <h6>Updated <Moment fromNow>{date_modified}</Moment></h6>
         </div>
