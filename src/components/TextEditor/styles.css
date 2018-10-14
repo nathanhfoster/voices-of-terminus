@@ -110,6 +110,7 @@
   justify-content: unset;
   float: right;
 }
+/* END */
 
 .TextEditor .rdw-image-alignment-options-popup {
   background: var(--slate_grey);

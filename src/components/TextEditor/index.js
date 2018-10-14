@@ -129,6 +129,9 @@ class TextEditor extends Component {
             <Button type="submit" onClick={this.postArticle} className="pull-right">
               Post
             </Button>
+            <Button type="submit" onClick={() => this.setState({editorState: EditorState.createEmpty(), title: '', tags: ''})} className="pull-right">
+              Clear
+            </Button>
           </Col>
         </Row>
         <Row>
