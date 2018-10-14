@@ -68,20 +68,18 @@ class HtmlParser extends Component {
     return (
       <Grid className="HtmlParser Container fadeIn-2">
         { match ?
-          <div className="ViewHtmlDocument">
-            <Row>
+            <Row className="ViewHtmlDocument">
               <Col md={12}>
                 <PageHeader className="pageHeader">{title}</PageHeader>
               </Col>
               <Col md={12} style={{textAlign: 'center'}}>
                 <h3>By: {author_username}</h3>
               </Col>
-            </Row>
-            <Row>
-              {ReactHtmlParser(html)}
+              <Col md={12}>
+                {ReactHtmlParser(html)}
+              </Col>
             </Row>
             
-          </div> 
         :ReactHtmlParser(html)
         }
       </Grid>
