@@ -5,7 +5,7 @@ import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal, Image} from 'react-bootstrap'
 import {login} from '../../actions/App'
 import {createUser} from '../../actions/User'
-import {Redirect} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -290,4 +290,4 @@ class Login extends Component {
   }
 }
  
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Login)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Login))
