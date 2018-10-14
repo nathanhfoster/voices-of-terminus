@@ -57,7 +57,8 @@ export const updateProfile = (id, payload) => {
             twitchUrl: data.twitch_url,
             twitterUrl: data.twitter_url,
             username: data.username,
-            youtubeUrl: data.youtube_url
+            youtubeUrl: data.youtube_url,
+            guildPoints: data.guild_points
         }
         dispatch({
             type: C.SET_LOGIN_TOKEN,

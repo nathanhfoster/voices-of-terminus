@@ -139,7 +139,7 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = props.User
+    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = props.User
     /*Validate Data*/
     // const primaryRole = props.User.primaryRole ? props.User.primaryRole : props.defaultRole
     // const primaryClass = props.User.primaryClass ? props.User.primaryClass : props.defaultClass
@@ -148,7 +148,7 @@ class Profile extends Component {
     // const profession = props.User.profession ? props.User.profession : props.defaultProfession
     // const professionSpecialization = props.User.professionSpecialization ? props.User.professionSpecialization : props.defaultProfessionSpecialization
     const {password} = this.state
-    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl})
+    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints})
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -211,7 +211,7 @@ class Profile extends Component {
   render() {
     const {roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = this.state
+    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = this.state
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">
@@ -219,8 +219,9 @@ class Profile extends Component {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row>
-          <Col md={6}><h2>Joined:  <Moment format="MMMM DD, YYYY">{dateJoined}</Moment></h2></Col>
-          <Col md={6}><h2>Last Login:  <Moment fromNow>{lastLogin}</Moment></h2></Col>
+          <Col md={4}><h3>Guild Points: {guildPoints}</h3></Col>
+          <Col md={4}><h3>Joined:  <Moment format="MMMM DD, YYYY">{dateJoined}</Moment></h3></Col>
+          <Col md={4}><h3>Last Login:  <Moment fromNow>{lastLogin}</Moment></h3></Col>
         </Row>
         <Row>
           <Col md={12}><h3>ACCOUNT</h3></Col>
