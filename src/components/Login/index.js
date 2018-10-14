@@ -29,6 +29,8 @@ class Login extends Component {
       password: '',
       email: '',
       bio: '',
+      primaryRole: '',
+      primaryClass: '', 
       primary_role: '',
       primary_class: '',
       show: false,
