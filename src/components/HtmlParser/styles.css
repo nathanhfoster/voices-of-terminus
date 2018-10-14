@@ -1,18 +1,5 @@
 @media(min-width:1200px){
-
-}
-
-.HtmlParser {
-   padding: 0;
-}
-
-.ViewHtmlDocument {
-    padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
-    min-height: calc(100vh - var(--navBarHeight));
-}
-
-.ViewHtmlDocument h1,
+ .ViewHtmlDocument h1,
 .ViewHtmlDocument h2,
 .ViewHtmlDocument h3,
 .ViewHtmlDocument h4,
@@ -24,4 +11,15 @@
 .ViewHtmlDocument a
 {
     margin: 20px;
+}
+}
+
+.HtmlParser {
+   padding: 0;
+}
+
+.ViewHtmlDocument {
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    min-height: calc(100vh - var(--navBarHeight));
 }
