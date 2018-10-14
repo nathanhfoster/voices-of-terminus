@@ -59,7 +59,6 @@ class UserProfile extends Component {
   render() {
     const {Admin} = this.state
     const {User} = Admin
-    console.log(this.state)
     return (
       !this.props.User.isSuperUser ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="UserProfile Container">
