@@ -135,10 +135,12 @@ class Login extends Component {
 
   validateUsername() {
     const {username} = this.state
-    const {length} = username
-    if (length > 4) return 'success'
-    else if (length > 2) return 'warning'
-    else if (length > 0) return 'error'
+    if(username) {
+      const {length} = username
+      if (length > 4) return 'success'
+      else if (length > 2) return 'warning'
+      else if (length > 0) return 'error'
+    }
     return null
   }
 
