@@ -1,14 +1,14 @@
 @media(min-width:1200px){
- .ViewHtmlDocument h1,
-.ViewHtmlDocument h2,
-.ViewHtmlDocument h3,
-.ViewHtmlDocument h4,
-.ViewHtmlDocument h5,
-.ViewHtmlDocument h6,
-.ViewHtmlDocument blockquote,
-.ViewHtmlDocument code,
-.ViewHtmlDocument p,
-.ViewHtmlDocument a
+    .ViewHtmlDocument h1,
+    .ViewHtmlDocument h2,
+    .ViewHtmlDocument h3,
+    .ViewHtmlDocument h4,
+    .ViewHtmlDocument h5,
+    .ViewHtmlDocument h6,
+    .ViewHtmlDocument blockquote,
+    .ViewHtmlDocument code,
+    .ViewHtmlDocument p,
+    .ViewHtmlDocument a
 {
     margin: 20px;
 }

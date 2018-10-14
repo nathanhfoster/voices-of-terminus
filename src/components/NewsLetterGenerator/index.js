@@ -86,8 +86,7 @@ class NewsLetterGenerator extends Component {
   }
 
   updateNewsletter = () => {
-    const {title, tags} = this.state
-    const {id} = this.props.match.params
+    const {title, tags, id} = this.state
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
