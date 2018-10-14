@@ -61,7 +61,7 @@ class News extends Component {
     this.props.clearHtmlDocument()
   }
 
-  renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
+  renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified)).map(card => {
     return (
       <Col className="CardContainer translateHover" md={6}>
         <Card

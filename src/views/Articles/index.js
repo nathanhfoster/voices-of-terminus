@@ -112,7 +112,7 @@ class Articles extends Component {
         </Row>
         <Row>
           <h3>Recent</h3>
-          {Articles.length ? this.renderCards(Articles.sort((a, b) => new Date(b.date_created) - new Date(a.date_created))) : null}
+          {Articles.length ? this.renderCards(Articles.sort((a, b) => new Date(b.last_modified) - new Date(a.last_modified))) : null}
         </Row>
       </Grid>
     )
