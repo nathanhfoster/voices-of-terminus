@@ -179,7 +179,7 @@ class Login extends Component {
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = this.state
     return (
-      User.token ? <Redirect to={this.props.history.goBack()}/>
+      token ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Login Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
