@@ -20,6 +20,6 @@
 
 .ViewHtmlDocument {
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.9);
     min-height: calc(100vh - var(--navBarHeight));
 }
