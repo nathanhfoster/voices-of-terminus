@@ -44,6 +44,10 @@ class Login extends Component {
   }
 
   static defaultProps = {
+    defaultRole: 'Crowd Control',
+    defaultClass: 'Enchanter',
+    defaultProfession: 'Blacksmith',
+    defaultProfessionSpecialization: 'Armorsmith',
     roleOptions: [
       {value: 'Crowd Control', text: 'CROWD CONTROL'},
       {value: 'Healer', text: 'HEALER'},
@@ -59,11 +63,24 @@ class Login extends Component {
       'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}, ],
       'Melee Dps':     [{value: 'Monk', text: 'MONK'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
       'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-      'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
+      'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
       'Healer':        [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
       'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
       'Support':       [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
       'Utility':       [{value: 'Cleric', text: 'CLERIC'}, {value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+      
+      // {value: 'Cleric', text: 'CLERIC'},
+      // {value: 'Dire Lord', text: 'DIRE LORD'},
+      // {value: 'Druid', text: 'DRUID'},
+      // {value: 'Enchanter', text: 'ENCHANTER'},
+      // {value: 'Monk', text: 'MONK'},
+      // {value: 'Paladin', text: 'PALADIN'},
+      // {value: 'Ranger', text: 'RANGER'},
+      // {value: 'Rogue', text: 'ROGUE'},
+      // {value: 'Shaman', text: 'SHAMAN'},
+      // {value: 'Summoner', text: 'SUMMONER'},
+      // {value: 'Warrior', text: 'WARRIOR'},
+      // {value: 'Wizard', text: 'WIZARD'}
     },
   }
   
