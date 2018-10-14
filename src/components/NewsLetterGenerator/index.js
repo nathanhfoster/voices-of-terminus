@@ -144,7 +144,7 @@ class NewsLetterGenerator extends Component {
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.handleShow} className="pull-right">LOAD</Button>
             <Button onClick={this.updateNewsletter} className="pull-right" disabled>SAVE</Button>
-            <Button onClick={() => {this.loadNewsletterDesign(defaultDesign); this.setState({title: '', tags: ''})}} className="pull-right">CLEAR</Button>
+            <Button onClick={() => this.loadNewsletterDesign(defaultDesign)} className="pull-right">CLEAR</Button>
           </Col>
         </Row>
         <Row>

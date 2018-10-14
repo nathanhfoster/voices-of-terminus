@@ -1,4 +1,4 @@
-@media(min-width:1200px){
+/* @media(min-width:1200px){
     .ViewHtmlDocument h1,
     .ViewHtmlDocument h2,
     .ViewHtmlDocument h3,
@@ -12,10 +12,10 @@
 {
     margin: 20px;
 }
-}
+} */
 
 .HtmlParser {
-   padding: 0;
+   /* padding: 0; */
 }
 
 .ViewHtmlDocument {
