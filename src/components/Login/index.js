@@ -37,6 +37,15 @@ class Login extends Component {
   }
 
   static propTypes = {
+    User: PropTypes.object,
+    token: PropTypes.number, 
+    id: PropTypes.number,
+    profileImage: PropTypes.object,
+    isSuperUser: PropTypes.bool, 
+    isStaff: PropTypes.bool, 
+    bio: PropTypes.string, 
+    primaryRole: PropTypes.string,
+    primaryClass: PropTypes.string, 
     username: PropTypes.string,
     password: PropTypes.string,
     createUser: PropTypes.func.isRequired,
@@ -96,9 +105,9 @@ class Login extends Component {
   }
 
   getState = props => {
-    const {User} = props
-
-    this.setState({User})
+    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = props.User
+    const {password} = this.state
+    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints})
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -166,9 +175,9 @@ class Login extends Component {
   defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
-    const {roleOptions, classOptions} = this.props
-    const {User, primaryRole, primaryClass} = this.state
+    const {roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
+    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = this.state
     return (
       User.token ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Login Container fadeIn-2">
