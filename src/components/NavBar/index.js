@@ -48,18 +48,18 @@ class NavBar extends Component {
 
   static defaultProps = {
     classIcon: {
-      Cleric: Cleric,
-      Paladin: Paladin,
-      Warrior: Warrior,
-      DireLord: DireLord,
-      Ranger: Ranger,
-      Rogue: Rogue,
-      Monk: Monk,
-      Summoner: Summoner,
-      Enchanter: Enchanter,
-      Wizard: Wizard,
-      Druid: Druid,
-      Shaman: Shaman
+      'Cleric': Cleric,
+      'Paladin': Paladin,
+      'Warrior': Warrior,
+      'Dire Lord': DireLord,
+      'Ranger': Ranger,
+      'Rogue': Rogue,
+      'Monk': Monk,
+      'Summoner': Summoner,
+      'Enchanter': Enchanter,
+      'Wizard': Wizard,
+      'Druid': Druid,
+      'Shaman': Shaman
     }
   }
 
