@@ -179,7 +179,7 @@ class Login extends Component {
             <Row>
               <FormGroup>
                 <Col smOffset={3} xs={12}>
-                  <Checkbox onClick={e => this.setState({rememberMe: e.target.checked})}>Remeber me</Checkbox>
+                  <Checkbox onClick={e => this.setState({rememberMe: e.target.checked})}>Remember me</Checkbox>
                 </Col>
               </FormGroup>
             </Row>

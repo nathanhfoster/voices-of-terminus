@@ -12,7 +12,7 @@ export const getGuildMembers = () => {
                     payload.members[i].guildMember = true
                 }
                 // Remove '<VoT>'
-                payload.members[i].nick ? payload.members[i].nick = payload.members[i].nick.replace('<VoT>', '').replace(/[^\x00-\x7F]/g, '') : null
+                payload.members[i].nick ? payload.members[i].nick = payload.members[i].nick.replace('<VoT>', '').replace(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/, '') : null
                 return payload.members[i]
               })
               payload.members = discordMembers.filter(i => i.guildMember)

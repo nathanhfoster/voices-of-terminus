@@ -2,6 +2,7 @@ import C from '../constants'
 import {Axios} from './Axios'
 import Cookies from 'js-cookie'
 import YTube from 'ytube'
+import {setAuthorizationToken} from './Axios'
 const youTubeKey = process.env.REACT_APP_YOUTUBE_API_KEY
 const ytube = new YTube(youTubeKey)
 const votYouTubeChanneID = process.env.REACT_APP_VOT_YOUTUBE_CHANNEL_ID
@@ -57,6 +58,7 @@ export const login = (username, password, rememberMe) => {
     .then(res => {
         const eightHours = 1/3
         rememberMe ? Cookies.set('User_LoginToken', res.data.token) : Cookies.set('User_LoginToken', res.data.token, {expires: eightHours})
+        setAuthorizationToken(res.data.token)
         dispatch({
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
