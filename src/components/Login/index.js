@@ -150,7 +150,8 @@ class Login extends Component {
     if(
       (this.validateUsername() === 'success' || this.validateUsername() === 'warning')  &&
       (this.validatePassword() === 'success' || this.validatePassword() === 'warning') &&
-      (this.validateReEnterPassword() === 'success') && (this.validateEmail()    === 'success' || this.validateEmail()    === 'warning')
+      //(this.validateReEnterPassword() === 'success') && 
+      (this.validateEmail() === 'success' || this.validateEmail() === 'warning')
     ) return true
     
     return false
