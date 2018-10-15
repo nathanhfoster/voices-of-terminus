@@ -83,9 +83,7 @@ class Login extends Component {
   getState = props => {
     const {token, id} = props.User
     if(token) this.props.history.goBack()
-    const {username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primary_role, primary_class, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = props
-    const {password} = this.state
-    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints})
+    this.setState({token, id})
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -101,7 +99,7 @@ class Login extends Component {
     this.props.login(username, password, rememberMe)
   }
 
-  handleShow = () => this.setState({username: '', password: '', show: true})
+  handleShow = () => this.setState({show: true})
 
   handleHide = () => this.setState({show: false})
 
@@ -151,7 +149,7 @@ class Login extends Component {
     if(
       (this.validateUsername() === 'success' || this.validateUsername() === 'warning')  &&
       (this.validatePassword() === 'success' || this.validatePassword() === 'warning') &&
-      //(this.validateReEnterPassword() === 'success') && 
+      (this.validateReEnterPassword() === 'success') && 
       (this.validateEmail() === 'success' || this.validateEmail() === 'warning')
     ) return true
     
@@ -163,7 +161,7 @@ class Login extends Component {
   render() {
     console.log(this.state)
     const canSubmit = !this.cantSubmit()
-    const {token, username, password, email, primaryRole, primaryClass} = this.state
+    const {token, username, password, reEnterPassword, email, primaryRole, primaryClass} = this.state
     return (
     <Grid className="Login Container fadeIn-2">
         <Row>
@@ -224,27 +222,27 @@ class Login extends Component {
                     <Col md={12}>
                       <FormGroup validationState={this.validateUsername()}>
                         <ControlLabel>Username</ControlLabel>
-                        <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+                        <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                       </FormGroup>
                     </Col>
                     <Col md={12}>
                       <FormGroup validationState={this.validatePassword()}>
                         <ControlLabel>Password</ControlLabel>
-                        <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                        <FormControl value={password} type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
                       </FormGroup>
                     </Col>
                     <Col md={12}>
                       <FormGroup validationState={this.validateReEnterPassword()}>
                         <ControlLabel>Re-Enter Password</ControlLabel>
-                        <FormControl type="password" name="reEnterPassword" placeholder="Re-Enter Password" onChange={this.onChange}/>
+                        <FormControl value={reEnterPassword} type="password" name="reEnterPassword" placeholder="Re-Enter Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
                       </FormGroup>
                     </Col>
                     <Col md={12}>
                       <FormGroup validationState={this.validateEmail()}>
                         <ControlLabel>Email</ControlLabel>
-                        <FormControl type="email" name="email" placeholder="Email" onChange={this.onChange}/>
+                        <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
                       </FormGroup>
                     </Col>
                     

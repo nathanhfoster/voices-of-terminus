@@ -25,7 +25,10 @@ const qs = require('qs')
             payload: e.response
         }))
     })
-    .catch((e) => console.log(e.response))
+    .catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
 export const updateProfile = (id, payload) => {
