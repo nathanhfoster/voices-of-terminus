@@ -58,7 +58,7 @@ export const login = (username, password, rememberMe) => {
     .then(res => {
         const eightHours = 1/3
         rememberMe ? Cookies.set('User_LoginToken', res.data.token) : Cookies.set('User_LoginToken', res.data.token, {expires: eightHours})
-        setAuthorizationToken(res.data.token)
+        //setAuthorizationToken(res.data.token)
         dispatch({
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
