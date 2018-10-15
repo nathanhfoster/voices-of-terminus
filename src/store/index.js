@@ -4,10 +4,9 @@ import { createStore, applyMiddleware } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 const consoleMessages = store => next => action => {
-  let result
+  const result = action ? next(action) : 'ERROR'
   console.groupCollapsed(`dispatching action => ${action.type}`)
   // console.log('current user', store.getState().currentUser)
-  result = next(action)
   // let { currentUser } = store.getState()
   // console.log(`current user: ${currentUser}`)
   console.groupEnd()
