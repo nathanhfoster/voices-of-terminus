@@ -82,7 +82,7 @@ class Login extends Component {
 
   getState = props => {
     const {token, id} = props.User
-    if(token) this.props.history.goBack()
+    if(token) props.history.goBack()
     this.setState({token, id})
   }
 

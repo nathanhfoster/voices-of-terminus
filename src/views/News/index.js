@@ -93,11 +93,7 @@ class News extends Component {
         <PageHeader className="pageHeader">NEWS</PageHeader>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-              {User.token ? 
-                <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>
-                Create
-                </Button>
-                : null}
+            {User.token ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}> Create </Button> : null}
           </Col>
           <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
             <InputGroup.Addon>
