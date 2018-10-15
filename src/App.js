@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { withAlert } from 'react-alert'
 import Cookies from 'js-cookie'
-import Fadethrough from 'react-fadethrough'
 import './App.css'
 import './AppM.css'
 import "regenerator-runtime/runtime"
@@ -11,6 +10,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
 import Admin from './views/Admin'
+import BackgroundImage from './components/BackgroundImage'
 import UserProfile from './views/Admin/UserProfile'
 import NavBar from './components/NavBar'
 import Home from './views/Home'
@@ -28,25 +28,6 @@ import Profile from './views/Profile'
 import Login from './components/Login'
 import Donate from './views/Donate'
 import PageNotFound from './views/PageNotFound'
-
-import bg1 from './images/bg1.jpg'
-import bg2 from './images/bg2.jpg'
-import bg3 from './images/bg3.jpg'
-import bg4 from './images/bg4.jpg'
-import bg5 from './images/bg5.jpg'
-import bg6 from './images/bg6.jpg'
-import bg7 from './images/bg7.jpg'
-import bg1Mobile from './images/bg1M.png'
-import bg2Mobile from './images/bg2M.png'
-import bg3Mobile from './images/bg3M.png'
-import bg4Mobile from './images/bg4M.png'
-import bg5Mobile from './images/bg5M.png'
-import bg6Mobile from './images/bg6M.png'
-// import bg1Mobile from './images/bg1-mobile.jpg'
-// import bg2Mobile from './images/bg2-mobile.jpg'
-// import bg3Mobile from './images/bg3-mobile.jpg'
-// import bg4Mobile from './images/bg4-mobile.jpg'
-// import bg5Mobile from './images/bg5-mobile.jpg'
 import Footer from './components/Footer'
 import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
 import 'moment-timezone'
@@ -128,8 +109,6 @@ class App extends Component {
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},
     ],
-    images: [bg1, bg2, bg3, bg4, bg5, bg6, bg7],
-    imagesMobile: [bg1Mobile, bg2Mobile, bg3Mobile, bg4Mobile, bg5Mobile, bg6Mobile]
   }
 
   componentWillMount() {
@@ -183,9 +162,7 @@ class App extends Component {
     this.setState({height: innerHeight, width: innerWidth, isMobile})
   }
 
-  renderRouteItems = routeItems => routeItems.map(k => (
-  <Route exact path={k.path} component={k.component}/>
-  ))
+  renderRouteItems = routeItems => routeItems.map(k => <Route exact path={k.path} component={k.component}/>)
 
   renderBackgroundImages = (images, shouldRespond) => images.map(k => (<Image src={k} width="100%" height="100%" responsive={shouldRespond}/>))
 
@@ -196,11 +173,7 @@ class App extends Component {
       <Router>
         <div className="App">
           <NavBar />
-          <div className="fadeThrough">
-            <Fadethrough interval={14000}>
-              {isMobile ? this.renderBackgroundImages(imagesMobile, true) : this.renderBackgroundImages(images, false)}
-            </Fadethrough>
-          </div>
+          <BackgroundImage />
           <Footer />
           <div className="routeOverlay">
             <Switch>

@@ -11,7 +11,6 @@ import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 import {Logout} from '../../actions/App'
-import Cookies from 'js-cookie'
 
 import Cleric from '../../images/classIcons/cleric.png'
 import Paladin from '../../images/classIcons/paladin.png'

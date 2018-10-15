@@ -117,8 +117,8 @@ class Card extends Component {
             </div>
             <div>
               <h5>Author: {author_username}</h5>
-              <h6>Tags: [{tags}]</h6>
               <h6>Updated <Moment fromNow>{last_modified}</Moment> by: {last_modified_by_username}</h6>
+              <h6>Tags: [{tags}]</h6>
             </div>
         </div>
         : null}
