@@ -60,7 +60,7 @@ export const updateProfile = (id, payload) => {
             twitterUrl: data.twitter_url,
             username: data.username,
             youtubeUrl: data.youtube_url,
-            guildPoints: data.guild_points
+            experiencePoints: data.experience_points
         }
         dispatch({
             type: C.SET_LOGIN_TOKEN,
