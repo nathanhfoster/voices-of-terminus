@@ -13,8 +13,14 @@
   margin: 20px 0 0 0;
   background-color: var(--grey);
   opacity: var(--mainOpacity);
+  border: 1px solid var(--gray);
   border-radius: 4px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+.Videos .youTubeContainer:hover {
+  border-color: var(--primaryColor);
+  transition: border-color .4s;
 }
 .Videos .youTubeContainer .videoTitleContainer {
   text-align: left;

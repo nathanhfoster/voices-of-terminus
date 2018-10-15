@@ -167,12 +167,9 @@ body {
   background-color: var(--slate_grey);
   height: var(--inputHeight);
 }
-.translateHover:hover {
-  -webkit-transform: translateY(4px);
-  transform: translateY(4px);
-  will-change: transform;
-  background-repeat: no-repeat;
-  transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.35);
+.Hover:hover {
+  border-color: var(--primaryColor);
+  transition: border-color .4s;
 }
 .ActionToolbar {
   margin: 8px 0 8px 0;

@@ -58,7 +58,7 @@ class Articles extends Component {
   }
 
   renderCards = Articles => Articles.map(card => 
-      <Col className="CardContainer translateHover" md={3}>
+      <Col className="CardContainer" md={3}>
         <Card
           {...card}
           click={() => this.props.history.push('/articles/' + card.id)}

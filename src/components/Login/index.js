@@ -27,6 +27,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
+      reEnterPassword: '',
       email: '',
       bio: '',
       primaryRole: '',
@@ -57,6 +58,7 @@ class Login extends Component {
   static defaultProps = {
     username: '',
     password: '',
+    reEnterPassword: '',
     email: '',
     bio: '',
     primaryRole: '',
@@ -129,6 +131,14 @@ class Login extends Component {
     return null
   }
 
+  validateReEnterPassword() {
+    const {password, reEnterPassword} = this.state
+    const {length} = reEnterPassword
+    if(password === reEnterPassword && length > 0) return 'success'
+    else if (length > 0) return 'error'
+    return null
+  }
+
   validateEmail() {
     const validator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const {email} = this.state
@@ -140,7 +150,7 @@ class Login extends Component {
     if(
       (this.validateUsername() === 'success' || this.validateUsername() === 'warning')  &&
       (this.validatePassword() === 'success' || this.validatePassword() === 'warning') &&
-      (this.validateEmail()    === 'success' || this.validateEmail()    === 'warning')
+      (this.validateReEnterPassword() === 'success') && (this.validateEmail()    === 'success' || this.validateEmail()    === 'warning')
     ) return true
     
     return false
@@ -219,6 +229,13 @@ class Login extends Component {
                       <FormGroup validationState={this.validatePassword()}>
                         <ControlLabel>Password</ControlLabel>
                         <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateReEnterPassword()}>
+                        <ControlLabel>Re-Enter Password</ControlLabel>
+                        <FormControl type="password" name="reEnterPassword" placeholder="Re-Enter Password" onChange={this.onChange}/>
                         <FormControl.Feedback />
                       </FormGroup>
                     </Col>

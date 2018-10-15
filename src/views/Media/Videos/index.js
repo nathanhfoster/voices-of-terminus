@@ -55,9 +55,9 @@ class Videos extends Component {
     renderVideos = (videos) => videos.map(video => {
       const route = 'videos/' + video.videoId
       return (
-        <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(video)} className="translateHover">
+        <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(video)}>
           <NavItem eventKey={1}>
-            <Row className="youTubeContainer" >
+            <Row className="youTubeContainer">
               <Col md={9} mdPush={3} className="videoTitleContainer">
                 <h3>{video.title}</h3>
                 <Moment fromNow>{video.publishedAt}</Moment>

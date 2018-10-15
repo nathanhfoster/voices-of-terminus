@@ -96,7 +96,7 @@ class Card extends Component {
     const {User, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, isMobile} = this.state
     const hasPermission = this.hasPermission(User, author)
     return (
-      <div className="Clickable Card" onClick={this.props.click}>
+      <div className="Clickable Card Hover" onClick={this.props.click}>
         <div className="Preview">
           <div className="previewItem">
             <HtmlParser html={html} />
