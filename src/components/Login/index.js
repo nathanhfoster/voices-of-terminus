@@ -55,31 +55,16 @@ class Login extends Component {
   }
 
   static defaultProps = {
-    defaultRole: 'Crowd Control',
-    defaultClass: 'Enchanter',
-    defaultProfession: 'Blacksmith',
-    defaultProfessionSpecialization: 'Armorsmith',
-    roleOptions: [
-      {value: 'Crowd Control', text: 'CROWD CONTROL'},
-      {value: 'Healer', text: 'HEALER'},
-      {value: 'Melee Dps', text: 'MELEE DPS'},
-      {value: 'Off Tank', text: 'OFF TANK'},
-      {value: 'Ranged Dps', text: 'RANGED DPS'},
-      {value: 'Support', text: 'SUPPORT'},
-      {value: 'Tank', text: 'TANK'},
-      {value: 'Support', text: 'SUPPORT'},
-      {value: 'Utility', text: 'UTILITY'},     
-    ],
-    classOptions: {
-      'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}, ],
-      'Melee Dps':     [{value: 'Monk', text: 'MONK'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
-      'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-      'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
-      'Healer':        [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-      'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
-      'Support':       [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-      'Utility':       [{value: 'Cleric', text: 'CLERIC'}, {value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
-    },
+    username: '',
+    password: '',
+    email: '',
+    bio: '',
+    primaryRole: '',
+    primaryClass: '', 
+    primary_role: '',
+    primary_class: '',
+    show: false,
+    rememberMe: false,
   }
   
   componentWillMount() {
@@ -94,7 +79,8 @@ class Login extends Component {
   }
 
   getState = props => {
-    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primary_role, primary_class, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = props.User
+    const {token, id} = props.User
+    const {username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primary_role, primary_class, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = props
     const {password} = this.state
     this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints})
   }
@@ -112,14 +98,15 @@ class Login extends Component {
     this.props.login(username, password, rememberMe)
   }
 
-  handleShow = () => this.setState({show: true})
+  handleShow = () => this.setState({username: '', password: '', show: true})
 
   handleHide = () => this.setState({show: false})
 
   createUserAccount = (e) => {
     e.preventDefault()
     const {username, password, email, bio, primary_role, primary_class, profile_image} = this.state
-    this.props.createUser(username, password, email, bio, primary_role, primary_class)
+    
+    this.props.createUser(username, password, email)
   }
 
   validateUsername() {
@@ -161,14 +148,9 @@ class Login extends Component {
 
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
-  renderOptions = Options => Options ? Options.map(option => <option value={option.value}>{option.text}</option>) : this.defaultOption()
-
-  defaultOption = () => <option disabled value="">SELECT</option>
-
   render() {
-    const {roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRole, primaryClass, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = this.state
+    const {token, username, password, email, primaryRole, primaryClass} = this.state
     return (
       token ? <Redirect go={this.props.history.goBack()}/>
       :<Grid className="Login Container fadeIn-2">
@@ -181,7 +163,7 @@ class Login extends Component {
               <Col md={6} smOffset={3} xs={12}>
                 <FormGroup controlId="formHorizontalUsername">
                   <ControlLabel>Username</ControlLabel>
-                  <FormControl type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+                  <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
                 </FormGroup>
               </Col>
             </Row>
@@ -251,30 +233,6 @@ class Login extends Component {
                         <ControlLabel>Profile picture</ControlLabel>
                         <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
                       </FormGroup> */}
-                    <Col md={12}>
-                      <FormGroup>
-                        <ControlLabel>Bio</ControlLabel>
-                        <FormControl componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
-                      </FormGroup>
-                    </Col>
-                    <Col md={6}>
-                      <FormGroup>
-                        <ControlLabel>Primary Role</ControlLabel>
-                        <FormControl  name="primaryRole" componentClass="select" onChange={this.onChange} id="dropDown">
-                          {this.defaultOption()}
-                          {this.renderOptions(roleOptions)}
-                        </FormControl>
-                      </FormGroup>
-                      </Col>
-                      <Col md={6}>
-                        <FormGroup>
-                          <ControlLabel>Primary Class</ControlLabel>
-                          <FormControl value={primaryClass} name="primaryClass" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!primaryRole}>
-                            {this.defaultOption()}
-                            {this.renderOptions(classOptions[primaryRole])}
-                          </FormControl>
-                        </FormGroup>
-                       </Col>
                   </Row>
                 </Form>
               </Modal.Body>

@@ -12,7 +12,6 @@ const qs = require('qs')
         })
         Axios.post('login/', qs.stringify({username, password}))
         .then(res => {
-            Cookies.set('User_LoginToken', res.data.token, {expires: 365})
             dispatch({
                 type: C.SET_LOGIN_TOKEN,
                 payload: res.data
