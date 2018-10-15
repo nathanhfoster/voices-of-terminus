@@ -82,6 +82,7 @@ class Login extends Component {
 
   getState = props => {
     const {token, id} = props.User
+    if(token) this.props.history.goBack()
     const {username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primary_role, primary_class, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints} = props
     const {password} = this.state
     this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl, guildPoints})
@@ -160,11 +161,11 @@ class Login extends Component {
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
   render() {
+    console.log(this.state)
     const canSubmit = !this.cantSubmit()
     const {token, username, password, email, primaryRole, primaryClass} = this.state
     return (
-      token ? <Redirect go={this.props.history.goBack()}/>
-      :<Grid className="Login Container fadeIn-2">
+    <Grid className="Login Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
         </Row>
