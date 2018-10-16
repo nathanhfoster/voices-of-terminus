@@ -159,7 +159,6 @@ class Login extends Component {
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
   render() {
-    console.log(this.state)
     const canSubmit = !this.cantSubmit()
     const {token, username, password, reEnterPassword, email, primaryRole, primaryClass} = this.state
     return (
