@@ -16,6 +16,6 @@ export const setAuthorizationToken = token => token ? axios.defaults.headers.com
 export const Axios = axios.create({
     withCredentials: token ? true : false,
     baseURL: process.env.REACT_APP_API_URL + 'api/v1/',
-    timeout: 2000,
+    timeout: 5000,
     headers
 })

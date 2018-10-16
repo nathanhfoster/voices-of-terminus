@@ -12,17 +12,24 @@ import {withRouter, Redirect, Link} from 'react-router-dom'
 import {getUsers} from '../../actions/Admin'
 
 const columns = [
-  {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100,
-    Cell: row => (<Link to={'admin/user/profile/' + row.original.id}>{row.value}</Link>)},
-  {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  {Header: 'Primary Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  {Header: 'Primary Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'INFO', columns: [
+    {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true,
+      Cell: row => (<Link to={'admin/user/profile/' + row.original.id}>{row.value}</Link>)},
+    {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true}
+  ]},
+  {Header: 'IN GAME', columns: [
+  {Header: 'Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100},
+  {Header: 'Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100},
+  {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100},
+  {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
+  ]},
+  {Header: 'ACTIVITY', columns: [
   {Header: 'Last Login', accessor: 'last_login', maxWidth: 100,
     Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
   {Header: 'Joined', accessor: 'date_joined', maxWidth: 100,
     Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>,filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 80},
+  ]}
 ]
 
 const mapStateToProps = ({Admin, User,}) => ({

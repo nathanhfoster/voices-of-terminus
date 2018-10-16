@@ -111,7 +111,6 @@ class NavBar extends Component {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              {User.isSuperUser ? <LinkContainer to="/admin"><NavItem eventKey={1}>ADMIN</NavItem></LinkContainer> : null}
               <LinkContainer to="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
               <LinkContainer to="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
@@ -144,6 +143,9 @@ class NavBar extends Component {
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}
+            </Nav>
+            <Nav className="pull-right">
+            {User.isSuperUser ? <LinkContainer to="/admin"><NavItem eventKey={1}>ADMIN</NavItem></LinkContainer> : null}
             </Nav>
           </Navbar.Collapse>
   </Navbar>
