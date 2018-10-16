@@ -5,8 +5,56 @@ import { connect as reduxConnect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Moment from 'react-moment'
 import {updateProfile} from '../../actions/User'
+import Select from 'react-select'
 import './styles.css'
 import './stylesM.css'
+
+/*clearIndicator container control dropdownIndicator 
+group groupHeading indicatorsContainer indicatorSeparator 
+input loadingIndicator loadingMessage menu menuList multiValue 
+multiValueLabel multiValueRemove noOptionsMessage option placeholder singleValue valueContainer */
+const selectStyles = {
+  menu: (base, state) => ({
+    ...base,
+    backgroundColor: 'var(--grey)',
+  }),
+  container: (base, state) => ({
+    ...base,
+    opacity: state.isDisabled ? '.5' : '1',
+    backgroundColor: 'var(--grey)'
+  }),
+  clearIndicator: (base, state) => ({
+    ...base,
+    color: 'var(--tertiarycolor)'
+  }),
+  dropdownIndicator: (base, state) => ({
+    ...base,
+    color: 'var(--tertiarycolor)'
+  }),
+  control: (base, state) => ({
+    ...base,
+    backgroundColor: 'var(--grey)',
+  }),
+  option: (base, state) => ({
+    ...base,
+    borderBottom: '1px solid var(--primaryColor)',
+    borderRadius: '4px',
+    background: state.isFocused ? 'var(--primaryColor)' : 'var(--grey)',
+    color: 'white'
+  }),
+  singleValue: (base, state) => ({
+    ...base,
+    color: 'var(--tertiarycolor)'
+  }),
+  placeholder: (base, state) => ({
+    ...base,
+    color: 'var(--tertiarycolor)'
+  }),
+  valueContainer: (base, state) => ({
+    ...base,
+    backgroundColor: 'var(--grey)'
+  })
+}
 
 const mapStateToProps = ({User}) => ({
   User
@@ -72,233 +120,233 @@ class Profile extends Component {
     raceRoleClassOptions: {
       'Archai': { // Bard, Druid, Monk, Shaman, Warrior, Wizard
         roleOptions: [
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Off Tank', text: 'OFF TANK'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Off Tank', label: 'Off Tank'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Healer':        [{value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Melee Dps':     [{value: 'Monk', text: 'MONK'}],
-          'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-          'Ranged Dps':    [{value: 'Wizard', text: 'WIZARD'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Tank':          [{value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+          'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Melee Dps':     [{value: 'Monk', label: 'Monk'}],
+          'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+          'Ranged Dps':    [{value: 'Wizard', label: 'Wizard'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Tank':          [{value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Dark Myr': { // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
         roleOptions: [
-          {value: 'Crowd Control', text: 'CROWD CONTROL'},
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Off Tank', text: 'OFF TANK'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Crowd Control', label: 'Crowd Control'},
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Off Tank', label: 'Off Tank'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}],
-          'Healer':        [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}],
-          'Melee Dps':     [{value: 'Monk', text: 'MONK'}, {value: 'Rogue', text: 'ROGUE'}],
-          'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-          'Ranged Dps':    [{value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}],
-          'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+          'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+          'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}],
+          'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Rogue', label: 'Rogue'}],
+          'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+          'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}],
+          'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Dwarf': { // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
         roleOptions: [
-          {value: 'Crowd Control', text: 'CROWD CONTROL'},
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Crowd Control', label: 'Crowd Control'},
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}],
-          'Healer':        [{value: 'Cleric', text: 'CLERIC'}],
-          'Melee Dps':     [{value: 'Rogue', text: 'ROGUE'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}],
-          'Tank':          [{value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Warrior', text: 'WARRIOR'}]
+          'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+          'Healer':        [{value: 'Cleric', label: 'Cleric'}],
+          'Melee Dps':     [{value: 'Rogue', label: 'Rogue'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}],
+          'Tank':          [{value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
         }
       },
       'Elf': { // Bard, Druid, Enchanter, Ranger, Rogue, Shman, Summoner, Warrior, Wizard
         roleOptions: [
-          {value: 'Crowd Control', text: 'CROWD CONTROL'},
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Crowd Control', label: 'Crowd Control'},
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}],
-          'Healer':        [{value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Melee Dps':     [{value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
-          'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Tank':          [{value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+          'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+          'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Melee Dps':     [{value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+          'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Tank':          [{value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Halfling': { // Bard, Druid, Ranger, Rogue, Warrior
         roleOptions: [
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Healer':        [{value: 'Druid', text: 'DRUID'}],
-          'Melee Dps':     [{value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
-          'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Druid', text: 'DRUID'}],
-          'Tank':          [{value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Warrior', text: 'WARRIOR'}]
+          'Healer':        [{value: 'Druid', label: 'Druid'}],
+          'Melee Dps':     [{value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+          'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}],
+          'Tank':          [{value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
         }
       },
       'Human': { // ALL
         roleOptions: [
-          {value: 'Crowd Control', text: 'CROWD CONTROL'},
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Off Tank', text: 'OFF TANK'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Crowd Control', label: 'Crowd Control'},
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Off Tank', label: 'Off Tank'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}],
-          'Healer':        [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Melee Dps':     [{value: 'Monk', text: 'MONK'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
-          'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-          'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+          'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+          'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+          'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+          'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Gnome': { // Enchanter, Necromancer, Rogue, Summoner, Wizard
         roleOptions: [
-          {value: 'Crowd Control', text: 'CROWD CONTROL'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Crowd Control', label: 'Crowd Control'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}],
-          'Melee Dps':     [{value: 'Rogue', text: 'ROGUE'}],
-          'Ranged Dps':    [{value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
-          'Utility':       [{value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}]
+          'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+          'Melee Dps':     [{value: 'Rogue', label: 'Rogue'}],
+          'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+          'Utility':       [{value: 'Enchanter', label: 'Enchanter'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}]
         }
       }, 
       'Ogre': { // Dire Lord, Druid, Shaman, Warrior
         roleOptions: [
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Healer':        [{value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-          'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Warrior', text: 'WARRIOR'}]
+          'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}]
         }
       },
       'Skar': { // Dire Lord, Monk, Necromancer, Rogue, Shaman, Warrior
         roleOptions: [
-          {value: 'Healer', text: 'HEALER'},
-          {value: 'Melee Dps', text: 'MELEE DPS'},
-          {value: 'Off Tank', text: 'OFF TANK'},
-          {value: 'Ranged Dps', text: 'RANGED DPS'},
-          {value: 'Support', text: 'SUPPORT'},
-          {value: 'Tank', text: 'TANK'},
-          {value: 'Utility', text: 'UTILITY'},     
+          {value: 'Healer', label: 'Healer'},
+          {value: 'Melee Dps', label: 'Melee Dps'},
+          {value: 'Off Tank', label: 'Off Tank'},
+          {value: 'Ranged Dps', label: 'Ranged Dps'},
+          {value: 'Support', label: 'Support'},
+          {value: 'Tank', label: 'Tank'},
+          {value: 'Utility', label: 'Utility'},     
         ],
         classOptions: {
-          'Healer':        [{value: 'Shaman', text: 'SHAMAN'}],
-          'Melee Dps':     [{value: 'Monk', text: 'MONK'},{value: 'Rogue', text: 'ROGUE'}],
-          'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-          'Ranged Dps':    [{value: 'Necormancer', text: 'NECROMANCER'}],
-          'Support':       [{value: 'Shaman', text: 'SHAMAN'}],
-          'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Warrior', text: 'WARRIOR'}],
-          'Utility':       [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Monk', text: 'MONK'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Warrior', text: 'WARRIOR'}]
+          'Healer':        [{value: 'Shaman', label: 'Shaman'}],
+          'Melee Dps':     [{value: 'Monk', label: 'Monk'},{value: 'Rogue', label: 'Rogue'}],
+          'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+          'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}],
+          'Support':       [{value: 'Shaman', label: 'Shaman'}],
+          'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
+          'Utility':       [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}]
         }
       }
     },
     raceOptions: [
-      {value: 'Archai', text: 'ARCHAI'}, // Bard, Druid, Monk, Shaman, Warrior, Wizard
-      {value: 'Dark Myr', text: 'DARK MYR'}, // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
-      {value: 'Dwarf', text: 'DWARF'}, // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
-      {value: 'Elf', text: 'ELF'}, // Bard, Druid, Enchanter, Ranger, Rogue, Shman, SUmmoner, Warrior, Wizard
-      {value: 'Halfling', text: 'HALFLING'}, // Bard, Druid, Ranger, Rogue, Warrior
-      {value: 'Human', text: 'HUMAN'}, // ALL
-      {value: 'Gnome', text: 'GNOME'}, // Enchanter, Necromancer, Rogue, Summoner, Wizard
-      {value: 'Ogre', text: 'OGRE'}, // Dire Lord, Druid, Shaman, Warrior
-      {value: 'Skar', text: 'SKAR'} // Skar, Mink, Necrimancer, Rogue, Shaman
+      {value: 'Archai', label: 'Archai'}, // Bard, Druid, Monk, Shaman, Warrior, Wizard
+      {value: 'Dark Myr', label: 'Dark Myr'}, // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
+      {value: 'Dwarf', label: 'Dwarf'}, // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
+      {value: 'Elf', label: 'Elf'}, // Bard, Druid, Enchanter, Ranger, Rogue, Shman, SUmmoner, Warrior, Wizard
+      {value: 'Halfling', label: 'Halfling'}, // Bard, Druid, Ranger, Rogue, Warrior
+      {value: 'Human', label: 'Human'}, // ALL
+      {value: 'Gnome', label: 'Gnome'}, // Enchanter, Necromancer, Rogue, Summoner, Wizard
+      {value: 'Ogre', label: 'Ogre'}, // Dire Lord, Druid, Shaman, Warrior
+      {value: 'Skar', label: 'Skar'} // Skar, Mink, Necrimancer, Rogue, Shaman
     ],
     roleOptions: [
-      {value: 'Crowd Control', text: 'CROWD CONTROL'},
-      {value: 'Healer', text: 'HEALER'},
-      {value: 'Melee Dps', text: 'MELEE DPS'},
-      {value: 'Off Tank', text: 'OFF TANK'},
-      {value: 'Ranged Dps', text: 'RANGED DPS'},
-      {value: 'Support', text: 'SUPPORT'},
-      {value: 'Tank', text: 'TANK'},
-      {value: 'Utility', text: 'UTILITY'},     
+      {value: 'Crowd Control', label: 'Crowd Control'},
+      {value: 'Healer', label: 'Healer'},
+      {value: 'Melee Dps', label: 'Melee Dps'},
+      {value: 'Off Tank', label: 'Off Tank'},
+      {value: 'Ranged Dps', label: 'Ranged Dps'},
+      {value: 'Support', label: 'Support'},
+      {value: 'Tank', label: 'Tank'},
+      {value: 'Utility', label: 'Utility'},     
     ],
     classOptions: {
-      'Crowd Control': [{value: 'Enchanter', text: 'ENCHANTER'}, ],
-      'Melee Dps':     [{value: 'Monk', text: 'MONK'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}],
-      'Off Tank':      [{value: 'Monk', text: 'MONK'}],
-      'Ranged Dps':    [{value: 'Ranger', text: 'RANGER'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Wizard', text: 'WIZARD'}],
-      'Healer':        [{value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-      'Tank':          [{value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Warrior', text: 'WARRIOR'}],
-      'Support':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Druid', text: 'DRUID'}, {value: 'Shaman', text: 'SHAMAN'}],
-      'Utility':       [{value: 'Bard', text: 'BARD'}, {value: 'Cleric', text: 'CLERIC'}, {value: 'Dire Lord', text: 'DIRE LORD'}, {value: 'Druid', text: 'DRUID'}, {value: 'Enchanter', text: 'ENCHANTER'}, {value: 'Monk', text: 'MONK'}, {value: 'Necormancer', text: 'NECROMANCER'}, {value: 'Paladin', text: 'PALADIN'}, {value: 'Ranger', text: 'RANGER'}, {value: 'Rogue', text: 'ROGUE'}, {value: 'Shaman', text: 'SHAMAN'}, {value: 'Summoner', text: 'SUMMONER'}, {value: 'Warrior', text: 'WARRIOR'}, {value: 'Wizard', text: 'WIZARD'}]
+      'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}, ],
+      'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+      'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+      'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+      'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+      'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+      'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+      'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
     },
-      // {value: 'Cleric', text: 'CLERIC'},
-      // {value: 'Dire Lord', text: 'DIRE LORD'},
-      // {value: 'Druid', text: 'DRUID'},
-      // {value: 'Enchanter', text: 'ENCHANTER'},
-      // {value: 'Monk', text: 'MONK'},
-      // {value: 'Paladin', text: 'PALADIN'},
-      // {value: 'Ranger', text: 'RANGER'},
-      // {value: 'Rogue', text: 'ROGUE'},
-      // {value: 'Shaman', text: 'SHAMAN'},
-      // {value: 'Summoner', text: 'SUMMONER'},
-      // {value: 'Warrior', text: 'WARRIOR'},
-      // {value: 'Wizard', text: 'WIZARD'}
+      // {value: 'Cleric', label: 'Cleric'},
+      // {value: 'Dire Lord', label: 'Dire Lord'},
+      // {value: 'Druid', label: 'Druid'},
+      // {value: 'Enchanter', label: 'Enchanter'},
+      // {value: 'Monk', label: 'Monk'},
+      // {value: 'Paladin', label: 'Paladin'},
+      // {value: 'Ranger', label: 'Ranger'},
+      // {value: 'Rogue', label: 'Rogue'},
+      // {value: 'Shaman', label: 'Shaman'},
+      // {value: 'Summoner', label: 'Summoner'},
+      // {value: 'Warrior', label: 'Warrior'},
+      // {value: 'Wizard', label: 'Wizard'}
     professionOptions: [
-      {value: 'Alchemist',   text: 'ALCHEMIST'},
-      {value: 'Blacksmith',  text: 'BLACKSMITH'},
-      {value: 'Outfitter',   text: 'OUTFITTER'},
-      {value: 'Provisioner', text: 'PROVISIONER'},
-      {value: 'Scribe',      text: 'SCRIBE'},
-      {value: 'Stonemason',  text: 'STONEMASON'},
-      {value: 'Woodworker',  text: 'WOODWORKER'},
+      {value: 'Alchemist',   label: 'Alchemist'},
+      {value: 'Blacksmith',  label: 'Blacksmith'},
+      {value: 'Outfitter',   label: 'Outfitter'},
+      {value: 'Provisioner', label: 'Provisioner'},
+      {value: 'Scribe',      label: 'Scribe'},
+      {value: 'Stonemason',  label: 'Stonemason'},
+      {value: 'Woodworker',  label: 'Woodworker'},
     ],
     professionSpecializationOptions: {
       Alchemist:   [],
-      Blacksmith:  [{value: 'Armorsmith', text: 'ARMORSMITH'}, {value: 'Weaponsmith',   text: 'WEAPONSMITH'}],
-      Outfitter:   [{value: 'Leatherworker', text: 'LEATHERWORKER'}, {value: 'Tailor',     text: 'TAILOR'}],
-      Provisioner: [{value: 'Brewer',        text: 'BREWER'},        {value: 'Chef',       text: 'CHEF'}],
-      Scribe:      [{value: 'Engraver',      text: 'ENGRAVER'},      {value: 'Researcher', text: 'RESEARCHER'}],
-      Stonemason:  [{value: 'Jeweller',      text: 'JEWELLER'},      {value: 'Sculptor',   text: 'SCULPTOR'}],
-      Woodworker:  [{value: 'Bowyer',        text: 'BOWYER'},        {value: 'Carver',     text: 'CARVER'}],
+      Blacksmith:  [{value: 'Armorsmith', label: 'Armorsmith'}, {value: 'Weaponsmith',   label: 'Weaponsmith'}],
+      Outfitter:   [{value: 'Leatherworker', label: 'Leatherworker'}, {value: 'Tailor',     label: 'Tailor'}],
+      Provisioner: [{value: 'Brewer',        label: 'Brewer'},        {value: 'Chef',       label: 'Chef'}],
+      Scribe:      [{value: 'Engraver',      label: 'Engraver'},      {value: 'Researcher', label: 'Researcher'}],
+      Stonemason:  [{value: 'Jeweller',      label: 'Jeweller'},      {value: 'Sculptor',   label: 'Sculptor'}],
+      Woodworker:  [{value: 'Bowyer',        label: 'Bowyer'},        {value: 'Carver',     label: 'Carver'}],
     }
   }
   
@@ -368,7 +416,7 @@ class Profile extends Component {
 
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
-  renderOptions = Options => Options ? Options.map(option => <option value={option.value}>{option.text}</option>) : this.defaultOption()
+  renderOptions = Options => Options ? Options.map(option => <option value={option.value}>{option.label}</option>) : this.defaultOption()
 
   updateProfile = () => {
     const {token, id, username, email, firstName, lastName, profileImage, bio, primaryRace, primaryRole, primaryClass, secondaryRace, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = this.state
@@ -427,91 +475,119 @@ class Profile extends Component {
                 <ControlLabel>Profile picture</ControlLabel>
                 <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
               </FormGroup> */}
-              <Col md={6}>
-              <FormGroup>
-                <ControlLabel>First Name</ControlLabel>
-                <FormControl value={firstName} type="text" name="firstName" placeholder="First Name" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
             <Col md={6}>
-              <FormGroup>
-                <ControlLabel>Last Name</ControlLabel>
-                <FormControl value={lastName} type="text" name="lastName" placeholder="Last Name" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-            <Col md={12}>
-              <FormGroup>
-                <ControlLabel>Bio</ControlLabel>
-                <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-            <Col md={12}><h3>PRIMARY</h3></Col>
+            <FormGroup>
+              <ControlLabel>First Name</ControlLabel>
+              <FormControl value={firstName} type="text" name="firstName" placeholder="First Name" onChange={this.onChange}/>
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+              <ControlLabel>Last Name</ControlLabel>
+              <FormControl value={lastName} type="text" name="lastName" placeholder="Last Name" onChange={this.onChange}/>
+            </FormGroup>
+          </Col>
+          <Col md={12}>
+            <FormGroup>
+              <ControlLabel>Bio</ControlLabel>
+              <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
+            </FormGroup>
+          </Col>
+          <Col md={12}><h3>PRIMARY</h3></Col>
+          <Col md={4}>
+            <ControlLabel>RACE</ControlLabel>
+            <Select
+              value={primaryRace ? {value: primaryRace, label: primaryRace} : null}
+              onChange={(Race) => this.setState({primaryRace: Race ? Race.value : ''})}
+              options={raceOptions}
+              isClearable
+              isSearchable
+              styles={selectStyles}
+            />
+          </Col>
+          <Col md={4}>
+            <ControlLabel>ROLE</ControlLabel>
+            <Select
+              value={primaryRole ? {value: primaryRole, label: primaryRole} : null}
+              onChange={(Role) => this.setState({primaryRole: Role ? Role.value : ''})}
+              options={primaryRace ? raceRoleClassOptions[primaryRace].roleOptions : []}
+              isClearable
+              isSearchable
+              isDisabled={!primaryRace}
+              styles={selectStyles}
+              />
+          </Col>
+          <Col md={4}>
+            <ControlLabel>CLASS</ControlLabel>
+            <Select
+              value={primaryClass ? {value: primaryClass, label: primaryClass} : null}
+              onChange={(Class) => this.setState({primaryClass: Class ? Class.value : ''})}
+              options={primaryRace ? raceRoleClassOptions[primaryRace].classOptions[primaryRole] : []}
+              isClearable
+              isSearchable
+              isDisabled={!primaryRole}
+              styles={selectStyles}
+              />
+          </Col>
+          <Col md={12}><h3>SECONDARY</h3></Col>
             <Col md={4}>
-              <FormGroup>
-                <ControlLabel>Race</ControlLabel>
-                <FormControl value={primaryRace} name="primaryRace" componentClass="select" onChange={this.onChange} id="dropDown">
-                  {this.defaultOption()}  
-                  {this.renderOptions(raceOptions)}
-                </FormControl>
-              </FormGroup>
+              <ControlLabel>RACE</ControlLabel>
+              <Select
+                value={secondaryRace ? {value: secondaryRace, label: secondaryRace} : null}
+                onChange={(Race) => this.setState({secondaryRace: Race ? Race.value : ''})}
+                options={raceOptions}
+                isClearable
+                isSearchable
+                styles={selectStyles}
+              />
             </Col>
             <Col md={4}>
-              <FormGroup>
-                <ControlLabel>Role</ControlLabel>
-                <FormControl value={primaryRole} name="primaryRole" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!primaryRace}>
-                  {primaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[primaryRace].roleOptions)] : null}
-                </FormControl>
-              </FormGroup>
+              <ControlLabel>ROLE</ControlLabel>
+              <Select
+                value={secondaryRole ? {value: secondaryRole, label: secondaryRole} : null}
+                onChange={(Role) => this.setState({secondaryRole: Role ? Role.value : ''})}
+                options={secondaryRace ? raceRoleClassOptions[secondaryRace].roleOptions : []}
+                isClearable
+                isSearchable
+                isDisabled={!secondaryRace}
+                styles={selectStyles}
+                />
             </Col>
             <Col md={4}>
-              <FormGroup>
-                <ControlLabel>Class</ControlLabel>
-                <FormControl value={primaryClass} name="primaryClass" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!primaryRole}>
-                  {primaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[primaryRace].classOptions[primaryRole])] : null}
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col md={12}><h3>SECONDARY</h3></Col>
-            <Col md={4}>
-              <FormGroup>
-                <ControlLabel>Race</ControlLabel>
-                <FormControl value={secondaryRace} name="secondaryRace" componentClass="select" onChange={this.onChange} id="dropDown">
-                  {[this.defaultOption(), this.renderOptions(raceOptions)]}
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col md={4}>
-              <FormGroup>
-                <ControlLabel>Role</ControlLabel>
-                <FormControl value={secondaryRole} name="secondaryRole" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!secondaryRace}>
-                {secondaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[secondaryRace].roleOptions)] : null}
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col md={4}>
-              <FormGroup>
-                <ControlLabel>Class</ControlLabel>
-                <FormControl value={secondaryClass} name="secondaryClass" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!secondaryRole}>
-                  {secondaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[secondaryRace].classOptions[secondaryRole])] : null}
-                </FormControl>
-              </FormGroup>
+              <ControlLabel>CLASS</ControlLabel>
+              <Select
+                value={secondaryClass ? {value: secondaryClass, label: secondaryClass} : null}
+                onChange={(Class) => this.setState({secondaryClass: Class ? Class.value : ''})}
+                options={secondaryRace ? raceRoleClassOptions[secondaryRace].classOptions[secondaryRole] : []}
+                isClearable
+                isSearchable
+                isDisabled={!secondaryRole}
+                styles={selectStyles}
+                />
             </Col>
             <Col md={12}><h3>CRAFTING</h3></Col>
             <Col md={6}>
-              <FormGroup >
-                <ControlLabel>Profession</ControlLabel>
-                <FormControl value={profession} name="profession" componentClass="select" onChange={this.onChange} id="dropDown">
-                  {[this.defaultOption(), this.renderOptions(professionOptions)]}
-                </FormControl>
-              </FormGroup>
+              <ControlLabel>Profession</ControlLabel>
+              <Select
+                value={profession ? {value: profession, label: profession} : null}
+                onChange={(Profession) => this.setState({profession: Profession ? Profession.value : ''})}
+                options={professionOptions}
+                isClearable
+                isSearchable
+                styles={selectStyles}
+                />
             </Col>
             <Col md={6}>
-              <FormGroup>
-                <ControlLabel>Specialization</ControlLabel>
-                <FormControl value={professionSpecialization} name="professionSpecialization" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!profession}>
-                  {[this.defaultOption(), this.renderOptions(professionSpecializationOptions[profession])]}
-                </FormControl>
-              </FormGroup>
+              <ControlLabel>Specialization</ControlLabel>
+              <Select
+                value={professionSpecialization ? {value: professionSpecialization, label: professionSpecialization} : null}
+                onChange={(ProfessionSpecialization) => this.setState({professionSpecialization: ProfessionSpecialization ? ProfessionSpecialization.value : ''})}
+                options={professionSpecializationOptions[profession]}
+                isClearable
+                isSearchable
+                isDisabled={!profession}
+                styles={selectStyles}
+                />
             </Col>
             <Col md={12}><h3>CONNECTIONS</h3></Col>
             <Col md={3}>

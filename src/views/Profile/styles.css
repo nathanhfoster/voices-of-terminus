@@ -1,3 +1,35 @@
-.Template {
+.Profile {
     
 }
+.Profile svg:hover {
+    color: var(--primaryColor);
+}
+
+/* .css-10nd86i *{
+    color: white;
+    background: var(--grey);
+}
+.css-2o5izw, .css-2o5izw:hover, .css-2o5izw:focus {
+    border-color: red;
+}
+.css-10nd86i:focus {
+    border-color: red;
+}
+.css-vj8t7z *{
+    background: var(--grey);
+}
+.css-1hwfws3{
+    background: var(--grey);
+}
+.react-select__indicators{
+    background: var(--grey);
+}
+.react-select__menu{
+    background: var(--grey);
+}
+.react-select__menu-list{
+    background: var(--grey);
+}
+.css-xp4uvy {
+    color: white;
+} */
