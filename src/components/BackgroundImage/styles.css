@@ -1,5 +1,4 @@
-.BackgroundImage { 
-    height: calc(100vh - var(--navBarHeight));
+.BackgroundImage {
     z-index: -1;
 }
 
