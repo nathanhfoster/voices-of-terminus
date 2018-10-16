@@ -379,8 +379,6 @@ class Profile extends Component {
       profession, profession_specialization: professionSpecialization,
       discord_url: discordUrl, twitter_url: twitterUrl, twitch_url: twitchUrl, youtube_url: youtubeUrl
     }
-    console.log(payload)
-
     this.props.updateProfile(id, payload)
   }
 
@@ -390,8 +388,6 @@ class Profile extends Component {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRace, primaryRole, primaryClass, secondaryRace, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, experiencePoints} = this.state
-    console.log("PRIMARY: ", primaryRace, primaryRole, primaryClass)
-    console.log("SECONDARY: ", secondaryRace, secondaryRole, secondaryClass)
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">
@@ -463,8 +459,7 @@ class Profile extends Component {
               <FormGroup>
                 <ControlLabel>Role</ControlLabel>
                 <FormControl value={primaryRole} name="primaryRole" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!primaryRace}>
-                  {this.defaultOption()}
-                  {this.renderOptions(raceRoleClassOptions[primaryRace].roleOptions)}
+                  {primaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[primaryRace].roleOptions)] : null}
                 </FormControl>
               </FormGroup>
             </Col>
@@ -472,8 +467,7 @@ class Profile extends Component {
               <FormGroup>
                 <ControlLabel>Class</ControlLabel>
                 <FormControl value={primaryClass} name="primaryClass" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!primaryRole}>
-                  {this.defaultOption()}
-                  {this.renderOptions(raceRoleClassOptions[primaryRace].classOptions[primaryRole])}
+                  {primaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[primaryRace].classOptions[primaryRole])] : null}
                 </FormControl>
               </FormGroup>
             </Col>
@@ -482,8 +476,7 @@ class Profile extends Component {
               <FormGroup>
                 <ControlLabel>Race</ControlLabel>
                 <FormControl value={secondaryRace} name="secondaryRace" componentClass="select" onChange={this.onChange} id="dropDown">
-                  {this.defaultOption()}
-                  {this.renderOptions(raceOptions)}
+                  {[this.defaultOption(), this.renderOptions(raceOptions)]}
                 </FormControl>
               </FormGroup>
             </Col>
@@ -491,8 +484,7 @@ class Profile extends Component {
               <FormGroup>
                 <ControlLabel>Role</ControlLabel>
                 <FormControl value={secondaryRole} name="secondaryRole" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!secondaryRace}>
-                {this.defaultOption()}
-                {this.renderOptions(raceRoleClassOptions[secondaryRace].roleOptions)}
+                {secondaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[secondaryRace].roleOptions)] : null}
                 </FormControl>
               </FormGroup>
             </Col>
@@ -500,8 +492,7 @@ class Profile extends Component {
               <FormGroup>
                 <ControlLabel>Class</ControlLabel>
                 <FormControl value={secondaryClass} name="secondaryClass" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!secondaryRole}>
-                  {this.defaultOption()}
-                  {this.renderOptions(raceRoleClassOptions[secondaryRace].classOptions[secondaryRole])}
+                  {secondaryRace ? [this.defaultOption(), this.renderOptions(raceRoleClassOptions[secondaryRace].classOptions[secondaryRole])] : null}
                 </FormControl>
               </FormGroup>
             </Col>
@@ -510,8 +501,7 @@ class Profile extends Component {
               <FormGroup >
                 <ControlLabel>Profession</ControlLabel>
                 <FormControl value={profession} name="profession" componentClass="select" onChange={this.onChange} id="dropDown">
-                  {this.defaultOption()}
-                  {this.renderOptions(professionOptions)}
+                  {[this.defaultOption(), this.renderOptions(professionOptions)]}
                 </FormControl>
               </FormGroup>
             </Col>
@@ -519,8 +509,7 @@ class Profile extends Component {
               <FormGroup>
                 <ControlLabel>Specialization</ControlLabel>
                 <FormControl value={professionSpecialization} name="professionSpecialization" componentClass="select" onChange={this.onChange} id="dropDown" disabled={!profession}>
-                  {this.defaultOption()}
-                  {this.renderOptions(professionSpecializationOptions[profession])}
+                  {[this.defaultOption(), this.renderOptions(professionSpecializationOptions[profession])]}
                 </FormControl>
               </FormGroup>
             </Col>
