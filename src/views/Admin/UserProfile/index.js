@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, NavItem} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
-import {withRouter, Redirect} from 'react-router-dom'
+import {withRouter, Redirect,} from 'react-router-dom'
 import {getUser} from '../../../actions/Admin'
 import Moment from 'react-moment'
 import './styles.css'
@@ -96,13 +96,6 @@ class UserProfile extends Component {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row>
-          <h2>EDITABLE</h2>
-        </Row>
-        <Row>
-          <Col md={12}>
-          </Col>
-        </Row>
-        <Row>
           <h2>USER INFO</h2>
         </Row>
         <Row>
@@ -134,7 +127,7 @@ class UserProfile extends Component {
         </Row>
         <Row>
           <Col md={3}>
-            Experience: {User.experience_points}
+           Experience: {User.experience_points} <meter value={User.experience_points} min="0" max="100000"></meter>
           </Col>
           <Col md={3}>
             Is Super User: {User.is_superuser ? 'TRUE' : 'FALSE'}
@@ -174,16 +167,16 @@ class UserProfile extends Component {
         </Row>
         <Row>
           <Col md={3}>
-            Discord: {User.discord_url}
+            <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
           </Col>
           <Col md={3}>
-            Twitch: {User.twitch_url}
+           <a href={User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
           </Col>
           <Col md={3}>
-            Twitter: {User.twitch_url}
+            <a href={User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
           </Col>
           <Col md={3}>
-            YouTube: {User.youtube_url}
+            <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
           </Col>
         </Row>
       </Grid>

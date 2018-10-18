@@ -88,19 +88,19 @@ class BackgroundImage extends Component {
 
   backgroundMobileImageRouteMap = route => {
     switch(route) {
-      case '/': return bg2
-      case '/articles': return bg2
-      case '/calendar': return bg2
-      case '/news': return bg5
-      case '/guild/about': return bg4
-      case '/guild/roster': return bg3
-      case '/guild/charters': return bg3
-      case '/guild/lore': return bg3
-      case '/guild/contests': return bg3
-      case '/guild/team': return bg3
-      case '/guild/join': return bg3
-      case '/login': return bg7
-      default: return bg3
+      case '/': return bg1M
+      case '/articles': return bg2M
+      case '/calendar': return bg3M
+      case '/news': return bg4M
+      case '/guild/about': return bg5M
+      case '/guild/roster': return bg5M
+      case '/guild/charters': return bg5M
+      case '/guild/lore': return bg5M
+      case '/guild/contests': return bg5M
+      case '/guild/team': return bg5M
+      case '/guild/join': return bg5M
+      case '/login': return bg2M
+      default: return bg6M
     }
   }
 
@@ -111,7 +111,7 @@ class BackgroundImage extends Component {
     const bgImage = isMobile ? this.backgroundMobileImageRouteMap(pathname) : this.backgroundImageRouteMap(pathname)
     return (
       <div className="BackgroundImage">
-        <Image src={bgImage} responsive={isMobile}/>
+        <Image src={bgImage}/>
       </div>
        )
   }

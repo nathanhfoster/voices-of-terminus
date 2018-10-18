@@ -62,6 +62,14 @@
   background: var(--dark_grey);
   border-radius: 10px;
 }
+a, li {
+  list-style-type: none;
+}
+
+a:hover, li:hover {
+  color: var(--primaryColor);
+}
+
 textarea {
   min-height: calc(var(--inputHeight) * 4);
   resize: none;
