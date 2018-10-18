@@ -24,7 +24,7 @@ if('serviceWorker' in navigator) {
     .then(function() { console.log('Service Worker Registered') })
 }
 
-const initialState = (localStorage['redux-store'])? JSON.parse(localStorage['redux-store']) : {}
+const initialState = (localStorage['redux-store']) ? JSON.parse(localStorage['redux-store']) : {}
 const store = storeFactory(initialState)
 window.React = React
 window.store = store

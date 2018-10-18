@@ -160,7 +160,11 @@ class NewsLetterGenerator extends Component {
           </Col>
         </Row>
         <Row>
-          <EmailEditor minHeight="calc(100vh - 58px)" ref={editor => this.editor = editor} style={styles} 
+          <EmailEditor 
+          id = 'editor'
+          projectId = '1558'
+          templateId = "UVUlFBYAZkRx58DwbDkC3BU4JrEmCW9AN8flo4vYtEAg9h1ULftKMXpu2UIEGDZs"
+          minHeight="calc(100vh - 58px)" ref={editor => this.editor = editor} style={styles} 
           onDesignLoad={this.onDesignLoad} onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}/>
         </Row> 
         <Row>

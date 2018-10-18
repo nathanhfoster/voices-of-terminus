@@ -11,8 +11,6 @@ const headers = token ? {
   'Accept': 'application/json'
 }
 
-export const setAuthorizationToken = token => token ? axios.defaults.headers.common['authorization'] = `Token ` + token : delete axios.defaults.headers.common['authorization']
-
 export const Axios = axios.create({
     withCredentials: token ? true : false,
     baseURL: process.env.REACT_APP_API_URL + 'api/v1/',
