@@ -127,7 +127,7 @@ class UserProfile extends Component {
         </Row>
         <Row>
           <Col md={3}>
-           Experience: {User.experience_points} <meter value={User.experience_points} min="0" max="100000"></meter>
+           Experience: {User.experience_points} / 10000<progress value={User.experience_points} min="0" max="10000"></progress>
           </Col>
           <Col md={3}>
             Is Super User: {User.is_superuser ? 'TRUE' : 'FALSE'}
