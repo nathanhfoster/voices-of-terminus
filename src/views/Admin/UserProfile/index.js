@@ -100,66 +100,66 @@ class UserProfile extends Component {
         </Row>
         <Row>
           <Col md={3}>
-            Username: {User.username}
+          <h3>Username: {User.username}</h3>
           </Col>
           <Col md={3}>
-            Email: {User.email}
+          <h3>Email: {User.email}</h3>
           </Col>
           <Col md={3}>
-            First Name: {User.first_name}
+            <h3>First Name: {User.first_name}</h3>
           </Col>
           <Col md={3}>
-            Last Name: {User.last_name}
+            <h3>Last Name: {User.last_name}</h3>
           </Col>
         </Row>
         <Row>
           <Col md={12}>
-            Bio: {User.bio}
+            <h3>Bio: {User.bio}</h3>
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            Joined:  <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment>
+            <h3>Joined:  <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
           </Col>
           <Col md={6}>
-            Last login: <Moment format="MMMM DD, YYYY">{User.last_login}</Moment>
+            <h3>Last login: <Moment format="MMMM DD, YYYY">{User.last_login}</Moment></h3>
           </Col>
         </Row>
         <Row>
-          <Col md={3}>
-           Experience: {User.experience_points} / 10000<progress value={User.experience_points} min="0" max="10000"></progress>
+          <Col md={4}>
+          <h3>Experience: {User.experience_points} / 10000<progress value={User.experience_points} min="0" max="10000"></progress></h3>
           </Col>
           <Col md={3}>
-            Is Super User: {User.is_superuser ? 'TRUE' : 'FALSE'}
+            <h3>Is Super User: {User.is_superuser ? 'TRUE' : 'FALSE'}</h3>
           </Col>
           <Col md={3}>
-            Is Staff: {User.is_staff ? 'TRUE' : 'FALSE'}
+            <h3>Is Staff: {User.is_staff ? 'TRUE' : 'FALSE'}</h3>
           </Col>
-          <Col md={3}>
-            Is active: {User.is_active ? 'TRUE' : 'FALSE'}
+          <Col md={2}>
+            <h3>Is active: {User.is_active ? 'TRUE' : 'FALSE'}</h3>
           </Col>
         </Row>
         <Row>
           <h2>ROLES & CLASSES</h2>
           <Col md={3}>
-            Primary: {User.primary_role}
+            <h3>Primary: {User.primary_role}</h3>
           </Col>
           <Col md={3}>
-            Class: {User.primary_class}
+            <h3>Class: {User.primary_class}</h3>
           </Col>
           <Col md={3}>
-            Secondary: {User.secondary_role}
+            <h3>Secondary: {User.secondary_role}</h3>
           </Col>
           <Col md={3}>
-            Class: {User.secondary_class}
+            <h3>Class: {User.secondary_class}</h3>
           </Col>
         </Row>
         <Row>
           <Col md={6}>
-            Profession: {User.profession}
+            <h3>Profession: {User.profession}</h3>
           </Col>
           <Col md={6}>
-            Specialization: {User.profession_specialization}
+            <h3>Specialization: {User.profession_specialization}</h3>
           </Col>
         </Row>
         <Row>

@@ -443,7 +443,7 @@ class Profile extends Component {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row>
-          <Col md={4}><h3>Experience Points: {experiencePoints}</h3></Col>
+          <Col md={4}><h3>Experience Points: {experiencePoints} / 10000<progress value={experiencePoints} min="0" max="10000"></progress></h3></Col>
           <Col md={4}><h3>Joined:  <Moment format="MMMM DD, YYYY">{dateJoined}</Moment></h3></Col>
           <Col md={4}><h3>Last Login:  <Moment fromNow>{lastLogin}</Moment></h3></Col>
         </Row>
