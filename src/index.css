@@ -169,6 +169,7 @@ body {
 }
 .Hover:hover {
   border-color: var(--primaryColor);
+  box-shadow: 4px 4px 4px rgba(245, 245, 245, .1);
   transition: border-color .4s;
 }
 .ActionToolbar {
