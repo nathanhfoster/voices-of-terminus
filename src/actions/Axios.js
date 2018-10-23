@@ -13,7 +13,7 @@ const headers = token ? {
 
 export const Axios = axios.create({
     withCredentials: token ? true : false,
-    baseURL: process.env.REACT_APP_API_URL + 'api/v1/',
+    baseURL: process.env.REACT_APP_API_URL,
     timeout: 5000,
     headers
 })
