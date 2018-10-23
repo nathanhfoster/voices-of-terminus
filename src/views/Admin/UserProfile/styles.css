@@ -1,5 +1,10 @@
-.Template {
+.UserProfile {
     
+}
+
+.UserProfile label {
+    font-weight: 400;
+    font-size: 20px;
 }
 
 meter::-webkit-meter-optimum-value {

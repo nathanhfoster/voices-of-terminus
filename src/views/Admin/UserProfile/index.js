@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, NavItem} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, ControlLabel} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect,} from 'react-router-dom'
 import {getUser} from '../../../actions/Admin'
+import Select from 'react-select'
 import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
+import {selectStyles} from '../../../helpers/styles'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -57,7 +59,12 @@ class UserProfile extends Component {
       twitch_url: '',
       twitter_url: '',
       youtube_url: ''
-    }
+    },
+
+    permissionOptions: [
+      { value: true, label: 'true' },
+      { value: false, label: 'false' }
+    ]
   }
   
   componentWillMount() {
@@ -85,10 +92,13 @@ class UserProfile extends Component {
 
   componentWillUnmount() {
   }
+  
+  onChange = (e) => this.setState({[e.target.name]: e.target.value})
 
   render() {
     const {Admin} = this.state
-    const User = Admin.User ? Admin.User : this.props.User
+    const {User} = Admin
+    const {permissionOptions} = this.props
     return (
       !this.props.User.isSuperUser ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="UserProfile Container">
@@ -130,7 +140,14 @@ class UserProfile extends Component {
           <h3>Experience: {User.experience_points} / 10000<progress value={User.experience_points} min="0" max="10000"></progress></h3>
           </Col>
           <Col md={3}>
-            <h3>Is Super User: {User.is_superuser ? 'TRUE' : 'FALSE'}</h3>
+            <ControlLabel>Is Super User</ControlLabel>
+            <Select
+            value={{value: User.is_superuser, label: User.is_superuser.toString()}}
+            onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: permission.value}} }))}
+            options={permissionOptions}
+            styles={selectStyles}
+            />
+            
           </Col>
           <Col md={3}>
             <h3>Is Staff: {User.is_staff ? 'TRUE' : 'FALSE'}</h3>

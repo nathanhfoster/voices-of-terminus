@@ -25,3 +25,4 @@ export const checkNestedProps = (obj, level1) => {
     }
     return true
   }
+  

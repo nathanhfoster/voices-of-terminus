@@ -82,8 +82,13 @@ class Login extends Component {
 
   getState = props => {
     const {token, id} = props.User
-    if(token) props.history.goBack()
     this.setState({token, id})
+  }
+
+  componentWillUnmount() {
+    const {token} = this.state
+    // Refresh Axios instance with authorization header found in src/actions/Axios.js
+    if(token) window.location.reload()
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -162,6 +167,7 @@ class Login extends Component {
     const canSubmit = !this.cantSubmit()
     const {token, username, password, reEnterPassword, email, primaryRole, primaryClass} = this.state
     return (
+    token ? <Redirect to={this.props.history.goBack()}/> :
     <Grid className="Login Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
