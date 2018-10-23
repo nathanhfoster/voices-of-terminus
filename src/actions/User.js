@@ -34,39 +34,11 @@ const qs = require('qs')
 export const updateProfile = (id, payload) => {
     return async (dispatch) => await Axios.patch('users/' + id + '/', qs.stringify(payload))
     .then(res => {
-        const {data} = res
-        const dispatchPayload = {
-            bio: data.bio,
-            dateJoined: data.date_join,
-            discordUrl: data.discord_url,
-            email: data.email,
-            firstName: data.first_name,
-            id: data.id,
-            isActive: data.is_active,
-            isStaff: data.is_staff,
-            isSuperUser: data.is_superuser,
-            dateJoined: data.date_joined,
-            lastLogin: data.last_login,
-            lastName: data.last_name,
-            primaryRace: data.primary_race,
-            primaryRole: data.primary_role,
-            primaryClass: data.primary_class,
-            profession: data.profession,
-            professionSpecialization: data.profession_specialization,
-            profileImage: data.profile_image,
-            secondaryRace: data.secondary_race,
-            secondaryRole: data.secondary_role,
-            secondaryClass: data.secondary_class,
-            token: Cookies.get('User_LoginToken'),
-            twitchUrl: data.twitch_url,
-            twitterUrl: data.twitter_url,
-            username: data.username,
-            youtubeUrl: data.youtube_url,
-            experiencePoints: data.experience_points
-        }
+        let {data} = res
+        data.token = Cookies.get('User_LoginToken')
         dispatch({
             type: C.SET_LOGIN_TOKEN,
-            payload: dispatchPayload
+            payload: data
          })
         dispatch({
           type: C.SET_API_RESPONSE,

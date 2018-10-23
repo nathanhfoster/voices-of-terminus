@@ -87,7 +87,7 @@ class Card extends Component {
   hasPermission = (User, author) => {
     let permission = false
     if(User.id == author) permission = true
-    if(User.isStaff) permission = true
+    if(User.is_staff) permission = true
 
     return permission
   }

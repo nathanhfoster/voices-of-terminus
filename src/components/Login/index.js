@@ -30,8 +30,8 @@ class Login extends Component {
       reEnterPassword: '',
       email: '',
       bio: '',
-      primaryRole: '',
-      primaryClass: '', 
+      primary_role: '',
+      primary_class: '', 
       primary_role: '',
       primary_class: '',
       show: false,
@@ -43,12 +43,12 @@ class Login extends Component {
     User: PropTypes.object,
     token: PropTypes.number, 
     id: PropTypes.number,
-    profileImage: PropTypes.object,
-    isSuperUser: PropTypes.bool, 
-    isStaff: PropTypes.bool, 
+    profile_image: PropTypes.object,
+    is_superuser: PropTypes.bool, 
+    is_staff: PropTypes.bool, 
     bio: PropTypes.string, 
-    primaryRole: PropTypes.string,
-    primaryClass: PropTypes.string, 
+    primary_role: PropTypes.string,
+    primary_class: PropTypes.string, 
     username: PropTypes.string,
     password: PropTypes.string,
     createUser: PropTypes.func.isRequired,
@@ -61,8 +61,8 @@ class Login extends Component {
     reEnterPassword: '',
     email: '',
     bio: '',
-    primaryRole: '',
-    primaryClass: '', 
+    primary_role: '',
+    primary_class: '', 
     primary_role: '',
     primary_class: '',
     show: false,
@@ -165,7 +165,7 @@ class Login extends Component {
 
   render() {
     const canSubmit = !this.cantSubmit()
-    const {token, username, password, reEnterPassword, email, primaryRole, primaryClass} = this.state
+    const {token, username, password, reEnterPassword, email, primary_role, primary_class} = this.state
     return (
     token ? <Redirect to={this.props.history.goBack()}/> :
     <Grid className="Login Container fadeIn-2">

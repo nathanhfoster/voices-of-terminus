@@ -27,3 +27,20 @@ export const getUser = id => {
       payload: e.response
   }))
 }
+
+export const updateUserProfile = (id, payload) => {
+  return async (dispatch) => await Axios.patch('users/' + id + '/', qs.stringify(payload))
+  .then(res => {
+      dispatch({
+        type: C.GET_USER,
+        payload: res.data
+      })
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: res
+      })
+  }).catch((e) => dispatch({
+    type: C.SET_API_RESPONSE,
+    payload: e.response
+    }))
+}

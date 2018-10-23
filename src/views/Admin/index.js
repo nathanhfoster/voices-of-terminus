@@ -14,8 +14,14 @@ import {getUsers} from '../../actions/Admin'
 const columns = [
   {Header: 'INFO', columns: [
     {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true,
-      Cell: row => (<Link to={'admin/user/profile/' + row.original.id}>{row.value}</Link>)},
-    {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true}
+      Cell: props => (<Link to={'admin/user/profile/' + props.original.id}>{props.value}</Link>)},
+    {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+  ]},
+  {Header: 'Permissions', columns: [
+    {Header: 'Admin?', accessor: 'is_superuser', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
+    Cell: props => String(props.value)},
+  {Header: 'Mod?', accessor: 'is_staff', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
+    Cell: props => String(props.value)}
   ]},
   {Header: 'IN GAME', columns: [
   {Header: 'Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100},
@@ -83,7 +89,7 @@ class Admin extends Component {
     const {Users} = Admin
 
     return (
-      !User.isSuperUser ? <Redirect to={this.props.history.goBack()}/>
+      !User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
       :<Grid className="Admin Container fadeIn-2">
       <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row>

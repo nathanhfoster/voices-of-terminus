@@ -28,25 +28,24 @@ class Profile extends Component {
         username: '',
         password: '',
         email: '',
-        firstName: '',
-        lastName: '',
-        profileImage: null,
-        isStaff: false, 
-        isSuperUser: false, 
-        dateJoined: '',
-        lastLogin: '',
+        first_name: '',
+        last_name: '',
+        profile_image: null,
+        is_staff: false, 
+        is_superuser: false, 
+        date_joined: '',
+        last_login: '',
         bio: '', 
-        primaryRole: '',
-        primaryClass: '', 
-        secondaryRole: '', 
-        secondaryClass: '',
+        primary_role: '',
+        primary_class: '', 
+        secondary_role: '', 
+        secondary_class: '',
         profession: '',
-        professionSpecialization: '',
-        dateJoined: '', 
-        discordUrl: '', 
-        twitterUrl: '', 
-        twitchUrl: '', 
-        youtubeUrl: ''
+        profession_specialization: '',
+        discord_url: '', 
+        twitter_url: '', 
+        twitch_url: '', 
+        youtube_url: ''
     }
   }
 
@@ -55,19 +54,19 @@ class Profile extends Component {
     token: PropTypes.number, 
     id: PropTypes.number,
     username: PropTypes.string,
-    profileImage: PropTypes.object,
-    isSuperUser: PropTypes.bool, 
-    isStaff: PropTypes.bool, 
+    profile_image: PropTypes.object,
+    is_superuser: PropTypes.bool, 
+    is_staff: PropTypes.bool, 
     bio: PropTypes.string, 
-    primaryRole: PropTypes.string,
-    primaryClass: PropTypes.string, 
-    secondaryRole: PropTypes.string, 
-    secondaryClass: PropTypes.string, 
-    dateJoined: PropTypes.date, 
-    discordUrl: PropTypes.string, 
-    twitterUrl: PropTypes.string, 
-    twitchUrl: PropTypes.string, 
-    youtubeUrl: PropTypes.string
+    primary_role: PropTypes.string,
+    primary_class: PropTypes.string, 
+    secondary_role: PropTypes.string, 
+    secondary_class: PropTypes.string, 
+    date_joined: PropTypes.date, 
+    discord_url: PropTypes.string, 
+    twitter_url: PropTypes.string, 
+    twitch_url: PropTypes.string, 
+    youtube_url: PropTypes.string
   }
 
   static defaultProps = {
@@ -316,16 +315,16 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {token, id, username, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRace, primaryRole, primaryClass, secondaryRace, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, experiencePoints} = props.User
+    const {token, id, username, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = props.User
     /*Validate Data*/
-    // const primaryRole = props.User.primaryRole ? props.User.primaryRole : props.defaultRole
-    // const primaryClass = props.User.primaryClass ? props.User.primaryClass : props.defaultClass
-    // const secondaryClass = props.User.secondaryClass ? props.User.secondaryClass : props.defaultClass
-    // const secondaryRole = props.User.secondaryRole ? props.User.secondaryRole : props.defaultRole
+    // const primary_role = props.User.primary_role ? props.User.primary_role : props.defaultRole
+    // const primary_class = props.User.primary_class ? props.User.primary_class : props.defaultClass
+    // const secondary_class = props.User.secondary_class ? props.User.secondary_class : props.defaultClass
+    // const secondary_role = props.User.secondary_role ? props.User.secondary_role : props.defaultRole
     // const profession = props.User.profession ? props.User.profession : props.defaultProfession
-    // const professionSpecialization = props.User.professionSpecialization ? props.User.professionSpecialization : props.defaultProfessionSpecialization
+    // const profession_specialization = props.User.profession_specialization ? props.User.profession_specialization : props.defaultProfessionSpecialization
     const {password} = this.state
-    this.setState({token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRace, primaryRole, primaryClass, secondaryRace, secondaryRole, secondaryClass, profession, professionSpecialization, dateJoined, discordUrl, twitterUrl, twitchUrl, youtubeUrl, experiencePoints})
+    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints})
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -373,13 +372,13 @@ class Profile extends Component {
   renderOptions = Options => Options ? Options.map(option => <option value={option.value}>{option.label}</option>) : this.defaultOption()
 
   updateProfile = () => {
-    const {token, id, username, email, firstName, lastName, profileImage, bio, primaryRace, primaryRole, primaryClass, secondaryRace, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl} = this.state
+    const {token, id, username, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
     const payload ={
-      username, email, first_name: firstName, last_name: lastName, bio,
-      primary_race: primaryRace, primary_role: primaryRole, primary_class: primaryClass,
-      secondary_race: secondaryRace, secondary_role: secondaryRole, secondary_class: secondaryClass,
-      profession, profession_specialization: professionSpecialization,
-      discord_url: discordUrl, twitter_url: twitterUrl, twitch_url: twitchUrl, youtube_url: youtubeUrl
+      username, email, first_name, last_name, bio,
+      primary_race, primary_role, primary_class,
+      secondary_race, secondary_role, secondary_class,
+      profession, profession_specialization,
+      discord_url, twitter_url, twitch_url, youtube_url
     }
     this.props.updateProfile(id, payload)
   }
@@ -389,7 +388,7 @@ class Profile extends Component {
   render() {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, firstName, lastName, profileImage, isSuperUser, isStaff, dateJoined, lastLogin, bio, primaryRace, primaryRole, primaryClass, secondaryRace, secondaryRole, secondaryClass, profession, professionSpecialization, discordUrl, twitterUrl, twitchUrl, youtubeUrl, experiencePoints} = this.state
+    const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = this.state
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">
@@ -398,8 +397,8 @@ class Profile extends Component {
         </Row>
         <Row>
           <Col md={4}><h3>Experience Points: {experiencePoints} / 10000<progress value={experiencePoints} min="0" max="10000"></progress></h3></Col>
-          <Col md={4}><h3>Joined:  <Moment format="MMMM DD, YYYY">{dateJoined}</Moment></h3></Col>
-          <Col md={4}><h3>Last Login:  <Moment fromNow>{lastLogin}</Moment></h3></Col>
+          <Col md={4}><h3>Joined:  <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
+          <Col md={4}><h3>Last Login:  <Moment fromNow>{last_login}</Moment></h3></Col>
         </Row>
         <Row>
           <Col md={12}><h3>ACCOUNT</h3></Col>
@@ -432,13 +431,13 @@ class Profile extends Component {
             <Col md={6}>
             <FormGroup>
               <ControlLabel>First Name</ControlLabel>
-              <FormControl value={firstName} type="text" name="firstName" placeholder="First Name" onChange={this.onChange}/>
+              <FormControl value={first_name} type="text" name="first_name" placeholder="First Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
           <Col md={6}>
             <FormGroup>
               <ControlLabel>Last Name</ControlLabel>
-              <FormControl value={lastName} type="text" name="lastName" placeholder="Last Name" onChange={this.onChange}/>
+              <FormControl value={last_name} type="text" name="last_name" placeholder="Last Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
           <Col md={12}>
@@ -451,8 +450,8 @@ class Profile extends Component {
           <Col md={4}>
             <ControlLabel>RACE</ControlLabel>
             <Select
-              value={primaryRace ? {value: primaryRace, label: primaryRace} : null}
-              onChange={(Race) => this.setState({primaryRace: Race ? Race.value : ''})}
+              value={primary_race ? {value: primary_race, label: primary_race} : null}
+              onChange={(Race) => this.setState({primary_race: Race ? Race.value : ''})}
               options={raceOptions}
               isClearable
               isSearchable
@@ -462,24 +461,24 @@ class Profile extends Component {
           <Col md={4}>
             <ControlLabel>ROLE</ControlLabel>
             <Select
-              value={primaryRole ? {value: primaryRole, label: primaryRole} : null}
-              onChange={(Role) => this.setState({primaryRole: Role ? Role.value : ''})}
-              options={primaryRace ? raceRoleClassOptions[primaryRace].roleOptions : []}
+              value={primary_role ? {value: primary_role, label: primary_role} : null}
+              onChange={(Role) => this.setState({primary_role: Role ? Role.value : ''})}
+              options={primary_race ? raceRoleClassOptions[primary_race].roleOptions : []}
               isClearable
               isSearchable
-              isDisabled={!primaryRace}
+              isDisabled={!primary_race}
               styles={selectStyles}
               />
           </Col>
           <Col md={4}>
             <ControlLabel>CLASS</ControlLabel>
             <Select
-              value={primaryClass ? {value: primaryClass, label: primaryClass} : null}
-              onChange={(Class) => this.setState({primaryClass: Class ? Class.value : ''})}
-              options={primaryRace ? raceRoleClassOptions[primaryRace].classOptions[primaryRole] : []}
+              value={primary_class ? {value: primary_class, label: primary_class} : null}
+              onChange={(Class) => this.setState({primary_class: Class ? Class.value : ''})}
+              options={primary_race ? raceRoleClassOptions[primary_race].classOptions[primary_role] : []}
               isClearable
               isSearchable
-              isDisabled={!primaryRole}
+              isDisabled={!primary_role}
               styles={selectStyles}
               />
           </Col>
@@ -487,8 +486,8 @@ class Profile extends Component {
             <Col md={4}>
               <ControlLabel>RACE</ControlLabel>
               <Select
-                value={secondaryRace ? {value: secondaryRace, label: secondaryRace} : null}
-                onChange={(Race) => this.setState({secondaryRace: Race ? Race.value : ''})}
+                value={secondary_race ? {value: secondary_race, label: secondary_race} : null}
+                onChange={(Race) => this.setState({secondary_race: Race ? Race.value : ''})}
                 options={raceOptions}
                 isClearable
                 isSearchable
@@ -498,24 +497,24 @@ class Profile extends Component {
             <Col md={4}>
               <ControlLabel>ROLE</ControlLabel>
               <Select
-                value={secondaryRole ? {value: secondaryRole, label: secondaryRole} : null}
-                onChange={(Role) => this.setState({secondaryRole: Role ? Role.value : ''})}
-                options={secondaryRace ? raceRoleClassOptions[secondaryRace].roleOptions : []}
+                value={secondary_role ? {value: secondary_role, label: secondary_role} : null}
+                onChange={(Role) => this.setState({secondary_role: Role ? Role.value : ''})}
+                options={secondary_race ? raceRoleClassOptions[secondary_race].roleOptions : []}
                 isClearable
                 isSearchable
-                isDisabled={!secondaryRace}
+                isDisabled={!secondary_race}
                 styles={selectStyles}
                 />
             </Col>
             <Col md={4}>
               <ControlLabel>CLASS</ControlLabel>
               <Select
-                value={secondaryClass ? {value: secondaryClass, label: secondaryClass} : null}
-                onChange={(Class) => this.setState({secondaryClass: Class ? Class.value : ''})}
-                options={secondaryRace ? raceRoleClassOptions[secondaryRace].classOptions[secondaryRole] : []}
+                value={secondary_class ? {value: secondary_class, label: secondary_class} : null}
+                onChange={(Class) => this.setState({secondary_class: Class ? Class.value : ''})}
+                options={secondary_race ? raceRoleClassOptions[secondary_race].classOptions[secondary_role] : []}
                 isClearable
                 isSearchable
-                isDisabled={!secondaryRole}
+                isDisabled={!secondary_role}
                 styles={selectStyles}
                 />
             </Col>
@@ -534,8 +533,8 @@ class Profile extends Component {
             <Col md={6}>
               <ControlLabel>Specialization</ControlLabel>
               <Select
-                value={professionSpecialization ? {value: professionSpecialization, label: professionSpecialization} : null}
-                onChange={(ProfessionSpecialization) => this.setState({professionSpecialization: ProfessionSpecialization ? ProfessionSpecialization.value : ''})}
+                value={profession_specialization ? {value: profession_specialization, label: profession_specialization} : null}
+                onChange={(ProfessionSpecialization) => this.setState({profession_specialization: ProfessionSpecialization ? ProfessionSpecialization.value : ''})}
                 options={professionSpecializationOptions[profession]}
                 isClearable
                 isSearchable
@@ -547,21 +546,21 @@ class Profile extends Component {
             <Col md={3}>
               <FormGroup>
                 <ControlLabel>Discord</ControlLabel>
-                <FormControl value={discordUrl} name="discordUrl" type="text"  onChange={this.onChange}>
+                <FormControl value={discord_url} name="discord_url" type="text"  onChange={this.onChange}>
                 </FormControl>
               </FormGroup>
             </Col>
             <Col md={3}>
               <FormGroup>
                 <ControlLabel>Twitch</ControlLabel>
-                <FormControl value={twitchUrl} name="twitchUrl" type="text" onChange={this.onChange}>
+                <FormControl value={twitch_url} name="twitch_url" type="text" onChange={this.onChange}>
                 </FormControl>
               </FormGroup>
             </Col>
             <Col md={3}>
               <FormGroup>
                 <ControlLabel>Twitter</ControlLabel>
-                <FormControl value={twitterUrl} name="twitterUrl" type="text" onChange={this.onChange}>
+                <FormControl value={twitter_url} name="twitter_url" type="text" onChange={this.onChange}>
                 </FormControl>
               </FormGroup>
             </Col>
@@ -569,7 +568,7 @@ class Profile extends Component {
             <Col md={3}>
               <FormGroup>
                 <ControlLabel>YouTube</ControlLabel>
-                <FormControl value={youtubeUrl} name="youtubeUrl" type="text"  onChange={this.onChange}>
+                <FormControl value={youtube_url} name="youtube_url" type="text"  onChange={this.onChange}>
                 </FormControl>
               </FormGroup>
             </Col>

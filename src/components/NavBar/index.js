@@ -97,7 +97,7 @@ class NavBar extends Component {
   render() {
     const {pathname} = this.props.location
     const {User} = this.state
-    const {token, id,  isSuperUser, isStaff, bio, primaryRole, primaryClass} = User
+    const {token, id,  is_superuser, is_staff, bio, primary_role, primary_class} = User
     const {navItem, classIcon} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
@@ -139,13 +139,13 @@ class NavBar extends Component {
               </NavDropdown>
              
               {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}>LOGIN</NavItem></LinkContainer>
-              :<NavDropdown eventKey={5} title={classIcon[primaryClass] ? <Image src={classIcon[primaryClass]} style={{height: '25px'}}/> : <i className="fas fa-user"/>} id="basic-nav-dropdown">
+              :<NavDropdown eventKey={5} title={classIcon[primary_class] ? <Image src={classIcon[primary_class]} style={{height: '25px'}}/> : <i className="fas fa-user"/>} id="basic-nav-dropdown">
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}
             </Nav>
             <Nav className="pull-right">
-            {User.isSuperUser ? <LinkContainer to="/admin"><NavItem eventKey={1}>ADMIN</NavItem></LinkContainer> : null}
+            {User.is_superuser ? <LinkContainer to="/admin"><NavItem eventKey={1}>ADMIN</NavItem></LinkContainer> : null}
             </Nav>
           </Navbar.Collapse>
   </Navbar>

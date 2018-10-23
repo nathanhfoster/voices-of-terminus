@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, ControlLabel} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, ControlLabel, Button} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect,} from 'react-router-dom'
 import {getUser} from '../../../actions/Admin'
+import {updateUserProfile} from '../../../actions/Admin'
 import Select from 'react-select'
 import Moment from 'react-moment'
 import './styles.css'
@@ -16,7 +17,8 @@ const mapStateToProps = ({Admin, User}) => ({
 })
 
 const mapDispatchToProps = {
-  getUser
+  getUser,
+  updateUserProfile
 }
 
 class UserProfile extends Component {
@@ -95,12 +97,18 @@ class UserProfile extends Component {
   
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
 
+  updateUserProfile = () => {
+    const {id, is_superuser, is_staff} = this.state.Admin.User
+    const payload = {is_superuser, is_staff}
+    this.props.updateUserProfile(id, payload)
+  }
+
   render() {
     const {Admin} = this.state
     const {User} = Admin
     const {permissionOptions} = this.props
     return (
-      !this.props.User.isSuperUser ? <Redirect to={this.props.history.goBack()}/>
+      !this.props.User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
       : User ?
       <Grid className="UserProfile Container">
         <Row>
@@ -146,12 +154,21 @@ class UserProfile extends Component {
             value={{value: User.is_superuser, label: User.is_superuser.toString()}}
             onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: permission.value}} }))}
             options={permissionOptions}
+            isClearable={false}
+            isSearchable={false}
             styles={selectStyles}
             />
-            
           </Col>
           <Col md={3}>
-            <h3>Is Staff: {User.is_staff ? 'TRUE' : 'FALSE'}</h3>
+            <ControlLabel>Is Staff</ControlLabel>
+            <Select
+            value={{value: User.is_staff, label: User.is_staff.toString()}}
+            onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: permission.value}} }))}
+            options={permissionOptions}
+            isClearable={false}
+            isSearchable={false}
+            styles={selectStyles}
+            />
           </Col>
           <Col md={2}>
             <h3>Is active: {User.is_active ? 'TRUE' : 'FALSE'}</h3>
@@ -195,6 +212,11 @@ class UserProfile extends Component {
           </Col>
           <Col md={3}>
             <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12} style={{textAlign: 'center', marginTop: '20px'}}>
+            <Button onClick={this.updateUserProfile}>Update</Button>
           </Col>
         </Row>
       </Grid>
