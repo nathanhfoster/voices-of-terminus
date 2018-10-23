@@ -101,7 +101,8 @@ class UserProfile extends Component {
     const {permissionOptions} = this.props
     return (
       !this.props.User.isSuperUser ? <Redirect to={this.props.history.goBack()}/>
-      :<Grid className="UserProfile Container">
+      : User ?
+      <Grid className="UserProfile Container">
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
@@ -197,6 +198,7 @@ class UserProfile extends Component {
           </Col>
         </Row>
       </Grid>
+      : <h1>LOADING...</h1>
     )
   }
 }
