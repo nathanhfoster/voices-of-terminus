@@ -61,13 +61,10 @@ export const login = (username, password, rememberMe) => {
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
          })
-         
          dispatch({
             type: C.SET_API_RESPONSE,
             payload: res
         })
-        // Refresh imported Axios instance with an updated Auth cookie
-        //window.location.reload()
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response
