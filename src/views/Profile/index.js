@@ -329,6 +329,9 @@ class Profile extends Component {
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
 
+  setImage = (e) => this.setState({profile_image: e.target.files[0]})
+  
+
   validateUsername() {
     const {username} = this.state
     if(username) {
@@ -374,7 +377,7 @@ class Profile extends Component {
   updateProfile = () => {
     const {token, id, username, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
     const payload ={
-      username, email, first_name, last_name, bio,
+      username, email, first_name, last_name, profile_image, bio,
       primary_race, primary_role, primary_class,
       secondary_race, secondary_role, secondary_class,
       profession, profession_specialization,
@@ -386,6 +389,7 @@ class Profile extends Component {
   defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
+    console.log(this.state)
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = this.state
@@ -424,10 +428,12 @@ class Profile extends Component {
                 <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
               </FormGroup>
             </Col>
-          { /* <FormGroup>
+            <Col md={12}>
+              <FormGroup>
                 <ControlLabel>Profile picture</ControlLabel>
                 <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
-              </FormGroup> */}
+              </FormGroup>
+            </Col>
             <Col md={6}>
             <FormGroup>
               <ControlLabel>First Name</ControlLabel>
