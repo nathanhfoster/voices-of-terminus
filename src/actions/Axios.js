@@ -3,6 +3,7 @@ import Cookies from 'js-cookie'
 const token = Cookies.get('User_LoginToken')
 const headers = token ? {
   'Authorization': "Token " + token,
+  'Cache-Control': 'no-cache',
   'Content-type': 'application/x-www-form-urlencoded',
   'Accept': 'application/json'
 } : {

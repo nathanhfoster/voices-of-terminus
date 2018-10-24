@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button, Image} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Moment from 'react-moment'
@@ -315,14 +315,8 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {token, id, username, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = props.User
-    /*Validate Data*/
-    // const primary_role = props.User.primary_role ? props.User.primary_role : props.defaultRole
-    // const primary_class = props.User.primary_class ? props.User.primary_class : props.defaultClass
-    // const secondary_class = props.User.secondary_class ? props.User.secondary_class : props.defaultClass
-    // const secondary_role = props.User.secondary_role ? props.User.secondary_role : props.defaultRole
-    // const profession = props.User.profession ? props.User.profession : props.defaultProfession
-    // const profession_specialization = props.User.profession_specialization ? props.User.profession_specialization : props.defaultProfessionSpecialization
+    const {token, id, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = props.User
+    const profile_image = process.env.REACT_APP_BASE_URL + props.User.profile_image
     const {password} = this.state
     this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints})
   }
@@ -392,6 +386,7 @@ class Profile extends Component {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = this.state
+    console.log(profile_image)
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">
@@ -408,6 +403,15 @@ class Profile extends Component {
         </Row>
         <Form className="accontForm Container fadeIn-2">
           <Row>
+            <Col md={5}>
+              <Image src={profile_image} width='100%'/>
+            </Col>
+            <Col md={7}>
+              <FormGroup>
+                <ControlLabel>Profile Picture</ControlLabel>
+                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} disabled/>
+              </FormGroup>
+            </Col>
             <Col md={12}>
               <FormGroup validationState={this.validateUsername()}>
                 <ControlLabel>Username</ControlLabel>
@@ -425,12 +429,6 @@ class Profile extends Component {
               <FormGroup validationState={this.validateEmail()}>
                 <ControlLabel>Email</ControlLabel>
                 <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-            <Col md={12}>
-              <FormGroup>
-                <ControlLabel>Profile Picture</ControlLabel>
-                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} disabled/>
               </FormGroup>
             </Col>
             <Col md={6}>
