@@ -409,7 +409,7 @@ class Profile extends Component {
             <Col md={7}>
               <FormGroup>
                 <ControlLabel>Profile Picture</ControlLabel>
-                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} disabled/>
+                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} />
               </FormGroup>
             </Col>
             <Col md={12}>
