@@ -389,7 +389,6 @@ class Profile extends Component {
   defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
-    console.log(this.state)
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = this.state
@@ -430,8 +429,8 @@ class Profile extends Component {
             </Col>
             <Col md={12}>
               <FormGroup>
-                <ControlLabel>Profile picture</ControlLabel>
-                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
+                <ControlLabel>Profile Picture</ControlLabel>
+                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} disabled/>
               </FormGroup>
             </Col>
             <Col md={6}>
