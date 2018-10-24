@@ -8,14 +8,17 @@ max-width: 767px = “If [device width] is less than or equal to 767px, then do 
 min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
 */
 @media(max-width:768px){
-    .ViewHtmlDocument .pageHeader h1:before {
-            content: none;
-            background: none;
-          }
-    .ViewHtmlDocument .pageHeader h1::after {
-            content: none;
-            background: none;
-          }    
+  .ViewHtmlDocument {
+    touch-action: auto;
+  }
+  .ViewHtmlDocument .pageHeader h1:before {
+          content: none;
+          background: none;
+        }
+  .ViewHtmlDocument .pageHeader h1::after {
+          content: none;
+          background: none;
+        }    
 }
 @media(min-width:992px){}
 @media(min-width:1200px){}

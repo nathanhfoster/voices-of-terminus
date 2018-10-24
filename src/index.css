@@ -136,7 +136,8 @@ a:-webkit-any-link, button, html input[type=button], input[type=reset], input[ty
   cursor: url('./images/Cursor.png'), auto !important;
 }
 body {
-  touch-action: none;
+  touch-action: pan-x;
+  touch-action: pan-y;
   height: 100%;
   font-family: "Arial", "Cinzel Decorative";
   font-size: medium;
