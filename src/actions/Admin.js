@@ -16,7 +16,7 @@ export const getUsers = () => {
 }
 
 export const getUser = id => {
-  return async (dispatch) => await Axios.get('users/' + id + '/')
+  return async (dispatch) => await Axios.get(`users/${id}/`)
      .then(res => {
        dispatch({
          type: C.GET_USER,
@@ -29,7 +29,7 @@ export const getUser = id => {
 }
 
 export const updateUserProfile = (id, payload) => {
-  return async (dispatch) => await Axios.patch('users/' + id + '/', qs.stringify(payload))
+  return async (dispatch) => await Axios.patch(`users/${id}/`, qs.stringify(payload))
   .then(res => {
       dispatch({
         type: C.GET_USER,

@@ -9,6 +9,7 @@ import Select from 'react-select'
 import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../helpers/styles'
+import FormData from 'form-data'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -369,13 +370,27 @@ class Profile extends Component {
 
   updateProfile = () => {
     const {token, id, username, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
-    const payload ={
-      username, email, first_name, last_name, profile_image, bio,
-      primary_race, primary_role, primary_class,
-      secondary_race, secondary_role, secondary_class,
-      profession, profession_specialization,
-      discord_url, twitter_url, twitch_url, youtube_url
-    }
+    
+    let payload = new FormData()
+    payload.append('profile_image', profile_image, profile_image.fileName)
+    payload.append('username', username)
+    payload.append('email', email)
+    payload.append('first_name', first_name)
+    payload.append('last_name', last_name)
+    payload.append('bio', bio)
+    payload.append('primary_race', primary_race)
+    payload.append('primary_role', primary_role)
+    payload.append('primary_class', primary_class)
+    payload.append('secondary_race', secondary_race)
+    payload.append('secondary_role', secondary_role)
+    payload.append('secondary_class', secondary_class)
+    payload.append('profession', profession)
+    payload.append('profession_specialization', profession_specialization)
+    payload.append('discord_url', discord_url)
+    payload.append('twitter_url', twitter_url)
+    payload.append('twitch_url', twitch_url)
+    payload.append('youtube_url', youtube_url)
+    
     this.props.updateProfile(id, payload)
   }
 
@@ -385,7 +400,6 @@ class Profile extends Component {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = this.state
-    console.log(profile_image)
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">

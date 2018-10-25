@@ -30,7 +30,7 @@ export const getArticles = () => {
 }
 
 export const getArticle = id => {
-  return async (dispatch) => await Axios.get('articles/' + id + '/')
+  return async (dispatch) => await Axios.get(`articles/${id}/`)
      .then(res => {
          dispatch ({
            type: C.GET_HTML_DOCUMENT,
@@ -43,7 +43,7 @@ export const getArticle = id => {
 }
 
 export const updateArticle = (id, payload) => {
-  return  async (dispatch) => await Axios.patch('articles/' + id + '/', qs.stringify(payload))
+  return  async (dispatch) => await Axios.patch(`articles/${id}/`, qs.stringify(payload))
   .then(res => {
     dispatch ({
       type: C.GET_HTML_DOCUMENT,
@@ -60,7 +60,7 @@ export const updateArticle = (id, payload) => {
 }
 
 export const deleteArticle = id => {
-  return async (dispatch, getState) => await Axios.delete('articles/' + id + '/')
+  return async (dispatch, getState) => await Axios.delete(`articles/${id}/`)
   .then(res => {
       const {Articles} = getState()
       dispatch ({

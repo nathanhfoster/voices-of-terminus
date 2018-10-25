@@ -116,7 +116,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    if(!Cookies.get('User_LoginToken')) this.props.Logout()
     const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
@@ -139,6 +138,8 @@ class App extends Component {
   }
 
   componentDidUpdate() {
+    // if cookie is expired and redux has User data remove it by logging out
+    if(!Cookies.get('User_LoginToken') && this.props.User.token) this.props.Logout()
   }
 
   componentWillUnmount() {

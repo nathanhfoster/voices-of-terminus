@@ -72,10 +72,12 @@ export const login = (username, password, rememberMe) => {
 }
 
 export const setApiResponse = response => {
-    return async (dispatch) => await dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: response
-    })
+    return async (dispatch) => {
+        await dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: response
+        })
+    }
 }
 
 export const clearApiResponse = () => {
