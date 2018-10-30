@@ -483,7 +483,8 @@ class Profile extends Component {
               onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
               options={raceOptions}
               isClearable={true}
-              isSearchable={false}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
               styles={selectStyles}
             />
           </Col>
@@ -494,7 +495,8 @@ class Profile extends Component {
               onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
               options={primary_race ? raceRoleClassOptions[primary_race].roleOptions : []}
               isClearable={true}
-              isSearchable={false}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
               isDisabled={!primary_race}
               styles={selectStyles}
               />
@@ -506,7 +508,8 @@ class Profile extends Component {
               onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
               options={primary_race ? raceRoleClassOptions[primary_race].classOptions[primary_role] : []}
               isClearable={true}
-              isSearchable={false}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
               isDisabled={!primary_role}
               styles={selectStyles}
               />
@@ -519,7 +522,8 @@ class Profile extends Component {
                 onChange={(e, a) => this.selectOnChange(e, a, 'secondary_race')}
                 options={raceOptions}
                 isClearable={true}
-                isSearchable={false}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
                 styles={selectStyles}
               />
             </Col>
@@ -530,7 +534,8 @@ class Profile extends Component {
                 onChange={(e, a) => this.selectOnChange(e, a, 'secondary_role')}
                 options={secondary_race ? raceRoleClassOptions[secondary_race].roleOptions : []}
                 isClearable={true}
-                isSearchable={false}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
                 isDisabled={!secondary_race}
                 styles={selectStyles}
                 />
@@ -542,7 +547,8 @@ class Profile extends Component {
                 onChange={(e, a) => this.selectOnChange(e, a, 'secondary_class')}
                 options={secondary_race ? raceRoleClassOptions[secondary_race].classOptions[secondary_role] : []}
                 isClearable={true}
-                isSearchable={false}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
                 isDisabled={!secondary_role}
                 styles={selectStyles}
                 />
@@ -555,7 +561,8 @@ class Profile extends Component {
                 onChange={(e, a) => this.selectOnChange(e, a, 'profession')}
                 options={professionOptions}
                 isClearable={true}
-                isSearchable={false}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
                 styles={selectStyles}
                 />
             </Col>
@@ -566,7 +573,8 @@ class Profile extends Component {
                 onChange={(e, a) => this.selectOnChange(e, a, 'profession_specialization')}
                 options={professionSpecializationOptions[profession]}
                 isClearable={true}
-                isSearchable={false}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
                 isDisabled={!profession}
                 styles={selectStyles}
                 />
