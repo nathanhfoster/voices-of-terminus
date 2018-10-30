@@ -360,7 +360,12 @@ class Profile extends Component {
     }
   }
 
-  setImage = e => this.setState({profile_image: e.target.files[0]})
+  setImage = e => {
+    var file = e.target.files[0]
+    var reader = new FileReader()
+    reader.onloadend = () => this.setState({profile_image: reader.result})
+    reader.readAsDataURL(file)
+}
   
 
   validateUsername() {
@@ -403,13 +408,12 @@ class Profile extends Component {
 
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
-  renderOptions = Options => Options ? Options.map(option => <option value={option.value}>{option.label}</option>) : this.defaultOption()
-
   updateProfile = () => {
     const {token, id, username, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
     
     let payload = new FormData()
-    payload.append('profile_image', profile_image, profile_image.fileName)
+    // payload.append('profile_image', profile_image, profile_image.fileName)
+    payload.append('profile_image', profile_image)
     payload.append('username', username)
     payload.append('email', email)
     payload.append('first_name', first_name)
@@ -430,8 +434,6 @@ class Profile extends Component {
     
     this.props.updateProfile(id, payload)
   }
-
-  defaultOption = () => <option disabled value="">SELECT</option>
 
   render() {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
