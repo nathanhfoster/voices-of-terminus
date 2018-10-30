@@ -469,15 +469,9 @@ class Profile extends Component {
               value={primary_race ? {value: primary_race, label: primary_race} : null}
               onChange={(Race) => this.setState({primary_race: Race ? Race.value : ''})}
               options={raceOptions}
-              isClearable
-              isSearchable
+              isClearable={false}
+              isSearchable={false}
               styles={selectStyles}
-              stripPastedStyles={true}
-              spellCheck="false"
-              autoCapitalize="off"
-              autoComplete="off"
-              autoCorrect="off"
-              ref={(element) => { this.editor = element; }}
             />
           </Col>
           <Col md={4}>
@@ -486,8 +480,8 @@ class Profile extends Component {
               value={primary_role ? {value: primary_role, label: primary_role} : null}
               onChange={(Role) => this.setState({primary_role: Role ? Role.value : ''})}
               options={primary_race ? raceRoleClassOptions[primary_race].roleOptions : []}
-              isClearable
-              isSearchable
+              isClearable={false}
+              isSearchable={false}
               isDisabled={!primary_race}
               styles={selectStyles}
               />
@@ -498,8 +492,8 @@ class Profile extends Component {
               value={primary_class ? {value: primary_class, label: primary_class} : null}
               onChange={(Class) => this.setState({primary_class: Class ? Class.value : ''})}
               options={primary_race ? raceRoleClassOptions[primary_race].classOptions[primary_role] : []}
-              isClearable
-              isSearchable
+              isClearable={false}
+              isSearchable={false}
               isDisabled={!primary_role}
               styles={selectStyles}
               />
@@ -511,8 +505,8 @@ class Profile extends Component {
                 value={secondary_race ? {value: secondary_race, label: secondary_race} : null}
                 onChange={(Race) => this.setState({secondary_race: Race ? Race.value : ''})}
                 options={raceOptions}
-                isClearable
-                isSearchable
+                isClearable={false}
+                isSearchable={false}
                 styles={selectStyles}
               />
             </Col>
@@ -522,8 +516,8 @@ class Profile extends Component {
                 value={secondary_role ? {value: secondary_role, label: secondary_role} : null}
                 onChange={(Role) => this.setState({secondary_role: Role ? Role.value : ''})}
                 options={secondary_race ? raceRoleClassOptions[secondary_race].roleOptions : []}
-                isClearable
-                isSearchable
+                isClearable={false}
+                isSearchable={false}
                 isDisabled={!secondary_race}
                 styles={selectStyles}
                 />
@@ -534,8 +528,8 @@ class Profile extends Component {
                 value={secondary_class ? {value: secondary_class, label: secondary_class} : null}
                 onChange={(Class) => this.setState({secondary_class: Class ? Class.value : ''})}
                 options={secondary_race ? raceRoleClassOptions[secondary_race].classOptions[secondary_role] : []}
-                isClearable
-                isSearchable
+                isClearable={false}
+                isSearchable={false}
                 isDisabled={!secondary_role}
                 styles={selectStyles}
                 />
@@ -547,8 +541,8 @@ class Profile extends Component {
                 value={profession ? {value: profession, label: profession} : null}
                 onChange={(Profession) => this.setState({profession: Profession ? Profession.value : ''})}
                 options={professionOptions}
-                isClearable
-                isSearchable
+                isClearable={false}
+                isSearchable={false}
                 styles={selectStyles}
                 />
             </Col>
@@ -558,8 +552,8 @@ class Profile extends Component {
                 value={profession_specialization ? {value: profession_specialization, label: profession_specialization} : null}
                 onChange={(ProfessionSpecialization) => this.setState({profession_specialization: ProfessionSpecialization ? ProfessionSpecialization.value : ''})}
                 options={professionSpecializationOptions[profession]}
-                isClearable
-                isSearchable
+                isClearable={false}
+                isSearchable={false}
                 isDisabled={!profession}
                 styles={selectStyles}
                 />
