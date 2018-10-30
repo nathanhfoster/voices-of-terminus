@@ -485,6 +485,7 @@ class Profile extends Component {
               isClearable={true}
               isSearchable={true}
               onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
               styles={selectStyles}
             />
           </Col>
@@ -497,6 +498,7 @@ class Profile extends Component {
               isClearable={true}
               isSearchable={true}
               onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
               isDisabled={!primary_race}
               styles={selectStyles}
               />
@@ -510,6 +512,7 @@ class Profile extends Component {
               isClearable={true}
               isSearchable={true}
               onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
               isDisabled={!primary_role}
               styles={selectStyles}
               />
@@ -524,6 +527,7 @@ class Profile extends Component {
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
                 styles={selectStyles}
               />
             </Col>
@@ -536,6 +540,7 @@ class Profile extends Component {
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
                 isDisabled={!secondary_race}
                 styles={selectStyles}
                 />
@@ -549,6 +554,7 @@ class Profile extends Component {
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
                 isDisabled={!secondary_role}
                 styles={selectStyles}
                 />
@@ -563,6 +569,7 @@ class Profile extends Component {
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
                 styles={selectStyles}
                 />
             </Col>
@@ -575,6 +582,7 @@ class Profile extends Component {
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
                 isDisabled={!profession}
                 styles={selectStyles}
                 />
