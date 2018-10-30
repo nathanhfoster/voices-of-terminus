@@ -138,7 +138,7 @@ class UserProfile extends Component {
         </Row>
         <Row>
           <Col md={6}>
-            <h3>Joined:  <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
+            <h3>Joined: <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
           </Col>
           <Col md={6}>
             <h3>Last login: <Moment format="MMMM DD, YYYY">{User.last_login}</Moment></h3>
@@ -151,23 +151,27 @@ class UserProfile extends Component {
           <Col md={3}>
             <ControlLabel>Is Super User</ControlLabel>
             <Select
-            value={{value: User.is_superuser, label: User.is_superuser.toString()}}
-            onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: permission.value}} }))}
-            options={permissionOptions}
-            isClearable={false}
-            isSearchable={false}
-            styles={selectStyles}
+              value={{value: User.is_superuser, label: User.is_superuser.toString()}}
+              onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: permission.value}} }))}
+              options={permissionOptions}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              styles={selectStyles}
             />
           </Col>
           <Col md={3}>
             <ControlLabel>Is Staff</ControlLabel>
             <Select
-            value={{value: User.is_staff, label: User.is_staff.toString()}}
-            onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: permission.value}} }))}
-            options={permissionOptions}
-            isClearable={false}
-            isSearchable={false}
-            styles={selectStyles}
+              value={{value: User.is_staff, label: User.is_staff.toString()}}
+              onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: permission.value}} }))}
+              options={permissionOptions}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              styles={selectStyles}
             />
           </Col>
           <Col md={2}>

@@ -430,7 +430,7 @@ class Profile extends Component {
         <Form className="accontForm Container fadeIn-2">
           <Row>
             <Col md={5}>
-              <Image src={profile_image} width='100%'/>
+              <Image src={profile_image} style={{maxHeight: '250px'}} responsive/>
             </Col>
             <Col md={7}>
               <FormGroup>
