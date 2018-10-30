@@ -472,6 +472,12 @@ class Profile extends Component {
               isClearable
               isSearchable
               styles={selectStyles}
+              stripPastedStyles={true}
+              spellCheck="false"
+              autoCapitalize="off"
+              autoComplete="off"
+              autoCorrect="off"
+              ref={(element) => { this.editor = element; }}
             />
           </Col>
           <Col md={4}>

@@ -35,8 +35,8 @@ ReactDOM.render(
       <App />
     </AlertProvider>
   </Provider>, document.getElementById('root')
-);
-registerServiceWorker();
+)
+registerServiceWorker()
 
 const saveState = () => {
     const state = JSON.stringify(store.getState())

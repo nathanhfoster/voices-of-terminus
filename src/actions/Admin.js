@@ -3,7 +3,7 @@ import {Axios} from './Axios'
 const qs = require('qs')
 
 export const getUsers = () => {
-    return async (dispatch) => await Axios.get('users')
+    return async (dispatch) => await Axios.get('users/')
        .then(res => {
          dispatch({
            type: C.GET_USERS,
