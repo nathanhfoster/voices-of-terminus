@@ -455,10 +455,8 @@ class Profile extends Component {
         </Row>
         <Form className="accontForm Container fadeIn-2">
           <Row>
-            <Col md={5}>
-              <Image src={profile_image} style={{maxHeight: '250px'}} responsive/>
-            </Col>
-            <Col md={7}>
+            <Col md={12}>
+              <Image src={profile_image} style={{maxHeight: '250px'}} responsive rounded/>
               <FormGroup>
                 <ControlLabel>Profile Picture</ControlLabel>
                 <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} />

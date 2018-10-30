@@ -1,4 +1,5 @@
 .Admin {
+  min-width: 75%;
 }
 
 .ReactTable .rt-thead .rt-th.-sort-asc, .ReactTable .rt-thead .rt-td.-sort-asc {
@@ -27,7 +28,7 @@
   background: var(--grey);
 }
 
-.ReactTable .rt-tr-group .rt-td:hover {
+.ReactTable .rt-tr-group .rt-td:first-child:hover {
   background: var(--grey);
 }
 
