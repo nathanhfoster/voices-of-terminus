@@ -331,8 +331,32 @@ class Profile extends Component {
         else if (name.includes('profession')) this.setState({profession: '', profession_specialization: ''})
         break;
       case 'select-option':
-        this.setState({[name]: e.value})
-        break;
+        switch (name) {
+          case 'primary_race':
+            this.setState({[name]: e.value, primary_role: '', primary_class: ''})
+            break;
+          case 'primary_role':
+            this.setState({[name]: e.value, primary_class: ''})
+            break;
+          case 'primary_class':
+            this.setState({[name]: e.value})
+            break;
+            case 'secondary_race':
+            this.setState({[name]: e.value, secondary_role: '', secondary_class: ''})
+            break;
+          case 'secondary_role':
+            this.setState({[name]: e.value, secondary_class: ''})
+            break;
+          case 'secondary_class':
+            this.setState({[name]: e.value})
+            break;
+          case 'profession':
+            this.setState({[name]: e.value, profession_specialization: ''})
+            break;
+          case 'profession_specialization':
+            this.setState({[name]: e.value})
+            break;
+        }
     }
   }
 
