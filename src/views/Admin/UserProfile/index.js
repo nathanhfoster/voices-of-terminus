@@ -3,13 +3,13 @@ import PropTypes from 'prop-types'
 import {Grid, Row, Col, PageHeader, ControlLabel, Button} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect,} from 'react-router-dom'
-import {getUser} from '../../../actions/Admin'
-import {updateUserProfile} from '../../../actions/Admin'
+import {getUser, clearUser, updateUserProfile} from '../../../actions/Admin'
 import Select from 'react-select'
 import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../../helpers/styles'
+import LoadingScreen from '../../../components/LoadingScreen'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -18,6 +18,7 @@ const mapStateToProps = ({Admin, User}) => ({
 
 const mapDispatchToProps = {
   getUser,
+  clearUser,
   updateUserProfile
 }
 
@@ -93,6 +94,7 @@ class UserProfile extends Component {
   }
 
   componentWillUnmount() {
+    this.props.clearUser()
   }
   
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
@@ -234,7 +236,7 @@ class UserProfile extends Component {
           </Col>
         </Row>
       </Grid>
-      : <h1>LOADING...</h1>
+      : <LoadingScreen />
     )
   }
 }

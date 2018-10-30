@@ -28,6 +28,14 @@ export const getUser = id => {
   }))
 }
 
+export const clearUser = () => {
+  return async (dispatch) =>
+       dispatch({
+         type: C.GET_USER,
+         payload: null
+       })
+}
+
 export const updateUserProfile = (id, payload) => {
   return async (dispatch) => await Axios.patch(`users/${id}/`, qs.stringify(payload))
   .then(res => {
