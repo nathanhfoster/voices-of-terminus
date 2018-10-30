@@ -321,9 +321,22 @@ class Profile extends Component {
     this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints})
   }
 
-  onChange = (e) => this.setState({[e.target.name]: e.target.value})
+  onChange = e => this.setState({[e.target.name]: e.target.value})
 
-  setImage = (e) => this.setState({profile_image: e.target.files[0]})
+  selectOnChange = (e, a, name) => {
+    switch(a.action) {
+      case 'clear':
+        if (name.includes('primary')) this.setState({primary_race: '', primary_role: '', primary_class: ''})
+        else if (name.includes('secondary')) this.setState({secondary_race: '', secondary_role: '', secondary_class: ''})
+        else if (name.includes('profession')) this.setState({profession: '', profession_specialization: ''})
+        break;
+      case 'select-option':
+        this.setState({[name]: e.value})
+        break;
+    }
+  }
+
+  setImage = e => this.setState({profile_image: e.target.files[0]})
   
 
   validateUsername() {
@@ -467,9 +480,9 @@ class Profile extends Component {
             <ControlLabel>RACE</ControlLabel>
             <Select
               value={primary_race ? {value: primary_race, label: primary_race} : null}
-              onChange={(Race) => this.setState({primary_race: Race ? Race.value : ''})}
+              onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
               options={raceOptions}
-              isClearable={false}
+              isClearable={true}
               isSearchable={false}
               styles={selectStyles}
             />
@@ -478,9 +491,9 @@ class Profile extends Component {
             <ControlLabel>ROLE</ControlLabel>
             <Select
               value={primary_role ? {value: primary_role, label: primary_role} : null}
-              onChange={(Role) => this.setState({primary_role: Role ? Role.value : ''})}
+              onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
               options={primary_race ? raceRoleClassOptions[primary_race].roleOptions : []}
-              isClearable={false}
+              isClearable={true}
               isSearchable={false}
               isDisabled={!primary_race}
               styles={selectStyles}
@@ -490,9 +503,9 @@ class Profile extends Component {
             <ControlLabel>CLASS</ControlLabel>
             <Select
               value={primary_class ? {value: primary_class, label: primary_class} : null}
-              onChange={(Class) => this.setState({primary_class: Class ? Class.value : ''})}
+              onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
               options={primary_race ? raceRoleClassOptions[primary_race].classOptions[primary_role] : []}
-              isClearable={false}
+              isClearable={true}
               isSearchable={false}
               isDisabled={!primary_role}
               styles={selectStyles}
@@ -503,9 +516,9 @@ class Profile extends Component {
               <ControlLabel>RACE</ControlLabel>
               <Select
                 value={secondary_race ? {value: secondary_race, label: secondary_race} : null}
-                onChange={(Race) => this.setState({secondary_race: Race ? Race.value : ''})}
+                onChange={(e, a) => this.selectOnChange(e, a, 'secondary_race')}
                 options={raceOptions}
-                isClearable={false}
+                isClearable={true}
                 isSearchable={false}
                 styles={selectStyles}
               />
@@ -514,9 +527,9 @@ class Profile extends Component {
               <ControlLabel>ROLE</ControlLabel>
               <Select
                 value={secondary_role ? {value: secondary_role, label: secondary_role} : null}
-                onChange={(Role) => this.setState({secondary_role: Role ? Role.value : ''})}
+                onChange={(e, a) => this.selectOnChange(e, a, 'secondary_role')}
                 options={secondary_race ? raceRoleClassOptions[secondary_race].roleOptions : []}
-                isClearable={false}
+                isClearable={true}
                 isSearchable={false}
                 isDisabled={!secondary_race}
                 styles={selectStyles}
@@ -526,9 +539,9 @@ class Profile extends Component {
               <ControlLabel>CLASS</ControlLabel>
               <Select
                 value={secondary_class ? {value: secondary_class, label: secondary_class} : null}
-                onChange={(Class) => this.setState({secondary_class: Class ? Class.value : ''})}
+                onChange={(e, a) => this.selectOnChange(e, a, 'secondary_class')}
                 options={secondary_race ? raceRoleClassOptions[secondary_race].classOptions[secondary_role] : []}
-                isClearable={false}
+                isClearable={true}
                 isSearchable={false}
                 isDisabled={!secondary_role}
                 styles={selectStyles}
@@ -539,9 +552,9 @@ class Profile extends Component {
               <ControlLabel>Profession</ControlLabel>
               <Select
                 value={profession ? {value: profession, label: profession} : null}
-                onChange={(Profession) => this.setState({profession: Profession ? Profession.value : ''})}
+                onChange={(e, a) => this.selectOnChange(e, a, 'profession')}
                 options={professionOptions}
-                isClearable={false}
+                isClearable={true}
                 isSearchable={false}
                 styles={selectStyles}
                 />
@@ -550,9 +563,9 @@ class Profile extends Component {
               <ControlLabel>Specialization</ControlLabel>
               <Select
                 value={profession_specialization ? {value: profession_specialization, label: profession_specialization} : null}
-                onChange={(ProfessionSpecialization) => this.setState({profession_specialization: ProfessionSpecialization ? ProfessionSpecialization.value : ''})}
+                onChange={(e, a) => this.selectOnChange(e, a, 'profession_specialization')}
                 options={professionSpecializationOptions[profession]}
-                isClearable={false}
+                isClearable={true}
                 isSearchable={false}
                 isDisabled={!profession}
                 styles={selectStyles}
