@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, ControlLabel, Button} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, ControlLabel, Button, Checkbox} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect,} from 'react-router-dom'
 import {getUser, clearUser, updateUserProfile} from '../../../actions/Admin'
@@ -97,11 +97,13 @@ class UserProfile extends Component {
     this.props.clearUser()
   }
   
-  onChange = (e) => this.setState({[e.target.name]: e.target.value})
+  onChange = e => this.setState({[e.target.name]: e.target.value})
 
   updateUserProfile = () => {
-    const {id, is_superuser, is_staff, is_active} = this.state.Admin.User
-    const payload = {is_superuser, is_staff, is_active}
+    const {id, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
+      create_article, create_newsletter, create_calendar_event} = this.state.Admin.User
+    const payload = {is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
+      create_article, create_newsletter, create_calendar_event}
     this.props.updateUserProfile(id, payload)
   }
 
@@ -118,8 +120,6 @@ class UserProfile extends Component {
         </Row>
         <Row>
           <h2>USER INFO</h2>
-        </Row>
-        <Row>
           <Col md={3}>
           <h3>Username: {User.username}</h3>
           </Col>
@@ -132,8 +132,6 @@ class UserProfile extends Component {
           <Col md={3}>
             <h3>Last Name: {User.last_name}</h3>
           </Col>
-        </Row>
-        <Row>
           <Col md={12}>
             <h3>Bio: {User.bio}</h3>
           </Col>
@@ -147,10 +145,13 @@ class UserProfile extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md={4}>
-          <h3>Experience: {User.experience_points} / 10000<progress value={User.experience_points} min="0" max="10000"></progress></h3>
+          <Col md={12}>
+            <h3>Experience: {User.experience_points} / 10000<progress value={User.experience_points} min="0" max="10000"></progress></h3>
           </Col>
-          <Col md={2}>
+        </Row>
+        <Row>
+          <h2>AUTHORITY</h2>
+          <Col md={4}>
             <ControlLabel>Is Super User</ControlLabel>
             <Select
               value={{value: User.is_superuser, label: User.is_superuser.toString()}}
@@ -163,7 +164,7 @@ class UserProfile extends Component {
               styles={selectStyles}
             />
           </Col>
-          <Col md={2}>
+          <Col md={4}>
             <ControlLabel>Is Staff</ControlLabel>
             <Select
               value={{value: User.is_staff, label: User.is_staff.toString()}}
@@ -176,7 +177,7 @@ class UserProfile extends Component {
               styles={selectStyles}
             />
           </Col>
-          <Col md={2}>
+          <Col md={4}>
             <ControlLabel>Is Active</ControlLabel>
             <Select
               value={{value: User.is_active, label: User.is_active.toString()}}
@@ -188,6 +189,109 @@ class UserProfile extends Component {
               blurInputOnSelect={false}
               styles={selectStyles}
             />
+          </Col>
+          <Col md={3}>
+              <ControlLabel>Is Leader</ControlLabel>
+              <Select
+                value={{value: User.is_leader, label: User.is_leader.toString()}}
+                onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: permission.value}} }))}
+                options={permissionOptions}
+                isClearable={false}
+                isSearchable={false}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </Col>
+            <Col md={3}>
+              <ControlLabel>Is Council</ControlLabel>
+              <Select
+                value={{value: User.is_council, label: User.is_council.toString()}}
+                onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_council: permission.value}} }))}
+                options={permissionOptions}
+                isClearable={false}
+                isSearchable={false}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </Col>
+            <Col md={3}>
+              <ControlLabel>Is Officer</ControlLabel>
+              <Select
+                value={{value: User.is_officer, label: User.is_officer.toString()}}
+                onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: permission.value}} }))}
+                options={permissionOptions}
+                isClearable={false}
+                isSearchable={false}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </Col>
+            <Col md={3}>
+              <ControlLabel>Is Member</ControlLabel>
+              <Select
+                value={{value: User.is_member, label: User.is_member.toString()}}
+                onChange={(permission) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_member: permission.value}} }))}
+                options={permissionOptions}
+                isClearable={false}
+                isSearchable={false}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </Col>
+        </Row>
+        <Row>
+          <h2>PERMISSIONS</h2>
+          <Col md={3}>
+            <h3>CREATE</h3>
+            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            Articles
+            </Checkbox>
+            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            Newsletters
+            </Checkbox>
+            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            Calendar Events
+            </Checkbox>
+          </Col>
+          <Col md={3}>
+            <h3>READ</h3>
+            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            Articles
+            </Checkbox>
+            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            Newsletters
+            </Checkbox>
+            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            Calendar Events
+            </Checkbox>
+          </Col>
+          <Col md={3}>
+            <h3>UPDATE</h3>
+            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            Articles
+            </Checkbox>
+            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            Newsletters
+            </Checkbox>
+            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            Calendar Events
+            </Checkbox>
+          </Col>
+          <Col md={3}>
+            <h3>DELETE</h3>
+            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            Articles
+            </Checkbox>
+            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            Newsletters
+            </Checkbox>
+            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            Calendar Events
+            </Checkbox>
           </Col>
         </Row>
         <Row>
