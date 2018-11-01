@@ -99,3 +99,17 @@ export const Logout = () => {
         payload: null
     })
 }
+
+export const getUser = id => {
+    return async (dispatch) => await Axios.get(`users/${id}/`)
+       .then(res => {
+        res.data.token = Cookies.get('User_LoginToken')
+         dispatch({
+           type: C.SET_LOGIN_TOKEN,
+           payload: res.data
+         })
+       }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
+  }

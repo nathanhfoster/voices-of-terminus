@@ -102,6 +102,7 @@ class UserProfile extends Component {
   updateUserProfile = () => {
     const {id, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
       can_create_article, can_create_newsletter, can_create_calendar_event} = this.state.Admin.User
+      
     const payload = {is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
       can_create_article, can_create_newsletter, can_create_calendar_event}
     this.props.updateUserProfile(id, payload)

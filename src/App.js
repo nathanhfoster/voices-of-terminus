@@ -30,7 +30,7 @@ import Donate from './views/Donate'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
 import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
-import {getUser} from './actions/Admin'
+import {getUser} from './actions/App'
 import 'moment-timezone'
 import MomentJS from 'moment'
 
@@ -126,7 +126,7 @@ class App extends Component {
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
     /* Check if User permissions have changed every 10 seconds */
-    if(User.hasOwnProperty('id')) this.interval = setInterval(() => this.props.getUser(User.id), 10000)
+   if(User.hasOwnProperty('id')) this.interval = setInterval(() => this.props.getUser(User.id), 10000)
   }
   /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
   shouldUpdate = youtubeData => youtubeData ? MomentJS().diff(MomentJS(youtubeData.publishedAt), 'days') > 3 : true
