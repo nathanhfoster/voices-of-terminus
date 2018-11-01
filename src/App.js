@@ -30,6 +30,7 @@ import Donate from './views/Donate'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
 import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
+import {getUser} from './actions/Admin'
 import 'moment-timezone'
 import MomentJS from 'moment'
 
@@ -47,7 +48,8 @@ const mapDispatchToProps = {
   getVoTYouTubeChannelData,
   getAllVRYouTube,
   getVRYouTubeChannelData,
-  Logout
+  Logout,
+  getUser
 }
 
 class App extends Component {
@@ -59,7 +61,8 @@ class App extends Component {
       width: null,
       height: null,
       isMobile: false,
-      User: {}
+      User: {},
+      update: 0,
     }
   }
 
@@ -116,16 +119,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
+    const {VoTYouTubeChannelData, VRYouTubeChannelData, User} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
     this.props.getVRYouTubeChannelData()
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
+    /* Check if User permissions have changed every 10 seconds */
+    if(User.hasOwnProperty('id')) this.interval = setInterval(() => this.props.getUser(User.id), 10000)
   }
   /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
   shouldUpdate = youtubeData => youtubeData ? MomentJS().diff(MomentJS(youtubeData.publishedAt), 'days') > 3 : true
-  
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps)
@@ -137,6 +141,9 @@ class App extends Component {
     this.setState({ApiResponse, Window, User})
   }
 
+  componentWillUpdate() {
+  }
+
   componentDidUpdate() {
     // if cookie is expired and redux has User data remove it by logging out
     if(!Cookies.get('User_LoginToken') && this.props.User.token) this.props.Logout()
@@ -144,6 +151,7 @@ class App extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.updateWindowDimensions)
+    clearInterval(this.interval)
   }
 
   alertApiResponse = ApiResponse => {

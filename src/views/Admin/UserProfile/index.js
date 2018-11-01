@@ -101,9 +101,9 @@ class UserProfile extends Component {
 
   updateUserProfile = () => {
     const {id, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
-      create_article, create_newsletter, create_calendar_event} = this.state.Admin.User
+      can_create_article, can_create_newsletter, can_create_calendar_event} = this.state.Admin.User
     const payload = {is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
-      create_article, create_newsletter, create_calendar_event}
+      can_create_article, can_create_newsletter, can_create_calendar_event}
     this.props.updateUserProfile(id, payload)
   }
 
@@ -247,49 +247,49 @@ class UserProfile extends Component {
           <h2>PERMISSIONS</h2>
           <Col md={3}>
             <h3>CREATE</h3>
-            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            <Checkbox checked={User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !User.can_create_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            <Checkbox checked={User.can_create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_newsletter: !User.can_create_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            <Checkbox checked={User.can_create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_calendar_event: !User.can_create_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
           <Col md={3}>
             <h3>READ</h3>
-            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            <Checkbox checked={User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !User.can_create_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            <Checkbox checked={User.can_create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_newsletter: !User.can_create_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            <Checkbox checked={User.can_create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_calendar_event: !User.can_create_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
           <Col md={3}>
             <h3>UPDATE</h3>
-            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            <Checkbox checked={User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !User.can_create_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            <Checkbox checked={User.can_create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_newsletter: !User.can_create_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            <Checkbox checked={User.can_create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_calendar_event: !User.can_create_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
           <Col md={3}>
             <h3>DELETE</h3>
-            <Checkbox checked={User.create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_article: !User.create_article}} }))}>
+            <Checkbox checked={User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !User.can_create_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox checked={User.create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_newsletter: !User.create_newsletter}} }))}>
+            <Checkbox checked={User.can_create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_newsletter: !User.can_create_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox checked={User.create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, create_calendar_event: !User.create_calendar_event}} }))}>
+            <Checkbox checked={User.can_create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_calendar_event: !User.can_create_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>

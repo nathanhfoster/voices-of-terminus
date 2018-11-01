@@ -114,7 +114,7 @@ class NavBar extends Component {
               <LinkContainer to="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
               <LinkContainer to="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
-              <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer>
+            { /* <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer> */}
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
                 <LinkContainer to="/guild/roster"><NavItem eventKey={5.2}>ROSTER</NavItem></LinkContainer>
