@@ -1,10 +1,45 @@
 .UserProfile {
-    
+    min-width: 75%;
 }
 
-.UserProfile label {
-    font-weight: 400;
-    font-size: 20px;
+.headerBanner {
+    background: linear-gradient(to right, rgba(255, 153, 0, 1) calc(240px + 5%), transparent 100%);
+    padding: 8px;
+}
+
+.checkBoxTable {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+.checkBoxTable [class*='col-'] {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    border: 1px solid var(--grey_out);
+}
+
+.checkBoxText {
+    /* Checkbox text */
+    font-size: 24px;
+    display: inline;
+}
+
+.help {
+    display: block;
+    font-weight: 600;
+    font-size: 12px;
+    color: #999;
 }
 
 meter::-webkit-meter-optimum-value {
@@ -25,11 +60,21 @@ meter::-webkit-meter-optimum-value {
   }
 
   /* All Progress Bars */
+progress:before {
+    position: relative;
+    top: 25px;
+    bottom: 25px;
+    content: attr(value) ' / ' attr(max) ' EXP';
+}
 progress {
+    height: 25px;
+    width: 100%;
+    text-align:center;
     /* Reset the default appearance */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    margin-bottom: 65px;
 }
 
 /* Determinate */

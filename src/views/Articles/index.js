@@ -89,7 +89,7 @@ class Articles extends Component {
         </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-              {User.token ? 
+              {User.can_create_article ? 
                 <Button onClick={() => this.props.history.push('/articles/new/article')}>
                 Create
                 </Button>
