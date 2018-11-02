@@ -1,6 +1,8 @@
-.Profile {
-    
+.Profile label {
+    margin-top: 8px;
+    margin-bottom: 8px;
 }
+
 .Profile svg:hover {
     color: var(--primaryColor);
 }
