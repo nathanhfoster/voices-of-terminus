@@ -462,38 +462,38 @@ class Profile extends Component {
                 <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} />
               </FormGroup>
             </Col>
-            <Col md={3} xs={6}>
+            <Col md={3}>
               <FormGroup validationState={this.validateUsername()}>
                 <ControlLabel>Username</ControlLabel>
                 <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
               </FormGroup>
             </Col>
-            <Col md={2} xs={6}>
+            <Col md={2}>
               <FormGroup validationState={this.validatePassword()}>
                 <ControlLabel>Password</ControlLabel>
                 <FormControl value={password} type="password" name="password" placeholder="Password" onChange={this.onChange}/>
                 <FormControl.Feedback />
               </FormGroup>
             </Col>
-            <Col md={3} xs={12}>
+            <Col md={3}>
               <FormGroup validationState={this.validateEmail()}>
                 <ControlLabel>Email</ControlLabel>
                 <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
               </FormGroup>
             </Col>
-            <Col md={2} xs={6}>
+            <Col md={2} sm={6}>
             <FormGroup>
               <ControlLabel>First Name</ControlLabel>
               <FormControl value={first_name} type="text" name="first_name" placeholder="First Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={2} xs={6}>
+          <Col md={2}>
             <FormGroup>
               <ControlLabel>Last Name</ControlLabel>
               <FormControl value={last_name} type="text" name="last_name" placeholder="Last Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={12} xs={12}>
+          <Col md={12}>
             <FormGroup>
               <ControlLabel>Biography</ControlLabel>
               <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
