@@ -139,7 +139,7 @@ class NavBar extends Component {
               </NavDropdown>
              
               {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}>LOGIN</NavItem></LinkContainer>
-              :<NavDropdown eventKey={5} title={classIcon[primary_class] ? {User.username} <Image src={classIcon[primary_class]} style={{height: '25px'}}/> : {User.username} <i className="fas fa-user"/>} id="basic-nav-dropdown">
+              :<NavDropdown eventKey={5} title={classIcon[primary_class] ? [User.username + ' ', <Image src={classIcon[primary_class]} style={{height: '25px'}}/>] :[User.username + ' ', <i className="fas fa-user"/>]} id="basic-nav-dropdown">
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}
