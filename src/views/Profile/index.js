@@ -496,8 +496,7 @@ class Profile extends Component {
           <Col md={3}>
             <FormGroup>
               <ControlLabel>Discord</ControlLabel>
-              <FormControl value={discord_url} name="discord_url" type="text"  onChange={this.onChange}>
-              </FormControl>
+              <FormControl value={discord_url} name="discord_url" type="text"  onChange={this.onChange} />
             </FormGroup>
           </Col>
           <Col md={3}>
@@ -510,15 +509,13 @@ class Profile extends Component {
           <Col md={3}>
             <FormGroup>
               <ControlLabel>Twitter</ControlLabel>
-              <FormControl value={twitter_url} name="twitter_url" type="text" onChange={this.onChange}>
-              </FormControl>
+              <FormControl value={twitter_url} name="twitter_url" type="text" onChange={this.onChange} />
             </FormGroup>
           </Col>
           <Col md={3}>
             <FormGroup>
               <ControlLabel>YouTube</ControlLabel>
-              <FormControl value={youtube_url} name="youtube_url" type="text"  onChange={this.onChange}>
-              </FormControl>
+              <FormControl value={youtube_url} name="youtube_url" type="text"  onChange={this.onChange} />
             </FormGroup>
           </Col>
         </Form>

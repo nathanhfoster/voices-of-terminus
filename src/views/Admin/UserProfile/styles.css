@@ -3,8 +3,8 @@
 }
 
 .headerBanner {
-    margin: 0;
     background: linear-gradient(to right, rgba(255, 153, 0, 1) calc(240px + 5%), rgba(163, 163, 172, 0.3) calc(240px + 15%), rgba(163, 163, 172, 0.15) 100%);
+    margin: 0;
     padding: 8px;
 }
 
