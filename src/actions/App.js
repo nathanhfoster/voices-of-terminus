@@ -15,10 +15,7 @@ export const getVoTYouTubeChannelData = () => {
                 type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
                 payload: res.latest
             })
-        }).catch((e) => dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: e.response
-        }))
+        }).catch((e) => console.log(e.response))
 }
 
 export const getAllVRYouTube = () => {
@@ -28,10 +25,7 @@ export const getAllVRYouTube = () => {
                 type: C.GET_ALL_VR_YOUTUBE_CHANNEL_DATA,
                 payload:res
             })
-        }).catch((e) => dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: e.response
-        }))
+        }).catch((e) => console.log(e.response))
 }
 
 export const getVRYouTubeChannelData = () => {
@@ -41,10 +35,7 @@ export const getVRYouTubeChannelData = () => {
                 type: C.GET_VR_YOUTUBE_CHANNEL_DATA,
                 payload: res.latest
             })
-        }).catch((e) => dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: e.response
-        }))
+        }).catch((e) => console.log(e.response))
 }
 
 export const setWindow = Window => ({
@@ -61,10 +52,6 @@ export const login = (username, password, rememberMe) => {
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
          })
-         dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-        })
         window.location.reload()
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
@@ -112,8 +99,5 @@ export const getUser = id => {
            type: C.SET_LOGIN_TOKEN,
            payload: res.data
          })
-       }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+       }).catch((e) => console.log(e.response))
   }

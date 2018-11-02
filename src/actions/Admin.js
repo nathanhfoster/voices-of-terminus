@@ -9,10 +9,7 @@ export const getUsers = () => {
            type: C.GET_USERS,
            payload: res.data
          })
-       }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+       }).catch((e) => console.log(e.response))
 }
 
 export const getUser = id => {
@@ -22,10 +19,7 @@ export const getUser = id => {
          type: C.GET_USER,
          payload: res.data
        })
-     }).catch((e) => dispatch({
-      type: C.SET_API_RESPONSE,
-      payload: e.response
-  }))
+     }).catch((e) => console.log(e.response))
 }
 
 export const clearUser = () => {

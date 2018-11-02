@@ -23,10 +23,7 @@ export const getArticles = () => {
          type: C.GET_ARTICLES,
          payload: res.data
        })
-     }).catch((e) => dispatch({
-      type: C.SET_API_RESPONSE,
-      payload: e.response
-  }))
+     }).catch((e) => console.log(e.response))
 }
 
 export const getArticle = id => {
@@ -36,10 +33,7 @@ export const getArticle = id => {
            type: C.GET_HTML_DOCUMENT,
            payload: res.data
        })
-     }).catch((e) => dispatch({
-      type: C.SET_API_RESPONSE,
-      payload: e.response
-  }))
+     }).catch((e) => console.log(e.response))
 }
 
 export const updateArticle = (id, payload) => {
@@ -67,8 +61,5 @@ export const deleteArticle = id => {
         type: C.GET_ARTICLES,
         payload: Articles.filter(article => article.id !== id)
       })
-  }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+  }).catch((e) => console.log(e.response))
 }

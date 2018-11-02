@@ -23,10 +23,7 @@ export const getNewsletters = () => {
              type: C.GET_NEWSLETTERS,
              payload: res.data
             })
-       }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+       }).catch((e) => console.log(e.response))
 }
 
 export const getNewsLetter = id => {
@@ -36,10 +33,7 @@ export const getNewsLetter = id => {
              type: C.GET_HTML_DOCUMENT,
              payload: res.data
             })
-       }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+       }).catch((e) => console.log(e.response))
 }
 
 export const updateNewsLetter = (id, payload) => {
@@ -68,8 +62,5 @@ export const deleteNewsLetter = id => {
             type: C.GET_NEWSLETTERS,
             payload: payload
         })
-    }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+    }).catch((e) => console.log(e.response))
 }

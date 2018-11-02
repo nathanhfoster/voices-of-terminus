@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import './App.css'
 import './AppM.css'
 import "regenerator-runtime/runtime"
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { withRouter, Route, Switch } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
 import Admin from './views/Admin'
@@ -62,7 +62,7 @@ class App extends Component {
       height: null,
       isMobile: false,
       User: {},
-      update: 0,
+      update: 0
     }
   }
 
@@ -119,7 +119,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
+    const {VoTYouTubeChannelData, VRYouTubeChannelData, location} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
     this.props.getVRYouTubeChannelData()
@@ -128,20 +128,21 @@ class App extends Component {
 
     // if cookie is expired and redux has User data remove it by logging out
     if(!Cookies.get('User_LoginToken') && this.props.User.token) this.props.Logout()
-    /* Check if User permissions have changed every 10 seconds */
-    console.log(this.props.User)
-    if(Cookies.get('User_LoginToken') && this.props.User.hasOwnProperty('id')) this.interval = setInterval(() => this.props.getUser(this.props.User.id), 10000)
   }
+
   /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
   shouldUpdate = youtubeData => youtubeData ? MomentJS().diff(MomentJS(youtubeData.publishedAt), 'days') > 3 : true
 
   componentWillReceiveProps(nextProps) {
+    clearInterval(this.interval)
     this.getState(nextProps)
   }
 
   getState = props => {
-    const {ApiResponse, Window, User} = props
+    const {ApiResponse, Window, User, location} = props
     if(ApiResponse) this.alertApiResponse(ApiResponse)
+    /* Check if User permissions have changed every 10 seconds */
+    if(Cookies.get('User_LoginToken') && this.props.User.id && location.pathname !== '/profile') this.interval = setInterval(() => this.props.getUser(this.props.User.id), 10000)
     this.setState({ApiResponse, Window, User})
   }
 
@@ -175,21 +176,19 @@ class App extends Component {
     const {ApiResponse, isMobile} = this.state
     const {routeItems, images, imagesMobile} = this.props
     return (
-      <Router>
-        <div className="App">
-          <NavBar />
-          <BackgroundImage />
-          <Footer />
-          <div className="routeOverlay">
-            <Switch>
-              {this.renderRouteItems(routeItems)} 
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-        </div>    
-     </Router>
+      <div className="App">
+        <NavBar />
+        <BackgroundImage />
+        <Footer />
+        <div className="routeOverlay">
+          <Switch>
+            {this.renderRouteItems(routeItems)} 
+            <Route component={PageNotFound} />
+          </Switch>
+        </div>
+      </div>    
     )
   }
 }
  
-export default withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(App))
+export default withRouter(withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(App)))

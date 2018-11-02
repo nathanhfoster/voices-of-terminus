@@ -8,10 +8,6 @@ const qs = require('qs')
     const eightHours = 1/3
     return async (dispatch) => await Axios.post('users/', qs.stringify({username, password, email, bio, primary_role, primary_class}))
     .then(res => {
-        dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-        })
         Axios.post('login/', qs.stringify({username, password}))
         .then(res => {
             Cookies.set('User_LoginToken', res.data.token, {expires: eightHours})
