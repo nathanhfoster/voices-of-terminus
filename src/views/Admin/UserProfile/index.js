@@ -136,27 +136,27 @@ class UserProfile extends Component {
           </Col>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={3}>
+          <Col md={3} xs={6}>
           <h3>Username: {User.username}</h3>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
           <h3>Email: {User.email}</h3>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <h3>First Name: {User.first_name}</h3>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <h3>Last Name: {User.last_name}</h3>
           </Col>
-          <Col md={12}>
+          <Col md={12} xs={12}>
             <h3>Bio: {User.bio}</h3>
           </Col>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={6}>
+          <Col md={6} xs={12}>
             <h3>Joined: <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={12}>
             <h3>Last login: <Moment format="MMMM DD, YYYY">{User.last_login}</Moment></h3>
           </Col>
         </Row>
@@ -164,19 +164,19 @@ class UserProfile extends Component {
           <h2>STATUS</h2>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={4}>
+          <Col md={4} xs={12}>
             <Checkbox checked={User.is_active} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_active: !User.is_active}} }))}>
             <span className="checkBoxText">Active</span>
             <span className="help">Unselect this instead of deleting accounts.</span>
             </Checkbox>
           </Col>
-          <Col md={4}>
+          <Col md={4} xs={6}>
             <Checkbox checked={User.is_superuser} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: !User.is_superuser}} }))}>
             <span className="checkBoxText">Admin</span>
             <span className="help">Designates that this user has all permissions without explicitly assigning them.</span>
             </Checkbox>
           </Col>
-          <Col md={4}>
+          <Col md={4} xs={6}>
             <Checkbox checked={User.is_staff} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: !User.is_staff}} }))}>
             <span className="checkBoxText">Staff</span>
             <span className="help">Designates whether the user can log into this admin site.</span>
@@ -184,25 +184,25 @@ class UserProfile extends Component {
           </Col>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <Checkbox checked={User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !User.is_leader}} }))}>
             <span className="checkBoxText">Leader</span>
             <span className="help">Will show up as a leader in guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <Checkbox checked={User.is_council} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_council: !User.is_council}} }))}>
             <span className="checkBoxText">Council</span>
             <span className="help">Will show up on the Council in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <Checkbox checked={User.is_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: !User.is_officer}} }))}>
             <span className="checkBoxText">Officer</span>
             <span className="help">Will show up as an Officer in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={6}>
             <Checkbox checked={User.is_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: !User.is_officer}} }))}>
             <span className="checkBoxText">Member</span>
             <span className="help">Will show up as a Guild Member in the guild roster.</span>
@@ -273,16 +273,16 @@ class UserProfile extends Component {
           <h3>Primary</h3>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={6}>
+          <Col md={6} xs={6}>
             <h3>Role: {User.primary_role}</h3>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={6}>
             <h3>Class: {User.primary_class}</h3>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={6}>
             <h3>Profession: {User.profession}</h3>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={6}>
             <h3>Specialization: {User.profession_specialization}</h3>
           </Col>
         </Row>
@@ -290,10 +290,10 @@ class UserProfile extends Component {
           <h3>Secondary</h3>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={6}>
+          <Col md={6} xs={6}>
             <h3>Role: {User.secondary_role}</h3>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={6}>
             <h3>Class: {User.secondary_class}</h3>
           </Col>
         </Row>
@@ -301,21 +301,21 @@ class UserProfile extends Component {
           <h2 className="headerBanner">CONNECTIONS</h2>
         </Row>
         <Row>
-          <Col md={3}>
+          <Col md={3} xs={3}>
             <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={3}>
            <a href={User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={3}>
             <a href={User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={3}>
             <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
           </Col>
         </Row>
         <Row>
-          <Col md={12} style={{textAlign: 'center', marginTop: '20px'}}>
+          <Col md={12} style={{textAlign: 'center', margin: '20px'}}>
             <Button onClick={this.updateUserProfile}>Update</Button>
           </Col>
         </Row>
