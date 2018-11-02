@@ -87,8 +87,6 @@ class Login extends Component {
 
   componentWillUnmount() {
     const {token} = this.state
-    // Refresh Axios instance with authorization header found in src/actions/Axios.js
-    if(token) window.location.reload()
   }
 
   onChange = (e) => this.setState({[e.target.name]: e.target.value})

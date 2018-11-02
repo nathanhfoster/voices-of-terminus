@@ -65,6 +65,7 @@ export const login = (username, password, rememberMe) => {
             type: C.SET_API_RESPONSE,
             payload: res
         })
+        window.location.reload()
     }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response
@@ -94,10 +95,13 @@ export const clearHtmlDocument = () => ({
 
 export const Logout = () => {
     Cookies.remove('User_LoginToken')
-    return async (dispatch) => await dispatch({
+    return async (dispatch) => {
+        await dispatch({
         type: C.SET_LOGOUT,
         payload: null
     })
+    window.location.reload()
+    }
 }
 
 export const getUser = id => {

@@ -119,14 +119,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const {VoTYouTubeChannelData, VRYouTubeChannelData, User} = this.props
+    const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
     this.props.getVRYouTubeChannelData()
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
+
+    // if cookie is expired and redux has User data remove it by logging out
+    if(!Cookies.get('User_LoginToken') && this.props.User.token) this.props.Logout()
     /* Check if User permissions have changed every 10 seconds */
-   if(User.hasOwnProperty('id')) this.interval = setInterval(() => this.props.getUser(User.id), 10000)
+    console.log(this.props.User)
+    if(Cookies.get('User_LoginToken') && this.props.User.hasOwnProperty('id')) this.interval = setInterval(() => this.props.getUser(this.props.User.id), 10000)
   }
   /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
   shouldUpdate = youtubeData => youtubeData ? MomentJS().diff(MomentJS(youtubeData.publishedAt), 'days') > 3 : true
@@ -139,14 +143,6 @@ class App extends Component {
     const {ApiResponse, Window, User} = props
     if(ApiResponse) this.alertApiResponse(ApiResponse)
     this.setState({ApiResponse, Window, User})
-  }
-
-  componentWillUpdate() {
-  }
-
-  componentDidUpdate() {
-    // if cookie is expired and redux has User data remove it by logging out
-    if(!Cookies.get('User_LoginToken') && this.props.User.token) this.props.Logout()
   }
 
   componentWillUnmount() {
