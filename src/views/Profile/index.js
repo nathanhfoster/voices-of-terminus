@@ -439,17 +439,14 @@ class Profile extends Component {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
     const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points} = this.state
-   console.log(experience_points)
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
-      :<Grid className="Profile Container">
+      :<Grid className="Profile Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
-        <Row>
-          <Col><h2 className="headerBanner">ACCOUNT</h2></Col>
-        </Row>
-        <Form className="Container fadeIn-2">
+        <Form>
+          <Col xs={12}><h2 className="headerBanner">ACCOUNT</h2></Col>
           <Col md={4}>
             <Image src={profile_image} style={{maxHeight: '250px'}} responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
@@ -495,7 +492,7 @@ class Profile extends Component {
               <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={12}><h2>CONNECTIONS</h2></Col>
+          <Col md={12}><h2 className="headerBanner">CONNECTIONS</h2></Col>
           <Col md={3}>
             <FormGroup>
               <ControlLabel>Discord</ControlLabel>
@@ -525,7 +522,7 @@ class Profile extends Component {
             </FormGroup>
           </Col>
         </Form>
-        <Col md={12}><h2>PRIMARY</h2></Col>
+        <Col md={12}><h2 className="headerBanner">PRIMARY</h2></Col>
         <Col md={4}>
           <ControlLabel>RACE</ControlLabel>
           <Select
@@ -567,7 +564,7 @@ class Profile extends Component {
             styles={selectStyles}
             />
         </Col>
-        <Col md={12}><h2>SECONDARY</h2></Col>
+        <Col md={12}><h2 className="headerBanner">SECONDARY</h2></Col>
           <Col md={4}>
             <ControlLabel>RACE</ControlLabel>
             <Select
@@ -609,7 +606,7 @@ class Profile extends Component {
               styles={selectStyles}
               />
           </Col>
-          <Col md={12}><h2>CRAFTING</h2></Col>
+          <Col md={12}><h2 className="headerBanner">CRAFTING</h2></Col>
           <Col md={6}>
             <ControlLabel>Profession</ControlLabel>
             <Select
