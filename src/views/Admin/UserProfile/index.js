@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, ControlLabel, Button, Checkbox} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Image, Button, Checkbox} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect,} from 'react-router-dom'
 import {getUser, clearUser, updateUserProfile} from '../../../actions/Admin'
@@ -9,7 +9,6 @@ import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../../helpers/styles'
-import LoadingScreen from '../../../components/LoadingScreen'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -130,10 +129,17 @@ class UserProfile extends Component {
         <Row>
           <h2 className="headerBanner">USER INFO</h2>
         </Row>
-        <Row>
-          <Col>
-            <progress value={User.experience_points} min="0" max="10000"></progress>
+        <Row style={{border: '1px solid var(--grey_out)'}}>
+          <Col md={4}><Image src={User.profile_image} style={{maxHeight: '250px'}} responsive rounded/></Col>
+          <Col md={4} xs={12}>
+            <h3>Joined: <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
           </Col>
+          <Col md={4} xs={12}>
+            <h3>Last login: <Moment format="MMMM DD, YYYY">{User.last_login}</Moment></h3>
+          </Col>
+        </Row>
+        <Row className="checkBoxTable">
+          <Col xs={12}><h2><progress value={User.experience_points} min="0" max="10000"></progress></h2></Col>
         </Row>
         <Row className="checkBoxTable">
           <Col md={3} xs={6}>
@@ -152,16 +158,8 @@ class UserProfile extends Component {
             <h3>Bio: {User.bio}</h3>
           </Col>
         </Row>
-        <Row className="checkBoxTable">
-          <Col md={6} xs={12}>
-            <h3>Joined: <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
-          </Col>
-          <Col md={6} xs={12}>
-            <h3>Last login: <Moment format="MMMM DD, YYYY">{User.last_login}</Moment></h3>
-          </Col>
-        </Row>
         <Row>
-          <h2>STATUS</h2>
+          <h2 className="headerBanner">STATUS</h2>
         </Row>
         <Row className="checkBoxTable">
           <Col md={4} xs={12}>
@@ -300,7 +298,7 @@ class UserProfile extends Component {
         <Row>
           <h2 className="headerBanner">CONNECTIONS</h2>
         </Row>
-        <Row>
+        <Row style={{marginTop: '16px'}}>
           <Col md={3} xs={3}>
             <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
           </Col>
@@ -315,12 +313,12 @@ class UserProfile extends Component {
           </Col>
         </Row>
         <Row>
-          <Col md={12} style={{textAlign: 'center', margin: '20px'}}>
+          <Col style={{textAlign: 'center', margin: '20px'}}>
             <Button onClick={this.updateUserProfile}>Update</Button>
           </Col>
         </Row>
       </Grid>
-      : <LoadingScreen />
+      : null
     )
   }
 }

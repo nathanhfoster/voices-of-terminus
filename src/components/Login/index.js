@@ -219,7 +219,7 @@ class Login extends Component {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Form className="accontForm Container fadeIn-2">
+                <Form className="Container fadeIn-2">
                   <Row>
                     <Col md={12}>
                       <FormGroup validationState={this.validateUsername()}>

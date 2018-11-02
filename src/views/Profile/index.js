@@ -316,9 +316,9 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {token, id, profile_image, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = props.User
+    const {token, id, profile_image, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points} = props.User
     const {password} = this.state
-    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints})
+    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points})
   }
 
   onChange = e => this.setState({[e.target.name]: e.target.value})
@@ -438,7 +438,8 @@ class Profile extends Component {
   render() {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experiencePoints} = this.state
+    const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points} = this.state
+   console.log(experience_points)
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container">
@@ -446,65 +447,132 @@ class Profile extends Component {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row>
-          <Col md={4}><h3>Experience Points: {experiencePoints} / 10000<progress value={experiencePoints} min="0" max="10000"></progress></h3></Col>
-          <Col md={4}><h3>Joined:  <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
-          <Col md={4}><h3>Last Login:  <Moment fromNow>{last_login}</Moment></h3></Col>
+          <Col><h2 className="headerBanner">ACCOUNT</h2></Col>
         </Row>
-        <Row>
-          <Col md={12}><h3>ACCOUNT</h3></Col>
-        </Row>
-        <Form className="accontForm Container fadeIn-2">
-          <Row>
-            <Col md={12}>
-              <Image src={profile_image} style={{maxHeight: '250px'}} responsive rounded/>
-              <FormGroup>
-                <ControlLabel>Profile Picture</ControlLabel>
-                <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} />
-              </FormGroup>
-            </Col>
-            <Col md={3} xs={6}>
-              <FormGroup validationState={this.validateUsername()}>
-                <ControlLabel>Username</ControlLabel>
-                <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-            <Col md={2} xs={6}>
-              <FormGroup validationState={this.validatePassword()}>
-                <ControlLabel>Password</ControlLabel>
-                <FormControl value={password} type="password" name="password" placeholder="Password" onChange={this.onChange}/>
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
-            <Col md={3} xs={12}>
-              <FormGroup validationState={this.validateEmail()}>
-                <ControlLabel>Email</ControlLabel>
-                <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
-              </FormGroup>
-            </Col>
-            <Col md={2} xs={6}>
+        <Form className="Container fadeIn-2">
+          <Col md={4}>
+            <Image src={profile_image} style={{maxHeight: '250px'}} responsive rounded/>
+            <ControlLabel>Profile Picture</ControlLabel>
+            <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} />
+          </Col>
+          <Col md={4} xs={6} className="borderCol"><h3>Joined:  <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
+          <Col md={4} xs={6}><h3>Last Login:  <Moment fromNow>{last_login}</Moment></h3></Col>
+          <Col xs={12}><h2><progress value={experience_points} min="0" max="10000"></progress></h2></Col>
+          <Col md={3}>
+            <FormGroup validationState={this.validateUsername()}>
+              <ControlLabel>Username</ControlLabel>
+              <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+            </FormGroup>
+          </Col>
+          <Col md={2}>
+            <FormGroup validationState={this.validatePassword()}>
+              <ControlLabel>Password</ControlLabel>
+              <FormControl value={password} type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+              <FormControl.Feedback />
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <FormGroup validationState={this.validateEmail()}>
+              <ControlLabel>Email</ControlLabel>
+              <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
+            </FormGroup>
+          </Col>
+          <Col md={2} sm={6}>
             <FormGroup>
               <ControlLabel>First Name</ControlLabel>
               <FormControl value={first_name} type="text" name="first_name" placeholder="First Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={2} xs={6}>
+          <Col md={2}>
             <FormGroup>
               <ControlLabel>Last Name</ControlLabel>
               <FormControl value={last_name} type="text" name="last_name" placeholder="Last Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={12} xs={12}>
+          <Col md={12}>
             <FormGroup>
               <ControlLabel>Biography</ControlLabel>
               <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={12}><h3>PRIMARY</h3></Col>
+          <Col md={12}><h2>CONNECTIONS</h2></Col>
+          <Col md={3}>
+            <FormGroup>
+              <ControlLabel>Discord</ControlLabel>
+              <FormControl value={discord_url} name="discord_url" type="text"  onChange={this.onChange}>
+              </FormControl>
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <FormGroup>
+              <ControlLabel>Twitch</ControlLabel>
+              <FormControl value={twitch_url} name="twitch_url" type="text" onChange={this.onChange}>
+              </FormControl>
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <FormGroup>
+              <ControlLabel>Twitter</ControlLabel>
+              <FormControl value={twitter_url} name="twitter_url" type="text" onChange={this.onChange}>
+              </FormControl>
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <FormGroup>
+              <ControlLabel>YouTube</ControlLabel>
+              <FormControl value={youtube_url} name="youtube_url" type="text"  onChange={this.onChange}>
+              </FormControl>
+            </FormGroup>
+          </Col>
+        </Form>
+        <Col md={12}><h2>PRIMARY</h2></Col>
+        <Col md={4}>
+          <ControlLabel>RACE</ControlLabel>
+          <Select
+            value={primary_race ? {value: primary_race, label: primary_race} : null}
+            onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
+            options={raceOptions}
+            isClearable={true}
+            isSearchable={true}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            styles={selectStyles}
+          />
+        </Col>
+        <Col md={4}>
+          <ControlLabel>ROLE</ControlLabel>
+          <Select
+            value={primary_role ? {value: primary_role, label: primary_role} : null}
+            onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
+            options={primary_race ? raceRoleClassOptions[primary_race].roleOptions : []}
+            isClearable={true}
+            isSearchable={true}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            isDisabled={!primary_race}
+            styles={selectStyles}
+            />
+        </Col>
+        <Col md={4}>
+          <ControlLabel>CLASS</ControlLabel>
+          <Select
+            value={primary_class ? {value: primary_class, label: primary_class} : null}
+            onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
+            options={primary_race ? raceRoleClassOptions[primary_race].classOptions[primary_role] : []}
+            isClearable={true}
+            isSearchable={true}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            isDisabled={!primary_role}
+            styles={selectStyles}
+            />
+        </Col>
+        <Col md={12}><h2>SECONDARY</h2></Col>
           <Col md={4}>
             <ControlLabel>RACE</ControlLabel>
             <Select
-              value={primary_race ? {value: primary_race, label: primary_race} : null}
-              onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
+              value={secondary_race ? {value: secondary_race, label: secondary_race} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'secondary_race')}
               options={raceOptions}
               isClearable={true}
               isSearchable={true}
@@ -516,137 +584,63 @@ class Profile extends Component {
           <Col md={4}>
             <ControlLabel>ROLE</ControlLabel>
             <Select
-              value={primary_role ? {value: primary_role, label: primary_role} : null}
-              onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
-              options={primary_race ? raceRoleClassOptions[primary_race].roleOptions : []}
+              value={secondary_role ? {value: secondary_role, label: secondary_role} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'secondary_role')}
+              options={secondary_race ? raceRoleClassOptions[secondary_race].roleOptions : []}
               isClearable={true}
               isSearchable={true}
               onBlur={e => e.preventDefault()}
               blurInputOnSelect={false}
-              isDisabled={!primary_race}
+              isDisabled={!secondary_race}
               styles={selectStyles}
               />
           </Col>
           <Col md={4}>
             <ControlLabel>CLASS</ControlLabel>
             <Select
-              value={primary_class ? {value: primary_class, label: primary_class} : null}
-              onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
-              options={primary_race ? raceRoleClassOptions[primary_race].classOptions[primary_role] : []}
+              value={secondary_class ? {value: secondary_class, label: secondary_class} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'secondary_class')}
+              options={secondary_race ? raceRoleClassOptions[secondary_race].classOptions[secondary_role] : []}
               isClearable={true}
               isSearchable={true}
               onBlur={e => e.preventDefault()}
               blurInputOnSelect={false}
-              isDisabled={!primary_role}
+              isDisabled={!secondary_role}
               styles={selectStyles}
               />
           </Col>
-          <Col md={12}><h3>SECONDARY</h3></Col>
-            <Col md={4}>
-              <ControlLabel>RACE</ControlLabel>
-              <Select
-                value={secondary_race ? {value: secondary_race, label: secondary_race} : null}
-                onChange={(e, a) => this.selectOnChange(e, a, 'secondary_race')}
-                options={raceOptions}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                styles={selectStyles}
+          <Col md={12}><h2>CRAFTING</h2></Col>
+          <Col md={6}>
+            <ControlLabel>Profession</ControlLabel>
+            <Select
+              value={profession ? {value: profession, label: profession} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'profession')}
+              options={professionOptions}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              styles={selectStyles}
               />
-            </Col>
-            <Col md={4}>
-              <ControlLabel>ROLE</ControlLabel>
-              <Select
-                value={secondary_role ? {value: secondary_role, label: secondary_role} : null}
-                onChange={(e, a) => this.selectOnChange(e, a, 'secondary_role')}
-                options={secondary_race ? raceRoleClassOptions[secondary_race].roleOptions : []}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!secondary_race}
-                styles={selectStyles}
-                />
-            </Col>
-            <Col md={4}>
-              <ControlLabel>CLASS</ControlLabel>
-              <Select
-                value={secondary_class ? {value: secondary_class, label: secondary_class} : null}
-                onChange={(e, a) => this.selectOnChange(e, a, 'secondary_class')}
-                options={secondary_race ? raceRoleClassOptions[secondary_race].classOptions[secondary_role] : []}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!secondary_role}
-                styles={selectStyles}
-                />
-            </Col>
-            <Col md={12}><h3>CRAFTING</h3></Col>
-            <Col md={6}>
-              <ControlLabel>Profession</ControlLabel>
-              <Select
-                value={profession ? {value: profession, label: profession} : null}
-                onChange={(e, a) => this.selectOnChange(e, a, 'profession')}
-                options={professionOptions}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                styles={selectStyles}
-                />
-            </Col>
-            <Col md={6}>
-              <ControlLabel>Specialization</ControlLabel>
-              <Select
-                value={profession_specialization ? {value: profession_specialization, label: profession_specialization} : null}
-                onChange={(e, a) => this.selectOnChange(e, a, 'profession_specialization')}
-                options={professionSpecializationOptions[profession]}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!profession}
-                styles={selectStyles}
-                />
-            </Col>
-            <Col md={12}><h3>CONNECTIONS</h3></Col>
-            <Col md={3}>
-              <FormGroup>
-                <ControlLabel>Discord</ControlLabel>
-                <FormControl value={discord_url} name="discord_url" type="text"  onChange={this.onChange}>
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col md={3}>
-              <FormGroup>
-                <ControlLabel>Twitch</ControlLabel>
-                <FormControl value={twitch_url} name="twitch_url" type="text" onChange={this.onChange}>
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col md={3}>
-              <FormGroup>
-                <ControlLabel>Twitter</ControlLabel>
-                <FormControl value={twitter_url} name="twitter_url" type="text" onChange={this.onChange}>
-                </FormControl>
-              </FormGroup>
-            </Col>
-            
-            <Col md={3}>
-              <FormGroup>
-                <ControlLabel>YouTube</ControlLabel>
-                <FormControl value={youtube_url} name="youtube_url" type="text"  onChange={this.onChange}>
-                </FormControl>
-              </FormGroup>
-            </Col>
-            <Col md={12} style={{textAlign: 'center'}}>
-              <Button onClick={this.updateProfile} disabled={canSubmit}>Update</Button>
-            </Col>
-          </Row>
-        </Form>
-      </Grid>
+          </Col>
+          <Col md={6}>
+            <ControlLabel>Specialization</ControlLabel>
+            <Select
+              value={profession_specialization ? {value: profession_specialization, label: profession_specialization} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'profession_specialization')}
+              options={professionSpecializationOptions[profession]}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              isDisabled={!profession}
+              styles={selectStyles}
+              />
+          </Col>
+          <Col md={12} style={{textAlign: 'center', margin: '20px'}}>
+            <Button onClick={this.updateProfile} disabled={canSubmit}>Update</Button>
+          </Col>
+       </Grid>
     )
   }
 }
