@@ -363,8 +363,8 @@ class Profile extends Component {
   setImage = e => {
     var file = e.target.files[0]
     var reader = new FileReader()
-    reader.onloadend = () => this.setState({profile_image: reader.result})
     reader.readAsDataURL(file)
+    reader.onloadend = () => this.setState({profile_image: reader.result})
 }
   
 

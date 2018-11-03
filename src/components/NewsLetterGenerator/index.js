@@ -81,8 +81,16 @@ class NewsLetterGenerator extends Component {
   loadNewsletterDesign = design => this.editor.loadDesign(design)
 
   onDesignLoad = data => {
-   //console.log('onDesignLoad', data)
-   //this.editor.setMergeTags([{name: 'First Name'}])
+    //console.log('onDesignLoad', data)
+    //this.editor.setMergeTags([{name: 'First Name'}])
+
+    // Custom Image Storage in Base64
+    window.unlayer.registerCallback('image', (file, done) => {
+      const image = file.attachments[0]
+      const reader = new FileReader()
+      reader.readAsDataURL(image)
+      reader.onloadend = () => done({ progress: 100, url: reader.result })
+    })
   }
 
   updateNewsletter = () => {
@@ -131,8 +139,7 @@ class NewsLetterGenerator extends Component {
    
     const styles = {
       boxShadow: '0 2px 5px 0 rgba(0, 0, 0, 0.25)'
-    }
-      
+    } 
     return (
       !User.token ? <Redirect to={this.props.history.push("/login")}/>
       :<Grid className="NewsLetterGenerator Container fadeIn-2">

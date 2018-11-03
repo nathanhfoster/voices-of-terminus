@@ -30,7 +30,7 @@ export const updateProfile = (id, payload) => {
     const token = Cookies.get('User_LoginToken')
     const newAxios = axios.create({
         baseURL: process.env.REACT_APP_API_URL,
-        timeout: 5000,
+        timeout: 10000,
         headers: {
             'Authorization': "Token " + token,
             'Accept': 'application/json',
