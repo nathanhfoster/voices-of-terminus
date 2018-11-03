@@ -87,13 +87,13 @@ class Card extends Component {
   hasDeletePermission = (User, author) => {
     const {pathname} = this.props.history.location
     if(pathname.includes('articles')) {
-      if(User.is_admin) return true
+      if(User.is_superuser) return true
       if(User.is_staff && User.can_delete_article) return true
       if(User.id == author || User.can_delete_article) return true
     }
 
     if(pathname.includes('news')) {
-      if(User.is_admin) return true
+      if(User.is_superuser) return true
       if(User.is_staff && User.can_delete_newsletter) return true
       if(User.id == author || User.can_delete_newsletter) return true
     }
@@ -105,13 +105,13 @@ class Card extends Component {
     const {pathname} = this.props.history.location
     
     if(pathname.includes('articles')) {
-      if(User.is_admin) return true
+      if(User.is_superuser) return true
       if(User.is_staff && User.can_update_article) return true
       if(User.id == author || User.can_update_article) return true
     }
 
     if(pathname.includes('news')) {
-      if(User.is_admin) return true
+      if(User.is_superuser) return true
       if(User.is_staff && User.can_update_article) return true
       if(User.id == author || User.can_update_article) return true
     }
