@@ -121,7 +121,7 @@ class Card extends Component {
 
   render() {
     const {User, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, isMobile} = this.state
-    const hasUpdatePermission = this.hasUpdatePermission(User, author)
+
     return (
       <div className="Clickable Card Hover" onClick={this.props.click}>
         <div className="Preview">
@@ -137,7 +137,8 @@ class Card extends Component {
             <hr className="summaryTitleDivider"/>
             <div>
               {this.hasDeletePermission(User, author) ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
-              {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
+              {this.hasUpdatePermission(User, author)
+? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div>
               <h5>Author: {author_username}</h5>
