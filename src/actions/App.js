@@ -52,12 +52,23 @@ export const login = (username, password, rememberMe) => {
             type: C.SET_LOGIN_TOKEN,
             payload: res.data
          })
-        window.location.reload()
+        //window.location.reload()
     }).catch((e) => console.log(e))
     // .catch((e) => dispatch({
     //     type: C.SET_API_RESPONSE,
     //     payload: e.response
     // }))
+}
+
+export const Logout = () => {
+    Cookies.remove('User_LoginToken')
+    return async (dispatch) => {
+        await dispatch({
+        type: C.SET_LOGOUT,
+        payload: null
+    })
+    //window.location.reload()
+    }
 }
 
 export const setApiResponse = response => {
@@ -74,17 +85,6 @@ export const clearApiResponse = () => {
         type: C.SET_API_RESPONSE,
         payload: null
     })
-}
-
-export const Logout = () => {
-    Cookies.remove('User_LoginToken')
-    return async (dispatch) => {
-        await dispatch({
-        type: C.SET_LOGOUT,
-        payload: null
-    })
-    window.location.reload()
-    }
 }
 
 export const getUser = id => {

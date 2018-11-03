@@ -47,10 +47,10 @@ export const updateProfile = (id, payload) => {
             type: C.SET_LOGIN_TOKEN,
             payload: data
          })
-        // dispatch({
-        //   type: C.SET_API_RESPONSE,
-        //   payload: res
-        // })
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: res
+        })
     }).catch((e) => console.log(e))
     // .catch((e) => dispatch({
     //     type: C.SET_API_RESPONSE,

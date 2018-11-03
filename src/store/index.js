@@ -14,5 +14,5 @@ const consoleMessages = store => next => action => {
  }
 
  export default (initialState={}) => {
-   return composeWithDevTools(applyMiddleware(thunk, consoleMessages))(createStore)(appReducer, initialState)
+   return composeWithDevTools(applyMiddleware(thunk))(createStore)(appReducer, initialState)
  }

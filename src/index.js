@@ -27,8 +27,8 @@ if('serviceWorker' in navigator) {
 
 const initialState = (localStorage['redux-store']) ? JSON.parse(localStorage['redux-store']) : {}
 const store = storeFactory(initialState)
-window.React = React
-window.store = store
+// window.React = React
+// window.store = store
 
 ReactDOM.render(
   <Provider store={store}>
@@ -41,8 +41,8 @@ ReactDOM.render(
 )
 registerServiceWorker()
 
-const saveState = () => {
-    const state = JSON.stringify(store.getState())
-    localStorage['redux-store'] = state
- }
- store.subscribe(saveState)
+// const saveState = () => {
+//     const state = JSON.stringify(store.getState())
+//     localStorage['redux-store'] = state
+//  }
+//  store.subscribe(saveState)

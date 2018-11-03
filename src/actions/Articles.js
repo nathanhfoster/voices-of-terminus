@@ -44,10 +44,10 @@ export const updateArticle = (id, payload) => {
       type: C.GET_HTML_DOCUMENT,
       payload: res.data
       })
-      // dispatch({
-      //   type: C.SET_API_RESPONSE,
-      //   payload: res
-      // })
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: res
+      })
   }).catch((e) => console.log(e))
   // .catch((e) => dispatch({
   //   type: C.SET_API_RESPONSE,

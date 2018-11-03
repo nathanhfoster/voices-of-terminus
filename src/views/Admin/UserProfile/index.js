@@ -177,7 +177,7 @@ class UserProfile extends Component {
           <Col md={4} xs={6}>
             <Checkbox checked={User.is_staff} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: !User.is_staff}} }))}>
             <span className="checkBoxText">Staff</span>
-            <span className="help">Designates whether the user can log into this admin site.</span>
+            <span className="help">Designates whether the user can log into Django backend admin site.</span>
             </Checkbox>
           </Col>
         </Row>
