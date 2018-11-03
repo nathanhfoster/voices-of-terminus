@@ -445,8 +445,10 @@ class Profile extends Component {
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
-        <Form>
-          <Col xs={12}><h2 className="headerBanner">ACCOUNT</h2></Col>
+        <Row>
+          <h2 className="headerBanner">ACCOUNT</h2>
+        </Row>
+        <Row>
           <Col md={4}>
             <Image src={profile_image} style={{maxHeight: '250px'}} responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
@@ -492,7 +494,9 @@ class Profile extends Component {
               <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
             </FormGroup>
           </Col>
-          <Col md={12}><h2 className="headerBanner">CONNECTIONS</h2></Col>
+        </Row>
+        <Row><h2 className="headerBanner">CONNECTIONS</h2></Row>
+        <Row>
           <Col md={3}>
             <FormGroup>
               <ControlLabel>Discord</ControlLabel>
@@ -518,9 +522,10 @@ class Profile extends Component {
               <FormControl value={youtube_url} name="youtube_url" type="text"  onChange={this.onChange} />
             </FormGroup>
           </Col>
-        </Form>
-        <Col md={12}><h2 className="headerBanner">PRIMARY</h2></Col>
-        <Col md={4}>
+        </Row>
+        <Row><h2 className="headerBanner">PRIMARY</h2></Row>
+        <Row>
+          <Col md={4}>
           <ControlLabel>RACE</ControlLabel>
           <Select
             value={primary_race ? {value: primary_race, label: primary_race} : null}
@@ -561,7 +566,9 @@ class Profile extends Component {
             styles={selectStyles}
             />
         </Col>
-        <Col md={12}><h2 className="headerBanner">SECONDARY</h2></Col>
+        </Row>
+        <Row><h2 className="headerBanner">SECONDARY</h2></Row>
+        <Row>
           <Col md={4}>
             <ControlLabel>RACE</ControlLabel>
             <Select
@@ -603,7 +610,9 @@ class Profile extends Component {
               styles={selectStyles}
               />
           </Col>
-          <Col md={12}><h2 className="headerBanner">CRAFTING</h2></Col>
+        </Row>
+        <Row><h2 className="headerBanner">CRAFTING</h2></Row>
+        <Row>
           <Col md={6}>
             <ControlLabel>Profession</ControlLabel>
             <Select
@@ -634,6 +643,7 @@ class Profile extends Component {
           <Col md={12} style={{textAlign: 'center', margin: '20px'}}>
             <Button onClick={this.updateProfile} disabled={canSubmit}>Update</Button>
           </Col>
+        </Row>
        </Grid>
     )
   }
