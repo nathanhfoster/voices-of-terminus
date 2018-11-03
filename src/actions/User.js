@@ -15,15 +15,16 @@ const qs = require('qs')
                 type: C.SET_LOGIN_TOKEN,
                 payload: res.data
              })
-        }).catch((e) => dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: e.response
-        }))
-    })
-    .catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+        }).catch((e) => console.log(e))
+        // .catch((e) => dispatch({
+        //     type: C.SET_API_RESPONSE,
+        //     payload: e.response
+        // }))
+    }).catch((e) => console.log(e))
+    // .catch((e) => dispatch({
+    //     type: C.SET_API_RESPONSE,
+    //     payload: e.response
+    // }))
 }
 
 export const updateProfile = (id, payload) => {
@@ -46,12 +47,13 @@ export const updateProfile = (id, payload) => {
             type: C.SET_LOGIN_TOKEN,
             payload: data
          })
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
-        })
-    }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+        // dispatch({
+        //   type: C.SET_API_RESPONSE,
+        //   payload: res
+        // })
+    }).catch((e) => console.log(e))
+    // .catch((e) => dispatch({
+    //     type: C.SET_API_RESPONSE,
+    //     payload: e.response
+    // }))
 }

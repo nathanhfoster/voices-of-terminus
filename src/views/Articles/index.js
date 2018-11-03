@@ -8,7 +8,6 @@ import Card from '../../components/Card'
 import {getArticles} from '../../actions/Articles'
 import {withRouter} from 'react-router-dom'
 import {getArticle, updateArticle, deleteArticle} from '../../actions/Articles'
-import {clearHtmlDocument} from '../../actions/App'
 
 const mapStateToProps = ({Articles, User}) => ({
   Articles,
@@ -19,8 +18,7 @@ const mapDispatchToProps = {
   getArticle,
   getArticles,
   updateArticle,
-  deleteArticle,
-  clearHtmlDocument
+  deleteArticle
 }
 
 class Articles extends Component {

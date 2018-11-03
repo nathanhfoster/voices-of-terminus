@@ -6,7 +6,6 @@ import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
 import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
-import {clearHtmlDocument} from '../../actions/App'
 import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
 import Card from '../Card'
@@ -22,8 +21,7 @@ const mapDispatchToProps = {
   getNewsletters,
   getNewsLetter,
   deleteNewsLetter,
-  updateNewsLetter,
-  clearHtmlDocument,
+  updateNewsLetter
 }
 
 class NewsLetterGenerator extends Component {
@@ -63,7 +61,6 @@ class NewsLetterGenerator extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearHtmlDocument()
     this.setState({HtmlDocument: null})
   }
 

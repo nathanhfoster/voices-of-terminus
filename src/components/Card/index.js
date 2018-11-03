@@ -86,14 +86,13 @@ class Card extends Component {
 
   hasDeletePermission = (User, author) => {
     const {pathname} = this.props.history.location
-
     if(pathname.includes('articles')) {
       if(User.is_admin) return true
       if(User.is_staff && User.can_delete_article) return true
       if(User.id == author || User.can_delete_article) return true
     }
 
-    if(pathname.includes('newsletters')) {
+    if(pathname.includes('news')) {
       if(User.is_admin) return true
       if(User.is_staff && User.can_delete_newsletter) return true
       if(User.id == author || User.can_delete_newsletter) return true
@@ -104,14 +103,14 @@ class Card extends Component {
 
   hasUpdatePermission = (User, author) => {
     const {pathname} = this.props.history.location
-
+    
     if(pathname.includes('articles')) {
       if(User.is_admin) return true
       if(User.is_staff && User.can_update_article) return true
       if(User.id == author || User.can_update_article) return true
     }
 
-    if(pathname.includes('newsletters')) {
+    if(pathname.includes('news')) {
       if(User.is_admin) return true
       if(User.is_staff && User.can_update_article) return true
       if(User.id == author || User.can_update_article) return true
@@ -122,7 +121,6 @@ class Card extends Component {
 
   render() {
     const {User, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, isMobile} = this.state
-    const hasDeletePermission = this.hasDeletePermission(User, author)
     const hasUpdatePermission = this.hasUpdatePermission(User, author)
     return (
       <div className="Clickable Card Hover" onClick={this.props.click}>
@@ -138,7 +136,7 @@ class Card extends Component {
             </div>
             <hr className="summaryTitleDivider"/>
             <div>
-              {hasDeletePermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+              {this.hasDeletePermission(User, author) ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
               {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div>

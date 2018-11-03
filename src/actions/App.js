@@ -15,7 +15,7 @@ export const getVoTYouTubeChannelData = () => {
                 type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
                 payload: res.latest
             })
-        }).catch((e) => console.log(e.response))
+        }).catch((e) => console.log(e))
 }
 
 export const getAllVRYouTube = () => {
@@ -25,7 +25,7 @@ export const getAllVRYouTube = () => {
                 type: C.GET_ALL_VR_YOUTUBE_CHANNEL_DATA,
                 payload:res
             })
-        }).catch((e) => console.log(e.response))
+        }).catch((e) => console.log(e))
 }
 
 export const getVRYouTubeChannelData = () => {
@@ -35,7 +35,7 @@ export const getVRYouTubeChannelData = () => {
                 type: C.GET_VR_YOUTUBE_CHANNEL_DATA,
                 payload: res.latest
             })
-        }).catch((e) => console.log(e.response))
+        }).catch((e) => console.log(e))
 }
 
 export const setWindow = Window => ({
@@ -53,10 +53,11 @@ export const login = (username, password, rememberMe) => {
             payload: res.data
          })
         window.location.reload()
-    }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+    }).catch((e) => console.log(e))
+    // .catch((e) => dispatch({
+    //     type: C.SET_API_RESPONSE,
+    //     payload: e.response
+    // }))
 }
 
 export const setApiResponse = response => {
@@ -74,11 +75,6 @@ export const clearApiResponse = () => {
         payload: null
     })
 }
-
-export const clearHtmlDocument = () => ({
-    type: C.CLEAR_HTML_DOCUMENT,
-    payload: null
-})
 
 export const Logout = () => {
     Cookies.remove('User_LoginToken')
@@ -99,5 +95,5 @@ export const getUser = id => {
            type: C.SET_LOGIN_TOKEN,
            payload: res.data
          })
-       }).catch((e) => console.log(e.response))
-  }
+       }).catch((e) => console.log(e))
+}

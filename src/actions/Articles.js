@@ -5,14 +5,15 @@ const qs = require('qs')
 export const postDocument = payload => {
   return async (dispatch) => { await Axios.post('articles/', qs.stringify(payload))
     .then(res => {
-      dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: res
-        })
-    }).catch((e) => dispatch({
-      type: C.SET_API_RESPONSE,
-      payload: e.response
-    }))
+      // dispatch({
+      //   type: C.SET_API_RESPONSE,
+      //   payload: res
+      //   })
+    }).catch((e) => console.log(e))
+    // .catch((e) => dispatch({
+    //   type: C.SET_API_RESPONSE,
+    //   payload: e.response
+    // }))
   }
 }
 
@@ -23,7 +24,7 @@ export const getArticles = () => {
          type: C.GET_ARTICLES,
          payload: res.data
        })
-     }).catch((e) => console.log(e.response))
+     }).catch((e) => console.log(e))
 }
 
 export const getArticle = id => {
@@ -33,7 +34,7 @@ export const getArticle = id => {
            type: C.GET_HTML_DOCUMENT,
            payload: res.data
        })
-     }).catch((e) => console.log(e.response))
+     }).catch((e) => console.log(e))
 }
 
 export const updateArticle = (id, payload) => {
@@ -43,14 +44,15 @@ export const updateArticle = (id, payload) => {
       type: C.GET_HTML_DOCUMENT,
       payload: res.data
       })
-      dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: res
-      })
-  }).catch((e) => dispatch({
-    type: C.SET_API_RESPONSE,
-    payload: e.response
-    }))
+      // dispatch({
+      //   type: C.SET_API_RESPONSE,
+      //   payload: res
+      // })
+  }).catch((e) => console.log(e))
+  // .catch((e) => dispatch({
+  //   type: C.SET_API_RESPONSE,
+  //   payload: e.response
+  //   }))
 }
 
 export const deleteArticle = id => {
@@ -61,5 +63,5 @@ export const deleteArticle = id => {
         type: C.GET_ARTICLES,
         payload: Articles.filter(article => article.id !== id)
       })
-  }).catch((e) => console.log(e.response))
+  }).catch((e) => console.log(e))
 }

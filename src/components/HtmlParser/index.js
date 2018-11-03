@@ -7,7 +7,6 @@ import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 import {getNewsLetter} from '../../actions/NewsLetter'
 import {getArticle} from '../../actions/Articles'
-import {clearHtmlDocument} from '../../actions/App'
 
 const mapStateToProps = ({HtmlDocument}) => ({
   HtmlDocument
@@ -15,8 +14,7 @@ const mapStateToProps = ({HtmlDocument}) => ({
 
 const mapDispatchToProps = {
   getNewsLetter,
-  getArticle,
-  clearHtmlDocument
+  getArticle
 }
 
 class HtmlParser extends Component {
@@ -54,7 +52,6 @@ class HtmlParser extends Component {
   }
 
   componentWillUnmount() {
-    //this.props.clearHtmlDocument()
     this.setState({HtmlDocument: null})
   }
 

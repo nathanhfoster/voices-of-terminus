@@ -5,14 +5,15 @@ const qs = require('qs')
 export const postNewsletter = payload => {
     return async (dispatch) => { await  Axios.post('newsletters/', qs.stringify(payload))
       .then(res => {
-        dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-            })
-      }).catch((e) => dispatch({
-      type: C.SET_API_RESPONSE,
-      payload: e.response
-      }))
+        // dispatch({
+        //     type: C.SET_API_RESPONSE,
+        //     payload: res
+        //     })
+      }).catch((e) => console.log(e))
+    //   .catch((e) => dispatch({
+    //   type: C.SET_API_RESPONSE,
+    //   payload: e.response
+    //   }))
     }
 }
 
@@ -23,7 +24,7 @@ export const getNewsletters = () => {
              type: C.GET_NEWSLETTERS,
              payload: res.data
             })
-       }).catch((e) => console.log(e.response))
+       }).catch((e) => console.log(e))
 }
 
 export const getNewsLetter = id => {
@@ -33,7 +34,7 @@ export const getNewsLetter = id => {
              type: C.GET_HTML_DOCUMENT,
              payload: res.data
             })
-       }).catch((e) => console.log(e.response))
+       }).catch((e) => console.log(e))
 }
 
 export const updateNewsLetter = (id, payload) => {
@@ -43,14 +44,15 @@ export const updateNewsLetter = (id, payload) => {
             type: C.GET_HTML_DOCUMENT,
             payload: res.data
         })
-        dispatch ({
-            type: C.SET_API_RESPONSE,
-            payload: res
-        })
-    }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-    }))
+        // dispatch ({
+        //     type: C.SET_API_RESPONSE,
+        //     payload: res
+        // })
+    }).catch((e) => console.log(e))
+    // .catch((e) => dispatch({
+    //     type: C.SET_API_RESPONSE,
+    //     payload: e.response
+    // }))
 }
 
 export const deleteNewsLetter = id => {
@@ -62,5 +64,5 @@ export const deleteNewsLetter = id => {
             type: C.GET_NEWSLETTERS,
             payload: payload
         })
-    }).catch((e) => console.log(e.response))
+    }).catch((e) => console.log(e))
 }

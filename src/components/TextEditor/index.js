@@ -10,7 +10,6 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
-import {clearHtmlDocument} from '../../actions/App'
 import {postDocument, updateArticle} from '../../actions/Articles'
 import {withRouter, Redirect} from 'react-router-dom'
 
@@ -22,7 +21,6 @@ const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
 
 const mapDispatchToProps = {
   postDocument,
-  clearHtmlDocument,
   setEditorState,
   updateArticle
 }
@@ -87,7 +85,6 @@ class TextEditor extends Component {
 
   componentWillUnmount() {
     const {editorState} = this.state
-    this.props.clearHtmlDocument()
     this.props.setEditorState(editorState)
   }
 
