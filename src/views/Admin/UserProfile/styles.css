@@ -1,9 +1,10 @@
 .UserProfile {
-    min-width: 75%;
+
 }
 
 .headerBanner {
-    background: linear-gradient(to right, rgba(255, 153, 0, 1) calc(240px + 5%), transparent 100%);
+    background: linear-gradient(to right, rgba(255, 153, 0, 1) calc(240px + 5%), rgba(163, 163, 172, 0.3) calc(240px + 15%), rgba(163, 163, 172, 0.15) 100%);
+    margin: 0;
     padding: 8px;
 }
 
@@ -62,19 +63,18 @@ meter::-webkit-meter-optimum-value {
   /* All Progress Bars */
 progress:before {
     position: relative;
-    top: 25px;
-    bottom: 25px;
+    top: 32px;
     content: attr(value) ' / ' attr(max) ' EXP';
 }
 progress {
-    height: 25px;
+    height: 30px;
     width: 100%;
     text-align:center;
     /* Reset the default appearance */
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
-    margin-bottom: 65px;
+    margin-bottom: 76px;
 }
 
 /* Determinate */

@@ -142,7 +142,7 @@ class App extends Component {
     const {ApiResponse, Window, User, location} = props
     if(ApiResponse) this.alertApiResponse(ApiResponse)
     /* Check if User permissions have changed every 10 seconds */
-    if(Cookies.get('User_LoginToken') && this.props.User.id && location.pathname !== '/profile') this.interval = setInterval(() => this.props.getUser(this.props.User.id), 10000)
+    if(Cookies.get('User_LoginToken') && this.props.User.id && !location.pathname.includes('/profile')) this.interval = setInterval(() => this.props.getUser(this.props.User.id), 10000)
     this.setState({ApiResponse, Window, User})
   }
 
