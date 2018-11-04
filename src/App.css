@@ -31,9 +31,6 @@
   text-align: center;
 }
 
-.fadeThrough {
-  height: 100vh;
-}
 
 
 .dropdown-menu {
@@ -41,6 +38,7 @@
 }
 
 ::-webkit-scrollbar {
+  display: none;
   height: 8px;
   width: 8px;
   background-color: rgba(189,189,189,0.4);
