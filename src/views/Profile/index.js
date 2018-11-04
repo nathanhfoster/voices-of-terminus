@@ -10,6 +10,7 @@ import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../helpers/styles'
 import FormData from 'form-data'
+import { withAlert } from 'react-alert'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -361,10 +362,15 @@ class Profile extends Component {
   }
 
   setImage = e => {
+    const {alert} = this.props
     var file = e.target.files[0]
-    var reader = new FileReader()
-    reader.readAsDataURL(file)
-    reader.onloadend = () => this.setState({profile_image: reader.result})
+    if(file.size > 5242880) {
+      alert.error(<div>Please use an image less then 5MB</div>)
+    }else {
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => this.setState({profile_image: reader.result})
+    }
 }
   
 
@@ -648,4 +654,4 @@ class Profile extends Component {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Profile)
+export default withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(Profile))
