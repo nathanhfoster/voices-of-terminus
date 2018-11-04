@@ -97,3 +97,9 @@ export const getUser = id => {
          })
        }).catch((e) => console.log(e))
 }
+
+export const clearHtmlDocument = () => 
+    async (dispatch) => await dispatch ({
+         type: C.GET_HTML_DOCUMENT,
+         payload: {}
+     })
