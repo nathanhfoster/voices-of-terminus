@@ -217,7 +217,7 @@ class UserProfile extends Component {
           </Col>
           <Col md={4} xs={6}>
             <Checkbox checked={User.is_recruit} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruit: !User.is_recruit}} }))}>
-            <span className="checkBoxText">Recruit Member</span>
+            <span className="checkBoxText">Recruit</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
