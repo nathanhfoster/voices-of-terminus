@@ -21,7 +21,7 @@ class GuildCalendar extends Component {
     super(props)
  
     this.state = {
-      activeDate: Date,
+      activeDate: null,
       events: PropTypes.array,
       isMobile: false
     }
@@ -36,20 +36,20 @@ class GuildCalendar extends Component {
   static defaultProps = {
     activeDate: new Date(),
     events: [
-      {key: 1, name: 'Event 1',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 2, name: 'Event 2',   startTime: new Date(2018, 9, 3, 10, 30), endTime: new Date(2018, 9, 3, 12, 30)},
-      {key: 3, name: 'Event 3',   startTime: new Date(2018, 9, 4, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
-      {key: 4, name: 'Event 4',   startTime: new Date(2018, 9, 4, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
-      {key: 5, name: 'Event 5',   startTime: new Date(2018, 9, 24, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
-      {key: 6, name: 'Event 6',   startTime: new Date(2018, 9, 5, 10, 30), endTime: new Date(2018, 9, 4, 12, 30)},
-      {key: 7, name: 'Event 7',   startTime: new Date(2018, 9, 5, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 8, name: 'Event 8',   startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 9, name: 'Event 9',   startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 10, name: 'Event 10', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 11, name: 'Event 11', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 12, name: 'Event 12', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 13, name: 'Event 13', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
-      {key: 14, name: 'Event 14', startTime: new Date(2018, 9, 25, 10, 30), endTime: new Date(2018, 9, 5, 12, 30)},
+      {key: 1, name: 'Event 1',   startTime: new Date(2018, 10, 3, 10, 30), endTime: new Date(2018, 10, 3, 12, 30)},
+      {key: 2, name: 'Event 2',   startTime: new Date(2018, 10, 3, 10, 30), endTime: new Date(2018, 10, 3, 12, 30)},
+      {key: 3, name: 'Event 3',   startTime: new Date(2018, 10, 4, 10, 30), endTime: new Date(2018, 10, 4, 12, 30)},
+      {key: 4, name: 'Event 4',   startTime: new Date(2018, 10, 4, 10, 30), endTime: new Date(2018, 10, 4, 12, 30)},
+      {key: 5, name: 'Event 5',   startTime: new Date(2018, 10, 24, 10, 30), endTime: new Date(2018, 10, 4, 12, 30)},
+      {key: 6, name: 'Event 6',   startTime: new Date(2018, 10, 5, 10, 30), endTime: new Date(2018, 10, 4, 12, 30)},
+      {key: 7, name: 'Event 7',   startTime: new Date(2018, 10, 5, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 8, name: 'Event 8',   startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 9, name: 'Event 9',   startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 10, name: 'Event 10', startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 11, name: 'Event 11', startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 12, name: 'Event 12', startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 13, name: 'Event 13', startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
+      {key: 14, name: 'Event 14', startTime: new Date(2018, 10, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
       {key: 15, name: 'Event 14', startTime: new Date(2018, 8, 25, 10, 30), endTime: new Date(2018, 10, 5, 12, 30)},
     ]
   }
@@ -66,7 +66,8 @@ class GuildCalendar extends Component {
   }
 
   getState = props => {
-    const {activeDate, events, Window} = props
+    const {events, Window} = props
+    const {activeDate} = this.state.activeDate ? this.state : props
     this.setState({activeDate, events, Window})
   }
 
@@ -97,9 +98,7 @@ class GuildCalendar extends Component {
     )
 }
 
-  Today = () => {
-    this.setState({activeDate: new Date()})
-  }
+  Today = () => this.setState({activeDate: new Date()})
 
   onActiveDateChange = ({ activeStartDate, view }) => this.setState({activeDate: activeStartDate})
 

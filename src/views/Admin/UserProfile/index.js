@@ -26,6 +26,7 @@ class UserProfile extends Component {
     super(props)
  
     this.state = {
+      Admin: {User: null}
     }
   }
 
@@ -83,10 +84,10 @@ class UserProfile extends Component {
   }
 
   getState = props => {
-    const {Admin, match} = props
-    const {id} = match.params
+    const {Admin} = this.state.Admin.User && this.state.Admin.User.hasOwnProperty('id') ? this.state : props
+    const {id} = props.match.params
 
-    this.setState({Admin, match, id})
+    this.setState({Admin, id})
   }
 
   componentDidUpdate() {
@@ -99,14 +100,16 @@ class UserProfile extends Component {
   onChange = e => this.setState({[e.target.name]: e.target.value})
 
   updateUserProfile = () => {
-    const {id, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
+    const {id, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_senior_member, is_junior_member, is_recruit,
+      is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead,
       can_create_article, can_create_newsletter, can_create_calendar_event,
       can_read_article, can_read_newsletter, can_read_calendar_event,
       can_update_article, can_update_newsletter, can_update_calendar_event,
       can_delete_article, can_delete_newsletter, can_delete_calendar_event
     } = this.state.Admin.User
       
-    const payload = {is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_member,
+    const payload = {is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_senior_member, is_junior_member, is_recruit,
+      is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead,
       can_create_article, can_create_newsletter, can_create_calendar_event,
       can_read_article, can_read_newsletter, can_read_calendar_event,
       can_update_article, can_update_newsletter, can_update_calendar_event,
@@ -200,10 +203,22 @@ class UserProfile extends Component {
             <span className="help">Will show up as an Officer in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
-            <Checkbox checked={User.is_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: !User.is_officer}} }))}>
-            <span className="checkBoxText">Member</span>
-            <span className="help">Will show up as a Guild Member in the guild roster.</span>
+          <Col md={4} xs={6}>
+            <Checkbox checked={User.is_senior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_senior_member: !User.is_senior_member}} }))}>
+            <span className="checkBoxText">Senior Member</span>
+            <span className="help">Will show up as a Member in the guild roster.</span>
+            </Checkbox>
+          </Col>
+          <Col md={4} xs={6}>
+            <Checkbox checked={User.is_junior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_junior_member: !User.is_junior_member}} }))}>
+            <span className="checkBoxText">Junior Member</span>
+            <span className="help">Will show up as a Member in the guild roster.</span>
+            </Checkbox>
+          </Col>
+          <Col md={4} xs={6}>
+            <Checkbox checked={User.is_recruit} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruit: !User.is_recruit}} }))}>
+            <span className="checkBoxText">Recruit Member</span>
+            <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
         </Row>
@@ -261,6 +276,41 @@ class UserProfile extends Component {
             </Checkbox>
             <Checkbox checked={User.can_delete_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_calendar_event: !User.can_delete_calendar_event}} }))}>
             Calendar Events
+            </Checkbox>
+          </Col>
+        </Row>
+        <Row>
+          <h2 className="headerBanner">ROLES</h2>
+        </Row>
+        <Row className="checkBoxTable">
+          <Col md={3} xs={12}>
+            <Checkbox checked={User.is_raid_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_raid_leader: !User.is_raid_leader}} }))}>
+            <span className="checkBoxText">Raid Leader</span>
+            <span className="help">Raid Leader</span>
+            </Checkbox>
+          </Col>
+          <Col md={3} xs={6}>
+            <Checkbox checked={User.is_banker} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_banker: !User.is_banker}} }))}>
+            <span className="checkBoxText">Banker</span>
+            <span className="help">Banker</span>
+            </Checkbox>
+          </Col>
+          <Col md={3} xs={6}>
+            <Checkbox checked={User.is_recruiter} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruiter: !User.is_recruiter}} }))}>
+            <span className="checkBoxText">Recruiter</span>
+            <span className="help">Recruiter</span>
+            </Checkbox>
+          </Col>
+          <Col md={3} xs={6}>
+            <Checkbox checked={User.is_class_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_class_lead: !User.is_class_lead}} }))}>
+            <span className="checkBoxText">Class Lead</span>
+            <span className="help">Class Lead</span>
+            </Checkbox>
+          </Col>
+          <Col md={3} xs={6}>
+            <Checkbox checked={User.is_crafter_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_crafter_lead: !User.is_crafter_lead}} }))}>
+            <span className="checkBoxText">Crafter Lead</span>
+            <span className="help">Crafter Lead</span>
             </Checkbox>
           </Col>
         </Row>

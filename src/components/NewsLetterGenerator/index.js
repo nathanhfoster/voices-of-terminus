@@ -31,7 +31,15 @@ class NewsLetterGenerator extends Component {
     this.handleHide = this.handleHide.bind(this)
  
     this.state = {
-      show: false
+      show: false,
+      User: null,
+      Newsletters: null, 
+      HtmlDocument: null, 
+      author: null, 
+      tags: null, 
+      title: null, 
+      id: null,
+      loadOnce: true
     }
   }
 
@@ -54,9 +62,9 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
-    const {User, Newsletters, HtmlDocument, match} = props
+    const {User, Newsletters, HtmlDocument} = props
     const {author, tags, title} = HtmlDocument
-    const {id} = match ? match.params : null
+    const {id} = props.match.params
     this.setState({User, Newsletters, HtmlDocument, author, tags, title, id})
   }
 
@@ -77,8 +85,8 @@ class NewsLetterGenerator extends Component {
 
   loadNewsletterDesign = design => this.editor.loadDesign(design)
 
-  onDesignLoad = data => {
-    //console.log('onDesignLoad', data)
+  onDesignLoad = design => {
+    console.log('ONDEIGNKOAD')
     //this.editor.setMergeTags([{name: 'First Name'}])
 
     // Custom Image Storage in Base64
@@ -93,7 +101,7 @@ class NewsLetterGenerator extends Component {
   updateNewsletter = () => {
     const {title, tags, id} = this.state
     this.editor.exportHtml(data => {
-      let { design, html } = data
+      let {design, html} = data
       design = JSON.stringify(design)
       this.props.updateNewsLetter(id, {title, tags, design, html})
     })
@@ -130,7 +138,7 @@ class NewsLetterGenerator extends Component {
     const {User, Newsletters, HtmlDocument, author, tags, title, id} = this.state
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
-    const design = HtmlDocument.hasOwnProperty('design') ? JSON.parse(HtmlDocument.design) : null
+    const design = HtmlDocument.design ? JSON.parse(HtmlDocument.design) : null
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
     const isEditingDesign = id && design && this.editor && window.unlayer
    
@@ -165,11 +173,16 @@ class NewsLetterGenerator extends Component {
         </Row>
         <Row>
           <EmailEditor 
-          id = 'editor'
-          projectId = '1558'
-          templateId = "UVUlFBYAZkRx58DwbDkC3BU4JrEmCW9AN8flo4vYtEAg9h1ULftKMXpu2UIEGDZs"
-          minHeight="calc(100vh - 58px)" ref={editor => this.editor = editor} style={styles} 
-          onDesignLoad={this.onDesignLoad} onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}/>
+            id = 'editor'
+            projectId = '1558'
+            templateId = "UVUlFBYAZkRx58DwbDkC3BU4JrEmCW9AN8flo4vYtEAg9h1ULftKMXpu2UIEGDZs"
+            minHeight = "calc(100vh - 58px)"
+            ref={editor => this.editor = editor}
+            style={styles} 
+            onDesignLoad = {this.onDesignLoad}
+            onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
+            onChange = {(e) => console.log("ONCHANGE", e)}
+          />
         </Row> 
         <Row>
           <Modal
