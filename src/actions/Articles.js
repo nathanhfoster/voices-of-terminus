@@ -5,15 +5,14 @@ const qs = require('qs')
 export const postDocument = payload => {
   return async (dispatch) => { await Axios.post('articles/', qs.stringify(payload))
     .then(res => {
-      // dispatch({
-      //   type: C.SET_API_RESPONSE,
-      //   payload: res
-      //   })
-    }).catch((e) => console.log(e))
-    // .catch((e) => dispatch({
-    //   type: C.SET_API_RESPONSE,
-    //   payload: e.response
-    // }))
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: res
+        })
+    }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
   }
 }
 
@@ -48,11 +47,10 @@ export const updateArticle = (id, payload) => {
         type: C.SET_API_RESPONSE,
         payload: res
       })
-  }).catch((e) => console.log(e))
-  // .catch((e) => dispatch({
-  //   type: C.SET_API_RESPONSE,
-  //   payload: e.response
-  //   }))
+  }).catch((e) => dispatch({
+      type: C.SET_API_RESPONSE,
+      payload: e.response
+    }))
 }
 
 export const deleteArticle = id => {
