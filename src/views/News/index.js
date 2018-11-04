@@ -61,7 +61,7 @@ class News extends Component {
       <Col className="CardContainer" md={6}>
         <Card
           {...card}
-          click={() => this.props.history.push('/news/' + card.id)}
+          click={() => {this.props.getNewsLetter(card.id); this.props.history.push('/news/' + card.id)}}
           editCard={this.props.getNewsLetter}
           deleteCard={this.props.deleteNewsLetter}
           summary={true}

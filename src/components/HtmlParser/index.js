@@ -38,8 +38,8 @@ class HtmlParser extends Component {
   componentDidMount() {
     const {match} = this.props
     const path = match ? match.path : ' '
-    if(path.includes('news')) this.props.getNewsLetter(match.params.id)
-    if(path.includes('articles')) this.props.getArticle(match.params.id)
+   // if(path.includes('news')) this.props.getNewsLetter(match.params.id)
+    //if(path.includes('articles')) this.props.getArticle(match.params.id)
   }
   
   componentWillReceiveProps(nextProps) {

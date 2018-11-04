@@ -59,7 +59,7 @@ class Articles extends Component {
       <Col className="CardContainer" md={3}>
         <Card
           {...card}
-          click={() => this.props.history.push('/articles/' + card.id)}
+          click={() => {this.props.getArticle(card.id); this.props.history.push('/articles/' + card.id)}}
           editCard={this.props.getArticle}
           deleteCard={this.props.deleteArticle}
           summary={true}
