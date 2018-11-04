@@ -270,13 +270,7 @@ a, a:focus, a:active, a:visited {
     -o-animation: fadein 1s; /* Opera < 12.1 */
        animation: fadein 1s;
 }
-.fadeIn-10 {
-  -webkit-animation: fadein 10s; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 10s; /* Firefox < 16 */
-   -ms-animation: fadein 10s; /* Internet Explorer */
-    -o-animation: fadein 10s; /* Opera < 12.1 */
-       animation: fadein 10s;
-}
+
 @keyframes fadein {
   from { opacity: 0; }
   to   { opacity: 1; }
