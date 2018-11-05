@@ -112,7 +112,7 @@ class Roster extends Component {
             {this.renderPeople('#0f0', SeniorMembers)}
           </Row>
           <Row>
-            <h3>Junior Members Members</h3>
+            <h3>Junior Members</h3>
             {this.renderPeople('#0f0', JuniorMembers)}
           </Row>
           <Row>
