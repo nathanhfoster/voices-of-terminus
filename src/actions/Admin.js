@@ -2,8 +2,8 @@ import C from '../constants'
 import {Axios} from './Axios'
 const qs = require('qs')
 
-export const getUsers = token => {
-    return async (dispatch) => await Axios(token).get('users/')
+export const getUsers = () => {
+    return async (dispatch) => await Axios().get('users/')
        .then(res => {
          dispatch({
            type: C.GET_USERS,

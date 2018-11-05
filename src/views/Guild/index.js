@@ -14,15 +14,14 @@ import Team from './Team'
 import Join from './Join'
 import ScrollTextBox from '../../components/ScrollTextBox'
 import {getGuildMembers} from '../../actions/Guild'
-import {getUsers} from '../../actions/Admin'
+
 
 const mapStateToProps = ({User}) => ({
   User
 })
 
 const mapDispatchToProps = {
-  getGuildMembers,
-  getUsers
+  getGuildMembers
 }
 
 class Guild extends Component {
@@ -59,9 +58,8 @@ class Guild extends Component {
   }
 
   componentDidMount() {
-    const {token} = this.props.User
-    this.props.getGuildMembers()
-    this.props.getUsers(token)
+    //this.props.getGuildMembers()
+    
   }
   
   componentWillReceiveProps(nextProps) {

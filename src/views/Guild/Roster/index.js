@@ -4,6 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 import EventList from '../../../components/EventList'
+import {getUsers} from '../../../actions/Admin'
 
 
 const mapStateToProps = ({Admin, DiscordData}) => ({
@@ -12,6 +13,7 @@ const mapStateToProps = ({Admin, DiscordData}) => ({
 })
 
 const mapDispatchToProps = {
+  getUsers
 }
 
 class Roster extends Component {
@@ -56,6 +58,7 @@ class Roster extends Component {
   }
 
   componentDidMount() {
+    this.props.getUsers()
   }
   
   componentWillReceiveProps(nextProps) {
@@ -78,12 +81,12 @@ class Roster extends Component {
 
   render() {
     const {Admin, guildMembers} = this.state
-    const Leaders = Admin.Users ? Admin.Users.filter(user => user.is_leader) : []
-    const Council = Admin.Users ? Admin.Users.filter(user => user.is_council) : []
+    const Leaders = Admin.Users ? Admin.Users.filter(user => user.is_leader) : this.props.Leaders
+    const Council = Admin.Users ? Admin.Users.filter(user => user.is_council) : this.props.Council
     const GeneralOfficers = Admin.Users ? Admin.Users.filter(user => user.is_general_officer) : []
-    const Officers = Admin.Users ? Admin.Users.filter(user => user.is_officer) : []
+    const Officers = Admin.Users ? Admin.Users.filter(user => user.is_officer) : this.props.Officers
     const SeniorMembers = Admin.Users ? Admin.Users.filter(user => user.is_senior_member) : []
-    const JuniorMembers = Admin.Users ? Admin.Users.filter(user => user.is_member) : []
+    const JuniorMembers = Admin.Users ? Admin.Users.filter(user => user.is_junior_member) : this.props.Members
     const Recruits = Admin.Users ? Admin.Users.filter(user => user.is_recruit) : []
     return (
       <div className="Roster">
