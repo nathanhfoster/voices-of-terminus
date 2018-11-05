@@ -454,10 +454,10 @@ class Profile extends Component {
           <h2 className="headerBanner">ACCOUNT</h2>
         </Row>
         <Row>
-          <Col md={4}>
-            <Image src={profile_image} style={{maxHeight: '250px'}} responsive rounded/>
+          <Col md={4} style={{textAlign: 'center'}}>
+            <Image src={profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
-            <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} />
+            <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
           </Col>
           <Col md={4} xs={6} className="borderCol"><h3>Joined:  <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
           <Col md={4} xs={6}><h3>Last Login:  <Moment fromNow>{last_login}</Moment></h3></Col>

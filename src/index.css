@@ -166,7 +166,6 @@ body {
 .Container input, .Container select, .Container textarea {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);
-  height: var(--inputHeight);
 }
 .Hover:hover {
   border-color: var(--primaryColor);
