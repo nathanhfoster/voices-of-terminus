@@ -373,7 +373,6 @@ class Profile extends Component {
     }
 }
   
-
   validateUsername() {
     const {username} = this.state
     if(username) {

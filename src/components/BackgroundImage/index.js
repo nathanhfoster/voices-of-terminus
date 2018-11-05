@@ -12,12 +12,15 @@ import bg4 from '../../images/backgrounds/bg4.jpg'
 import bg5 from '../../images/backgrounds/bg5.jpg'
 import bg6 from '../../images/backgrounds/bg6.jpg'
 import bg7 from '../../images/backgrounds/bg7.jpg'
-import bg1M from '../../images/backgrounds/bg1M.png'
-import bg2M from '../../images/backgrounds/bg2M.png'
-import bg3M from '../../images/backgrounds/bg3M.png'
-import bg4M from '../../images/backgrounds/bg4M.png'
-import bg5M from '../../images/backgrounds/bg5M.png'
-import bg6M from '../../images/backgrounds/bg6M.png'
+import bg8 from '../../images/backgrounds/bg8.jpg'
+
+import bg1M from '../../images/backgrounds/human_male.png'
+import bg2M from '../../images/backgrounds/human_female.png'
+import bg3M from '../../images/backgrounds/halfling_male.png'
+import bg4M from '../../images/backgrounds/halfling_female.png'
+import bg5M from '../../images/backgrounds/elf_male.png'
+import bg6M from '../../images/backgrounds/elf_female.png'
+import bg7M from '../../images/backgrounds/skar.png'
 // import bg1Mobile from './images/bg1-mobile.jpg'
 // import bg2Mobile from './images/bg2-mobile.jpg'
 // import bg3Mobile from './images/bg3-mobile.jpg'
@@ -71,11 +74,11 @@ class BackgroundImage extends Component {
   backgroundImageRouteMap = route => {
     switch(route) {
       case '/': return bg2
-      case '/articles': return bg2
+      case '/articles': return bg5
       case '/calendar': return bg2
-      case '/news': return bg5
+      case '/news': return bg2
       case '/guild/about': return bg4
-      case '/guild/roster': return bg3
+      case '/guild/roster': return bg8
       case '/guild/charters': return bg3
       case '/guild/lore': return bg3
       case '/guild/contests': return bg3
@@ -93,7 +96,7 @@ class BackgroundImage extends Component {
       case '/calendar': return bg3M
       case '/news': return bg4M
       case '/guild/about': return bg5M
-      case '/guild/roster': return bg5M
+      case '/guild/roster': return bg7M
       case '/guild/charters': return bg5M
       case '/guild/lore': return bg5M
       case '/guild/contests': return bg5M
