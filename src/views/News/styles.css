@@ -1,4 +1,6 @@
-
-.News .searchBar {
-    
+.News .Card .Preview {
+    max-height: calc(var(--cardHeight) - var(--cardSummaryHeight));
+    overflow: hidden;
+    /* -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - var(--cardHeight)), transparent calc(100% - 5px), transparent); */
+    pointer-events: none;
 }
