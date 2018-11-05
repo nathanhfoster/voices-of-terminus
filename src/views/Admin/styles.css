@@ -13,8 +13,9 @@
 .ReactTable .rt-thead.-filters,
 .ReactTable .rt-thead.-filters .rt-th,
 .ReactTable .rt-tbody .rt-tr-group,
-.ReactTable .rt-tbody .rt-td {
-  border-color: var(--dark_border);
+.ReactTable .rt-tbody .rt-td,
+.ReactTable .rt-tr .rt-td {
+  border-color: var(--grey);
 }
 
 .rt-table {
@@ -41,9 +42,22 @@
 .rt-td a {
   padding: 0;
   display: block;
-  height:100%;
+  height: 100%;
   width:100%;
 }
 .rt-td a:hover {
   color: var(--primaryColor);
+}
+
+.ReactTable .pagination-bottom {
+  background-color: var(--slate_grey);
+}
+
+.ReactTable .-pagination .-btn {
+  background-color: var(--grey_out);
+  color: var(--tertiarycolor);
+}
+
+.ReactTable .-pagination .-btn:not([disabled]):hover {
+  background-color: var(--primaryColor);
 }
