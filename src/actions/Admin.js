@@ -37,13 +37,12 @@ export const updateUserProfile = (id, token, payload) => {
         type: C.GET_USER,
         payload: res.data
       })
-      // dispatch({
-      //   type: C.SET_API_RESPONSE,
-      //   payload: res
-      // })
-  }).catch((e) => console.log(e))
-  // .catch((e) => dispatch({
-  //   type: C.SET_API_RESPONSE,
-  //   payload: e.response
-  //   }))
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: res
+      })
+  }).catch((e) => dispatch({
+    type: C.SET_API_RESPONSE,
+    payload: e.response
+  }))
 }

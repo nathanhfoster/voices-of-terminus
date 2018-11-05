@@ -24,5 +24,16 @@ export const checkNestedProps = (obj, level1) => {
       obj = obj[args[i]]
     }
     return true
-  }
+}
+
+export const statusLevel = status => {
+    if (status.is_leader) return 7
+    if (status.is_council) return 6
+    if (status.is_general_officer) return 5
+    if (status.is_officer) return 4
+    if (status.is_senior_member) return 3
+    if (status.is_junior_member) return 2
+    if (status.is_recruit) return 1
+    return 0
+}
   

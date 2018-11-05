@@ -41,8 +41,8 @@ ReactDOM.render(
 )
 registerServiceWorker()
 
-  // const saveState = () => {
-  //   const state = JSON.stringify(store.getState())
-  //   localStorage['redux-store'] = state
-  // }
-  // store.subscribe(saveState)
+  const saveState = () => {
+    const state = JSON.stringify(store.getState())
+    localStorage['redux-store'] = state
+  }
+  store.subscribe(saveState)

@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-export const Axios = (token) => axios.create({
+export const Axios = (token) => {
+  return axios.create({
     withCredentials: token ? true : false,
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 10000,
@@ -15,6 +16,7 @@ export const Axios = (token) => axios.create({
       'Accept': 'application/json'
     }
 })
+}
 
 export const AxiosForm = (token, payload) => axios.create({
   baseURL: process.env.REACT_APP_API_URL,
