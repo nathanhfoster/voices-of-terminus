@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import Calendar from 'react-calendar/dist/entry.nostyle'
 import EventList from '../../components/EventList'
-import {Grid, Row, Col, PageHeader, ButtonToolbar, Button} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, ButtonToolbar, Button, InputGroup, FormControl} from 'react-bootstrap'
 import Moment from 'react-moment'
 import MomentJS from 'moment'
 import './styles.css'
@@ -110,9 +110,14 @@ class GuildCalendar extends Component {
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
         <Row>
-          <ButtonToolbar>
+          <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button onClick={() => this.props.history.goBack()}>
+              <i class="fas fa-arrow-left"/>
+            </Button>
+            </Col>
+          <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
             <Button onClick={this.Today} className="todayButton pull-right">Today</Button>
-          </ButtonToolbar>
+          </Col>
         </Row>
         <Row>
           <Col>

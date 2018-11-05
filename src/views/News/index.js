@@ -91,6 +91,9 @@ class News extends Component {
         </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button onClick={() => this.props.history.goBack()}>
+              <i class="fas fa-arrow-left"/>
+            </Button>
             {User.token ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}> Create </Button> : null}
           </Col>
           <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>

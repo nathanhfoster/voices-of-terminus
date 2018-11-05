@@ -119,6 +119,9 @@ class Admin extends Component {
       <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row>
           <Col md={12} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+              <Button onClick={() => this.props.history.goBack()}>
+                <i class="fas fa-arrow-left"/>
+              </Button>
               <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
                 Create User
               </Button>
@@ -153,15 +156,12 @@ class Admin extends Component {
             showPageSizeOptions
             showPaginationBottom
             showPageJump
-            defaultSorted={[
-              {
-                id: "status",
-                desc: true
-              }
-            ]}
+            defaultSorted={[{id: "status", desc: true}]}
             defaultPageSize={Window.isMobile ? 10 : 15}
             pageSizeOptions={[5, 10, 15, 20, 50, 100]}
             multiSort={true}
+            previousText={<i class="fas fa-arrow-left"/>}
+            nextText={<i class="fas fa-arrow-right"/>}
             // getTrProps = {
             //   (state, rowInfo) => {
             //     console.log("state: ", state)

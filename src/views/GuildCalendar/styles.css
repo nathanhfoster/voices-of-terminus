@@ -1,8 +1,9 @@
 .react-calendar__navigation button {
   border: 0;
   height: 2em;
-  background-color: transparent;
+  background-color: var(--slate_grey);
   opacity: var(--mainOpacity);
+  border-bottom: 1px solid var(--dark_border);
 }
 .react-calendar__navigation button:hover {
   /* background-color: var(--slate_grey); */
@@ -65,7 +66,7 @@
   color: inherit;
 }
 .react-calendar__month-view__days__day--neighboringMonth {
-  background-color: var(--dark_grey !important);
+  background-color: var(--dark_grey);
   color: var(--grey_out);
   opacity: var(--mainOpacity);
 }

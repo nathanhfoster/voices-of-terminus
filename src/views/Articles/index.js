@@ -87,6 +87,9 @@ class Articles extends Component {
         </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+              <Button onClick={() => this.props.history.goBack()}>
+                <i class="fas fa-arrow-left"/>
+              </Button>
               {User.can_create_article ? 
                 <Button onClick={() => this.props.history.push('/articles/new/article')}>
                 Create
