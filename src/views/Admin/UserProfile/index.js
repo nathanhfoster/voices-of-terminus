@@ -123,7 +123,7 @@ class UserProfile extends Component {
       is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit})
     const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
-    const canEdit = loggedInUserStatus > currentUserStatus
+    const canEdit = User.username === 'admin' || loggedInUserStatus > currentUserStatus
     return (
       !this.props.User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
       : Admin.User ?
