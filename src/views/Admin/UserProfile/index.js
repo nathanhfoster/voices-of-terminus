@@ -188,7 +188,7 @@ class UserProfile extends Component {
         </Row>
         <Row className="checkBoxTable">
           <Col md={3} xs={6}>
-            <Checkbox disabled={false} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
             <span className="checkBoxText">Leader</span>
             <span className="help">Will show up as a leader in guild roster.</span>
             </Checkbox>
