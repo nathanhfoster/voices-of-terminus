@@ -64,11 +64,6 @@ class UserProfile extends Component {
       twitter_url: '',
       youtube_url: ''
     },
-
-    permissionOptions: [
-      { value: true, label: 'true' },
-      { value: false, label: 'false' }
-    ]
   }
   
   componentWillMount() {
@@ -124,14 +119,11 @@ class UserProfile extends Component {
 
   render() {
     const {Admin, User} = this.state
-    const {permissionOptions} = this.props
     const loggedInUserStatus =  statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
       is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit})
     const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
-    const canEdit = loggedInUserStatus > currentUserStatus
-    // console.log('loggedInUserStatus: ', loggedInUserStatus, 'currentUserStatus: ', currentUserStatus, 'canEdit: ', canEdit)
-    // console.log('loggedInUserStatus > 5: ',  loggedInUserStatus > 5 ? true : false, 'canEdit && loggedInUserStatus > 5: ', canEdit && loggedInUserStatus > 5 ? true : false)
+    const canEdit = loggedInUserStatus > currentUserStatus || User.username === 'admin'
     return (
       !this.props.User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
       : Admin.User ?
