@@ -84,8 +84,10 @@ class News extends Component {
   render() {
     const {User, Newsletters} = this.state
     return (
-      <Grid className="News Container fadeIn-2 fadeIn-2">
-        <PageHeader className="pageHeader">NEWS</PageHeader>
+      <Grid className="News Container fadeIn-2">
+        <Row>
+          <PageHeader className="pageHeader">NEWS</PageHeader>
+        </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             {User.token ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}> Create </Button> : null}

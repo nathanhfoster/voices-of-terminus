@@ -81,7 +81,7 @@ class Articles extends Component {
   render() {
     const {Articles, User} = this.state
     return (
-      <Grid className="Articles Container fadeIn-2 fadeIn-2">
+      <Grid className="Articles Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">ARTICLES</PageHeader>
         </Row>

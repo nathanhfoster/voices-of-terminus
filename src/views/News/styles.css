@@ -1,4 +1,5 @@
-.News {
+.News [class*='col-'] {
+    margin: 15px;
 }
 
 .News .searchBar {
