@@ -9,7 +9,7 @@ import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../../helpers/styles'
-import {statusLevel} from '../../../helpers/helpers'
+import {statusLevelInt} from '../../../helpers/helpers'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -125,9 +125,9 @@ class UserProfile extends Component {
   render() {
     const {Admin, User} = this.state
     const {permissionOptions} = this.props
-    const loggedInUserStatus =  statusLevel({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
+    const loggedInUserStatus =  statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
       is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit})
-    const currentUserStatus = Admin.User ? statusLevel({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
+    const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
     const canEdit = loggedInUserStatus > currentUserStatus
     // console.log('loggedInUserStatus: ', loggedInUserStatus, 'currentUserStatus: ', currentUserStatus, 'canEdit: ', canEdit)
@@ -176,19 +176,19 @@ class UserProfile extends Component {
         </Row>
         <Row className="checkBoxTable">
           <Col md={4} xs={12}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_active} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_active: !Admin.User.is_active}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_active} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_active: !Admin.User.is_active}} }))}>
             <span className="checkBoxText">Active</span>
             <span className="help">Unselect this instead of deleting accounts.</span>
             </Checkbox>
           </Col>
           <Col md={4} xs={6}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_superuser} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: !Admin.User.is_superuser}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_superuser} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: !Admin.User.is_superuser}} }))}>
             <span className="checkBoxText">Admin</span>
             <span className="help">Grants access to admin panel and that this user has all permissions without explicitly assigning them.</span>
             </Checkbox>
           </Col>
           <Col md={4} xs={6}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_staff} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: !Admin.User.is_staff}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_staff} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: !Admin.User.is_staff}} }))}>
             <span className="checkBoxText">Staff</span>
             <span className="help">Designates whether the user can log into Django backend admin site.</span>
             </Checkbox>
@@ -245,52 +245,52 @@ class UserProfile extends Component {
           <Col md={3} xs={6}>
             <h3>CREATE</h3>
             <span className="help">Can create designated content.</span>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !Admin.User.can_create_article}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !Admin.User.can_create_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_newsletter: !Admin.User.can_create_newsletter}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_create_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_newsletter: !Admin.User.can_create_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_calendar_event: !Admin.User.can_create_calendar_event}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_create_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_calendar_event: !Admin.User.can_create_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
             <h3>READ</h3>
             <span className="help">Can read designated content.</span>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_read_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_article: !Admin.User.can_read_article}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_read_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_article: !Admin.User.can_read_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_read_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_newsletter: !Admin.User.can_read_newsletter}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_read_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_newsletter: !Admin.User.can_read_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_read_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_calendar_event: !Admin.User.can_read_calendar_event}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_read_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_calendar_event: !Admin.User.can_read_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
             <h3>UPDATE</h3>
             <span className="help">Can update ANY designated content.</span>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_update_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_article: !Admin.User.can_update_article}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_update_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_article: !Admin.User.can_update_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_update_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_newsletter: !Admin.User.can_update_newsletter}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_update_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_newsletter: !Admin.User.can_update_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_update_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_calendar_event: !Admin.User.can_update_calendar_event}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_update_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_calendar_event: !Admin.User.can_update_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
             <h3>DELETE</h3>
             <span className="help">Can delete ANY designated content.</span>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_delete_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_article: !Admin.User.can_delete_article}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_delete_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_article: !Admin.User.can_delete_article}} }))}>
             Articles
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_delete_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_newsletter: !Admin.User.can_delete_newsletter}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_delete_newsletter} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_newsletter: !Admin.User.can_delete_newsletter}} }))}>
             Newsletters
             </Checkbox>
-            <Checkbox disabled={canEdit} checked={Admin.User.can_delete_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_calendar_event: !Admin.User.can_delete_calendar_event}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.can_delete_calendar_event} onChange={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_calendar_event: !Admin.User.can_delete_calendar_event}} }))}>
             Calendar Events
             </Checkbox>
           </Col>
@@ -300,31 +300,31 @@ class UserProfile extends Component {
         </Row>
         <Row className="checkBoxTable">
           <Col md={3} xs={12}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_raid_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_raid_leader: !Admin.User.is_raid_leader}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.is_raid_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_raid_leader: !Admin.User.is_raid_leader}} }))}>
             <span className="checkBoxText">Raid Leader</span>
             <span className="help">Raid Leader</span>
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_banker} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_banker: !Admin.User.is_banker}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.is_banker} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_banker: !Admin.User.is_banker}} }))}>
             <span className="checkBoxText">Banker</span>
             <span className="help">Banker</span>
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_recruiter} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruiter: !Admin.User.is_recruiter}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.is_recruiter} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruiter: !Admin.User.is_recruiter}} }))}>
             <span className="checkBoxText">Recruiter</span>
             <span className="help">Recruiter</span>
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_class_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_class_lead: !Admin.User.is_class_lead}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.is_class_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_class_lead: !Admin.User.is_class_lead}} }))}>
             <span className="checkBoxText">Class Lead</span>
             <span className="help">Class Lead</span>
             </Checkbox>
           </Col>
           <Col md={3} xs={6}>
-            <Checkbox disabled={canEdit} checked={Admin.User.is_crafter_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_crafter_lead: !Admin.User.is_crafter_lead}} }))}>
+            <Checkbox disabled={!canEdit} checked={Admin.User.is_crafter_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_crafter_lead: !Admin.User.is_crafter_lead}} }))}>
             <span className="checkBoxText">Crafter Lead</span>
             <span className="help">Crafter Lead</span>
             </Checkbox>

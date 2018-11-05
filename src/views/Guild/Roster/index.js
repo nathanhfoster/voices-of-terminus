@@ -5,7 +5,9 @@ import {Grid, Row, Col} from 'react-bootstrap'
 import './styles.css'
 import EventList from '../../../components/EventList'
 
-const mapStateToProps = ({ DiscordData }) => ({
+
+const mapStateToProps = ({Admin, DiscordData}) => ({
+  Admin,
   DiscordData
 })
 
@@ -61,29 +63,29 @@ class Roster extends Component {
   }
 
   getState = props => {
+    const {Admin} = props
     const guildMembers = this.props.DiscordData.members
-    this.setState({guildMembers})
+    this.setState({Admin, guildMembers})
   }
 
   renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
-      <Col lg={3} md={3} sm={3} xs={12}>
-        <p style={{color: color}}>{k}</p>
-      </Col>
-    )
-  })
-
-  renderGuildMembers = (color, members) => members.map(k => {
-    return(
-      <Col lg={3} md={3} sm={3} xs={12}>
-        <p style={{color: color}}>{k.nick}</p>
+      <Col md={3} xs={4}>
+        <p style={{color: color}}>{k.username}</p>
       </Col>
     )
   })
 
   render() {
-    const {Leaders, Council, Officers} = this.props
+    const {Admin} = this.props
     const {guildMembers} = this.state
+    const Leaders = Admin.Users ? Admin.Users.filter(user => user.is_leader) : []
+    const Council = Admin.Users ? Admin.Users.filter(user => user.is_council) : []
+    const GeneralOfficers = Admin.Users ? Admin.Users.filter(user => user.is_general_officer) : []
+    const Officers = Admin.Users ? Admin.Users.filter(user => user.is_officer) : []
+    const SeniorMembers = Admin.Users ? Admin.Users.filter(user => user.is_senior_member) : []
+    const JuniorMembers = Admin.Users ? Admin.Users.filter(user => user.is_member) : []
+    const Recruits = Admin.Users ? Admin.Users.filter(user => user.is_recruit) : []
     return (
       <div className="Roster">
         <Grid>
@@ -96,12 +98,24 @@ class Roster extends Component {
             {this.renderPeople('#ff9800', Council)}
           </Row>
           <Row>
+            <h3>General Officers</h3>
+            {this.renderPeople('#f00', GeneralOfficers)}
+          </Row>
+          <Row>
             <h3>Officers</h3>
             {this.renderPeople('#f00', Officers)}
           </Row>
           <Row>
-            <h3>Members</h3>
-            {guildMembers != null ? this.renderGuildMembers('#0f0', guildMembers) : null}
+            <h3>Senior Members</h3>
+            {this.renderPeople('#0f0', SeniorMembers)}
+          </Row>
+          <Row>
+            <h3>Junior Members Members</h3>
+            {this.renderPeople('#0f0', JuniorMembers)}
+          </Row>
+          <Row>
+            <h3>Recruits</h3>
+            {this.renderPeople('#0f0', Recruits)}
           </Row>
         </Grid>
       </div>

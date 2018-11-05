@@ -12,7 +12,7 @@ require('dotenv').config()
 
 const options = {
   position: 'bottom center',
-  timeout: 10000,
+  timeout: 2000,
   offset: '30px',
   transition: 'scale'
 }

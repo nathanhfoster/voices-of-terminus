@@ -26,7 +26,7 @@ export const checkNestedProps = (obj, level1) => {
     return true
 }
 
-export const statusLevel = status => {
+export const statusLevelInt = status => {
     if (status.is_leader) return 7
     if (status.is_council) return 6
     if (status.is_general_officer) return 5
@@ -35,5 +35,18 @@ export const statusLevel = status => {
     if (status.is_junior_member) return 2
     if (status.is_recruit) return 1
     return 0
+}
+
+export const statusLevelString = status => {
+    switch(status) {
+        case 7: return 'Leader'
+        case 6: return 'Council'
+        case 5: return 'General Officer'
+        case 4: return 'Officer'
+        case 3: return 'Senior Member'
+        case 2: return 'Junior Member'
+        case 1: return 'Recruit'
+        default: return 'Guest'
+    }
 }
   

@@ -10,6 +10,7 @@ import { Grid, Row, Col, PageHeader,ButtonToolbar, Button, InputGroup, FormContr
 import './styles.css'
 import './stylesM.css'
 import {getUsers} from '../../actions/Admin'
+import {statusLevelInt, statusLevelString} from '../../helpers/helpers'
 
 const columns = [
   {Header: 'INFO', columns: [
@@ -21,7 +22,10 @@ const columns = [
     {Header: 'Admin?', accessor: 'is_superuser', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
     Cell: props => String(props.value)},
   {Header: 'Mod?', accessor: 'is_staff', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
-    Cell: props => String(props.value)}
+    Cell: props => String(props.value)},
+  {Header: 'Status',  id: 'status', accessor: User => statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
+    is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit}), filterMethod: (filter, rows) => matchSorter(rows, filter.value[1], { keys: [filter.id] }), filterAll: true, maxWidth: 125,
+    Cell: props => statusLevelString(props.value)}
   ]},
   {Header: 'IN GAME', columns: [
   {Header: 'Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
