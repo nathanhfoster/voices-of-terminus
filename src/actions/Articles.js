@@ -2,8 +2,8 @@ import C from '../constants'
 import {Axios} from './Axios'
 const qs = require('qs')
 
-export const postDocument = payload => {
-  return async (dispatch) => { await Axios.post('articles/', qs.stringify(payload))
+export const postDocument = (token, payload) => {
+  return async (dispatch) => { await Axios(token).post('articles/', qs.stringify(payload))
     .then(res => {
       dispatch({
         type: C.SET_API_RESPONSE,
@@ -17,7 +17,7 @@ export const postDocument = payload => {
 }
 
 export const getArticles = () => {
-  return async (dispatch) => await Axios.get("articles/")
+  return async (dispatch) => await Axios().get("articles/")
      .then(res => {
        dispatch({
          type: C.GET_ARTICLES,
@@ -27,7 +27,7 @@ export const getArticles = () => {
 }
 
 export const getArticle = id => {
-  return async (dispatch) => await Axios.get(`articles/${id}/`)
+  return async (dispatch) => await Axios().get(`articles/${id}/`)
      .then(res => {
          dispatch ({
            type: C.GET_HTML_DOCUMENT,
@@ -36,8 +36,8 @@ export const getArticle = id => {
      }).catch((e) => console.log(e))
 }
 
-export const updateArticle = (id, payload) => {
-  return  async (dispatch) => await Axios.patch(`articles/${id}/`, qs.stringify(payload))
+export const updateArticle = (id, token, payload) => {
+  return  async (dispatch) => await Axios(token).patch(`articles/${id}/`, qs.stringify(payload))
   .then(res => {
     dispatch ({
       type: C.GET_HTML_DOCUMENT,
@@ -53,8 +53,8 @@ export const updateArticle = (id, payload) => {
     }))
 }
 
-export const deleteArticle = id => {
-  return async (dispatch, getState) => await Axios.delete(`articles/${id}/`)
+export const deleteArticle = (id, token) => {
+  return async (dispatch, getState) => await Axios(token).delete(`articles/${id}/`)
   .then(res => {
       const {Articles} = getState()
       dispatch ({

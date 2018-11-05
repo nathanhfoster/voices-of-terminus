@@ -438,7 +438,7 @@ class Profile extends Component {
     payload.append('twitch_url', twitch_url)
     payload.append('youtube_url', youtube_url)
     
-    this.props.updateProfile(id, payload)
+    this.props.updateProfile(id, token, payload)
   }
 
   render() {

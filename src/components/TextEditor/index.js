@@ -91,18 +91,19 @@ class TextEditor extends Component {
   onEditorStateChange = editorState => {
     this.setState({editorState})
   }
+  
   postArticle = () => {
     const {editorState, title, User} = this.state
     let {tags} = this.state
     tags = 'article ' + tags
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    this.props.postDocument({title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
+    this.props.postDocument(User.token, {title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
    }
 
    updateArticle = (id) => {
-     const {author, tags, title, editorState} = this.state
+     const {author, tags, title, editorState, User} = this.state
      const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-     this.props.updateArticle(id, {author, html, tags, title})
+     this.props.updateArticle(id, User.token, {author, html, tags, title})
     }
 
     onChange = event => {

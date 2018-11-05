@@ -44,7 +44,7 @@ export const setWindow = Window => ({
  })
 
 export const login = (username, password, rememberMe) => {
-    return async (dispatch) => await Axios.post('login/', qs.stringify({username, password}))
+    return async (dispatch) => await Axios().post('login/', qs.stringify({username, password}))
     .then(res => {
         const eightHours = 1/3
         rememberMe ? Cookies.set('User_LoginToken', res.data.token) : Cookies.set('User_LoginToken', res.data.token, {expires: eightHours})
@@ -87,8 +87,8 @@ export const clearApiResponse = () => {
     })
 }
 
-export const getUser = id => {
-    return async (dispatch) => await Axios.get(`users/${id}/`)
+export const getUser = (id, token) => {
+    return async (dispatch) => await Axios(token).get(`users/${id}/`)
        .then(res => {
         res.data.token = Cookies.get('User_LoginToken')
          dispatch({

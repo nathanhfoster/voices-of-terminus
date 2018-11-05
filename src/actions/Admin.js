@@ -2,8 +2,8 @@ import C from '../constants'
 import {Axios} from './Axios'
 const qs = require('qs')
 
-export const getUsers = () => {
-    return async (dispatch) => await Axios.get('users/')
+export const getUsers = token => {
+    return async (dispatch) => await Axios(token).get('users/')
        .then(res => {
          dispatch({
            type: C.GET_USERS,
@@ -12,8 +12,8 @@ export const getUsers = () => {
        }).catch((e) => console.log(e))
 }
 
-export const getUser = id => {
-  return async (dispatch) => await Axios.get(`users/${id}/`)
+export const getUser = (id, token) => {
+  return async (dispatch) => await Axios(token).get(`users/${id}/`)
      .then(res => {
        dispatch({
          type: C.GET_USER,
@@ -30,8 +30,8 @@ export const clearUser = () => {
        })
 }
 
-export const updateUserProfile = (id, payload) => {
-  return async (dispatch) => await Axios.patch(`users/${id}/`, qs.stringify(payload))
+export const updateUserProfile = (id, token, payload) => {
+  return async (dispatch) => await Axios(token).patch(`users/${id}/`, qs.stringify(payload))
   .then(res => {
       dispatch({
         type: C.GET_USER,

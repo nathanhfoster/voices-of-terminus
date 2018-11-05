@@ -79,7 +79,7 @@ class NewsLetterGenerator extends Component {
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
-      this.props.postNewsletter({title, slug:"news", author: User.id, tags, html, design, last_modified_by: User.id})
+      this.props.postNewsletter(User.token, {title, slug:"news", author: User.id, tags, html, design, last_modified_by: User.id})
     })
   }
 
@@ -99,11 +99,11 @@ class NewsLetterGenerator extends Component {
   }
 
   updateNewsletter = () => {
-    const {title, tags, id} = this.state
+    const {title, tags, id, User} = this.state
     this.editor.exportHtml(data => {
       let {design, html} = data
       design = JSON.stringify(design)
-      this.props.updateNewsLetter(id, {title, tags, design, html})
+      this.props.updateNewsLetter(id, User.token, {title, tags, design, html})
     })
   }
 

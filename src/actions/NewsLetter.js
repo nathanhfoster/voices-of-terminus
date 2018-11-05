@@ -2,8 +2,8 @@ import C from '../constants'
 import {Axios} from './Axios'
 const qs = require('qs')
 
-export const postNewsletter = payload => {
-    return async (dispatch) => { await  Axios.post('newsletters/', qs.stringify(payload))
+export const postNewsletter = (token, payload) => {
+    return async (dispatch) => { await  Axios(token).post('newsletters/', qs.stringify(payload))
       .then(res => {
         dispatch({
             type: C.SET_API_RESPONSE,
@@ -17,7 +17,7 @@ export const postNewsletter = payload => {
 }
 
 export const getNewsletters = () => {
-    return async (dispatch) => await Axios.get("newsletters/")
+    return async (dispatch) => await Axios().get("newsletters/")
        .then(res => {
            dispatch ({
              type: C.GET_NEWSLETTERS,
@@ -27,7 +27,7 @@ export const getNewsletters = () => {
 }
 
 export const getNewsLetter = id => {
-    return async (dispatch) => await Axios.get(`newsletters/${id}/`)
+    return async (dispatch) => await Axios().get(`newsletters/${id}/`)
        .then(res => {
            dispatch ({
              type: C.GET_HTML_DOCUMENT,
@@ -36,8 +36,8 @@ export const getNewsLetter = id => {
        }).catch((e) => console.log(e))
 }
 
-export const updateNewsLetter = (id, payload) => {
-    return  async (dispatch) => await Axios.patch(`newsletters/${id}/`, qs.stringify(payload))
+export const updateNewsLetter = (id, token, payload) => {
+    return  async (dispatch) => await Axios(token).patch(`newsletters/${id}/`, qs.stringify(payload))
     .then(res => {
         dispatch ({
             type: C.GET_HTML_DOCUMENT,
@@ -53,8 +53,8 @@ export const updateNewsLetter = (id, payload) => {
     }))
 }
 
-export const deleteNewsLetter = id => {
-    return async (dispatch, getState) => await Axios.delete(`newsletters/${id}/`)
+export const deleteNewsLetter = (id, token) => {
+    return async (dispatch, getState) => await Axios(token).delete(`newsletters/${id}/`)
     .then(res => {
         let {Newsletters} = getState()
         const payload = Newsletters.filter(newsletter => newsletter.id !== id)

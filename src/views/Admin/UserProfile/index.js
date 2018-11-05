@@ -76,7 +76,8 @@ class UserProfile extends Component {
 
   componentDidMount() {
     const {id} = this.props.match.params
-    this.props.getUser(id)
+    const {token} = this.props.User
+    this.props.getUser(id, token)
   }
   
   componentWillReceiveProps(nextProps) {
@@ -100,7 +101,7 @@ class UserProfile extends Component {
   onChange = e => this.setState({[e.target.name]: e.target.value})
 
   updateUserProfile = () => {
-    const {id, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_senior_member, is_junior_member, is_recruit,
+    const {id, token, is_superuser, is_staff, is_active, is_leader, is_council, is_officer, is_senior_member, is_junior_member, is_recruit,
       is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead,
       can_create_article, can_create_newsletter, can_create_calendar_event,
       can_read_article, can_read_newsletter, can_read_calendar_event,
@@ -115,7 +116,7 @@ class UserProfile extends Component {
       can_update_article, can_update_newsletter, can_update_calendar_event,
       can_delete_article, can_delete_newsletter, can_delete_calendar_event
     }
-    this.props.updateUserProfile(id, payload)
+    this.props.updateUserProfile(id, token, payload)
   }
 
   render() {

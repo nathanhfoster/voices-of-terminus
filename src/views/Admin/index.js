@@ -65,7 +65,8 @@ class Admin extends Component {
   }
 
   componentDidMount() {
-    this.props.getUsers()
+    const {token} = this.props.User
+    this.props.getUsers(token)
   }
   
   componentWillReceiveProps(nextProps) {

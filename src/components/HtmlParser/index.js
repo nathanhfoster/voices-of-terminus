@@ -65,7 +65,7 @@ class HtmlParser extends Component {
     const html = this.state.html ? this.state.html : this.state.HtmlDocument.html
     return (
       <Grid className="HtmlParser Container fadeIn-2">
-        { match && HtmlDocument ?
+        { match ?
             <Row className="ViewHtmlDocument">
               <Col md={12}>
                 <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>

@@ -72,7 +72,7 @@ class Card extends Component {
   componentWillUnmount() {
   }
 
-  deleteThisCard = id => this.props.deleteCard(id)
+  deleteThisCard = (id, token) => this.props.deleteCard(id, token)
 
   editThisCard = id => {
     // Get current path in url
@@ -137,7 +137,7 @@ class Card extends Component {
             </div>
             <hr className="summaryTitleDivider"/>
             <div>
-              {hasDeletePermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+              {hasDeletePermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id, User.token)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
               {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div>
