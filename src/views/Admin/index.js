@@ -62,8 +62,10 @@ const columns = [
   ]}
 ]
 
-const mapStateToProps = ({Admin, User,}) => ({
-  Admin, User
+const mapStateToProps = ({Admin, User, Window}) => ({
+  Admin,
+  User,
+  Window
 })
 
 const mapDispatchToProps = {
@@ -97,8 +99,8 @@ class Admin extends Component {
   }
 
   getState = props => {
-    const {Admin, User} = props
-    this.setState({Admin, User})
+    const {Admin, User, Window} = props
+    this.setState({Admin, User, Window})
   }
 
   componentDidUpdate() {
@@ -108,8 +110,7 @@ class Admin extends Component {
   }
 
   render() {
-    const {data} = this.props
-    const {Admin, User} = this.state
+    const {Admin, User, Window} = this.state
     const {Users} = Admin
 
     return (
@@ -158,7 +159,7 @@ class Admin extends Component {
                 desc: true
               }
             ]}
-            defaultPageSize={15}
+            defaultPageSize={Window.isMobile ? 10 : 15}
             pageSizeOptions={[5, 10, 15, 20, 50, 100]}
             multiSort={true}
             // getTrProps = {
