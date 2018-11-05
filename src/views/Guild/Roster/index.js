@@ -77,8 +77,7 @@ class Roster extends Component {
   })
 
   render() {
-    const {Admin} = this.props
-    const {guildMembers} = this.state
+    const {Admin, guildMembers} = this.state
     const Leaders = Admin.Users ? Admin.Users.filter(user => user.is_leader) : []
     const Council = Admin.Users ? Admin.Users.filter(user => user.is_council) : []
     const GeneralOfficers = Admin.Users ? Admin.Users.filter(user => user.is_general_officer) : []
