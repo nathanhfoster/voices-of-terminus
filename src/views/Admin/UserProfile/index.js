@@ -123,7 +123,7 @@ class UserProfile extends Component {
       is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit})
     const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
-    const canEdit = loggedInUserStatus > currentUserStatus || User.username === 'admin'
+    const canEdit = loggedInUserStatus > currentUserStatus
     return (
       !this.props.User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
       : Admin.User ?
@@ -188,7 +188,7 @@ class UserProfile extends Component {
         </Row>
         <Row className="checkBoxTable">
           <Col md={3} xs={6}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
+            <Checkbox disabled={false} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
             <span className="checkBoxText">Leader</span>
             <span className="help">Will show up as a leader in guild roster.</span>
             </Checkbox>
