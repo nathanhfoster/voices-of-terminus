@@ -1,0 +1,5 @@
+@media(max-width: 767px){
+    .News [class*='col-'] {
+        margin: 15px;
+    }
+}
