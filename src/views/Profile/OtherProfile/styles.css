@@ -1,3 +1,34 @@
 .OtherProfile {
-    
+    padding: 20px;
+    border-radius: 6px;
+    background-color: var(--dark_grey);
+    height: 100%;
+}
+
+.firstLastName {
+    display: block;
+    margin-left: 4px;
+    font-size: 12px;
+}
+
+.userRoles span {
+    margin: 4px;
+}
+
+.userBio {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 250px;
+    border: 2px solid var(--grey);
+    background-color: var(--slate_grey);
+    word-break: break-all;
+    vertical-align: middle;
+    overflow-y: auto;
+}
+
+.userBio::-webkit-scrollbar {
+    display: block;
 }

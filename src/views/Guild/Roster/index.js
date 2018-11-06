@@ -6,7 +6,7 @@ import {Link} from 'react-router-dom'
 import './styles.css'
 import EventList from '../../../components/EventList'
 import {getUsers} from '../../../actions/Admin'
-import {classIcon} from '../../../helpers/helpers'
+import {classIcon} from '../../../helpers'
 
 
 const mapStateToProps = ({Admin, DiscordData}) => ({

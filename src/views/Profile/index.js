@@ -496,7 +496,7 @@ class Profile extends Component {
           <Col md={12}>
             <FormGroup>
               <ControlLabel>Biography</ControlLabel>
-              <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" placeholder="Bio" onChange={this.onChange}/>
+              <FormControl value={bio} componentClass="textarea" type="textarea" name="bio" wrap="hard" placeholder="Bio" onChange={this.onChange}/>
             </FormGroup>
           </Col>
         </Row>

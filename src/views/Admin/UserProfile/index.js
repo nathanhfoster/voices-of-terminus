@@ -10,7 +10,7 @@ import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../../helpers/styles'
-import {statusLevelInt} from '../../../helpers/helpers'
+import {statusLevelInt} from '../../../helpers'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -135,7 +135,7 @@ class UserProfile extends Component {
         <Row>
           <h2 className="headerBanner">USER INFO</h2>
         </Row>
-        <Row style={{border: '1px solid var(--grey_out)'}}>
+        <Row style={{border: '1px solid var(--grey_out)', borderRadius: '4px'}}>
           <Col md={4}><Image src={Admin.User.profile_image} style={{maxHeight: '250px'}} responsive rounded/></Col>
           <Col md={4} xs={12}>
             <h3>Joined: <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>

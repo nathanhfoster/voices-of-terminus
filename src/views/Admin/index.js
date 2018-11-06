@@ -10,7 +10,7 @@ import { Grid, Row, Col, PageHeader,ButtonToolbar, Button, InputGroup, FormContr
 import './styles.css'
 import './stylesM.css'
 import {getUsers} from '../../actions/Admin'
-import {statusLevelInt, statusLevelString} from '../../helpers/helpers'
+import {statusLevelInt, statusLevelString} from '../../helpers'
 
 const columns = [
   {Header: 'INFO', columns: [

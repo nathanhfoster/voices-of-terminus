@@ -9,7 +9,7 @@ import femaleHalfling from '../../images/backgrounds/halfling_female.png'
 import maleHalfling from '../../images/backgrounds/halfling_male.png'
 import femaleHuman from '../../images/backgrounds/human_female.png'
 import maleHuman from '../../images/backgrounds/human_male.png'
-import {getRandomInt} from '../../helpers/helpers'
+import {getRandomInt} from '../../helpers'
 
 const mapStateToProps = ({Window}) => ({
   Window

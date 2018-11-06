@@ -1,3 +1,4 @@
+import Bard from '../images/classIcons/bard.png'
 import Cleric from '../images/classIcons/cleric.png'
 import Paladin from '../images/classIcons/paladin.png'
 import Warrior from '../images/classIcons/warrior.png'
@@ -66,9 +67,10 @@ export const statusLevelString = status => {
 
 export const classIcon = primaryClass => {
     switch (primaryClass) {
+        case 'Bard': return Bard
         case 'Cleric': return Cleric
         case 'Paladin': return Paladin
-        case'Warrior': return Warrior
+        case 'Warrior': return Warrior
         case 'Dire Lord': return DireLord
         case 'Ranger': return Ranger
         case 'Rogue':return Rogue

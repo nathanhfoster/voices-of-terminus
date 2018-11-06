@@ -11,7 +11,7 @@ import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 import {Logout} from '../../actions/App'
-import {classIcon} from '../../helpers/helpers'
+import {classIcon} from '../../helpers'
 
 const mapStateToProps = ({User}) => ({
   User
