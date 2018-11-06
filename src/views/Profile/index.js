@@ -88,9 +88,9 @@ class Profile extends Component {
           'Melee Dps':     [{value: 'Monk', label: 'Monk'}],
           'Off Tank':      [{value: 'Monk', label: 'Monk'}],
           'Ranged Dps':    [{value: 'Wizard', label: 'Wizard'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
           'Tank':          [{value: 'Warrior', label: 'Warrior'}],
-          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+          'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Dark Myr': { // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
@@ -110,9 +110,9 @@ class Profile extends Component {
           'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Rogue', label: 'Rogue'}],
           'Off Tank':      [{value: 'Monk', label: 'Monk'}],
           'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}],
           'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
-          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+          'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Dwarf': { // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
@@ -128,9 +128,9 @@ class Profile extends Component {
           'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
           'Healer':        [{value: 'Cleric', label: 'Cleric'}],
           'Melee Dps':     [{value: 'Rogue', label: 'Rogue'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}],
           'Tank':          [{value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
-          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
+          'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
         }
       },
       'Elf': { // Bard, Druid, Enchanter, Ranger, Rogue, Shman, Summoner, Warrior, Wizard
@@ -148,9 +148,9 @@ class Profile extends Component {
           'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
           'Melee Dps':     [{value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
           'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
           'Tank':          [{value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
-          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+          'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Halfling': { // Bard, Druid, Ranger, Rogue, Warrior
@@ -166,9 +166,9 @@ class Profile extends Component {
           'Healer':        [{value: 'Druid', label: 'Druid'}],
           'Melee Dps':     [{value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
           'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}],
           'Tank':          [{value: 'Warrior', label: 'Warrior'}],
-          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Druid', label: 'Druid'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
+          'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
         }
       },
       'Human': { // ALL
@@ -188,9 +188,9 @@ class Profile extends Component {
           'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
           'Off Tank':      [{value: 'Monk', label: 'Monk'}],
           'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
           'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
-          'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+          'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
         }
       },
       'Gnome': { // Enchanter, Necromancer, Rogue, Summoner, Wizard
@@ -216,7 +216,7 @@ class Profile extends Component {
         ],
         classOptions: {
           'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
-          'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+          'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
           'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
           'Utility':       [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}]
         }
@@ -270,8 +270,8 @@ class Profile extends Component {
       'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
       'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
       'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
-      'Support':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
-      'Utility':       [{value: 'Bard', label: 'BARD'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+      'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+      'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
     },
       // {value: 'Cleric', label: 'Cleric'},
       // {value: 'Dire Lord', label: 'Dire Lord'},
