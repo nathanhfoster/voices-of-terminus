@@ -38,7 +38,6 @@ class OtherProfile extends Component {
 
   componentDidMount() {
     const {id} = this.props.match.params
-    console.log(this.props)
     this.props.getUser(id)
   }
   
@@ -60,14 +59,14 @@ class OtherProfile extends Component {
   render() {
     const {User} = this.state
     return (
-      <Grid className="OtherProfile Container">
+      User ? <Grid className="OtherProfile Container">
         <Row>
           <PageHeader className="pageHeader">{User.username.toUpperCase()}</PageHeader>
         </Row>
         <Row>
           
         </Row>
-      </Grid>
+      </Grid> : null 
     )
   }
 }
