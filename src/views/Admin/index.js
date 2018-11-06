@@ -156,7 +156,7 @@ class Admin extends Component {
             showPageSizeOptions
             showPaginationBottom
             showPageJump
-            defaultSorted={[{id: "status", desc: true}]}
+            defaultSorted={[{id: "date_joined", desc: true}]}
             defaultPageSize={Window.isMobile ? 10 : 15}
             pageSizeOptions={[5, 10, 15, 20, 50, 100]}
             multiSort={true}

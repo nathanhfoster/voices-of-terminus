@@ -42,5 +42,8 @@ export const selectStyles = {
     valueContainer: (base, state) => ({
       ...base,
       backgroundColor: 'var(--grey)'
-    })
+    }),
+    multiValue: (base, state) => state.data.isFixed ? { ...base, backgroundColor: 'var(--grey_out)' } : { ...base, backgroundColor: 'var(--primaryColor)' },
+    multiValueLabel: (base, state) => state.data.isFixed ? { ...base, fontWeight: 'bold', color: 'white', paddingRight: 6 } : { ...base, color: 'var(--tertiarycolor)'},
+    multiValueRemove: (base, state) => state.data.isFixed ? { ...base, display: 'none' } : { ...base, ':hover': {backgroundColor: 'var(--secondaryColor)',  color: 'var(--tertiarycolor)'}}
   }

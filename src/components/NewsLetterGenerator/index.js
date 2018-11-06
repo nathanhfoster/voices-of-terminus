@@ -9,6 +9,17 @@ import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, updateN
 import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
 import Card from '../Card'
+import Select from 'react-select'
+import {selectStyles} from '../../helpers/styles'
+
+const orderOptions = values => values.filter((v) => v.isFixed).concat(values.filter((v) => !v.isFixed))
+
+const selectOptions = [
+  { value: 'Newsletter', label: 'Newsletter', isFixed: true },
+  { value: 'Lore', label: 'Lore' },
+  { value: 'Blog', label: 'Blog' },
+  { value: 'FanMade', label: 'FanMade' },
+]
 
 const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
   Newsletters,
@@ -29,6 +40,7 @@ class NewsLetterGenerator extends Component {
     super(props)
     this.handleShow = this.handleShow.bind(this)
     this.handleHide = this.handleHide.bind(this)
+    this.onSelectChange = this.onSelectChange.bind(this)
  
     this.state = {
       show: false,
@@ -39,7 +51,8 @@ class NewsLetterGenerator extends Component {
       tags: null, 
       title: null, 
       id: null,
-      loadOnce: true
+      loadOnce: true,
+      value: orderOptions([selectOptions[0]])
     }
   }
 
@@ -86,7 +99,6 @@ class NewsLetterGenerator extends Component {
   loadNewsletterDesign = design => this.editor.loadDesign(design)
 
   onDesignLoad = design => {
-    console.log('ONDEIGNKOAD')
     //this.editor.setMergeTags([{name: 'First Name'}])
 
     // Custom Image Storage in Base64
@@ -133,6 +145,23 @@ class NewsLetterGenerator extends Component {
     event.target.name === 'title' ? this.setState({title: event.target.value})
     : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
   }
+
+  onSelectChange (value, { action, removedValue }) {
+    switch (action) {
+      case 'remove-value':
+      case 'pop-value':
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case 'clear':
+        value = selectOptions.filter((v) => v.isFixed);
+        break;
+    }
+
+    value = orderOptions(value);
+    this.setState({ value: value });
+  }
   
   render() {
     const {User, Newsletters, HtmlDocument, author, tags, title, id} = this.state
@@ -169,6 +198,19 @@ class NewsLetterGenerator extends Component {
                 <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
               </FormGroup>
             </Form>
+          </Col>
+          <Col>
+          <Select
+            value={this.state.value}
+            isMulti
+            styles={selectStyles}
+            isClearable={this.state.value.some(v => !v.isFixed)}
+            name="colors"
+            className="basic-multi-select"
+            classNamePrefix="select"
+            onChange={this.onSelectChange}
+            options={selectOptions}
+          />
           </Col>
         </Row>
         <Row>
