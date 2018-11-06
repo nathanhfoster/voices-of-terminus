@@ -12,16 +12,6 @@ export const getUsers = () => {
        }).catch((e) => console.log(e))
 }
 
-export const getUser = (id, token) => {
-  return async (dispatch) => await Axios(token).get(`users/${id}/`)
-     .then(res => {
-       dispatch({
-         type: C.GET_USER,
-         payload: res.data
-       })
-     }).catch((e) => console.log(e))
-}
-
 export const clearUser = () => {
   return async (dispatch) =>
        dispatch({

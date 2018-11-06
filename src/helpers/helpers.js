@@ -1,3 +1,17 @@
+import Cleric from '../images/classIcons/cleric.png'
+import Paladin from '../images/classIcons/paladin.png'
+import Warrior from '../images/classIcons/warrior.png'
+import DireLord from '../images/classIcons/dire-lord.png'
+import Ranger from '../images/classIcons/ranger.png'
+import Rogue from '../images/classIcons/rogue.png'
+import Monk from '../images/classIcons/monk.png'
+import Summoner from '../images/classIcons/summoner.png'
+import Enchanter from '../images/classIcons/enchanter.png'
+import Wizard from '../images/classIcons/wizard.png'
+import Druid from '../images/classIcons/druid.png'
+import Shaman from '../images/classIcons/shaman.png'
+import Default from '../images/classIcons/default.png'
+
   /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!
@@ -49,4 +63,21 @@ export const statusLevelString = status => {
         default: return 'Guest'
     }
 }
-  
+
+export const classIcon = primaryClass => {
+    switch (primaryClass) {
+        case 'Cleric': return Cleric
+        case 'Paladin': return Paladin
+        case'Warrior': return Warrior
+        case 'Dire Lord': return DireLord
+        case 'Ranger': return Ranger
+        case 'Rogue':return Rogue
+        case 'Monk': return Monk
+        case 'Summoner': return Summoner
+        case 'Enchanter': return Enchanter
+        case 'Wizard': return Wizard
+        case 'Druid': return Druid
+        case 'Shaman': return Shaman
+        default: return Default
+      }
+    }

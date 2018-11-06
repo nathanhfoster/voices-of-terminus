@@ -53,11 +53,10 @@ export const login = (username, password, rememberMe) => {
             payload: res.data
          })
         //window.location.reload()
-    }).catch((e) => console.log(e))
-    // .catch((e) => dispatch({
-    //     type: C.SET_API_RESPONSE,
-    //     payload: e.response
-    // }))
+    }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
 }
 
 export const Logout = () => {
@@ -87,7 +86,17 @@ export const clearApiResponse = () => {
     })
 }
 
-export const getUser = (id, token) => {
+export const getUser = id => {
+    return async (dispatch) => await Axios().get(`users/${id}/`)
+       .then(res => {
+         dispatch({
+           type: C.GET_USER,
+           payload: res.data
+         })
+       }).catch((e) => console.log(e))
+  }
+
+export const refreshUser = (id, token) => {
     return async (dispatch) => await Axios(token).get(`users/${id}/`)
        .then(res => {
         res.data.token = Cookies.get('User_LoginToken')

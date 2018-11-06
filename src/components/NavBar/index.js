@@ -11,19 +11,7 @@ import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 import {Logout} from '../../actions/App'
-
-import Cleric from '../../images/classIcons/cleric.png'
-import Paladin from '../../images/classIcons/paladin.png'
-import Warrior from '../../images/classIcons/warrior.png'
-import DireLord from '../../images/classIcons/dire-lord.png'
-import Ranger from '../../images/classIcons/ranger.png'
-import Rogue from '../../images/classIcons/rogue.png'
-import Monk from '../../images/classIcons/monk.png'
-import Summoner from '../../images/classIcons/summoner.png'
-import Enchanter from '../../images/classIcons/enchanter.png'
-import Wizard from '../../images/classIcons/wizard.png'
-import Druid from '../../images/classIcons/druid.png'
-import Shaman from '../../images/classIcons/shaman.png'
+import {classIcon} from '../../helpers/helpers'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -46,20 +34,6 @@ class NavBar extends Component {
   }
 
   static defaultProps = {
-    classIcon: {
-      'Cleric': Cleric,
-      'Paladin': Paladin,
-      'Warrior': Warrior,
-      'Dire Lord': DireLord,
-      'Ranger': Ranger,
-      'Rogue': Rogue,
-      'Monk': Monk,
-      'Summoner': Summoner,
-      'Enchanter': Enchanter,
-      'Wizard': Wizard,
-      'Druid': Druid,
-      'Shaman': Shaman
-    }
   }
 
   componentWillMount() {
@@ -98,7 +72,7 @@ class NavBar extends Component {
     const {pathname} = this.props.location
     const {User} = this.state
     const {token, id,  is_superuser, is_staff, bio, primary_role, primary_class} = User
-    const {navItem, classIcon} = this.props
+    const {navItem} = this.props
     return (
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
@@ -139,7 +113,7 @@ class NavBar extends Component {
               </NavDropdown>
              
               {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}>LOGIN</NavItem></LinkContainer>
-              :<NavDropdown eventKey={5} title={classIcon[primary_class] ? [<Image src={classIcon[primary_class]} style={{height: '25px'}}/>, ' ' + User.username] : [<i className="fas fa-user"/>, ' ' + User.username]} id="basic-nav-dropdown">
+              :<NavDropdown eventKey={5} title={[<Image src={classIcon(primary_class)} style={{height: '25px'}}/>, ' ' + User.username]} id="basic-nav-dropdown">
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}

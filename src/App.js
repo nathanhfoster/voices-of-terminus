@@ -25,12 +25,13 @@ import Guild from './views/Guild'
 import Media from './views/Media'
 import VideoPlayer from './components/VideoPlayer'
 import Profile from './views/Profile'
+import OtherProfile from './views/Profile/OtherProfile'
 import Login from './components/Login'
 import Donate from './views/Donate'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
 import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
-import {getUser} from './actions/App'
+import {refreshUser} from './actions/App'
 import 'moment-timezone'
 import MomentJS from 'moment'
 
@@ -49,7 +50,7 @@ const mapDispatchToProps = {
   getAllVRYouTube,
   getVRYouTubeChannelData,
   Logout,
-  getUser
+  refreshUser
 }
 
 class App extends Component {
@@ -109,6 +110,7 @@ class App extends Component {
       {path: '/media/streams', component: Media},
       {path: '/media/podcasts', component: Media},
       {path: '/profile', component: Profile},
+      {path: '/profile/:id', component: OtherProfile},
       {path: '/login', component: Login},
       {path: '/donate', component: Donate},
     ],
@@ -142,7 +144,7 @@ class App extends Component {
     const {ApiResponse, Window, User, location} = props
     if(ApiResponse) this.alertApiResponse(ApiResponse)
     /* Check if User permissions have changed every 10 seconds */
-    if(Cookies.get('User_LoginToken') && this.props.User.id && !/edit|new/.test(location.pathname)) this.interval = setInterval(() => this.props.getUser(this.props.User.id, this.props.User.token), 10000)
+    if(Cookies.get('User_LoginToken') && this.props.User.id && !/edit|new/.test(location.pathname)) this.interval = setInterval(() => this.props.refreshUser(this.props.User.id, this.props.User.token), 10000)
     this.setState({ApiResponse, Window, User})
   }
 

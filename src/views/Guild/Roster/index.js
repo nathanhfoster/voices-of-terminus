@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Grid, Row, Col, Image} from 'react-bootstrap'
+import {Link} from 'react-router-dom'
 import './styles.css'
 import EventList from '../../../components/EventList'
 import {getUsers} from '../../../actions/Admin'
+import {classIcon} from '../../../helpers/helpers'
 
 
 const mapStateToProps = ({Admin, DiscordData}) => ({
@@ -74,7 +76,7 @@ class Roster extends Component {
   renderPeople = (color, routeItems) => routeItems.map(k => {
     return (
       <Col md={3} xs={4}>
-        <p style={{color: color}}>{k.username}</p>
+        <Link to={'/profile/' + k.id} className="userContainer"><Image src={classIcon(k.primary_class)} style={{height: '25px'}}/> <p style={{color: color}}>{k.username}</p></Link>
       </Col>
     )
   })
