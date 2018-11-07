@@ -364,8 +364,8 @@ class Profile extends Component {
   setImage = e => {
     const {alert} = this.props
     var file = e.target.files[0]
-    if(file.size > 5242880) {
-      alert.error(<div>Please use an image less then 5MB</div>)
+    if(file.size > 3145728) {
+      alert.error(<div>Please use an image less then 3MB</div>)
     }else {
       var reader = new FileReader()
       reader.readAsDataURL(file)
