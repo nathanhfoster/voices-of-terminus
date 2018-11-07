@@ -117,7 +117,7 @@ class OtherProfile extends Component {
       <Grid className="OtherProfile Container">
         <Row>
           <Col md={3} style={{textAlign: 'center'}}>
-            <Image src={User.profile_image} style={{height: '250px', borderRadius: '4px'}}/>
+            <Image src={User.profile_image} style={{height: '250px'}} rounded/>
           </Col>
           <Col md={4} style={{textAlign: 'center'}}>
             <h1>{User.username.toUpperCase()}</h1>
