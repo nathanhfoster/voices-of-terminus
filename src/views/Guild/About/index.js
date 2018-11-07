@@ -47,11 +47,11 @@ class About extends Component {
           <Col className="votDifferenceContainer">
             <div className="votDifferenceText">
               <h3>The VoT Difference</h3>
-              <p>
+              <span>
               We are the voices of those longing for community, for a family that trancends beliefs, race or blood.
               There is nothing more glorious than sharing an adventure and forming bonds with wonderful people.
               We invite you to share in our adventure in Pantheon: Rise of the Fallen.
-              </p>
+              </span>
               <div className="SocialMediaLinks">
                 <NavItem eventKey={8.1} href="http://discord.me/vot" class="fab fa-discord" target="_blank"></NavItem>
                 <NavItem eventKey={8.2} href="http://twitch.tv/pantheon_vot" class="fab fa-twitch" target="_blank"></NavItem>

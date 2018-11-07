@@ -70,4 +70,18 @@
     animation-duration: 2s;
     animation-fill-mode: forwards;
   }
-  
+
+  .HomeFooter {
+    background-color: var(--secondaryColor);
+    opacity: var(--mainOpacity);
+  }
+
+  .footerBanner {
+    height: 20%;
+    margin: 0 auto;
+    text-align: 'center';
+  }
+  .footerBanner img {
+    display: block;
+    width: 100%;
+  }

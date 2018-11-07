@@ -6,10 +6,6 @@ import { Grid, Row, Col, PageHeader, Image, NavItem, Tabs, Tab} from 'react-boot
 import './styles.css'
 import Moment from 'react-moment'
 import { LinkContainer } from 'react-router-bootstrap'
-import imageGallery from '../../images/media-images.png'
-import videoGallery from '../../images/media-videos.png'
-import streamGallery from '../../images/media-streams.png'
-import podcastGallery from '../../images/media-podcasts.png'
 import Images from './Images'
 import Videos from './Videos'
 import Streams from './Streams'
@@ -41,7 +37,6 @@ class Media extends Component {
   }
 
   static defaultProps = {
-    images: [imageGallery, videoGallery, streamGallery, podcastGallery],
     YouTubeChannelData: [],
     TabItems: [
       {eventKey: "/media/images", Title: "IMAGES", Component: Images},

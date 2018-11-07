@@ -1,7 +1,7 @@
 .TextEditor {
     font-family: 'proxima_novasemibold', Arial, sans-serif;
 }
-.TextEditor ::-webkit-scrollbar {
+.TextEditor::-webkit-scrollbar {
   width: 4px;
 }
 .TextEditor .rdw-option-wrapper {

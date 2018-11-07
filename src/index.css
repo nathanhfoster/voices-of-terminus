@@ -23,7 +23,7 @@
   --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, .5);
   --quaternaryBackGroundOpacity: rgba(0, 0, 0, .9);
-  --mainOpacity: 0.9;
+  --mainOpacity: .88;
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
   --inputHeight: 34px;
@@ -109,6 +109,12 @@
   --color_saddle_brown_approx: #5f3900;
   --color_cola_approx: #3a2300;
   --color_mulberry_wood_approx: #5f0030;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
 }
 @font-face {
   font-family: "Goblin Hand";

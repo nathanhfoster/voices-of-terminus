@@ -1,3 +1,4 @@
+
 .react-calendar__navigation button {
   border: 0;
   height: 2em;
@@ -24,6 +25,9 @@
   min-width: 0;
   align-items: center;
   text-align: left;
+}
+.TileContent::-webkit-scrollbar {
+  display: block;
 }
 .hasEventsContainer {
   overflow: hidden;
@@ -126,7 +130,7 @@
   padding: 0;
   overflow-y: auto;
 }
-.EventList ::-webkit-scrollbar {
+.EventList::-webkit-scrollbar {
   width: 1px;
 }
 .EventList h2 {
