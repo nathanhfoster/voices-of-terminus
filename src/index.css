@@ -169,6 +169,7 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
+.Container input, .Container select, .Container textarea {
 input, select, textarea {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);
