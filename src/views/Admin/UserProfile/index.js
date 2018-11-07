@@ -140,7 +140,7 @@ class UserProfile extends Component {
           <h2 className="headerBanner">USER INFO</h2>
         </Row>
         <Row style={{border: '1px solid var(--grey_out)', borderRadius: '4px'}}>
-          <Col md={4}><Image src={Admin.User.profile_image} style={{maxHeight: '250px'}} responsive rounded/></Col>
+          <Col md={4} style={{textAlign: 'center'}}><Image src={Admin.User.profile_image} style={{maxHeight: '250px'}} responsive rounded/></Col>
           <Col md={4} xs={12}>
             <h3>Joined: <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
           </Col>
