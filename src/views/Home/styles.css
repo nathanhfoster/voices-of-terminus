@@ -1,6 +1,7 @@
 .Home {
     margin-top: 20px;
     color: var(--tertiarycolor);
+    width: 75%;
   }
   .Home iframe {
     padding: 0;
@@ -72,8 +73,11 @@
   }
 
   .HomeFooter {
+    width: 100%;
     background-color: var(--secondaryColor);
     opacity: var(--mainOpacity);
+    position: absolute;
+    bottom: 0;
   }
 
   .footerBanner {

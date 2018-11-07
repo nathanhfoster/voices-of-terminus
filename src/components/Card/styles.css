@@ -35,19 +35,24 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
+.Summary .summaryTitle h4 {
+  margin: 4px 0 4px 0;
+}
 .Summary .summaryTitle {
   overflow: hidden;
 }
 
 .Summary .summaryTitleDivider{
-  margin: 0 0 10px 0;
+  margin: 0 0 4px 0;
 }
 
 .cardActions {
-  color: var(--grey);
+  background-color: var(--tertiarycolor);
+  color: var(--secondaryColor);
   margin-left: 8px;
 }
 .cardActions:hover {
+  background-color: var(--primaryColor);
   color: var(--tertiarycolor);
 }
 

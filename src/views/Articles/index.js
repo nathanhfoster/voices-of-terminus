@@ -90,10 +90,8 @@ class Articles extends Component {
               <Button onClick={() => this.props.history.goBack()}>
                 <i class="fas fa-arrow-left"/>
               </Button>
-              {User.can_create_article ? 
-                <Button onClick={() => this.props.history.push('/articles/new/article')}>
-                Create
-                </Button>
+              {User.is_superuser || User.can_create_article  ? 
+                <Button onClick={() => this.props.history.push('/articles/new/article')}>Create</Button>
                 : null}
             </Col>
             <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>

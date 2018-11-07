@@ -125,8 +125,8 @@ class UserProfile extends Component {
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
     const canEdit = User.username === 'admin' || loggedInUserStatus > currentUserStatus
     return (
-      !this.props.User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
-      : Admin.User ?
+      User.is_superuser || User.is_staff ?
+      Admin.User ?
       <Grid className="UserProfile Container">
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
@@ -152,16 +152,16 @@ class UserProfile extends Component {
           <Col xs={12}><h2><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={3} xs={6}>
+          <Col md={6} xs={12}>
           <h3>Username: {Admin.User.username}</h3>
           </Col>
-          <Col md={3} xs={6}>
+          <Col md={6} xs={12}>
           <h3>Email: {Admin.User.email}</h3>
           </Col>
-          <Col md={3} xs={6}>
+          <Col md={6} xs={12}>
             <h3>First Name: {Admin.User.first_name}</h3>
           </Col>
-          <Col md={3} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Last Name: {Admin.User.last_name}</h3>
           </Col>
           <Col md={12} xs={12}>
@@ -172,74 +172,75 @@ class UserProfile extends Component {
           <h2 className="headerBanner">STATUS</h2>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={4} xs={12}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_active} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_active: !Admin.User.is_active}} }))}>
             <span className="checkBoxText">Active</span>
             <span className="help">Unselect this instead of deleting accounts.</span>
             </Checkbox>
           </Col>
-          <Col md={4} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_superuser} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_superuser: !Admin.User.is_superuser}} }))}>
             <span className="checkBoxText">Admin</span>
             <span className="help">Grants access to admin panel and that this user has all permissions without explicitly assigning them.</span>
             </Checkbox>
           </Col>
-          <Col md={4} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_staff} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_staff: !Admin.User.is_staff}} }))}>
-            <span className="checkBoxText">Staff</span>
-            <span className="help">Designates whether the user can log into Django backend admin site.</span>
+            <span className="checkBoxText">Staff <span style={{fontSize: '16px'}}>(Moderator)</span></span>
+            <span className="help">Grants access to admin panel and ability to edit user permissions of a lower status level.</span>
             </Checkbox>
           </Col>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
             <span className="checkBoxText">Leader</span>
             <span className="help">Will show up as a leader in guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 6))} checked={Admin.User.is_council} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_council: !Admin.User.is_council}} }))}>
             <span className="checkBoxText">Council</span>
             <span className="help">Will show up on the Council in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 5))} checked={Admin.User.is_general_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_general_officer: !Admin.User.is_general_officer}} }))}>
             <span className="checkBoxText">General Officer</span>
             <span className="help">Will show up as an Genral Officer in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 4))} checked={Admin.User.is_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: !Admin.User.is_officer}} }))}>
             <span className="checkBoxText">Officer</span>
             <span className="help">Will show up as an Officer in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={4} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 3))} checked={Admin.User.is_senior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_senior_member: !Admin.User.is_senior_member}} }))}>
             <span className="checkBoxText">Senior Member</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={4} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 2))} checked={Admin.User.is_junior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_junior_member: !Admin.User.is_junior_member}} }))}>
             <span className="checkBoxText">Junior Member</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
-          <Col md={4} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 1))} checked={Admin.User.is_recruit} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruit: !Admin.User.is_recruit}} }))}>
             <span className="checkBoxText">Recruit</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
         </Row>
+        {User.is_superuser || User.is_staff ? [
         <Row>
           <h2 className="headerBanner">PERMISSIONS</h2>
-        </Row>
+        </Row>,
         <Row className="checkBoxTable">
-          <Col md={3} xs={6}>
+          <Col md={3} xs={12}>
             <h3>CREATE</h3>
             <span className="help">Can create designated content.</span>
             <Checkbox disabled={!canEdit} checked={Admin.User.can_create_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_create_article: !Admin.User.can_create_article}} }))}>
@@ -252,7 +253,7 @@ class UserProfile extends Component {
             Calendar Events
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col md={3} xs={12}>
             <h3>READ</h3>
             <span className="help">Can read designated content.</span>
             <Checkbox disabled={!canEdit} checked={Admin.User.can_read_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_read_article: !Admin.User.can_read_article}} }))}>
@@ -265,7 +266,7 @@ class UserProfile extends Component {
             Calendar Events
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col md={3} xs={12}>
             <h3>UPDATE</h3>
             <span className="help">Can update ANY designated content.</span>
             <Checkbox disabled={!canEdit} checked={Admin.User.can_update_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_update_article: !Admin.User.can_update_article}} }))}>
@@ -278,7 +279,7 @@ class UserProfile extends Component {
             Calendar Events
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col md={3} xs={12}>
             <h3>DELETE</h3>
             <span className="help">Can delete ANY designated content.</span>
             <Checkbox disabled={!canEdit} checked={Admin.User.can_delete_article} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, can_delete_article: !Admin.User.can_delete_article}} }))}>
@@ -291,36 +292,36 @@ class UserProfile extends Component {
             Calendar Events
             </Checkbox>
           </Col>
-        </Row>
+        </Row>] : null}
         <Row>
           <h2 className="headerBanner">ROLES</h2>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={3} xs={12}>
+          <Col md={12} xs={12}>
             <Checkbox disabled={!canEdit} checked={Admin.User.is_raid_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_raid_leader: !Admin.User.is_raid_leader}} }))}>
             <span className="checkBoxText">Raid Leader</span>
             <span className="help">Raid Leader</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!canEdit} checked={Admin.User.is_banker} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_banker: !Admin.User.is_banker}} }))}>
             <span className="checkBoxText">Banker</span>
             <span className="help">Banker</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!canEdit} checked={Admin.User.is_recruiter} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruiter: !Admin.User.is_recruiter}} }))}>
             <span className="checkBoxText">Recruiter</span>
             <span className="help">Recruiter</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!canEdit} checked={Admin.User.is_class_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_class_lead: !Admin.User.is_class_lead}} }))}>
             <span className="checkBoxText">Class Lead</span>
             <span className="help">Class Lead</span>
             </Checkbox>
           </Col>
-          <Col md={3} xs={6}>
+          <Col xs={12}>
             <Checkbox disabled={!canEdit} checked={Admin.User.is_crafter_lead} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_crafter_lead: !Admin.User.is_crafter_lead}} }))}>
             <span className="checkBoxText">Crafter Lead</span>
             <span className="help">Crafter Lead</span>
@@ -334,16 +335,16 @@ class UserProfile extends Component {
           <h3>Primary</h3>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={6} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Role: {Admin.User.primary_role}</h3>
           </Col>
-          <Col md={6} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Class: {Admin.User.primary_class}</h3>
           </Col>
-          <Col md={6} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Profession: {Admin.User.profession}</h3>
           </Col>
-          <Col md={6} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Specialization: {Admin.User.profession_specialization}</h3>
           </Col>
         </Row>
@@ -351,10 +352,10 @@ class UserProfile extends Component {
           <h3>Secondary</h3>
         </Row>
         <Row className="checkBoxTable">
-          <Col md={6} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Role: {Admin.User.secondary_role}</h3>
           </Col>
-          <Col md={6} xs={6}>
+          <Col md={6} xs={12}>
             <h3>Class: {Admin.User.secondary_class}</h3>
           </Col>
         </Row>
@@ -380,8 +381,8 @@ class UserProfile extends Component {
             <Button onClick={this.updateUserProfile}>Update</Button>
           </Col>
         </Row>
-      </Grid>
-      : null
+      </Grid> : null
+      : <Redirect to={this.props.history.goBack()}/>
     )
   }
 }

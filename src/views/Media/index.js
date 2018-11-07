@@ -43,6 +43,7 @@ class Media extends Component {
       {eventKey: "/media/videos", Title: "VIDEOS", Component: Videos},
       {eventKey: "/media/streams", Title: "STREAMS", Component: Streams},
       {eventKey: "/media/podcasts", Title: "PODCASTS", Component: Podcasts},
+      {eventKey: "/media/podcasts", Title: "VOT NETWORK", Component: Podcasts},
     ]
   }
   

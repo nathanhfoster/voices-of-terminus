@@ -27,8 +27,8 @@
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
   --inputHeight: 34px;
-  --cardHeight: 400px;
-  --cardSummaryHeight: 176px;
+  --cardHeight: 300px;
+  --cardSummaryHeight: 136px;
 
   /* Hamburger animation */
   --speed: 200ms;
@@ -155,13 +155,13 @@ body {
   touch-action: pan-y;
   color: var(--tertiarycolor);
 }
-.Container .btn-default, .modal-content .btn-default {
+.btn-default, .modal-content .btn-default {
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
-.Container .btn-default:hover, .modal-content .btn-default:hover {
+.btn-default:hover, .modal-content .btn-default:hover {
   background-color: var(--tertiarycolor);
   color: black;
   -webkit-transition: all 0.3s ease-out;
@@ -169,7 +169,7 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-.Container input, .Container select, .Container textarea {
+input, select, textarea {
   opacity: var(--mainOpacity);
   background-color: var(--slate_grey);
 }

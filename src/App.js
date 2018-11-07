@@ -6,7 +6,7 @@ import Cookies from 'js-cookie'
 import './App.css'
 import './AppM.css'
 import "regenerator-runtime/runtime"
-import { withRouter, Route, Switch } from "react-router-dom"
+import { withRouter, Route, Switch, Redirect } from "react-router-dom"
 import { Image } from 'react-bootstrap'
 
 import Admin from './views/Admin'
@@ -83,7 +83,7 @@ class App extends Component {
 
   static defaultProps = {
     routeItems: [
-      {path: '/', component: Home},
+      {path: '/home', component: Home},
       {path: '/admin', component: Admin},
       {path: '/admin/user/profile/:id', component: UserProfile},
       {path: '/articles', component: Articles},
@@ -176,9 +176,10 @@ class App extends Component {
 
   render() {
     const {ApiResponse, isMobile} = this.state
-    const {routeItems, images, imagesMobile} = this.props
+    const {routeItems, images, imagesMobile, location} = this.props
     return (
-      <div className="App">
+      location.pathname === '/' ? <Redirect to="/home"/>
+      : <div className="App">
         <NavBar />
         <BackgroundImage />
         <Footer />

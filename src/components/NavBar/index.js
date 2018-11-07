@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './styles.css'
 import './stylesM.css'
-import {Navbar, Nav, NavItem, NavDropdown, Image} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, NavDropdown, Image, Button} from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
@@ -77,18 +77,19 @@ class NavBar extends Component {
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
             <Navbar.Brand>
-              <LinkContainer to="/">
+              {/*<LinkContainer to="/">
                 <NavItem eventKey={1}><Image src={votLogo} onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
-              </LinkContainer>
+                </LinkContainer>*/}
             </Navbar.Brand>
             <Navbar.Toggle />
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
+              <LinkContainer to="/home"><NavItem eventKey={1}>HOME</NavItem></LinkContainer>
               <LinkContainer to="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
               <LinkContainer to="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
-            { /* <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer> */}
+              <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
                 <LinkContainer to="/guild/roster"><NavItem eventKey={5.2}>ROSTER</NavItem></LinkContainer>
@@ -118,8 +119,8 @@ class NavBar extends Component {
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}
             </Nav>
-            <Nav className="pull-right">
-            {User.is_superuser ? <LinkContainer to="/admin"><NavItem eventKey={1}>ADMIN</NavItem></LinkContainer> : null}
+            <Nav className="pull-right" style={{textAlign: 'center'}}>
+              {User.is_superuser || User.is_staff ? <Button className="AdminButton" onClick={() => this.props.history.push('/admin')}>ADMIN</Button> : null}
             </Nav>
           </Navbar.Collapse>
   </Navbar>

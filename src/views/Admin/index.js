@@ -114,27 +114,27 @@ class Admin extends Component {
     const {Users} = Admin
 
     return (
-      !User.is_superuser ? <Redirect to={this.props.history.goBack()}/>
-      :<Grid className="Admin Container fadeIn-2">
-      <PageHeader className="pageHeader">ADMIN</PageHeader>
+      User.is_superuser || User.is_staff ? 
+      <Grid className="Admin Container fadeIn-2">
+        <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row>
           <Col md={12} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-              <Button onClick={() => this.props.history.goBack()}>
-                <i class="fas fa-arrow-left"/>
-              </Button>
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
-                Create User
-              </Button>
-              <Button onClick={() => this.props.history.push('/articles/new/article')}>
-                Create Article
-              </Button>
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} >
-                Create Newsletter
-              </Button>
-              <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
-                Create Event
-              </Button>
-            </Col>
+            <Button onClick={() => this.props.history.goBack()}>
+              <i class="fas fa-arrow-left"/>
+            </Button>
+            <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
+              Create User
+            </Button>
+            <Button onClick={() => this.props.history.push('/articles/new/article')}>
+              Create Article
+            </Button>
+            <Button onClick={() => this.props.history.push('/articles/new/newsletter')} >
+              Create Newsletter
+            </Button>
+            <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
+              Create Event
+            </Button>
+          </Col>
             {/* <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
               <InputGroup.Addon>
                 <FormControl name="filter" componentClass="select" onChange={this.onChange}>
@@ -173,7 +173,7 @@ class Admin extends Component {
             // }
             />
         </Row>
-      </Grid>
+      </Grid> : <Redirect to={this.props.history.goBack()}/>
     )
   }
 }
