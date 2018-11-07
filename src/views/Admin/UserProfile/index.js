@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, Image, Button, Checkbox} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Image, Button, ButtonToolbar, Checkbox} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
-import {withRouter, Redirect,} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 import {clearUser, updateUserProfile} from '../../../actions/Admin'
 import {getUser} from '../../../actions/App'
 import Select from 'react-select'
@@ -47,8 +47,7 @@ class UserProfile extends Component {
       secondary_role: '',
       profession: '',
       profession_specialization: '',
-
-
+      
       username: '',
       bio: '',
       date_joined: '',
@@ -131,6 +130,11 @@ class UserProfile extends Component {
       <Grid className="UserProfile Container">
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
+        </Row>
+        <Row>
+          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button onClick={() => this.props.history.push('/profile/' + Admin.User.id)} className="pull-right">Public Profile</Button>
+          </Col>
         </Row>
         <Row>
           <h2 className="headerBanner">USER INFO</h2>
