@@ -4,7 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
-import {getArticles} from '../../actions/Articles'
+import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
 import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
@@ -16,7 +16,9 @@ const mapStateToProps = ({User, Articles, Newsletters}) => ({
 })
 
 const mapDispatchToProps = {
+  getArticle,
   getArticles,
+  deleteArticle,
   getNewsletters,
   getNewsLetter,
   deleteNewsLetter
@@ -61,17 +63,30 @@ class News extends Component {
   componentWillUnmount() {
   }
 
-  renderCards = Newsletters => Newsletters.sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified)).map(card =>
-      <Col className="CardContainer" md={3}>
-        <Card
-          {...card}
-          click={() => {this.props.getNewsLetter(card.id); this.props.history.push('/news/' + card.id)}}
-          editCard={this.props.getNewsLetter}
-          deleteCard={this.props.deleteNewsLetter}
-          summary={true}
-         />
-      </Col>
-  )
+  renderCards = Documents => Documents.sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified)).map(card => {
+    let click = null
+    let editCard = null
+    let deleteCard = null
+    if (card.tags.match('article')) {
+      click = () => {this.props.getArticle(card.id); this.props.history.push('/articles/edit/article/' + card.id)}
+      editCard = this.props.getArticle
+      deleteCard = this.props.deleteArticle
+    }
+    if(card.tags.match('newsletter')){
+      click = () => {this.props.getNewsLetter(card.id); this.props.history.push('/news/' + card.id)}
+      editCard = this.props.getNewsLetter
+      deleteCard = this.props.deleteNewsLetter
+    }
+    return <Col className="CardContainer" md={3}>
+            <Card
+              {...card}
+              click={click}
+              editCard={editCard}
+              deleteCard={deleteCard}
+              summary={true}
+            />
+          </Col>
+    })
 
   onChange = (e) => {
     const query = e.target.value.toLowerCase()
@@ -85,7 +100,8 @@ class News extends Component {
 }
 
   render() {
-    const {User, Newsletters} = this.state
+    const {User, Articles, Newsletters} = this.state
+    const Documents = Articles.concat(Newsletters)
     return (
       <Grid className="News Container fadeIn-2">
         <Row>
@@ -113,7 +129,7 @@ class News extends Component {
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
             <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Newsletters.length ? this.renderCards(Newsletters) : null}
+                {Documents.length ? this.renderCards(Documents) : null}
               </Row>
             </Tab>
             <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>

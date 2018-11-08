@@ -5,9 +5,8 @@ import { Grid, Row, Col, PageHeader, ButtonToolbar, Button, InputGroup, FormCont
 import './styles.css'
 import './stylesM.css'
 import Card from '../../components/Card'
-import {getArticles} from '../../actions/Articles'
 import {withRouter} from 'react-router-dom'
-import {getArticle, updateArticle, deleteArticle} from '../../actions/Articles'
+import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
 
 const mapStateToProps = ({Articles, User}) => ({
   Articles,
@@ -17,7 +16,6 @@ const mapStateToProps = ({Articles, User}) => ({
 const mapDispatchToProps = {
   getArticle,
   getArticles,
-  updateArticle,
   deleteArticle
 }
 
