@@ -120,7 +120,7 @@ class NavBar extends Component {
               </NavDropdown>}
             </Nav>
             <Nav className="pull-right" style={{textAlign: 'center'}}>
-              {User.is_superuser || User.is_staff ? <Button className="AdminButton" onClick={() => this.props.history.push('/admin')}>ADMIN</Button> : null}
+              {User.is_superuser || User.is_staff ? <LinkContainer to="/admin" componentClass={Button} className="AdminButton"><NavItem eventKey={7}>ADMIN</NavItem></LinkContainer> : null}
             </Nav>
           </Navbar.Collapse>
   </Navbar>
