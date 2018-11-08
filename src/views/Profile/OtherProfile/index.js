@@ -130,10 +130,10 @@ class OtherProfile extends Component {
             <h2>{statusLevelString(statusLevelInt(UserStatus))}</h2>
             <div className="userRoles help">{this.renderRoles(UserRoles)}</div>
             <h4><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
-            <strong>Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
+            <strong> Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
             <h4><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
-            <strong>Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
-            <h4>{professionIcon(User.profession, User.profession_specialization)} <strong>Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
+            <strong> Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
+            <h4>{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
           </Col>
           <Col xs={12}>
             <Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well>
