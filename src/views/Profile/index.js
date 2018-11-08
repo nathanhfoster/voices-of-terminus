@@ -405,7 +405,7 @@ class Profile extends Component {
     if(
       (this.validateUsername() === 'success' || this.validateUsername() === 'warning')  &&
       (this.validatePassword() === null || this.validatePassword() === 'success' || this.validatePassword() === 'warning') &&
-      (this.validateEmail()    === 'success' || this.validateEmail()    === 'warning')
+      (this.validateEmail() === null || this.validateEmail() === 'success' || this.validateEmail()  === 'warning')
     ) return true
     
     return false
