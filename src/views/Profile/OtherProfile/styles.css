@@ -2,7 +2,7 @@
     padding: 20px;
     border-radius: 6px;
     background-color: var(--dark_grey);
-    height: 100%;
+    opacity: var(--mainOpacity);
 }
 
 .firstLastName {
@@ -16,12 +16,6 @@
 }
 
 .userBio {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    min-height: 250px;
     border: 2px solid var(--grey);
     background-color: var(--slate_grey);
     word-break: break-all;

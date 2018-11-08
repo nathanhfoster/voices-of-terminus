@@ -6,7 +6,8 @@ import './styles.css'
 import './stylesM.css'
 import {getUser} from '../../../actions/App'
 import {withRouter} from 'react-router-dom'
-import {statusLevelInt, statusLevelString, classIcon} from '../../../helpers'
+import {statusLevelInt, statusLevelString, classIcon, professionIcon} from '../../../helpers'
+import Moment from 'react-moment'
 
 const mapStateToProps = ({Admin}) => ({
   Admin
@@ -97,11 +98,11 @@ class OtherProfile extends Component {
 
   renderRoles = roles => Object.keys(roles).map(k => {
     if(roles[k]) {
-      if(k === 'is_raid_leader') return (<span>Raid Leader</span>)
-      if(k === 'is_banker') return (<span>Banker</span>)
-      if(k === 'is_recruiter') return (<span>Recruiter</span>)
-      if(k === 'is_class_lead') return (<span>Class Lead</span>)
-      if(k === 'is_crafter_lead') return (<span>Crafter Lead</span>)
+      if(k === 'is_raid_leader') return <span>Raid Leader</span>
+      if(k === 'is_banker') return <span>Banker</span>
+      if(k === 'is_recruiter') return <span>Recruiter</span>
+      if(k === 'is_class_lead') return <span>Class Lead</span>
+      if(k === 'is_crafter_lead') return <span>Crafter Lead</span>
     }
     return null
   })
@@ -116,26 +117,33 @@ class OtherProfile extends Component {
       User ? 
       <Grid className="OtherProfile Container">
         <Row>
-          <Col md={3} style={{textAlign: 'center'}}>
-            <Image src={User.profile_image} style={{height: '250px'}} rounded/>
+          <Col xs={12} style={{textAlign: 'center'}}>
+            <Image src={User.profile_image} style={{height: '250px'}}/>
+            <div><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3></div>
+            <div><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{User.last_login}</Moment></h3></div>
+            <div><h3><i class="fas fa-coins"/> {User.guild_points}</h3></div>
+            <div><h2><progress value={User.experience_points} min="0" max="10000"></progress></h2></div>
           </Col>
-          <Col md={4} style={{textAlign: 'center'}}>
+          <Col xs={12} style={{textAlign: 'center'}}>
             <h1>{User.username.toUpperCase()}</h1>
             <span className="help">{User.first_name} {User.last_name}</span>
             <h2>{statusLevelString(statusLevelInt(UserStatus))}</h2>
-            <div className="userRoles help" style={{display: 'block'}}>{this.renderRoles(UserRoles)}</div>
-            <div style={{display: 'inine-block'}}><Image src={classIcon(User.primary_class)} style={{height: '22px'}}/> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'}  {User.primary_class} {'|'}</div>
-            <div style={{display: 'inline-block'}}><Image src={classIcon(User.secondary_class)} style={{height: '22px'}}/> {'|'} {User.primary_race} {'|'} {User.secondary_role} {'|'}  {User.secondary_class} {'|'}</div>
-            <div style={{display: 'block'}}>{'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</div>
+            <div className="userRoles help">{this.renderRoles(UserRoles)}</div>
+            <h4><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
+            <strong>Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
+            <h4><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
+            <strong>Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
+            <h4>{professionIcon(User.profession, User.profession_specialization)} <strong>Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
           </Col>
-          <Col md={5}>
+          <Col xs={12}>
             <Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well>
+          </Col>
+          <Col xs={12}>
+            <Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well>
           </Col>
         </Row>
         <Row>
-          <Col>
-
-          </Col>
+          
         </Row>
         
       </Grid> : null 

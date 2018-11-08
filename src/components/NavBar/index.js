@@ -92,12 +92,14 @@ class NavBar extends Component {
               <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title="GUILD" id="basic-nav-dropdown">
                 <LinkContainer to="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
+                <LinkContainer to="/guild/donate"><NavItem eventKey={5.1}>DONATE</NavItem></LinkContainer>
                 <LinkContainer to="/guild/roster"><NavItem eventKey={5.2}>ROSTER</NavItem></LinkContainer>
                 <LinkContainer to="/guild/charters"><NavItem eventKey={5.3}>CHARTERS</NavItem></LinkContainer>
                 <LinkContainer to="/guild/lore"><NavItem eventKey={5.4}>LORE</NavItem></LinkContainer>
                 <LinkContainer to="/guild/contests"><NavItem eventKey={5.5}>CONTESTS</NavItem></LinkContainer>
                 <LinkContainer to="/guild/team"><NavItem eventKey={5.6}>TEAM</NavItem></LinkContainer>
                 <LinkContainer to="/guild/join"><NavItem eventKey={5.7}>JOIN</NavItem></LinkContainer>
+                <LinkContainer to="/guild/store"><NavItem eventKey={5.8}><i class="fas fa-store"/> STORE</NavItem></LinkContainer>  
               </NavDropdown>
               <NavDropdown eventKey={6} title="MEDIA" id="basic-nav-dropdown">
               <LinkContainer to="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>

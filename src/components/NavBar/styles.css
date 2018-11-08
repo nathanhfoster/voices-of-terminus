@@ -127,9 +127,12 @@ background-color: inherit !important;
   transform: rotate(0);
 }
 .AdminButton {
-  margin-top: 2px;
+  text-align: center;
+  margin: 2px auto;
+  width: 80px;
 }
 .AdminButton:hover {
   background-color: var(--tertiarycolor);
   border-radius: 6px;
+  width: 80px;
 }

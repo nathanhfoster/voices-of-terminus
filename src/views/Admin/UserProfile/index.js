@@ -123,7 +123,7 @@ class UserProfile extends Component {
       is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit})
     const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
-    const canEdit = User.username === 'admin' || loggedInUserStatus >= currentUserStatus
+    const canEdit = User.username === 'admin' || loggedInUserStatus > currentUserStatus
     return (
       User.is_superuser || User.is_staff ?
       Admin.User ?
@@ -193,43 +193,43 @@ class UserProfile extends Component {
         </Row>
         <Row className="checkBoxTable">
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
             <span className="checkBoxText">Leader</span>
             <span className="help">Will show up as a leader in guild roster.</span>
             </Checkbox>
           </Col>
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 6))} checked={Admin.User.is_council} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_council: !Admin.User.is_council}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 6))} checked={Admin.User.is_council} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_council: !Admin.User.is_council}} }))}>
             <span className="checkBoxText">Council</span>
             <span className="help">Will show up on the Council in the guild roster.</span>
             </Checkbox>
           </Col>
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 5))} checked={Admin.User.is_general_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_general_officer: !Admin.User.is_general_officer}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 5))} checked={Admin.User.is_general_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_general_officer: !Admin.User.is_general_officer}} }))}>
             <span className="checkBoxText">General Officer</span>
             <span className="help">Will show up as an Genral Officer in the guild roster.</span>
             </Checkbox>
           </Col>
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 4))} checked={Admin.User.is_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: !Admin.User.is_officer}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 4))} checked={Admin.User.is_officer} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_officer: !Admin.User.is_officer}} }))}>
             <span className="checkBoxText">Officer</span>
             <span className="help">Will show up as an Officer in the guild roster.</span>
             </Checkbox>
           </Col>
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 3))} checked={Admin.User.is_senior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_senior_member: !Admin.User.is_senior_member}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 3))} checked={Admin.User.is_senior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_senior_member: !Admin.User.is_senior_member}} }))}>
             <span className="checkBoxText">Senior Member</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 2))} checked={Admin.User.is_junior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_junior_member: !Admin.User.is_junior_member}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 2))} checked={Admin.User.is_junior_member} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_junior_member: !Admin.User.is_junior_member}} }))}>
             <span className="checkBoxText">Junior Member</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>
           </Col>
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 1))} checked={Admin.User.is_recruit} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruit: !Admin.User.is_recruit}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 1))} checked={Admin.User.is_recruit} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_recruit: !Admin.User.is_recruit}} }))}>
             <span className="checkBoxText">Recruit</span>
             <span className="help">Will show up as a Member in the guild roster.</span>
             </Checkbox>

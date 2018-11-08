@@ -129,17 +129,14 @@ class Home extends Component {
             /> : null
             }
           </Col>
-
           <Col lg={3} md={3} sm={12} className="newsFeed">
               <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" height="742px" width="100%"/>
           </Col>
-      </Row>
+        </Row>
       </Grid>,
       <footer className="HomeFooter">
         <Grid className="Container">
-          <Row>
-            <span className="pull-right" style={{fontSize: '12px'}}>&copy; {new Date().getFullYear()} Voices of Terminus. Trademarks, copyrights, and media are property of their respective owners.</span>
-          </Row>
+          <span className="copyRight" style={{fontSize: '12px'}}>&copy; {new Date().getFullYear()} Voices of Terminus. Trademarks, copyrights, and media are property of their respective owners.</span>
         </Grid>
       </footer>
     ])

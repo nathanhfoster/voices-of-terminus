@@ -27,7 +27,6 @@ import VideoPlayer from './components/VideoPlayer'
 import Profile from './views/Profile'
 import OtherProfile from './views/Profile/OtherProfile'
 import Login from './components/Login'
-import Donate from './views/Donate'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
 import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
@@ -98,6 +97,7 @@ class App extends Component {
       {path: '/articles/edit/newsletter/:id', component: NewsLetterGenerator},
       {path: '/forums/', component: Forums},
       {path: '/guild/about', component: Guild},
+      {path: '/guild/donate', component: Guild},
       {path: '/guild/roster', component: Guild},
       {path: '/guild/charters', component: Guild},
       {path: '/guild/lore', component: Guild},
@@ -112,7 +112,6 @@ class App extends Component {
       {path: '/profile', component: Profile},
       {path: '/profile/:id', component: OtherProfile},
       {path: '/login', component: Login},
-      {path: '/donate', component: Donate},
     ],
   }
 

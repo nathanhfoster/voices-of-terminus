@@ -200,17 +200,18 @@ class NewsLetterGenerator extends Component {
             </Form>
           </Col>
           <Col>
-          <Select
-            value={this.state.value}
-            isMulti
-            styles={selectStyles}
-            isClearable={this.state.value.some(v => !v.isFixed)}
-            name="colors"
-            className="basic-multi-select"
-            classNamePrefix="select"
-            onChange={this.onSelectChange}
-            options={selectOptions}
-          />
+          <i class="fas fa-tag"/>
+            <Select
+              value={this.state.value}
+              isMulti
+              styles={selectStyles}
+              isClearable={this.state.value.some(v => !v.isFixed)}
+              name="colors"
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={this.onSelectChange}
+              options={selectOptions}
+            />
           </Col>
         </Row>
         <Row>

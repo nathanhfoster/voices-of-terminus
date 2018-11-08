@@ -1,3 +1,4 @@
+import React from 'react'
 import Bard from '../images/classIcons/bard.png'
 import Cleric from '../images/classIcons/cleric.png'
 import Paladin from '../images/classIcons/paladin.png'
@@ -12,6 +13,7 @@ import Wizard from '../images/classIcons/wizard.png'
 import Druid from '../images/classIcons/druid.png'
 import Shaman from '../images/classIcons/shaman.png'
 import Default from '../images/classIcons/default.png'
+import QuestionMark from '../images/question.png'
 
   /**
  * Returns a random integer between min (inclusive) and max (inclusive)
@@ -73,13 +75,45 @@ export const classIcon = primaryClass => {
         case 'Warrior': return Warrior
         case 'Dire Lord': return DireLord
         case 'Ranger': return Ranger
-        case 'Rogue':return Rogue
+        case 'Rogue': return Rogue
         case 'Monk': return Monk
         case 'Summoner': return Summoner
         case 'Enchanter': return Enchanter
         case 'Wizard': return Wizard
         case 'Druid': return Druid
         case 'Shaman': return Shaman
-        default: return Default
+        default: return QuestionMark
       }
+}
+
+export const professionIcon = (profession, professionSpecialization) => {
+    if(professionSpecialization) {
+        switch (profession) {
+            case 'Alchemist': return <i class="fas fa-vial"/>
+            case 'Blacksmith': return <i class="fas fa-hammer"/>
+            case 'Outfitter': return <i class="fas fa-tshirt"/>
+            case 'Provisioner': return <i class="fas fa-lemon"/>
+            case 'Scribe': return <i class="fas fa-scroll"/>
+            case 'Stonemason': return <i class="fas fa-hand-rock"/>
+            case 'Woodworker':return <i class="fas fa-tree"/>
+            default: return <i class="fas fa-question"/>
+        }
+     }
+     else {
+        switch (profession) {
+            case 'Armorsmith': return <i class="fab fa-css3"/>
+            case 'Weaponsmith': return <i class="fab fa-ethereum"/>
+            case 'Leatherworker': return <i class="fab fa-pied-piper-hat"/>
+            case 'Tailor': return <i class="fab fa-opencart"/>
+            case 'Brewer': return <i class="fas fa-beer"/>
+            case 'Chef': return <i class="fas fa-utensils"/>
+            case 'Engraver': return <i class="fas fa-pen-fancy"/>
+            case 'Researcher': return <i class="fas fa-hat-wizard"/>
+            case 'Jeweller': return <i class="fas fa-ring"/>
+            case 'Sculptor': return <i class="fas fa-monument"/>
+            case 'Bowyer': return <i class="fab fa-schlix"/>
+            case 'Carver': return <i class="fas fa-hands"/>
+            default: return <i class="fas fa-question"/>
+        }
     }
+}

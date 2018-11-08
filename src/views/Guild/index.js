@@ -6,6 +6,7 @@ import './styles.css'
 import {Grid, Row, Tabs, Tab, PageHeader} from 'react-bootstrap'
 
 import About from './About'
+import Donate from './Donate'
 import Roster from './Roster'
 import Charters from './Charters'
 import Lore from './Lore'
@@ -44,6 +45,7 @@ class Guild extends Component {
   static defaultProps = {
     TabItems: [
       {eventKey : "/guild/about", Title: "ABOUT", Component: About},
+      {eventKey : "/guild/donate", Title: "DONATE", Component: Donate},
       {eventKey : "/guild/roster", Title: "ROSTER", Component: Roster},
       {eventKey : "/guild/charters", Title: "CHARTERS", Component: Charters},
       {eventKey : "/guild/lore", Title: "LORE", Component: Lore},

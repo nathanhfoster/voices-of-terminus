@@ -317,9 +317,9 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {token, id, profile_image, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points} = this.state.token ? this.state : props.User
+    const {token, id, profile_image, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state.token ? this.state : props.User
     const {password} = this.state
-    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points})
+    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points})
   }
 
   onChange = e => this.setState({[e.target.name]: e.target.value})
@@ -443,7 +443,7 @@ class Profile extends Component {
   render() {
     const {raceOptions, raceRoleClassOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} = this.props
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points} = this.state
+    const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container fadeIn-2">
@@ -454,13 +454,14 @@ class Profile extends Component {
           <h2 className="headerBanner">ACCOUNT</h2>
         </Row>
         <Row>
-          <Col md={4} style={{textAlign: 'center'}}>
+          <Col md={3} style={{textAlign: 'center'}}>
             <Image src={profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
             <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
           </Col>
-          <Col md={4} xs={6} className="borderCol"><h3>Joined:  <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
-          <Col md={4} xs={6}><h3>Last Login:  <Moment fromNow>{last_login}</Moment></h3></Col>
+          <Col md={3} xs={6} ><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{date_joined}</Moment></h3></Col>
+          <Col md={3} xs={6}><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{last_login}</Moment></h3></Col>
+          <Col md={3} xs={12}><h3><i class="fas fa-coins"/> {guild_points}</h3></Col>
           <Col xs={12}><h2><progress value={experience_points} min="0" max="10000"></progress></h2></Col>
           <Col md={3}>
             <FormGroup validationState={this.validateUsername()}>
