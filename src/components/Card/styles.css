@@ -47,13 +47,13 @@
 }
 
 .cardActions {
-  background-color: var(--tertiarycolor);
-  color: var(--secondaryColor);
+  background-color: var(--primaryColor);
+  color: var(--tertiarycolor);
   margin-left: 8px;
 }
 .cardActions:hover {
-  background-color: var(--primaryColor);
-  color: var(--tertiarycolor);
+  background-color: var(--tertiarycolor);
+  color: var(--secondaryColor);
 }
 
 .cardActions .caret {
