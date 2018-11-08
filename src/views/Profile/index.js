@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button, Image} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button, ButtonToolbar, Image} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Moment from 'react-moment'
@@ -453,6 +453,11 @@ class Profile extends Component {
       :<Grid className="Profile Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
+        </Row>
+        <Row>
+          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button onClick={() => this.props.history.push('/profile/' + id)} className="pull-right">Public Profile</Button>
+          </Col>
         </Row>
         <Row>
           <h2 className="headerBanner">ACCOUNT</h2>
