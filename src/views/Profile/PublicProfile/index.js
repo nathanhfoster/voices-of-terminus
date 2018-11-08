@@ -17,7 +17,7 @@ const mapDispatchToProps = {
   getUser
 }
 
-class OtherProfile extends Component {
+class PublicProfile extends Component {
   constructor(props) {
     super(props)
  
@@ -98,11 +98,11 @@ class OtherProfile extends Component {
 
   renderRoles = roles => Object.keys(roles).map(k => {
     if(roles[k]) {
-      if(k === 'is_raid_leader') return <span>Raid Leader</span>
-      if(k === 'is_banker') return <span>Banker</span>
-      if(k === 'is_recruiter') return <span>Recruiter</span>
-      if(k === 'is_class_lead') return <span>Class Lead</span>
-      if(k === 'is_crafter_lead') return <span>Crafter Lead</span>
+      if(k === 'is_raid_leader') return [<span>Raid Leader</span>, <span>|</span>]
+      if(k === 'is_banker') return [<span>Banker</span>, <span>|</span>]
+      if(k === 'is_recruiter') return [<span>Recruiter</span>, <span>|</span>]
+      if(k === 'is_class_lead') return [<span>Class Lead</span>, <span>|</span>]
+      if(k === 'is_crafter_lead') return [<span>Crafter Lead</span>, <span>|</span>]
     }
     return null
   })
@@ -115,25 +115,25 @@ class OtherProfile extends Component {
     const UserRoles = {is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead}
     return (
       User ? 
-      <Grid className="OtherProfile Container">
+      <Grid className="PublicProfile Container">
         <Row>
           <Col xs={12} style={{textAlign: 'center'}}>
             <Image src={User.profile_image} style={{height: '250px'}}/>
-            <div><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3></div>
-            <div><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{User.last_login}</Moment></h3></div>
-            <div><h3><i class="fas fa-coins"/> {User.guild_points}</h3></div>
-            <div><h2><progress value={User.experience_points} min="0" max="10000"></progress></h2></div>
-          </Col>
-          <Col xs={12} style={{textAlign: 'center'}}>
             <h1>{User.username.toUpperCase()}</h1>
             <span className="help">{User.first_name} {User.last_name}</span>
             <h2>{statusLevelString(statusLevelInt(UserStatus))}</h2>
-            <div className="userRoles help">{this.renderRoles(UserRoles)}</div>
+            <div className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
             <h4><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
             <strong> Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
             <h4><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
             <strong> Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
             <h4>{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
+          </Col>
+          <Col xs={12} style={{textAlign: 'center'}}>
+            <div><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3></div>
+            <div><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{User.last_login}</Moment></h3></div>
+            <div><h3><i class="fas fa-coins"/> {User.guild_points}</h3></div>
+            <div><h2><progress value={User.experience_points} min="0" max="10000"></progress></h2></div>
           </Col>
           <Col xs={12}>
             <Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well>
@@ -142,12 +142,22 @@ class OtherProfile extends Component {
             <Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well>
           </Col>
         </Row>
-        <Row>
-          
+        <Row className="userConnections">
+          <Col md={3} xs={3}>
+            <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
+          </Col>
+          <Col md={3} xs={3}>
+           <a href={User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
+          </Col>
+          <Col md={3} xs={3}>
+            <a href={User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
+          </Col>
+          <Col md={3} xs={3}>
+            <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
+          </Col>
         </Row>
-        
       </Grid> : null 
     )
   }
 }
-export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(OtherProfile))
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(PublicProfile))

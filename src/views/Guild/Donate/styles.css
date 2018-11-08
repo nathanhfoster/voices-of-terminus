@@ -2,9 +2,12 @@
     margin-top: 20px;
 }
 
-.DonateContainer {
+.donationText {
+   padding: 16px;
+   font-size: 24px;
 }
 
-.donationText {
-    font-size: 18px;
+.donateButton {
+    text-align: center;
+    margin-top: 16px;
 }

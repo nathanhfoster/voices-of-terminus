@@ -1,4 +1,4 @@
-.OtherProfile {
+.PublicProfile {
     padding: 20px;
     border-radius: 6px;
     background-color: var(--dark_grey);
@@ -12,7 +12,7 @@
 }
 
 .userRoles span {
-    margin: 4px;
+    margin: 2px;
 }
 
 .userBio {
@@ -25,4 +25,8 @@
 
 .userBio::-webkit-scrollbar {
     display: block;
+}
+
+.userConnections {
+   text-align: center;
 }

@@ -25,7 +25,7 @@ import Guild from './views/Guild'
 import Media from './views/Media'
 import VideoPlayer from './components/VideoPlayer'
 import Profile from './views/Profile'
-import OtherProfile from './views/Profile/OtherProfile'
+import PublicProfile from './views/Profile/PublicProfile'
 import Login from './components/Login'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
@@ -110,7 +110,7 @@ class App extends Component {
       {path: '/media/streams', component: Media},
       {path: '/media/podcasts', component: Media},
       {path: '/profile', component: Profile},
-      {path: '/profile/:id', component: OtherProfile},
+      {path: '/profile/:id', component: PublicProfile},
       {path: '/login', component: Login},
     ],
   }

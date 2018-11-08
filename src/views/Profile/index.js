@@ -380,7 +380,7 @@ class Profile extends Component {
       if (length > 4) return 'success'
       else if (length > 2) return 'warning'
       else if (length > 0) return 'error'
-  }
+    }
     return null
   }
 
@@ -388,16 +388,20 @@ class Profile extends Component {
     const {password} = this.state
     const {length} = password
     if (this.hasSpecialChar(password)) return 'success'
+    else if (length === 0) return null
     else if (length > 7) return 'warning'
     else if (length > 0 && length < 7) return 'error'
-    else if (length === 0) return null
     return null
   }
 
   validateEmail() {
     const validator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
     const {email} = this.state
-    if(validator.test(email)) return 'success'
+    const {length} = email
+    if (length === 0) return null
+   
+    else if(validator.test(email)) return 'success'
+    else if(!validator.test(email)) return 'error'
     return null
   }
 
