@@ -196,7 +196,7 @@ class Login extends Component {
               </FormGroup>
             </Row>
             <Row>
-              <Col md={12} style={{textAlign: 'center'}}>
+              <Col md={12} className="Center">
                 <ButtonGroup>
                   <Button type="submit">Sign in</Button>
                   <Button onClick={this.handleShow}>Create Account</Button>

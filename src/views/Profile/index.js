@@ -458,12 +458,12 @@ class Profile extends Component {
           <h2 className="headerBanner">ACCOUNT</h2>
         </Row>
         <Row>
-          <Col md={3} style={{textAlign: 'center'}}>
+          <Col md={3} className="Center">
             <Image src={profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
             <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
           </Col>
-          <Col md={3} xs={12}><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{date_joined}</Moment></h3></Col>
+          <Col md={3} xs={12}><h3><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
           <Col md={3} xs={12}><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{last_login}</Moment></h3></Col>
           <Col md={3} xs={12}><h3><i class="fas fa-coins"/> {guild_points}</h3></Col>
           <Col xs={12}><h2><progress value={experience_points} min="0" max="10000"></progress></h2></Col>

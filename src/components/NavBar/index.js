@@ -121,7 +121,7 @@ class NavBar extends Component {
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}
             </Nav>
-            <Nav className="pull-right" style={{textAlign: 'center'}}>
+            <Nav className="Center pull-right">
               {User.is_superuser || User.is_staff ? <LinkContainer to="/admin" componentClass={Button} className="AdminButton"><NavItem eventKey={7}>ADMIN</NavItem></LinkContainer> : null}
             </Nav>
           </Navbar.Collapse>

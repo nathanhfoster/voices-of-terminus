@@ -82,7 +82,7 @@ export const classIcon = primaryClass => {
         case 'Wizard': return Wizard
         case 'Druid': return Druid
         case 'Shaman': return Shaman
-        default: return QuestionMark
+        default: return null
       }
 }
 
@@ -96,7 +96,7 @@ export const professionIcon = (profession, professionSpecialization) => {
             case 'Scribe': return <i class="fas fa-scroll"/>
             case 'Stonemason': return <i class="fas fa-hand-rock"/>
             case 'Woodworker':return <i class="fas fa-tree"/>
-            default: return <i class="fas fa-question"/>
+            default: return null
         }
      }
      else {
@@ -113,7 +113,7 @@ export const professionIcon = (profession, professionSpecialization) => {
             case 'Sculptor': return <i class="fas fa-monument"/>
             case 'Bowyer': return <i class="fab fa-schlix"/>
             case 'Carver': return <i class="fas fa-hands"/>
-            default: return <i class="fas fa-question"/>
+            default: return null
         }
     }
 }

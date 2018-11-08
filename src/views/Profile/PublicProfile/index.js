@@ -116,31 +116,29 @@ class PublicProfile extends Component {
     return (
       User ? 
       <Grid className="PublicProfile Container">
-        <Row>
-          <Col xs={12} style={{textAlign: 'center'}}>
-            <Image src={User.profile_image} style={{height: '250px'}}/>
-            <h1>{User.username.toUpperCase()}</h1>
-            <span className="help">{User.first_name} {User.last_name}</span>
-            <h2>{statusLevelString(statusLevelInt(UserStatus))}</h2>
-            <div className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
-            <h4><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
-            <strong> Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
-            <h4><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
-            <strong> Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
-            <h4>{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
+        <Row className="Center">
+          <Col md={4} xs={12} className="Center"><Image title="Profile Image" src={User.profile_image} style={{height: '250px'}}/></Col>
+          <Col md={5} xs={12}>
+            <h1 title="User Name">{User.username.toUpperCase()}</h1>
+            <span title="First and Last Name" className="help">{User.first_name} {User.last_name}</span>
+            <h2 title="Status">{statusLevelString(statusLevelInt(UserStatus))}</h2>
+            <div title="Roles" className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
+            <h4 title="Primary Class Icon"><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
+            <strong title="Primary | Race | Role | Class |"> Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
+            <h4 title="Seconday Class Icon"><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
+            <strong title="Secondary | Race | Role | Class |"> Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
+            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
           </Col>
-          <Col xs={12} style={{textAlign: 'center'}}>
-            <div><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3></div>
-            <div><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{User.last_login}</Moment></h3></div>
-            <div><h3><i class="fas fa-coins"/> {User.guild_points}</h3></div>
-            <div><h2><progress value={User.experience_points} min="0" max="10000"></progress></h2></div>
+          <Col md={3} xs={12} className="Center">
+            <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{User.date_joined}</Moment></h3>
+            <h3 title="Last Login"><i class="fas fa-sign-in-alt"/> <Moment fromNow>{User.last_login}</Moment></h3>
+            <h3 title="Guild Points"><i class="fas fa-coins"/> {User.guild_points}</h3>
           </Col>
-          <Col xs={12}>
-            <Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well>
-          </Col>
-          <Col xs={12}>
-            <Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well>
-          </Col>
+        </Row>
+        <Row className="Center">
+          <Col xs={12}><h2 title="Experience Points"><progress value={User.experience_points} min="0" max="10000"></progress></h2></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
         </Row>
         <Row className="userConnections">
           <Col md={3} xs={3}>

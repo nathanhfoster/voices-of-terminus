@@ -110,12 +110,6 @@
   --color_cola_approx: #3a2300;
   --color_mulberry_wood_approx: #5f0030;
 }
-.center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
-}
 @font-face {
   font-family: "Goblin Hand";
   font-style: normal;
@@ -201,10 +195,7 @@ body {
 
 }
 .Center {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  text-align: center;
 }
 .pageHeader {
   padding: 0;

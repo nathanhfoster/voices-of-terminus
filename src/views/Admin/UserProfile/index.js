@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, Image, Button, ButtonToolbar, Checkbox} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Image, Button, ButtonToolbar, Checkbox, Well} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect} from 'react-router-dom'
 import {clearUser, updateUserProfile} from '../../../actions/Admin'
@@ -10,7 +10,7 @@ import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
 import {selectStyles} from '../../../helpers/styles'
-import {statusLevelInt} from '../../../helpers'
+import {statusLevelInt, statusLevelString, classIcon, professionIcon} from '../../../helpers'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -117,6 +117,17 @@ class UserProfile extends Component {
     this.props.updateUserProfile(id, User.token, payload)
   }
 
+  renderRoles = roles => Object.keys(roles).map(k => {
+    if(roles[k]) {
+      if(k === 'is_raid_leader') return [<span>Raid Leader</span>, <span>|</span>]
+      if(k === 'is_banker') return [<span>Banker</span>, <span>|</span>]
+      if(k === 'is_recruiter') return [<span>Recruiter</span>, <span>|</span>]
+      if(k === 'is_class_lead') return [<span>Class Lead</span>, <span>|</span>]
+      if(k === 'is_crafter_lead') return [<span>Crafter Lead</span>, <span>|</span>]
+    }
+    return null
+  })
+
   render() {
     const {Admin, User} = this.state
     const loggedInUserStatus =  statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
@@ -124,6 +135,11 @@ class UserProfile extends Component {
     const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
     const canEdit = User.username === 'admin' || loggedInUserStatus > currentUserStatus
+    const UserStatus = Admin.User ? {is_leader: Admin.User.is_leader, is_council: Admin.User.is_council,
+      is_general_officer: Admin.User.is_general_officer, is_officer: Admin.User.is_officer,
+      is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit} : {}
+    const UserRoles = Admin.User ? {is_raid_leader: Admin.User.is_raid_leader, is_banker: Admin.User.is_banker,
+      is_recruiter: Admin.User.is_recruiter, is_class_lead: Admin.User.is_class_lead, is_crafter_lead: Admin.User.is_crafter_lead} : {}
     return (
       User.is_superuser || User.is_staff ?
       Admin.User ?
@@ -139,33 +155,42 @@ class UserProfile extends Component {
         <Row>
           <h2 className="headerBanner">USER INFO</h2>
         </Row>
-        <Row style={{border: '1px solid var(--grey_out)', borderRadius: '4px'}}>
-          <Col md={4}><Image src={Admin.User.profile_image} style={{maxHeight: '250px', margin: '0 auto', display: 'block'}} rounded/></Col>
-          <Col md={4} xs={12}>
-            <h3>Joined: <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
+        <Row className="Center borderedRow">
+          <Col md={4} xs={12}><Image title="Profile Image" src={User.profile_image} style={{height: '250px'}}/></Col>
+          <Col md={5} xs={12}>
+            <h1 title="User Name">{Admin.User.username.toUpperCase()}</h1>
+            <span title="First and Last Name" className="help">{Admin.User.first_name} {User.last_name}</span>
+            <h2 title="Status">{statusLevelString(statusLevelInt(UserStatus))}</h2>
+            <div title="Roles" className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
+            <h4 title="Primary Class Icon"><Image src={classIcon(Admin.User.primary_class)} style={{height: '24px'}}/>
+            <strong title="Primary | Race | Role | Class |"> Primary</strong> {'|'} {User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}</h4>
+            <h4 title="Seconday Class Icon"><Image src={classIcon(Admin.User.secondary_class)} style={{height: '26px'}}/>
+            <strong title="Secondary | Race | Role | Class |"> Secondary</strong> {'|'} {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}</h4>
+            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(Admin.User.profession, Admin.User.profession_specialization)}<strong> Profession</strong> {'|'} {Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}</h4>
           </Col>
-          <Col md={4} xs={12}>
-            <h3>Last login: <Moment format="MMMM DD, YYYY">{Admin.User.last_login}</Moment></h3>
+          <Col md={3} xs={12} className="Center">
+            <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
+            <h3 title="Last Login"><i class="fas fa-sign-in-alt"/> <Moment fromNow>{Admin.User.last_login}</Moment></h3>
+            <h3 title="Guild Points"><i class="fas fa-coins"/> {Admin.User.guild_points}</h3>
           </Col>
         </Row>
-        <Row className="checkBoxTable">
-          <Col xs={12}><h2><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
+        <Row className="centerOnMobile borderedRow" >
+          <Col xs={12}><h2 title="Experience Points"><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large">{Admin.User.bio ? User.bio : 'No biography given.'}</Well></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
         </Row>
-        <Row className="checkBoxTable">
-          <Col md={6} xs={12}>
-          <h3>Username: {Admin.User.username}</h3>
+        <Row className="userConnections borderedRow">
+          <Col md={3} xs={3}>
+            <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
           </Col>
-          <Col md={6} xs={12}>
-          <h3>Email: {Admin.User.email}</h3>
+          <Col md={3} xs={3}>
+           <a href={User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
           </Col>
-          <Col md={6} xs={12}>
-            <h3>First Name: {Admin.User.first_name}</h3>
+          <Col md={3} xs={3}>
+            <a href={User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
           </Col>
-          <Col md={6} xs={12}>
-            <h3>Last Name: {Admin.User.last_name}</h3>
-          </Col>
-          <Col md={12} xs={12}>
-            <h3>Bio: {Admin.User.bio}</h3>
+          <Col md={3} xs={3}>
+            <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
           </Col>
         </Row>
         <Row>
@@ -193,7 +218,7 @@ class UserProfile extends Component {
         </Row>
         <Row className="checkBoxTable">
           <Col xs={12}>
-            <Checkbox disabled={!(canEdit && (loggedInUserStatus > 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
+            <Checkbox disabled={!(canEdit && (loggedInUserStatus >= 7))} checked={Admin.User.is_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_leader: !Admin.User.is_leader}} }))}>
             <span className="checkBoxText">Leader</span>
             <span className="help">Will show up as a leader in guild roster.</span>
             </Checkbox>
@@ -326,54 +351,6 @@ class UserProfile extends Component {
             <span className="checkBoxText">Crafter Lead</span>
             <span className="help">Crafter Lead</span>
             </Checkbox>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">IN GAME</h2>
-        </Row>
-        <Row>
-          <h3>Primary</h3>
-        </Row>
-        <Row className="checkBoxTable">
-          <Col md={6} xs={12}>
-            <h3>Role: {Admin.User.primary_role}</h3>
-          </Col>
-          <Col md={6} xs={12}>
-            <h3>Class: {Admin.User.primary_class}</h3>
-          </Col>
-          <Col md={6} xs={12}>
-            <h3>Profession: {Admin.User.profession}</h3>
-          </Col>
-          <Col md={6} xs={12}>
-            <h3>Specialization: {Admin.User.profession_specialization}</h3>
-          </Col>
-        </Row>
-        <Row>
-          <h3>Secondary</h3>
-        </Row>
-        <Row className="checkBoxTable">
-          <Col md={6} xs={12}>
-            <h3>Role: {Admin.User.secondary_role}</h3>
-          </Col>
-          <Col md={6} xs={12}>
-            <h3>Class: {Admin.User.secondary_class}</h3>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">CONNECTIONS</h2>
-        </Row>
-        <Row style={{marginTop: '16px'}}>
-          <Col md={3} xs={3}>
-            <a href={Admin.User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
-          </Col>
-          <Col md={3} xs={3}>
-           <a href={Admin.User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
-          </Col>
-          <Col md={3} xs={3}>
-            <a href={Admin.User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
-          </Col>
-          <Col md={3} xs={3}>
-            <a href={Admin.User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
           </Col>
         </Row>
         <Row>

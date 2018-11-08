@@ -70,7 +70,7 @@ class HtmlParser extends Component {
               <Col md={12}>
                 <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>
               </Col>
-              <Col md={12} style={{textAlign: 'center'}}>
+              <Col md={12} className="Center">
                 <h3>By: {HtmlDocument.author_username}</h3>
               </Col>
               <Col md={12}>
