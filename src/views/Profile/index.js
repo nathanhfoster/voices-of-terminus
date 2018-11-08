@@ -462,8 +462,8 @@ class Profile extends Component {
         <Row>
           <h2 className="headerBanner">ACCOUNT</h2>
         </Row>
-        <Row>
-          <Col md={3} className="Center">
+        <Row className="Center">
+          <Col md={3}>
             <Image src={profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
             <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
