@@ -144,7 +144,7 @@ class TextEditor extends Component {
     
     return (
       !User.token ? <Redirect to="/login"/>
-      :<Grid className="TextEditor Container fadeIn-2" onBlur={e => e.preventDefault()} blurInputOnSelect={false}>
+      :<Grid className="TextEditor Container fadeIn-2">
         <Row>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button type="submit" onClick={() => this.updateArticle(id)} disabled={!id}>
@@ -192,10 +192,8 @@ class TextEditor extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col onBlur={e => e.preventDefault()} blurInputOnSelect={false}>
             <Editor
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
               wrapperClassName="Wrapper"
               editorClassName="Editor"
               toolbarClassName="Toolbar"
