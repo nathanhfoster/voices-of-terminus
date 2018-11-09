@@ -123,16 +123,16 @@ class Admin extends Component {
               <i class="fas fa-arrow-left"/>
             </Button>
             <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
-              Create User
+            <i class="fas fa-plus"/> User
             </Button>
             <Button onClick={() => this.props.history.push('/articles/new/article')}>
-              Create Article
+            <i class="fas fa-plus"/> Article
             </Button>
             <Button onClick={() => this.props.history.push('/articles/new/newsletter')} >
-              Create Newsletter
+            <i class="fas fa-plus"/> Newsletter
             </Button>
             <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
-              Create Event
+            <i class="fas fa-plus"/> Event
             </Button>
           </Col>
             {/* <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>

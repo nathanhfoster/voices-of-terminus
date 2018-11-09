@@ -107,9 +107,7 @@ class News extends Component {
     const {Articles, Newsletters} = this.props
     let {Documents} = this.state
     const filter = new RegExp(selectValue.map(i => i.value).join('|'))
-    console.log(filter.test('?'))
     Documents = !filter.test('?') ? Documents.filter(i => i.tags.match(filter)) : Articles.concat(Newsletters)
-    console.log(Documents)
     switch (action) {
       case 'remove-value':
       case 'pop-value':
@@ -133,15 +131,14 @@ class News extends Component {
           <PageHeader className="pageHeader">NEWS</PageHeader>
         </Row>
         <Row>
-          <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button onClick={() => this.props.history.goBack()}><i class="fas fa-arrow-left"/></Button>
-            {User.is_superuser || User.can_create_article ? <Button onClick={() => this.props.history.push('/articles/new/article')}>Create Article</Button> : null}
-            {User.is_superuser || User.can_crate_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>Create Newsletter</Button> : null}
+          <Col md={3} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+            {User.is_superuser || User.can_create_article ? <Button onClick={() => this.props.history.push('/articles/new/article')}><i class="fas fa-plus"/> Article</Button> : null}
+            {User.is_superuser || User.can_crate_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}><i class="fas fa-plus"/> Newsletter</Button> : null}
           </Col>
-          <Col md={8} xs={12}>
+          <Col md={5} xs={12}>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
+                <InputGroup.Addon><i class="fas fa-tags"/></InputGroup.Addon>
                 <Select
                 //https://react-select.com/props
                   value={this.state.selectValue}
@@ -159,7 +156,9 @@ class News extends Component {
               />
              </InputGroup>
             </FormGroup>
-            </Col>
+          </Col>
+          <Col md={4} xs={12}>
+          </Col>
         </Row>
         <Row>
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>

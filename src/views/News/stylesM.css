@@ -1,5 +1,5 @@
 @media(max-width: 767px){
-    .News [class*='col-'] {
-        margin: 15px;
+    .News .tab-content {
+        margin: 0 8px 0 8px;
     }
 }
