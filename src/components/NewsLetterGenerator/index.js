@@ -202,7 +202,8 @@ class NewsLetterGenerator extends Component {
               value={this.state.selectValue}
               isMulti
               styles={selectStyles}
-              isClearable={false}
+              isClearable={true}
+              isSearchable={false}
               onBlur={e => e.preventDefault()}
               blurInputOnSelect={false}
               // isClearable={this.state.value.some(v => !v.isFixed)}
