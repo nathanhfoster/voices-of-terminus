@@ -178,6 +178,8 @@ class TextEditor extends Component {
               isMulti
               styles={selectStyles}
               isClearable={false}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
               // isClearable={this.state.value.some(v => !v.isFixed)}
               name="colors"
               className="basic-multi-select"
