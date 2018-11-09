@@ -14,7 +14,6 @@ import BackgroundImage from './components/BackgroundImage'
 import UserProfile from './views/Admin/UserProfile'
 import NavBar from './components/NavBar'
 import Home from './views/Home'
-import Articles from './views/Articles'
 import TextEditor from './components/TextEditor'
 import NewsLetterGenerator from './components/NewsLetterGenerator'
 import GuildCalendar from './views/GuildCalendar'
@@ -85,14 +84,12 @@ class App extends Component {
       {path: '/home', component: Home},
       {path: '/admin', component: Admin},
       {path: '/admin/user/profile/:id', component: UserProfile},
-      {path: '/articles', component: Articles},
       {path: '/articles/:id', component: HtmlParser},
       {path: '/articles/new/article', component: TextEditor},
       {path: '/articles/edit/article/:id', component: TextEditor},
-      {path: '/articles/view/:id', component: Articles},
       {path: '/calendar', component: GuildCalendar},
       {path: '/news/', component: News},
-      {path: '/news/:id', component: HtmlParser},
+      {path: '/newsletters/:id', component: HtmlParser},
       {path: '/articles/new/newsletter', component: NewsLetterGenerator},
       {path: '/articles/edit/newsletter/:id', component: NewsLetterGenerator},
       {path: '/forums/', component: Forums},

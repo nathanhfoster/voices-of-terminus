@@ -67,26 +67,18 @@ class News extends Component {
     let click = null
     let editCard = null
     let deleteCard = null
-    if (card.tags.match('article')) {
-      click = () => {this.props.getArticle(card.id); this.props.history.push('/articles/edit/article/' + card.id)}
-      editCard = this.props.getArticle
+    if (card.tags.includes('Article')) {
+      click = () => {this.props.getArticle(card.id); this.props.history.push('/articles/' + card.id)}
+      editCard = () => {this.props.getArticle(card.id); this.props.history.push('/articles/edit/article/' + card.id)}
       deleteCard = this.props.deleteArticle
     }
-    if(card.tags.match('newsletter')){
-      click = () => {this.props.getNewsLetter(card.id); this.props.history.push('/news/' + card.id)}
-      editCard = this.props.getNewsLetter
+    if(card.tags.includes('Newsletter')){
+      click = () => {this.props.getNewsLetter(card.id); this.props.history.push('/newsletters/' + card.id)}
+      editCard = () => {this.props.getNewsLetter(card.id); this.props.history.push('/articles/edit/newsletter/' + card.id)}
       deleteCard = this.props.deleteNewsLetter
     }
-    return <Col className="CardContainer" md={3}>
-            <Card
-              {...card}
-              click={click}
-              editCard={editCard}
-              deleteCard={deleteCard}
-              summary={true}
-            />
-          </Col>
-    })
+    return <Col className="CardContainer" md={3}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
+  })
 
   onChange = (e) => {
     const query = e.target.value.toLowerCase()
@@ -109,10 +101,9 @@ class News extends Component {
         </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button onClick={() => this.props.history.goBack()}>
-              <i class="fas fa-arrow-left"/>
-            </Button>
-            {User.is_superuser || User.can_crate_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>Create</Button> : null}
+            <Button onClick={() => this.props.history.goBack()}><i class="fas fa-arrow-left"/></Button>
+            {User.is_superuser || User.can_create_article ? <Button onClick={() => this.props.history.push('/articles/new/article')}>Create Article</Button> : null}
+            {User.is_superuser || User.can_crate_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>Create Newsletter</Button> : null}
           </Col>
           <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
             <InputGroup.Addon>

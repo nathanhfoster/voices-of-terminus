@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form, FormGroup, FormControl} from 'react-bootstrap'
+import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
@@ -11,15 +11,6 @@ import defaultDesign from './defaultDesign.json'
 import Card from '../Card'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
-
-const orderOptions = values => values.filter((v) => v.isFixed).concat(values.filter((v) => !v.isFixed))
-
-const selectOptions = [
-  { value: 'Newsletter', label: 'Newsletter', isFixed: true },
-  { value: 'Lore', label: 'Lore' },
-  { value: 'Blog', label: 'Blog' },
-  { value: 'FanMade', label: 'FanMade' },
-]
 
 const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
   Newsletters,
@@ -52,7 +43,7 @@ class NewsLetterGenerator extends Component {
       title: null, 
       id: null,
       loadOnce: true,
-      value: orderOptions([selectOptions[0]])
+      selectValue: null
     }
   }
 
@@ -60,7 +51,12 @@ class NewsLetterGenerator extends Component {
   }
 
   static defaultProps = {
-   
+    selectOptions: [
+      { value: 'Newsletter', label: 'Newsletter', isFixed: true },
+      { value: 'Lore', label: 'Lore' },
+      { value: 'Blog', label: 'Blog' },
+      { value: 'FanMade', label: 'FanMade' },
+    ]
   }
   
   componentWillMount() {
@@ -75,10 +71,12 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
-    const {User, Newsletters, HtmlDocument} = props
-    const {author, tags, title} = HtmlDocument
+    const {User, Newsletters, HtmlDocument, selectOptions} = props
+    const {author, title} = HtmlDocument
     const {id} = props.match.params
-    this.setState({User, Newsletters, HtmlDocument, author, tags, title, id})
+    const tags =  HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Newsletter').map(i => i = {value: i, label: i}) : []
+    const selectValue = [selectOptions[0], ...tags]
+    this.setState({User, Newsletters, HtmlDocument, author, tags, title, id, selectValue: this.orderOptions(selectValue)})
   }
 
   componentWillUnmount() {
@@ -141,26 +139,25 @@ class NewsLetterGenerator extends Component {
     this.setState({show: false})
   }
 
-  onChange = event => {
-    event.target.name === 'title' ? this.setState({title: event.target.value})
-    : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
-  }
+  onChange = e => this.setState({[e.target.name]: e.target.value})
 
-  onSelectChange (value, { action, removedValue }) {
+  orderOptions = values => values.filter((v) => v.isFixed).concat(values.filter((v) => !v.isFixed))
+
+  onSelectChange (selectValue, { action, removedValue }) {
     switch (action) {
       case 'remove-value':
       case 'pop-value':
         if (removedValue.isFixed) {
-          return;
+          return
         }
-        break;
+        break
       case 'clear':
-        value = selectOptions.filter((v) => v.isFixed);
-        break;
+      selectValue = this.props.selectOptions.filter((v) => v.isFixed)
+        break
     }
-
-    value = orderOptions(value);
-    this.setState({ value: value });
+    selectValue = this.orderOptions(selectValue)
+    const tags = selectValue.map(i => i.value).join('|')
+    this.setState({ selectValue, tags })
   }
   
   render() {
@@ -190,28 +187,31 @@ class NewsLetterGenerator extends Component {
         </Row>
         <Row>
           <Col>
-            <Form>
-              <FormGroup>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon><i class="fas fa-heading"></i></InputGroup.Addon>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
-              </FormGroup>
-              <FormGroup>
-                <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
-              </FormGroup>
-            </Form>
+              </InputGroup>
+            </FormGroup>
           </Col>
           <Col>
-          <i class="fas fa-tag"/>
-            <Select
-              value={this.state.value}
+          <FormGroup>
+            <InputGroup>
+              <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
+              <Select
+              value={this.state.selectValue}
               isMulti
               styles={selectStyles}
-              isClearable={this.state.value.some(v => !v.isFixed)}
+              isClearable={false}
+              // isClearable={this.state.value.some(v => !v.isFixed)}
               name="colors"
               className="basic-multi-select"
               classNamePrefix="select"
               onChange={this.onSelectChange}
-              options={selectOptions}
+              options={this.props.selectOptions}
             />
+            </InputGroup>
+          </FormGroup>
           </Col>
         </Row>
         <Row>
@@ -224,7 +224,6 @@ class NewsLetterGenerator extends Component {
             style={styles} 
             onDesignLoad = {this.onDesignLoad}
             onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
-            onChange = {(e) => console.log("ONCHANGE", e)}
           />
         </Row> 
         <Row>

@@ -86,7 +86,6 @@ class NavBar extends Component {
           <Navbar.Collapse>
             <Nav>
               <LinkContainer to="/home"><NavItem eventKey={1}>HOME</NavItem></LinkContainer>
-              <LinkContainer to="/articles"><NavItem eventKey={2}>ARTICLES</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}>CALENDAR</NavItem></LinkContainer>
               <LinkContainer to="/news"><NavItem eventKey={4}>NEWS</NavItem></LinkContainer>
               <LinkContainer to="/forums/"><NavItem eventKey={5}>FORUMS</NavItem></LinkContainer>

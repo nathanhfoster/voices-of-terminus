@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, Form, FormGroup, FormControl, ButtonToolbar, Button} from 'react-bootstrap'
+import {Grid, Row, Col, FormGroup, InputGroup, FormControl, ButtonToolbar, Button} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import { EditorState, convertToRaw, ContentState } from 'draft-js'
@@ -12,6 +12,8 @@ import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
 import {postDocument, updateArticle} from '../../actions/Articles'
 import {withRouter, Redirect} from 'react-router-dom'
+import Select from 'react-select'
+import {selectStyles} from '../../helpers/styles'
 
 const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
   editorState,
@@ -29,6 +31,7 @@ class TextEditor extends Component {
   constructor(props) {
     super(props)
     this.onEditorStateChange = this.onEditorStateChange.bind(this)
+    this.onSelectChange = this.onSelectChange.bind(this)
 
     this.state = {
       author: null,
@@ -43,7 +46,8 @@ class TextEditor extends Component {
       title: '',
 
       editorState: null,
-      show: false
+      show: false,
+      selectValue: null
     }
   }
 
@@ -52,6 +56,12 @@ class TextEditor extends Component {
   }
 
   static defaultProps = {
+    selectOptions: [
+      { value: 'Article', label: 'Article', isFixed: true },
+      { value: 'Lore', label: 'Lore' },
+      { value: 'Blog', label: 'Blog' },
+      { value: 'FanMade', label: 'FanMade' },
+    ]
   }
   
   
@@ -68,8 +78,10 @@ class TextEditor extends Component {
 
   getState = props => {
     let {editorState} = props
-    const {User, HtmlDocument, match} = props
-    const {author, tags, title} = HtmlDocument
+    const {User, HtmlDocument, match, selectOptions} = props
+    const {author, title} = HtmlDocument
+    const tags =  HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Article').map(i => i = {value: i, label: i}) : []
+    const selectValue = [selectOptions[0], ...tags]
     const {id} = match ? match.params : null
     
     // Set the editorState from Redux if it exists else create an empty state
@@ -80,7 +92,7 @@ class TextEditor extends Component {
       editorState = EditorState.createWithContent(contentState)
     } else editorState = EditorState.createEmpty()
 
-    this.setState({User, HtmlDocument, id, author, tags, title, editorState})
+    this.setState({User, HtmlDocument, id, author, tags, title, editorState, selectValue: this.orderOptions(selectValue)})
   }
 
   componentWillUnmount() {
@@ -106,9 +118,25 @@ class TextEditor extends Component {
      this.props.updateArticle(id, User.token, {author, html, tags, title})
     }
 
-    onChange = event => {
-      event.target.name === 'title' ? this.setState({title: event.target.value})
-      : event.target.name === 'tags' ? this.setState({tags: event.target.value}) : null
+    onChange = e => this.setState({[e.target.name]: e.target.value})
+
+    orderOptions = values => values.filter((v) => v.isFixed).concat(values.filter((v) => !v.isFixed))
+
+    onSelectChange (selectValue, { action, removedValue }) {
+      switch (action) {
+        case 'remove-value':
+        case 'pop-value':
+          if (removedValue.isFixed) {
+            return
+          }
+          break
+        case 'clear':
+        selectValue = this.props.selectOptions.filter((v) => v.isFixed)
+          break
+      }
+      selectValue = this.orderOptions(selectValue)
+      const tags = selectValue.map(i => i.value).join('|')
+      this.setState({ selectValue, tags })
     }
 
   render() {
@@ -133,15 +161,32 @@ class TextEditor extends Component {
           </Col>
         </Row>
         <Row>
-          <Col sm={12} style={{padding: '0'}}>
-            <Form>
-              <FormGroup>
+          <Col>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon><i class="fas fa-heading"></i></InputGroup.Addon>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
-              </FormGroup>
-              <FormGroup>
-                <FormControl value={tags} type="text" placeholder="Tags" name="tags" onChange={this.onChange.bind(this)}/>
-              </FormGroup>
-            </Form>
+              </InputGroup>
+            </FormGroup>
+          </Col>
+          <Col>
+          <FormGroup>
+            <InputGroup>
+              <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
+              <Select
+              value={this.state.selectValue}
+              isMulti
+              styles={selectStyles}
+              isClearable={false}
+              // isClearable={this.state.value.some(v => !v.isFixed)}
+              name="colors"
+              className="basic-multi-select"
+              classNamePrefix="select"
+              onChange={this.onSelectChange}
+              options={this.props.selectOptions}
+            />
+            </InputGroup>
+          </FormGroup>
           </Col>
         </Row>
         <Row>

@@ -19,8 +19,6 @@ const mapDispatchToProps = {
 class Card extends Component {
   constructor(props) {
     super(props)
-    this.deleteThisCard = this.deleteThisCard.bind(this)
-    this.editThisCard = this.editThisCard.bind(this)
     this.state = {
       id: null,
       author: null,
@@ -72,18 +70,6 @@ class Card extends Component {
   componentWillUnmount() {
   }
 
-  deleteThisCard = (id, token) => this.props.deleteCard(id, token)
-
-  editThisCard = id => {
-    // Get current path in url
-    const {pathname} = this.props.history.location
-    // Call passed edit function
-    this.props.editCard(id)
-    // Determine route
-    if(pathname.includes('articles')) { this.props.history.push('/articles/edit/article/' + id + '/') }
-    if(pathname.includes('news')) { this.props.history.push('/articles/edit/newsletter/' + id + '/') }
-  }
-
   hasDeletePermission = (User, author) => {
     const {pathname} = this.props.history.location
     if(pathname.includes('articles')) {
@@ -102,15 +88,15 @@ class Card extends Component {
   }
 
   hasUpdatePermission = (User, author) => {
-    const {pathname} = this.props.history.location
+    const {tags} = this.state
     
-    if(pathname.includes('articles')) {
+    if(tags.includes('Article')) {
       if(User.is_superuser) return true
       if(User.is_staff && User.can_update_article) return true
       if(User.id == author || User.can_update_article) return true
     }
 
-    if(pathname.includes('news')) {
+    if(tags.includes('Newsletter')) {
       if(User.is_superuser) return true
       if(User.is_staff && User.can_update_article) return true
       if(User.id == author || User.can_update_article) return true
@@ -122,9 +108,10 @@ class Card extends Component {
   render() {
     const {User, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, isMobile} = this.state
     const hasDeletePermission = this.hasDeletePermission(User, author)
-    const hasUpdatePermission = this.hasUpdatePermission(User, author) 
+    const hasUpdatePermission = this.hasUpdatePermission(User, author)
+    const {click, editCard, deleteCard} = this.props
     return (
-      <div className="Clickable Card Hover" onClick={this.props.click}>
+      <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
           <div className="previewItem">
             <HtmlParser html={html} />
@@ -137,8 +124,8 @@ class Card extends Component {
             </div>
             <hr className="summaryTitleDivider"/>
             <div>
-              {hasDeletePermission ? <Button onClick={(e) => {e.stopPropagation(); this.deleteThisCard(id, User.token)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
-              {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); this.editThisCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
+              {hasDeletePermission ? <Button onClick={(e) => {e.stopPropagation(); deleteCard(id, User.token)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+              {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); editCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div>
               <h5>Author: {author_username}</h5>
