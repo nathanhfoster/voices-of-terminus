@@ -117,7 +117,7 @@ class PublicProfile extends Component {
       User ? 
       <Grid className="PublicProfile Container">
         <Row className="Center">
-          <Col md={4} xs={12} className="Center"><Image title="Profile Image" src={User.profile_image} style={{height: '250px'}}/></Col>
+          <Col md={4} xs={12} className="Center"><Image title="Profile Image" src={User.profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/></Col>
           <Col md={5} xs={12}>
             <h1 title="User Name">{User.username.toUpperCase()}</h1>
             <span title="First and Last Name" className="help">{User.first_name} {User.last_name}</span>
