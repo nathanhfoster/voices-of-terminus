@@ -204,6 +204,8 @@ class TextEditor extends Component {
               autoCapitalize="off"
               autoComplete="off"
               autoCorrect="off"
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
                 />
           </Col>
         </Row>
