@@ -186,26 +186,24 @@ class TextEditor extends Component {
               classNamePrefix="select"
               onChange={this.onSelectChange}
               options={this.props.selectOptions}
-            />
+              />
             </InputGroup>
           </FormGroup>
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col onBlur={e => e.preventDefault()} blurInputOnSelect={false}>
             <Editor
               wrapperClassName="Wrapper"
               editorClassName="Editor"
               toolbarClassName="Toolbar"
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
-              stripPastedStyles="off"
-              spellCheck="off"
-              autoCapitalize="off"
-              autoComplete="off"
-              autoCorrect="off"
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
+              // stripPastedStyles="off"
+              // spellCheck="off"
+              // autoCapitalize="off"
+              // autoComplete="off"
+              // autoCorrect="off"
                 />
           </Col>
         </Row>
