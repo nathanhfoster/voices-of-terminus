@@ -60,8 +60,9 @@ export const selectStyles = {
       ...base,
       borderBottom: '1px solid var(--primaryColor)',
       borderRadius: '4px',
-      background: state.isFocused ? 'var(--primaryColor)' : 'var(--grey)',
-      color: 'white'
+      backgroundColor: state.isFocused ? 'var(--primaryColor)' : 'var(--grey)',
+      color: 'white',
+      ':active': { backgroundColor: !state.isSelected ? 'var(--secondaryColor)' : 'var(--grey)'}
     }),
     placeholder: (base, state) => ({
       ...base,

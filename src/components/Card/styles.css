@@ -5,7 +5,8 @@
 .Card {
   height: 100%;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.2);
+  background-color: var(--secondaryColor);
+  opacity: var(--mainOpacity);
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

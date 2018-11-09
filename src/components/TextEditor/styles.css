@@ -16,7 +16,7 @@
   min-width: 30px;
   height: 30px;
   border-radius: 2px;
-  margin: 0 4px;
+  margin-left: 2px;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-pack: center;
@@ -84,7 +84,7 @@
   letter-spacing: 2px;
 }
 .TextEditor .rdw-editor-toolbar {
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 }
 
 .TextEditor {
@@ -110,11 +110,13 @@
 .TextEditor .rdw-image-left {
   display: unset;
   float: left;
+  margin-right: 8px;
 }
 .TextEditor .rdw-image-right {
   display: unset;
   justify-content: unset;
   float: right;
+  margin-left: 8px;
 }
 /* END */
 

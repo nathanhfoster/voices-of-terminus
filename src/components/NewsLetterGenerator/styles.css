@@ -12,11 +12,17 @@
     max-height: 638px;
 }
 
+.CardContainerArticle .previewItem p {
+    padding: 0 8px 0 8px;
+}
+
+.CardContainerNewsletter .previewItem {
+}
+
 .newsletterModal {
     margin-top: 0;
     position: absolute;
     top: var(--navBarHeight);
     left: 0;
     right: 0;
-    width: 1180px;
   }

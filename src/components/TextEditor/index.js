@@ -147,21 +147,15 @@ class TextEditor extends Component {
       :<Grid className="TextEditor Container fadeIn-2">
         <Row>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={() => this.updateArticle(id)} disabled={!id}>
-              Update
-            </Button>
+            <Button type="submit" onClick={this.postArticle}>Post</Button>
+            <Button type="submit" onClick={() => this.updateArticle(id)} disabled={!id}>Update</Button>
           </Col>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={this.postArticle} className="pull-right">
-              Post
-            </Button>
-            <Button type="submit" onClick={() => this.setState({editorState: EditorState.createEmpty(), title: '', tags: ''})} className="pull-right">
-              Clear
-            </Button>
+            <Button type="submit" onClick={() => this.setState({editorState: EditorState.createEmpty(), title: '', tags: ''})} className="pull-right">Clear</Button>
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col xs={12}>
             <FormGroup>
               <InputGroup>
                 <InputGroup.Addon><i class="fas fa-heading"></i></InputGroup.Addon>
@@ -169,7 +163,7 @@ class TextEditor extends Component {
               </InputGroup>
             </FormGroup>
           </Col>
-          <Col>
+          <Col xs={12}>
           <FormGroup>
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
@@ -177,7 +171,7 @@ class TextEditor extends Component {
               value={this.state.selectValue}
               isMulti
               styles={selectStyles}
-              isClearable={false}
+              isClearable={true}
               isSearchable={false}
               onBlur={e => e.preventDefault()}
               blurInputOnSelect={false}
@@ -193,7 +187,7 @@ class TextEditor extends Component {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col xs={12}>
             <Editor
               wrapperClassName="Wrapper"
               editorClassName="Editor"

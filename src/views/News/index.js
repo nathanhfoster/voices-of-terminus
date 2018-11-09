@@ -79,17 +79,20 @@ class News extends Component {
     let click = null
     let editCard = null
     let deleteCard = null
+    let className = "CardContainer "
     if (card.tags.includes('Article')) {
       click = () => {this.props.getArticle(card.id); this.props.history.push('/articles/' + card.id)}
       editCard = () => {this.props.getArticle(card.id); this.props.history.push('/articles/edit/article/' + card.id)}
       deleteCard = this.props.deleteArticle
+      className += "CardContainerArticle"
     }
     if(card.tags.includes('Newsletter')){
       click = () => {this.props.getNewsLetter(card.id); this.props.history.push('/newsletters/' + card.id)}
       editCard = () => {this.props.getNewsLetter(card.id); this.props.history.push('/articles/edit/newsletter/' + card.id)}
       deleteCard = this.props.deleteNewsLetter
+      className += "CardContainerNewsletter"
     }
-    return <Col className="CardContainer" md={3}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
+    return <Col className={className} md={3}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
   })
 
   onChange = (e) => {

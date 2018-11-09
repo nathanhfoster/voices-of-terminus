@@ -77,7 +77,7 @@ class HtmlParser extends Component {
                 {ReactHtmlParser(html)}
               </Col>
             </Row>
-        :ReactHtmlParser(html)
+        : ReactHtmlParser(html)
         }
       </Grid>
     )

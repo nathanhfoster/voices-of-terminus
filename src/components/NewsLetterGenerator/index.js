@@ -236,6 +236,7 @@ class NewsLetterGenerator extends Component {
             show={this.state.show}
             onHide={() => this.handleHide(id)}
             dialogClassName="newsletterModal"
+            bsSize="lg"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-lg">
