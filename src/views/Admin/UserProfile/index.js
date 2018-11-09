@@ -156,17 +156,17 @@ class UserProfile extends Component {
           <h2 className="headerBanner">USER INFO</h2>
         </Row>
         <Row className="Center borderedRow">
-          <Col md={4} xs={12}><Image title="Profile Image" src={User.profile_image} style={{height: '250px'}}/></Col>
+          <Col md={4} xs={12}><Image title="Profile Image" src={Admin.User.profile_image} style={{height: '250px'}}/></Col>
           <Col md={5} xs={12}>
             <h1 title="User Name">{Admin.User.username.toUpperCase()}</h1>
-            <span title="First and Last Name" className="help">{Admin.User.first_name} {User.last_name}</span>
+            <span title="First and Last Name" className="help">{Admin.User.first_name} {Admin.User.last_name}</span>
             <h2 title="Status">{statusLevelString(statusLevelInt(UserStatus))}</h2>
             <div title="Roles" className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
             <h4 title="Primary Class Icon"><Image src={classIcon(Admin.User.primary_class)} style={{height: '24px'}}/>
-            <strong title="Primary | Race | Role | Class |"> Primary</strong> {'|'} {User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}</h4>
+            <strong title="Primary | Race | Role | Class |">Primary</strong> {'|'} {Admin.User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}</h4>
             <h4 title="Seconday Class Icon"><Image src={classIcon(Admin.User.secondary_class)} style={{height: '26px'}}/>
-            <strong title="Secondary | Race | Role | Class |"> Secondary</strong> {'|'} {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}</h4>
-            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(Admin.User.profession, Admin.User.profession_specialization)}<strong> Profession</strong> {'|'} {Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}</h4>
+            <strong title="Secondary | Race | Role | Class |">Secondary</strong> {'|'} {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}</h4>
+            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(Admin.User.profession, Admin.User.profession_specialization)}<strong>Profession</strong> {'|'} {Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}</h4>
           </Col>
           <Col md={3} xs={12} className="Center">
             <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
