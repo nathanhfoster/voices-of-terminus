@@ -105,9 +105,9 @@ class TextEditor extends Component {
   }
   
   postArticle = () => {
-    const {editorState, title, User} = this.state
+    const {editorState, title, User, selectValue} = this.state
     let {tags} = this.state
-    tags = 'article ' + tags
+    tags = tags.length < 1 ? selectValue[0].value : tags
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
     this.props.postDocument(User.token, {title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
    }
@@ -192,13 +192,15 @@ class TextEditor extends Component {
           </Col>
         </Row>
         <Row>
-          <Col onBlur={e => e.preventDefault()} blurInputOnSelect={false}>
+          <Col>
             <Editor
               wrapperClassName="Wrapper"
               editorClassName="Editor"
               toolbarClassName="Toolbar"
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
               // stripPastedStyles="off"
               // spellCheck="off"
               // autoCapitalize="off"

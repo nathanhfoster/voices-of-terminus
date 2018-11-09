@@ -74,8 +74,8 @@ class NewsLetterGenerator extends Component {
     const {User, Newsletters, HtmlDocument, selectOptions} = props
     const {author, title} = HtmlDocument
     const {id} = props.match.params
-    const tags =  HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Newsletter').map(i => i = {value: i, label: i}) : []
-    const selectValue = [selectOptions[0], ...tags]
+    const tags = HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Newsletter').map(i => i = {value: i, label: i}) : []
+    const selectValue = tags ? [selectOptions[0], ...tags] : [selectOptions[0]]
     this.setState({User, Newsletters, HtmlDocument, author, tags, title, id, selectValue: this.orderOptions(selectValue)})
   }
 
@@ -84,9 +84,9 @@ class NewsLetterGenerator extends Component {
   }
 
   postNewsletter = () => {
-    const {User, title} = this.state
+    const {User, title, selectValue} = this.state
     let {tags} = this.state
-    tags = tags ? tags : 'newsletter'
+    tags = tags.length < 1 ? selectValue[0].value : tags
     this.editor.exportHtml(data => {
       let { design, html } = data
       design = JSON.stringify(design)
