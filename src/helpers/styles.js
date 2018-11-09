@@ -3,14 +3,46 @@ group groupHeading indicatorsContainer indicatorSeparator
 input loadingIndicator loadingMessage menu menuList multiValue 
 multiValueLabel multiValueRemove noOptionsMessage option placeholder singleValue valueContainer */
 export const selectStyles = {
+  /* 
+  clearIndicator function (Object) => Object
+  container function (Object) => Object
+  control function (Object) => Object
+  dropdownIndicator function (Object) => Object
+  group function (Object) => Object
+  groupHeading function (Object) => Object
+  indicatorsContainer function (Object) => Object
+  indicatorSeparator function (Object) => Object
+  input function (Object) => Object
+  loadingIndicator function (Object) => Object
+  loadingMessageCSS function (Object) => Object
+  menu function (Object) => Object
+  menuList function (Object) => Object
+  menuPortal function (Object) => Object
+  multiValue function (Object) => Object
+  multiValueLabel function (Object) => Object
+  multiValueRemove function (Object) => Object
+  noOptionsMessageCSS function (Object) => Object
+  option function (Object) => Object
+  placeholder function (Object) => Object
+  singleValue function (Object) => Object
+  valueContainer functionrequired (Object) => Object
+  */
     menu: (base, state) => ({
       ...base,
-      backgroundColor: 'var(--grey)',
+      backgroundColor: 'transparent',
+    }),
+    menuList: (base, state) => ({
+      ...base,
+      backgroundColor: 'transparent',
+    }),
+    menuPortal: (base, state) => ({
+      ...base,
+      backgroundColor: 'blue',
     }),
     container: (base, state) => ({
       ...base,
       opacity: state.isDisabled ? '.5' : '1',
-      backgroundColor: 'var(--grey)',
+      backgroundColor: 'transparent',
     }),
     clearIndicator: (base, state) => ({
       ...base,
@@ -31,11 +63,11 @@ export const selectStyles = {
       background: state.isFocused ? 'var(--primaryColor)' : 'var(--grey)',
       color: 'white'
     }),
-    singleValue: (base, state) => ({
+    placeholder: (base, state) => ({
       ...base,
       color: 'var(--tertiarycolor)'
     }),
-    placeholder: (base, state) => ({
+    singleValue: (base, state) => ({
       ...base,
       color: 'var(--tertiarycolor)'
     }),

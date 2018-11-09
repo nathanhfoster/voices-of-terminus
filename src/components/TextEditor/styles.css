@@ -1,6 +1,12 @@
 .TextEditor {
     font-family: 'proxima_novasemibold', Arial, sans-serif;
 }
+.TextEditor a {
+  color: var(--primaryColor);
+}
+.TextEditor a:hover {
+  color: var(--color_sunflower);
+}
 .TextEditor::-webkit-scrollbar {
   width: 4px;
 }

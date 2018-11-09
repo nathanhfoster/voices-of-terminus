@@ -18,6 +18,12 @@
    /* padding: 0; */
 }
 
+.HtmlParser a {
+    color: var(--primaryColor);
+ }
+ .HtmlParser a:hover {
+    color: var(--color_sunflower);
+ }
 .ViewHtmlDocument {
     padding: 20px;
     background-color: rgba(0, 0, 0, 0.9);

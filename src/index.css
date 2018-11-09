@@ -7,6 +7,7 @@
   --tertiarycolor: white;
   --quaternaryColor: #00dae4;
   --quinaryColor: #2DE5D2;
+  --light_grey: rgb(204, 204, 204);
   --grey: #404048;
   --slate_grey: #36363d;
   --dark_grey: #2d2d32;
@@ -28,7 +29,7 @@
   --primaryBoxShadow: 0 -8px 16px black;
   --inputHeight: 34px;
   --cardHeight: 300px;
-  --cardSummaryHeight: 136px;
+  --cardSummaryHeight: 146px;
 
   /* Hamburger animation */
   --speed: 200ms;

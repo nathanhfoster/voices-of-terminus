@@ -8,6 +8,8 @@ import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
 import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
+import Select from 'react-select'
+import {selectStyles} from '../../helpers/styles'
 
 const mapStateToProps = ({User, Articles, Newsletters}) => ({
   User,
@@ -28,7 +30,9 @@ class News extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
+    this.onSelectChange = this.onSelectChange.bind(this)
     this.state = {
+      selectValue: null
     }
   }
 
@@ -37,6 +41,12 @@ class News extends Component {
   }
 
   static defaultProps = {
+    selectOptions: [
+      { value: 'Newsletter', label: 'Newsletter' },
+      { value: 'Lore', label: 'Lore' },
+      { value: 'Blog', label: 'Blog' },
+      { value: 'FanMade', label: 'FanMade' },
+    ]
   }
   
   componentWillMount() {
@@ -54,7 +64,9 @@ class News extends Component {
 
   getState = props => {
     const {User, Articles, Newsletters} = props
-    this.setState({User, Articles, Newsletters})
+    const Documents = Articles.concat(Newsletters)
+    const selectOptions = Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i})
+    this.setState({User, Documents, selectOptions})
   }
 
   componentDidUpdate() {
@@ -91,9 +103,30 @@ class News extends Component {
     this.setState({Newsletters, [e.target.name]: e.target.value})
 }
 
+  onSelectChange (selectValue, {action, removedValue}) {
+    const {Articles, Newsletters} = this.props
+    let {Documents} = this.state
+    const filter = new RegExp(selectValue.map(i => i.value).join('|'))
+    console.log(filter.test('?'))
+    Documents = !filter.test('?') ? Documents.filter(i => i.tags.match(filter)) : Articles.concat(Newsletters)
+    console.log(Documents)
+    switch (action) {
+      case 'remove-value':
+      case 'pop-value':
+        if (removedValue.isFixed) {
+          return
+        }
+        break
+      case 'clear':
+      selectValue = this.props.selectOptions.filter((v) => v.isFixed)
+        break
+    }
+
+    this.setState({selectValue, Documents})
+  }
+
   render() {
-    const {User, Articles, Newsletters} = this.state
-    const Documents = Articles.concat(Newsletters)
+    const {User, Documents} = this.state
     return (
       <Grid className="News Container fadeIn-2">
         <Row>
@@ -105,16 +138,28 @@ class News extends Component {
             {User.is_superuser || User.can_create_article ? <Button onClick={() => this.props.history.push('/articles/new/article')}>Create Article</Button> : null}
             {User.is_superuser || User.can_crate_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}>Create Newsletter</Button> : null}
           </Col>
-          <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
-            <InputGroup.Addon>
-              <FormControl name="filter" componentClass="select" onChange={this.onChange}>
-                <option value=" ">TAGS</option>
-                <option value="article">article</option>
-                <option value="newsletter">newsletter</option>
-              </FormControl>
-            </InputGroup.Addon>
-            <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange} />
-          </Col>
+          <Col md={8} xs={12}>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
+                <Select
+                //https://react-select.com/props
+                  value={this.state.selectValue}
+                  isMulti
+                  styles={selectStyles}
+                  onBlur={e => e.preventDefault()}
+                  blurInputOnSelect={false}
+                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                  isSearchable={false}
+                  name="colors"
+                  className="FilterMultiSelect"
+                  classNamePrefix="select"
+                  onChange={this.onSelectChange}
+                  options={this.props.selectOptions}
+              />
+             </InputGroup>
+            </FormGroup>
+            </Col>
         </Row>
         <Row>
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
