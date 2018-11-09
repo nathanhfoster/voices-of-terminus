@@ -65,7 +65,7 @@ class News extends Component {
   getState = props => {
     const {User, Articles, Newsletters} = props
     const Documents = Articles.concat(Newsletters)
-    const selectOptions = Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i})
+    const selectOptions = selectOptions ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
     this.setState({User, Documents, selectOptions})
   }
 
