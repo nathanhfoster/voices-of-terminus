@@ -140,14 +140,14 @@ class TextEditor extends Component {
     }
 
   render() {
-    const {User, id, author, tags, title, editorState, HtmlDocument} = this.state
+    const {User, id, author, tags, title, editorState, HtmlDocument, selectValue} = this.state
     
     return (
       !User.token ? <Redirect to="/login"/>
       :<Grid className="TextEditor Container fadeIn-2">
         <Row>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={this.postArticle}>Post</Button>
+            <Button disabled={!selectValue[0].value} type="submit" onClick={this.postArticle}>Post</Button>
             <Button type="submit" onClick={() => this.updateArticle(id)} disabled={!id}>Update</Button>
           </Col>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>

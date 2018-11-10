@@ -161,7 +161,7 @@ class NewsLetterGenerator extends Component {
   }
   
   render() {
-    const {User, Newsletters, HtmlDocument, author, tags, title, id} = this.state
+    const {User, Newsletters, HtmlDocument, author, tags, title, id, selectValue} = this.state
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
     const design = HtmlDocument.design ? JSON.parse(HtmlDocument.design) : null
@@ -176,7 +176,7 @@ class NewsLetterGenerator extends Component {
       :<Grid className="NewsLetterGenerator Container fadeIn-2">
         <Row>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button onClick={this.postNewsletter}>POST</Button>
+            <Button disabled={!selectValue[0].value} onClick={this.postNewsletter}>POST</Button>
             <Button onClick={this.updateNewsletter} disabled={!isEditingDesign}>UPDATE</Button>
          </Col>
           <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
