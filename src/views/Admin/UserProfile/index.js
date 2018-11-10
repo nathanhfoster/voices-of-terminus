@@ -166,14 +166,14 @@ class UserProfile extends Component {
             <div title="Roles" className="userRoles help">{this.renderRoles(UserRoles)}</div>
             <h4 title="Primary Class Icon">
               <Image src={classIcon(Admin.User.primary_class)} style={{height: '24px'}}/>
-              <strong title="Primary | Race | Role | Class |">Primary</strong> {Admin.User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}
+              <strong title="Primary | Race | Role | Class |"> Primary: </strong> {Admin.User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}
             </h4>
             <h4 title="Seconday Class Icon"><Image src={classIcon(Admin.User.secondary_class)} style={{height: '26px'}}/>
-              <strong title="Secondary | Race | Role | Class |">Secondary</strong> {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}
+              <strong title="Secondary | Race | Role | Class |"> Secondary: </strong> {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}
             </h4>
             <h4 title="Profession | Profession | Profession Specialization | ">
               {professionIcon(Admin.User.profession, Admin.User.profession_specialization)}
-              <strong>Profession</strong> {'|'} {Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}
+              <strong> Profession: </strong>{Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}
             </h4>
           </Col>
           <Col md={3} xs={12} className="Center">
