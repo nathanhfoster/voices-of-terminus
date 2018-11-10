@@ -140,7 +140,7 @@ class App extends Component {
     const {ApiResponse, Window, User, location} = props
     if(ApiResponse) this.alertApiResponse(ApiResponse)
     /* Check if User permissions have changed every 10 seconds */
-    if(Cookies.get('User_LoginToken') && this.props.User.id && !/edit|new/.test(location.pathname)) this.interval = setInterval(() => this.props.refreshUser(this.props.User.id, this.props.User.token), 10000)
+    if(Cookies.get('User_LoginToken') && User.id && !/edit|new/.test(location.pathname)) this.interval = setInterval(() => this.props.refreshUser(this.props.User.id, this.props.User.token), 1000)
     this.setState({ApiResponse, Window, User})
   }
 
