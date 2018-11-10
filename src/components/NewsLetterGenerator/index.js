@@ -113,7 +113,7 @@ class NewsLetterGenerator extends Component {
     this.editor.exportHtml(data => {
       let {design, html} = data
       design = JSON.stringify(design)
-      this.props.updateNewsLetter(id, User.token, {title, tags, design, html})
+      this.props.updateNewsLetter(id, User.token, {last_modified_by: User.id, title, tags, design, html})
     })
   }
 

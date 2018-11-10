@@ -115,7 +115,7 @@ class TextEditor extends Component {
    updateArticle = (id) => {
      const {author, tags, title, editorState, User} = this.state
      const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-     this.props.updateArticle(id, User.token, {author, html, tags, title})
+     this.props.updateArticle(id, User.token, {last_modified_by: User.id, html, tags, title})
     }
 
     onChange = e => this.setState({[e.target.name]: e.target.value})
