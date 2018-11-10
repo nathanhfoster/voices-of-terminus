@@ -5,15 +5,21 @@ export const Axios = (token) => {
     withCredentials: token ? true : false,
     baseURL: process.env.REACT_APP_API_URL,
     timeout: 10000,
+    async: true,
+    crossDomain: true,
     headers: token ? {
       'Authorization': "Token " + token,
       'Cache-Control': 'no-cache',
       'Content-type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Headers": '*',
     } : {
       'Cache-Control': 'no-cache',
       'Content-type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      "Access-Control-Allow-Origin": '*',
+      "Access-Control-Allow-Headers": '*',
     }
 })
 }
