@@ -136,7 +136,7 @@ class News extends Component {
         <Row>
           <Col md={3} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             {User.is_superuser || User.can_create_article ? <Button onClick={() => this.props.history.push('/articles/new/article')}><i class="fas fa-plus"/> Article</Button> : null}
-            {User.is_superuser || User.can_crate_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}><i class="fas fa-plus"/> Newsletter</Button> : null}
+            {User.is_superuser || User.can_create_newsletter ? <Button onClick={() => this.props.history.push('/articles/new/newsletter')}><i class="fas fa-plus"/> Newsletter</Button> : null}
           </Col>
           <Col md={5} xs={12}>
             <FormGroup>
