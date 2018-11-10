@@ -130,11 +130,13 @@ class UserProfile extends Component {
 
   render() {
     const {Admin, User} = this.state
-    const loggedInUserStatus =  statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
+    const loggedInUserId = User.id
+    const currentUserId = Admin.User ? Admin.User.id : null
+    const loggedInUserStatus = statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
       is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit})
     const currentUserStatus = Admin.User ? statusLevelInt({is_leader: Admin.User.is_leader, is_council: Admin.User.is_council, is_general_officer: Admin.User.is_general_officer, 
       is_officer: Admin.User.is_officer, is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit}) : null
-    const canEdit = User.username === 'admin' || loggedInUserStatus > currentUserStatus
+    const canEdit = User.username === 'admin' || loggedInUserId === currentUserId || loggedInUserStatus > currentUserStatus
     const UserStatus = Admin.User ? {is_leader: Admin.User.is_leader, is_council: Admin.User.is_council,
       is_general_officer: Admin.User.is_general_officer, is_officer: Admin.User.is_officer,
       is_senior_member: Admin.User.is_senior_member, is_junior_member: Admin.User.is_junior_member, is_recruit: Admin.User.is_recruit} : {}
@@ -161,12 +163,18 @@ class UserProfile extends Component {
             <h1 title="User Name">{Admin.User.username.toUpperCase()}</h1>
             <span title="First and Last Name" className="help">{Admin.User.first_name} {Admin.User.last_name}</span>
             <h2 title="Status">{statusLevelString(statusLevelInt(UserStatus))}</h2>
-            <div title="Roles" className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
-            <h4 title="Primary Class Icon"><Image src={classIcon(Admin.User.primary_class)} style={{height: '24px'}}/>
-            <strong title="Primary | Race | Role | Class |">Primary</strong> {'|'} {Admin.User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}</h4>
+            <div title="Roles" className="userRoles help">{this.renderRoles(UserRoles)}</div>
+            <h4 title="Primary Class Icon">
+              <Image src={classIcon(Admin.User.primary_class)} style={{height: '24px'}}/>
+              <strong title="Primary | Race | Role | Class |"> Primary: </strong> {Admin.User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}
+            </h4>
             <h4 title="Seconday Class Icon"><Image src={classIcon(Admin.User.secondary_class)} style={{height: '26px'}}/>
-            <strong title="Secondary | Race | Role | Class |">Secondary</strong> {'|'} {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}</h4>
-            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(Admin.User.profession, Admin.User.profession_specialization)}<strong>Profession</strong> {'|'} {Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}</h4>
+              <strong title="Secondary | Race | Role | Class |"> Secondary: </strong> {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}
+            </h4>
+            <h4 title="Profession | Profession | Profession Specialization | ">
+              {professionIcon(Admin.User.profession, Admin.User.profession_specialization)}
+              <strong> Profession: </strong>{Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}
+            </h4>
           </Col>
           <Col md={3} xs={12} className="Center">
             <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
@@ -260,7 +268,7 @@ class UserProfile extends Component {
             </Checkbox>
           </Col>
         </Row>
-        {User.is_superuser || User.is_staff ? [
+        {User.is_leader || User.is_council ? [
         <Row>
           <h2 className="headerBanner">PERMISSIONS</h2>
         </Row>,

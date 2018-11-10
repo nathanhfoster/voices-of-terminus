@@ -260,7 +260,6 @@ class Login extends Component {
               </Modal.Footer>
             </Modal>
           </Row>
-         
         </Row>
       </Grid>
     )
