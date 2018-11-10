@@ -11,15 +11,11 @@ export const Axios = (token) => {
       'Authorization': "Token " + token,
       'Cache-Control': 'no-cache',
       'Content-type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
-      "Access-Control-Allow-Origin": '*',
-      "Access-Control-Allow-Headers": '*',
+      'Accept': 'application/json'
     } : {
       'Cache-Control': 'no-cache',
       'Content-type': 'application/x-www-form-urlencoded',
-      'Accept': 'application/json',
-      "Access-Control-Allow-Origin": '*',
-      "Access-Control-Allow-Headers": '*',
+      'Accept': 'application/json'
     }
 })
 }
