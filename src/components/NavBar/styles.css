@@ -40,7 +40,7 @@
 }
 /* Adjust height when hamburger menu is opened */
 .collapse.in {
-  height: calc(100vh - 56px);
+  height: calc(100vh - var(--navBarHeight));
 }
 .vrLogo {
   width: auto;
