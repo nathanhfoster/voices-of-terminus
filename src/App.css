@@ -15,10 +15,7 @@
   color: var(--tertiarycolor);
 }
 
-/* Disable React-Select properties */
-.css-6if5:active, .css-6if5:focus, .css-6if5:visited, .css-6if5:link{
-  background-color: var(--secondaryColor) !important;
-}
+
 
 .modal-content .close {
   color: var(--tertiarycolor);
