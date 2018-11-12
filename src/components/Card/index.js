@@ -107,7 +107,7 @@ class Card extends PureComponent {
     const hasUpdatePermission = this.hasUpdatePermission(User, author)
     const {click, editCard, deleteCard} = this.props
     return (
-      <div className="Clickable Card Hover" onClick={(e) => {e.stopPropagation(); click()}}>
+      <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
           <div className="previewItem">
             <HtmlParser html={html} />
