@@ -74,7 +74,7 @@ class News extends Component {
   }
 
   //Filter the Documents if the documents tags array contains the filter array
-  renderCards = (Documents, filter) => Documents.filter(doc => doc.tags.split('|').some(r => filter.length > 0 ? filter.includes(r) : r))
+  renderCards = (Documents, filter) => Documents.filter(doc => doc.tags.split('|').every(r => filter.length > 0 ? filter.includes(r) : r))
   .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
   .map(card => {
     let click = null
