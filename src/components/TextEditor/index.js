@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, FormGroup, InputGroup, FormControl, ButtonToolbar, Button} from 'react-bootstrap'
@@ -27,7 +27,7 @@ const mapDispatchToProps = {
   updateArticle
 }
 
-class TextEditor extends Component {
+class TextEditor extends PureComponent {
   constructor(props) {
     super(props)
     this.onEditorStateChange = this.onEditorStateChange.bind(this)

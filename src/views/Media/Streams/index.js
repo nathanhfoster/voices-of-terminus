@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
@@ -10,7 +10,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class Streams extends Component {
+class Streams extends PureComponent {
   constructor(props) {
     super(props)
  

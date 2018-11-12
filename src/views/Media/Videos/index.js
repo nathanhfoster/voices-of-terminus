@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, Image, NavItem} from 'react-bootstrap'
@@ -15,7 +15,7 @@ const mapDispatchToProps = {
   setVideoToWatch
 }
 
-class Videos extends Component {
+class Videos extends PureComponent {
   constructor(props) {
     super(props)
  

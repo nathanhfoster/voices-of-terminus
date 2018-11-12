@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
@@ -18,7 +18,7 @@ const mapStateToProps = ({Window}) => ({
 const mapDispatchToProps = {
 }
 
-class Footer extends Component {
+class Footer extends PureComponent {
   constructor(props) {
     super(props)
  

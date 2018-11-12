@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
@@ -26,7 +26,7 @@ const mapDispatchToProps = {
   updateNewsLetter
 }
 
-class NewsLetterGenerator extends Component {
+class NewsLetterGenerator extends PureComponent {
   constructor(props) {
     super(props)
     this.handleShow = this.handleShow.bind(this)

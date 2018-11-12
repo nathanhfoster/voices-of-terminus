@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import leadershipCharter from '../../../images/leadership_charter.png'
@@ -11,7 +11,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class Charters extends Component {
+class Charters extends PureComponent {
   constructor(props) {
     super(props)
  

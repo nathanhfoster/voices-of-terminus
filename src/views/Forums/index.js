@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Grid, Row, Col, PageHeader, Tabs, Tab} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
@@ -11,7 +11,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class Forums extends Component {
+class Forums extends PureComponent {
   constructor(props) {
     super(props)
  

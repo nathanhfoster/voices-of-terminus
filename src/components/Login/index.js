@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import PropTypes from 'prop-types'
 import './styles.css'
@@ -16,7 +16,7 @@ const mapDispatchToProps = {
   createUser
 }
 
-class Login extends Component {
+class Login extends PureComponent {
   
   constructor(props) {
     super(props)

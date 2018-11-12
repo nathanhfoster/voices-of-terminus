@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, Image} from 'react-bootstrap'
@@ -12,7 +12,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class PageNotFound extends Component {
+class PageNotFound extends PureComponent {
   constructor(props) {
     super(props)
  

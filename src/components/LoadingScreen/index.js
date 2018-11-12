@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 
@@ -8,7 +8,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class LoadingScreen extends Component {
+class LoadingScreen extends PureComponent {
   constructor(props) {
     super(props)
  

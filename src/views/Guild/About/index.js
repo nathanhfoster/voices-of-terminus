@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, NavItem} from 'react-bootstrap'
@@ -11,7 +11,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class About extends Component {
+class About extends PureComponent {
   constructor(props) {
     super(props)
  

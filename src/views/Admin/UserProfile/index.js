@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import {Grid, Row, Col, PageHeader, Image, Button, ButtonToolbar, Checkbox, Well} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
@@ -23,7 +23,7 @@ const mapDispatchToProps = {
   updateUserProfile
 }
 
-class UserProfile extends Component {
+class UserProfile extends PureComponent {
   constructor(props) {
     super(props)
  

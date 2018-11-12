@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { withAlert } from 'react-alert'
 import { withRouter } from 'react-router-dom'
@@ -21,7 +21,7 @@ const mapDispatchToProps = {
   Logout
 }
 
-class NavBar extends Component {
+class NavBar extends PureComponent {
   constructor(props) {
     super(props)
  

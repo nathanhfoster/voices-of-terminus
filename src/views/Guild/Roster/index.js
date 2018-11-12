@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, Image} from 'react-bootstrap'
@@ -18,7 +18,7 @@ const mapDispatchToProps = {
   getUsers
 }
 
-class Roster extends Component {
+class Roster extends PureComponent {
   constructor(props) {
     super(props)
  

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, Button, PageHeader} from 'react-bootstrap'
 import './styles.css'
@@ -10,7 +10,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class Donate extends Component {
+class Donate extends PureComponent {
   constructor(props) {
     super(props)
  

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Link} from 'react-router-dom'
@@ -18,7 +18,7 @@ const mapDispatchToProps = {
   clearHtmlDocument
 }
 
-class Card extends Component {
+class Card extends PureComponent {
   constructor(props) {
     super(props)
     this.state = {

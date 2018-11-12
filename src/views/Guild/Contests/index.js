@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, Image, Tab, Tabs, PageHeader } from 'react-bootstrap'
 import './styles.css'
@@ -10,7 +10,7 @@ const mapStateToProps = ({}) => ({
 const mapDispatchToProps = {
 }
 
-class Contests extends Component {
+class Contests extends PureComponent {
   constructor(props) {
     super(props)
  
