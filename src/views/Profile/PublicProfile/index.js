@@ -115,7 +115,7 @@ class PublicProfile extends Component {
     const UserRoles = {is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead}
     return (
       User ? 
-      <Grid className="PublicProfile Container">
+      <Grid className="PublicProfile Container fadeIn-2">
         <Row className="Center">
           <Col md={4} xs={12} className="Center"><Image title="Profile Image" src={User.profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/></Col>
           <Col md={5} xs={12}>

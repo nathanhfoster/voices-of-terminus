@@ -47,9 +47,13 @@ class HtmlParser extends Component {
   }
 
   getState = props => {
-    //console.log(props)
     const {HtmlDocument, html} = props
     this.setState({HtmlDocument, html})
+  }
+
+  shouldComponentUpdate(nextProps) {
+    const {HtmlDocument} = nextProps
+    return HtmlDocument.hasOwnProperty('tags')
   }
 
   componentWillUnmount() {

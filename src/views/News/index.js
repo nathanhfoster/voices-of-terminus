@@ -41,6 +41,7 @@ class News extends Component {
 
   static defaultProps = {
     selectOptions: [
+      {value: 'Official', label: 'Official'},
       {value: 'Article', label: 'Article'},
       {value: 'Newsletter', label: 'Newsletter'},
       {value: 'Blog', label: 'Blog'},
@@ -66,18 +67,10 @@ class News extends Component {
   }
 
   getState = props => {
-    let {Documents} = props
     const {User, Articles, Newsletters} = props
-    const DocumentLength = Articles.length + Newsletters.length
-    Documents = Documents.length < DocumentLength ? Articles.concat(Newsletters) : this.state.Documents
+    const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
     this.setState({User, Documents, selectOptions})
-  }
-
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
   }
 
   //Filter the Documents if the documents tags array contains the filter array
@@ -100,7 +93,7 @@ class News extends Component {
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }
-    return <Col className={className} md={3}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
+    return <Col className={className} md={3} xs={12}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
   })
 
   onChange = e => {

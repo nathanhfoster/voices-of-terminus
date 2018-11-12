@@ -39,12 +39,6 @@
 .Summary .summaryTitle h4 {
   margin: 4px 0 4px 0;
 }
-.Summary .summaryTitle {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .Summary .summaryTitleDivider{
   margin: 0 0 4px 0;
 }
@@ -61,4 +55,10 @@
 
 .cardActions .caret {
   display: none;
+}
+
+.inlineNoWrap {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }

@@ -58,6 +58,7 @@ class TextEditor extends Component {
   static defaultProps = {
     selectOptions: [
       {value: 'Article', label: 'Article', isFixed: true },
+      {value: 'Official', label: 'Official'},
       {value: 'Blog', label: 'Blog'},
       {value: 'FanMade', label: 'FanMade'},
       {value: 'Guide', label: 'Guide'},
@@ -79,8 +80,10 @@ class TextEditor extends Component {
   }
 
   getState = props => {
-    let {editorState} = props
-    const {User, HtmlDocument, match, selectOptions} = props
+    let {selectOptions, editorState} = props
+    const {User, HtmlDocument, match} = props
+    const Leader = User.is_leader || User.is_council
+    selectOptions[1].isDisabled = !(User.is_leader || User.is_council)
     const {author, title} = HtmlDocument
     const tags =  HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Article').map(i => i = {value: i, label: i}) : []
     const selectValue = [selectOptions[0], ...tags]

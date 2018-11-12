@@ -7,6 +7,7 @@ import Moment from 'react-moment'
 import './styles.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 import HtmlParser from '../HtmlParser'
+import {clearHtmlDocument} from '../../actions/App'
 
 const mapStateToProps = ({User, Window}) => ({
   User,
@@ -14,6 +15,7 @@ const mapStateToProps = ({User, Window}) => ({
 })
 
 const mapDispatchToProps = {
+  clearHtmlDocument
 }
 
 class Card extends Component {
@@ -64,12 +66,6 @@ class Card extends Component {
     this.setState({User, summary, author, author_username, html, design, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, isMobile})
   }
 
-  componentDidUpdate() {
-  }
-
-  componentWillUnmount() {
-  }
-
   hasDeletePermission = (User, author) => {
     const {tags} = this.state
     if(tags.includes('Article')) {
@@ -111,7 +107,7 @@ class Card extends Component {
     const hasUpdatePermission = this.hasUpdatePermission(User, author)
     const {click, editCard, deleteCard} = this.props
     return (
-      <div className="Clickable Card Hover" onClick={click}>
+      <div className="Clickable Card Hover" onClick={(e) => {e.stopPropagation(); click()}}>
         <div className="Preview">
           <div className="previewItem">
             <HtmlParser html={html} />
@@ -119,7 +115,7 @@ class Card extends Component {
         </div>
         {summary ?
           <div className="Summary">
-            <div className="summaryTitle">
+            <div className="summaryTitle inlineNoWrap">
               <h4>{title}</h4>
             </div>
             <hr className="summaryTitleDivider"/>
@@ -127,9 +123,9 @@ class Card extends Component {
               {hasDeletePermission ? <Button onClick={(e) => {e.stopPropagation(); deleteCard(id, User.token)}} className="cardActions pull-right"><i className="fa fa-trash-alt"/></Button>: null}
               {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); editCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
-            <div>
-              <h5>Author: <Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()} className="userContainer">{author_username}</Link></h5>
-              <h5>Updated <Moment fromNow>{last_modified}</Moment> by: <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()} className="userContainer">{last_modified_by_username}</Link></h5>
+            <div className="">
+              <h5><i class="fas fa-user"/> <Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()} className="userContainer">{author_username}</Link></h5>
+              <h5 style={{minHeight: '30px'}}><i class="fas fa-pencil-alt"/> <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()} className="userContainer">{last_modified_by_username} </Link><Moment fromNow>{last_modified}</Moment></h5>
               <h6>Tags: [{tags}]</h6>
             </div>
         </div>

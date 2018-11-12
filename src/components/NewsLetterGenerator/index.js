@@ -53,6 +53,7 @@ class NewsLetterGenerator extends Component {
   static defaultProps = {
     selectOptions: [
       {value: 'Newsletter', label: 'Newsletter', isFixed: true},
+      {value: 'Official', label: 'Official'},
       {value: 'Blog', label: 'Blog'},
       {value: 'FanMade', label: 'FanMade'},
       {value: 'Guide', label: 'Guide'},
@@ -73,11 +74,13 @@ class NewsLetterGenerator extends Component {
   }
 
   getState = props => {
-    const {User, Newsletters, HtmlDocument, selectOptions} = props
+    let {selectOptions} = props
+    const {User, Newsletters, HtmlDocument} = props
+    selectOptions[1].isDisabled = !(User.is_leader || User.is_council)
     const {author, title} = HtmlDocument
     const {id} = props.match.params
     const tags = HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Newsletter').map(i => i = {value: i, label: i}) : []
-    const selectValue = tags ? [selectOptions[0], ...tags] : [selectOptions[0]]
+    const selectValue = [selectOptions[0], ...tags]
     this.setState({User, Newsletters, HtmlDocument, author, tags, title, id, selectValue: this.orderOptions(selectValue)})
   }
 
