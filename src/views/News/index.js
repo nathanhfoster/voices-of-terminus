@@ -30,9 +30,9 @@ class News extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
-    this.onSelectChange = this.onSelectChange.bind(this)
     this.state = {
-      selectValue: null
+      selectValue: null,
+      filteredDocuments: []
     }
   }
 
@@ -96,7 +96,7 @@ class News extends Component {
     return <Col className={className} md={3}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
   })
 
-  onChange = (e) => {
+  onChange = e => {
     const query = e.target.value.toLowerCase()
     const Newsletters = this.props.Newsletters.filter(newsletter => {
       const title = newsletter.title ? newsletter.title.toLowerCase() : ' '
@@ -107,11 +107,11 @@ class News extends Component {
     this.setState({Newsletters, [e.target.name]: e.target.value})
 }
 
-  onSelectChange (selectValue, {action, removedValue}) {
+  onSelectChange = (selectValue, {action, removedValue}) => {
     const {Articles, Newsletters} = this.props
     let {Documents} = this.state
-    const filter = new RegExp(selectValue.map(i => i.value).join('|'))
-    Documents = !filter.test('?') ? Documents.filter(i => i.tags.match(filter)) : Articles.concat(Newsletters)
+    const filter = selectValue.map(i => i.value)
+    const filteredDocuments = Documents.filter(doc => doc.tags.split('|').some(r => filter.includes(r)))
     switch (action) {
       case 'remove-value':
       case 'pop-value':
@@ -124,11 +124,12 @@ class News extends Component {
         break
     }
 
-    this.setState({selectValue, Documents})
+    this.setState({selectValue, filteredDocuments})
   }
 
   render() {
-    const {User, Documents} = this.state
+    const {User, Documents, filteredDocuments} = this.state
+    console.log(filteredDocuments)
     return (
       <Grid className="News Container fadeIn-2">
         <Row>
@@ -168,7 +169,7 @@ class News extends Component {
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
             <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents) : null}
+                {Documents.length ? this.renderCards(filteredDocuments.length > 0 ? filteredDocuments : Documents) : null}
               </Row>
             </Tab>
             <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
