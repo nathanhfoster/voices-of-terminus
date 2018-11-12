@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {withRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import {Grid, Row, Col, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './styles.css'
@@ -128,8 +128,8 @@ class Card extends Component {
               {hasUpdatePermission ? <Button onClick={(e) => {e.stopPropagation(); editCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div>
-              <h5>Author: {author_username}</h5>
-              <h6>Updated <Moment fromNow>{last_modified}</Moment> by: {last_modified_by_username}</h6>
+              <h5>Author: <Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()} className="userContainer">{author_username}</Link></h5>
+              <h5>Updated <Moment fromNow>{last_modified}</Moment> by: <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()} className="userContainer">{last_modified_by_username}</Link></h5>
               <h6>Tags: [{tags}]</h6>
             </div>
         </div>
@@ -138,4 +138,4 @@ class Card extends Component {
     )
   }
 }
-export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Card))
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Card)
