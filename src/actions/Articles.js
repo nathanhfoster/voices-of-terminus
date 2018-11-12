@@ -37,7 +37,7 @@ export const getArticle = id => {
 }
 
 export const updateArticle = (id, token, payload) => {
-  return  async (dispatch) => await Axios(token).patch(`articles/${id}/`, qs.stringify(payload))
+  return async (dispatch) => await Axios(token).patch(`articles/${id}/`, qs.stringify(payload))
   .then(res => {
     dispatch ({
       type: C.GET_HTML_DOCUMENT,

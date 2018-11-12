@@ -31,8 +31,7 @@ class News extends Component {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.state = {
-      selectValue: null,
-      filteredDocuments: []
+      selectValue: null
     }
   }
 
@@ -47,7 +46,8 @@ class News extends Component {
       {value: 'Lore', label: 'Lore'},
       {value: 'Blog', label: 'Blog'},
       {value: 'FanMade', label: 'FanMade'},
-    ]
+    ],
+    Documents: []
   }
   
   componentWillMount() {
@@ -64,8 +64,10 @@ class News extends Component {
   }
 
   getState = props => {
+    let {Documents} = props
     const {User, Articles, Newsletters} = props
-    const Documents = Articles.concat(Newsletters)
+    const DocumentLength = Articles.length + Newsletters.length
+    Documents = Documents.length < DocumentLength ? Articles.concat(Newsletters) : this.state.Documents
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
     this.setState({User, Documents, selectOptions})
   }
@@ -76,7 +78,10 @@ class News extends Component {
   componentWillUnmount() {
   }
 
-  renderCards = Documents => Documents.sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified)).map(card => {
+  //Filter the Documents if the documents tags array contains the filter array
+  renderCards = (Documents, filter) => Documents.filter(doc => doc.tags.split('|').some(r => filter.length > 0 ? filter.includes(r) : r))
+  .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
+  .map(card => {
     let click = null
     let editCard = null
     let deleteCard = null
@@ -108,10 +113,6 @@ class News extends Component {
 }
 
   onSelectChange = (selectValue, {action, removedValue}) => {
-    const {Articles, Newsletters} = this.props
-    let {Documents} = this.state
-    const filter = selectValue.map(i => i.value)
-    const filteredDocuments = Documents.filter(doc => doc.tags.split('|').some(r => filter.includes(r)))
     switch (action) {
       case 'remove-value':
       case 'pop-value':
@@ -124,12 +125,13 @@ class News extends Component {
         break
     }
 
-    this.setState({selectValue, filteredDocuments})
+    this.setState({selectValue})
   }
 
   render() {
-    const {User, Documents, filteredDocuments} = this.state
-    console.log(filteredDocuments)
+    const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
+    const {User, Documents} = this.state
+    const filter = selectValue.map(i => i.value)
     return (
       <Grid className="News Container fadeIn-2">
         <Row>
@@ -169,7 +171,7 @@ class News extends Component {
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
             <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(filteredDocuments.length > 0 ? filteredDocuments : Documents) : null}
+                {Documents.length ? this.renderCards(Documents, filter) : null}
               </Row>
             </Tab>
             <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
