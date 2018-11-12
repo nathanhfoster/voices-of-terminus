@@ -40,7 +40,9 @@
   margin: 4px 0 4px 0;
 }
 .Summary .summaryTitle {
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Summary .summaryTitleDivider{
