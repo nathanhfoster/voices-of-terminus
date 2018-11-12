@@ -43,9 +43,11 @@ class News extends Component {
     selectOptions: [
       {value: 'Article', label: 'Article'},
       {value: 'Newsletter', label: 'Newsletter'},
-      {value: 'Lore', label: 'Lore'},
       {value: 'Blog', label: 'Blog'},
       {value: 'FanMade', label: 'FanMade'},
+      {value: 'Guide', label: 'Guide'},
+      {value: 'Lore', label: 'Lore'},
+      {value: 'Other', label: 'Other'},
     ],
     Documents: []
   }

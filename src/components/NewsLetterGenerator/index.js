@@ -52,10 +52,12 @@ class NewsLetterGenerator extends Component {
 
   static defaultProps = {
     selectOptions: [
-      { value: 'Newsletter', label: 'Newsletter', isFixed: true },
-      { value: 'Lore', label: 'Lore' },
-      { value: 'Blog', label: 'Blog' },
-      { value: 'FanMade', label: 'FanMade' },
+      {value: 'Newsletter', label: 'Newsletter', isFixed: true},
+      {value: 'Blog', label: 'Blog'},
+      {value: 'FanMade', label: 'FanMade'},
+      {value: 'Guide', label: 'Guide'},
+      {value: 'Lore', label: 'Lore'},
+      {value: 'Other', label: 'Other'},
     ]
   }
   

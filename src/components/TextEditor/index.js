@@ -57,10 +57,12 @@ class TextEditor extends Component {
 
   static defaultProps = {
     selectOptions: [
-      { value: 'Article', label: 'Article', isFixed: true },
-      { value: 'Lore', label: 'Lore' },
-      { value: 'Blog', label: 'Blog' },
-      { value: 'FanMade', label: 'FanMade' },
+      {value: 'Article', label: 'Article', isFixed: true },
+      {value: 'Blog', label: 'Blog'},
+      {value: 'FanMade', label: 'FanMade'},
+      {value: 'Guide', label: 'Guide'},
+      {value: 'Lore', label: 'Lore'},
+      {value: 'Other', label: 'Other'},
     ]
   }
   
