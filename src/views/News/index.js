@@ -101,7 +101,7 @@ class News extends Component {
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }
-    return <Col className={className} md={3} xs={12}><Card {...card} click={() => history.push('/articles/' + card.id)} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
+    return <Col className={className} md={3} xs={12}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
   })
 
   onChange = e => {
