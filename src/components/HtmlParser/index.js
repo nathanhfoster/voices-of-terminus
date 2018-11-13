@@ -64,7 +64,7 @@ class HtmlParser extends Component {
     // Check if there is an :id in the url params
     const {match} = this.props
     // Checks if the html document came from an api call or was passed as a prop from another parent
-    const html = this.state.html ? this.state.html : HtmlDocument.html
+    const html = HtmlDocument ? HtmlDocument.html : this.state.html
     return (
       <Grid className="HtmlParser Container fadeIn-2">
         { match.params.id ?
