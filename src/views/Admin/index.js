@@ -77,6 +77,7 @@ class Admin extends Component {
     super(props)
  
     this.state = {
+      selected: null
     }
   }
 
@@ -162,15 +163,6 @@ class Admin extends Component {
             multiSort={true}
             previousText={<i class="fas fa-arrow-left"/>}
             nextText={<i class="fas fa-arrow-right"/>}
-            // getTrProps = {
-            //   (state, rowInfo) => {
-            //     console.log("state: ", state)
-            //       console.log('rowInfo: ', rowInfo)
-            //     return {
-            //       onClick: () => this.props.history.push(`admin/user/profile/` + rowInfo.row.username)
-            //     }
-            //   }
-            // }
             />
         </Row>
       </Grid> : <Redirect to={this.props.history.goBack()}/>
