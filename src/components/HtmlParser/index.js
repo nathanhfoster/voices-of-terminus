@@ -8,6 +8,7 @@ import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from
 import {getNewsLetter} from '../../actions/NewsLetter'
 import {getArticle} from '../../actions/Articles'
 import {clearHtmlDocument} from '../../actions/App'
+import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = ({HtmlDocument}) => ({
   HtmlDocument
@@ -38,8 +39,10 @@ class HtmlParser extends PureComponent {
   }
 
   componentDidMount() {
-   // if(path.includes('news')) this.props.getNewsLetter(match.params.id)
-    //if(path.includes('articles')) this.props.getArticle(match.params.id)
+    const {getNewsLetter, getArticle} = this.props
+    const {params, path} = this.props.match
+    if(path.includes('newsletters')) getNewsLetter(params.id)
+    if(path.includes('articles')) getArticle(params.id)
   }
   
   componentWillReceiveProps(nextProps) {
@@ -69,7 +72,7 @@ class HtmlParser extends PureComponent {
     const html = this.state.html ? this.state.html : this.state.HtmlDocument.html
     return (
       <Grid className="HtmlParser Container fadeIn-2">
-        { match ?
+        { match.params.id ?
             <Row className="ViewHtmlDocument">
               <Col md={12}>
                 <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>
@@ -87,4 +90,4 @@ class HtmlParser extends PureComponent {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(HtmlParser)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(HtmlParser))
