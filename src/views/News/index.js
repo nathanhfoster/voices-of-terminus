@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
@@ -26,7 +26,7 @@ const mapDispatchToProps = {
   deleteNewsLetter
 }
 
-class News extends Component {
+class News extends PureComponent {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
@@ -82,14 +82,14 @@ class News extends Component {
     let deleteCard = null
     let className = "CardContainer "
     if (card.tags.includes('Article')) {
-      click = () => {this.props.getArticle(card.id); this.props.history.push('/articles/' + card.id)}
-      editCard = () => {this.props.getArticle(card.id); this.props.history.push('/articles/edit/article/' + card.id)}
+      click = () => {this.props.history.push('/articles/' + card.id); this.props.getArticle(card.id)}
+      editCard = () => {this.props.history.push('/articles/edit/article/' + card.id); this.props.getArticle(card.id)}
       deleteCard = this.props.deleteArticle
       className += "CardContainerArticle"
     }
     if(card.tags.includes('Newsletter')){
-      click = () => {this.props.getNewsLetter(card.id); this.props.history.push('/newsletters/' + card.id)}
-      editCard = () => {this.props.getNewsLetter(card.id); this.props.history.push('/articles/edit/newsletter/' + card.id)}
+      click = () => {this.props.history.push('/newsletters/' + card.id); this.props.getNewsLetter(card.id)}
+      editCard = () => {this.props.history.push('/articles/edit/newsletter/' + card.id); this.props.getNewsLetter(card.id)}
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }
