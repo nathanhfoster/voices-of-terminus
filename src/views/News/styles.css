@@ -9,6 +9,11 @@
     border-color: var(--light_grey);
     background-color: var(--slate_grey);
     color: var(--tertiarycolor);
+    min-height: 38px;
+    min-width: 43px;
+}
+.form-control {
+    min-height: 38px;
 }
 
 .FilterMultiSelect {

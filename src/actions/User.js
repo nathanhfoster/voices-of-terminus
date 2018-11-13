@@ -2,7 +2,7 @@ import C from '../constants'
 import axios from 'axios'
 import {Axios, AxiosForm} from './Axios'
 import Cookies from 'js-cookie'
-const qs = require('qs')
+import qs from 'qs'
 
  export const createUser = payload => {
     const eightHours = 1/3

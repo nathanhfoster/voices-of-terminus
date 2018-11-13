@@ -1,6 +1,6 @@
 import C from '../constants'
 import {Axios} from './Axios'
-const qs = require('qs')
+import qs from 'qs'
 
 export const postNewsletter = (token, payload) => {
     return async (dispatch) => { await  Axios(token).post('newsletters/', qs.stringify(payload))

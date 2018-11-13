@@ -241,6 +241,10 @@ a, a:focus, a:active, a:visited {
 .nav > li > a {
   /* padding: 15px 15px 0 0; */
 }
+
+.Tabs {
+  margin-top: 8px;
+}
 .Tabs .nav-tabs {
     border: 0;
     /* border-color: #eee;

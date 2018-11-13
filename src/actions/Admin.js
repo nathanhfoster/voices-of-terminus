@@ -1,6 +1,6 @@
 import C from '../constants'
 import {Axios} from './Axios'
-const qs = require('qs')
+import qs from 'qs'
 
 export const getUsers = () => {
     return async (dispatch) => await Axios().get('users/')

@@ -2,11 +2,11 @@ import C from '../constants'
 import {Axios} from './Axios'
 import Cookies from 'js-cookie'
 import YTube from 'ytube'
+import qs from 'qs'
 const youTubeKey = process.env.REACT_APP_YOUTUBE_API_KEY
 const ytube = new YTube(youTubeKey)
 const votYouTubeChanneID = process.env.REACT_APP_VOT_YOUTUBE_CHANNEL_ID
 const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID
-const qs = require('qs')
 
 export const getVoTYouTubeChannelData = () => {
     return async (dispatch) => await ytube.getChannelsLatestVideos(votYouTubeChanneID, 50)

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
@@ -11,6 +11,7 @@ import {withRouter} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
 import {hasUpdatePermission, hasDeletePermission} from '../../helpers'
+import matchSorter from 'match-sorter'
 
 const mapStateToProps = ({User, Articles, Newsletters}) => ({
   User,
@@ -33,7 +34,9 @@ class News extends Component {
     this.onChange = this.onChange.bind(this)
     this.state = {
       selectValue: null,
-      Documents: []
+      Documents: [],
+      search: '',
+      clearSearch: false
     }
   }
 
@@ -57,8 +60,8 @@ class News extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {Articles, Newsletters} = nextProps
-    const {Documents, selectValue} = nextState
-    return Documents.length != (Articles.length + Newsletters.length) || selectValue
+    const {Documents, selectValue, search} = nextState
+    return Documents.length != (Articles.length + Newsletters.length) || selectValue || search || search === undefined
   }
   
   componentWillMount() {
@@ -78,7 +81,7 @@ class News extends Component {
     const {User, Articles, Newsletters} = props
     const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
-    this.setState({User, Documents, selectOptions})
+    this.setState({User, Documents, selectOptions, clearSearch: true})
   }
 
   //Filter the Documents if the documents tags array contains the filter array
@@ -112,17 +115,6 @@ class News extends Component {
       </Col>)
   })
 
-  onChange = e => {
-    const query = e.target.value.toLowerCase()
-    const Newsletters = this.props.Newsletters.filter(newsletter => {
-      const title = newsletter.title ? newsletter.title.toLowerCase() : ' '
-      const tags = newsletter.tags ? newsletter.tags.toLowerCase() : ' '
-      if(title.includes(query) || tags.includes(query)) return true
-      return false
-    })
-    this.setState({Newsletters, [e.target.name]: e.target.value})
-}
-
   onSelectChange = (selectValue, {action, removedValue}) => {
     switch (action) {
       case 'remove-value':
@@ -139,9 +131,17 @@ class News extends Component {
     this.setState({selectValue})
   }
 
+  onChange = (filter, Documents) => {
+    const {name, value} = filter.target
+    this.setState({[name]: value ? value : undefined})
+  }
+
   render() {
+    console.log("RENDER")
     const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
-    const {User, Documents} = this.state
+    const {User, search} = this.state
+    let {Documents} = this.state
+    Documents = search ? matchSorter(Documents, search, {keys: ['title', 'tags', 'author_username', 'last_modified_by_username', 'html']}) : Documents
     const filter = selectValue.map(i => i.value)
     return (
       Documents ?
@@ -155,7 +155,15 @@ class News extends Component {
             <Button disabled={!(User.is_superuser || User.can_create_newsletter)} onClick={() => this.props.history.push('/articles/new/newsletter')}><i class="fas fa-plus"/> Newsletter</Button>
           </Col>
           <Col md={5} xs={12}>
-            <FormGroup>
+            
+              <InputGroup>
+                <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
+                <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by content..."  value={search} onChange={(filter) => this.onChange(filter, Documents)}/>
+              </InputGroup>
+            
+          </Col>
+          <Col md={4} xs={12}>
+           
               <InputGroup>
                 <InputGroup.Addon><i class="fas fa-tags"/></InputGroup.Addon>
                 <Select
@@ -168,15 +176,14 @@ class News extends Component {
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                   isSearchable={false}
                   name="colors"
+                  placeholder="Filter by tags..."
                   className="FilterMultiSelect"
                   classNamePrefix="select"
                   onChange={this.onSelectChange}
                   options={this.props.selectOptions}
               />
              </InputGroup>
-            </FormGroup>
-          </Col>
-          <Col md={4} xs={12}>
+           
           </Col>
         </Row>
         <Row>

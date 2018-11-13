@@ -34,13 +34,8 @@ class ViewHtmlDocument extends PureComponent {
   }
 
   render() {
-    console.log("RENDER HTML")
     const {HtmlDocument} = this.props
-    // Check if there is an :id in the url params
-    const {match} = this.props
-    // Checks if the html document came from an api call or was passed as a prop from another parent
-    const loadHtml = HtmlDocument ? HtmlDocument.html : '' 
-    return (
+    return ( HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
           <Col md={12}>
@@ -50,10 +45,11 @@ class ViewHtmlDocument extends PureComponent {
             <h3>By: {HtmlDocument.author_username}</h3>
           </Col>
           <Col md={12}>
-            {ReactHtmlParser(loadHtml)}
+            {ReactHtmlParser(HtmlDocument.html)}
           </Col>
         </Row>
       </Grid>
+      : null
     )
   }
 }

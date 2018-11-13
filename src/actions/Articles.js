@@ -1,6 +1,6 @@
 import C from '../constants'
 import {Axios} from './Axios'
-const qs = require('qs')
+import qs from 'qs'
 
 export const postDocument = (token, payload) => {
   return async (dispatch) => { await Axios(token).post('articles/', qs.stringify(payload))
