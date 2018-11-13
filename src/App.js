@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { withAlert } from 'react-alert'
@@ -51,7 +51,7 @@ const mapDispatchToProps = {
   refreshUser
 }
 
-class App extends Component {
+class App extends PureComponent {
   constructor(props) {
     super(props)
     this.updateWindowDimensions = this.updateWindowDimensions.bind(this)
@@ -117,7 +117,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const {VoTYouTubeChannelData, VRYouTubeChannelData, location} = this.props
+    const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
     this.props.getVRYouTubeChannelData()
@@ -171,8 +171,7 @@ class App extends Component {
   renderBackgroundImages = (images, shouldRespond) => images.map(k => (<Image src={k} width="100%" height="100%" responsive={shouldRespond}/>))
 
   render() {
-    const {ApiResponse, isMobile} = this.state
-    const {routeItems, images, imagesMobile, location} = this.props
+    const {routeItems, location} = this.props
     return (
       location.pathname === '/' ? <Redirect to="/home"/>
       : <div className="App">

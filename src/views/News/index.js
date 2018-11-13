@@ -10,6 +10,7 @@ import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
+import {hasUpdatePermission, hasDeletePermission} from '../../helpers'
 
 const mapStateToProps = ({User, Articles, Newsletters}) => ({
   User,
@@ -84,7 +85,7 @@ class News extends Component {
   renderCards = (Documents, filter) => Documents.filter(doc => doc.tags.split('|').every(r => filter.length > 0 ? filter.includes(r) : r))
   .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
   .map(card => {
-    const {history} = this.props
+    const {User, history} = this.props
     let click = null
     let editCard = null
     let deleteCard = null
@@ -101,7 +102,14 @@ class News extends Component {
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }
-    return <Col className={className} md={3} xs={12}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
+    return (
+      <Col className={className} md={3} xs={12}>
+        <Card
+        {...card} User={User}
+        canDelete={hasDeletePermission(User, card.author, card.tags)}
+        canUpdate={hasUpdatePermission(User, card.author, card.tags)}
+        click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/>
+      </Col>)
   })
 
   onChange = e => {
@@ -132,7 +140,6 @@ class News extends Component {
   }
 
   render() {
-    console.log("RENDER NEWS")
     const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
     const {User, Documents} = this.state
     const filter = selectValue.map(i => i.value)

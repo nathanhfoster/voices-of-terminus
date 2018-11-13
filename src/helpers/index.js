@@ -117,3 +117,35 @@ export const professionIcon = (profession, professionSpecialization) => {
         }
     }
 }
+
+export const hasDeletePermission = (User, author, tags) => {
+    if(tags.includes('Article')) {
+      if(User.is_superuser) return true
+      if(User.is_staff && User.can_delete_article) return true
+      if(User.id == author || User.can_delete_article) return true
+    }
+
+    if(tags.includes('Newsletter')) {
+      if(User.is_superuser) return true
+      if(User.is_staff && User.can_delete_newsletter) return true
+      if(User.id == author || User.can_delete_newsletter) return true
+    }
+    
+    return false
+  }
+
+export const hasUpdatePermission = (User, author, tags) => {
+    if(tags.includes('Article')) {
+      if(User.is_superuser) return true
+      if(User.is_staff && User.can_update_article) return true
+      if(User.id == author || User.can_update_article) return true
+    }
+
+    if(tags.includes('Newsletter')) {
+      if(User.is_superuser) return true
+      if(User.is_staff && User.can_update_newsletter) return true
+      if(User.id == author || User.can_update_newsletter) return true
+    }
+    
+    return false
+  }
