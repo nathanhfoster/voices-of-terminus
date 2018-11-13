@@ -60,7 +60,7 @@ class HtmlParser extends Component {
   }
 
   render() {
-    const {HTML Document, html} = this.state
+    const {HtmlDocument, html} = this.state
     // Check if there is an :id in the url params
     const {match} = this.props
     // Checks if the html document came from an api call or was passed as a prop from another parent
