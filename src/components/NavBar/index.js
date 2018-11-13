@@ -98,7 +98,7 @@ class NavBar extends PureComponent {
                 <LinkContainer to="/guild/contests"><NavItem eventKey={5.5}>CONTESTS</NavItem></LinkContainer>
                 <LinkContainer to="/guild/team"><NavItem eventKey={5.6}>TEAM</NavItem></LinkContainer>
                 <LinkContainer to="/guild/join"><NavItem eventKey={5.7}>JOIN</NavItem></LinkContainer>
-                <LinkContainer to="/guild/store"><NavItem eventKey={5.8}><i class="fas fa-store"/> STORE</NavItem></LinkContainer>  
+                <LinkContainer to="/guild/store"><NavItem eventKey={5.8}><i className="fas fa-store"/> STORE</NavItem></LinkContainer>  
               </NavDropdown>
               <NavDropdown eventKey={6} title="MEDIA" id="basic-nav-dropdown">
               <LinkContainer to="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>
@@ -107,11 +107,11 @@ class NavBar extends PureComponent {
               <LinkContainer to="/media/podcasts"><NavItem eventKey={6.4}>PODCASTS</NavItem></LinkContainer>
             </NavDropdown>        
               <NavDropdown eventKey={8} title="VR" id="connect-nav-dropdown">
-                <Image src={vrLogo} className="vrLogo"/>
-                <NavItem eventKey={8.1} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
-                <NavItem eventKey={8.2} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
-                <NavItem eventKey={8.2} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
-                <NavItem eventKey={8.3} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
+                <Image   eventKey={8.1} src={vrLogo} className="vrLogo"/>
+                <NavItem eventKey={8.2} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
+                <NavItem eventKey={8.3} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
+                <NavItem eventKey={8.4} href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ" target="_blank">GAMEPLAY</NavItem>
+                <NavItem eventKey={8.5} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
              
               {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}>LOGIN</NavItem></LinkContainer>
