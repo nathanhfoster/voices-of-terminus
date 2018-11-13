@@ -18,7 +18,7 @@ const mapDispatchToProps = {
   getArticle,
 }
 
-class HtmlParser extends PureComponent {
+class ViewHtmlDocument extends PureComponent {
   constructor(props) {
     super(props)
   }
@@ -57,4 +57,4 @@ class HtmlParser extends PureComponent {
     )
   }
 }
-export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(HtmlParser))
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(ViewHtmlDocument))
