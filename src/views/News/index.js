@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
@@ -74,7 +74,7 @@ class News extends PureComponent {
   }
 
   getState = props => {
-    const {User, Articles, Newsletters} = props
+    const {User, Articles, Newsletters, history} = props
     const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
     this.setState({User, Documents, selectOptions})
@@ -84,19 +84,20 @@ class News extends PureComponent {
   renderCards = (Documents, filter) => Documents.filter(doc => doc.tags.split('|').every(r => filter.length > 0 ? filter.includes(r) : r))
   .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
   .map(card => {
+    const {history} = this.props
     let click = null
     let editCard = null
     let deleteCard = null
     let className = "CardContainer "
     if (card.tags.includes('Article')) {
-      click = () => {this.props.history.push('/articles/' + card.id)}
-      editCard = () => {this.props.history.push('/articles/edit/article/' + card.id)}
+      click = () => history.push('/articles/' + card.id)
+      editCard = () => history.push('/articles/edit/article/' + card.id)
       deleteCard = this.props.deleteArticle
       className += "CardContainerArticle"
     }
     if(card.tags.includes('Newsletter')){
-      click = () => {this.props.history.push('/newsletters/' + card.id)}
-      editCard = () => {this.props.history.push('/articles/edit/newsletter/' + card.id)}
+      click = () => history.push('/newsletters/' + card.id)
+      editCard = () => history.push('/articles/edit/newsletter/' + card.id)
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }

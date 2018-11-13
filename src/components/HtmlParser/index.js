@@ -32,6 +32,7 @@ class HtmlParser extends PureComponent {
   }
 
   static defaultProps = {
+    html: null
   }
   
   componentWillMount() {
@@ -39,10 +40,12 @@ class HtmlParser extends PureComponent {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {HtmlDocument} = nextProps
+    const {HtmlDocument, match} = nextProps
+    const {html} = nextState
+    const {params} = match
     // console.log('nextProps: ', nextProps)
     // console.log('nextState: ', nextState)
-    return HtmlDocument
+    return html || HtmlDocument
   }
 
   componentDidMount() {
