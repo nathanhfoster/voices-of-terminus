@@ -13,6 +13,7 @@
 .ProfileImages {
   max-height: 200px;
   margin: 4px;
+  margin: auto;
 }
 
 .ProfileImages:hover {
