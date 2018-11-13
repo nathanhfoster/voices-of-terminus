@@ -74,11 +74,11 @@ class TextEditor extends PureComponent {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const {HtmlDocument} = nextProps
-    console.log(nextProps, nextState)
-    return HtmlDocument
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const {HtmlDocument} = nextProps
+  //   console.log(nextProps, nextState)
+  //   return HtmlDocument
+  // }
 
   componentDidMount() {
   }

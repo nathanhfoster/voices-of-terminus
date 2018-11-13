@@ -74,7 +74,7 @@ class News extends PureComponent {
   }
 
   getState = props => {
-    const {User, Articles, Newsletters, history} = props
+    const {User, Articles, Newsletters} = props
     const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
     this.setState({User, Documents, selectOptions})
@@ -101,7 +101,7 @@ class News extends PureComponent {
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }
-    return <Col className={className} md={3} xs={12}><Card {...card} click={click} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
+    return <Col className={className} md={3} xs={12}><Card {...card} click={() => history.push('/articles/' + card.id)} editCard={editCard} deleteCard={deleteCard} summary={true}/></Col>
   })
 
   onChange = e => {
@@ -132,10 +132,12 @@ class News extends PureComponent {
   }
 
   render() {
+    console.log("RENDER NEWS")
     const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
     const {User, Documents} = this.state
     const filter = selectValue.map(i => i.value)
     return (
+      Documents ?
       <Grid className="News Container fadeIn-2">
         <Row>
           <PageHeader className="pageHeader">NEWS</PageHeader>
@@ -183,6 +185,7 @@ class News extends PureComponent {
           </Tabs>
         </Row>
       </Grid>
+      : null
     )
   }
 }

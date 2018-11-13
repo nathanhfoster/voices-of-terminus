@@ -39,14 +39,14 @@ class HtmlParser extends PureComponent {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const {HtmlDocument, match} = nextProps
-    const {html} = nextState
-    const {params} = match
-    // console.log('nextProps: ', nextProps)
-    // console.log('nextState: ', nextState)
-    return HtmlDocument && params || html && !params
-  }
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const {HtmlDocument, match} = nextProps
+  //   const {html} = nextState
+  //   const {params} = match
+  //   console.log('nextProps: ', nextProps)
+  //   console.log('nextState: ', nextState)
+  //   return true
+  // }
 
   componentDidMount() {
     const {getNewsLetter, getArticle} = this.props
@@ -66,7 +66,7 @@ class HtmlParser extends PureComponent {
 
   componentWillUnmount() {
     this.setState({HtmlDocument: null})
-    this.props.clearHtmlDocument()
+    // this.props.clearHtmlDocument()
   }
 
   render() {
