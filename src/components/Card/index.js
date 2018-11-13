@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import {Grid, Row, Col, Button} from 'react-bootstrap'
 import Moment from 'react-moment'
 import './styles.css'
-import HtmlParser from '../HtmlParser'
+
 import {withRouter} from 'react-router-dom'
 import ReactHtmlParser from 'react-html-parser'
 
