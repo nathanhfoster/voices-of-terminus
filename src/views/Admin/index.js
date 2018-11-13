@@ -126,10 +126,10 @@ class Admin extends Component {
             <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
             <i class="fas fa-plus"/> User
             </Button>
-            <Button onClick={() => this.props.history.push('/articles/new/article')}>
+            <Button disabled={!(User.is_superuser || User.can_create_article)} onClick={() => this.props.history.push('/articles/new/article')}>
             <i class="fas fa-plus"/> Article
             </Button>
-            <Button onClick={() => this.props.history.push('/articles/new/newsletter')} >
+            <Button disabled={!(User.is_superuser || User.can_create_newsletter)} onClick={() => this.props.history.push('/articles/new/newsletter')} >
             <i class="fas fa-plus"/> Newsletter
             </Button>
             <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
