@@ -1,4 +1,5 @@
 import React from 'react'
+
 import Bard from '../images/classIcons/bard.png'
 import Cleric from '../images/classIcons/cleric.png'
 import Paladin from '../images/classIcons/paladin.png'

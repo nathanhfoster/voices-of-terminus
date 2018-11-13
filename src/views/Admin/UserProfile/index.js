@@ -158,7 +158,7 @@ class UserProfile extends PureComponent {
           <h2 className="headerBanner">USER INFO</h2>
         </Row>
         <Row className="Center borderedRow">
-          <Col md={4} xs={12}><Image title="Profile Image" src={Admin.User.profile_image} style={{height: '250px'}}/></Col>
+          <Col md={4} xs={12}><Image title="Profile Image" src={Admin.User.profile_image} className="ProfileImages" rounded/></Col>
           <Col md={5} xs={12}>
             <h1 title="User Name">{Admin.User.username.toUpperCase()}</h1>
             <span title="First and Last Name" className="help">{Admin.User.first_name} {Admin.User.last_name}</span>

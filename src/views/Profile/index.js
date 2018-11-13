@@ -371,7 +371,7 @@ class Profile extends Component {
       reader.readAsDataURL(file)
       reader.onloadend = () => this.setState({profile_image: reader.result})
     }
-}
+  }
   
   validateUsername() {
     const {username} = this.state
@@ -418,12 +418,13 @@ class Profile extends Component {
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
   updateProfile = () => {
-    const {token, id, username, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
+    const {token, id, username, password, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
     
     let payload = new FormData()
     // payload.append('profile_image', profile_image, profile_image.fileName)
     payload.append('profile_image', profile_image)
     payload.append('username', username)
+    if(password) payload.append('password', password)
     payload.append('email', email)
     payload.append('first_name', first_name)
     payload.append('last_name', last_name)
@@ -464,7 +465,7 @@ class Profile extends Component {
         </Row>
         <Row className="Center">
           <Col md={3}>
-            <Image src={profile_image} style={{maxHeight: '250px', margin: 'auto'}} responsive rounded/>
+            <Image src={profile_image} className="ProfileImages" responsive rounded/>
             <ControlLabel>Profile Picture</ControlLabel>
             <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
           </Col>

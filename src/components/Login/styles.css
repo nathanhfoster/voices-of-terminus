@@ -9,3 +9,13 @@
   left: 0;
   right: 0;
 }
+
+.ProfileImages {
+  max-height: 200px;
+  margin: 4px;
+}
+
+.ProfileImages:hover {
+  box-shadow: 0 0 4px var(--primaryColor);
+  transition: box-shadow 200ms;
+}

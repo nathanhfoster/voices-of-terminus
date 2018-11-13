@@ -5,7 +5,10 @@ import './styles.css'
 import { Form, FormGroup, Grid, Row, Col, FormControl, ControlLabel, Checkbox, Button, PageHeader, ButtonGroup, Modal, Image} from 'react-bootstrap'
 import {login} from '../../actions/App'
 import {createUser} from '../../actions/User'
-import {withRouter, Redirect} from 'react-router-dom'
+import FormData from 'form-data'
+import { withRouter, Redirect } from 'react-router-dom'
+import { withAlert } from 'react-alert'
+import {defaultProfileImages} from '../../helpers/defaultProfileImages'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -36,6 +39,7 @@ class Login extends PureComponent {
       primary_class: '',
       show: false,
       rememberMe: false,
+      profile_image: defaultProfileImages[0]
     }
   }
 
@@ -43,7 +47,7 @@ class Login extends PureComponent {
     User: PropTypes.object,
     token: PropTypes.number, 
     id: PropTypes.number,
-    profile_image: PropTypes.object,
+    profile_image: PropTypes.string,
     is_superuser: PropTypes.bool, 
     is_staff: PropTypes.bool, 
     bio: PropTypes.string, 
@@ -66,33 +70,22 @@ class Login extends PureComponent {
     primary_role: '',
     primary_class: '',
     show: false,
-    rememberMe: false,
+    rememberMe: false
   }
   
-  componentWillMount() {
-    this.getState(this.props)
-  }
-
-  componentDidMount() {
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
-  }
-
-  getState = props => {
-    const {token, id} = props.User
-    this.setState({token, id})
-  }
-
-  componentWillUnmount() {
-  }
-
   onChange = (e) => this.setState({[e.target.name]: e.target.value})
-  
 
-  setImage = (e) => {
-    this.setState({profile_image: e.target.files[0]})
+  setImage = e => {
+    console.log(e)
+    const {alert} = this.props
+    var file = e.target.files[0]
+    if(file.size > 3145728) {
+      alert.error(<div>Please use an image less then 3MB</div>)
+    }else {
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => this.setState({profile_image: reader.result})
+    }
   }
 
   login = (e) => {
@@ -108,8 +101,13 @@ class Login extends PureComponent {
   createUserAccount = (e) => {
     e.preventDefault()
     const {username, password, email, bio, primary_role, primary_class, profile_image} = this.state
-    
-    this.props.createUser(username, password, email)
+    let payload = new FormData()
+    payload.append('profile_image', profile_image)
+    payload.append('username', username)
+    payload.append('password', password)
+    payload.append('email', email)
+
+    this.props.createUser(payload)
   }
 
   validateUsername() {
@@ -160,50 +158,51 @@ class Login extends PureComponent {
 
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
+  renderDefaultImages = images => images.map((v, i) => <Col xs={4}><Image src={v} className="ProfileImages" onClick={() => this.setState({profile_image: defaultProfileImages[i]})}/></Col>)
+
   render() {
     const canSubmit = !this.cantSubmit()
-    const {token, username, password, reEnterPassword, email, primary_role, primary_class} = this.state
-    return (
-    token ? <Redirect to={this.props.history.goBack()}/> :
+    const {User} = this.props
+    const {username, password, reEnterPassword, email, profile_image} = this.state
+    return (User.token ? <Redirect to={this.props.history.goBack()}/> :
     <Grid className="Login Container fadeIn-2">
-        <Row>
-          <PageHeader className="pageHeader">LOGIN</PageHeader>
-        </Row>
-        <Row>
-          <Form className="LoginForm" onSubmit={this.login} method="post">
-            <Row>
-              <Col md={6} smOffset={3} xs={12}>
-                <FormGroup controlId="formHorizontalUsername">
-                  <ControlLabel>Username</ControlLabel>
-                  <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
-                </FormGroup>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col md={6} smOffset={3} xs={12}>
-                <FormGroup controlId="formHorizontalPassword">
-                  <ControlLabel>Password</ControlLabel>
-                  <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
-                </FormGroup>
-              </Col>
-            </Row>
-            <Row>
-              <FormGroup>
-                <Col smOffset={3} xs={12}>
-                  <Checkbox onClick={e => this.setState({rememberMe: e.target.checked})}>Remember me</Checkbox>
-                </Col>
+      <Row>
+        <PageHeader className="pageHeader">LOGIN</PageHeader>
+      </Row>
+      <Row>
+        <Form className="LoginForm" onSubmit={this.login} method="post">
+          <Row>
+            <Col md={6} smOffset={3} xs={12}>
+              <FormGroup controlId="formHorizontalUsername">
+                <ControlLabel>Username</ControlLabel>
+                <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
               </FormGroup>
-            </Row>
-            <Row>
-              <Col md={12} className="Center">
-                <ButtonGroup>
-                  <Button type="submit">Sign in</Button>
-                  <Button onClick={this.handleShow}>Create Account</Button>
-                  <Button onClick={this.handleShow}>Forgot Password</Button>
-                </ButtonGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6} smOffset={3} xs={12}>
+              <FormGroup controlId="formHorizontalPassword">
+                <ControlLabel>Password</ControlLabel>
+                <FormControl type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <FormGroup>
+              <Col smOffset={3} xs={12}>
+                <Checkbox onClick={e => this.setState({rememberMe: e.target.checked})}>Remember me</Checkbox>
               </Col>
-            </Row>
+            </FormGroup>
+          </Row>
+          <Row>
+            <Col md={12} className="Center">
+              <ButtonGroup>
+                <Button type="submit">Sign in</Button>
+                <Button onClick={this.handleShow}>Create Account</Button>
+                <Button onClick={this.handleShow}>Forgot Password</Button>
+              </ButtonGroup>
+            </Col>
+          </Row>
           </Form> 
           <Row>
             <Modal
@@ -215,7 +214,7 @@ class Login extends PureComponent {
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-lg">
-                  Account Creation
+                Account Creation
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -247,11 +246,18 @@ class Login extends PureComponent {
                         <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
                       </FormGroup>
                     </Col>
-                    
-                  { /* <FormGroup>
-                        <ControlLabel>Profile picture</ControlLabel>
-                        <FormControl type="file" label="File" name="profile_image" onChange={this.setImage} help="Example block-level help text here."/>
-                      </FormGroup> */}
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      <Image src={profile_image} className="ProfileImages" responsive rounded/>
+                      <ControlLabel>Profile Picture</ControlLabel>
+                      <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      {this.renderDefaultImages(defaultProfileImages)}
+                    </Col>
                   </Row>
                 </Form>
               </Modal.Body>
@@ -266,4 +272,4 @@ class Login extends PureComponent {
   }
 }
  
-export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Login))
+export default withAlert(withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Login)))
