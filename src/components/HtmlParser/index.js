@@ -58,7 +58,6 @@ class HtmlParser extends PureComponent {
   }
 
   render() {
-    console.log("HTML RENDER")
     const {HtmlDocument} = this.state
     // Check if there is an :id in the url params
     const {match} = this.props

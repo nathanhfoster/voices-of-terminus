@@ -163,7 +163,7 @@ class TextEditor extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col xs={12}>
+          <Col>
             <FormGroup>
               <InputGroup>
                 <InputGroup.Addon><i class="fas fa-heading"></i></InputGroup.Addon>
@@ -171,7 +171,7 @@ class TextEditor extends PureComponent {
               </InputGroup>
             </FormGroup>
           </Col>
-          <Col xs={12}>
+          <Col>
           <FormGroup>
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
@@ -195,7 +195,7 @@ class TextEditor extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col xs={12}>
+          <Col>
             <Editor
               wrapperClassName="Wrapper"
               editorClassName="Editor"
