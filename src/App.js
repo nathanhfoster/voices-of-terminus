@@ -18,7 +18,7 @@ import TextEditor from './components/TextEditor'
 import NewsLetterGenerator from './components/NewsLetterGenerator'
 import GuildCalendar from './views/GuildCalendar'
 import News from './views/News'
-import HtmlParser from './components/HtmlParser'
+import ViewHtmlDocument from './components/ViewHtmlDocument'
 import Forums from './views/Forums'
 import Guild from './views/Guild'
 import Media from './views/Media'
@@ -89,7 +89,7 @@ class App extends PureComponent {
       {path: '/articles/edit/article/:id', component: TextEditor},
       {path: '/calendar', component: GuildCalendar},
       {path: '/news/', component: News},
-      {path: '/newsletters/:id', component: HtmlParser},
+      {path: '/newsletters/:id', component: ViewHtmlDocument},
       {path: '/articles/new/newsletter', component: NewsLetterGenerator},
       {path: '/articles/edit/newsletter/:id', component: NewsLetterGenerator},
       {path: '/forums/', component: Forums},
