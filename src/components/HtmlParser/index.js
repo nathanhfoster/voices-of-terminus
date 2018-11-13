@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader} from 'react-bootstrap'
@@ -18,7 +18,7 @@ const mapDispatchToProps = {
   getArticle,
   }
 
-class HtmlParser extends PureComponent {
+class HtmlParser extends Component {
   constructor(props) {
     super(props)
  
