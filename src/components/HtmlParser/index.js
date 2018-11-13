@@ -23,7 +23,7 @@ class HtmlParser extends Component {
     super(props)
  
     this.state = {
-      html = null
+      html: null
     }
   }
 
