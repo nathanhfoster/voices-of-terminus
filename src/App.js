@@ -84,7 +84,7 @@ class App extends PureComponent {
       {path: '/home', component: Home},
       {path: '/admin', component: Admin},
       {path: '/admin/user/profile/:id', component: UserProfile},
-      {path: '/articles/:id', component: HtmlParser},
+      {path: '/articles/:id', component: ViewHtmlDocument},
       {path: '/articles/new/article', component: TextEditor},
       {path: '/articles/edit/article/:id', component: TextEditor},
       {path: '/calendar', component: GuildCalendar},
