@@ -29,7 +29,7 @@ class Template extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps, nextState) {
     return true
   }
 

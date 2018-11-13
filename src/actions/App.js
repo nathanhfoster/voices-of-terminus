@@ -109,5 +109,5 @@ export const refreshUser = (id, token) => {
 
 export const clearHtmlDocument = () => async (dispatch) => await dispatch ({
          type: C.GET_HTML_DOCUMENT,
-         payload: {}
+         payload: null
      })

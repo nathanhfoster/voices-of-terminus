@@ -54,6 +54,10 @@ class Card extends PureComponent {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return nextProps.id != nextState.id
+  }
+
   componentDidMount() {
   }
 

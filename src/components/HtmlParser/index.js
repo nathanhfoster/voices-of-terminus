@@ -38,6 +38,13 @@ class HtmlParser extends PureComponent {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const {HtmlDocument} = nextProps
+    // console.log('nextProps: ', nextProps)
+    // console.log('nextState: ', nextState)
+    return HtmlDocument
+  }
+
   componentDidMount() {
     const {getNewsLetter, getArticle} = this.props
     const {params, path} = this.props.match
@@ -54,25 +61,21 @@ class HtmlParser extends PureComponent {
     this.setState({HtmlDocument, html})
   }
 
-  shouldComponentUpdate(nextProps) {
-    const {HtmlDocument} = nextProps
-    return HtmlDocument.hasOwnProperty('tags')
-  }
-
   componentWillUnmount() {
     this.setState({HtmlDocument: null})
     this.props.clearHtmlDocument()
   }
 
   render() {
+    console.log("HTML RENDER")
     const {HtmlDocument} = this.state
     // Check if there is an :id in the url params
     const {match} = this.props
     // Checks if the html document came from an api call or was passed as a prop from another parent
-    const html = this.state.html ? this.state.html : this.state.HtmlDocument.html
+    const html = this.state.HtmlDocument ? this.state.HtmlDocument.html : this.state.html
     return (
       <Grid className="HtmlParser Container fadeIn-2">
-        { match.params.id ?
+        { match.params.id && HtmlDocument ?
             <Row className="ViewHtmlDocument">
               <Col md={12}>
                 <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>

@@ -31,7 +31,8 @@ class News extends PureComponent {
     super(props)
     this.onChange = this.onChange.bind(this)
     this.state = {
-      selectValue: null
+      selectValue: null,
+      Documents: []
     }
   }
 
@@ -51,6 +52,12 @@ class News extends PureComponent {
       {value: 'Other', label: 'Other'},
     ],
     Documents: []
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {Articles, Newsletters} = nextProps
+    const {Documents, selectValue} = nextState
+    return Documents.length != (Articles.length + Newsletters.length) || selectValue
   }
   
   componentWillMount() {
