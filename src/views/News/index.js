@@ -91,13 +91,13 @@ class News extends PureComponent {
     let className = "CardContainer "
     if (card.tags.includes('Article')) {
       click = () => history.push('/articles/' + card.id)
-      editCard = () => history.push('/articles/edit/article/' + card.id)
+      editCard = () => {history.push('/articles/edit/article/' + card.id); this.props.getArticle(card.id)}
       deleteCard = this.props.deleteArticle
       className += "CardContainerArticle"
     }
     if(card.tags.includes('Newsletter')){
       click = () => history.push('/newsletters/' + card.id)
-      editCard = () => history.push('/articles/edit/newsletter/' + card.id)
+      editCard = () => {history.push('/articles/edit/newsletter/' + card.id); this.props.getNewsLetter(card.id)}
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }

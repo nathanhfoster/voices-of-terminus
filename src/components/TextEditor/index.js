@@ -10,6 +10,7 @@ import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
+import {clearHtmlDocument} from '../../actions/App'
 import {postDocument, updateArticle} from '../../actions/Articles'
 import {withRouter, Redirect} from 'react-router-dom'
 import Select from 'react-select'
@@ -24,7 +25,8 @@ const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
 const mapDispatchToProps = {
   postDocument,
   setEditorState,
-  updateArticle
+  updateArticle,
+  clearHtmlDocument
 }
 
 class TextEditor extends PureComponent {
@@ -72,6 +74,12 @@ class TextEditor extends PureComponent {
     this.getState(this.props)
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    const {HtmlDocument} = nextProps
+    console.log(nextProps, nextState)
+    return HtmlDocument
+  }
+
   componentDidMount() {
   }
 
@@ -84,13 +92,13 @@ class TextEditor extends PureComponent {
     const {User, HtmlDocument, match} = props
     const Leader = User.is_leader || User.is_council
     selectOptions[1].isDisabled = !(User.is_leader || User.is_council)
-    const {author, title} = HtmlDocument
-    const tags =  HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Article').map(i => i = {value: i, label: i}) : []
+    const {author, title} = HtmlDocument ? HtmlDocument : ''
+    const tags =  HtmlDocument ? HtmlDocument.tags.split('|').filter(i => i != 'Article').map(i => i = {value: i, label: i}) : []
     const selectValue = [selectOptions[0], ...tags]
     const {id} = match ? match.params : null
     
     // Set the editorState from Redux if it exists else create an empty state
-    if(HtmlDocument.hasOwnProperty('html')) {
+    if(HtmlDocument) {
       const blocksFromHtml = htmlToDraft(HtmlDocument.html)
       const { contentBlocks, entityMap } = blocksFromHtml
       const contentState = ContentState.createFromBlockArray(contentBlocks, entityMap)
@@ -103,6 +111,7 @@ class TextEditor extends PureComponent {
   componentWillUnmount() {
     const {editorState} = this.state
     this.props.setEditorState(editorState)
+    this.props.clearHtmlDocument()
   }
 
   onEditorStateChange = editorState => {

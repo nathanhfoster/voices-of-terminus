@@ -6,6 +6,7 @@ import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
 import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
+import {clearHtmlDocument} from '../../actions/App'
 import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
 import Card from '../Card'
@@ -23,7 +24,8 @@ const mapDispatchToProps = {
   getNewsletters,
   getNewsLetter,
   deleteNewsLetter,
-  updateNewsLetter
+  updateNewsLetter,
+  clearHtmlDocument
 }
 
 class NewsLetterGenerator extends PureComponent {
@@ -42,7 +44,6 @@ class NewsLetterGenerator extends PureComponent {
       tags: null, 
       title: null, 
       id: null,
-      loadOnce: true,
       selectValue: null
     }
   }
@@ -77,16 +78,23 @@ class NewsLetterGenerator extends PureComponent {
     let {selectOptions} = props
     const {User, Newsletters, HtmlDocument} = props
     selectOptions[1].isDisabled = !(User.is_leader || User.is_council)
-    const {author, title} = HtmlDocument
+    const {author, title} = HtmlDocument ? HtmlDocument : ''
     const {id} = props.match.params
-    const tags = HtmlDocument.tags ? HtmlDocument.tags.split('|').filter(i => i != 'Newsletter').map(i => i = {value: i, label: i}) : []
+    const tags = HtmlDocument ? HtmlDocument.tags.split('|').filter(i => i != 'Newsletter').map(i => i = {value: i, label: i}) : []
     const selectValue = [selectOptions[0], ...tags]
     this.setState({User, Newsletters, HtmlDocument, author, tags, title, id, selectValue: this.orderOptions(selectValue)})
   }
 
   componentWillUnmount() {
     this.setState({HtmlDocument: null})
+    this.props.clearHtmlDocument()
   }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {HtmlDocument} = nextProps
+    return HtmlDocument
+  }
+
 
   postNewsletter = () => {
     const {User, title, selectValue} = this.state
@@ -169,7 +177,7 @@ class NewsLetterGenerator extends PureComponent {
     const {User, Newsletters, HtmlDocument, author, tags, title, id, selectValue} = this.state
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
-    const design = HtmlDocument.design ? JSON.parse(HtmlDocument.design) : null
+    const design = HtmlDocument ? JSON.parse(HtmlDocument.design) : null
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
     const isEditingDesign = id && design && this.editor && window.unlayer
    

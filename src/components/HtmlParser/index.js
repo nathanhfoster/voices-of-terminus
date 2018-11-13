@@ -45,7 +45,7 @@ class HtmlParser extends PureComponent {
     const {params} = match
     // console.log('nextProps: ', nextProps)
     // console.log('nextState: ', nextState)
-    return html || HtmlDocument
+    return HtmlDocument && params || html && !params
   }
 
   componentDidMount() {
