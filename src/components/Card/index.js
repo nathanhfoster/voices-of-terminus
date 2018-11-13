@@ -8,6 +8,7 @@ import './styles.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 import HtmlParser from '../HtmlParser'
 import {clearHtmlDocument} from '../../actions/App'
+import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = ({User, Window}) => ({
   User,
@@ -107,7 +108,7 @@ class Card extends PureComponent {
     const hasUpdatePermission = this.hasUpdatePermission(User, author)
     const {click, editCard, deleteCard} = this.props
     return (
-      <div className="Clickable Card Hover" onClick={(e) => {e.stopPropagation(); click()}}>
+      <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
           <div className="previewItem">
             <HtmlParser html={html} />
@@ -134,4 +135,4 @@ class Card extends PureComponent {
     )
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Card)
+export default withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Card))
