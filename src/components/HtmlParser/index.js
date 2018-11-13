@@ -7,7 +7,6 @@ import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 import {getNewsLetter} from '../../actions/NewsLetter'
 import {getArticle} from '../../actions/Articles'
-import {clearHtmlDocument} from '../../actions/App'
 import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = ({HtmlDocument}) => ({
@@ -17,8 +16,7 @@ const mapStateToProps = ({HtmlDocument}) => ({
 const mapDispatchToProps = {
   getNewsLetter,
   getArticle,
-  clearHtmlDocument
-}
+  }
 
 class HtmlParser extends PureComponent {
   constructor(props) {
@@ -39,15 +37,6 @@ class HtmlParser extends PureComponent {
     this.getState(this.props)
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const {HtmlDocument, match} = nextProps
-  //   const {html} = nextState
-  //   const {params} = match
-  //   console.log('nextProps: ', nextProps)
-  //   console.log('nextState: ', nextState)
-  //   return true
-  // }
-
   componentDidMount() {
     const {getNewsLetter, getArticle} = this.props
     const {params, path} = this.props.match
@@ -66,7 +55,6 @@ class HtmlParser extends PureComponent {
 
   componentWillUnmount() {
     this.setState({HtmlDocument: null})
-    // this.props.clearHtmlDocument()
   }
 
   render() {

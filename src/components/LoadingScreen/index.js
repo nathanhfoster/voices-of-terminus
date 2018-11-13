@@ -26,14 +26,8 @@ class LoadingScreen extends PureComponent {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
   componentWillUpdate() {
   }
-
-  /* render() */
 
   componentDidMount() {
   }

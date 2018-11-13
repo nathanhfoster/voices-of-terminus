@@ -33,16 +33,8 @@ class ScrollTextBox extends PureComponent {
   componentWillMount() {
     this.getState(this.props)
   }
-
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
   componentWillUpdate() {
   }
-
-  /* render() */
-
   componentDidMount() {
   }
   componentWillReceiveProps(nextProps) {

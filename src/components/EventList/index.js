@@ -37,14 +37,8 @@ class EventList extends PureComponent {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps) {
-    return true
-  }
-
   componentWillUpdate() {
   }
-
-  /* render() */
 
   componentDidMount() {
   }

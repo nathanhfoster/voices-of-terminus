@@ -90,12 +90,6 @@ class NewsLetterGenerator extends PureComponent {
     this.props.clearHtmlDocument()
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const {HtmlDocument} = nextProps
-  //   return HtmlDocument
-  // }
-
-
   postNewsletter = () => {
     const {User, title, selectValue} = this.state
     let {tags} = this.state

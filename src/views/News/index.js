@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup} from 'react-bootstrap'
@@ -26,7 +26,7 @@ const mapDispatchToProps = {
   deleteNewsLetter
 }
 
-class News extends PureComponent {
+class News extends Component {
   constructor(props) {
     super(props)
     this.onChange = this.onChange.bind(this)
