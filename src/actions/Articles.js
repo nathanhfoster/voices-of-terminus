@@ -68,10 +68,11 @@ export const updateArticle = (id, token, payload) => {
 export const deleteArticle = (id, token) => {
   return async (dispatch, getState) => await Axios(token).delete(`articles/${id}/`)
   .then(res => {
-      const {Articles} = getState()
+      let {Articles} = getState()
+      const reducedArticles = Articles.filter(article => article.id !== id)
       dispatch ({
         type: C.GET_ARTICLES,
-        payload: Articles.filter(article => article.id !== id)
+        payload: reducedArticles
       })
   }).catch((e) => console.log(e))
 }
