@@ -32,8 +32,18 @@ export const getNewsletters = () => {
        }).catch((e) => console.log(e))
 }
 
-export const getNewsLetter = id => {
+export const getNewsletter = id => {
     return async (dispatch) => await Axios().get(`newsletters/${id}/`)
+       .then(res => {
+           dispatch ({
+             type: C.GET_HTML_DOCUMENT,
+             payload: res.data
+            })
+       }).catch((e) => console.log(e))
+}
+
+export const viewNewsletter = id => {
+    return async (dispatch) => await Axios().get(`newsletters/${id}/view/`)
        .then(res => {
            dispatch ({
              type: C.GET_HTML_DOCUMENT,

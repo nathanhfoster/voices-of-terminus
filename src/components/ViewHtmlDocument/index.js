@@ -5,8 +5,8 @@ import { Grid, Row, Col, PageHeader} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-import {getNewsLetter} from '../../actions/NewsLetter'
-import {getArticle} from '../../actions/Articles'
+import {viewNewsletter} from '../../actions/NewsLetter'
+import {viewArticle} from '../../actions/Articles'
 import {withRouter} from 'react-router-dom'
 
 const mapStateToProps = ({HtmlDocument}) => ({
@@ -14,8 +14,8 @@ const mapStateToProps = ({HtmlDocument}) => ({
 })
 
 const mapDispatchToProps = {
-  getNewsLetter,
-  getArticle,
+  viewNewsletter,
+  viewArticle,
 }
 
 class ViewHtmlDocument extends PureComponent {
@@ -27,10 +27,10 @@ class ViewHtmlDocument extends PureComponent {
   }
 
   componentDidMount() {
-    const {getNewsLetter, getArticle} = this.props
+    const {viewNewsletter, viewArticle} = this.props
     const {params, path} = this.props.match
-    if(path.includes('newsletters')) getNewsLetter(params.id)
-    if(path.includes('articles')) getArticle(params.id)
+    if(path.includes('newsletters')) viewNewsletter(params.id)
+    if(path.includes('articles')) viewArticle(params.id)
   }
 
   render() {
@@ -46,6 +46,11 @@ class ViewHtmlDocument extends PureComponent {
           </Col>
           <Col md={12}>
             {ReactHtmlParser(HtmlDocument.html)}
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <h2 style={{textAlign: 'center'}}><i class="far fa-eye"/> {HtmlDocument.views}</h2>
           </Col>
         </Row>
       </Grid>

@@ -1,6 +1,10 @@
 .TextEditor {
     font-family: 'proxima_novasemibold', Arial, sans-serif;
 }
+
+.TextEditor .select__option--is-disabled {
+  display: none;
+}
 .TextEditor a {
   color: var(--primaryColor);
 }

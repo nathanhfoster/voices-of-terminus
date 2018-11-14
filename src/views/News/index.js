@@ -6,7 +6,7 @@ import './styles.css'
 import './stylesM.css'
 import {clearHtmlDocument} from '../../actions/App'
 import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
-import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
+import {getNewsletters, getNewsletter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
 import Select from 'react-select'
@@ -25,7 +25,7 @@ const mapDispatchToProps = {
   getArticles,
   deleteArticle,
   getNewsletters,
-  getNewsLetter,
+  getNewsletter,
   deleteNewsLetter,
   clearHtmlDocument
 }
@@ -65,6 +65,7 @@ class News extends Component {
     const currentDocuments = Articles.concat(Newsletters)
     const currentSelectValue = this.state.selectValue
     const currentSearch = this.state.search
+    
     const initialLoad = Documents.length === 0
     const userChanged = !isEquivalent(currentUser, User)
     const cardAdded = Documents.length > currentDocuments.length
@@ -120,7 +121,7 @@ class News extends Component {
     }
     if(card.tags.includes('Newsletter')){
       click = () => history.push('/newsletters/' + card.id)
-      editCard = () => {history.push('/articles/edit/newsletter/' + card.id); this.props.getNewsLetter(card.id)}
+      editCard = () => {history.push('/articles/edit/newsletter/' + card.id); this.props.getNewsletter(card.id)}
       deleteCard = this.props.deleteNewsLetter
       className += "CardContainerNewsletter"
     }

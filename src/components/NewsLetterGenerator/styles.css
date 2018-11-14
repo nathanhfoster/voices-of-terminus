@@ -4,6 +4,10 @@
     position: relative;
 }
 
+.NewsLetterGenerator .select__option--is-disabled {
+    display: none;
+}
+
 .NewsletterCardContainer .Card {
     height: 640px;
 }

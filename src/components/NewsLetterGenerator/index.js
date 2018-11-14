@@ -5,7 +5,7 @@ import {Grid, Row, Col, ButtonToolbar, Button, Modal, Form, FormGroup, InputGrou
 import './styles.css'
 import './stylesM.css'
 import EmailEditor from 'react-email-editor'
-import {postNewsletter, getNewsletters, getNewsLetter, deleteNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
+import {postNewsletter, getNewsletters, getNewsletter, deleteNewsLetter, updateNewsLetter} from '../../actions/NewsLetter'
 import {clearHtmlDocument} from '../../actions/App'
 import {withRouter, Redirect} from 'react-router-dom'
 import defaultDesign from './defaultDesign.json'
@@ -22,7 +22,7 @@ const mapStateToProps = ({Newsletters, HtmlDocument, User}) => ({
 const mapDispatchToProps = {
   postNewsletter,
   getNewsletters,
-  getNewsLetter,
+  getNewsletter,
   deleteNewsLetter,
   updateNewsLetter,
   clearHtmlDocument
@@ -127,7 +127,7 @@ class NewsLetterGenerator extends PureComponent {
   renderDesigns = Newsletters => Newsletters.sort((a,b) => new Date(b.date_created) - new Date(a.date_created)).map(card => {
     return (
       <Col className="NewsletterCardContainer" md={6} >
-        <Card {...card} summary={false} deleteCard={this.props.deleteNewsLetter} editCard={this.props.getNewsLetter} click={() => this.handleHide(card.id)} />
+        <Card {...card} summary={false} deleteCard={this.props.deleteNewsLetter} editCard={this.props.getNewsletter} click={() => this.handleHide(card.id)} />
       </Col>
     )
   })
@@ -140,7 +140,7 @@ class NewsLetterGenerator extends PureComponent {
   // Call back function passed into <Card> as a prop
   handleHide = id => {
     if(id) {
-      this.props.getNewsLetter(id)
+      this.props.getNewsletter(id)
       this.props.history.push("/articles/edit/newsletter/" + id)
     }
     this.setState({show: false})
@@ -209,11 +209,10 @@ class NewsLetterGenerator extends PureComponent {
               value={this.state.selectValue}
               isMulti
               styles={selectStyles}
-              isClearable={true}
               isSearchable={false}
               onBlur={e => e.preventDefault()}
               blurInputOnSelect={false}
-              // isClearable={this.state.value.some(v => !v.isFixed)}
+              isClearable={this.state.value.some(v => !v.isFixed)}
               name="colors"
               className="basic-multi-select"
               classNamePrefix="select"

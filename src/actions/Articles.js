@@ -41,6 +41,17 @@ export const getArticle = id => {
        })
      }).catch((e) => console.log(e))
 }
+
+export const viewArticle = id => {
+  return async (dispatch) => await Axios().get(`articles/${id}/view/`)
+     .then(res => {
+         dispatch ({
+           type: C.GET_HTML_DOCUMENT,
+           payload: res.data
+       })
+     }).catch((e) => console.log(e))
+}
+
 export const updateArticle = (id, token, payload) => {
   return async (dispatch, getState) => await Axios(token).patch(`articles/${id}/`, qs.stringify(payload))
   .then(res => {
