@@ -63,7 +63,7 @@ class News extends Component {
     const {Documents, selectValue, search} = nextState
     const currentDocuments = Articles.concat(Newsletters)
     const currentSelectValue = this.state.selectValue
-    const curentSearch = this.state.search
+    const currentSearch = this.state.search
     const initialLoad = Documents.length === 0
     const cardAdded = Documents.length > currentDocuments.length
     const cardDeleted = Documents.length < currentDocuments.length
