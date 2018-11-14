@@ -3,12 +3,18 @@ import {Axios} from './Axios'
 import qs from 'qs'
 
 export const postNewsletter = (token, payload) => {
-    return async (dispatch) => { await  Axios(token).post('newsletters/', qs.stringify(payload))
+    return async (dispatch, getState) => { await  Axios(token).post('newsletters/', qs.stringify(payload))
       .then(res => {
-        dispatch({
+          let {Newsletters} = getState()
+          Newsletters.push(res.data)
+          dispatch({
+            type: C.GET_NEWSLETTERS,
+            payload: Newsletters
+          })
+          dispatch({
             type: C.SET_API_RESPONSE,
             payload: res
-            })
+        })
       }).catch((e) => dispatch({
         type: C.SET_API_RESPONSE,
         payload: e.response

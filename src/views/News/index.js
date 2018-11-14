@@ -4,6 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
+import {clearHtmlDocument} from '../../actions/App'
 import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
 import {getNewsletters, getNewsLetter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
@@ -25,7 +26,8 @@ const mapDispatchToProps = {
   deleteArticle,
   getNewsletters,
   getNewsLetter,
-  deleteNewsLetter
+  deleteNewsLetter,
+  clearHtmlDocument
 }
 
 class News extends Component {
@@ -35,8 +37,7 @@ class News extends Component {
     this.state = {
       selectValue: null,
       Documents: [],
-      search: '',
-      clearSearch: false
+      search: ''
     }
   }
 
@@ -61,7 +62,7 @@ class News extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const {Articles, Newsletters} = nextProps
     const {Documents, selectValue, search} = nextState
-    return Documents.length != (Articles.length + Newsletters.length) || selectValue || search || search === undefined
+    return Documents.length === 0 || (Articles.length + Newsletters.length) > Documents.length || selectValue || search || search === undefined
   }
   
   componentWillMount() {
@@ -77,11 +78,15 @@ class News extends Component {
     this.getState(nextProps)
   }
 
+  componentWillUnmount(){
+    this.props.clearHtmlDocument()
+  }
+
   getState = props => {
     const {User, Articles, Newsletters} = props
     const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
-    this.setState({User, Documents, selectOptions, clearSearch: true})
+    this.setState({User, Articles, Newsletters, Documents, selectOptions})
   }
 
   //Filter the Documents if the documents tags array contains the filter array
@@ -137,11 +142,11 @@ class News extends Component {
   }
 
   render() {
-    console.log("RENDER")
+    console.log('NEWS')
     const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
     let {Documents} = this.state
-    Documents = search ? matchSorter(Documents, search, {keys: ['title', 'tags', 'author_username', 'last_modified_by_username', 'html']}) : Documents
+    Documents = search ? matchSorter(Documents, search, {keys: ['title', 'tags', 'author_username', 'last_modified_by_username']}) : Documents
     const filter = selectValue.map(i => i.value)
     return (
       Documents ?

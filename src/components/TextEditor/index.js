@@ -87,7 +87,7 @@ class TextEditor extends PureComponent {
     const Leader = User.is_leader || User.is_council
     selectOptions[1].isDisabled = !(User.is_leader || User.is_council)
     const {author, title} = HtmlDocument ? HtmlDocument : ''
-    const tags =  HtmlDocument ? HtmlDocument.tags.split('|').filter(i => i != 'Article').map(i => i = {value: i, label: i}) : []
+    const tags = HtmlDocument ? HtmlDocument.tags.split('|').filter(i => i != 'Article').map(i => i = {value: i, label: i}) : []
     const selectValue = [selectOptions[0], ...tags]
     const {id} = match ? match.params : null
     
