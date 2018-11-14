@@ -59,7 +59,7 @@ class News extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const {Articles, Newsletters} = nextProps
+    const {Articles, Newsletters} = this.state
     const {Documents, selectValue, search} = nextState
     const nextDocuments = Articles.concat(Newsletters)
     const initialLoad = Documents.length === 0
