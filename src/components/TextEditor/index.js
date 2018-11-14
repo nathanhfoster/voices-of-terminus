@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, FormGroup, InputGroup, FormControl, ButtonToolbar, Button} from 'react-bootstrap'
@@ -15,6 +15,7 @@ import {postDocument, updateArticle} from '../../actions/Articles'
 import {withRouter, Redirect} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
+import {isEquivalent} from '../../helpers'
 
 const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
   editorState,
@@ -29,7 +30,7 @@ const mapDispatchToProps = {
   clearHtmlDocument
 }
 
-class TextEditor extends PureComponent {
+class TextEditor extends Component {
   constructor(props) {
     super(props)
     this.onEditorStateChange = this.onEditorStateChange.bind(this)
@@ -72,6 +73,21 @@ class TextEditor extends PureComponent {
   
   componentWillMount() {
     this.getState(this.props)
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    const {editorState, title, User, selectValue} = nextState
+    const currentEditorState = this.state.editorState
+    const currentTitle = this.state.title
+    const currentUser = this.state.User
+    const currentSelectValue = this.state.selectValue
+
+    const editorChanged = !isEquivalent(currentEditorState, editorState)
+    const titleChanged = currentTitle != title
+    const userChanged = !isEquivalent(currentUser, User)
+    const isFiltering = selectValue != currentSelectValue
+
+    return editorChanged || titleChanged || userChanged || isFiltering
   }
 
   componentDidMount() {
