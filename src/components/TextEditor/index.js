@@ -175,20 +175,20 @@ class TextEditor extends PureComponent {
           <FormGroup>
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
-              <Select
-              value={this.state.selectValue}
-              isMulti
-              styles={selectStyles}
- 
-              isSearchable={false}
-              isClearable={this.state.selectValue.some(v => !v.isFixed)}
-              name="colors"
-              className="basic-multi-select"
-              classNamePrefix="select"
-              onChange={this.onSelectChange}
-              options={this.props.selectOptions}
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
+              <Select 
+                value={this.state.selectValue}
+                isMulti
+                styles={selectStyles}
+                isSearchable={false}
+                isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                name="colors"
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={this.onSelectChange}
+                options={this.props.selectOptions}
+                onBlur={e => e.preventDefault()}
+                onTab={e => e.preventDefault()}
+                blurInputOnSelect={false}
               />
             </InputGroup>
           </FormGroup>
@@ -202,6 +202,7 @@ class TextEditor extends PureComponent {
               toolbarClassName="Toolbar"
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
+              onFocus={e => e.preventDefault()}
               onBlur={e => e.preventDefault()}
               blurInputOnSelect={false}
               // stripPastedStyles="off"
