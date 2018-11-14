@@ -41,13 +41,19 @@ export const getArticle = id => {
        })
      }).catch((e) => console.log(e))
 }
-
 export const updateArticle = (id, token, payload) => {
-  return async (dispatch) => await Axios(token).patch(`articles/${id}/`, qs.stringify(payload))
+  return async (dispatch, getState) => await Axios(token).patch(`articles/${id}/`, qs.stringify(payload))
   .then(res => {
+    let {Articles} = getState()
+    const updatedIndex = Articles.findIndex(i => i.id === res.data.id)
+    Articles[updatedIndex] = res.data
     dispatch ({
       type: C.GET_HTML_DOCUMENT,
       payload: res.data
+      })
+      dispatch({
+        type: C.GET_ARTICLES,
+        payload: Articles
       })
       dispatch({
         type: C.SET_API_RESPONSE,

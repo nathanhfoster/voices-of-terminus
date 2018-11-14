@@ -61,14 +61,15 @@ class News extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const {Articles, Newsletters} = nextProps
     const {Documents, selectValue, search} = nextState
+    const nextDocuments = Articles.concat(Newsletters)
     const initialLoad = Documents.length === 0
-    const cardAdded = Documents.length > (Articles.length + Newsletters.length)
-    const cardDeleted = Documents.length < (Articles.length + Newsletters.length)
-    const cardUpdated = true
+    const cardAdded = Documents.length > nextDocuments.length
+    const cardDeleted = Documents.length < nextDocuments.length
+    const cardUpdated = !isSubset(Documents.map(k => k.last_modified), nextDocuments.map(k => k.last_modified))
     // console.log("nextProps: ", nextProps)
     // console.log("nextState: ", nextState)
     // console.log("this.state: ", this.state)
-    return initialLoad || cardAdded || cardDeleted || selectValue || search || search === undefined
+    return initialLoad || cardAdded || cardDeleted || cardUpdated || selectValue || search || search === undefined
   }
   
   componentWillMount() {
