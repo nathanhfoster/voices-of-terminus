@@ -151,7 +151,7 @@ class News extends Component {
     const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
     let {Documents} = this.state
-    Documents = search ? matchSorter(Documents, search, {keys: ['title', 'tags', 'author_username', 'last_modified_by_username']}) : Documents
+    Documents = search ? matchSorter(Documents, search, {keys: ['title', 'author_username', 'last_modified_by_username']}) : Documents
     const filter = selectValue.map(i => i.value)
     return (
       Documents ?
@@ -165,35 +165,31 @@ class News extends Component {
             <Button disabled={!(User.is_superuser || User.can_create_newsletter)} onClick={() => this.props.history.push('/articles/new/newsletter')}><i class="fas fa-plus"/> Newsletter</Button>
           </Col>
           <Col md={5} xs={12}>
-            
-              <InputGroup>
-                <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
-                <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by content..."  value={search} onChange={(filter) => this.onChange(filter, Documents)}/>
-              </InputGroup>
-            
+            <InputGroup>
+              <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
+              <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by Title and Author..."  value={search} onChange={(filter) => this.onChange(filter, Documents)}/>
+            </InputGroup>
           </Col>
           <Col md={4} xs={12}>
-           
-              <InputGroup>
-                <InputGroup.Addon><i class="fas fa-tags"/></InputGroup.Addon>
-                <Select
-                //https://react-select.com/props
-                  value={this.state.selectValue}
-                  isMulti
-                  styles={selectStyles}
-                  onBlur={e => e.preventDefault()}
-                  blurInputOnSelect={false}
-                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                  isSearchable={false}
-                  name="colors"
-                  placeholder="Filter by tags..."
-                  className="FilterMultiSelect"
-                  classNamePrefix="select"
-                  onChange={this.onSelectChange}
-                  options={this.props.selectOptions}
-              />
-             </InputGroup>
-           
+            <InputGroup>
+              <InputGroup.Addon><i class="fas fa-tags"/></InputGroup.Addon>
+              <Select
+              //https://react-select.com/props
+                value={this.state.selectValue}
+                isMulti
+                styles={selectStyles}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                isSearchable={false}
+                name="colors"
+                placeholder="Filter by tags..."
+                className="FilterMultiSelect"
+                classNamePrefix="select"
+                onChange={this.onSelectChange}
+                options={this.props.selectOptions}
+            />
+            </InputGroup>
           </Col>
         </Row>
         <Row>
