@@ -179,16 +179,16 @@ class TextEditor extends PureComponent {
               value={this.state.selectValue}
               isMulti
               styles={selectStyles}
-              isClearable={true}
+ 
               isSearchable={false}
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
-              // isClearable={this.state.value.some(v => !v.isFixed)}
+              isClearable={this.state.selectValue.some(v => !v.isFixed)}
               name="colors"
               className="basic-multi-select"
               classNamePrefix="select"
               onChange={this.onSelectChange}
               options={this.props.selectOptions}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
               />
             </InputGroup>
           </FormGroup>
