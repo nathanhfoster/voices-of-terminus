@@ -102,7 +102,7 @@ class News extends Component {
   }
 
   //Filter the Documents if the documents tags array contains the filter array
-  renderCards = (Documents, filter, n, m) => Documents.filter(doc => filter.length == m || filter.length == n ? doc : isSubset(doc.tags.split('|'), filter))
+  renderCards = (Documents, filter, dontFilter) => Documents.filter(doc => dontFilter ? doc : isSubset(doc.tags.split('|'), filter))
   .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
   .map(card => {
     const {User, history} = this.props
@@ -157,10 +157,11 @@ class News extends Component {
     console.log('NEWS')
     const selectValue = this.state.selectValue.length > 0 ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
-    const {length} = this.props.selectOptions
     let {Documents} = this.state
     Documents = search ? matchSorter(Documents, search, {keys: ['title', 'author_username', 'last_modified_by_username']}) : Documents
     const filter = selectValue.map(i => i.value)
+    const {length} = this.props.selectOptions
+    const dontFilter == length || filter.length == 0
     return (
       Documents ?
       <Grid className="News Container fadeIn-2">
@@ -204,7 +205,7 @@ class News extends Component {
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
             <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter, 0, length) : null}
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter) : null}
               </Row>
             </Tab>
             <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
