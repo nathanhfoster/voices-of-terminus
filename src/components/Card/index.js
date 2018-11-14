@@ -29,7 +29,7 @@ class Card extends PureComponent {
   }
 
   render() {
-    const {User, canDelete, canUpdate, click, editCard, deleteCard, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title} = this.props
+    const {User, canDelete, canUpdate, click, editCard, deleteCard, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, views} = this.props
     return (
       <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
@@ -48,8 +48,9 @@ class Card extends PureComponent {
               {canUpdate ? <Button onClick={(e) => {e.stopPropagation(); editCard(id)}} className="cardActions pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div className="">
-              <h5><i class="fas fa-user"/> <Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()} className="userContainer">{author_username}</Link></h5>
-              <h5 style={{minHeight: '30px'}}><i class="fas fa-pencil-alt"/> <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()} className="userContainer">{last_modified_by_username} </Link><Moment fromNow>{last_modified}</Moment></h5>
+              <h5><i className="fas fa-user"/> <Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()} className="userContainer">{author_username}</Link></h5>
+              <h5 style={{minHeight: '30px'}}><i className="fas fa-pencil-alt"/> <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()} className="userContainer">{last_modified_by_username} </Link><Moment fromNow>{last_modified}</Moment></h5>
+              <h5><i className="far fa-eye"/> {views}</h5>
               <h6>Tags: [{tags}]</h6>
             </div>
         </div>
