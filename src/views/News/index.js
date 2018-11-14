@@ -63,7 +63,8 @@ class News extends Component {
     const {Documents, selectValue, search} = nextState
     const initialLoad = Documents.length === 0
     const cardAdded = Documents.length > (Articles.length + Newsletters.length)
-    const cardDeleted = Documents.length < (this.state.Articles.length + this.state.Newsletters.length)
+    const cardDeleted = Documents.length < (Articles.length + Newsletters.length)
+    const cardUpdated = true
     // console.log("nextProps: ", nextProps)
     // console.log("nextState: ", nextState)
     // console.log("this.state: ", this.state)
