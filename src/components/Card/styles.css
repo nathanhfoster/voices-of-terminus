@@ -43,7 +43,7 @@
   margin: 0 0 4px 0;
 }
 
-.cardInfo h6, h5, h4 {
+.cardInfo * {
   max-height: 30px;
 } 
 
