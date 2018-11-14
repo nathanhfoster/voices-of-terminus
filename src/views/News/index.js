@@ -11,7 +11,7 @@ import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
-import {hasUpdatePermission, hasDeletePermission, isSubset} from '../../helpers'
+import {hasUpdatePermission, hasDeletePermission, isSubset, isEquivalent} from '../../helpers'
 import matchSorter from 'match-sorter'
 
 const mapStateToProps = ({User, Articles, Newsletters}) => ({
@@ -60,11 +60,13 @@ class News extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {Articles, Newsletters} = this.state
-    const {Documents, selectValue, search} = nextState
+    const {User, Documents, selectValue, search} = nextState
+    const currentUser = this.state.User
     const currentDocuments = Articles.concat(Newsletters)
     const currentSelectValue = this.state.selectValue
     const currentSearch = this.state.search
     const initialLoad = Documents.length === 0
+    const userChanged = !isEquivalent(currentUser, User)
     const cardAdded = Documents.length > currentDocuments.length
     const cardDeleted = Documents.length < currentDocuments.length
     const cardUpdated = !isSubset(Documents.map(k => k.last_modified), currentDocuments.map(k => k.last_modified))
@@ -74,7 +76,7 @@ class News extends Component {
     // console.log("nextProps: ", nextProps)
     // console.log("nextState: ", nextState)
     // console.log("this.state: ", this.state)
-    return initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching
+    return initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching || userChanged
   }
   
   componentWillMount() {

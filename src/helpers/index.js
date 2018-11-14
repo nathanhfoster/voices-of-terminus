@@ -151,7 +151,7 @@ export const hasUpdatePermission = (User, author, tags) => {
     return false
   }
 
- export const isSubset = (arr1, arr2) => {
+export const isSubset = (arr1, arr2) => {
       const hset = new Map()
 
       // hset stores all the values of arr1 
@@ -169,28 +169,28 @@ export const hasUpdatePermission = (User, author, tags) => {
       return true
   }
   
- export const sEquivalent = (a, b) => {
+export const isEquivalent = (obj1, obj2) => {
     // Create arrays of property names
-    var aProps = Object.getOwnPropertyNames(a);
-    var bProps = Object.getOwnPropertyNames(b);
+    const obj1Props = Object.getOwnPropertyNames(obj1)
+    const obj2Props = Object.getOwnPropertyNames(obj2)
 
     // If number of properties is different,
     // objects are not equivalent
-    if (aProps.length != bProps.length) {
-        return false;
+    if (obj1Props.length != obj2Props.length) {
+        return false
     }
 
-    for (var i = 0; i < aProps.length; i++) {
-        var propName = aProps[i];
+    for (var i = 0; i < obj1Props.length; i++) {
+        var propName = obj1Props[i]
 
         // If values of same property are not equal,
         // objects are not equivalent
-        if (a[propName] !== b[propName]) {
-            return false;
+        if (obj1[propName] !== obj2[propName]) {
+            return false
         }
     }
 
     // If we made it this far, objects
     // are considered equivalent
-    return true;
+    return true
 }
