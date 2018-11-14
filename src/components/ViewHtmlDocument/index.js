@@ -41,16 +41,14 @@ class ViewHtmlDocument extends PureComponent {
           <Col md={12}>
             <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>
           </Col>
-          <Col md={12} className="Center">
-            <h3>By: {HtmlDocument.author_username}</h3>
+          <Col md={6} className="Center">
+            <h2>By: {HtmlDocument.author_username}</h2>
+          </Col>
+          <Col md={6} className="Center">
+            <h3><i class="far fa-eye"/> {HtmlDocument.views}</h3>
           </Col>
           <Col md={12}>
             {ReactHtmlParser(HtmlDocument.html)}
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <h2 style={{textAlign: 'center'}}><i class="far fa-eye"/> {HtmlDocument.views}</h2>
           </Col>
         </Row>
       </Grid>
