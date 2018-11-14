@@ -43,6 +43,10 @@
   margin: 0 0 4px 0;
 }
 
+.cardInfo h6, h5, h4 {
+  max-height: 30px;
+} 
+
 .cardActions {
   background-color: var(--primaryColor);
   color: var(--tertiarycolor);
