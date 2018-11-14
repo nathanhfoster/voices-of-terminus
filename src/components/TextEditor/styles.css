@@ -68,7 +68,7 @@
   color: var(--tertiarycolor);
 }
 .TextEditor .rdw-editor-main {
-  min-height: calc(100vh - 322px);
+  min-height: 70vh;
 }
 
 .TextEditor .DraftEditor-root {
