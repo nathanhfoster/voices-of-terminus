@@ -160,8 +160,8 @@ class News extends Component {
     let {Documents} = this.state
     Documents = search ? matchSorter(Documents, search, {keys: ['title', 'author_username', 'last_modified_by_username']}) : Documents
     const filter = selectValue.map(i => i.value)
-    const {length} = this.props.selectOptions
-    const dontFilter == length || filter.length == 0
+    const maxlength = this.props.selectOptions.length
+    const dontFilter = filter.length == maxlength || filter.length == 0
     return (
       Documents ?
       <Grid className="News Container fadeIn-2">
