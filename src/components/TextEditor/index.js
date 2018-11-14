@@ -151,77 +151,27 @@ class TextEditor extends PureComponent {
     const {User, id, author, tags, title, editorState, HtmlDocument, selectValue} = this.state
     
     return (
-      !User.token ? <Redirect to="/login"/>
-      :<Grid className="TextEditor Container fadeIn-2">
-        <Row>
-          <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button disabled={!selectValue[0].value} type="submit" onClick={this.postArticle}>Post</Button>
-            <Button type="submit" onClick={() => this.updateArticle(id)} disabled={!id}>Update</Button>
-          </Col>
-          <Col md={6} xs={6} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button type="submit" onClick={() => this.setState({editorState: EditorState.createEmpty(), title: '', tags: ''})} className="pull-right">Clear</Button>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <FormGroup>
-              <InputGroup>
-                <InputGroup.Addon><i class="fas fa-heading"></i></InputGroup.Addon>
-                <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
-              </InputGroup>
-            </FormGroup>
-          </Col>
-          <Col>
-          <FormGroup>
-            <InputGroup>
-              <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
-              <Select
-              value={this.state.selectValue}
-              isMulti
-              styles={selectStyles}
- 
-              isSearchable={false}
-              isClearable={this.state.selectValue.some(v => !v.isFixed)}
-              name="colors"
-              className="basic-multi-select"
-              classNamePrefix="select"
-              onChange={this.onSelectChange}
-              options={this.props.selectOptions}
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
+  
+      <div className="TextEditor Container fadeIn-2">
+     
+
+         
+          <Editor
+            wrapperClassName="Wrapper"
+            editorClassName="Editor"
+            toolbarClassName="Toolbar"
+            editorState={editorState}
+            onEditorStateChange={this.onEditorStateChange}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            // stripPastedStyles="off"
+            // spellCheck="off"
+            // autoCapitalize="off"
+            // autoComplete="off"
+            // autoCorrect="off"
               />
-            </InputGroup>
-          </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Editor
-              wrapperClassName="Wrapper"
-              editorClassName="Editor"
-              toolbarClassName="Toolbar"
-              editorState={editorState}
-              onEditorStateChange={this.onEditorStateChange}
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
-              // stripPastedStyles="off"
-              // spellCheck="off"
-              // autoCapitalize="off"
-              // autoComplete="off"
-              // autoCorrect="off"
-                />
-          </Col>
-        </Row>
-        {/* <Row>
-          <Col sm={12}>
-            <textarea
-            style={{height: '500px', width: '100%'}}
-            disabled
-            value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
-            />
-          </Col>
-        </Row> */}
-      </Grid>
+       
+      </div>
     )
   }
 }
