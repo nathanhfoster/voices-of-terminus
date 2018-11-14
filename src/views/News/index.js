@@ -33,7 +33,6 @@ const mapDispatchToProps = {
 class News extends Component {
   constructor(props) {
     super(props)
-    this.onChange = this.onChange.bind(this)
     this.state = {
       selectValue: null,
       Documents: [],
@@ -62,7 +61,13 @@ class News extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     const {Articles, Newsletters} = nextProps
     const {Documents, selectValue, search} = nextState
-    return Documents.length === 0 || (Articles.length + Newsletters.length) > Documents.length || selectValue || search || search === undefined
+    const initialLoad = Documents.length === 0
+    const cardAdded = Documents.length > (Articles.length + Newsletters.length)
+    const cardDeleted = Documents.length < (this.state.Articles.length + this.state.Newsletters.length)
+    // console.log("nextProps: ", nextProps)
+    // console.log("nextState: ", nextState)
+    // console.log("this.state: ", this.state)
+    return initialLoad || cardAdded || cardDeleted || selectValue || search || search === undefined
   }
   
   componentWillMount() {
