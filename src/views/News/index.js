@@ -34,7 +34,7 @@ class News extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectValue: null,
+      selectValue: [],
       Documents: [],
       search: ''
     }
@@ -62,14 +62,19 @@ class News extends Component {
     const {Articles, Newsletters} = this.state
     const {Documents, selectValue, search} = nextState
     const currentDocuments = Articles.concat(Newsletters)
+    const currentSelectValue = this.state.selectValue
+    const curentSearch = this.state.search
     const initialLoad = Documents.length === 0
     const cardAdded = Documents.length > currentDocuments.length
     const cardDeleted = Documents.length < currentDocuments.length
     const cardUpdated = !isSubset(Documents.map(k => k.last_modified), currentDocuments.map(k => k.last_modified))
+    const isFiltering = selectValue != currentSelectValue
+    const isSearching = search != currentSearch
+    // search === undefined
     // console.log("nextProps: ", nextProps)
     // console.log("nextState: ", nextState)
     // console.log("this.state: ", this.state)
-    return initialLoad || cardAdded || cardDeleted || cardUpdated || selectValue || search || search === undefined
+    return initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching
   }
   
   componentWillMount() {
@@ -150,7 +155,7 @@ class News extends Component {
 
   render() {
     console.log('NEWS')
-    const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
+    const selectValue = this.state.selectValue.length > 0 ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
     const {length} = this.props.selectOptions
     let {Documents} = this.state
