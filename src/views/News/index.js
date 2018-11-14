@@ -11,7 +11,7 @@ import Card from '../../components/Card'
 import {withRouter} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
-import {hasUpdatePermission, hasDeletePermission} from '../../helpers'
+import {hasUpdatePermission, hasDeletePermission, isSubset} from '../../helpers'
 import matchSorter from 'match-sorter'
 
 const mapStateToProps = ({User, Articles, Newsletters}) => ({
@@ -95,7 +95,7 @@ class News extends Component {
   }
 
   //Filter the Documents if the documents tags array contains the filter array
-  renderCards = (Documents, filter) => Documents.filter(doc => doc.tags.split('|').every(r => filter.length > 0 ? filter.includes(r) : r))
+  renderCards = (Documents, filter, n, m) => Documents.filter(doc => filter.length == m || filter.length == n ? doc : isSubset(doc.tags.split('|'), filter))
   .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
   .map(card => {
     const {User, history} = this.props
@@ -150,6 +150,7 @@ class News extends Component {
     console.log('NEWS')
     const selectValue = this.state.selectValue ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
+    const {length} = this.props.selectOptions
     let {Documents} = this.state
     Documents = search ? matchSorter(Documents, search, {keys: ['title', 'author_username', 'last_modified_by_username']}) : Documents
     const filter = selectValue.map(i => i.value)
@@ -196,7 +197,7 @@ class News extends Component {
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
             <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter) : null}
+                {Documents.length ? this.renderCards(Documents, filter, 0, length) : null}
               </Row>
             </Tab>
             <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
