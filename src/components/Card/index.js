@@ -38,9 +38,9 @@ class Card extends PureComponent {
           </div>
         </div>
         {summary ?
-          <div className="Summary">
-            <div className="summaryTitle inlineNoWrap">
-              <h4>{title}</h4>
+          <div className="Summary inlineNoWrap">
+            <div className="summaryTitle">
+              <h4>{title} <i className="far fa-eye pull-right"> {views} </i></h4>
             </div>
             <hr className="summaryTitleDivider"/>
             <div>
@@ -50,7 +50,7 @@ class Card extends PureComponent {
             <div className="cardInfo">
               <h5><i className="fas fa-user"/> <Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()} className="userContainer">{author_username}</Link></h5>
               <h5><i className="fas fa-pencil-alt"/> <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()} className="userContainer">{last_modified_by_username} </Link><Moment fromNow>{last_modified}</Moment></h5>
-              <h5><i className="far fa-eye"/> {views} <i className="fas fa-tags"/> [{tags}]</h5>
+              <h5><i className="fas fa-tags"/> [{tags}]</h5>
             </div>
         </div>
         : null}

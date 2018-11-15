@@ -29,7 +29,7 @@
   --primaryBoxShadow: 0 -8px 16px black;
   --inputHeight: 34px;
   --cardHeight: 300px;
-  --cardSummaryHeight: 146px;
+  --cardSummaryHeight: 120px;
 
   /* Hamburger animation */
   --speed: 200ms;
