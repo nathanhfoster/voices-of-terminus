@@ -222,6 +222,25 @@ class UserProfile extends PureComponent {
             <h3 title="Guild Points"><i class="fas fa-coins"/> {Admin.User.guild_points}</h3>
           </Col>
         </Row>
+        <Row className="centerOnMobile borderedRow" >
+          <Col xs={12}><h2 title="Experience Points"><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large">{Admin.User.bio ? User.bio : 'No biography given.'}</Well></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
+        </Row>
+        <Row className="userConnections borderedRow">
+          <Col md={3} xs={3}>
+            <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
+          </Col>
+          <Col md={3} xs={3}>
+           <a href={User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
+          </Col>
+          <Col md={3} xs={3}>
+            <a href={User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
+          </Col>
+          <Col md={3} xs={3}>
+            <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
+          </Col>
+        </Row>
         <Row><h2 className="headerBanner">PRIMARY</h2></Row>
         <Row>
           <Col md={4}>
@@ -340,25 +359,6 @@ class UserProfile extends PureComponent {
               />
           </Col>
           </Row>
-        <Row className="centerOnMobile borderedRow" >
-          <Col xs={12}><h2 title="Experience Points"><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
-          <Col xs={12}><Well className="userBio" bsSize="large">{Admin.User.bio ? User.bio : 'No biography given.'}</Well></Col>
-          <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
-        </Row>
-        <Row className="userConnections borderedRow">
-          <Col md={3} xs={3}>
-            <a href={User.discord_url} class="fab fa-discord fa-2x" target="_blank"></a>
-          </Col>
-          <Col md={3} xs={3}>
-           <a href={User.twitch_url} class="fab fa-twitch fa-2x" target="_blank"></a>
-          </Col>
-          <Col md={3} xs={3}>
-            <a href={User.twitter_url} class="fab fa-twitter fa-2x" target="_blank"></a>
-          </Col>
-          <Col md={3} xs={3}>
-            <a href={User.youtube_url} class="fab fa-youtube fa-2x" target="_blank"></a>
-          </Col>
-        </Row>
         <Row>
           <h2 className="headerBanner">STATUS</h2>
         </Row>
