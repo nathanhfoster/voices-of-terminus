@@ -31,3 +31,11 @@
     padding: 8px;
    text-align: center;
 }
+
+.userConnections a {
+   color: var(--primary Color);
+}
+
+.userConnections a:hover {
+   color: inherit;
+} 
