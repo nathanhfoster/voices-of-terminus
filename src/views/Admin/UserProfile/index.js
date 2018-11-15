@@ -427,9 +427,7 @@ class UserProfile extends PureComponent {
           </Col>
         </Row>
         {User.is_leader || User.is_council ? [
-        <Row>
-          <h2 className="headerBanner">PERMISSIONS</h2>
-        </Row>,
+        <Row><h2 className="headerBanner">PERMISSIONS</h2></Row>,
         <Row className="checkBoxTable">
           <Col md={3} xs={12}>
             <h3>CREATE</h3>
@@ -484,9 +482,7 @@ class UserProfile extends PureComponent {
             </Checkbox>
           </Col>
         </Row>] : null}
-        <Row>
-          <h2 className="headerBanner">ROLES</h2>
-        </Row>
+        <Row><h2 className="headerBanner">ROLES</h2></Row>
         <Row className="checkBoxTable">
           <Col md={12} xs={12}>
             <Checkbox disabled={!canEdit} checked={Admin.User.is_raid_leader} onClick={(e) => this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, is_raid_leader: !Admin.User.is_raid_leader}} }))}>
