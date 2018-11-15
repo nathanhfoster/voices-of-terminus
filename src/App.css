@@ -15,8 +15,6 @@
   color: var(--tertiarycolor);
 }
 
-
-
 .modal-content .close {
   color: var(--tertiarycolor);
   opacity: 1;
@@ -32,8 +30,6 @@
 .modal-footer {
   text-align: center;
 }
-
-
 
 .dropdown-menu {
   background-color: rgba(0, 0, 0, var(--mainOpacity));
@@ -61,13 +57,6 @@
 ::-webkit-scrollbar-thumb {
   background: var(--dark_grey);
   border-radius: 10px;
-}
-a, li {
-  list-style-type: none;
-}
-
-a:hover, li:hover {
-  color: var(--primaryColor);
 }
 
 textarea {

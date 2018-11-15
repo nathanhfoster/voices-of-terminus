@@ -29,7 +29,7 @@
   --primaryBoxShadow: 0 -8px 16px black;
   --inputHeight: 34px;
   --cardHeight: 300px;
-  --cardSummaryHeight: 120px;
+  --cardSummaryHeight: 116px;
 
   /* Hamburger animation */
   --speed: 200ms;
@@ -187,12 +187,6 @@ body {
   background: var(--slate_grey);
   height: var(--inputHeight);
 }
-.ActionToolbar button {
-  
-}
-.ActionToolbarButtons {
-
-}
 .Center {
   text-align: center;
 }
@@ -229,19 +223,9 @@ body {
   background: url('./images/right_arrow.png') no-repeat;
 }
 a, a:focus, a:active, a:visited {
-  color: inherit;
   outline: none !important;
-  text-decoration: none !important;
-  
+  text-decoration: none !important; 
 }
-*:focus {
-  outline: none !important;
-}
-
-.nav > li > a {
-  /* padding: 15px 15px 0 0; */
-}
-
 .Tabs {
   margin-top: 8px;
 }
@@ -250,6 +234,9 @@ a, a:focus, a:active, a:visited {
     /* border-color: #eee;
     border-style: solid;
     border-width: 0 1px 1px 1px; */
+}
+.Tabs .nav-tabs>li>a {
+  color: inherit;
 }
 .Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
   color: var(--tertiarycolor);

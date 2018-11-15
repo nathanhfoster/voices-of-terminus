@@ -2,6 +2,14 @@
   min-width: 75%;
 }
 
+.ReactTable a {
+   color: var(--primaryColor);
+}
+ 
+.ReactTable a:hover {
+   color: var(--tertiarycolor);
+} 
+
 .ReactTable .rt-table::-webkit-scrollbar {
   display: block;
 }
@@ -48,9 +56,6 @@
   display: block;
   height: 100%;
   width:100%;
-}
-.rt-td a:hover {
-  color: var(--primaryColor);
 }
 
 .ReactTable .pagination-bottom {

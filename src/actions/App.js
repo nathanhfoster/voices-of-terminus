@@ -97,13 +97,16 @@ export const getUser = id => {
   }
 
 export const refreshUser = (id, token) => {
-    return async (dispatch) => await Axios(token).get(`users/${id}/`)
+    return async (dispatch, getState) => await Axios(token).get(`users/${id}/view/`)
        .then(res => {
+        const {User} = getState()
         res.data.token = Cookies.get('User_LoginToken')
-         dispatch({
-           type: C.SET_LOGIN_TOKEN,
-           payload: res.data
-         })
+        // Add all the attributes the response doesn't have
+        Object.keys(User).forEach(k => {if(res.data[k] === undefined) res.data[k] = User[k]})
+        dispatch({
+          type: C.SET_LOGIN_TOKEN,
+          payload: res.data
+        })
        }).catch((e) => console.log(e))
 }
 
