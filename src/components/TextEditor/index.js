@@ -192,11 +192,11 @@ class TextEditor extends Component {
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
               <Select 
-                value={this.state.selectValue}
+                value={selectValue}
                 isMulti
                 styles={selectStyles}
                 isSearchable={false}
-                isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                isClearable={selectValue.some(v => !v.isFixed)}
                 name="colors"
                 className="basic-multi-select"
                 classNamePrefix="select"

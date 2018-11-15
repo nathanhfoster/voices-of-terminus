@@ -206,19 +206,19 @@ class NewsLetterGenerator extends PureComponent {
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
               <Select
-              value={this.state.selectValue}
-              isMulti
-              styles={selectStyles}
-              isSearchable={false}
-              onBlur={e => e.preventDefault()}
-              blurInputOnSelect={false}
-              isClearable={this.state.value.some(v => !v.isFixed)}
-              name="colors"
-              className="basic-multi-select"
-              classNamePrefix="select"
-              onChange={this.onSelectChange}
-              options={this.props.selectOptions}
-            />
+                value={selectValue}
+                isMulti
+                styles={selectStyles}
+                isSearchable={false}
+                isClearable={selectValue.some(v => !v.isFixed)}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                name="colors"
+                className="basic-multi-select"
+                classNamePrefix="select"
+                onChange={this.onSelectChange}
+                options={this.props.selectOptions}
+              />
             </InputGroup>
           </FormGroup>
           </Col>
