@@ -2,8 +2,18 @@ import C from '../constants'
 import {Axios} from './Axios'
 import qs from 'qs'
 
+export const getUsersWithProfileImages = () => {
+  return async (dispatch) => await Axios().get('users/')
+     .then(res => {
+       dispatch({
+         type: C.GET_USERS,
+         payload: res.data
+       })
+     }).catch((e) => console.log(e))
+}
+
 export const getUsers = () => {
-    return async (dispatch) => await Axios().get('users/')
+    return async (dispatch) => await Axios().get('users/all/')
        .then(res => {
          dispatch({
            type: C.GET_USERS,
