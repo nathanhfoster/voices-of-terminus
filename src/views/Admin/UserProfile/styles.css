@@ -2,6 +2,11 @@
    color: var(--primaryColor);
 }
 
+.UserProfile .headerBanner {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 .borderedRow {
     border: 1px solid var(--grey_out);
     border-radius: 4px;
