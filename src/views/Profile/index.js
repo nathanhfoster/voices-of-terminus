@@ -9,6 +9,7 @@ import Select from 'react-select'
 import './styles.css'
 import './stylesM.css'
 import {raceRoleClassOptions, raceOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} from '../../helpers'
+import {isEquivalent} from '../../helpers'
 import {selectStyles} from '../../helpers/styles'
 import FormData from 'form-data'
 import { withAlert } from 'react-alert'
@@ -77,6 +78,15 @@ class Profile extends Component {
   
   componentWillMount() {
     this.getState(this.props)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {User} = nextState
+    const currentUser = this.state.User
+
+    const userChanged = !isEquivalent(currentUser, User)
+
+    return userChanged
   }
 
   componentDidMount() {
