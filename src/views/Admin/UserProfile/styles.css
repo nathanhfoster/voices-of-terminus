@@ -1,6 +1,10 @@
-.UserProfile {
-
+.UserProfile a {
+   color: var(--primary Color);
 }
+
+.UserProfile a:hover {
+   color: inherit;
+} 
 
 .borderedRow {
     border: 1px solid var(--grey_out);
