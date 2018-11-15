@@ -3,11 +3,11 @@
 }
 
 .ReactTable a {
-   color: var(--primary Color);
+   color: var(--primaryColor);
 }
  
 .ReactTable a:hover {
-   color: inherit;
+   color: var(--tertiarycolor);
 } 
 
 .ReactTable .rt-table::-webkit-scrollbar {
@@ -56,9 +56,6 @@
   display: block;
   height: 100%;
   width:100%;
-}
-.rt-td a:hover {
-  color: var(--primaryColor);
 }
 
 .ReactTable .pagination-bottom {

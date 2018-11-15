@@ -33,9 +33,9 @@
 }
 
 .userConnections a {
-   color: var(--primary Color);
+    color: inherit;
 }
 
 .userConnections a:hover {
-   color: inherit;
+    color: var(--primaryColor);
 } 
