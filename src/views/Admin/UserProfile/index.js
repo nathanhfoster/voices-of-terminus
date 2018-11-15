@@ -242,51 +242,51 @@ class UserProfile extends PureComponent {
           </Col>
         </Row>
         <Row><h2 className="headerBanner">PRIMARY</h2></Row>
-        <Row>
+        <Row className="selectOptionRow">
           <Col md={4}>
-          <ControlLabel>RACE</ControlLabel>
-          <Select
-            value={Admin.User.primary_race ? {value: Admin.User.primary_race, label: Admin.User.primary_race} : null}
-            onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
-            options={raceOptions}
-            isClearable={true}
-            isSearchable={true}
-            onBlur={e => e.preventDefault()}
-            blurInputOnSelect={false}
-            styles={selectStyles}
-          />
-        </Col>
-        <Col md={4}>
-          <ControlLabel>ROLE</ControlLabel>
-          <Select
-            value={Admin.User.primary_role ? {value: Admin.User.primary_role, label: Admin.User.primary_role} : null}
-            onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
-            options={Admin.User.primary_race ? raceRoleClassOptions[Admin.User.primary_race].roleOptions : []}
-            isClearable={true}
-            isSearchable={true}
-            onBlur={e => e.preventDefault()}
-            blurInputOnSelect={false}
-            isDisabled={!Admin.User.primary_race}
-            styles={selectStyles}
+            <ControlLabel>RACE</ControlLabel>
+            <Select
+              value={Admin.User.primary_race ? {value: Admin.User.primary_race, label: Admin.User.primary_race} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
+              options={raceOptions}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              styles={selectStyles}
             />
-        </Col>
-        <Col md={4}>
-          <ControlLabel>CLASS</ControlLabel>
-          <Select
-            value={Admin.User.primary_class ? {value: Admin.User.primary_class, label: Admin.User.primary_class} : null}
-            onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
-            options={Admin.User.primary_race ? raceRoleClassOptions[Admin.User.primary_race].classOptions[Admin.User.primary_role] : []}
-            isClearable={true}
-            isSearchable={true}
-            onBlur={e => e.preventDefault()}
-            blurInputOnSelect={false}
-            isDisabled={!Admin.User.primary_role}
-            styles={selectStyles}
-            />
-        </Col>
+          </Col>
+          <Col md={4}>
+            <ControlLabel>ROLE</ControlLabel>
+            <Select
+              value={Admin.User.primary_role ? {value: Admin.User.primary_role, label: Admin.User.primary_role} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
+              options={Admin.User.primary_race ? raceRoleClassOptions[Admin.User.primary_race].roleOptions : []}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              isDisabled={!Admin.User.primary_race}
+              styles={selectStyles}
+              />
+          </Col>
+          <Col md={4}>
+            <ControlLabel>CLASS</ControlLabel>
+            <Select
+              value={Admin.User.primary_class ? {value: Admin.User.primary_class, label: Admin.User.primary_class} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
+              options={Admin.User.primary_race ? raceRoleClassOptions[Admin.User.primary_race].classOptions[Admin.User.primary_role] : []}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              isDisabled={!Admin.User.primary_role}
+              styles={selectStyles}
+              />
+          </Col>
         </Row>
         <Row><h2 className="headerBanner">SECONDARY</h2></Row>
-        <Row>
+        <Row className="selectOptionRow">
           <Col md={4}>
             <ControlLabel>RACE</ControlLabel>
             <Select
@@ -330,7 +330,7 @@ class UserProfile extends PureComponent {
           </Col>
         </Row>
         <Row><h2 className="headerBanner">CRAFTING</h2></Row>
-        <Row>
+        <Row className="selectOptionRow">
           <Col md={6}>
             <ControlLabel>Profession</ControlLabel>
             <Select
