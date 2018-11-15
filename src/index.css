@@ -222,7 +222,7 @@ body {
   top: 50%;
   background: url('./images/right_arrow.png') no-repeat;
 }
-a, a:focus, a:active, a:visited {
+a, a:focus, button:focus, a:active, a:visited {
   outline: none !important;
   text-decoration: none !important; 
 }
