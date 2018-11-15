@@ -22,7 +22,7 @@
 }
 
 .rt-th:focus {
-      outline: none;
+  outline: none;
 }
 
 .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td,

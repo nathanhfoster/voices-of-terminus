@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, Image, Button, ButtonToolbar, Checkbox, Well} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Image, Button, ButtonToolbar, Checkbox, Well, ControlLabel} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect} from 'react-router-dom'
 import {clearUser, updateUserProfile} from '../../../actions/Admin'
@@ -9,6 +9,7 @@ import Select from 'react-select'
 import Moment from 'react-moment'
 import './styles.css'
 import './stylesM.css'
+import {raceRoleClassOptions, raceOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} from '../../../helpers'
 import {selectStyles} from '../../../helpers/styles'
 import {statusLevelInt, statusLevelString, classIcon, professionIcon} from '../../../helpers'
 
@@ -97,9 +98,46 @@ class UserProfile extends PureComponent {
   
   onChange = e => this.setState({[e.target.name]: e.target.value})
 
+  selectOnChange = (e, a, name) => {
+    switch(a.action) {
+      case 'clear':
+        if (name.includes('primary')) this.setState({primary_race: '', primary_role: '', primary_class: ''})
+        else if (name.includes('secondary')) this.setState({secondary_race: '', secondary_role: '', secondary_class: ''})
+        else if (name.includes('profession')) this.setState({profession: '', profession_specialization: ''})
+        break;
+      case 'select-option':
+        switch (name) {
+          case 'primary_race':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, 'primary_race': e.value, primary_role: '', primary_class: ''}} }))
+            break;
+          case 'primary_role':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User,  primary_role: e.value, primary_class: ''}} }))
+            break;
+          case 'primary_class':
+          this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User,  primary_class: e.value}} }))
+            break;
+            case 'secondary_race':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User, 'secondary_race': e.value, secondary_role: '', secondary_class: ''}} }))
+            break;
+          case 'secondary_role':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User,  secondary_role: e.value, secondary_class: ''}} }))
+            break;
+          case 'secondary_class':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User,  secondary_class: e.value}} }))
+            break;
+          case 'profession':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User,  profession: e.value, profession_specialization: ''}} }))
+            break;
+          case 'profession_specialization':
+            this.setState(prevState  => ({Admin: {...prevState.Admin, User: {...prevState.Admin.User,  profession_specialization: e.value}} }))
+            break;
+        }
+    }
+  }
+
   updateUserProfile = () => {
     const {User} = this.state
-    const {id, token, is_superuser, is_staff, is_active, is_leader, is_council, is_general_officer, is_officer, is_senior_member, is_junior_member, is_recruit,
+    const {id, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, is_superuser, is_staff, is_active, is_leader, is_council, is_general_officer, is_officer, is_senior_member, is_junior_member, is_recruit,
       is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead,
       can_create_article, can_create_newsletter, can_create_calendar_event,
       can_read_article, can_read_newsletter, can_read_calendar_event,
@@ -107,7 +145,8 @@ class UserProfile extends PureComponent {
       can_delete_article, can_delete_newsletter, can_delete_calendar_event
     } = this.state.Admin.User
       
-    const payload = {is_superuser, is_staff, is_active, is_leader, is_council, is_general_officer, is_officer, is_senior_member, is_junior_member, is_recruit,
+    const payload = {primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization,
+      is_superuser, is_staff, is_active, is_leader, is_council, is_general_officer, is_officer, is_senior_member, is_junior_member, is_recruit,
       is_raid_leader, is_banker, is_recruiter, is_class_lead, is_crafter_lead,
       can_create_article, can_create_newsletter, can_create_calendar_event,
       can_read_article, can_read_newsletter, can_read_calendar_event,
@@ -129,6 +168,7 @@ class UserProfile extends PureComponent {
   })
 
   render() {
+    console.log(this.state)
     const {Admin, User} = this.state
     const loggedInUserId = User.id
     const currentUserId = Admin.User ? Admin.User.id : null
@@ -182,6 +222,124 @@ class UserProfile extends PureComponent {
             <h3 title="Guild Points"><i class="fas fa-coins"/> {Admin.User.guild_points}</h3>
           </Col>
         </Row>
+        <Row><h2 className="headerBanner">PRIMARY</h2></Row>
+        <Row>
+          <Col md={4}>
+          <ControlLabel>RACE</ControlLabel>
+          <Select
+            value={Admin.User.primary_race ? {value: Admin.User.primary_race, label: Admin.User.primary_race} : null}
+            onChange={(e, a) => this.selectOnChange(e, a, 'primary_race')}
+            options={raceOptions}
+            isClearable={true}
+            isSearchable={true}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            styles={selectStyles}
+          />
+        </Col>
+        <Col md={4}>
+          <ControlLabel>ROLE</ControlLabel>
+          <Select
+            value={Admin.User.primary_role ? {value: Admin.User.primary_role, label: Admin.User.primary_role} : null}
+            onChange={(e, a) => this.selectOnChange(e, a, 'primary_role')}
+            options={Admin.User.primary_race ? raceRoleClassOptions[Admin.User.primary_race].roleOptions : []}
+            isClearable={true}
+            isSearchable={true}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            isDisabled={!Admin.User.primary_race}
+            styles={selectStyles}
+            />
+        </Col>
+        <Col md={4}>
+          <ControlLabel>CLASS</ControlLabel>
+          <Select
+            value={Admin.User.primary_class ? {value: Admin.User.primary_class, label: Admin.User.primary_class} : null}
+            onChange={(e, a) => this.selectOnChange(e, a, 'primary_class')}
+            options={Admin.User.primary_race ? raceRoleClassOptions[Admin.User.primary_race].classOptions[Admin.User.primary_role] : []}
+            isClearable={true}
+            isSearchable={true}
+            onBlur={e => e.preventDefault()}
+            blurInputOnSelect={false}
+            isDisabled={!Admin.User.primary_role}
+            styles={selectStyles}
+            />
+        </Col>
+        </Row>
+        <Row><h2 className="headerBanner">SECONDARY</h2></Row>
+        <Row>
+          <Col md={4}>
+            <ControlLabel>RACE</ControlLabel>
+            <Select
+              value={Admin.User.secondary_race ? {value: Admin.User.secondary_race, label: Admin.User.secondary_race} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'secondary_race')}
+              options={raceOptions}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              styles={selectStyles}
+            />
+          </Col>
+          <Col md={4}>
+            <ControlLabel>ROLE</ControlLabel>
+            <Select
+              value={Admin.User.secondary_role ? {value: Admin.User.secondary_role, label: Admin.User.secondary_role} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'secondary_role')}
+              options={Admin.User.secondary_race ? raceRoleClassOptions[Admin.User.secondary_race].roleOptions : []}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              isDisabled={!Admin.User.secondary_race}
+              styles={selectStyles}
+              />
+          </Col>
+          <Col md={4}>
+            <ControlLabel>CLASS</ControlLabel>
+            <Select
+              value={Admin.User.secondary_class ? {value: Admin.User.secondary_class, label: Admin.User.secondary_class} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'secondary_class')}
+              options={Admin.User.secondary_race ? raceRoleClassOptions[Admin.User.secondary_race].classOptions[Admin.User.secondary_role] : []}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              isDisabled={!Admin.User.secondary_role}
+              styles={selectStyles}
+              />
+          </Col>
+        </Row>
+        <Row><h2 className="headerBanner">CRAFTING</h2></Row>
+        <Row>
+          <Col md={6}>
+            <ControlLabel>Profession</ControlLabel>
+            <Select
+              value={Admin.User.profession ? {value: Admin.User.profession, label: Admin.User.profession} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'profession')}
+              options={professionOptions}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              styles={selectStyles}
+              />
+          </Col>
+          <Col md={6}>
+            <ControlLabel>Specialization</ControlLabel>
+            <Select
+              value={Admin.User.profession_specialization ? {value: Admin.User.profession_specialization, label: Admin.User.profession_specialization} : null}
+              onChange={(e, a) => this.selectOnChange(e, a, 'profession_specialization')}
+              options={professionSpecializationOptions[Admin.User.profession]}
+              isClearable={true}
+              isSearchable={true}
+              onBlur={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              isDisabled={!Admin.User.profession}
+              styles={selectStyles}
+              />
+          </Col>
+          </Row>
         <Row className="centerOnMobile borderedRow" >
           <Col xs={12}><h2 title="Experience Points"><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
           <Col xs={12}><Well className="userBio" bsSize="large">{Admin.User.bio ? User.bio : 'No biography given.'}</Well></Col>

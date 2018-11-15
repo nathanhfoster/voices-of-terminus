@@ -196,3 +196,238 @@ export const isEquivalent = (obj1, obj2) => {
     // are considered equivalent
     return true
 }
+
+export const raceRoleClassOptions = {
+    'Archai': { // Bard, Druid, Monk, Shaman, Warrior, Wizard
+      roleOptions: [
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Off Tank', label: 'Off Tank'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Melee Dps':     [{value: 'Monk', label: 'Monk'}],
+        'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+        'Ranged Dps':    [{value: 'Wizard', label: 'Wizard'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Tank':          [{value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+      }
+    },
+    'Dark Myr': { // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
+      roleOptions: [
+        {value: 'Crowd Control', label: 'Crowd Control'},
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Off Tank', label: 'Off Tank'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+        'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}],
+        'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Rogue', label: 'Rogue'}],
+        'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+        'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}],
+        'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+      }
+    },
+    'Dwarf': { // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
+      roleOptions: [
+        {value: 'Crowd Control', label: 'Crowd Control'},
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+        'Healer':        [{value: 'Cleric', label: 'Cleric'}],
+        'Melee Dps':     [{value: 'Rogue', label: 'Rogue'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}],
+        'Tank':          [{value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
+      }
+    },
+    'Elf': { // Bard, Druid, Enchanter, Ranger, Rogue, Shman, Summoner, Warrior, Wizard
+      roleOptions: [
+        {value: 'Crowd Control', label: 'Crowd Control'},
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+        'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Melee Dps':     [{value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+        'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Tank':          [{value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+      }
+    },
+    'Halfling': { // Bard, Druid, Ranger, Rogue, Warrior
+      roleOptions: [
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Healer':        [{value: 'Druid', label: 'Druid'}],
+        'Melee Dps':     [{value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+        'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}],
+        'Tank':          [{value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Druid', label: 'Druid'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Warrior', label: 'Warrior'}]
+      }
+    },
+    'Human': { // ALL
+      roleOptions: [
+        {value: 'Crowd Control', label: 'Crowd Control'},
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Off Tank', label: 'Off Tank'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+        'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+        'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+        'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+      }
+    },
+    'Gnome': { // Enchanter, Necromancer, Rogue, Summoner, Wizard
+      roleOptions: [
+        {value: 'Crowd Control', label: 'Crowd Control'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}],
+        'Melee Dps':     [{value: 'Rogue', label: 'Rogue'}],
+        'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+        'Utility':       [{value: 'Enchanter', label: 'Enchanter'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}]
+      }
+    }, 
+    'Ogre': { // Dire Lord, Druid, Shaman, Warrior
+      roleOptions: [
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Healer':        [{value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+        'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}]
+      }
+    },
+    'Skar': { // Dire Lord, Monk, Necromancer, Rogue, Shaman, Warrior
+      roleOptions: [
+        {value: 'Healer', label: 'Healer'},
+        {value: 'Melee Dps', label: 'Melee Dps'},
+        {value: 'Off Tank', label: 'Off Tank'},
+        {value: 'Ranged Dps', label: 'Ranged Dps'},
+        {value: 'Support', label: 'Support'},
+        {value: 'Tank', label: 'Tank'},
+        {value: 'Utility', label: 'Utility'},     
+      ],
+      classOptions: {
+        'Healer':        [{value: 'Shaman', label: 'Shaman'}],
+        'Melee Dps':     [{value: 'Monk', label: 'Monk'},{value: 'Rogue', label: 'Rogue'}],
+        'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+        'Ranged Dps':    [{value: 'Necormancer', label: 'Necromancer'}],
+        'Support':       [{value: 'Shaman', label: 'Shaman'}],
+        'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Warrior', label: 'Warrior'}],
+        'Utility':       [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Warrior', label: 'Warrior'}]
+      }
+    }
+  }
+
+export const raceOptions = [
+    {value: 'Archai', label: 'Archai'}, // Bard, Druid, Monk, Shaman, Warrior, Wizard
+    {value: 'Dark Myr', label: 'Dark Myr'}, // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
+    {value: 'Dwarf', label: 'Dwarf'}, // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
+    {value: 'Elf', label: 'Elf'}, // Bard, Druid, Enchanter, Ranger, Rogue, Shman, SUmmoner, Warrior, Wizard
+    {value: 'Halfling', label: 'Halfling'}, // Bard, Druid, Ranger, Rogue, Warrior
+    {value: 'Human', label: 'Human'}, // ALL
+    {value: 'Gnome', label: 'Gnome'}, // Enchanter, Necromancer, Rogue, Summoner, Wizard
+    {value: 'Ogre', label: 'Ogre'}, // Dire Lord, Druid, Shaman, Warrior
+    {value: 'Skar', label: 'Skar'} // Skar, Mink, Necrimancer, Rogue, Shaman
+  ]
+
+export const roleOptions = [
+    {value: 'Crowd Control', label: 'Crowd Control'},
+    {value: 'Healer', label: 'Healer'},
+    {value: 'Melee Dps', label: 'Melee Dps'},
+    {value: 'Off Tank', label: 'Off Tank'},
+    {value: 'Ranged Dps', label: 'Ranged Dps'},
+    {value: 'Support', label: 'Support'},
+    {value: 'Tank', label: 'Tank'},
+    {value: 'Utility', label: 'Utility'},     
+  ]
+
+export const classOptions = {
+    'Crowd Control': [{value: 'Enchanter', label: 'Enchanter'}, ],
+    'Melee Dps':     [{value: 'Monk', label: 'Monk'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}],
+    'Off Tank':      [{value: 'Monk', label: 'Monk'}],
+    'Ranged Dps':    [{value: 'Ranger', label: 'Ranger'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Wizard', label: 'Wizard'}],
+    'Healer':        [{value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+    'Tank':          [{value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Warrior', label: 'Warrior'}],
+    'Support':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Druid', label: 'Druid'}, {value: 'Shaman', label: 'Shaman'}],
+    'Utility':       [{value: 'Bard', label: 'Bard'}, {value: 'Cleric', label: 'Cleric'}, {value: 'Dire Lord', label: 'Dire Lord'}, {value: 'Druid', label: 'Druid'}, {value: 'Enchanter', label: 'Enchanter'}, {value: 'Monk', label: 'Monk'}, {value: 'Necormancer', label: 'Necromancer'}, {value: 'Paladin', label: 'Paladin'}, {value: 'Ranger', label: 'Ranger'}, {value: 'Rogue', label: 'Rogue'}, {value: 'Shaman', label: 'Shaman'}, {value: 'Summoner', label: 'Summoner'}, {value: 'Warrior', label: 'Warrior'}, {value: 'Wizard', label: 'Wizard'}]
+  }
+    // {value: 'Cleric', label: 'Cleric'},
+    // {value: 'Dire Lord', label: 'Dire Lord'},
+    // {value: 'Druid', label: 'Druid'},
+    // {value: 'Enchanter', label: 'Enchanter'},
+    // {value: 'Monk', label: 'Monk'},
+    // {value: 'Paladin', label: 'Paladin'},
+    // {value: 'Ranger', label: 'Ranger'},
+    // {value: 'Rogue', label: 'Rogue'},
+    // {value: 'Shaman', label: 'Shaman'},
+    // {value: 'Summoner', label: 'Summoner'},
+    // {value: 'Warrior', label: 'Warrior'},
+    // {value: 'Wizard', label: 'Wizard'}
+export const professionOptions = [
+    {value: 'Alchemist',   label: 'Alchemist'},
+    {value: 'Blacksmith',  label: 'Blacksmith'},
+    {value: 'Outfitter',   label: 'Outfitter'},
+    {value: 'Provisioner', label: 'Provisioner'},
+    {value: 'Scribe',      label: 'Scribe'},
+    {value: 'Stonemason',  label: 'Stonemason'},
+    {value: 'Woodworker',  label: 'Woodworker'},
+  ]
+export const professionSpecializationOptions = {
+    Alchemist:   [],
+    Blacksmith:  [{value: 'Armorsmith', label: 'Armorsmith'}, {value: 'Weaponsmith',   label: 'Weaponsmith'}],
+    Outfitter:   [{value: 'Leatherworker', label: 'Leatherworker'}, {value: 'Tailor',     label: 'Tailor'}],
+    Provisioner: [{value: 'Brewer',        label: 'Brewer'},        {value: 'Chef',       label: 'Chef'}],
+    Scribe:      [{value: 'Engraver',      label: 'Engraver'},      {value: 'Researcher', label: 'Researcher'}],
+    Stonemason:  [{value: 'Jeweller',      label: 'Jeweller'},      {value: 'Sculptor',   label: 'Sculptor'}],
+    Woodworker:  [{value: 'Bowyer',        label: 'Bowyer'},        {value: 'Carver',     label: 'Carver'}],
+}
