@@ -97,7 +97,7 @@ export const getUser = id => {
   }
 
 export const refreshUser = (id, token) => {
-    return async (dispatch, getState) => await Axios(token).get(`users/${id}/view/`)
+    return async (dispatch, getState) => await Axios(token).get(`users/${id}/refresh/`)
        .then(res => {
         const {User} = getState()
         res.data.token = Cookies.get('User_LoginToken')
