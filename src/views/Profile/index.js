@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button, ButtonToolbar, Image} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
@@ -9,7 +9,6 @@ import Select from 'react-select'
 import './styles.css'
 import './stylesM.css'
 import {raceRoleClassOptions, raceOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} from '../../helpers'
-import {isEquivalent} from '../../helpers'
 import {selectStyles} from '../../helpers/styles'
 import FormData from 'form-data'
 import { withAlert } from 'react-alert'
@@ -22,7 +21,7 @@ const mapDispatchToProps = {
   updateProfile
 }
 
-class Profile extends Component {
+class Profile extends PureComponent {
   constructor(props) {
     super(props)
  
@@ -80,15 +79,6 @@ class Profile extends Component {
     this.getState(this.props)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const {User} = nextState
-    const currentUser = this.state.User
-
-    const userChanged = !isEquivalent(currentUser, User)
-
-    return userChanged
-  }
-
   componentDidMount() {
   }
   
@@ -97,10 +87,9 @@ class Profile extends Component {
   }
 
   getState = props => {
-    const {User} = props
     const {token, id, profile_image, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state.token ? this.state : props.User
     const {password} = this.state
-    this.setState({User, token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points})
+    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points})
   }
 
   onChange = e => this.setState({[e.target.name]: e.target.value})
