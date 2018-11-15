@@ -97,12 +97,16 @@ export const getUser = id => {
   }
 
 export const refreshUser = (id, token) => {
-    return async (dispatch) => await Axios(token).get(`users/${id}/`)
+    return async (dispatch, getState) => await Axios(token).get(`users/${id}/view/`)
        .then(res => {
-        res.data.token = Cookies.get('User_LoginToken')
+        let {User} = getState()
+        console.log("BEFORE: ", User)
+        User.token = Cookies.get('User_LoginToken')
+        Object.keys(res.data).forEach(k => User[k] = res.data[k])
+        console.log("AFTER: ", User)
          dispatch({
            type: C.SET_LOGIN_TOKEN,
-           payload: res.data
+           payload: User
          })
        }).catch((e) => console.log(e))
 }
