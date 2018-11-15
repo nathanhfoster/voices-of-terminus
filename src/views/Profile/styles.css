@@ -1,7 +1,3 @@
-.Profile .headerBanner {
-    margin-top: 15px;
-    margin-bottom: 15px;
-}
 .Profile svg:hover {
     color: var(--primaryColor);
 }

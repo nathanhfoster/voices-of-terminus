@@ -5,6 +5,7 @@
 .borderedRow {
     border: 1px solid var(--grey_out);
     border-radius: 4px;
+    padding: 8px;
 }
 
 .headerBanner {
@@ -78,6 +79,7 @@ progress:before {
     top: 32px;
     content: attr(value) ' / ' attr(max) ' EXP';
 }
+
 progress {
     height: 30px;
     width: 100%;
