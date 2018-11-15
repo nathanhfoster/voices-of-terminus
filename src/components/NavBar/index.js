@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import { connect as reduxConnect } from 'react-redux'
 import { withAlert } from 'react-alert'
 import { withRouter } from 'react-router-dom'
@@ -12,6 +12,7 @@ import votLogo from '../../images/VoT-Logo-White.png'
 import votLogoHover from '../../images/VoT-Logo-Orange-Border-White.png'
 import {Logout} from '../../actions/App'
 import {classIcon} from '../../helpers'
+import {isEquivalent} from '../../helpers'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -21,7 +22,7 @@ const mapDispatchToProps = {
   Logout
 }
 
-class NavBar extends PureComponent {
+class NavBar extends Component {
   constructor(props) {
     super(props)
  
@@ -38,6 +39,15 @@ class NavBar extends PureComponent {
 
   componentWillMount() {
     this.getState(this.props)
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    const {User} = nextState
+    const currentUser = this.state.User
+
+    const userChanged = !isEquivalent(currentUser, User)
+
+    return userChanged
   }
   
   componentDidMount() {

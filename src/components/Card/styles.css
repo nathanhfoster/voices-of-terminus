@@ -28,7 +28,7 @@
   background-color: var(--dark_grey);
   flex: 0 0 100px;
   width: 100%;
-  padding: 8px;
+  padding: 6px;
   left: 0;
   bottom: 0;
 
@@ -36,26 +36,56 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
+.Summary .summaryTitle {
+  display: flex;
+}
 .Summary .summaryTitle h4 {
+  width: calc(100% - 32px);
   margin: 4px 0 4px 0;
+}
+.Summary .summaryTitle i {
+  margin: auto;
+  width: 32px;
 }
 .Summary .summaryTitleDivider{
   margin: 0 0 4px 0;
+  width: 100%;
+}
+
+.cardActions {
+
+}
+
+.cardActions button{
+  background-color: var(--primaryColor);
+  color: var(--tertiarycolor);
+  margin-left: 4px;
+}
+.cardActions button:hover {
+  background-color: var(--tertiarycolor);
+  color: var(--secondaryColor);
+}
+
+.cardInfo div {
+  margin-top: 4px;
 }
 
 .cardInfo * {
   max-height: 30px;
-} 
+}
 
-.cardActions {
-  background-color: var(--primaryColor);
-  color: var(--tertiarycolor);
-  margin-left: 8px;
+.cardInfo i {
+  margin: 1px 4px 0 0px;
 }
-.cardActions:hover {
-  background-color: var(--tertiarycolor);
-  color: var(--secondaryColor);
+
+.cardInfo a {
+  color: var(--primaryColor);
 }
+
+.cardInfo a:hover {
+  opacity: .7;
+}
+
 
 .cardActions .caret {
   display: none;
@@ -65,4 +95,8 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.linkHover {
+  color: var(--primaryColor);
 }
