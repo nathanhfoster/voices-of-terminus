@@ -70,7 +70,7 @@ class News extends Component {
     const userChanged = !isEquivalent(currentUser, User)
     const cardAdded = Documents.length > currentDocuments.length
     const cardDeleted = Documents.length < currentDocuments.length
-    const cardUpdated = !isSubset(Documents.map(k => k.last_modified), currentDocuments.map(k => k.last_modified))
+    const cardUpdated = !isSubset(Documents.map(k => k.last_modified), currentDocuments.map(k => k.last_modified)) || !isSubset(Documents.map(k => k.views), currentDocuments.map(k => k.views))
     const isFiltering = selectValue != currentSelectValue
     const isSearching = search != currentSearch
     // search === undefined
