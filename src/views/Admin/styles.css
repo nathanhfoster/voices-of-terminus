@@ -21,6 +21,10 @@
   box-shadow: inset 0 -2px 0 0 var(--primaryColor);
 }
 
+.rt-th:focus {
+      outline: none;
+}
+
 .ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td,
 .ReactTable .rt-thead.-filters,
 .ReactTable .rt-thead.-filters .rt-th,
