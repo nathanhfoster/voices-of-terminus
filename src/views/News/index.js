@@ -105,8 +105,8 @@ class News extends Component {
   }
 
   //Filter the Documents if the documents tags array contains the filter array
-  renderCards = (Documents, filter, dontFilter) => Documents.filter(doc => dontFilter ? doc : isSubset(doc.tags.split('|'), filter))
-  .sort((a,b) => new Date(b.last_modified) - new Date(a.last_modified))
+  renderCards = (Documents, filter, dontFilter, sort) => Documents.filter(doc => dontFilter ? doc : isSubset(doc.tags.split('|'), filter))
+  .sort(sort)
   .map(card => {
     const {User, history} = this.props
     let click = null
@@ -208,11 +208,13 @@ class News extends Component {
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
             <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter, dontFilter) : null}
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified)) : null}
               </Row>
             </Tab>
             <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
-              Suggested
+              <Row>
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views) : null}
+              </Row>
             </Tab>
           </Tabs>
         </Row>
