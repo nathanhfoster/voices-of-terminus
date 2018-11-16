@@ -12,6 +12,7 @@ import './stylesM.css'
 import {raceRoleClassOptions, raceOptions, roleOptions, classOptions, professionOptions, professionSpecializationOptions} from '../../../helpers'
 import {selectStyles} from '../../../helpers/styles'
 import {statusLevelInt, statusLevelString, classIcon, professionIcon} from '../../../helpers'
+import {ExperienceBar} from '../../../components/ExperienceBar'
 
 const mapStateToProps = ({Admin, User}) => ({
   Admin,
@@ -217,13 +218,13 @@ class UserProfile extends PureComponent {
             </h4>
           </Col>
           <Col md={3} xs={12} className="Center">
-            <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
+            <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
             <h3 title="Last Login"><i class="fas fa-sign-in-alt"/> <Moment fromNow>{Admin.User.last_login}</Moment></h3>
             <h3 title="Guild Points"><i class="fas fa-coins"/> {Admin.User.guild_points}</h3>
           </Col>
         </Row>
         <Row className="centerOnMobile borderedRow" >
-          <Col xs={12}><h2 title="Experience Points"><progress value={Admin.User.experience_points} min="0" max="10000"></progress></h2></Col>
+          <Col xs={12}>{ExperienceBar(Admin.User.experience_points)}</Col>
           <Col xs={12}><Well className="userBio" bsSize="large">{Admin.User.bio ? User.bio : 'No biography given.'}</Well></Col>
           <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
         </Row>

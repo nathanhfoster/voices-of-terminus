@@ -12,6 +12,7 @@ import {raceRoleClassOptions, raceOptions, roleOptions, classOptions, profession
 import {selectStyles} from '../../helpers/styles'
 import FormData from 'form-data'
 import { withAlert } from 'react-alert'
+import {ExperienceBar} from '../../components/ExperienceBar'
 
 const mapStateToProps = ({User}) => ({
   User
@@ -238,10 +239,10 @@ class Profile extends PureComponent {
             <ControlLabel>Profile Picture</ControlLabel>
             <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
           </Col>
-          <Col md={3} xs={12}><h3><i class="fas fa-birthday-cake"/> <Moment format="MMMM DD, YYYY">{date_joined}</Moment></h3></Col>
+          <Col md={3} xs={12}><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{date_joined}</Moment></h3></Col>
           <Col md={3} xs={12}><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{last_login}</Moment></h3></Col>
           <Col md={3} xs={12}><h3><i class="fas fa-coins"/> {guild_points}</h3></Col>
-          <Col xs={12}><h2><progress value={experience_points} min="0" max="10000"></progress></h2></Col>
+          <Col xs={12}>{ExperienceBar(experience_points)}</Col>       
          </Row>
            <Row className="borderedRow">
           <Col md={3}>
