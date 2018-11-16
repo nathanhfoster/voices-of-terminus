@@ -206,12 +206,12 @@ class News extends Component {
         </Row>
         <Row>
           <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
-            <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={true}>
+            <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={false}>
               <Row>
                 {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified)) : null}
               </Row>
             </Tab>
-            <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
+            <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={false}>
               <Row>
                 {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views) : null}
               </Row>
