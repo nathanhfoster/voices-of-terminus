@@ -73,7 +73,7 @@ class BackgroundImage extends PureComponent {
 
   backgroundImageRouteMap = route => {
     switch(route) {
-      case '/': return bg2
+      case '/home': return bg2
       case '/calendar': return bg2
       case '/news': return bg5
       case '/guild/about': return bg4
@@ -90,7 +90,7 @@ class BackgroundImage extends PureComponent {
 
   backgroundMobileImageRouteMap = route => {
     switch(route) {
-      case '/': return bg1M
+      case '/home': return bg1M
       case '/calendar': return bg3M
       case '/news': return bg4M
       case '/guild/about': return bg5M
