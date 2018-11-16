@@ -60,8 +60,8 @@ class BackgroundImage extends PureComponent {
   }
 
   getState = props => {
-    const {history, location, match} = props
-    const {isMobile} = props.Window
+    const {history, location, match, Window} = props
+    const {isMobile} = Window
     this.setState({history, location, match, isMobile})
   }
 

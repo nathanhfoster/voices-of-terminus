@@ -60,12 +60,16 @@ class News extends Component {
 
   shouldComponentUpdate(nextProps, nextState) {
     const {Articles, Newsletters} = this.state
-    const {User, Documents, selectValue, search} = nextState
+    const {User, Documents, selectValue, search, history} = nextState
+    const {pathname} = history.location
+
+    const currentPathName = this.state.eventKey
     const currentUser = this.state.User
     const currentDocuments = Articles.concat(Newsletters)
     const currentSelectValue = this.state.selectValue
     const currentSearch = this.state.search
     
+    const pathChanged = pathname != currentPathName
     const initialLoad = Documents.length === 0
     const userChanged = !isEquivalent(currentUser, User)
     const cardAdded = Documents.length > currentDocuments.length
@@ -77,7 +81,7 @@ class News extends Component {
     // console.log("nextProps: ", nextProps)
     // console.log("nextState: ", nextState)
     // console.log("this.state: ", this.state)
-    return initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching || userChanged
+    return pathChanged || initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching || userChanged
   }
   
   componentWillMount() {
@@ -98,14 +102,17 @@ class News extends Component {
   }
 
   getState = props => {
-    const {User, Articles, Newsletters} = props
+    const {User, Articles, Newsletters, history} = props
+    const {pathname} = history.location
     const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
-    this.setState({User, Articles, Newsletters, Documents, selectOptions})
+    this.setState({User, Articles, Newsletters, Documents, selectOptions, eventKey: pathname, history})
   }
 
   //Filter the Documents if the documents tags array contains the filter array
-  renderCards = (Documents, filter, dontFilter, sort) => Documents.filter(doc => dontFilter ? doc : isSubset(doc.tags.split('|'), filter))
+  renderCards = (Documents, filter, dontFilter, sort, tabFilter) => Documents
+  .filter(doc => dontFilter ? doc : isSubset(doc.tags.split('|'), filter))
+  .filter(tabFilter)
   .sort(sort)
   .map(card => {
     const {User, history} = this.props
@@ -157,7 +164,8 @@ class News extends Component {
   }
 
   render() {
-    console.log('NEWS')
+    console.log('NEWS: ')
+    const {eventKey, history} = this.state
     const selectValue = this.state.selectValue.length > 0 ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
     let {Documents} = this.state
@@ -179,7 +187,7 @@ class News extends Component {
           <Col md={5} xs={12}>
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
-              <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by Title and Author..."  value={search} onChange={(filter) => this.onChange(filter, Documents)}/>
+              <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by Title and Author..."  value={search} onChange={filter => this.onChange(filter, Documents)}/>
             </InputGroup>
           </Col>
           <Col md={4} xs={12}>
@@ -205,15 +213,25 @@ class News extends Component {
           </Col>
         </Row>
         <Row>
-          <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
-            <Tab eventKey={1} title="LATEST" className="fadeIn-2" unmountOnExit={false}>
+          <Tabs defaultActiveKey={eventKey} activeKey={eventKey} className="Tabs" onSelect={eventKey => {this.setState({eventKey}); history.push(eventKey)}} animation={false}>
+            <Tab eventKey="/news/latest" title="LATEST" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified)) : null}
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified), doc => doc) : null}
               </Row>
             </Tab>
-            <Tab eventKey={2} title="SUGGESTED" className="fadeIn-2" unmountOnExit={false}>
+            <Tab eventKey="/news/suggested" title="SUGGESTED" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views) : null}
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views, doc => doc) : null}
+              </Row>
+            </Tab>
+            <Tab eventKey="/news/popular" title="POPULAR" className="fadeIn-2" unmountOnExit={true}>
+              <Row>
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views, doc => doc) : null}
+              </Row>
+            </Tab>
+            <Tab eventKey="/news/my-docs" title="MY DOCS" className="fadeIn-2" unmountOnExit={true}>
+              <Row>
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified), doc => doc.author === this.state.User.id) : null}
               </Row>
             </Tab>
           </Tabs>
