@@ -101,10 +101,11 @@ class ViewHtmlDocument extends PureComponent {
           <Col md={12} className="Center">
             <h3><i class="far fa-eye"/> {HtmlDocument.views}</h3>
           </Col>
+          {HtmlDocument.comments?
           <Col md={12} className="">
             <h1>COMMENTS <i className="fas fa-comment"/></h1>
             <Well className="userBio">{this.renderComments(comments)}</Well>
-          </Col>
+          </Col> : null}
           {User.token ?
           <Col md={12}>
             <FormGroup className="Center commentBar" validationState={this.validateComment()}>
