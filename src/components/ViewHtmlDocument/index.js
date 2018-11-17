@@ -71,16 +71,19 @@ class ViewHtmlDocument extends PureComponent {
   // last_modified_by_username(pin): "admin"
   // likes(pin): 5
 
-  renderComments = comments => comments.map(com =>
+  renderComments = comments => comments.map(com => {
+    const {User} = this.props
+    return(
     <Row className="commentContainer">
       <Col md={2} xs={5}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
       <Col md={7} xs={7}><i class="far fa-clock"/> <Moment fromNow>{com.last_modified}</Moment></Col>
       <Col md={2} xs={10}>{com.likes} <i className="fas fa-thumbs-up"/></Col>
       <Col md={1} xs={2} className="pull-right">
-        {this.props.User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+        {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
       <Col md={12}>{com.text}</Col>
     </Row>
+    )}
   )
 
   onChange = e => this.setState({[e.target.name]: e.target.value})
