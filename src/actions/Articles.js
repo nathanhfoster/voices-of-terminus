@@ -59,13 +59,33 @@ export const viewArticle = id => {
 export const postArticleComment = (token, payload) => {
   return async (dispatch, getState) => await Axios(token).post(`comments/`, qs.stringify(payload))
      .then(res => {
-        let {Articles} = getState()
-        Articles.comments.push(res.data)
+        let {HtmlDocument} = getState()
+        HtmlDocument.comments.unshift(res.data)
         dispatch ({
           type: C.GET_HTML_DOCUMENT,
-          payload: Articles
+          payload: HtmlDocument
         })
-      }).catch((e) => console.log(e))
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: res
+        })
+      }).catch((e) => dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+    }))
+}
+
+export const deleteArticleComment = (id, token) => {
+  return async (dispatch, getState) => await Axios(token).delete(`comments/${id}/`)
+  .then(res => {
+      let {HtmlDocument} = getState()
+      const reducedComments = HtmlDocument.comments.filter(com => com.id !== id)
+      HtmlDocument.comments = reducedComments
+      dispatch ({
+        type: C.GET_HTML_DOCUMENT,
+        payload: HtmlDocument
+      })
+  }).catch((e) => console.log(e))
 }
 
 export const updateArticle = (id, token, payload) => {

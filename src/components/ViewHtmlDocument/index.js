@@ -6,7 +6,7 @@ import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 import {viewNewsletter} from '../../actions/NewsLetter'
-import {viewArticle, postArticleComment} from '../../actions/Articles'
+import {viewArticle, postArticleComment, deleteArticleComment} from '../../actions/Articles'
 import {withRouter, Link} from 'react-router-dom'
 import Moment from 'react-moment'
 
@@ -18,7 +18,8 @@ const mapStateToProps = ({User, HtmlDocument}) => ({
 const mapDispatchToProps = {
   viewNewsletter,
   viewArticle,
-  postArticleComment
+  postArticleComment,
+  deleteArticleComment
 }
 
 class ViewHtmlDocument extends PureComponent {
@@ -46,7 +47,6 @@ class ViewHtmlDocument extends PureComponent {
     const article = id
 
     const payload = {article, author: User.id, text, last_modified_by: User.id, likes}
-    console.log(payload)
     this.props.postArticleComment(User.token, payload)
   }
 
@@ -66,7 +66,10 @@ class ViewHtmlDocument extends PureComponent {
       <Col md={2}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link>:</Col>
       <Col md={12}>{com.text}</Col>
       <Col><Moment fromNow>{com.last_modified}</Moment></Col>
-      <Col className="pull-right">{com.likes} <i className="fas fa-thumbs-up"/></Col>
+      <Col className="pull-right">
+      {com.likes} <i className="fas fa-thumbs-up"/> 
+      {this.props.User.id === com.author ? <Button onClick={() => this.props.deleteArticleComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+      </Col>
     </Row>
   )
 
@@ -102,8 +105,8 @@ class ViewHtmlDocument extends PureComponent {
             <h3><i class="far fa-eye"/> {HtmlDocument.views}</h3>
           </Col>
           {HtmlDocument.comments?
-          <Col md={12} className="">
-            <h1>COMMENTS <i className="fas fa-comment"/></h1>
+          <Col md={12}>
+            <h1 className="Center">COMMENTS <i className="fas fa-comment"/></h1>
             <Well className="userBio">{this.renderComments(comments)}</Well>
           </Col> : null}
           {User.token ?
@@ -111,8 +114,7 @@ class ViewHtmlDocument extends PureComponent {
             <FormGroup className="Center commentBar" validationState={this.validateComment()}>
               <FormControl className="commentTextArea" componentClass="textarea" value={text} type="text" name="text" placeholder="Comment..." onChange={this.onChange}/>
             </FormGroup>
-            <Button className="commentPostButton" disabled={text.length===0} type="submit" onClick={this.postComment}>Post</Button>
-
+            <div className="Center"><Button className="commentPostButton" disabled={text.length===0} type="submit" onClick={this.postComment}>Post</Button></div>
           </Col>
           : null}
         </Row>

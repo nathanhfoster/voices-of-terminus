@@ -44,10 +44,12 @@
     width: 100%;
     background-color: var(--grey);
     padding: 16px;
+    border-radius: 4px;
+    border: 1px solid var(--grey_out);
 }
 
 .commentTextArea {
-    margin: 8px;
+    margin: 8px 0;
     min-height: 84px;
 }
 
