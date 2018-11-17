@@ -45,19 +45,18 @@ export const getArticle = id => {
 export const viewArticle = id => {
   return async (dispatch) => await Axios().get(`articles/${id}/view/`)
      .then(res => {
-        Axios().get(`comments/${id}/view/`).then(comments => {
+        Axios().get(`article/comments/${id}/view/`).then(comments => {
           res.data.comments = comments.data
           dispatch ({
             type: C.GET_HTML_DOCUMENT,
             payload: res.data
           })
         })
-         
      }).catch((e) => console.log(e))
 }
 
 export const postArticleComment = (token, payload) => {
-  return async (dispatch, getState) => await Axios(token).post(`comments/`, qs.stringify(payload))
+  return async (dispatch, getState) => await Axios(token).post(`article/comments/`, qs.stringify(payload))
      .then(res => {
         let {HtmlDocument} = getState()
         HtmlDocument.comments.unshift(res.data)
@@ -76,11 +75,10 @@ export const postArticleComment = (token, payload) => {
 }
 
 export const deleteArticleComment = (id, token) => {
-  return async (dispatch, getState) => await Axios(token).delete(`comments/${id}/`)
+  return async (dispatch, getState) => await Axios(token).delete(`article/comments/${id}/`)
   .then(res => {
       let {HtmlDocument} = getState()
-      const reducedComments = HtmlDocument.comments.filter(com => com.id !== id)
-      HtmlDocument.comments = reducedComments
+      HtmlDocument.comments = HtmlDocument.comments.filter(com => com.id !== id)
       dispatch ({
         type: C.GET_HTML_DOCUMENT,
         payload: HtmlDocument

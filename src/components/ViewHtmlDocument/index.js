@@ -5,7 +5,7 @@ import { Grid, Row, Col, PageHeader, Well, FormGroup, FormControl, ControlLabel,
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-import {viewNewsletter} from '../../actions/NewsLetter'
+import {viewNewsletter, postNewsletterComment, deleteNewsletterComment} from '../../actions/NewsLetter'
 import {viewArticle, postArticleComment, deleteArticleComment} from '../../actions/Articles'
 import {withRouter, Link} from 'react-router-dom'
 import Moment from 'react-moment'
@@ -17,6 +17,8 @@ const mapStateToProps = ({User, HtmlDocument}) => ({
 
 const mapDispatchToProps = {
   viewNewsletter,
+  postNewsletterComment,
+  deleteNewsletterComment,
   viewArticle,
   postArticleComment,
   deleteArticleComment
@@ -41,13 +43,21 @@ class ViewHtmlDocument extends PureComponent {
   }
 
   postComment = () => {
-    const {User, HtmlDocument} = this.props
+    const {User, HtmlDocument, match} = this.props
     const {text, likes} = this.state
     const {id} = HtmlDocument
-    const article = id
+    const document_id = id
 
-    const payload = {article, author: User.id, text, last_modified_by: User.id, likes}
-    this.props.postArticleComment(User.token, payload)
+    const payload = {document_id, author: User.id, text, last_modified_by: User.id, likes}
+
+    if(match.path.includes('newsletters')) this.props.postNewsletterComment(User.token, payload)
+    if(match.path.includes('articles')) this.props.postArticleComment(User.token, payload)
+  }
+
+  deleteComment = (id, token) => {
+    const {path} = this.props.match
+    if(path.includes('newsletters')) this.props.deleteNewsletterComment(id, token)
+    if(path.includes('articles')) this.props.deleteArticleComment(id, token)
   }
 
   // id(pin): 1
@@ -63,13 +73,13 @@ class ViewHtmlDocument extends PureComponent {
 
   renderComments = comments => comments.map(com =>
     <Row className="commentContainer">
-      <Col md={2}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link>:</Col>
-      <Col md={12}>{com.text}</Col>
-      <Col><Moment fromNow>{com.last_modified}</Moment></Col>
-      <Col className="pull-right">
-      {com.likes} <i className="fas fa-thumbs-up"/> 
-      {this.props.User.id === com.author ? <Button onClick={() => this.props.deleteArticleComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+      <Col md={2} xs={5}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
+      <Col md={7} xs={7}><i class="far fa-clock"/> <Moment fromNow>{com.last_modified}</Moment></Col>
+      <Col md={2} xs={10}>{com.likes} <i className="fas fa-thumbs-up"/></Col>
+      <Col md={1} xs={2} className="pull-right">
+        {this.props.User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
+      <Col md={12}>{com.text}</Col>
     </Row>
   )
 

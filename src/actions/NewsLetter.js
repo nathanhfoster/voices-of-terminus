@@ -45,12 +45,46 @@ export const getNewsletter = id => {
 export const viewNewsletter = id => {
     return async (dispatch) => await Axios().get(`newsletters/${id}/view/`)
        .then(res => {
-           dispatch ({
-             type: C.GET_HTML_DOCUMENT,
-             payload: res.data
+            Axios().get(`newsletter/comments/${id}/view/`).then(comments => {
+            res.data.comments = comments.data
+            dispatch ({
+              type: C.GET_HTML_DOCUMENT,
+              payload: res.data
             })
+          })
        }).catch((e) => console.log(e))
 }
+
+export const postNewsletterComment = (token, payload) => {
+    return async (dispatch, getState) => await Axios(token).post(`newsletter/comments/`, qs.stringify(payload))
+       .then(res => {
+          let {HtmlDocument} = getState()
+          HtmlDocument.comments.unshift(res.data)
+          dispatch ({
+            type: C.GET_HTML_DOCUMENT,
+            payload: HtmlDocument
+          })
+          dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: res
+          })
+        }).catch((e) => dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+      }))
+  }
+
+export const deleteNewsletterComment = (id, token) => {
+    return async (dispatch, getState) => await Axios(token).delete(`newsletter/comments/${id}/`)
+    .then(res => {
+        let {HtmlDocument} = getState()
+        HtmlDocument.comments = HtmlDocument.comments.filter(com => com.id !== id)
+        dispatch ({
+          type: C.GET_HTML_DOCUMENT,
+          payload: HtmlDocument
+        })
+    }).catch((e) => console.log(e))
+  }
 
 export const updateNewsLetter = (id, token, payload) => {
     return  async (dispatch, getState) => await Axios(token).patch(`newsletters/${id}/`, qs.stringify(payload))
