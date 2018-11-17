@@ -53,6 +53,7 @@ class News extends Component {
       {value: 'FanMade', label: 'FanMade'},
       {value: 'Guide', label: 'Guide'},
       {value: 'Lore', label: 'Lore'},
+      {value: 'VotShow', label: 'VotShow'},
       {value: 'Other', label: 'Other'},
     ],
     Documents: []
@@ -164,7 +165,7 @@ class News extends Component {
   }
 
   render() {
-    console.log('NEWS: ')
+    //console.log('NEWS: ')
     const {eventKey, history} = this.state
     const selectValue = this.state.selectValue.length > 0 ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state
@@ -187,7 +188,7 @@ class News extends Component {
           <Col md={5} xs={12}>
             <InputGroup>
               <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
-              <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by Title and Author..."  value={search} onChange={filter => this.onChange(filter, Documents)}/>
+              <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by Title or Author..."  value={search} onChange={filter => this.onChange(filter, Documents)}/>
             </InputGroup>
           </Col>
           <Col md={4} xs={12}>

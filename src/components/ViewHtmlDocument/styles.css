@@ -29,3 +29,28 @@
     background-color: rgba(0, 0, 0, 0.9);
     min-height: calc(100vh - var(--navBarHeight));
 }
+
+.commentContainer {
+    display: block;
+    width: 100%;
+    border: 1px solid var(--grey_out);
+    border-radius: 4px;
+    padding: 8px;
+    margin: 16px 0;
+}
+
+.commentBar {
+    display: table;
+    width: 100%;
+    background-color: var(--grey);
+    padding: 16px;
+}
+
+.commentTextArea {
+    margin: 8px;
+    min-height: 84px;
+}
+
+.commentPostButton {
+    margin: 8px;
+}

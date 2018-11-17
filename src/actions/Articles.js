@@ -45,11 +45,27 @@ export const getArticle = id => {
 export const viewArticle = id => {
   return async (dispatch) => await Axios().get(`articles/${id}/view/`)
      .then(res => {
-         dispatch ({
-           type: C.GET_HTML_DOCUMENT,
-           payload: res.data
-       })
+        Axios().get(`comments/${id}/view/`).then(comments => {
+          res.data.comments = comments.data
+          dispatch ({
+            type: C.GET_HTML_DOCUMENT,
+            payload: res.data
+          })
+        })
+         
      }).catch((e) => console.log(e))
+}
+
+export const postArticleComment = (token, payload) => {
+  return async (dispatch, getState) => await Axios(token).post(`comments/`, qs.stringify(payload))
+     .then(res => {
+        let {Articles} = getState()
+        Articles.comments.push(res.data)
+        dispatch ({
+          type: C.GET_HTML_DOCUMENT,
+          payload: Articles
+        })
+      }).catch((e) => console.log(e))
 }
 
 export const updateArticle = (id, token, payload) => {

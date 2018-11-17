@@ -59,6 +59,7 @@ class NewsLetterGenerator extends PureComponent {
       {value: 'FanMade', label: 'FanMade'},
       {value: 'Guide', label: 'Guide'},
       {value: 'Lore', label: 'Lore'},
+      {value: 'VotShow', label: 'VotShow'},
       {value: 'Other', label: 'Other'},
     ]
   }
