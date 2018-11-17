@@ -63,7 +63,7 @@ export const updateNewsLetter = (id, token, payload) => {
             payload: res.data
         })
         dispatch({
-            type: C.GET_ARTICLES,
+            type: C.GET_NEWSLETTERS,
             payload: Newsletters
           })
         dispatch ({

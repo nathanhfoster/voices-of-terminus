@@ -133,7 +133,7 @@ class News extends Component {
       className += "CardContainerNewsletter"
     }
     return (
-      <Col className={className} md={3} xs={12}>
+      <Col className={className} md={3} sm={6} xs={12}>
         <Card
         {...card} User={User}
         canDelete={hasDeletePermission(User, card.author, card.tags)}
