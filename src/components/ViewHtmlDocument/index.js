@@ -39,8 +39,8 @@ class ViewHtmlDocument extends PureComponent {
     if(path.includes('articles')) viewArticle(params.id)
   }
 
-  postComment = HtmlDocument => {
-    const {User} = this.props
+  postComment = () => {
+    const {User, HtmlDocument} = this.props
     const {text, likes} = this.state
     const {id} = HtmlDocument
     const article = id
@@ -111,7 +111,7 @@ class ViewHtmlDocument extends PureComponent {
             <FormGroup className="Center commentBar" validationState={this.validateComment()}>
               <FormControl className="commentTextArea" componentClass="textarea" value={text} type="text" name="text" placeholder="Comment..." onChange={this.onChange}/>
             </FormGroup>
-            <Button className="commentPostButton" disabled={text.length===0} type="submit" onClick={this.postComment(HtmlDocument)}>Post</Button>
+            <Button className="commentPostButton" disabled={text.length===0} type="submit" onClick={this.postComment}>Post</Button>
 
           </Col>
           : null}
