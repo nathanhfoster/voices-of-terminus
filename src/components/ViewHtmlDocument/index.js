@@ -81,7 +81,7 @@ class ViewHtmlDocument extends PureComponent {
       <Col md={1} xs={2} className="pull-right">
         {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
-      <Col md={12}>{com.text}</Col>
+      <Col md={12}><i className="fas fa-comment"/> {com.text}</Col>
     </Row>
     )}
   )
@@ -119,7 +119,7 @@ class ViewHtmlDocument extends PureComponent {
           </Col>
           {HtmlDocument.comments?
           <Col md={12}>
-            <h1 className="Center">COMMENTS <i className="fas fa-comment"/></h1>
+            <h1 className="Center">COMMENTS</h1>
             <Well className="userBio">{this.renderComments(comments)}</Well>
           </Col> : null}
           {User.token ?

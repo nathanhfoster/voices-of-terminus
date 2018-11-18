@@ -8,12 +8,6 @@
   font-family: "Goblin Hand";
   color: var(--primaryColor);
 }
-.votDifferenceContainer a {
-  color: var(--primaryColor);
-}
-.votDifferenceContainer a:hover {
-  color: var(--tertiaryColor);
-}
 .votDifferenceContainer {
   list-style-type: none;
   margin: 110px auto;
@@ -54,8 +48,16 @@
 .votDifferenceContainer .votDifferenceText .SocialMediaLinks {
   display: flex;
   flex-wrap: nowrap;
-  padding: 0 30% 0 30%;
+  padding: 0 15% 0 15%;
+  margin-top: 8px;
   bottom: 0;
+}
+.votDifferenceContainer .votDifferenceText .SocialMediaLinks a {
+  font-size: 32px;
+  color: var(--tertiaryColor);
+}
+.votDifferenceContainer .votDifferenceText .SocialMediaLinks a:hover {
+  color: var(--primaryColor);
 }
 .votDifferenceContainer .votDifferenceText .SocialMediaLinks li, .About .votDifferenceContainer .votDifferenceText .SocialMediaLinks a {
   margin: 0 auto;
