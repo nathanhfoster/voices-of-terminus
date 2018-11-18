@@ -45,14 +45,45 @@ export const getArticle = id => {
 export const viewArticle = id => {
   return async (dispatch) => await Axios().get(`articles/${id}/view/`)
      .then(res => {
+        Axios().get(`article/likes/${id}/view/`).then(likes => {
+          res.data.likes = likes.data
         Axios().get(`article/comments/${id}/view/`).then(comments => {
           res.data.comments = comments.data
           dispatch ({
             type: C.GET_HTML_DOCUMENT,
             payload: res.data
           })
-        })
+        })})
      }).catch((e) => console.log(e))
+}
+
+export const postArticleLike = (token, payload) => {
+  return async (dispatch, getState) => await Axios(token).post(`article/likes/`, qs.stringify(payload))
+     .then(res => {
+        let {HtmlDocument} = getState()
+        HtmlDocument.likes.push(res.data)
+        dispatch ({
+          type: C.GET_HTML_DOCUMENT,
+          payload: HtmlDocument
+        })
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: res
+        })
+      }).catch((e) => console.log(e))
+}
+
+export const updateArticleLike = (id, token, payload) => {
+  return async (dispatch, getState) => await Axios(token).patch(`article/likes/${id}/`, qs.stringify(payload))
+     .then(res => {
+        let {HtmlDocument} = getState()
+        const updatedIndex = HtmlDocument.likes.findIndex(like => like.author === res.data.author)
+        HtmlDocument.likes[updatedIndex] = res.data
+        dispatch ({
+          type: C.GET_HTML_DOCUMENT,
+          payload: HtmlDocument
+        })
+      }).catch((e) => console.log(e))
 }
 
 export const postArticleComment = (token, payload) => {

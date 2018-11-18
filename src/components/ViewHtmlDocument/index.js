@@ -5,8 +5,8 @@ import { Grid, Row, Col, PageHeader, Well, FormGroup, FormControl, ControlLabel,
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
-import {viewNewsletter, postNewsletterComment, deleteNewsletterComment} from '../../actions/NewsLetter'
-import {viewArticle, postArticleComment, deleteArticleComment} from '../../actions/Articles'
+import {viewNewsletter, postNewsletterLike, updateNewsletterLike, postNewsletterComment, deleteNewsletterComment} from '../../actions/NewsLetter'
+import {viewArticle, postArticleLike, updateArticleLike, postArticleComment, deleteArticleComment} from '../../actions/Articles'
 import {withRouter, Link} from 'react-router-dom'
 import Moment from 'react-moment'
 
@@ -17,9 +17,14 @@ const mapStateToProps = ({User, HtmlDocument}) => ({
 
 const mapDispatchToProps = {
   viewNewsletter,
+  postNewsletterLike,
+  updateNewsletterLike,
   postNewsletterComment,
   deleteNewsletterComment,
+
   viewArticle,
+  postArticleLike,
+  updateArticleLike,
   postArticleComment,
   deleteArticleComment
 }
@@ -40,6 +45,22 @@ class ViewHtmlDocument extends PureComponent {
     const {params, path} = this.props.match
     if(path.includes('newsletters')) viewNewsletter(params.id)
     if(path.includes('articles')) viewArticle(params.id)
+  }
+
+  likeDocument = () => {
+    const {User, HtmlDocument, match} = this.props
+    const {id} = HtmlDocument
+    const document_id = id
+    const alreadyLiked = HtmlDocument.likes.findIndex(like => like.author === User.id)
+    const count = HtmlDocument.likes[alreadyLiked] ? HtmlDocument.likes[alreadyLiked].count + 1 : 1
+    const payload = {document_id, author: User.id, count}
+
+    if(match.path.includes('newsletters')) {
+      alreadyLiked !== -1 ? this.props.updateNewsletterLike(HtmlDocument.likes[alreadyLiked].id, User.token, payload) : this.props.postNewsletterLike(User.token, payload)
+    }
+    if(match.path.includes('articles')) {
+      alreadyLiked !== -1 ? this.props.updateArticleLike(HtmlDocument.likes[alreadyLiked].id, User.token, payload) : this.props.postArticleLike(User.token, payload)
+     }
   }
 
   postComment = () => {
@@ -103,8 +124,12 @@ class ViewHtmlDocument extends PureComponent {
     const {User} = this.props
     const {text} = this.state
     const {HtmlDocument} = this.props
-    const {comments} = HtmlDocument ? HtmlDocument : []
-    return ( HtmlDocument ?
+    const {likes, comments} = HtmlDocument ? HtmlDocument : []
+    const likeTotal = likes ? likes.reduce((accumulator, like) => accumulator + like.count, 0) : 0
+    const userLikeIndex = HtmlDocument.likes.findIndex(like => like.author === User.id)
+    const amountLiked = User.token && userLikeIndex !== -1 ? HtmlDocument.likes[userLikeIndex].count : 5
+    console.log("RENDER")
+    return (HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
           <Col md={12}>
@@ -114,8 +139,11 @@ class ViewHtmlDocument extends PureComponent {
           <Col md={12}>
             {ReactHtmlParser(HtmlDocument.html)}
           </Col>
-          <Col md={12} className="Center">
+          <Col md={6} className="Center">
             <h3><i class="far fa-eye"/> {HtmlDocument.views}</h3>
+          </Col>
+          <Col md={6} className="Center">
+            <h3><Button disabled={!(User.token && amountLiked < 5)} onClick={this.likeDocument}><i className="fa fa-thumbs-up"/> {likeTotal}</Button></h3>
           </Col>
           {HtmlDocument.comments?
           <Col md={12}>
