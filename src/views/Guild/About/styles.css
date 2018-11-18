@@ -8,6 +8,12 @@
   font-family: "Goblin Hand";
   color: var(--primaryColor);
 }
+.votDifferenceContainer a {
+  color: var(--primaryColor);
+}
+.votDifferenceContainer a:hover {
+  color: var(--tertiaryColor);
+}
 .votDifferenceContainer {
   list-style-type: none;
   margin: 110px auto;
