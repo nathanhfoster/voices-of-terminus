@@ -230,11 +230,13 @@ class News extends Component {
                 {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views, doc => doc) : null}
               </Row>
             </Tab>
+            {User.token ?
             <Tab eventKey="/news/my-docs" title="MY DOCS" className="fadeIn-2" unmountOnExit={true}>
               <Row>
                 {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified), doc => doc.author === this.state.User.id) : null}
               </Row>
             </Tab>
+            : null} 
           </Tabs>
         </Row>
       </Grid>
