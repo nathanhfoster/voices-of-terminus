@@ -126,7 +126,7 @@ class ViewHtmlDocument extends PureComponent {
     const {HtmlDocument} = this.props
     const {likes, comments} = HtmlDocument ? HtmlDocument : []
     const likeTotal = likes ? likes.reduce((accumulator, like) => accumulator + like.count, 0) : 0
-    const userLikeIndex = HtmlDocument.likes.findIndex(like => like.author === User.id)
+    const userLikeIndex = HtmlDocument.likes ? HtmlDocument.likes.findIndex(like => like.author === User.id) : -1
     const amountLiked = User.token && userLikeIndex !== -1 ? HtmlDocument.likes[userLikeIndex].count : 5
     console.log("RENDER")
     return (HtmlDocument ?
