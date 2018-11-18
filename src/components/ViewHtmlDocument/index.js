@@ -127,7 +127,7 @@ class ViewHtmlDocument extends PureComponent {
     const {likes, comments} = HtmlDocument ? HtmlDocument : []
     const likeTotal = likes ? likes.reduce((accumulator, like) => accumulator + like.count, 0) : 0
     const userLikeIndex = likes ? likes.findIndex(like => like.author === User.id) : -1
-    const amountLiked = User.token && userLikeIndex !== -1 ? likes[userLikeIndex].count : 5
+    const amountLiked = User.token && userLikeIndex !== -1 ? likes[userLikeIndex].count : 0
     console.log("RENDER")
     return (HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
