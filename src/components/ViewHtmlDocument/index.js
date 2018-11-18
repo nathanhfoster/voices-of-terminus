@@ -132,26 +132,26 @@ class ViewHtmlDocument extends PureComponent {
     return (HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
-          <Col md={12}>
+          <Col xs={12}>
             <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>
           </Col>
-          <Col md={12} className="Center"><h2>By: {HtmlDocument.author_username}</h2></Col>
-          <Col md={12}>
+          <Col xs={12} className="Center"><h2>By: {HtmlDocument.author_username}</h2></Col>
+          <Col xs={12}>
             {ReactHtmlParser(HtmlDocument.html)}
           </Col>
-          <Col md={6} className="Center">
+          <Col xs={6} className="Center">
             <h3><i class="far fa-eye"/> {HtmlDocument.views}</h3>
           </Col>
-          <Col md={6} className="Center">
+          <Col xs={6} className="Center">
             <h3><Button disabled={!(User.token && amountLiked < 5)} onClick={this.likeDocument}><i className="fa fa-thumbs-up"/> {likeTotal}</Button></h3>
           </Col>
           {HtmlDocument.comments?
-          <Col md={12}>
+          <Col xs={12}>
             <h1 className="Center">COMMENTS</h1>
             <Well className="userBio">{this.renderComments(comments)}</Well>
           </Col> : null}
           {User.token ?
-          <Col md={12}>
+          <Col xs={12}>
             <FormGroup className="Center commentBar" validationState={this.validateComment()}>
               <FormControl className="commentTextArea" componentClass="textarea" value={text} type="text" name="text" placeholder="Comment..." onChange={this.onChange}/>
             </FormGroup>
