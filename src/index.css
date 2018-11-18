@@ -252,10 +252,10 @@ a, a:focus, button:focus, a:active, a:visited {
 }
 .fadeIn-2 {
   -webkit-animation: fadein 450ms; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 450ms; /* Firefox < 16 */
-   -ms-animation: fadein 450ms; /* Internet Explorer */
-    -o-animation: fadein 450ms; /* Opera < 12.1 */
-       animation: fadein 450ms;
+  -moz-animation: fadein 550ms; /* Firefox < 16 */
+   -ms-animation: fadein 550ms; /* Internet Explorer */
+    -o-animation: fadein 550ms; /* Opera < 12.1 */
+       animation: fadein 550ms;
 }
 
 @keyframes fadein {
