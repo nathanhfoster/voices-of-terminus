@@ -98,8 +98,8 @@ class ViewHtmlDocument extends PureComponent {
     <Row className="commentContainer">
       <Col md={2} xs={5}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
       <Col md={7} xs={7}><i class="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
-      <Col md={2} xs={10}><i className="fas fa-thumbs-up"/> {com.likes}</Col>
-      <Col md={1} xs={2} className="pull-right">
+      <Col md={2} xs={6}><i className="fas fa-thumbs-up"/> {com.likes}</Col>
+      <Col md={1} xs={6} className="pull-right">
         {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
       <Col xsa={12}><i className="fas fa-comment"/> {com.text}</Col>
