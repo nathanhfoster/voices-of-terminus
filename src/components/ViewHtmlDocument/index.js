@@ -102,7 +102,7 @@ class ViewHtmlDocument extends PureComponent {
       <Col md={1} xs={2} className="pull-right">
         {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
-      <Col md={12}><i className="fas fa-comment"/> {com.text}</Col>
+      <Col xsa={12}><i className="fas fa-comment"/> {com.text}</Col>
     </Row>
     )}
   )
