@@ -46,3 +46,15 @@ export const updateUserProfile = (id, token, payload) => {
     payload: e.response
   }))
 }
+
+export const deleteUser = (token, id) => {
+  return async (dispatch, getState) => await Axios(token).delete(`users/${id}/`)
+     .then(res => {
+      let {Users} = getState().Admin
+      Users = Users.filter(user => user.id !== id)
+       dispatch({
+         type: C.GET_USERS,
+         payload: Users
+       })
+     }).catch((e) => console.log(e))
+}

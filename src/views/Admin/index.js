@@ -6,61 +6,11 @@ import Moment from 'react-moment'
 import ReactTable from "react-table"
 import matchSorter from 'match-sorter'
 import 'react-table/react-table.css'
-import { Grid, Row, Col, PageHeader,ButtonToolbar, Button, InputGroup, FormControl } from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader,ButtonToolbar, Button} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
-import {getUsers} from '../../actions/Admin'
+import {getUsers, deleteUser} from '../../actions/Admin'
 import {statusLevelInt, statusLevelString} from '../../helpers'
-
-const columns = [
-  {Header: 'INFO', columns: [
-    {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 125,
-    Footer: Users => (
-      <span style={{color: 'var(--primaryColor)'}}>
-        <strong>Total: {Users.data.length}</strong>
-      </span>
-    ),
-    Cell: props => (<Link to={'admin/user/profile/' + props.original.id}>{props.value}</Link>)},
-    {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  ]},
-  {Header: 'Permissions', columns: [
-    {Header: 'Admin?', accessor: 'is_superuser', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
-    Footer: Users => (
-      <span style={{color: 'var(--primaryColor)'}}>
-        <strong>Total: {Users.data.filter(user => user.is_superuser).length}</strong>
-      </span>
-    ),
-    Cell: props => String(props.value)},
-  {Header: 'Mod?', accessor: 'is_staff', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
-  Footer: Users => (
-    <span style={{color: 'var(--primaryColor)'}}>
-      <strong>Total: {Users.data.filter(user => user.is_staff).length}</strong>
-    </span>
-  ),
-    Cell: props => String(props.value)},
-  {Header: 'Status',  id: 'status', accessor: User => statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
-    is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit}), filterMethod: (filter, rows) => matchSorter(rows, filter.value[1], { keys: [filter.id] }), filterAll: true, maxWidth: 125,
-    Cell: props => statusLevelString(props.value)}
-  ]},
-  {Header: 'IN GAME', columns: [
-  {Header: 'Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
-  {Header: 'Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
-  {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
-  {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
-  ]},
-  {Header: 'ACTIVITY', columns: [
-  {Header: 'Last Login', accessor: 'last_login', maxWidth: 100,
-    Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  {Header: 'Joined', accessor: 'date_joined', maxWidth: 100,
-    Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>,filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-  {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100,
-  Footer: Users => (
-    <span style={{color: 'var(--primaryColor)'}}>
-      <strong>Max: {Math.max(...Users.data.map(user => user.experience_points))}</strong>
-    </span>
-  )},
-  ]}
-]
 
 const mapStateToProps = ({Admin, User, Window}) => ({
   Admin,
@@ -69,7 +19,8 @@ const mapStateToProps = ({Admin, User, Window}) => ({
 })
 
 const mapDispatchToProps = {
-  getUsers
+  getUsers,
+  deleteUser
 }
 
 class Admin extends Component {
@@ -109,6 +60,8 @@ class Admin extends Component {
 
   componentWillUnmount() {
   }
+
+  deleteThisUser = (token, id) => this.props.deleteUser(token, id)
 
   render() {
     const {Admin, User, Window} = this.state
@@ -150,7 +103,59 @@ class Admin extends Component {
           <ReactTable
             loading={!Users}
             data={Users}
-            columns={columns}
+            columns={[
+              {Header: <i class="fas fa-gavel"/>, columns: [
+                {Header: <i className="fa fa-trash-alt"/>, accessor: 'id', filterable: false, maxWidth: 42,
+                Cell: props => (<Button onClick={() => this.deleteThisUser(this.props.User.token, props.value)} bsSize="small"><i className="fa fa-trash-alt"/></Button>)},
+              ]},
+              {Header: 'INFO', columns: [
+                {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 125,
+                Footer: Users => (
+                  <span style={{color: 'var(--primaryColor)'}}>
+                    <strong>Total: {Users.data.length}</strong>
+                  </span>
+                ),
+                Cell: props => (<Link to={'admin/user/profile/' + props.original.id}>{props.value}</Link>)},
+                {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+              ]},
+              {Header: 'Permissions', columns: [
+                {Header: 'Admin?', accessor: 'is_superuser', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
+                Footer: Users => (
+                  <span style={{color: 'var(--primaryColor)'}}>
+                    <strong>Total: {Users.data.filter(user => user.is_superuser).length}</strong>
+                  </span>
+                ),
+                Cell: props => String(props.value)},
+              {Header: 'Mod?', accessor: 'is_staff', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
+              Footer: Users => (
+                <span style={{color: 'var(--primaryColor)'}}>
+                  <strong>Total: {Users.data.filter(user => user.is_staff).length}</strong>
+                </span>
+              ),
+                Cell: props => String(props.value)},
+              {Header: 'Status',  id: 'status', accessor: User => statusLevelInt({is_leader: User.is_leader, is_council: User.is_council, is_general_officer: User.is_general_officer, 
+                is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit}), filterMethod: (filter, rows) => matchSorter(rows, filter.value[1], { keys: [filter.id] }), filterAll: true, maxWidth: 125,
+                Cell: props => statusLevelString(props.value)}
+              ]},
+              {Header: 'IN GAME', columns: [
+              {Header: 'Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
+              {Header: 'Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
+              {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
+              {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
+              ]},
+              {Header: 'ACTIVITY', columns: [
+              {Header: 'Last Login', accessor: 'last_login', maxWidth: 100,
+                Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+              {Header: 'Joined', accessor: 'date_joined', maxWidth: 100,
+                Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>,filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
+              {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100,
+              Footer: Users => (
+                <span style={{color: 'var(--primaryColor)'}}>
+                  <strong>Max: {Math.max(...Users.data.map(user => user.experience_points))}</strong>
+                </span>
+              )},
+              ]}
+            ]}
             filterable
             // defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value)}
             showFilters
