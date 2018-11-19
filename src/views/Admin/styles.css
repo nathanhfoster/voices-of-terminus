@@ -45,7 +45,7 @@
   background: var(--grey);
 }
 
-.ReactTable .rt-tr-group .rt-td:first-child:hover {
+.ReactTable .rt-tr-group .rt-td:nth-child(2):hover {
   background: var(--grey);
 }
 
