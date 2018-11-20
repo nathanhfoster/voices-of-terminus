@@ -31,7 +31,7 @@ class Card extends PureComponent {
   render() {
     const {User, canDelete, canUpdate, click, editCard, deleteCard, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, views, likeCount, commentCount} = this.props
     return (
-      <Grid className="Clickable Card Hover" onClick={click}>
+      <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
           <div className="previewItem">
             {ReactHtmlParser(html)}
@@ -59,7 +59,7 @@ class Card extends PureComponent {
             </Row>
         </div>
         : null}
-      </Grid>
+      </div>
     )
   }
 }
