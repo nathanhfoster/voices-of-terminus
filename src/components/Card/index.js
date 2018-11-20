@@ -29,9 +29,9 @@ class Card extends PureComponent {
   }
 
   render() {
-    const {User, canDelete, canUpdate, click, editCard, deleteCard, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, views} = this.props
+    const {User, canDelete, canUpdate, click, editCard, deleteCard, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, views, likeCount, commentCount} = this.props
     return (
-      <div className="Clickable Card Hover" onClick={click}>
+      <Grid className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
           <div className="previewItem">
             {ReactHtmlParser(html)}
@@ -41,7 +41,6 @@ class Card extends PureComponent {
           <div className="Summary inlineNoWrap">
             <div className="summaryTitle">
               <h4 className="inlineNoWrap">{title}</h4>
-              <i className="far fa-eye pull-right"> {views}</i>
             </div>
             
             <div className="cardActions">
@@ -53,9 +52,14 @@ class Card extends PureComponent {
               <div><i className="fas fa-pencil-alt"/> <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()}>  {last_modified_by_username}</Link> <i class="far fa-clock"/><Moment fromNow>{last_modified}</Moment></div>
               <div><i className="fas fa-tags"/>[{tags}]</div>
             </div>
+            <Row>
+              <Col xs={4}><i className="far fa-eye"/> {views}</Col>
+              <Col xs={4}><i class="fas fa-thumbs-up"/> {likeCount ? likeCount : 0}</Col>
+              <Col xs={4}><i class="fas fa-comment"/> {commentCount ? commentCount : 0}</Col>
+            </Row>
         </div>
         : null}
-      </div>
+      </Grid>
     )
   }
 }

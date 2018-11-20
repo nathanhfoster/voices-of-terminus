@@ -24,10 +24,31 @@ export const postDocument = (token, payload) => {
 
 export const getArticles = () => {
   return async (dispatch) => await Axios().get("articles/")
-     .then(res => {
-       dispatch({
-         type: C.GET_ARTICLES,
-         payload: res.data
+     .then(articles => {
+       Axios().get('article/likes/').then(likes => {
+         let likeMap = new Map()
+         for(let i = 0; i < likes.data.length; i++) {
+           const like = likes.data[i]
+           const {document_id, count} = like
+           likeMap.has(document_id) ? likeMap.set(document_id, likeMap.get(document_id) + count) : likeMap.set(document_id, count)
+         }
+         Axios().get('article/comments/').then(comments => {
+          let commentMap = new Map()
+          for(let i = 0; i < comments.data.length; i++) {
+            const comment = comments.data[i]
+            const {document_id} = comment
+            commentMap.has(document_id) ? commentMap.set(document_id, commentMap.get(document_id) + 1) : commentMap.set(document_id, 1)
+          }
+          for(let i = 0; i < articles.data.length; i++) {
+            articles.data[i].likeCount = likeMap.get(articles.data[i].id)
+            articles.data[i].commentCount = commentMap.get(articles.data[i].id)
+          }
+          dispatch({
+            type: C.GET_ARTICLES,
+            payload: articles.data
+          })
+         })
+         
        })
      }).catch((e) => console.log(e))
 }

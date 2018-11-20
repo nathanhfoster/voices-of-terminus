@@ -23,13 +23,34 @@ export const postNewsletter = (token, payload) => {
 }
 
 export const getNewsletters = () => {
-    return async (dispatch) => await Axios().get("newsletters/")
-       .then(res => {
-           dispatch ({
-             type: C.GET_NEWSLETTERS,
-             payload: res.data
-            })
-       }).catch((e) => console.log(e))
+  return async (dispatch) => await Axios().get("newsletters/")
+     .then(newsletters => {
+       Axios().get('newsletter/likes/').then(likes => {
+         let likeMap = new Map()
+         for(let i = 0; i < likes.data.length; i++) {
+           const like = likes.data[i]
+           const {document_id, count} = like
+           likeMap.has(document_id) ? likeMap.set(document_id, likeMap.get(document_id) + count) : likeMap.set(document_id, count)
+         }
+         Axios().get('newsletter/comments/').then(comments => {
+          let commentMap = new Map()
+          for(let i = 0; i < comments.data.length; i++) {
+            const comment = comments.data[i]
+            const {document_id} = comment
+            commentMap.has(document_id) ? commentMap.set(document_id, commentMap.get(document_id) + 1) : commentMap.set(document_id, 1)
+          }
+          for(let i = 0; i < newsletters.data.length; i++) {
+            newsletters.data[i].likeCount = likeMap.get(newsletters.data[i].id)
+            newsletters.data[i].commentCount = commentMap.get(newsletters.data[i].id)
+          }
+          dispatch({
+            type: C.GET_ARTICLES,
+            payload: newsletters.data
+          })
+         })
+         
+       })
+     }).catch((e) => console.log(e))
 }
 
 export const getNewsletter = id => {
