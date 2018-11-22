@@ -49,6 +49,7 @@ registerServiceWorker()
     } catch(e) {
       if (isQuotaExceeded(e)) {
         // Storage full, maybe notify user or do some clean-up
+        localStorage.setItem('redux-store', {});
       }
     }
     
