@@ -227,7 +227,7 @@ class News extends PureComponent {
             </Tab>
             <Tab eventKey="/news/popular" title="POPULAR" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => a.views - b.views, doc => doc) : null}
+                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => (b.views + b.likeCount + b.commentCount) - (a.views + a.likeCount + a.commentCount), doc => doc) : null}
               </Row>
             </Tab>
             {User.token ?
