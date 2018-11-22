@@ -116,7 +116,7 @@ class NavBar extends PureComponent {
               </NavDropdown>
              
               {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}><i class="fas fa-sign-in-alt"/> LOGIN</NavItem></LinkContainer>
-              :<NavDropdown eventKey={5} title={[<Image src={classIcon(primary_class)} style={{height: '25px'}}/>, ' ' + User.username]} id="basic-nav-dropdown">
+              :<NavDropdown eventKey={5} title={[primary_class ? <Image src={classIcon(primary_class)} style={{height: '25px'}}/> : <i className="fas fa-user"/>, ' ' + User.username]} id="basic-nav-dropdown">
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
               </NavDropdown>}
