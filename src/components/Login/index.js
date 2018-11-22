@@ -100,12 +100,13 @@ class Login extends PureComponent {
 
   createUserAccount = (e) => {
     e.preventDefault()
-    const {username, password, email, bio, primary_role, primary_class, profile_image} = this.state
+    const {username, password, email, bio, primary_role, primary_class, profile_image, opt_in} = this.state
     let payload = new FormData()
     payload.append('profile_image', profile_image)
     payload.append('username', username)
     payload.append('password', password)
     payload.append('email', email)
+    payload.append('opt_in', opt_in)
 
     this.props.createUser(payload)
   }
@@ -163,7 +164,7 @@ class Login extends PureComponent {
   render() {
     const canSubmit = !this.cantSubmit()
     const {User} = this.props
-    const {username, password, reEnterPassword, email, profile_image} = this.state
+    const {username, password, reEnterPassword, email, profile_image, opt_in} = this.state
     return (User.token ? <Redirect to={this.props.history.goBack()}/> :
     <Grid className="Login Container fadeIn-2">
       <Row>
@@ -245,6 +246,12 @@ class Login extends PureComponent {
                         <ControlLabel>Email</ControlLabel>
                         <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
                       </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <Checkbox checked={opt_in} onClick={() => this.setState({opt_in: !opt_in})}>
+                        <span className="checkBoxText">Opt In</span>
+                        <span className="help">Check if you would like to recieve emails.</span>
+                      </Checkbox>
                     </Col>
                   </Row>
                   <Row className="Center">

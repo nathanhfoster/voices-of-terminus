@@ -221,6 +221,7 @@ class UserProfile extends PureComponent {
             <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
             <h3 title="Last Login"><i class="fas fa-sign-in-alt"/> <Moment fromNow>{Admin.User.last_login}</Moment></h3>
             <h3 title="Guild Points"><i class="fas fa-coins"/> {Admin.User.guild_points}</h3>
+            <h3 title="Opt In"><i class="far fa-envelope-open"></i> {Admin.User.opt_in ? <i class="fas fa-check"/> : <i class="fas fa-times"/>}</h3>
           </Col>
         </Row>
         <Row className="centerOnMobile borderedRow" >

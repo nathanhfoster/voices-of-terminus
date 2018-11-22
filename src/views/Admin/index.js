@@ -109,6 +109,8 @@ class Admin extends Component {
                 Cell: props => (<Button disabled={!(User.is_superuser && User.is_leader)} onClick={() => this.deleteThisUser(this.props.User.token, props.value)} bsSize="small"><i className="fa fa-trash-alt"/></Button>)},
               ]},
               {Header: 'INFO', columns: [
+                {Header: <i class="far fa-envelope-open"/>, accessor: 'opt_in', filterable: false, maxWidth: 42,
+                Cell: props => (props.value ? <i class="fas fa-check"/> : <i class="fas fa-times"/>)},
                 {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 125,
                 Footer: Users => (
                   <span style={{color: 'var(--primaryColor)'}}>

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
-import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button, ButtonToolbar, Image} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Form, FormGroup, FormControl, ControlLabel, Button, ButtonToolbar, Image, Checkbox} from 'react-bootstrap'
 import { connect as reduxConnect } from 'react-redux'
 import {Redirect} from 'react-router-dom'
 import Moment from 'react-moment'
@@ -88,9 +88,9 @@ class Profile extends PureComponent {
   }
 
   getState = props => {
-    const {token, id, profile_image, username, email, first_name, last_name, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state.token ? this.state : props.User
+    const {token, id, profile_image, username, email, first_name, last_name, opt_in, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state.token ? this.state : props.User
     const {password} = this.state
-    this.setState({token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points})
+    this.setState({token, id, username, password, email, first_name, last_name, opt_in, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, date_joined, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points})
   }
 
   onChange = e => this.setState({[e.target.name]: e.target.value})
@@ -189,7 +189,7 @@ class Profile extends PureComponent {
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
 
   updateProfile = () => {
-    const {token, id, username, password, email, first_name, last_name, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
+    const {token, id, username, password, email, first_name, last_name, opt_in, profile_image, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url} = this.state
     
     let payload = new FormData()
     // payload.append('profile_image', profile_image, profile_image.fileName)
@@ -199,6 +199,7 @@ class Profile extends PureComponent {
     payload.append('email', email)
     payload.append('first_name', first_name)
     payload.append('last_name', last_name)
+    payload.append("opt_in", opt_in)
     payload.append('bio', bio)
     payload.append('primary_race', primary_race)
     payload.append('primary_role', primary_role)
@@ -218,7 +219,7 @@ class Profile extends PureComponent {
 
   render() {
     const canSubmit = !this.cantSubmit()
-    const {token, id, username, password, email, first_name, last_name, profile_image, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state
+    const {token, id, username, password, email, first_name, last_name, profile_image, opt_in, is_superuser, is_staff, date_joined, last_login, bio, primary_race, primary_role, primary_class, secondary_race, secondary_role, secondary_class, profession, profession_specialization, discord_url, twitter_url, twitch_url, youtube_url, experience_points, guild_points} = this.state
     return (
       !token ? <Redirect to={this.props.history.push('/login')}/>
       :<Grid className="Profile Container fadeIn-2">
@@ -276,6 +277,12 @@ class Profile extends PureComponent {
               <FormControl value={last_name} type="text" name="last_name" placeholder="Last Name" onChange={this.onChange}/>
             </FormGroup>
           </Col>
+          <Col md={12}>
+          <Checkbox checked={opt_in} onClick={() => this.setState({opt_in: !opt_in})}>
+            <span className="checkBoxText">Opt In</span>
+            <span className="help">Check if you would like to recieve emails.</span>
+          </Checkbox>
+        </Col>
           <Col md={12}>
             <FormGroup>
               <ControlLabel>Biography</ControlLabel>
