@@ -110,11 +110,16 @@ class Admin extends Component {
               ]},
               {Header: 'INFO', columns: [
                 {Header: <i class="far fa-envelope-open"/>, accessor: 'opt_in', filterable: false, maxWidth: 42,
-                Cell: props => (props.value ? <i class="fas fa-check"/> : <i class="fas fa-times"/>)},
+                Cell: props => (props.value ? <i class="fas fa-check"/> : <i class="fas fa-times"/>),
+                Footer: Users => (
+                  <span>
+                    <i class="fas fa-check"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.opt_in, 0)}</strong>
+                  </span>
+                )},
                 {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 125,
                 Footer: Users => (
-                  <span style={{color: 'var(--primaryColor)'}}>
-                    <strong>Total: {Users.data.length}</strong>
+                  <span>
+                    <i class="fas fa-users"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.length}</strong>
                   </span>
                 ),
                 Cell: props => (<Link to={'admin/user/profile/' + props.original.id}>{props.value}</Link>)},
@@ -123,15 +128,15 @@ class Admin extends Component {
               {Header: 'Permissions', columns: [
                 {Header: 'Admin?', accessor: 'is_superuser', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
                 Footer: Users => (
-                  <span style={{color: 'var(--primaryColor)'}}>
-                    <strong>Total: {Users.data.filter(user => user.is_superuser).length}</strong>
+                  <span>
+                    <i class="fas fa-unlock-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.is_superuser, 0)}</strong>
                   </span>
                 ),
                 Cell: props => String(props.value)},
               {Header: 'Mod?', accessor: 'is_staff', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
               Footer: Users => (
-                <span style={{color: 'var(--primaryColor)'}}>
-                  <strong>Total: {Users.data.filter(user => user.is_staff).length}</strong>
+                <span>
+                  <i class="fas fa-unlock"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.is_staff, 0)}</strong>
                 </span>
               ),
                 Cell: props => String(props.value)},
@@ -152,8 +157,8 @@ class Admin extends Component {
                 Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>,filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
               {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100,
               Footer: Users => (
-                <span style={{color: 'var(--primaryColor)'}}>
-                  <strong>Max: {Math.max(...Users.data.map(user => user.experience_points))}</strong>
+                <span>
+                <i class="fas fa-level-up-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Math.max(...Users.data.map(user => user.experience_points))}</strong>
                 </span>
               )},
               ]}
