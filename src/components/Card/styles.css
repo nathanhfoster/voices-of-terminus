@@ -2,6 +2,7 @@
   margin-top: 8px;
   height: var(--cardHeight);
 }
+
 .Card {
   height: 100%;
   width: 100%;
@@ -98,4 +99,10 @@
 
 .linkHover {
   color: var(--primaryColor);
+}
+
+.cardStats {
+  display: flex;
+  margin: 4px 0;
+  justify-content: space-between;
 }

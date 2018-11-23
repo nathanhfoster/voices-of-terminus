@@ -53,11 +53,11 @@ class Card extends PureComponent {
               <div><i className="fas fa-pencil-alt"/> <Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()}>  {last_modified_by_username}</Link> <i class="far fa-clock"/><Moment fromNow>{last_modified}</Moment></div>
               <div><i className="fas fa-tags"/>[{tags}]</div>
             </div>
-            <Row>
-              <Col xs={4}><i className="far fa-eye"/> {views}</Col>
-              <Col xs={4}><i class="fas fa-thumbs-up"/> {likeCount ? likeCount : 0}</Col>
-              <Col xs={4}><i class="fas fa-comment"/> {commentCount ? commentCount : 0}</Col>
-            </Row>
+            <div className="cardStats">
+              <div><i className="far fa-eye"/> {views}</div>
+              <div><i class="fas fa-thumbs-up"/> {likeCount ? likeCount : 0}</div>
+              <div><i class="fas fa-comment"/> {commentCount ? commentCount : 0}</div>
+            </div>
         </div>
         : null}
       </div>
