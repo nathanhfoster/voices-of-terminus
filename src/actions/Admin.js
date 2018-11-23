@@ -1,5 +1,5 @@
 import C from '../constants'
-import {Axios} from './Axios'
+import {Axios, AxiosForm} from './Axios'
 import qs from 'qs'
 
 export const getUsersWithProfileImages = () => {
@@ -46,6 +46,22 @@ export const updateUserProfile = (id, token, payload) => {
     payload: e.response
   }))
 }
+
+export const createUser = payload => {
+  return async (dispatch, getState) => await AxiosForm(null, payload).post('users/', payload)
+  .then(res => {
+      AxiosForm(null, payload).post('login/', payload)
+      .then(res => {
+        let {Users} = getState().Admin
+        Users.push(res.data)
+          dispatch({
+              type: C.GET_USERS,
+              payload: Users
+           })
+      }).catch((e) => console.log(e))
+  }).catch((e) => console.log(e))
+}
+
 
 export const deleteUser = (token, id) => {
   return async (dispatch, getState) => await Axios(token).delete(`users/${id}/`)

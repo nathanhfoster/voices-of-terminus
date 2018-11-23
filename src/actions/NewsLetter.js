@@ -2,26 +2,6 @@ import C from '../constants'
 import {Axios} from './Axios'
 import qs from 'qs'
 
-export const postNewsletter = (token, payload) => {
-    return async (dispatch, getState) => { await  Axios(token).post('newsletters/', qs.stringify(payload))
-      .then(res => {
-          let {Newsletters} = getState()
-          Newsletters.push(res.data)
-          dispatch({
-            type: C.GET_NEWSLETTERS,
-            payload: Newsletters
-          })
-          dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-        })
-      }).catch((e) => dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
-      }))
-    }
-}
-
 export const getNewsletters = () => {
   return async (dispatch) => await Axios().get("newsletters/")
      .then(newsletters => {
@@ -76,6 +56,26 @@ export const viewNewsletter = id => {
             })
           })})
        }).catch((e) => console.log(e))
+}
+
+export const postNewsletter = (token, payload) => {
+  return async (dispatch, getState) => { await  Axios(token).post('newsletters/', qs.stringify(payload))
+    .then(res => {
+        let {Newsletters} = getState()
+        Newsletters.push(res.data)
+        dispatch({
+          type: C.GET_NEWSLETTERS,
+          payload: Newsletters
+        })
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: res
+      })
+    }).catch((e) => dispatch({
+      type: C.SET_API_RESPONSE,
+      payload: e.response
+    }))
+  }
 }
 
 export const postNewsletterLike = (token, payload) => {

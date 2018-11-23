@@ -11,7 +11,7 @@ import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
 import {setEditorState} from '../../actions/TextEditor'
 import {clearHtmlDocument} from '../../actions/App'
-import {postDocument, updateArticle} from '../../actions/Articles'
+import {postArticle, updateArticle} from '../../actions/Articles'
 import {withRouter, Redirect} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
@@ -24,7 +24,7 @@ const mapStateToProps = ({editorState, HtmlDocument, User}) => ({
 })
 
 const mapDispatchToProps = {
-  postDocument,
+  postArticle,
   setEditorState,
   updateArticle,
   clearHtmlDocument
@@ -134,7 +134,7 @@ class TextEditor extends Component {
     let {tags} = this.state
     tags = tags.length < 1 ? selectValue[0].value : tags
     const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
-    this.props.postDocument(User.token, {title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
+    this.props.postArticle(User.token, {title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
    }
 
    updateArticle = (id) => {

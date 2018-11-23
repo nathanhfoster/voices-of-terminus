@@ -64,6 +64,7 @@ class Login extends PureComponent {
     password: '',
     reEnterPassword: '',
     email: '',
+    opt_in: false,
     bio: '',
     primary_role: '',
     primary_class: '', 

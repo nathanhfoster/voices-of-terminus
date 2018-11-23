@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react'
+import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import { Grid, Row, Col, PageHeader, Tabs, Tab, ButtonToolbar, Button, FormGroup, InputGroup, FormControl} from 'react-bootstrap'
@@ -17,7 +17,7 @@ import matchSorter from 'match-sorter'
 const mapStateToProps = ({User, Articles, Newsletters}) => ({
   User,
   Articles,
-  Newsletters
+  Newsletters,
 })
 
 const mapDispatchToProps = {
@@ -30,7 +30,7 @@ const mapDispatchToProps = {
   clearHtmlDocument
 }
 
-class News extends PureComponent {
+class News extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -59,31 +59,31 @@ class News extends PureComponent {
     Documents: []
   }
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const {Articles, Newsletters} = this.state
-  //   const {User, Documents, selectValue, search, history} = nextState
-  //   const {pathname} = history.location
+  shouldComponentUpdate(nextProps, nextState) {
+    const {Articles, Newsletters} = this.state
+    const {User, Documents, selectValue, search, history} = nextState
+    const {pathname} = history.location
 
-  //   const currentPathName = this.state.eventKey
-  //   const currentUser = this.state.User
-  //   const currentDocuments = Articles.concat(Newsletters)
-  //   const currentSelectValue = this.state.selectValue
-  //   const currentSearch = this.state.search
+    const currentPathName = this.state.eventKey
+    const currentUser = this.state.User
+    const currentDocuments = Articles.concat(Newsletters)
+    const currentSelectValue = this.state.selectValue
+    const currentSearch = this.state.search
     
-  //   const pathChanged = pathname != currentPathName
-  //   const initialLoad = Documents.length === 0
-  //   const userChanged = !isEquivalent(currentUser, User)
-  //   const cardAdded = Documents.length > currentDocuments.length
-  //   const cardDeleted = Documents.length < currentDocuments.length
-  //   const cardUpdated = !isSubset(Documents.map(k => k.last_modified), currentDocuments.map(k => k.last_modified)) || !isSubset(Documents.map(k => k.views), currentDocuments.map(k => k.views)) || !isSubset(Documents.map(k => k.likeCount), currentDocuments.map(k => k.likeCount)) || !isSubset(Documents.map(k => k.commentCount), currentDocuments.map(k => k.commentCount))
-  //   const isFiltering = selectValue != currentSelectValue
-  //   const isSearching = search != currentSearch
-  //   // search === undefined
-  //   // console.log("nextProps: ", nextProps)
-  //   // console.log("nextState: ", nextState)
-  //   // console.log("this.state: ", this.state)
-  //   return pathChanged || initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching || userChanged
-  // }
+    const pathChanged = pathname != currentPathName
+    const initialLoad = Documents.length === 0
+    const userChanged = !isEquivalent(currentUser, User)
+    const cardAdded = Documents.length > currentDocuments.length
+    const cardDeleted = Documents.length < currentDocuments.length
+    const cardUpdated = !isSubset(Documents.map(k => k.last_modified), currentDocuments.map(k => k.last_modified)) || !isSubset(Documents.map(k => k.views), currentDocuments.map(k => k.views)) || !isSubset(Documents.map(k => k.likeCount), currentDocuments.map(k => k.likeCount)) || !isSubset(Documents.map(k => k.commentCount), currentDocuments.map(k => k.commentCount))
+    const isFiltering = selectValue != currentSelectValue
+    const isSearching = search != currentSearch
+    // search === undefined
+    // console.log("nextProps: ", nextProps)
+    // console.log("nextState: ", nextState)
+    // console.log("this.state: ", this.state)
+    return pathChanged || initialLoad || cardAdded || cardDeleted || cardUpdated || isFiltering || isSearching || userChanged
+  }
   
   componentWillMount() {
     this.getState(this.props)
@@ -103,11 +103,11 @@ class News extends PureComponent {
   }
 
   getState = props => {
-    const {User, Articles, Newsletters, history} = props
+    const {User, Articles, Newsletters, history, ApiResponse} = props
     const {pathname} = history.location
     const Documents = Articles.concat(Newsletters)
     const selectOptions = Documents.length > 1 ? Documents.map(i => i.tags)[0].split('|').map(i => i = {value: i, label: i}) : this.props.selectOptions
-    this.setState({User, Articles, Newsletters, Documents, selectOptions, eventKey: pathname, history})
+    this.setState({User, Articles, Newsletters, Documents, selectOptions, eventKey: pathname, history, ApiResponse})
   }
 
   //Filter the Documents if the documents tags array contains the filter array
@@ -165,7 +165,7 @@ class News extends PureComponent {
   }
 
   render() {
-    //console.log('NEWS: ')
+    //console.log('NEWS')
     const {eventKey, history} = this.state
     const selectValue = this.state.selectValue.length > 0 ? this.state.selectValue : this.props.selectOptions
     const {User, search} = this.state

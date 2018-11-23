@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import {withRouter, Redirect, Link} from 'react-router-dom'
@@ -6,11 +6,12 @@ import Moment from 'react-moment'
 import ReactTable from "react-table"
 import matchSorter from 'match-sorter'
 import 'react-table/react-table.css'
-import { Grid, Row, Col, PageHeader,ButtonToolbar, Button} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader,ButtonToolbar, Button, Image, Modal, Form, FormGroup, FormControl, ControlLabel, Checkbox} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
-import {getUsers, deleteUser} from '../../actions/Admin'
+import {getUsers, createUser, deleteUser} from '../../actions/Admin'
 import {statusLevelInt, statusLevelString} from '../../helpers'
+import {defaultProfileImages} from '../../helpers/defaultProfileImages'
 
 const mapStateToProps = ({Admin, User, Window}) => ({
   Admin,
@@ -19,16 +20,26 @@ const mapStateToProps = ({Admin, User, Window}) => ({
 })
 
 const mapDispatchToProps = {
+  createUser,
   getUsers,
   deleteUser
 }
 
-class Admin extends Component {
+class Admin extends PureComponent {
   constructor(props) {
     super(props)
- 
+    this.onChange = this.onChange.bind(this)
+    this.handleShow = this.handleShow.bind(this)
+    this.handleHide = this.handleHide.bind(this)
     this.state = {
-      selected: null
+      username: '',
+      password: '',
+      reEnterPassword: '',
+      email: '',
+      opt_in: false,
+      selected: null,
+      show: false,
+      profile_image: defaultProfileImages[0]
     }
   }
 
@@ -55,16 +66,93 @@ class Admin extends Component {
     this.setState({Admin, User, Window})
   }
 
-  componentDidUpdate() {
+  onChange = (e) => this.setState({[e.target.name]: e.target.value})
+
+  setImage = e => {
+    const {alert} = this.props
+    var file = e.target.files[0]
+    if(file.size > 3145728) {
+      alert.error(<div>Please use an image less then 3MB</div>)
+    }else {
+      var reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onloadend = () => this.setState({profile_image: reader.result})
+    }
   }
 
-  componentWillUnmount() {
+  handleShow = () => this.setState({show: true})
+
+  handleHide = () => this.setState({show: false})
+
+  createUserAccount = (e) => {
+    e.preventDefault()
+    const {username, password, email, bio, primary_role, primary_class, profile_image, opt_in} = this.state
+    let payload = new FormData()
+    payload.append('profile_image', profile_image)
+    payload.append('username', username)
+    payload.append('password', password)
+    payload.append('email', email)
+    payload.append('opt_in', opt_in)
+
+    this.props.createUser(payload)
   }
+
+  validateUsername() {
+    const {username} = this.state
+    if(username) {
+      const {length} = username
+      if (length > 4) return 'success'
+      else if (length > 2) return 'warning'
+      else if (length > 0) return 'error'
+    }
+    return null
+  }
+
+  validatePassword() {
+    const {password} = this.state
+    const {length} = password
+    if (this.hasSpecialChar(password)) return 'success'
+    else if (length > 7) return 'warning'
+    else if (length > 0) return 'error'
+    return null
+  }
+
+  validateReEnterPassword() {
+    const {password, reEnterPassword} = this.state
+    const {length} = reEnterPassword
+    if(password === reEnterPassword && length > 0) return 'success'
+    else if (length > 0) return 'error'
+    return null
+  }
+
+  validateEmail() {
+    const validator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+    const {email} = this.state
+    if(validator.test(email)) return 'success'
+    return null
+  }
+
+  cantSubmit = () => {
+    if(
+      (this.validateUsername() === 'success' || this.validateUsername() === 'warning')  &&
+      (this.validatePassword() === 'success' || this.validatePassword() === 'warning') &&
+      (this.validateReEnterPassword() === 'success') && 
+      (this.validateEmail() === 'success' || this.validateEmail() === 'warning')
+    ) return true
+    
+    return false
+  }
+
+  hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s)
+
+  renderDefaultImages = images => images.map((v, i) => <Col xs={4}><Image src={v} className="ProfileImages" onClick={() => this.setState({profile_image: defaultProfileImages[i]})}/></Col>)
+
 
   deleteThisUser = (token, id) => this.props.deleteUser(token, id)
 
   render() {
-    const {Admin, User, Window} = this.state
+    const canSubmit = !this.cantSubmit()
+    const {Admin, User, Window, username, password, reEnterPassword, email, profile_image, opt_in} = this.state
     const {Users} = Admin
 
     return (
@@ -76,7 +164,7 @@ class Admin extends Component {
             <Button onClick={() => this.props.history.goBack()}>
               <i class="fas fa-arrow-left"/>
             </Button>
-            <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
+            <Button onClick={this.handleShow}>
             <i class="fas fa-plus"/> User
             </Button>
             <Button disabled={!(User.is_superuser || User.can_create_article)} onClick={() => this.props.history.push('/articles/new/article')}>
@@ -89,15 +177,6 @@ class Admin extends Component {
             <i class="fas fa-plus"/> Event
             </Button>
           </Col>
-            {/* <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
-              <InputGroup.Addon>
-                <FormControl name="filter" componentClass="select" onChange={this.onChange}>
-                  <option value="article">article</option>
-                  <option value="newsletter">newsletter</option>
-                </FormControl>
-              </InputGroup.Addon>
-            <FormControl type="text" name="search" placeholder="Search..." onChange={this.onChange} />
-          </Col> */}
         </Row>
         <Row>
           <ReactTable
@@ -155,7 +234,7 @@ class Admin extends Component {
                 Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
               {Header: 'Joined', accessor: 'date_joined', maxWidth: 100,
                 Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>,filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
-              {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 100,
+              {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 60,
               Footer: Users => (
                 <span>
                 <i class="fas fa-level-up-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Math.max(...Users.data.map(user => user.experience_points))}</strong>
@@ -177,6 +256,74 @@ class Admin extends Component {
             nextText={<i class="fas fa-arrow-right"/>}
             />
         </Row>
+        <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={this.state.show}
+              onHide={this.handleHide}
+              dialogClassName="loginModal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                Account Creation
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form className="Container fadeIn-2">
+                  <Row>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateUsername()}>
+                        <ControlLabel>Username</ControlLabel>
+                        <FormControl value={username} type="text" name="username" placeholder="Username" onChange={this.onChange}/>
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validatePassword()}>
+                        <ControlLabel>Password</ControlLabel>
+                        <FormControl value={password} type="password" name="password" placeholder="Password" onChange={this.onChange}/>
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateReEnterPassword()}>
+                        <ControlLabel>Re-Enter Password</ControlLabel>
+                        <FormControl value={reEnterPassword} type="password" name="reEnterPassword" placeholder="Re-Enter Password" onChange={this.onChange}/>
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateEmail()}>
+                        <ControlLabel>Email</ControlLabel>
+                        <FormControl value={email} type="email" name="email" placeholder="Email" onChange={this.onChange}/>
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <Checkbox checked={opt_in} onClick={() => this.setState({opt_in: !opt_in})}>
+                        <span className="checkBoxText">Opt In</span>
+                        <span className="help">Check if you would like to recieve emails.</span>
+                      </Checkbox>
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      <Image src={profile_image} className="ProfileImages" responsive rounded/>
+                      <ControlLabel>Profile Picture</ControlLabel>
+                      <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      {this.renderDefaultImages(defaultProfileImages)}
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.createUserAccount} disabled={canSubmit}>Create</Button>
+              </Modal.Footer>
+            </Modal>
+          </Row>
       </Grid> : <Redirect to={this.props.history.goBack()}/>
     )
   }

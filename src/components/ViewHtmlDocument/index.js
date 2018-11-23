@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, Well, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
@@ -94,7 +94,7 @@ class ViewHtmlDocument extends PureComponent {
 
   renderComments = comments => comments.map(com => {
     const {User} = this.props
-    return(
+    return (
     <Row className="commentContainer">
       <Col md={2} xs={5}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
       <Col md={7} xs={7}><i class="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
@@ -102,7 +102,7 @@ class ViewHtmlDocument extends PureComponent {
       <Col md={1} xs={6} className="pull-right">
         {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
-      <Col xsa={12}><i className="fas fa-comment"/> {com.text}</Col>
+      <Col xs={12}><p><i className="fas fa-comment"/> {com.text}</p></Col>
     </Row>
     )}
   )
@@ -128,7 +128,7 @@ class ViewHtmlDocument extends PureComponent {
     const likeTotal = likes ? likes.reduce((accumulator, like) => accumulator + like.count, 0) : 0
     const userLikeIndex = likes ? likes.findIndex(like => like.author === User.id) : -1
     const amountLiked = User.token && userLikeIndex !== -1 ? likes[userLikeIndex].count : 0
-    console.log("RENDER")
+    console.log("HTMLDOCUMENT")
     return (HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
@@ -145,10 +145,10 @@ class ViewHtmlDocument extends PureComponent {
           <Col xs={6} className="Center">
             <h3><Button disabled={!(User.token && amountLiked < 5)} onClick={this.likeDocument}><i className="fa fa-thumbs-up"/> {likeTotal}</Button></h3>
           </Col>
-          {HtmlDocument.comments?
+          {HtmlDocument.comments ?
           <Col xs={12}>
             <h1 className="Center">COMMENTS</h1>
-            <Well className="userBio">{this.renderComments(comments)}</Well>
+            {this.renderComments(comments)}
           </Col> : null}
           {User.token ?
           <Col xs={12}>

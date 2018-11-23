@@ -29,6 +29,7 @@ class Card extends PureComponent {
   }
 
   render() {
+    //console.log('CARD')
     const {User, canDelete, canUpdate, click, editCard, deleteCard, summary, author, author_username, html, desgin, date_created, id, last_modified, last_modified_by, last_modified_by_username, slug, tags, title, views, likeCount, commentCount} = this.props
     return (
       <div className="Clickable Card Hover" onClick={click}>
