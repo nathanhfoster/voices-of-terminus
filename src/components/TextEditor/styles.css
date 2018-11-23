@@ -1,7 +1,9 @@
 .TextEditor {
     font-family: 'proxima_novasemibold', Arial, sans-serif;
 }
-
+.TextEditor .DraftEditor-editorContainer img{
+  max-width: 100%;
+}
 .TextEditor .select__option--is-disabled {
   display: none;
 }
