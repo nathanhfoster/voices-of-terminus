@@ -50,16 +50,13 @@ export const updateUserProfile = (id, token, payload) => {
 export const createUser = payload => {
   return async (dispatch, getState) => await AxiosForm(null, payload).post('users/', payload)
   .then(res => {
-      AxiosForm(null, payload).post('login/', payload)
-      .then(res => {
-        let {Users} = getState().Admin
-        Users.push(res.data)
-          dispatch({
-              type: C.GET_USERS,
-              payload: Users
-           })
-      }).catch((e) => console.log(e))
-  }).catch((e) => console.log(e))
+    let {Users} = getState().Admin
+    Users.push(res.data)
+      dispatch({
+          type: C.GET_USERS,
+          payload: Users
+        })
+    }).catch((e) => console.log(e))
 }
 
 

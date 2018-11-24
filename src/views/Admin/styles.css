@@ -35,6 +35,9 @@ div.-sort-desc::after {
   font-weight: 900;
   content: "\f107 ";
 } */
+.ReactTable .rt-thead.-headerGroups {
+  font-size: 24px;
+}
 
 .rt-th:focus {
   outline: none;

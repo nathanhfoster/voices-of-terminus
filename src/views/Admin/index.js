@@ -162,19 +162,19 @@ class Admin extends PureComponent {
         <Row>
           <Col md={12} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={() => this.props.history.goBack()}>
-              <i class="fas fa-arrow-left"/>
+              <i className="fas fa-arrow-left"/>
             </Button>
             <Button onClick={this.handleShow}>
-            <i class="fas fa-plus"/> User
+            <i className="fas fa-plus"/> User
             </Button>
             <Button disabled={!(User.is_superuser || User.can_create_article)} onClick={() => this.props.history.push('/articles/new/article')}>
-            <i class="fas fa-plus"/> Article
+            <i className="fas fa-plus"/> Article
             </Button>
             <Button disabled={!(User.is_superuser || User.can_create_newsletter)} onClick={() => this.props.history.push('/articles/new/newsletter')} >
-            <i class="fas fa-plus"/> Newsletter
+            <i className="fas fa-plus"/> Newsletter
             </Button>
             <Button onClick={() => this.props.history.push('/articles/new/newsletter')} disabled>
-            <i class="fas fa-plus"/> Event
+            <i className="fas fa-plus"/> Event
             </Button>
           </Col>
         </Row>
@@ -183,39 +183,39 @@ class Admin extends PureComponent {
             loading={!Users}
             data={Users}
             columns={[
-              {Header: <i class="fas fa-gavel"/>, columns: [
+              {Header: <i className="fas fa-gavel"/>, columns: [
                 {Header: <i className="fa fa-trash-alt"/>, accessor: 'id', filterable: false, maxWidth: 42,
                 Cell: props => (<Button disabled={!(User.is_superuser && User.is_leader)} onClick={() => this.deleteThisUser(this.props.User.token, props.value)} bsSize="small"><i className="fa fa-trash-alt"/></Button>)},
               ]},
-              {Header: 'INFO', columns: [
-                {Header: <i class="far fa-envelope-open"/>, accessor: 'opt_in', filterable: false, maxWidth: 42,
-                Cell: props => (props.value ? <i class="fas fa-check"/> : <i class="fas fa-times"/>),
+              {Header: <i className="fas fa-user-shield"> INFO</i>, columns: [
+                {Header: <i className="far fa-envelope-open"/>, accessor: 'opt_in', filterable: false, maxWidth: 42,
+                Cell: props => (props.value ? <i className="fas fa-check"/> : <i className="fas fa-times"/>),
                 Footer: Users => (
                   <span>
-                    <i class="fas fa-check"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.opt_in, 0)}</strong>
+                    <i className="fas fa-check"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.opt_in, 0)}</strong>
                   </span>
                 )},
                 {Header: 'Username', accessor: 'username', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 125,
                 Footer: Users => (
                   <span>
-                    <i class="fas fa-users"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.length}</strong>
+                    <i className="fas fa-users"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.length}</strong>
                   </span>
                 ),
                 Cell: props => (<Link to={'admin/user/profile/' + props.original.id}>{props.value}</Link>)},
                 {Header: 'Email', accessor: 'email', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
               ]},
-              {Header: 'Permissions', columns: [
+              {Header: <i className="fas fa-id-badge"> PERMISSIONS</i>, columns: [
                 {Header: 'Admin?', accessor: 'is_superuser', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
                 Footer: Users => (
                   <span>
-                    <i class="fas fa-unlock-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.is_superuser, 0)}</strong>
+                    <i className="fas fa-unlock-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.is_superuser, 0)}</strong>
                   </span>
                 ),
                 Cell: props => String(props.value)},
               {Header: 'Mod?', accessor: 'is_staff', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 75,
               Footer: Users => (
                 <span>
-                  <i class="fas fa-unlock"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.is_staff, 0)}</strong>
+                  <i className="fas fa-unlock"/> <strong style={{color: 'var(--primaryColor)'}}>{Users.data.reduce((acc, curr) => acc + curr.is_staff, 0)}</strong>
                 </span>
               ),
                 Cell: props => String(props.value)},
@@ -223,13 +223,13 @@ class Admin extends PureComponent {
                 is_officer: User.is_officer, is_senior_member: User.is_senior_member, is_junior_member: User.is_junior_member, is_recruit: User.is_recruit}), filterMethod: (filter, rows) => matchSorter(rows, filter.value[1], { keys: [filter.id] }), filterAll: true, maxWidth: 125,
                 Cell: props => statusLevelString(props.value)}
               ]},
-              {Header: 'IN GAME', columns: [
+              {Header: <i className="fas fa-dungeon"> IN GAME</i>, columns: [
               {Header: 'Role', accessor: 'primary_role', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
               {Header: 'Class', accessor: 'primary_class', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
               {Header: 'Profession', accessor: 'profession', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
               {Header: 'Specialization', accessor: 'profession_specialization', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 120},
               ]},
-              {Header: 'ACTIVITY', columns: [
+              {Header: <i className="fas fa-hiking"> ACTIVITY</i>, columns: [
               {Header: 'Last Login', accessor: 'last_login', maxWidth: 100,
                 Cell: props => <Moment format="YYYY-MM-DD">{props.value}</Moment>, filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true},
               {Header: 'Joined', accessor: 'date_joined', maxWidth: 100,
@@ -237,7 +237,7 @@ class Admin extends PureComponent {
               {Header: 'XP', accessor: 'experience_points', filterMethod: (filter, rows) => matchSorter(rows, filter.value, { keys: [filter.id] }), filterAll: true, maxWidth: 60,
               Footer: Users => (
                 <span>
-                <i class="fas fa-level-up-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Math.max(...Users.data.map(user => user.experience_points))}</strong>
+                <i className="fas fa-level-up-alt"/> <strong style={{color: 'var(--primaryColor)'}}>{Math.max(...Users.data.map(user => user.experience_points))}</strong>
                 </span>
               )},
               ]}
@@ -252,8 +252,8 @@ class Admin extends PureComponent {
             defaultPageSize={Window.isMobile ? 10 : 15}
             pageSizeOptions={[5, 10, 15, 20, 50, 100]}
             multiSort={true}
-            previousText={<i class="fas fa-arrow-left"/>}
-            nextText={<i class="fas fa-arrow-right"/>}
+            previousText={<i className="fas fa-arrow-left"/>}
+            nextText={<i className="fas fa-arrow-right"/>}
             />
         </Row>
         <Row>

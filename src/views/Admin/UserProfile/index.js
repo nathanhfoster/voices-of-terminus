@@ -218,16 +218,16 @@ class UserProfile extends PureComponent {
             </h4>
           </Col>
           <Col md={3} xs={12} className="Center">
-            <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
-            <h3 title="Last Login"><i class="fas fa-sign-in-alt"/> <Moment fromNow>{Admin.User.last_login}</Moment></h3>
-            <h3 title="Guild Points"><i class="fas fa-coins"/> {Admin.User.guild_points}</h3>
-            <h3 title="Opt In"><i class="far fa-envelope-open"></i> {Admin.User.opt_in ? <i class="fas fa-check"/> : <i class="fas fa-times"/>}</h3>
+            <h3 title="Date Joined"><i className="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment></h3>
+            <h3 title="Last Login"><i className="fas fa-sign-in-alt"/> <Moment fromNow>{Admin.User.last_login}</Moment></h3>
+            <h3 title="Guild Points"><i className="fas fa-coins"/> {Admin.User.guild_points}</h3>
+            <h3 title="Opt In"><i className="far fa-envelope-open"></i> {Admin.User.opt_in ? <i className="fas fa-check"/> : <i className="fas fa-times"/>}</h3>
           </Col>
         </Row>
         <Row className="centerOnMobile borderedRow" >
           <Col xs={12}>{ExperienceBar(Admin.User.experience_points)}</Col>
           <Col xs={12}><Well className="userBio" bsSize="large">{Admin.User.bio ? User.bio : 'No biography given.'}</Well></Col>
-          <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large"><i className="fas fa-award"/> Achievements <i className="fas fa-certificate"/></Well></Col>
         </Row>
         <Row className="userConnections borderedRow">
           <Col md={3} xs={3}>

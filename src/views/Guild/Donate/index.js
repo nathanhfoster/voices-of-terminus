@@ -56,7 +56,7 @@ class Donate extends PureComponent {
             </p>
           </Col>
           <Col className="donateButton" xs={12}>
-            <Button type="submit" href="https://paypal.me/VoicesofTerminus" target="_blank"><i class="fas fa-donate fa-2x"><span style={{fontSize: '30px'}}> Donate</span></i></Button>
+            <Button type="submit" href="https://paypal.me/VoicesofTerminus" target="_blank"><i className="fas fa-donate fa-2x"><span style={{fontSize: '30px'}}> Donate</span></i></Button>
           </Col>
         </Row>
       </Grid>

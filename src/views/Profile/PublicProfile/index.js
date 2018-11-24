@@ -131,15 +131,15 @@ class PublicProfile extends Component {
             <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
           </Col>
           <Col md={3} xs={12} className="Center">
-            <h3 title="Date Joined"><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3>
-            <h3 title="Last Login"><i class="fas fa-sign-in-alt"/> <Moment fromNow>{User.last_login}</Moment></h3>
-            <h3 title="Guild Points"><i class="fas fa-coins"/> {User.guild_points}</h3>
+            <h3 title="Date Joined"><i className="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3>
+            <h3 title="Last Login"><i className="fas fa-sign-in-alt"/> <Moment fromNow>{User.last_login}</Moment></h3>
+            <h3 title="Guild Points"><i className="fas fa-coins"/> {User.guild_points}</h3>
           </Col>
         </Row>
         <Row className="Center">
           <Col xs={12}>{ExperienceBar(User.experience_points)}</Col>
           <Col xs={12}><Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well></Col>
-          <Col xs={12}><Well className="userBio" bsSize="large"><i class="fas fa-award"/> Achievements <i class="fas fa-certificate"/></Well></Col>
+          <Col xs={12}><Well className="userBio" bsSize="large"><i className="fas fa-award"/> Achievements <i className="fas fa-certificate"/></Well></Col>
         </Row>
         <Row className="userConnections">
           <Col md={3} xs={3}>

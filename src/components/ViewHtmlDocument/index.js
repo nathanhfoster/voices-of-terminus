@@ -97,7 +97,7 @@ class ViewHtmlDocument extends PureComponent {
     return (
     <Row className="commentContainer">
       <Col md={2} xs={5}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
-      <Col md={7} xs={7}><i class="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
+      <Col md={7} xs={7}><i className="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
       <Col md={2} xs={6}><i className="fas fa-thumbs-up"/> {com.likes}</Col>
       <Col md={1} xs={6} className="pull-right">
         {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
@@ -140,7 +140,7 @@ class ViewHtmlDocument extends PureComponent {
             {ReactHtmlParser(HtmlDocument.html)}
           </Col>
           <Col xs={6} className="Center">
-            <h3><i class="far fa-eye"/> {HtmlDocument.views}</h3>
+            <h3><i className="far fa-eye"/> {HtmlDocument.views}</h3>
           </Col>
           <Col xs={6} className="Center">
             <h3><Button disabled={!(User.token && amountLiked < 5)} onClick={this.likeDocument}><i className="fa fa-thumbs-up"/> {likeTotal}</Button></h3>

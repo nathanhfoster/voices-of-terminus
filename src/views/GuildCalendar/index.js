@@ -112,7 +112,7 @@ class GuildCalendar extends Component {
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={() => this.props.history.goBack()}>
-              <i class="fas fa-arrow-left"/>
+              <i className="fas fa-arrow-left"/>
             </Button>
             </Col>
           <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
@@ -131,8 +131,8 @@ class GuildCalendar extends Component {
             showFixedNumberOfWeeks={true}
             next2Label={null}
             prev2Label={null}
-            nextLabel={<i class="fa fa-chevron-circle-right"/>}
-            prevLabel={<i class="fa fa-chevron-circle-left"/>}
+            nextLabel={<i className="fa fa-chevron-circle-right"/>}
+            prevLabel={<i className="fa fa-chevron-circle-left"/>}
             />
           </Col>
           <Col className="EventList" lgHidden mdHidden sm={12}>

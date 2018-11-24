@@ -87,10 +87,10 @@ class NavBar extends PureComponent {
           <Navbar.Collapse>
             <Nav>
               <LinkContainer to="/home"><NavItem eventKey={1}><i className="fas fa-home"/> HOME</NavItem></LinkContainer>
-              <LinkContainer to="/calendar"><NavItem eventKey={3}><i class="far fa-calendar-alt"/>  CALENDAR</NavItem></LinkContainer>
-              <LinkContainer to="/news/latest"><NavItem eventKey={4}><i class="fas fa-newspaper"/> NEWS</NavItem></LinkContainer>
-              <LinkContainer to="/forums/"><NavItem eventKey={5}><i class="fab fa-stack-exchange"/> FORUMS</NavItem></LinkContainer>
-              <NavDropdown eventKey={5} title={[<i class="fab fa-fort-awesome"/>, " GUILD"]} id="basic-nav-dropdown">
+              <LinkContainer to="/calendar"><NavItem eventKey={3}><i className="far fa-calendar-alt"/>  CALENDAR</NavItem></LinkContainer>
+              <LinkContainer to="/news/latest"><NavItem eventKey={4}><i className="fas fa-newspaper"/> NEWS</NavItem></LinkContainer>
+              <LinkContainer to="/forums/"><NavItem eventKey={5}><i className="fab fa-stack-exchange"/> FORUMS</NavItem></LinkContainer>
+              <NavDropdown eventKey={5} title={[<i className="fab fa-fort-awesome"/>, " GUILD"]} id="basic-nav-dropdown">
                 <LinkContainer to="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
                 <LinkContainer to="/guild/donate"><NavItem eventKey={5.1}>DONATE</NavItem></LinkContainer>
                 <LinkContainer to="/guild/roster"><NavItem eventKey={5.2}>ROSTER</NavItem></LinkContainer>
@@ -101,13 +101,13 @@ class NavBar extends PureComponent {
                 <LinkContainer to="/guild/join"><NavItem eventKey={5.7}>JOIN</NavItem></LinkContainer>
                 <LinkContainer to="/guild/store"><NavItem eventKey={5.8}><i className="fas fa-store"/> STORE</NavItem></LinkContainer>  
               </NavDropdown>
-              <NavDropdown eventKey={6} title={[<i class="fas fa-compact-disc"/>, " MEDIA"]} id="basic-nav-dropdown">
+              <NavDropdown eventKey={6} title={[<i className="fas fa-compact-disc"/>, " MEDIA"]} id="basic-nav-dropdown">
               <LinkContainer to="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>
               <LinkContainer to="/media/videos"><NavItem eventKey={6.2}>VIDEOS</NavItem></LinkContainer>
               <LinkContainer to="/media/streams"><NavItem eventKey={6.3}>STREAMS</NavItem></LinkContainer>
               <LinkContainer to="/media/podcasts"><NavItem eventKey={6.4}>PODCASTS</NavItem></LinkContainer>
             </NavDropdown>        
-              <NavDropdown eventKey={8} title={[<i class="fas fa-vr-cardboard"/>, " VR"]} id="connect-nav-dropdown">
+              <NavDropdown eventKey={8} title={[<i className="fas fa-vr-cardboard"/>, " VR"]} id="connect-nav-dropdown">
                 <Image   eventKey={8.1} src={vrLogo} className="vrLogo"/>
                 <NavItem eventKey={8.2} href="http://pantheonmmo.com/?referer=VoicesOfTerminus" target="_blank">WEBSITE</NavItem>
                 <NavItem eventKey={8.3} href="http://visionaryrealms.com/?referer=VoicesOfTerminus" target="_blank">NEWS + EVENTS</NavItem>
@@ -115,7 +115,7 @@ class NavBar extends PureComponent {
                 <NavItem eventKey={8.5} href="http://www.pantheonmmo.com/news/latest_news/" target="_blank">NEWSLETTERS</NavItem>
               </NavDropdown>
              
-              {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}><i class="fas fa-sign-in-alt"/> LOGIN</NavItem></LinkContainer>
+              {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}><i className="fas fa-sign-in-alt"/> LOGIN</NavItem></LinkContainer>
               :<NavDropdown eventKey={5} title={[primary_class ? <Image src={classIcon(primary_class)} style={{height: '25px'}}/> : <i className="fas fa-user"/>, ' ' + User.username]} id="basic-nav-dropdown">
                 <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>

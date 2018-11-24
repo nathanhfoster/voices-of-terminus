@@ -92,30 +92,30 @@ export const classIcon = primaryClass => {
 export const professionIcon = (profession, professionSpecialization) => {
     if(professionSpecialization) {
         switch (profession) {
-            case 'Alchemist': return <i class="fas fa-vial"/>
-            case 'Blacksmith': return <i class="fas fa-hammer"/>
-            case 'Outfitter': return <i class="fas fa-tshirt"/>
-            case 'Provisioner': return <i class="fas fa-lemon"/>
-            case 'Scribe': return <i class="fas fa-scroll"/>
-            case 'Stonemason': return <i class="fas fa-hand-rock"/>
-            case 'Woodworker':return <i class="fas fa-tree"/>
+            case 'Alchemist': return <i className="fas fa-vial"/>
+            case 'Blacksmith': return <i className="fas fa-hammer"/>
+            case 'Outfitter': return <i className="fas fa-tshirt"/>
+            case 'Provisioner': return <i className="fas fa-lemon"/>
+            case 'Scribe': return <i className="fas fa-scroll"/>
+            case 'Stonemason': return <i className="fas fa-hand-rock"/>
+            case 'Woodworker':return <i className="fas fa-tree"/>
             default: return null
         }
      }
      else {
         switch (profession) {
-            case 'Armorsmith': return <i class="fab fa-css3"/>
-            case 'Weaponsmith': return <i class="fab fa-ethereum"/>
-            case 'Leatherworker': return <i class="fab fa-pied-piper-hat"/>
-            case 'Tailor': return <i class="fab fa-opencart"/>
-            case 'Brewer': return <i class="fas fa-beer"/>
-            case 'Chef': return <i class="fas fa-utensils"/>
-            case 'Engraver': return <i class="fas fa-pen-fancy"/>
-            case 'Researcher': return <i class="fas fa-hat-wizard"/>
-            case 'Jeweller': return <i class="fas fa-ring"/>
-            case 'Sculptor': return <i class="fas fa-monument"/>
-            case 'Bowyer': return <i class="fab fa-schlix"/>
-            case 'Carver': return <i class="fas fa-hands"/>
+            case 'Armorsmith': return <i className="fab fa-css3"/>
+            case 'Weaponsmith': return <i className="fab fa-ethereum"/>
+            case 'Leatherworker': return <i className="fab fa-pied-piper-hat"/>
+            case 'Tailor': return <i className="fab fa-opencart"/>
+            case 'Brewer': return <i className="fas fa-beer"/>
+            case 'Chef': return <i className="fas fa-utensils"/>
+            case 'Engraver': return <i className="fas fa-pen-fancy"/>
+            case 'Researcher': return <i className="fas fa-hat-wizard"/>
+            case 'Jeweller': return <i className="fas fa-ring"/>
+            case 'Sculptor': return <i className="fas fa-monument"/>
+            case 'Bowyer': return <i className="fab fa-schlix"/>
+            case 'Carver': return <i className="fas fa-hands"/>
             default: return null
         }
     }

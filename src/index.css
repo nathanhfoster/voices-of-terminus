@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto');
 :root {
   --cursor: url('./images/Cursor.png'), auto;
   --navBarHeight: 52px;
@@ -138,7 +139,7 @@ a:-webkit-any-link, button, html input[type=button], input[type=reset], input[ty
 }
 body {
   height: 100%;
-  font-family: "Arial", "Cinzel Decorative";
+  font-family: 'Roboto', sans-serif;
   font-size: medium;
   background-repeat: no-repeat;
   overflow: hidden;

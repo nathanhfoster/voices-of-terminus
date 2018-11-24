@@ -240,9 +240,9 @@ class Profile extends PureComponent {
             <ControlLabel>Profile Picture</ControlLabel>
             <FormControl style={{margin: 'auto'}} type="file" label="File" name="profile_image" onChange={this.setImage} />
           </Col>
-          <Col md={3} xs={12}><h3><i class="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{date_joined}</Moment></h3></Col>
-          <Col md={3} xs={12}><h3><i class="fas fa-sign-in-alt"/>  <Moment fromNow>{last_login}</Moment></h3></Col>
-          <Col md={3} xs={12}><h3><i class="fas fa-coins"/> {guild_points}</h3></Col>
+          <Col md={3} xs={12}><h3><i className="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{date_joined}</Moment></h3></Col>
+          <Col md={3} xs={12}><h3><i className="fas fa-sign-in-alt"/>  <Moment fromNow>{last_login}</Moment></h3></Col>
+          <Col md={3} xs={12}><h3><i className="fas fa-coins"/> {guild_points}</h3></Col>
           <Col xs={12}>{ExperienceBar(experience_points)}</Col>       
          </Row>
            <Row className="borderedRow">

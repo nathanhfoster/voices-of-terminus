@@ -182,18 +182,18 @@ class News extends Component {
         </Row>
         <Row>
           <Col md={3} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button disabled={!(User.is_superuser || User.can_create_article)} onClick={() => this.props.history.push('/articles/new/article')}><i class="fas fa-plus"/> Article</Button>
-            <Button disabled={!(User.is_superuser || User.can_create_newsletter)} onClick={() => this.props.history.push('/articles/new/newsletter')}><i class="fas fa-plus"/> Newsletter</Button>
+            <Button disabled={!(User.is_superuser || User.can_create_article)} onClick={() => this.props.history.push('/articles/new/article')}><i className="fas fa-plus"/> Article</Button>
+            <Button disabled={!(User.is_superuser || User.can_create_newsletter)} onClick={() => this.props.history.push('/articles/new/newsletter')}><i className="fas fa-plus"/> Newsletter</Button>
           </Col>
           <Col md={5} xs={12}>
             <InputGroup>
-              <InputGroup.Addon><i class="fas fa-search"/></InputGroup.Addon>
+              <InputGroup.Addon><i className="fas fa-search"/></InputGroup.Addon>
               <FormControl style={{fontSize: 'medium'}} type="text" name="search" placeholder="Filter by Title or Author..."  value={search} onChange={filter => this.onChange(filter, Documents)}/>
             </InputGroup>
           </Col>
           <Col md={4} xs={12}>
             <InputGroup>
-              <InputGroup.Addon><i class="fas fa-tags"/></InputGroup.Addon>
+              <InputGroup.Addon><i className="fas fa-tags"/></InputGroup.Addon>
               <Select
               //https://react-select.com/props
                 value={this.state.selectValue}

@@ -183,7 +183,7 @@ class TextEditor extends Component {
           <Col>
             <FormGroup>
               <InputGroup>
-                <InputGroup.Addon><i class="fas fa-heading"></i></InputGroup.Addon>
+                <InputGroup.Addon><i className="fas fa-heading"></i></InputGroup.Addon>
                 <FormControl value={title} type="text" placeholder="Title" name="title" onChange={this.onChange.bind(this)}/>
               </InputGroup>
             </FormGroup>
@@ -191,7 +191,7 @@ class TextEditor extends Component {
           <Col>
           <FormGroup>
             <InputGroup>
-              <InputGroup.Addon><i class="fas fa-tag"/></InputGroup.Addon>
+              <InputGroup.Addon><i className="fas fa-tag"/></InputGroup.Addon>
               <Select 
                 value={selectValue}
                 isMulti
