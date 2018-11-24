@@ -87,11 +87,7 @@ export const postNewsletterLike = (token, payload) => {
           dispatch ({
             type: C.GET_HTML_DOCUMENT,
             payload: HtmlDocument
-          })
-          dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-          })
+          }) 
         }).catch((e) => console.log(e))
   }
   
@@ -116,11 +112,7 @@ export const postNewsletterComment = (token, payload) => {
           dispatch ({
             type: C.GET_HTML_DOCUMENT,
             payload: HtmlDocument
-          })
-          dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: res
-          })
+          }) 
         }).catch((e) => dispatch({
           type: C.SET_API_RESPONSE,
           payload: e.response
