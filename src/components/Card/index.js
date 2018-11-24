@@ -49,7 +49,7 @@ class Card extends PureComponent {
               {canUpdate ? <Button onClick={(e) => {e.stopPropagation(); editCard(id)}} bsSize="small" className="pull-right"><i className="fa fa-pencil-alt"/></Button> : null}
             </div>
             <div className="cardInfo">
-              <div><i className="fas fa-user"/><Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()}> {author_username}</Link></div>
+              <div><i className="fas fa-user"/><Link to={'/profile/' + author} onClick={(e) => e.stopPropagation()}>{author_username}</Link></div>
               <div><i className="fas fa-pencil-alt"/><Link to={'/profile/' + last_modified_by} onClick={(e) => e.stopPropagation()}>{last_modified_by_username}</Link> <i class="far fa-clock"/><Moment fromNow>{last_modified}</Moment></div>
               <div><i className="fas fa-tags"/>[{tags}]</div>
             </div>
