@@ -24,7 +24,7 @@ export const getNewsletters = () => {
             newsletters.data[i].commentCount = commentMap.get(newsletters.data[i].id)
           }
           dispatch({
-            type: C.GET_ARTICLES,
+            type: C.GET_NEWSLETTERS,
             payload: newsletters.data
           })
          })
