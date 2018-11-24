@@ -96,12 +96,11 @@ class ViewHtmlDocument extends PureComponent {
     const {User} = this.props
     return (
     <Row className="commentContainer">
-      <Col md={2} xs={5}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
-      <Col md={7} xs={7}><i className="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
-      <Col md={2} xs={6}><i className="fas fa-thumbs-up"/> {com.likes}</Col>
-      <Col md={1} xs={6} className="pull-right">
+      <Col xs={10}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
+      <Col xs={2} className="pull-right">
         {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
+      <Col xs={12}><i className="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
       <Col xs={12}><p><i className="fas fa-comment"/> {com.text}</p></Col>
     </Row>
     )}
@@ -128,7 +127,7 @@ class ViewHtmlDocument extends PureComponent {
     const likeTotal = likes ? likes.reduce((accumulator, like) => accumulator + like.count, 0) : 0
     const userLikeIndex = likes ? likes.findIndex(like => like.author === User.id) : -1
     const amountLiked = User.token && userLikeIndex !== -1 ? likes[userLikeIndex].count : 0
-    console.log("HTMLDOCUMENT")
+    //console.log("HTMLDOCUMENT")
     return (HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
