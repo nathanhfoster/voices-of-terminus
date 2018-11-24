@@ -20,8 +20,9 @@ export const getNewsletters = () => {
             commentMap.has(document_id) ? commentMap.set(document_id, commentMap.get(document_id) + 1) : commentMap.set(document_id, 1)
           }
           for(let i = 0; i < newsletters.data.length; i++) {
-            newsletters.data[i].likeCount = likeMap.get(newsletters.data[i].id)
-            newsletters.data[i].commentCount = commentMap.get(newsletters.data[i].id)
+            newsletters.data[i].likeCount = likeMap.has(newsletters.data[i].id) ? likeMap.get(newsletters.data[i].id) : 0
+            newsletters.data[i].commentCount = commentMap.has(newsletters.data[i].id) ? commentMap.get(newsletters.data[i].id) : 0
+            newsletters.data[i].popularity = newsletters.data[i].views + newsletters.data[i].likeCount + newsletters.data[i].commentCount 
           }
           dispatch({
             type: C.GET_NEWSLETTERS,

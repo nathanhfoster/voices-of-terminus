@@ -20,8 +20,9 @@ export const getArticles = () => {
             commentMap.has(document_id) ? commentMap.set(document_id, commentMap.get(document_id) + 1) : commentMap.set(document_id, 1)
           }
           for(let i = 0; i < articles.data.length; i++) {
-            articles.data[i].likeCount = likeMap.get(articles.data[i].id)
-            articles.data[i].commentCount = commentMap.get(articles.data[i].id)
+            articles.data[i].likeCount = likeMap.has(articles.data[i].id) ? likeMap.get(articles.data[i].id) : 0
+            articles.data[i].commentCount = commentMap.has(articles.data[i].id) ? commentMap.get(articles.data[i].id) : 0
+            articles.data[i].popularity =  articles.data[i].views + articles.data[i].likeCount +  articles.data[i].commentCount 
           }
           dispatch({
             type: C.GET_ARTICLES,
