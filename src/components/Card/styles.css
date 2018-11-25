@@ -91,6 +91,12 @@
   display: none;
 }
 
+.blockNoWrap {
+  white-space: pre-wrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .inlineNoWrap {
   white-space: nowrap;
   overflow: hidden;

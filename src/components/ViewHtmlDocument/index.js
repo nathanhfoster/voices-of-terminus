@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, PageHeader, FormGroup, FormControl, ControlLabel, Button} from 'react-bootstrap'
+import { Grid, Row, Col, PageHeader, FormGroup, FormControl, ControlLabel, Button, Image} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
@@ -96,9 +96,9 @@ class ViewHtmlDocument extends PureComponent {
     const {User} = this.props
     return (
     <Row className="commentContainer">
-      <Col xs={10}><i className="fas fa-user"/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
+      <Col xs={10}><Image style={{height: "50px"}} src={com.author_profile_image} rounded/> <Link to={'/profile/' + com.author}>{com.author_username}</Link></Col>
       <Col xs={2} className="pull-right">
-        {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} bsSize="small" className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
+        {User.is_superuser || User.id === com.author ? <Button onClick={() => this.deleteComment(com.id, this.props.User.token)} className="pull-right"><i className="fa fa-trash-alt"/></Button>: null}
       </Col>
       <Col xs={12}><i className="far fa-clock"/> <small><Moment fromNow>{com.last_modified}</Moment></small></Col>
       <Col xs={12}><p><i className="fas fa-comment"/> {com.text}</p></Col>
@@ -132,9 +132,10 @@ class ViewHtmlDocument extends PureComponent {
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
           <Col xs={12}>
-            <PageHeader className="pageHeader">{HtmlDocument.title}</PageHeader>
+            <PageHeader className="Center">{HtmlDocument.title}</PageHeader>
           </Col>
-          <Col xs={12} className="Center"><h2>By: {HtmlDocument.author_username}</h2></Col>
+          <Col xs={12} className="Center"><Image style={{height: "200px"}} src={HtmlDocument.author_profile_image} rounded/><h2><Link to={'/profile/' + HtmlDocument.author}>{HtmlDocument.author_username}</Link></h2></Col>
+          <Col xs={12} className="Center"><i className="fas fa-tags"/> [{HtmlDocument.tags}]</Col>
           <Col xs={12}>
             {ReactHtmlParser(HtmlDocument.html)}
           </Col>
