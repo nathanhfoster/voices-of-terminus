@@ -131,11 +131,15 @@ class ViewHtmlDocument extends PureComponent {
     return (HtmlDocument ?
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
+          <Col xs={12} className="Center">
+            <Image style={{height: "200px"}} src={HtmlDocument.author_profile_image} rounded/><h2><Link to={'/profile/' + HtmlDocument.author}>{HtmlDocument.author_username}</Link></h2>
+          </Col>
+          <Col xs={12} className="Center">
+            <i className="fas fa-tags"/> [{HtmlDocument.tags}]
+          </Col>
           <Col xs={12}>
             <PageHeader className="Center">{HtmlDocument.title}</PageHeader>
           </Col>
-          <Col xs={12} className="Center"><Image style={{height: "200px"}} src={HtmlDocument.author_profile_image} rounded/><h2><Link to={'/profile/' + HtmlDocument.author}>{HtmlDocument.author_username}</Link></h2></Col>
-          <Col xs={12} className="Center"><i className="fas fa-tags"/> [{HtmlDocument.tags}]</Col>
           <Col xs={12}>
             {ReactHtmlParser(HtmlDocument.html)}
           </Col>
