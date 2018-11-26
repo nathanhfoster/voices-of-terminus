@@ -6,6 +6,7 @@ import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
 import {Grid, Row, Col, NavItem} from 'react-bootstrap'
 import YouTube from 'react-youtube'
+import HomeCarousel from '../../components/HomeCarousel'
 
 const mapStateToProps = ({VoTYouTubeChannelData, VRYouTubeChannelData}) => ({
   VoTYouTubeChannelData,
@@ -68,6 +69,11 @@ class Home extends Component {
     }
     return ([
       <Grid className="Home Container fadeIn-2 ">
+      <Row>
+        <Col xs={12}>
+          <HomeCarousel/>
+        </Col>
+      </Row>
         <Row>
           <Col lg={3} md={3} sm={3} className="newsFeed">
            <div>
