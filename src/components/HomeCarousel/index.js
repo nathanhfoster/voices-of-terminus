@@ -53,7 +53,7 @@ class HomeCarousel extends PureComponent {
 
   renderImages = Images => Images.map(img => 
     <Carousel.Item animateIn={true} animateOut={true}>
-      <Image className="CarouselImage Center" src={img.src}/>
+      <img className="CarouselImage Center" src={img.src}/>
       <Carousel.Caption>
         <h3>{img.label}</h3>
         <p>{img.description}</p>

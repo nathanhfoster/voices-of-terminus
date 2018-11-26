@@ -1,10 +1,9 @@
 .HomeCarousel {
-    height: 640px;
+    height: 620px;
 }
 
 .CarouselImage {
-    display: block;
-    max-height: 640px;
+    max-height: 620px;
     width: auto;
     height: auto;
     margin: auto;
