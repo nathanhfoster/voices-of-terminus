@@ -33,4 +33,8 @@
     top: var(--navBarHeight);
     left: 0;
     right: 0;
-  }
+}
+
+.blockbuilder-branding {
+    display: none;
+}
