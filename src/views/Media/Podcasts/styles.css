@@ -1,3 +1,33 @@
-.Template {
-    
+.Podcasts {
+    list-style-type: none;
 }
+.Podcasts a:hover {
+  color: var(--tertiarycolor);
+}
+.Podcasts h1 {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+}
+.Podcasts .youTubeContainer {
+  padding: 0;
+  margin: 20px 0 0 0;
+  background-color: var(--grey);
+  opacity: var(--mainOpacity);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+.Podcasts .youTubeContainer:hover {
+  border-color: var(--primaryColor);
+  transition: border-color .4s;
+}
+.Podcasts .youTubeContainer .videoTitleContainer {
+  text-align: left;
+}
+.Podcasts .youTubeContainer .videoImageContainer img {
+  max-height: 380px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 15px 0 15px 0;
+}  

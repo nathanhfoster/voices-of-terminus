@@ -50,17 +50,15 @@ class Videos extends PureComponent {
     this.setState({VoTYouTubeChannelData})
   }
 
-    //(k.videoId) => this.props.history.push(k.videoId)
-
-    renderVideos = (videos) => videos.map(video => {
+    renderVideos = videos => videos.map(video => {
       const route = 'videos/' + video.videoId
       return (
         <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(video)}>
-          <NavItem eventKey={1}>
+          <NavItem eventKey={video.videoId}>
             <Row className="youTubeContainer">
               <Col md={9} mdPush={3} className="videoTitleContainer">
                 <h3>{video.title}</h3>
-                <Moment fromNow>{video.publishedAt}</Moment>
+                <i className="far fa-clock"/> <Moment fromNow>{video.publishedAt}</Moment>
                 <p>{video.description}</p>
               </Col>
               <Col md={3} mdPull={9} className="videoImageContainer"> 

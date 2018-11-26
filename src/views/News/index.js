@@ -8,7 +8,7 @@ import {clearHtmlDocument} from '../../actions/App'
 import {getArticles, getArticle, deleteArticle} from '../../actions/Articles'
 import {getNewsletters, getNewsletter, deleteNewsLetter} from '../../actions/NewsLetter'
 import Card from '../../components/Card'
-import {withRouter} from 'react-router-dom'
+import {withRouter, Redirect} from 'react-router-dom'
 import Select from 'react-select'
 import {selectStyles} from '../../helpers/styles'
 import {hasUpdatePermission, hasDeletePermission, isSubset, isEquivalent} from '../../helpers'
@@ -230,9 +230,12 @@ class News extends Component {
                 {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => b.popularity - a.popularity, doc => doc) : null}
               </Row>
             </Tab>
-            <Tab disabled={!User.token} eventKey="/news/my-docs" title="MY DOCS" className="fadeIn-2" unmountOnExit={true}>
+            <Tab eventKey="/news/my-docs" title="MY DOCS" className="fadeIn-2" unmountOnExit={true}>
               <Row>
-                {Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified), doc => doc.author === this.state.User.id) : null}
+                {
+                  !User.token ? <Redirect to="/login"/> :
+                  Documents.length ? this.renderCards(Documents, filter, dontFilter, (a, b) => new Date(b.last_modified) - new Date(a.last_modified), doc => doc.author === this.state.User.id)
+                : null}
               </Row>
             </Tab>
           </Tabs>

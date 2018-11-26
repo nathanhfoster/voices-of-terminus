@@ -111,10 +111,7 @@ class GuildCalendar extends Component {
         </Row>
         <Row>
           <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
-            <Button onClick={() => this.props.history.goBack()}>
-              <i className="fas fa-arrow-left"/>
-            </Button>
-            </Col>
+          </Col>
           <Col md={8} xs={12} className="ActionToolbar" componentClass={InputGroup}>
             <Button onClick={this.Today} className="todayButton pull-right">Today</Button>
           </Col>

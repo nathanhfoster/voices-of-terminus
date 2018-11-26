@@ -70,8 +70,11 @@
 .navbar-toggle:hover, .navbar-toggle:focus {
 background-color: inherit !important;  
 }
-.navbar-inverse .navbar-brand {
-  padding: 0;
+.navbar-inverse .navbar-brand a{
+  color: var(--tertiarycolor);
+}
+.navbar-inverse .navbar-brand a:focus, .navbar-brand a:active, .navbar-brand a:hover {
+  color: var(--primaryColor);
 }
 .navbar-brand > img {
   background-repeat: no-repeat;

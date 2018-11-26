@@ -7,6 +7,7 @@ const youTubeKey = process.env.REACT_APP_YOUTUBE_API_KEY
 const ytube = new YTube(youTubeKey)
 const votYouTubeChanneID = process.env.REACT_APP_VOT_YOUTUBE_CHANNEL_ID
 const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID
+const votPlaylistIdShow = process.env.REACT_APP_VOT_PLAYLIST_ID_SHOW
 
 export const getVoTYouTubeChannelData = () => {
     return async (dispatch) => await ytube.getChannelsLatestVideos(votYouTubeChanneID, 50)
@@ -18,11 +19,31 @@ export const getVoTYouTubeChannelData = () => {
         }).catch((e) => console.log(e))
 }
 
-export const getAllVRYouTube = () => {
+export const getVotChannelsPlayLists = () => {
+    return async (dispatch) => await ytube.getChannelsPlayLists(votYouTubeChanneID, 50)
+        .then(res => {
+            dispatch({
+                type: C.GET_VOT_CHANNELS_PLAYLISTS,
+                payload: res
+            })
+        }).catch((e) => console.log(e))
+}
+
+export const getVotPlaylistShow = () => {
+    return async (dispatch) => await ytube.getPlaylistVideos(votPlaylistIdShow, 50)
+        .then(res => {
+            dispatch({
+                type: C.GET_VOT_PLAYLIST_SHOW,
+                payload: res
+            })
+        }).catch((e) => console.log(e))
+}
+
+export const getAllVotYouTube = () => {
     return async (dispatch) => await ytube.fetchAllYouTube("Voices of Terminus")
         .then(res => {
             dispatch({
-                type: C.GET_ALL_VR_YOUTUBE_CHANNEL_DATA,
+                type: C.GET_ALL_VOT_YOUTUBE_CHANNEL_DATA,
                 payload:res
             })
         }).catch((e) => console.log(e))

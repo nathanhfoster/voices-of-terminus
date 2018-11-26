@@ -30,44 +30,7 @@ class PublicProfile extends Component {
   }
 
   static defaultProps = {
-    /* 
-    is_superuser(pin): false
-    email(pin): "vot@gmail.com"
-    is_staff(pin): false
-    is_leader(pin): false
-    is_council(pin): true
-    is_general_officer(pin): false
-    is_officer(pin): false
-    is_senior_member(pin): false
-    is_junior_member(pin): false
-    is_recruit(pin): false
-    is_raid_leader(pin): false
-    is_banker(pin): false
-    is_recruiter(pin): false
-    is_class_lead(pin): false
-    is_crafter_lead(pin): false
-    can_create_article(pin): true
-    can_create_newsletter(pin): true
-    can_create_calendar_event(pin): false
-    can_read_article(pin): true
-    can_read_newsletter(pin): true
-    can_read_calendar_event(pin): true
-    can_update_article(pin): false
-    can_update_newsletter(pin): false
-    can_update_calendar_event(pin): false
-    can_delete_article(pin): false
-    can_delete_newsletter(pin): false
-    can_delete_calendar_event(pin): false
-    is_active(pin): true
-    date_joined(pin): "2018-11-06T17:31:55.216372Z"
-    last_login(pin): "2018-11-06T17:51:54.552876Z"
-    experience_points(pin): 0
-    discord_url(pin): ""
-    twitter_url(pin): ""
-    twitch_url(pin): ""
-    youtube_url(pin): ""
-    primary_class(pin): "Dire Lord"
-    */
+ 
   }
   
   componentWillMount() {
@@ -108,6 +71,8 @@ class PublicProfile extends Component {
     return null
   })
 
+  renderDividedText = text => text.map(txt => txt ? txt + "|" : null)
+
   render() {
     const {User} = this.state
     const {is_leader, is_council, is_general_officer, is_officer, is_senior_member, is_junior_member, is_recruit,
@@ -125,7 +90,7 @@ class PublicProfile extends Component {
             <h2 title="Status">{statusLevelString(statusLevelInt(UserStatus))}</h2>
             <div title="Roles" className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
             <h4 title="Primary Class Icon"><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
-            <strong title="Primary | Race | Role | Class |"> Primary</strong> {'|'} {User.primary_race} {'|'} {User.primary_role} {'|'} {User.primary_class} {'|'}</h4>
+            <strong title="Primary | Race | Role | Class |"> Primary</strong> {this.renderDividedText([User.primary_race, User.primary_role, User.primary_class])}</h4>
             <h4 title="Seconday Class Icon"><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
             <strong title="Secondary | Race | Role | Class |"> Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
             <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>

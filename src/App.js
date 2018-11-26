@@ -28,7 +28,7 @@ import PublicProfile from './views/Profile/PublicProfile'
 import Login from './components/Login'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
-import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getAllVRYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
+import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getVotChannelsPlayLists, getVotPlaylistShow, getAllVotYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
 import {refreshUser} from './actions/App'
 import 'moment-timezone'
 import MomentJS from 'moment'
@@ -45,7 +45,9 @@ const mapDispatchToProps = {
   clearApiResponse,
   setWindow,
   getVoTYouTubeChannelData,
-  getAllVRYouTube,
+  getVotChannelsPlayLists,
+  getVotPlaylistShow,
+  getAllVotYouTube,
   getVRYouTubeChannelData,
   Logout,
   refreshUser
@@ -72,7 +74,7 @@ class App extends PureComponent {
     isMobile: PropTypes.bool,
     User: PropTypes.object,
     getVoTYouTubeChannelData: PropTypes.func.isRequired,
-    getAllVRYouTube: PropTypes.func.isRequired,
+    getAllVotYouTube: PropTypes.func.isRequired,
     getVRYouTubeChannelData: PropTypes.func.isRequired,
     routeItems: PropTypes.array,
     images: PropTypes.array,
@@ -95,7 +97,7 @@ class App extends PureComponent {
       {path: '/newsletters/:id', component: ViewHtmlDocument},
       {path: '/articles/new/newsletter', component: NewsLetterGenerator},
       {path: '/articles/edit/newsletter/:id', component: NewsLetterGenerator},
-      {path: '/forums/', component: Forums},
+      {path: '/forums', component: Forums},
       {path: '/guild/about', component: Guild},
       {path: '/guild/donate', component: Guild},
       {path: '/guild/roster', component: Guild},
@@ -109,6 +111,7 @@ class App extends PureComponent {
       {path: '/media/videos/:id', component: VideoPlayer},
       {path: '/media/streams', component: Media},
       {path: '/media/podcasts', component: Media},
+      {path: '/media/podcasts/:id', component: VideoPlayer},
       {path: '/profile', component: Profile},
       {path: '/profile/:id', component: PublicProfile},
       {path: '/login', component: Login},
@@ -122,8 +125,10 @@ class App extends PureComponent {
   componentDidMount() {
     const {VoTYouTubeChannelData, VRYouTubeChannelData} = this.props
     if(this.shouldUpdate(VoTYouTubeChannelData[0])) this.props.getVoTYouTubeChannelData()
-    if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVRYouTube()
+    if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVotYouTube()
     this.props.getVRYouTubeChannelData()
+    this.props.getVotChannelsPlayLists()
+    this.props.getVotPlaylistShow()
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
 

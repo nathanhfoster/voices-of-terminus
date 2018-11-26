@@ -43,7 +43,7 @@ class Media extends Component {
       {eventKey: "/media/videos", Title: "VIDEOS", Component: Videos},
       {eventKey: "/media/streams", Title: "STREAMS", Component: Streams},
       {eventKey: "/media/podcasts", Title: "PODCASTS", Component: Podcasts},
-      {eventKey: "/media/podcasts", Title: "VOT NETWORK", Component: Podcasts},
+      {eventKey: "/media/vot-network", Title: "VOT NETWORK", Component: Podcasts},
     ]
   }
   
@@ -64,42 +64,12 @@ class Media extends Component {
     this.setState({eventKey: pathname, YouTubeChannelData, history})
   }
 
-  renderImages = images => images.map(k => (
-      <Col lg={6} md={6} sm={12}>
-        <Image src={k} responsive />
-      </Col>
-    )
-  )
-
   renderTabs = TabItems => TabItems.map(k => (
       <Tab eventKey={k.eventKey} title={k.Title} className="fadeIn-2" unmountOnExit={true}>
         {<k.Component />}
       </Tab>
     )
   )
-
-    //(k.videoId) => this.props.history.push(k.videoId)
-
-    renderVideos = videos => videos.map(k => {
-      const route = k.videoId
-      const {TabItems} = this.props
-      return (
-        <LinkContainer to={route}>
-          <NavItem eventKey={1}>
-            <Row  className="youTubeContainer" >
-              <Col md={9} mdPush={3} className="videoTitleContainer">
-                <h3>{k.title}</h3>
-                <Moment fromNow>{k.publishedAt}</Moment>
-                <p>{k.description}</p>
-              </Col>
-              <Col md={3} mdPull={9} className="videoImageContainer"> 
-                <Image src={k.thumbnails.high} />
-              </Col>
-            </Row>
-         </NavItem>
-        </LinkContainer>
-      )
-    })
 
   render() {
     const {eventKey, history} = this.state

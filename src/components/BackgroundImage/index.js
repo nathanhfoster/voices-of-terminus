@@ -13,6 +13,10 @@ import bg5 from '../../images/backgrounds/bg5.jpg'
 import bg6 from '../../images/backgrounds/bg6.jpg'
 import bg7 from '../../images/backgrounds/bg7.jpg'
 import bg8 from '../../images/backgrounds/bg8.jpg'
+import bg9 from '../../images/backgrounds/bg9.jpg'
+import bg10 from '../../images/backgrounds/bg10.jpg'
+import bg11 from '../../images/backgrounds/bg11.jpg'
+import bg12 from '../../images/backgrounds/bg12.jpg'
 
 import bg1M from '../../images/backgrounds/human_male.png'
 import bg2M from '../../images/backgrounds/human_female.png'
@@ -73,17 +77,26 @@ class BackgroundImage extends PureComponent {
 
   backgroundImageRouteMap = route => {
     switch(route) {
-      case '/home': return bg2
-      case '/calendar': return bg2
-      case '/news': return bg5
-      case '/guild/about': return bg4
-      case '/guild/roster': return bg8
-      case '/guild/charters': return bg3
-      case '/guild/lore': return bg3
-      case '/guild/contests': return bg3
-      case '/guild/team': return bg3
-      case '/guild/join': return bg3
+      case '/home': return bg10
+      case '/calendar': return bg8
+      case '/news/latest': return bg11
+      case '/news/suggested': return bg11
+      case '/news/popular': return bg11
+      case '/news/my-docs': return bg11
+      case '/guild/about': return bg9
+      case '/guild/roster': return bg9
+      case '/guild/charters': return bg9
+      case '/guild/lore': return bg9
+      case '/guild/contests': return bg9
+      case '/guild/team': return bg9
+      case '/guild/join': return bg9
+      case '/forums': return bg9
       case '/login': return bg7
+      case '/media/images': return bg12
+      case '/media/videos': return bg12
+      case '/media/streams': return bg12
+      case '/media/podcasts': return bg12
+      case '/media/vot-network': return bg12
       default: return bg3
     }
   }

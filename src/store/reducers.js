@@ -7,8 +7,14 @@ export const ApiResponse = (state = {}, action) =>
 export const VoTYouTubeChannelData = (state = [], action) =>
 (action.type === C.GET_VOT_YOUTUBE_CHANNEL_DATA) ? action.payload : state
 
-export const VRAllYouTubeChannelData = (state = [], action) =>
-(action.type === C.GET_ALL_VR_YOUTUBE_CHANNEL_DATA) ? action.payload : state
+export const VotAllYouTubeChannelData = (state = [], action) =>
+(action.type === C.GET_ALL_VOT_YOUTUBE_CHANNEL_DATA) ? action.payload : state
+
+export const VotChannelsPlaylist = (state = [], action) =>
+(action.type === C.GET_VOT_CHANNELS_PLAYLISTS) ? action.payload : state
+
+export const VotPlaylistShow = (state = [], action) =>
+(action.type === C.GET_VOT_PLAYLIST_SHOW) ? action.payload : state
 
 export const VRYouTubeChannelData = (state = [], action) =>
 (action.type === C.GET_VR_YOUTUBE_CHANNEL_DATA) ? action.payload : state
@@ -53,7 +59,9 @@ export const Admin = (state = {}, action) => {
 export const appReducer = combineReducers({
   ApiResponse,
   VoTYouTubeChannelData,
-  VRAllYouTubeChannelData,
+  VotAllYouTubeChannelData,
+  VotChannelsPlaylist,
+  VotPlaylistShow,
   VRYouTubeChannelData,
   VideoToWatch,
   Window,

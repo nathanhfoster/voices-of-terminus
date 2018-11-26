@@ -78,6 +78,7 @@ class NavBar extends PureComponent {
         <Navbar inverse collapseOnSelect className="NavBar">
           <Navbar.Header>
             <Navbar.Brand>
+              <LinkContainer to="/home"><NavItem eventKey={1}><i className="fas fa-home"/> HOME</NavItem></LinkContainer>
               {/*<LinkContainer to="/">
                 <NavItem eventKey={1}><Image src={votLogo} onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
                 </LinkContainer>*/}
@@ -86,10 +87,9 @@ class NavBar extends PureComponent {
           </Navbar.Header>
           <Navbar.Collapse>
             <Nav>
-              <LinkContainer to="/home"><NavItem eventKey={1}><i className="fas fa-home"/> HOME</NavItem></LinkContainer>
               <LinkContainer to="/calendar"><NavItem eventKey={3}><i className="far fa-calendar-alt"/>  CALENDAR</NavItem></LinkContainer>
               <LinkContainer to="/news/latest"><NavItem eventKey={4}><i className="fas fa-newspaper"/> NEWS</NavItem></LinkContainer>
-              <LinkContainer to="/forums/"><NavItem eventKey={5}><i className="fab fa-stack-exchange"/> FORUMS</NavItem></LinkContainer>
+              <LinkContainer to="/forums"><NavItem eventKey={5}><i className="fab fa-stack-exchange"/> FORUMS</NavItem></LinkContainer>
               <NavDropdown eventKey={5} title={[<i className="fab fa-fort-awesome"/>, " GUILD"]} id="basic-nav-dropdown">
                 <LinkContainer to="/guild/about"><NavItem eventKey={5.1}>ABOUT</NavItem></LinkContainer>
                 <LinkContainer to="/guild/donate"><NavItem eventKey={5.1}>DONATE</NavItem></LinkContainer>

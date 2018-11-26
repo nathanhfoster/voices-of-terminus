@@ -76,7 +76,9 @@
 }
 
 .cardInfo i {
-  margin: 1px 4px 0 0px;
+  margin: 2px 4px 0 0;
+  height: 20px;
+  width: 20px;
 }
 
 .cardInfo a {
