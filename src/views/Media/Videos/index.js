@@ -5,14 +5,12 @@ import { Grid, Row, Col, Image, NavItem} from 'react-bootstrap'
 import './styles.css'
 import Moment from 'react-moment'
 import {LinkContainer} from 'react-router-bootstrap'
-import {setVideoToWatch} from '../../../actions/Videos'
 
 const mapStateToProps = ({VoTYouTubeChannelData}) => ({
   VoTYouTubeChannelData
 })
 
 const mapDispatchToProps = {
-  setVideoToWatch
 }
 
 class Videos extends PureComponent {
@@ -27,7 +25,6 @@ class Videos extends PureComponent {
 
   static propTypes = {
     VoTYouTubeChannelData: PropTypes.array,
-    setVideoToWatch: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -51,9 +48,9 @@ class Videos extends PureComponent {
   }
 
     renderVideos = videos => videos.map(video => {
-      const route = `videos/${video.videoId}`
+      const route = `videos/${video.videoId}/youtube`
       return (
-        <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(video)}>
+        <LinkContainer to={route}>
           <NavItem eventKey={video.videoId}>
             <Row className="youTubeContainer">
               <Col md={9} mdPush={3} className="videoTitleContainer">

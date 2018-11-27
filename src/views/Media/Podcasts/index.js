@@ -5,7 +5,6 @@ import { Grid, Row, Col, Image, NavItem} from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import './styles.css'
 import './stylesM.css'
-import {setVideoToWatch} from '../../../actions/Videos'
 import Moment from 'react-moment'
 
 const mapStateToProps = ({VotPlaylistShow}) => ({
@@ -13,7 +12,6 @@ const mapStateToProps = ({VotPlaylistShow}) => ({
 })
 
 const mapDispatchToProps = {
-  setVideoToWatch
 }
 
 class Podcasts extends PureComponent {
@@ -48,9 +46,9 @@ class Podcasts extends PureComponent {
 
   renderPlaylistItems = playlist => playlist.map(podcast => {
     const id = podcast.thumbnail.split('/')[4]
-    const route = `podcasts/${id}`
+    const route = `podcasts/${id}/youtube`
    return (
-     <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(podcast)}>
+     <LinkContainer to={route}>
         <NavItem eventKey={podcast.playlistItemId}>
           <Row className="youTubeContainer">
             <Col md={9} mdPush={3} className="videoTitleContainer">

@@ -27,7 +27,6 @@ class VideoPlayer extends PureComponent {
 
   static propTypes = {
     id: PropTypes.string,
-    setVideoToWatch: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -54,7 +53,8 @@ class VideoPlayer extends PureComponent {
 
   getState = props => {
     const { match: { params: {id} } } = props
-    this.setState({id})
+    const { match: { params: {type} } } = props
+    this.setState({id, type})
   }
 
   pip = () => {
@@ -71,10 +71,18 @@ class VideoPlayer extends PureComponent {
     this.setState({ pip: false })
   }
 
+  switchPlayer = (id, type) => {
+    switch(type) {
+      case 'youtube': return `https://www.youtube.com/watch?v=${id}`
+      case 'twitch': return `https://www.twitch.tv/videos/${id}`
+    }
+  }
+
 
   render() {
-    const {id, pip, playing, muted} = this.state
-    const url = `https://www.youtube.com/watch?v=${id}`
+    const {id, type, pip, playing, muted} = this.state
+    const url = this.switchPlayer(id, type)
+    console.log(url)
     return (
       <Grid className="VideoPlayer Container fadeIn-2">
       <Row>

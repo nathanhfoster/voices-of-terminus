@@ -1,3 +1,33 @@
-.Template {
-    
+.Streams {
+    list-style-type: none;
 }
+.Streams a:hover {
+  color: var(--tertiarycolor);
+}
+.Streams h1 {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+}
+.Streams .youTubeContainer {
+  padding: 0;
+  margin: 20px 0 0 0;
+  background-color: var(--grey);
+  opacity: var(--mainOpacity);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}
+
+.Streams .youTubeContainer:hover {
+  border-color: var(--primaryColor);
+  transition: border-color .4s;
+}
+.Streams .youTubeContainer .videoTitleContainer {
+  text-align: left;
+}
+.Streams .youTubeContainer .videoImageContainer img {
+  max-height: 380px;
+  width: 100%;
+  border-radius: 4px;
+  margin: 15px 0 15px 0;
+}  
