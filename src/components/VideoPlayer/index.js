@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
-import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
+import {Grid, Row, Col, PageHeader, Button} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import ReactPlayer from 'react-player'
@@ -13,19 +13,20 @@ const mapStateToProps = ({VideoToWatch}) => ({
 const mapDispatchToProps = {
 }
 
-class VideoPlayer extends Component {
+class VideoPlayer extends PureComponent {
   constructor(props) {
     super(props)
  
     this.state = {
       id: '',
-      Video: {}
+      pip: false,
+      playing: true,
+      muted: false
     }
   }
 
   static propTypes = {
     id: PropTypes.string,
-    Video: {},
     setVideoToWatch: PropTypes.func.isRequired
   }
 
@@ -56,13 +57,24 @@ class VideoPlayer extends Component {
     this.setState({id})
   }
 
-  componentDidUpdate() {
+  pip = () => {
+    const {pip} = this.state
+    console.log("PIP")
+    this.setState({ pip: !pip })
+  }
+  onEnablePIP = () => {
+    console.log('onEnablePIP')
+    this.setState({ pip: true })
+  }
+  onDisablePIP = () => {
+    console.log('onDisablePIP')
+    this.setState({ pip: false })
   }
 
-  componentWillUnmount() {
-  }
+
   render() {
-    const {id} = this.state
+    const {id, pip, playing, muted} = this.state
+    const url = `https://www.youtube.com/watch?v=${id}`
     return (
       <Grid className="VideoPlayer Container fadeIn-2">
       <Row>
@@ -72,12 +84,19 @@ class VideoPlayer extends Component {
           <Col className="videoPlayerContainer">
             <ReactPlayer
               className="videoPlayer" 
-              url={`https://www.youtube.com/watch?v=${id}`}
-              playing
+              url={url}
+              playing={playing}
               height='100%'
               width='100%'
+              muted={muted}
               controls
+              pip={pip}
+              onEnablePIP={this.onEnablePIP}
+              onDisablePIP={this.onDisablePIP}
             />
+            {ReactPlayer.canEnablePIP(url) &&
+              <Button onClick={this.pip}><i className="fas fa-clone"/></Button>
+            }
           </Col>
         </Row>        
       </Grid>

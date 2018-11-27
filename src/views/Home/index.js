@@ -115,6 +115,11 @@ class Home extends Component {
                 playing={false}
                 width="100%"
                 controls
+                config={{
+                  youtube: {
+                    playerVars: { showinfo: 0 }
+                  }
+                }}
               />
               : null }
 
@@ -126,6 +131,11 @@ class Home extends Component {
                 playing={false}
                 width="100%"
                 controls
+                config={{
+                  youtube: {
+                    playerVars: { showinfo: 0 }
+                  }
+                }}
               />
               : null}
           </Col>
