@@ -94,10 +94,10 @@ _id: "v333774978"
   })
 
   render() {
-    const {videos} = this.state.VotTwitchStreams
+    const streams = this.state.VotTwitchStreams ? this.state.VotTwitchStreams.videos : []
     return (
       <Grid className="Streams Container fadeIn-2">
-        {this.renderStreams(videos)}
+        {this.renderStreams(streams)}
       </Grid>
     )
   }
