@@ -157,7 +157,7 @@ class UserProfile extends PureComponent {
     this.props.updateUserProfile(id, User.token, payload)
   }
 
-  renderRoles = roles => Object.keys(roles).map(k => {
+  renderRoles = roles => Object.keys(roles).map((k, i) => {
     if(roles[k]) {
       if(k === 'is_raid_leader') return [<span>Raid Leader</span>, <span>|</span>]
       if(k === 'is_banker') return [<span>Banker</span>, <span>|</span>]
@@ -167,6 +167,8 @@ class UserProfile extends PureComponent {
     }
     return null
   })
+
+  renderDividedText = text => text.map((txt, i) => txt ?  txt + " | " : i === 0 ? <i className="fas fa-ban"/> : null)
 
   render() {
     console.log(this.state)
@@ -207,14 +209,14 @@ class UserProfile extends PureComponent {
             <div title="Roles" className="userRoles help">{this.renderRoles(UserRoles)}</div>
             <h4 title="Primary Class Icon">
               <Image src={classIcon(Admin.User.primary_class)} style={{height: '24px'}}/>
-              <strong title="Primary | Race | Role | Class |"> Primary: </strong> {Admin.User.primary_race} {'|'} {Admin.User.primary_role} {'|'} {Admin.User.primary_class} {'|'}
+              <strong title="Primary | Race | Role | Class |"> Primary: </strong> {this.renderDividedText([Admin.User.primary_race, Admin.User.primary_role, Admin.User.primary_class])}
             </h4>
             <h4 title="Seconday Class Icon"><Image src={classIcon(Admin.User.secondary_class)} style={{height: '26px'}}/>
-              <strong title="Secondary | Race | Role | Class |"> Secondary: </strong> {Admin.User.secondary_race} {'|'} {Admin.User.secondary_role} {'|'} {Admin.User.secondary_class} {'|'}
+              <strong title="Secondary | Race | Role | Class |"> Secondary: </strong> {this.renderDividedText([Admin.User.secondary_race, Admin.User.secondary_role, Admin.User.secondary_class])}
             </h4>
             <h4 title="Profession | Profession | Profession Specialization | ">
               {professionIcon(Admin.User.profession, Admin.User.profession_specialization)}
-              <strong> Profession: </strong>{Admin.User.profession} {'|'}  {Admin.User.profession_specialization} {'|'}
+              <strong> Profession: </strong>  {this.renderDividedText([Admin.User.profession, Admin.User.profession_specialization])}
             </h4>
           </Col>
           <Col md={3} xs={12} className="Center">

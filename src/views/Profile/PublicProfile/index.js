@@ -71,7 +71,7 @@ class PublicProfile extends Component {
     return null
   })
 
-  renderDividedText = text => text.map(txt => txt ? txt + "|" : null)
+  renderDividedText = text => text.map((txt, i) => txt ?  txt + " | " : i === 0 ? <i className="fas fa-ban"/> : null)
 
   render() {
     const {User} = this.state
@@ -88,12 +88,12 @@ class PublicProfile extends Component {
             <h1 title="User Name">{User.username.toUpperCase()}</h1>
             <span title="First and Last Name" className="help">{User.first_name} {User.last_name}</span>
             <h2 title="Status">{statusLevelString(statusLevelInt(UserStatus))}</h2>
-            <div title="Roles" className="userRoles help"><span>|</span>{this.renderRoles(UserRoles)}</div>
+            <div title="Roles" className="userRoles help"><span> |</span>{this.renderRoles(UserRoles)}</div>
             <h4 title="Primary Class Icon"><Image src={classIcon(User.primary_class)} style={{height: '24px'}}/>
-            <strong title="Primary | Race | Role | Class |"> Primary</strong> {this.renderDividedText([User.primary_race, User.primary_role, User.primary_class])}</h4>
+            <strong title="Primary | Race | Role | Class |"> Primary</strong><span> | </span>{this.renderDividedText([User.primary_race, User.primary_role, User.primary_class])}</h4>
             <h4 title="Seconday Class Icon"><Image src={classIcon(User.secondary_class)} style={{height: '26px'}}/>
-            <strong title="Secondary | Race | Role | Class |"> Secondary</strong> {'|'} {User.secondary_race} {'|'} {User.secondary_role} {'|'} {User.secondary_class} {'|'}</h4>
-            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong> {'|'} {User.profession} {'|'}  {User.profession_specialization} {'|'}</h4>
+            <strong title="Secondary | Race | Role | Class |"> Secondary</strong><span> | </span>{this.renderDividedText([User.secondary_race, User.secondary_role, User.secondary_class])}</h4>
+            <h4 title="Profession | Profession | Profession Specialization | ">{professionIcon(User.profession, User.profession_specialization)}<strong> Profession</strong><span> | </span>{this.renderDividedText([User.profession, User.profession_specialization])}</h4>
           </Col>
           <Col md={3} xs={12} className="Center">
             <h3 title="Date Joined"><i className="fas fa-birthday-cake"/> <Moment format="MMM DD, YYYY">{User.date_joined}</Moment></h3>
@@ -104,7 +104,68 @@ class PublicProfile extends Component {
         <Row className="Center">
           <Col xs={12}>{ExperienceBar(User.experience_points)}</Col>
           <Col xs={12}><Well className="userBio" bsSize="large">{User.bio ? User.bio : 'No biography given.'}</Well></Col>
-          <Col xs={12}><Well className="userBio" bsSize="large"><i className="fas fa-award"/> Achievements <i className="fas fa-certificate"/></Well></Col>
+          <Col xs={12}>
+            <h3>Achievements</h3>
+            <Well className="userBio" bsSize="large">
+              <i className="fas fa-award"></i> 
+              <i className="fas fa-certificate"></i>
+              <i className="fas fa-trophy"></i>
+              <i className="fas fa-star"></i>
+              <i className="fab fa-optin-monster"></i>
+              <i className="fas fa-vihara"></i>
+              <i className="fas fa-pastafarianism"></i>
+              <i className="fas fa-shield-alt"></i>
+              <i className="fas fa-user-shield"></i>
+              <i className="fas fa-bolt"></i>
+              <i className="fas fa-ban"></i>
+              <i className="fas fa-binoculars"></i>
+              <i className="fas fa-bell"></i>
+              <i className="fas fa-book-dead"/>
+              <i className="fas fa-book"></i>
+              <i className="fas fa-brain"></i>
+              <i className="fas fa-calendar-alt"></i>
+              <i className="fas fa-chalkboard-teacher"></i>
+              <i className="fas fa-edit"></i>
+              <i className="fas fa-dumbbell"></i>
+              <i className="fas fa-dungeon"></i>
+              <i className="fas fa-fist-raised"></i>
+              <i className="fab fa-fort-awesome"></i>
+              <i className="fas fa-gamepad"></i>
+              <i className="fab fa-galactic-senate"></i>
+              <i className="fab fa-galactic-republic"></i>
+              <i className="fas fa-gavel"></i>
+              <i className="fas fa-gem"></i>
+              <i className="fas fa-gopuram"></i>
+              <i className="fas fa-graduation-cap"></i>
+              <i className="fas fa-hammer"></i>
+              <i className="fas fa-hands"></i>
+              <i className="fas fa-hands-helping"></i>
+              <i className="fas fa-hat-wizard"></i>
+              <i className="fab fa-hotjar"></i>
+              <i className="fas fa-jedi"></i>
+              <i className="fab fa-jedi-order"></i>
+              <i className="fab fa-joget"></i>
+              <i className="fab fa-joomla"></i>
+              <i className="fas fa-journal-whills"></i>
+              <i className="fab fa-keycdn"></i>
+              <i className="fas fa-khanda"></i>
+              <i className="fab fa-mandalorian"></i>
+              <i className="fas fa-microphone-alt"></i>
+              <i className="far fa-newspaper"></i>
+              <i className="fab fa-old-republic"></i>
+              <i className="fab fa-phoenix-framework"></i>
+              <i className="fas fa-poop"></i>
+              <i className="fas fa-podcast"></i>
+              <i className="fab fa-rebel"></i>
+              <i className="fab fa-readme"></i>
+              <i className="fas fa-ring"></i>
+              <i className="fas fa-scroll"></i>
+              <i className="fas fa-sign-in-alt"></i>
+              <i className="fas fa-store"></i>
+              <i className="fab fa-studiovinari"></i>
+              <i className="fab fa-wolf-pack-battalion"></i>
+            </Well>
+          </Col>
         </Row>
         <Row className="userConnections">
           <Col md={3} xs={3}>

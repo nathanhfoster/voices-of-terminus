@@ -23,13 +23,21 @@
     overflow-y: auto;
 }
 
+.userBio i {
+    display: inline-flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+}
+
 .userBio::-webkit-scrollbar {
     display: block;
 }
 
 .userConnections {
     padding: 8px;
-   text-align: center;
+    text-align: center;
 }
 
 .userConnections a {
