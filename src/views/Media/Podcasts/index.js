@@ -47,9 +47,8 @@ class Podcasts extends PureComponent {
   }
 
   renderPlaylistItems = playlist => playlist.map(podcast => {
-    //https://i.ytimg.com/vi/rhopGZyeGHY/default.jpg
     const id = podcast.thumbnail.split('/')[4]
-    const route = 'podcasts/' + id
+    const route = `podcasts/${id}`
    return (
      <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(podcast)}>
         <NavItem eventKey={podcast.playlistItemId}>

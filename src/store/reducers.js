@@ -16,6 +16,9 @@ export const VotChannelsPlaylist = (state = [], action) =>
 export const VotPlaylistShow = (state = [], action) =>
 (action.type === C.GET_VOT_PLAYLIST_SHOW) ? action.payload : state
 
+export const VotTwitchStreams = (state = [], action) =>
+(action.type === C.GET_VOT_TWITCH_STREAMS) ? action.payload : state
+
 export const VRYouTubeChannelData = (state = [], action) =>
 (action.type === C.GET_VR_YOUTUBE_CHANNEL_DATA) ? action.payload : state
 
@@ -62,6 +65,7 @@ export const appReducer = combineReducers({
   VotAllYouTubeChannelData,
   VotChannelsPlaylist,
   VotPlaylistShow,
+  VotTwitchStreams,
   VRYouTubeChannelData,
   VideoToWatch,
   Window,

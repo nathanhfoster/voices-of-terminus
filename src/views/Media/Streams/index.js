@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import { connect as reduxConnect } from 'react-redux'
 import './styles.css'
 import './stylesM.css'
+import {getVotTwitchStreams} from '../../../actions/App'
 
-const mapStateToProps = ({}) => ({
+const mapStateToProps = ({VotTwitchStreams}) => ({
+  VotTwitchStreams
 })
 
 const mapDispatchToProps = {
+  getVotTwitchStreams
 }
 
 class Streams extends PureComponent {
@@ -29,6 +32,7 @@ class Streams extends PureComponent {
   }
 
   componentDidMount() {
+    this.props.getVotTwitchStreams()
   }
   
   componentWillReceiveProps(nextProps) {
@@ -36,10 +40,13 @@ class Streams extends PureComponent {
   }
 
   getState = props => {
-    this.setState({})
+    const {VotTwitchStreams} = props
+    this.setState({VotTwitchStreams})
   }
 
   render() {
+    const {VotTwitchStreams} = this.state
+    console.log(VotTwitchStreams)
     return (
       <div className="Streams">
         Streams

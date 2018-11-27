@@ -78,31 +78,31 @@ class Home extends Component {
           <Col lg={3} md={3} sm={3} className="newsFeed">
            <div>
               <Timeline
-                    dataSource={{
-                      sourceType: 'profile',
-                      screenName: 'pantheon_VoT'
-                    }}
-                    options={{
-                      username: 'Pantheon_VoT',
-                      height: '366px',
-                      theme: 'dark'
-                    }}
-                    onLoad={() => null}
-                  />
+                dataSource={{
+                  sourceType: 'profile',
+                  screenName: 'pantheon_VoT'
+                }}
+                options={{
+                  username: 'Pantheon_VoT',
+                  height: '366px',
+                  theme: 'dark'
+                }}
+                onLoad={() => null}
+              />
            </div>
            <div>
             <Timeline
-                  dataSource={{
-                    sourceType: 'profile',
-                    screenName: 'PantheonMMO'
-                  }}
-                  options={{
-                    username: 'Pantheon',
-                    height: '366px',
-                    theme: 'dark'
-                  }}
-                  onLoad={() => null}
-                />
+              dataSource={{
+                sourceType: 'profile',
+                screenName: 'PantheonMMO'
+              }}
+              options={{
+                username: 'Pantheon',
+                height: '366px',
+                theme: 'dark'
+              }}
+              onLoad={() => null}
+            />
            </div>
               
           </Col>

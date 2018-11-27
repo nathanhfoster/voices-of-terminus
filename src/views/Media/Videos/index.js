@@ -51,7 +51,7 @@ class Videos extends PureComponent {
   }
 
     renderVideos = videos => videos.map(video => {
-      const route = 'videos/' + video.videoId
+      const route = `videos/${video.videoId}`
       return (
         <LinkContainer to={route} onClick={()=>this.props.setVideoToWatch(video)}>
           <NavItem eventKey={video.videoId}>

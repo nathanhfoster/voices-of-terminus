@@ -1,5 +1,6 @@
 import C from '../constants'
 import {Axios} from './Axios'
+import axios from 'axios'
 import Cookies from 'js-cookie'
 import YTube from 'ytube'
 import qs from 'qs'
@@ -38,6 +39,21 @@ export const getVotPlaylistShow = () => {
             })
         }).catch((e) => console.log(e))
 }
+
+export const getVotTwitchStreams = () => {
+    return async (dispatch) => await axios.get('https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=jvqb2pnewihctq9ov3on4ajzhyqc7t')
+    .then(res => {
+        dispatch({
+            type: C.GET_VOT_TWITCH_STREAMS,
+            payload: res.data
+        })
+    }).catch(e => {
+    })
+}
+
+/*
+
+*/
 
 export const getAllVotYouTube = () => {
     return async (dispatch) => await ytube.fetchAllYouTube("Voices of Terminus")
