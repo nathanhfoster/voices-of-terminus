@@ -5,7 +5,7 @@ import './styles.css'
 import './stylesM.css'
 import { Timeline } from 'react-twitter-widgets'
 import {Grid, Row, Col, NavItem} from 'react-bootstrap'
-import YouTube from 'react-youtube'
+import ReactPlayer from 'react-player'
 import HomeCarousel from '../../components/HomeCarousel'
 
 const mapStateToProps = ({VoTYouTubeChannelData, VRYouTubeChannelData}) => ({
@@ -108,32 +108,26 @@ class Home extends Component {
           </Col>
           <Col lg={6} md={6} className="newsFeed">
             <h1>Latest From VoT</h1>
-            {votLatestVideo ? 
-              <YouTube
-              videoId={votLatestVideo.videoId}              // defaults -> null
-              // id={string}                       // defaults -> null
-              className="Clickable"              // defaults -> null
-              // containerClassName={string}       // defaults -> ''
-              opts={youTubeOpts}                   // defaults -> {}
-              onReady={this._onReady}              // defaults -> noop
-              // onPlay={func}                     // defaults -> noop
-              // onPause={func}                    // defaults -> noop
-              // onEnd={func}                      // defaults -> noop
-              // onError={func}                    // defaults -> noop
-              // onStateChange={func}              // defaults -> noop
-              // onPlaybackRateChange={func}       // defaults -> noop
-              // onPlaybackQualityChange={func}    // defaults -> noop
-            /> : null
-            }
+            {votLatestVideo ?
+              <ReactPlayer
+                className="Clickable"
+                url={`https://www.youtube.com/watch?v=${votLatestVideo.videoId}`}
+                playing={false}
+                width="100%"
+                controls
+              />
+              : null }
 
             <h1>Latest From VR</h1>
             {vrLatestVideo ? 
-            <YouTube
-              videoId={vrLatestVideo.videoId}              // defaults -> null
-              opts={youTubeOpts}                   // defaults -> {}
-              onReady={this._onReady}              // defaults -> noop
-            /> : null
-            }
+              <ReactPlayer
+                className="Clickable"
+                url={`https://www.youtube.com/watch?v=${vrLatestVideo.videoId}`}
+                playing={false}
+                width="100%"
+                controls
+              />
+              : null}
           </Col>
           <Col lg={3} md={3} sm={12} className="newsFeed">
               <iframe src="https://discordapp.com/widget?id=161500442088439808&theme=dark" allowtransparency="true" frameborder="0" height="742px" width="100%"/>

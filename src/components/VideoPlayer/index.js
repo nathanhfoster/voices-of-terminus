@@ -4,7 +4,7 @@ import { connect as reduxConnect } from 'react-redux'
 import {Grid, Row, Col, PageHeader} from 'react-bootstrap'
 import './styles.css'
 import './stylesM.css'
-import YouTube from 'react-youtube'
+import ReactPlayer from 'react-player'
 
 const mapStateToProps = ({VideoToWatch}) => ({
   VideoToWatch
@@ -70,28 +70,13 @@ class VideoPlayer extends Component {
       </Row>
         <Row>
           <Col className="videoPlayerContainer">
-            <YouTube
-              videoId={id}              // defaults -> null
-              // id={string}                       // defaults -> null
-              className="videoPlayer"              // defaults -> null
-              // containerClassName={string}       // defaults -> ''
-              opts={{
-                height: '100%',
-                width: '100%',
-                playerVars: { // https://developers.google.com/youtube/player_parameters
-                  autoplay: false,
-                  color: 'white',
-                  rel: 0, // Changin Sep 25 https://developers.google.com/youtube/player_parameters#release_notes_08_23_2018
-                }
-              }}                   // defaults -> {}
-              onReady={this._onReady}              // defaults -> noop
-              // onPlay={func}                     // defaults -> noop
-              // onPause={func}                    // defaults -> noop
-              // onEnd={func}                      // defaults -> noop
-              // onError={func}                    // defaults -> noop
-              // onStateChange={func}              // defaults -> noop
-              // onPlaybackRateChange={func}       // defaults -> noop
-              // onPlaybackQualityChange={func}    // defaults -> noop
+            <ReactPlayer
+              className="videoPlayer" 
+              url={`https://www.youtube.com/watch?v=${id}`}
+              playing
+              height='100%'
+              width='100%'
+              controls
             />
           </Col>
         </Row>        
