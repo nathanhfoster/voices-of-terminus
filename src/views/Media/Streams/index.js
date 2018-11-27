@@ -81,11 +81,22 @@ _id: "v333774978"
           <Row className="youTubeContainer">
             <Col md={9} mdPush={3} className="videoTitleContainer">
               <h3>{stream.title}</h3>
-              <i className="far fa-clock"/> <Moment fromNow>{stream.created_at}</Moment>
               <p>{stream.description}</p>
             </Col>
             <Col md={3} mdPull={9} className="videoImageContainer"> 
               <Image src={stream.thumbnails[0].url} />
+            </Col>
+            <Col md={3} xs={6}>
+              <i className="far fa-clock"/> <Moment fromNow>{stream.created_at}</Moment>
+            </Col>
+            <Col md={3} xs={6}>
+              <i className="far fa-eye"> {stream.views}</i>
+            </Col>
+            <Col md={3} xs={6}>
+              {stream.broadcast_type == 'archive' ? [<span>Type: </span>,<i className="fas fa-archive"/>] :[<span>Type: </span>, <i className="fas fa-headset"></i>]}
+            </Col>
+            <Col md={3} xs={6}>
+             {stream.status == 'recorded' ? [<span>Status: </span>,<i className="fas fa-microphone-alt"/>] :[<span>Status: </span>, <i className="fas fa-microphone-alt-slash"/>]}
             </Col>
           </Row>
        </NavItem>

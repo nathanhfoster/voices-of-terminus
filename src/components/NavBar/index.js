@@ -5,7 +5,7 @@ import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import './styles.css'
 import './stylesM.css'
-import {Navbar, Nav, NavItem, NavDropdown, Image, Button} from 'react-bootstrap'
+import {Navbar, Nav, NavItem, NavDropdown, Image, Button, Badge} from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import vrLogo from '../../images/VR_Logo.png'
 import votLogo from '../../images/VoT-Logo-White.png'
@@ -117,8 +117,9 @@ class NavBar extends PureComponent {
              
               {!User.token ? <LinkContainer to ="/login"><NavItem eventKey={10}><i className="fas fa-sign-in-alt"/> LOGIN</NavItem></LinkContainer>
               :<NavDropdown eventKey={5} title={[primary_class ? <Image src={classIcon(primary_class)} style={{height: '25px'}}/> : <i className="fas fa-user"/>, ' ' + User.username]} id="basic-nav-dropdown">
-                <LinkContainer to="/profile"><NavItem eventKey={6.7}>PROFILE</NavItem></LinkContainer>
-                <NavItem onClick={this.Logout}>LOGOUT</NavItem>
+                <LinkContainer to="/profile"><NavItem eventKey={6.7}><i className="fas fa-user-circle"> PROFILE</i></NavItem></LinkContainer>
+                <LinkContainer to="/profile"><NavItem eventKey={6.8}><i className="fas fa-bell"> MESSAGES</i> <Badge>42</Badge></NavItem></LinkContainer>
+                <NavItem onClick={this.Logout}><i className="fas fa-sign-out-alt"> LOGOUT</i></NavItem>
               </NavDropdown>}
             </Nav>
             <Nav className="Center pull-right">

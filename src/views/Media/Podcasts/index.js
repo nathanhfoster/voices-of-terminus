@@ -6,6 +6,7 @@ import { LinkContainer } from 'react-router-bootstrap'
 import './styles.css'
 import './stylesM.css'
 import Moment from 'react-moment'
+import {getVotPlaylistShow} from '../../../actions/App'
 
 const mapStateToProps = ({VotPlaylistShow}) => ({
   VotPlaylistShow
@@ -26,6 +27,7 @@ class Podcasts extends PureComponent {
   }
 
   static defaultProps = {
+    getVotPlaylistShow
   }
   
   componentWillMount() {
@@ -33,6 +35,7 @@ class Podcasts extends PureComponent {
   }
 
   componentDidMount() {
+    this.props.getVotPlaylistShow()
   }
   
   componentWillReceiveProps(nextProps) {

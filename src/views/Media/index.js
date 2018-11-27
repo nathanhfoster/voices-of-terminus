@@ -39,11 +39,11 @@ class Media extends Component {
   static defaultProps = {
     YouTubeChannelData: [],
     TabItems: [
-      {eventKey: "/media/images", Title: "IMAGES", Component: Images},
-      {eventKey: "/media/videos", Title: "VIDEOS", Component: Videos},
-      {eventKey: "/media/streams", Title: "STREAMS", Component: Streams},
-      {eventKey: "/media/podcasts", Title: "PODCASTS", Component: Podcasts},
-      {eventKey: "/media/vot-network", Title: "VOT NETWORK", Component: Podcasts},
+      {eventKey: "/media/images", Title: <i className="fas fa-images"> IMAGES</i>, Component: Images},
+      {eventKey: "/media/videos", Title: <i className="fab fa-youtube"> VIDEOS</i>, Component: Videos},
+      {eventKey: "/media/streams", Title: <i className="fab fa-twitch"> STREAMS</i>, Component: Streams},
+      {eventKey: "/media/podcasts", Title: <i className="fas fa-podcast"> PODCASTS</i>, Component: Podcasts},
+      {eventKey: "/media/vot-network", Title: <i className="fas fa-network-wired"> VOT NETWORK</i>, Component: Podcasts},
     ]
   }
   

@@ -28,7 +28,7 @@ import PublicProfile from './views/Profile/PublicProfile'
 import Login from './components/Login'
 import PageNotFound from './views/PageNotFound'
 import Footer from './components/Footer'
-import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getVotChannelsPlayLists, getVotPlaylistShow, getAllVotYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
+import {clearApiResponse, setWindow, getVoTYouTubeChannelData, getVotChannelsPlayLists, getAllVotYouTube, getVRYouTubeChannelData, Logout} from './actions/App'
 import {refreshUser} from './actions/App'
 import 'moment-timezone'
 import MomentJS from 'moment'
@@ -46,7 +46,6 @@ const mapDispatchToProps = {
   setWindow,
   getVoTYouTubeChannelData,
   getVotChannelsPlayLists,
-  getVotPlaylistShow,
   getAllVotYouTube,
   getVRYouTubeChannelData,
   Logout,
@@ -128,7 +127,6 @@ class App extends PureComponent {
     if(this.shouldUpdate(VRYouTubeChannelData[0])) this.props.getAllVotYouTube()
     this.props.getVRYouTubeChannelData()
     this.props.getVotChannelsPlayLists()
-    this.props.getVotPlaylistShow()
     this.updateWindowDimensions()
     window.addEventListener('resize', this.updateWindowDimensions)
 
