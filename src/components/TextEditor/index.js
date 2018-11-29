@@ -137,7 +137,7 @@ class TextEditor extends Component {
     this.props.postArticle(User.token, {title, slug: 'doc', author: User.id, html, tags, last_modified_by: User.id})
    }
 
-   updateArticle = (id) => {
+   updateArticle = id => {
      const {author, tags, title, editorState, User} = this.state
      const html = draftToHtml(convertToRaw(editorState.getCurrentContent()))
      this.props.updateArticle(id, User.token, {last_modified_by: User.id, html, tags, title})

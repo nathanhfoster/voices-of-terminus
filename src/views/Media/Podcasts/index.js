@@ -13,6 +13,7 @@ const mapStateToProps = ({VotPlaylistShow}) => ({
 })
 
 const mapDispatchToProps = {
+  getVotPlaylistShow
 }
 
 class Podcasts extends PureComponent {
@@ -27,7 +28,6 @@ class Podcasts extends PureComponent {
   }
 
   static defaultProps = {
-    getVotPlaylistShow
   }
   
   componentWillMount() {
