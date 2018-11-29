@@ -54,7 +54,7 @@ class Podcasts extends PureComponent {
      <LinkContainer to={route}>
         <NavItem eventKey={podcast.playlistItemId}>
           <Row className="youTubeContainer">
-            <Col md={3} className="videoImageContainer"> 
+            <Col md={3} className="videoImageContainer Center"> 
               <Image src={podcast.thumbnails.high} />
             </Col>
             <Col md={9} className="videoTitleContainer">
