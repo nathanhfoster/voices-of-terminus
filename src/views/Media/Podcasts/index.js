@@ -54,13 +54,13 @@ class Podcasts extends PureComponent {
      <LinkContainer to={route}>
         <NavItem eventKey={podcast.playlistItemId}>
           <Row className="youTubeContainer">
-            <Col md={9} mdPush={3} className="videoTitleContainer">
+            <Col md={3} className="videoImageContainer"> 
+              <Image src={podcast.thumbnails.high} />
+            </Col>
+            <Col md={9} className="videoTitleContainer">
               <h3>{podcast.title}</h3>
               <i className="far fa-clock"/> <Moment fromNow>{podcast.publishedAt}</Moment>
               <p>{podcast.description}</p>
-            </Col>
-            <Col md={3} mdPull={9} className="videoImageContainer"> 
-              <Image src={podcast.thumbnails.high} />
             </Col>
           </Row>
         </NavItem>

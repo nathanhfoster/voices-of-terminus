@@ -79,12 +79,12 @@ _id: "v333774978"
       <LinkContainer to={route}>
         <NavItem eventKey={id}>
           <Row className="youTubeContainer">
-            <Col md={9} mdPush={3} className="videoTitleContainer">
+            <Col md={3} className="videoImageContainer Center"> 
+              <Image src={stream.thumbnails[0].url} />
+            </Col>
+            <Col md={9}className="videoTitleContainer">
               <h3>{stream.title}</h3>
               <p>{stream.description}</p>
-            </Col>
-            <Col md={3} mdPull={9} className="videoImageContainer"> 
-              <Image src={stream.thumbnails[0].url} />
             </Col>
             <Col md={3} xs={6}>
               <i className="far fa-clock"/> <Moment fromNow>{stream.created_at}</Moment>

@@ -53,13 +53,13 @@ class Videos extends PureComponent {
         <LinkContainer to={route}>
           <NavItem eventKey={video.videoId}>
             <Row className="youTubeContainer">
-              <Col md={9} mdPush={3} className="videoTitleContainer">
+              <Col md={3} className="videoImageContainer Center"> 
+                <Image src={video.thumbnails.high} />
+              </Col>
+              <Col md={9} className="videoTitleContainer">
                 <h3>{video.title}</h3>
                 <i className="far fa-clock"/> <Moment fromNow>{video.publishedAt}</Moment>
                 <p>{video.description}</p>
-              </Col>
-              <Col md={3} mdPull={9} className="videoImageContainer"> 
-                <Image src={video.thumbnails.high} />
               </Col>
             </Row>
          </NavItem>
