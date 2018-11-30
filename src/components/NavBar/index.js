@@ -99,7 +99,7 @@ class NavBar extends PureComponent {
                 <LinkContainer to="/guild/contests"><NavItem eventKey={5.5}>CONTESTS</NavItem></LinkContainer>
                 <LinkContainer to="/guild/team"><NavItem eventKey={5.6}>TEAM</NavItem></LinkContainer>
                 <LinkContainer to="/guild/join"><NavItem eventKey={5.7}>JOIN</NavItem></LinkContainer>
-                <NavItem href="https://www.designbyhumans.com/shop/VoicesofTerminus/" eventKey={5.8}><i className="fas fa-store"/> STORE</NavItem>
+                <NavItem href="https://www.designbyhumans.com/shop/VoicesofTerminus/" target="_blank" eventKey={5.8}><i className="fas fa-store"/> STORE</NavItem>
               </NavDropdown>
               <NavDropdown eventKey={6} title={[<i className="fas fa-compact-disc"/>, " MEDIA"]} id="basic-nav-dropdown">
               <LinkContainer to="/media/images"><NavItem eventKey={6.1}>IMAGES</NavItem></LinkContainer>
