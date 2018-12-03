@@ -18,11 +18,13 @@
   border-radius: 4px;
   transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
 }
+
 .Card .HtmlParser {
   padding: 0;
   margin: 0;
   width: 100%;
 }
+
 .Summary {
   height: var(--cardSummaryHeight);
   position: absolute;
@@ -37,31 +39,35 @@
   flex-wrap: nowrap;
   justify-content: flex-end;
 }
+
 .Summary .summaryTitle {
   display: flex;
 }
+
 .Summary .summaryTitle h4 {
   width: 100%;
   margin: 4px 0 4px 0;
 }
+
 .Summary .summaryTitle i {
   margin: auto;
   width: 32px;
 }
-.Summary .summaryTitleDivider{
+
+.Summary .summaryTitleDivider {
   margin: 0 0 4px 0;
   width: 100%;
 }
 
 .cardActions {
-
 }
 
-.cardActions button{
+.cardActions button {
   background-color: var(--primaryColor);
   color: var(--tertiarycolor);
   margin-left: 4px;
 }
+
 .cardActions button:hover {
   background-color: var(--tertiarycolor);
   color: var(--secondaryColor);
@@ -86,7 +92,7 @@
 }
 
 .cardInfo a:hover {
-  opacity: .7;
+  opacity: 0.7;
 }
 
 .cardActions .caret {

@@ -7,14 +7,21 @@ lg (for laptops and desktops - screens equal to or greater than 1200px wide)
 max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
 min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
 */
-@media(max-width:767px){
-    .HomeCarousel {
-        height: 230px;
-    }
-    .CarouselImage {
-        max-height: 230px;
-    }
+@media (max-width: 767px) {
+  .HomeCarousel {
+    height: 230px;
+  }
+
+  .CarouselImage {
+    max-height: 230px;
+  }
 }
-@media(min-width:768px){}
-@media(min-width:992px){}
-@media(min-width:1200px){}
+
+@media (min-width: 768px) {
+}
+
+@media (min-width: 992px) {
+}
+
+@media (min-width: 1200px) {
+}

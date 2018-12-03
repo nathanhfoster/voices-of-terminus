@@ -1,13 +1,13 @@
 .Roster p {
-    font-size: 16px;
-    margin: 4px;
+  font-size: 16px;
+  margin: 4px;
 }
 .Roster .userContainer {
   display: inline-flex;
   padding: 4px;
-} 
+}
 
 .Roster .userContainer:hover {
   box-shadow: 0 0 4px var(--primaryColor);
   transition: box-shadow 200ms;
-}  
+}

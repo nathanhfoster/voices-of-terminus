@@ -1,5 +1,5 @@
 .Videos {
-    list-style-type: none;
+  list-style-type: none;
 }
 .Videos a:hover {
   color: var(--tertiarycolor);
@@ -20,7 +20,7 @@
 
 .Videos .youTubeContainer:hover {
   border-color: var(--primaryColor);
-  transition: border-color .4s;
+  transition: border-color 0.4s;
 }
 .Videos .youTubeContainer .videoTitleContainer {
   text-align: left;
@@ -29,4 +29,4 @@
   height: 180px;
   border-radius: 4px;
   margin: 15px 0 15px 0;
-}  
+}

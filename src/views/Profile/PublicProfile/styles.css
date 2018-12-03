@@ -1,50 +1,50 @@
 .PublicProfile {
-    padding: 20px;
-    border-radius: 6px;
-    background-color: var(--dark_grey);
-    opacity: var(--mainOpacity);
+  padding: 20px;
+  border-radius: 6px;
+  background-color: var(--dark_grey);
+  opacity: var(--mainOpacity);
 }
 
 .firstLastName {
-    display: block;
-    margin-left: 4px;
-    font-size: 12px;
+  display: block;
+  margin-left: 4px;
+  font-size: 12px;
 }
 
 .userRoles span {
-    margin: 2px;
+  margin: 2px;
 }
 
 .userBio {
-    border: 1px solid var(--light_grey);
-    background-color: var(--slate_grey);
-    word-break: break-all;
-    vertical-align: middle;
-    overflow-y: auto;
+  border: 1px solid var(--light_grey);
+  background-color: var(--slate_grey);
+  word-break: break-all;
+  vertical-align: middle;
+  overflow-y: auto;
 }
 
 .userBio i {
-    font-size: 36px;
-    display: inline-flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    padding: 8px;
+  font-size: 36px;
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
 }
 
 .userBio::-webkit-scrollbar {
-    display: block;
+  display: block;
 }
 
 .userConnections {
-    padding: 8px;
-    text-align: center;
+  padding: 8px;
+  text-align: center;
 }
 
 .userConnections a {
-    color: inherit;
+  color: inherit;
 }
 
 .userConnections a:hover {
-    color: var(--primaryColor);
+  color: var(--primaryColor);
 }

@@ -1,7 +1,7 @@
 .TextEditor {
-    font-family: 'proxima_novasemibold', Arial, sans-serif;
+  font-family: "proxima_novasemibold", Arial, sans-serif;
 }
-.TextEditor .DraftEditor-editorContainer img{
+.TextEditor .DraftEditor-editorContainer img {
   max-width: 100%;
 }
 .TextEditor .select__option--is-disabled {
@@ -17,7 +17,7 @@
   width: 4px;
 }
 .TextEditor .rdw-option-wrapper {
-  border: 1px solid #F1F1F1;
+  border: 1px solid #f1f1f1;
   padding: 5px;
   min-width: 30px;
   height: 30px;
@@ -39,7 +39,9 @@
 .TextEditor .Wrapper .rdw-editor-toolbar {
   box-shadow: 0 4px 8px rgba(0, 0, 0, var(--mainOpacity));
 }
-.TextEditor .Wrapper .rdw-dropdownoption-active, .TextEditor .Wrapper .rdw-dropdown-selectedtext, .TextEditor .Wrapper .rdw-dropdown-optionwrapper {
+.TextEditor .Wrapper .rdw-dropdownoption-active,
+.TextEditor .Wrapper .rdw-dropdown-selectedtext,
+.TextEditor .Wrapper .rdw-dropdown-optionwrapper {
   background-color: var(--grey);
   color: var(--tertiarycolor);
 }
@@ -59,14 +61,26 @@
 .TextEditor .Wrapper .rdw-colorpicker-modal-options {
   overflow-x: hidden;
 }
-.TextEditor .Wrapper .rdw-link-modal, .TextEditor .Wrapper .rdw-image-modal, .TextEditor .Wrapper .rdw-embedded-modal, .TextEditor .Wrapper .rdw-colorpicker-modal, .TextEditor .Wrapper .rdw-link-modal-input, .TextEditor .Wrapper .rdw-embedded-modal-link-input, .TextEditor .Wrapper .rdw-embedded-modal-size-input, .TextEditor .Wrapper .rdw-emoji-modal, .TextEditor .Wrapper .rdw-image-modal-url-input, .TextEditor .Wrapper .rdw-image-modal-size-input, .TextEditor .Wrapper button {
+.TextEditor .Wrapper .rdw-link-modal,
+.TextEditor .Wrapper .rdw-image-modal,
+.TextEditor .Wrapper .rdw-embedded-modal,
+.TextEditor .Wrapper .rdw-colorpicker-modal,
+.TextEditor .Wrapper .rdw-link-modal-input,
+.TextEditor .Wrapper .rdw-embedded-modal-link-input,
+.TextEditor .Wrapper .rdw-embedded-modal-size-input,
+.TextEditor .Wrapper .rdw-emoji-modal,
+.TextEditor .Wrapper .rdw-image-modal-url-input,
+.TextEditor .Wrapper .rdw-image-modal-size-input,
+.TextEditor .Wrapper button {
   background-color: var(--grey);
   box-shadow: 0 0 0 transparent;
 }
 .TextEditor .Wrapper .rdw-colorpicker-modal-style-label-active {
   border-color: var(--tertiarycolor);
 }
-.TextEditor .Wrapper .rdw-image-modal-header-label, .TextEditor .Wrapper .rdw-embedded-modal-header-label, .TextEditor .Wrapper .rdw-image-modal-header-label-highlighted {
+.TextEditor .Wrapper .rdw-image-modal-header-label,
+.TextEditor .Wrapper .rdw-embedded-modal-header-label,
+.TextEditor .Wrapper .rdw-image-modal-header-label-highlighted {
   border: 0;
 }
 .TextEditor .Wrapper button:hover {

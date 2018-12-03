@@ -1,31 +1,88 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto');
+@import url("https://fonts.googleapis.com/css?family=Roboto");
 :root {
-  --cursor: url('./images/Cursor.png'), auto;
+  --cursor: url("./images/Cursor.png"), auto;
   --navBarHeight: 52px;
   --footerHeight: 126px;
   --primaryColor: #ff9800;
   --secondaryColor: black;
   --tertiarycolor: white;
   --quaternaryColor: #00dae4;
-  --quinaryColor: #2DE5D2;
+  --quinaryColor: #2de5d2;
   --light_grey: rgb(204, 204, 204);
   --grey: #404048;
   --slate_grey: #36363d;
   --dark_grey: #2d2d32;
-  --grey_out:  rgba(163,163,172,0.4);
-  --dark_border: rgba(29,29,31,0.3);
-  --loadColor_1: radial-gradient(closest-side at 50% 50%,var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),var(--primaryColor),rgba(0,0,0,0));
-  --loadColor_2: radial-gradient(closest-side at 50% 50%,var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),var(--secondaryColor),rgba(0,0,0,0));
-  --loadColor_3: radial-gradient(closest-side at 50% 50%,var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),var(--tertiaryColor),rgba(0,0,0,0));
-  --loadColor_4: radial-gradient(closest-side at 50% 50%,var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),var(--quaternaryColor),rgba(0,0,0,0));
-  --loadColor_5: radial-gradient(closest-side at 50% 50%,var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),var(--quinaryColor),rgba(0,0,0,0));
+  --grey_out: rgba(163, 163, 172, 0.4);
+  --dark_border: rgba(29, 29, 31, 0.3);
+  --loadColor_1: radial-gradient(
+    closest-side at 50% 50%,
+    var(--primaryColor),
+    var(--primaryColor),
+    var(--primaryColor),
+    var(--primaryColor),
+    var(--primaryColor),
+    var(--primaryColor),
+    var(--primaryColor),
+    rgba(0, 0, 0, 0)
+  );
+  --loadColor_2: radial-gradient(
+    closest-side at 50% 50%,
+    var(--secondaryColor),
+    var(--secondaryColor),
+    var(--secondaryColor),
+    var(--secondaryColor),
+    var(--secondaryColor),
+    var(--secondaryColor),
+    var(--secondaryColor),
+    rgba(0, 0, 0, 0)
+  );
+  --loadColor_3: radial-gradient(
+    closest-side at 50% 50%,
+    var(--tertiaryColor),
+    var(--tertiaryColor),
+    var(--tertiaryColor),
+    var(--tertiaryColor),
+    var(--tertiaryColor),
+    var(--tertiaryColor),
+    var(--tertiaryColor),
+    rgba(0, 0, 0, 0)
+  );
+  --loadColor_4: radial-gradient(
+    closest-side at 50% 50%,
+    var(--quaternaryColor),
+    var(--quaternaryColor),
+    var(--quaternaryColor),
+    var(--quaternaryColor),
+    var(--quaternaryColor),
+    var(--quaternaryColor),
+    var(--quaternaryColor),
+    rgba(0, 0, 0, 0)
+  );
+  --loadColor_5: radial-gradient(
+    closest-side at 50% 50%,
+    var(--quinaryColor),
+    var(--quinaryColor),
+    var(--quinaryColor),
+    var(--quinaryColor),
+    var(--quinaryColor),
+    var(--quinaryColor),
+    var(--quinaryColor),
+    rgba(0, 0, 0, 0)
+  );
   --primaryTextColor: rgba(0, 0, 0, 0.87);
-  --primaryBackGround: linear-gradient(to bottom, var(--primaryColor), var(--secondaryColor), var(--tertiaryColor), var(--quaternaryColor), var(--quinaryColor));
-  --primaryBackGroundOpacity: rgba(0, 0, 0, .2);
-  --secondaryBackGroundOpacity: rgba(0, 0, 0, .2);
-  --tertiaryBackGroundOpacity: rgba(0, 0, 0, .5);
-  --quaternaryBackGroundOpacity: rgba(0, 0, 0, .9);
-  --mainOpacity: .95;
+  --primaryBackGround: linear-gradient(
+    to bottom,
+    var(--primaryColor),
+    var(--secondaryColor),
+    var(--tertiaryColor),
+    var(--quaternaryColor),
+    var(--quinaryColor)
+  );
+  --primaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
+  --secondaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
+  --tertiaryBackGroundOpacity: rgba(0, 0, 0, 0.5);
+  --quaternaryBackGroundOpacity: rgba(0, 0, 0, 0.9);
+  --mainOpacity: 0.95;
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
   --inputHeight: 34px;
@@ -36,7 +93,7 @@
   --speed: 200ms;
   --easing: cubic-bezier(0.7, 0, 0, 0.7);
 
-    /* Other Colors */
+  /* Other Colors */
   --color_whiteSmoke: #f5f5f5;
   --color_turquoise: #1abc9c;
   --color_greenSea: #16a085;
@@ -62,7 +119,7 @@
   --color_mandalay_approx: #a77225;
   --color_supernova_approx: #ffcc07;
   --black: #000000;
-  --black_30: rgba(0, 0, 0, 0.30);
+  --black_30: rgba(0, 0, 0, 0.3);
   --color_nobel_approx: #b3b3b3;
   --color_quill_gray_approx: #d3d3d3;
   --color_mustard_approx: #ffdd5a;
@@ -83,13 +140,13 @@
   --color_san_juan_approx: #364e67;
   --color_big_stone_67_approx: rgba(29, 46, 64, 0.67);
   --color_malachite_approx: #35d835;
-  --gray: #9E9E9E;
+  --gray: #9e9e9e;
   --color_danube_approx: #5f99cf;
   --color_punga_54_approx: rgba(86, 57, 19, 0.54);
   --color_gorse_approx: #fffe48;
   --color_tropical_blue_approx: #c4dbf1;
   --color_nile_blue_43_approx: rgba(36, 54, 74, 0.43);
-  --white_0: rgba(255, 255, 255, .0);
+  --white_0: rgba(255, 255, 255, 0);
   --color_polo_blue_approx: #82a6c9;
   --color_iroko_approx: #3e321e;
   --color_matisse_approx: #21618a;
@@ -116,30 +173,34 @@
   font-family: "Goblin Hand";
   font-style: normal;
   font-weight: 400;
-  src: local('Goblin Hand'),
-  url('./fonts/VTCGoblinHand.ttf') format('embedded-opentype'), /* IE6-IE8 */
-  url('./fonts/VTCGoblinHand.ttf') format('woff2'), /* Super Modern Browsers */
-  url('./fonts/VTCGoblinHand.ttf') format('woff'), /* Modern Browsers */
-  url('./fonts/VTCGoblinHand.ttf') format('truetype'), /* Safari, Android, iOS */
-  url('./fonts/VTCGoblinHand.ttf') format('svg'); /* Legacy iOS */
+  src: local("Goblin Hand"),
+    url("./fonts/VTCGoblinHand.ttf") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./fonts/VTCGoblinHand.ttf") format("woff2"),
+    /* Super Modern Browsers */ url("./fonts/VTCGoblinHand.ttf") format("woff"),
+    /* Modern Browsers */ url("./fonts/VTCGoblinHand.ttf") format("truetype"),
+    /* Safari, Android, iOS */ url("./fonts/VTCGoblinHand.ttf") format("svg"); /* Legacy iOS */
 }
 @font-face {
   font-family: "Omnia";
   font-style: normal;
   font-weight: 400;
-  src: local('Omnia'),
-  url('./fonts/omnia.woff') format('embedded-opentype'), /* IE6-IE8 */
-  url('./fonts/omnia.woff') format('woff2'), /* Super Modern Browsers */
-  url('./fonts/omnia.woff') format('woff'), /* Modern Browsers */
-  url('./fonts/omnia.woff') format('truetype'), /* Safari, Android, iOS */
-  url('./fonts/omnia.woff') format('svg'); /* Legacy iOS */
+  src: local("Omnia"), url("./fonts/omnia.woff") format("embedded-opentype"),
+    /* IE6-IE8 */ url("./fonts/omnia.woff") format("woff2"),
+    /* Super Modern Browsers */ url("./fonts/omnia.woff") format("woff"),
+    /* Modern Browsers */ url("./fonts/omnia.woff") format("truetype"),
+    /* Safari, Android, iOS */ url("./fonts/omnia.woff") format("svg"); /* Legacy iOS */
 }
-a:-webkit-any-link, button, html input[type=button], input[type=reset], input[type=submit], .Clickable {
-  cursor: url('./images/Cursor.png'), auto !important;
+a:-webkit-any-link,
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"],
+.Clickable {
+  cursor: url("./images/Cursor.png"), auto !important;
 }
 body {
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: medium;
   background-repeat: no-repeat;
   overflow: hidden;
@@ -151,13 +212,15 @@ body {
   touch-action: pan-y;
   color: var(--tertiarycolor);
 }
-.btn-default, .modal-content .btn-default {
+.btn-default,
+.modal-content .btn-default {
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
-.btn-default:hover, .modal-content .btn-default:hover {
+.btn-default:hover,
+.modal-content .btn-default:hover {
   background-color: var(--tertiarycolor);
   color: black;
   -webkit-transition: all 0.3s ease-out;
@@ -165,13 +228,15 @@ body {
   -o-transition: all 0.3s ease-out;
   transition: all 0.3s ease-out;
 }
-.Container input, .Container select, .Container textarea {
+.Container input,
+.Container select,
+.Container textarea {
   background-color: var(--slate_grey);
 }
 .Hover:hover {
   border-color: var(--primaryColor);
-  box-shadow: 4px 4px 4px rgba(245, 245, 245, .1);
-  transition: border-color .4s;
+  box-shadow: 4px 4px 4px rgba(245, 245, 245, 0.1);
+  transition: border-color 0.4s;
 }
 .ActionToolbar {
   margin: 8px 0 8px 0;
@@ -204,100 +269,133 @@ body {
   font-weight: 900;
 }
 .pageHeader h1:before {
-  content: '';
+  content: "";
   width: 93px;
   height: 6px;
   position: absolute;
   right: calc(100% + 8px);
   margin-top: -5px;
   top: 50%;
-  background: url('./images/left_arrow.png') no-repeat;
+  background: url("./images/left_arrow.png") no-repeat;
 }
 .pageHeader h1::after {
-  content: '';
+  content: "";
   width: 93px;
   height: 6px;
   position: absolute;
   left: calc(100% + 8px);
   margin-top: -5px;
   top: 50%;
-  background: url('./images/right_arrow.png') no-repeat;
+  background: url("./images/right_arrow.png") no-repeat;
 }
-a, a:focus, button:focus, a:active, a:visited {
+a,
+a:focus,
+button:focus,
+a:active,
+a:visited {
   outline: none !important;
-  text-decoration: none !important; 
+  text-decoration: none !important;
 }
 .Tabs {
   margin-top: 8px;
 }
 .Tabs .nav-tabs {
-    border: 0;
-    /* border-color: #eee;
+  border: 0;
+  /* border-color: #eee;
     border-style: solid;
     border-width: 0 1px 1px 1px; */
 }
-.Tabs .nav-tabs>li>a {
+.Tabs .nav-tabs > li > a {
   color: inherit;
 }
-.Tabs .nav-tabs>li:hover>a, .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+.Tabs .nav-tabs > li:hover > a,
+.nav-tabs > li.active > a,
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover {
   color: var(--tertiarycolor);
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);
-  box-shadow: -1px 4px 21px 3px rgba(0,0,0,0.8);
-  -webkit-transition:  background-color .5s ease-out;
-  -moz-transition:  background-color .5s ease-out;
-  -o-transition:  background-color .5s ease-out;
-  transition:  background-color .5s ease-out;
+  box-shadow: -1px 4px 21px 3px rgba(0, 0, 0, 0.8);
+  -webkit-transition: background-color 0.5s ease-out;
+  -moz-transition: background-color 0.5s ease-out;
+  -o-transition: background-color 0.5s ease-out;
+  transition: background-color 0.5s ease-out;
 }
 .fadeIn-2 {
   -webkit-animation: fadein 450ms; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 550ms; /* Firefox < 16 */
-   -ms-animation: fadein 550ms; /* Internet Explorer */
-    -o-animation: fadein 550ms; /* Opera < 12.1 */
-       animation: fadein 550ms;
+  -ms-animation: fadein 550ms; /* Internet Explorer */
+  -o-animation: fadein 550ms; /* Opera < 12.1 */
+  animation: fadein 550ms;
 }
 
 @keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 /* Firefox < 16 */
 @-moz-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 /* Safari, Chrome and Opera > 12.1 */
 @-webkit-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 /* Internet Explorer */
 @-ms-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 /* Opera < 12.1 */
 @-o-keyframes fadein {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .sheen::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -50%;
   right: -50%;
   bottom: -50%;
   left: -50%;
-  background: linear-gradient(to bottom, rgba(229, 172, 142, 0), rgba(255,255,255,0.5) 50%, rgba(229, 172, 142, 0));
+  background: linear-gradient(
+    to bottom,
+    rgba(229, 172, 142, 0),
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(229, 172, 142, 0)
+  );
   transform: rotateZ(60deg) translate(-5em, 7.5em);
 }
 .sheen {
   position: relative;
   overflow: hidden;
 }
-.sheen:hover::after, .sheen:focus::after {
+.sheen:hover::after,
+.sheen:focus::after {
   animation: sheen 1.25s forwards;
 }
 @keyframes sheen {

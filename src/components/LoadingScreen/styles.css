@@ -1,211 +1,145 @@
 .LoadingScreenContainer {
-	background-color:rgba(0, 0, 0, 0.3);
-	width: 100%;
-	
-	z-index: 999;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+
+  z-index: 999;
 }
 
-.LoadingScreenContainer:before{
-	background-color: transparent;
-	background-repeat: no-repeat;
-	background-size: 20px 20px;
-	content: "";
-	width: 300px;
-	height: 200px;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	animation: load 2s ease infinite alternate;
+.LoadingScreenContainer:before {
+  background-color: transparent;
+  background-repeat: no-repeat;
+  background-size: 20px 20px;
+  content: "";
+  width: 300px;
+  height: 200px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: load 2s ease infinite alternate;
 }
 
 .LoadingScreenContainer div,
 .LoadingScreenContainer:before,
 .LoadingScreenContainer span {
-	display: block;
-    position: absolute;
+  display: block;
+  position: absolute;
 }
 
 @charset "utf8";
-@keyframes load{
-	0%,100%{
-		background-image:
-		none,none,none,none,none,none,none,none,none,none;
-		background-position:
-		left center,28px 72px,62px 70px,96px 72px,127px center,154px 110px,183px 128px,217px 130px,251px 128px,right 110px
-		}
-	5%{
-		background-image:
-		var(--loadColor_1),
-		none,none,none,none,none,none,none,none,none
-		}
-	10%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		none,none,none,none,none,none,none,none
-		}
-	15%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		none,none,none,none,none,none,none
-		}
-	20%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		none,none,none,none,none,none
-		}
-	25%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		none,none,none,none,none
-		}
-	30%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		none,none,none,none
-		}
-	35%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		none,none,none
-		}
-	40%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		none,none
-		}
-	45%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		none
-		}
-	50%{
-		background-image:
-		var(--loadColor_1),
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	55%{
-		background-image:
-		none,
-		var(--loadColor_1),
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	60%{
-		background-image:
-		none,none,
-		var(--loadColor_2),
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	65%{
-		background-image:
-		none,none,none,
-		var(--loadColor_2),
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	70%{
-		background-image:
-		none,none,none,none,
-		var(--loadColor_3),
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	75%{
-		background-image:
-		none,none,none,none,none,
-		var(--loadColor_3),
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	80%{
-		background-image:
-		none,none,none,none,none,none,
-		var(--loadColor_4),
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	85%{
-		background-image:
-		none,none,none,none,none,none,none,
-		var(--loadColor_4),
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	90%{
-		background-image:
-		none,none,none,none,none,none,none,none,
-		var(--loadColor_5),
-		var(--loadColor_5)
-		}
-	95%{
-		background-image:
-		none,none,none,none,none,none,none,none,none,
-		var(--loadColor_5)
-		}
-	}
+
+@keyframes load {
+  0%,
+  100% {
+    background-image: none, none, none, none, none, none, none, none, none, none;
+    background-position: left center, 28px 72px, 62px 70px, 96px 72px,
+      127px center, 154px 110px, 183px 128px, 217px 130px, 251px 128px,
+      right 110px;
+  }
+
+  5% {
+    background-image: var(--loadColor_1), none, none, none, none, none, none,
+      none, none, none;
+  }
+
+  10% {
+    background-image: var(--loadColor_1), var(--loadColor_1), none, none, none,
+      none, none, none, none, none;
+  }
+
+  15% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      none, none, none, none, none, none, none;
+  }
+
+  20% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), none, none, none, none, none, none;
+  }
+
+  25% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), none, none, none, none, none;
+  }
+
+  30% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), var(--loadColor_3), none, none,
+      none, none;
+  }
+
+  35% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), var(--loadColor_3),
+      var(--loadColor_4), none, none, none;
+  }
+
+  40% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), var(--loadColor_3),
+      var(--loadColor_4), var(--loadColor_4), none, none;
+  }
+
+  45% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), var(--loadColor_3),
+      var(--loadColor_4), var(--loadColor_4), var(--loadColor_5), none;
+  }
+
+  50% {
+    background-image: var(--loadColor_1), var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), var(--loadColor_3),
+      var(--loadColor_4), var(--loadColor_4), var(--loadColor_5),
+      var(--loadColor_5);
+  }
+
+  55% {
+    background-image: none, var(--loadColor_1), var(--loadColor_2),
+      var(--loadColor_2), var(--loadColor_3), var(--loadColor_3),
+      var(--loadColor_4), var(--loadColor_4), var(--loadColor_5),
+      var(--loadColor_5);
+  }
+
+  60% {
+    background-image: none, none, var(--loadColor_2), var(--loadColor_2),
+      var(--loadColor_3), var(--loadColor_3), var(--loadColor_4),
+      var(--loadColor_4), var(--loadColor_5), var(--loadColor_5);
+  }
+
+  65% {
+    background-image: none, none, none, var(--loadColor_2), var(--loadColor_3),
+      var(--loadColor_3), var(--loadColor_4), var(--loadColor_4),
+      var(--loadColor_5), var(--loadColor_5);
+  }
+
+  70% {
+    background-image: none, none, none, none, var(--loadColor_3),
+      var(--loadColor_3), var(--loadColor_4), var(--loadColor_4),
+      var(--loadColor_5), var(--loadColor_5);
+  }
+
+  75% {
+    background-image: none, none, none, none, none, var(--loadColor_3),
+      var(--loadColor_4), var(--loadColor_4), var(--loadColor_5),
+      var(--loadColor_5);
+  }
+
+  80% {
+    background-image: none, none, none, none, none, none, var(--loadColor_4),
+      var(--loadColor_4), var(--loadColor_5), var(--loadColor_5);
+  }
+
+  85% {
+    background-image: none, none, none, none, none, none, none,
+      var(--loadColor_4), var(--loadColor_5), var(--loadColor_5);
+  }
+
+  90% {
+    background-image: none, none, none, none, none, none, none, none,
+      var(--loadColor_5), var(--loadColor_5);
+  }
+
+  95% {
+    background-image: none, none, none, none, none, none, none, none, none,
+      var(--loadColor_5);
+  }
+}

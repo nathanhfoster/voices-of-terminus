@@ -1,49 +1,39 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { connect as reduxConnect } from 'react-redux'
-import './styles.css'
-import './stylesM.css'
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { connect as reduxConnect } from "react-redux";
+import "./styles.css";
+import "./stylesM.css";
 
-const mapStateToProps = ({}) => ({
-})
+const mapStateToProps = ({}) => ({});
 
-const mapDispatchToProps = {
-}
+const mapDispatchToProps = {};
 
 class Images extends PureComponent {
   constructor(props) {
-    super(props)
- 
-    this.state = {
-    }
+    super(props);
+
+    this.state = {};
   }
 
-  static propTypes = { 
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
-  
+  static defaultProps = {};
+
   componentWillMount() {
-    this.getState(this.props)
+    this.getState(this.props);
   }
-  componentDidMount() {
-  }
-  
+  componentDidMount() {}
+
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
   getState = props => {
-    this.setState({})
-  }
+    this.setState({});
+  };
 
   render() {
-    return (
-      <div className="Images">
-        Images
-      </div>
-    )
+    return <div className="Images">Images</div>;
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Images)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Images);

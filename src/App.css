@@ -39,7 +39,7 @@
   display: none;
   height: 8px;
   width: 8px;
-  background-color: rgba(189,189,189,0.4);
+  background-color: rgba(189, 189, 189, 0.4);
   -webkit-border-radius: 100px;
   transition: 200ms linear;
 }
@@ -64,7 +64,8 @@ textarea {
   resize: none;
 }
 
-input[type=checkbox], input[type=radio] {
+input[type="checkbox"],
+input[type="radio"] {
   margin: 0 5px 0 0;
   vertical-align: middle;
   position: relative !important;
@@ -85,26 +86,31 @@ input[type="url"]:focus,
 input[type="search"]:focus,
 input[type="tel"]:focus,
 input[type="color"]:focus,
-.uneditable-input:focus {   
+.uneditable-input:focus {
   border-color: var(--primaryColor);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px var(--primaryColor);
   outline: 0 none;
 }
 
-input, select, textarea{
+input,
+select,
+textarea {
   color: var(--tertiarycolor) !important;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: var(--tertiarycolor) !important;
   opacity: 1; /* Firefox */
 }
 
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
   color: var(--tertiarycolor) !important;
 }
 
-::-ms-input-placeholder { /* Microsoft Edge */
+::-ms-input-placeholder {
+  /* Microsoft Edge */
   color: var(--tertiarycolor) !important;
 }
 
@@ -113,9 +119,11 @@ input, select, textarea{
   flex: 1 1 auto; */
   overflow-x: hidden;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, .6);
+  background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
   z-index: 1;
-  left: 0; right: 0;
-  top: var(--navBarHeight); bottom: 0;
+  left: 0;
+  right: 0;
+  top: var(--navBarHeight);
+  bottom: 0;
 }

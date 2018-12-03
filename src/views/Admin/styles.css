@@ -3,21 +3,23 @@
 }
 
 .ReactTable a {
-   color: var(--primaryColor);
+  color: var(--primaryColor);
 }
- 
+
 .ReactTable a:hover {
-   color: var(--tertiarycolor);
-} 
+  color: var(--tertiarycolor);
+}
 
 .ReactTable .rt-table::-webkit-scrollbar {
   display: block;
 }
 
-.ReactTable .rt-thead .rt-th.-sort-asc, .ReactTable .rt-thead .rt-td.-sort-asc {
+.ReactTable .rt-thead .rt-th.-sort-asc,
+.ReactTable .rt-thead .rt-td.-sort-asc {
   box-shadow: inset 0 2px 0 0 var(--primaryColor);
 }
-.ReactTable .rt-thead .rt-th.-sort-desc, .ReactTable .rt-thead .rt-td.-sort-desc {
+.ReactTable .rt-thead .rt-th.-sort-desc,
+.ReactTable .rt-thead .rt-td.-sort-desc {
   box-shadow: inset 0 -2px 0 0 var(--primaryColor);
 }
 
@@ -43,7 +45,8 @@ div.-sort-desc::after {
   outline: none;
 }
 
-.ReactTable .rt-thead .rt-th, .ReactTable .rt-thead .rt-td,
+.ReactTable .rt-thead .rt-th,
+.ReactTable .rt-thead .rt-td,
 .ReactTable .rt-thead.-filters,
 .ReactTable .rt-thead.-filters .rt-th,
 .ReactTable .rt-tbody .rt-tr-group,
@@ -54,12 +57,14 @@ div.-sort-desc::after {
 
 .rt-table {
   overflow-x: hidden;
-  opacity: .96;
+  opacity: 0.96;
   background: var(--slate_grey);
 }
 
-.ReactTable .rt-thead.-filters input, .ReactTable .rt-thead.-filters select,
-.ReactTable .-pagination input, .ReactTable .-pagination select {
+.ReactTable .rt-thead.-filters input,
+.ReactTable .rt-thead.-filters select,
+.ReactTable .-pagination input,
+.ReactTable .-pagination select {
   background: var(--grey);
 }
 
@@ -77,7 +82,7 @@ div.-sort-desc::after {
   padding: 0;
   display: block;
   height: 100%;
-  width:100%;
+  width: 100%;
 }
 
 .ReactTable .pagination-bottom {

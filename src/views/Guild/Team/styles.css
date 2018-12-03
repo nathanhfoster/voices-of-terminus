@@ -2,21 +2,20 @@
 }
 
 .teanCard {
-    padding: 40px;
+  padding: 40px;
 }
 
 .Team h1 {
 }
 
 .Team small {
-    color: var(--tertiarycolor);
-    display: block;
+  color: var(--tertiarycolor);
+  display: block;
 }
 
 .Team p {
-    font-size: 2rem;
+  font-size: 2rem;
 }
 
 .Team h1 {
-   
 }

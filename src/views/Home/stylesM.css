@@ -6,24 +6,23 @@
  max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
  min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
  */
- @media (max-width: 767px) {
-    .Home {
-      margin: 0;
-      padding: 0;
-    }
-    .Home .votDifferenceContainer {
-      width: auto;
-      border-top: 0;
-      padding-top: 8px;
-      margin: 0;
-      margin-bottom: 6px;
-      border-bottom: 1px solid var(--primaryColor);
-    }
-    .Home .votDifferenceContainer .votDifferenceText {
-      margin: 0;
-    }
-    .Home .newsFeed {
-      margin: 0;
-    }
+@media (max-width: 767px) {
+  .Home {
+    margin: 0;
+    padding: 0;
   }
-  
+  .Home .votDifferenceContainer {
+    width: auto;
+    border-top: 0;
+    padding-top: 8px;
+    margin: 0;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--primaryColor);
+  }
+  .Home .votDifferenceContainer .votDifferenceText {
+    margin: 0;
+  }
+  .Home .newsFeed {
+    margin: 0;
+  }
+}

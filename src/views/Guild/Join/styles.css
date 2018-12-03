@@ -1,9 +1,9 @@
-  .Join h1, .Join h3 {
-    position: flex;
-    font-family: "Cinzel Decorative", serif;
-    font-weight: 900;
-  }
-  .Join a {
-    color: var(--primaryColor);
-  }
-  
+.Join h1,
+.Join h3 {
+  position: flex;
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+}
+.Join a {
+  color: var(--primaryColor);
+}

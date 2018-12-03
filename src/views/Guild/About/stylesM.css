@@ -7,25 +7,29 @@ lg (for laptops and desktops - screens equal to or greater than 1200px wide)
 max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
 min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
 */
-@media(max-width:767px){}
-@media(min-width:768px){}
-@media(min-width:992px){}
-@media(min-width:1200px){}
+@media (max-width: 767px) {
+}
+@media (min-width: 768px) {
+}
+@media (min-width: 992px) {
+}
+@media (min-width: 1200px) {
+}
 
 @media (max-width: 767px) {
-    .About {
-      margin: 0;
-      padding: 0;
-    }
-    .About .votDifferenceContainer {
-      width: auto;
-      padding-top: 8px;
-      margin: 0;
-      margin-bottom: 6px;
-      border-top: 0;
-      border-bottom: 1px solid white;
-    }
-    .About .votDifferenceContainer .votDifferenceText {
-      margin: 0;
-    }
+  .About {
+    margin: 0;
+    padding: 0;
   }
+  .About .votDifferenceContainer {
+    width: auto;
+    padding-top: 8px;
+    margin: 0;
+    margin-bottom: 6px;
+    border-top: 0;
+    border-bottom: 1px solid white;
+  }
+  .About .votDifferenceContainer .votDifferenceText {
+    margin: 0;
+  }
+}

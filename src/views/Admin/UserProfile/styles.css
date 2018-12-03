@@ -1,64 +1,64 @@
 .UserProfile a {
-   color: var(--primaryColor);
+  color: var(--primaryColor);
 }
 
 .borderedRow {
-    border: 1px solid var(--grey_out);
-    border-radius: 4px;
-    padding: 8px;
+  border: 1px solid var(--grey_out);
+  border-radius: 4px;
+  padding: 8px;
 }
 
 .headerBanner {
-    border-radius: 4px;
-    background-color: var(--primaryColor);
-    /* background: linear-gradient(to right, rgba(255, 153, 0, 1) calc(240px + 5%), rgba(163, 163, 172, 0.3) calc(240px + 15%), rgba(163, 163, 172, 0.15) 100%); */
-    margin: 0;
-    padding: 8px;
+  border-radius: 4px;
+  background-color: var(--primaryColor);
+  /* background: linear-gradient(to right, rgba(255, 153, 0, 1) calc(240px + 5%), rgba(163, 163, 172, 0.3) calc(240px + 15%), rgba(163, 163, 172, 0.15) 100%); */
+  margin: 0;
+  padding: 8px;
 }
 
 .selectOptionRow {
-    padding: 16px;
+  padding: 16px;
 }
 
 .checkBoxTable {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-flex-wrap: wrap;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
 }
-.checkBoxTable [class*='col-'] {
-    border-radius: 4px;
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    border: 1px solid var(--grey_out);
+.checkBoxTable [class*="col-"] {
+  border-radius: 4px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  border: 1px solid var(--grey_out);
 }
 
 .checkBoxText {
-    /* Checkbox text */
-    font-size: 24px;
-    display: inline;
+  /* Checkbox text */
+  font-size: 24px;
+  display: inline;
 }
 
 .help {
-    display: block;
-    font-weight: 600;
-    font-size: 12px;
-    color: #999;
+  display: block;
+  font-weight: 600;
+  font-size: 12px;
+  color: #999;
 }
 
 meter::-webkit-meter-optimum-value {
-    box-shadow: 0 5px 5px -5px #999 inset;
-    /* background-image: linear-gradient(
+  box-shadow: 0 5px 5px -5px #999 inset;
+  /* background-image: linear-gradient(
       90deg, 
       #8bcf69 5%, 
       #e6d450 5%,
@@ -71,4 +71,4 @@ meter::-webkit-meter-optimum-value {
       #719fd1 100%
     );
     background-size: 100% 100%; */
-  }
+}

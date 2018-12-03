@@ -1,8 +1,7 @@
 .VideoPlayer .videoPlayerContainer {
-    height: 640px;
-    margin: 0 auto;
-  }
-  .VideoPlayer .videoPlayerContainer .videoPlayer {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
-  }
-  
+  height: 640px;
+  margin: 0 auto;
+}
+.VideoPlayer .videoPlayerContainer .videoPlayer {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.8);
+}

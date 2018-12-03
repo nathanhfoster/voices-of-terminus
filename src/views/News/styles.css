@@ -1,26 +1,25 @@
 .News .Card .Preview {
-    max-height: calc(var(--cardHeight) - var(--cardSummaryHeight));
-    overflow: hidden;
-    /* -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - var(--cardHeight)), transparent calc(100% - 5px), transparent); */
-    pointer-events: none;
+  max-height: calc(var(--cardHeight) - var(--cardSummaryHeight));
+  overflow: hidden;
+  /* -webkit-mask-image: linear-gradient(to bottom, #000, #000 calc(100% - var(--cardHeight)), transparent calc(100% - 5px), transparent); */
+  pointer-events: none;
 }
 
 .input-group-addon {
-    border-color: var(--light_grey);
-    background-color: var(--slate_grey);
-    color: var(--tertiarycolor);
-    min-height: 38px;
-    min-width: 43px;
+  border-color: var(--light_grey);
+  background-color: var(--slate_grey);
+  color: var(--tertiarycolor);
+  min-height: 38px;
+  min-width: 43px;
 }
 .form-control {
-    min-height: 38px;
+  min-height: 38px;
 }
 
 .form-control:focus {
-    border-color: var(--primaryColor);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px var(--primaryColor);
+  border-color: var(--primaryColor);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--primaryColor);
 }
 
 .FilterMultiSelect {
-
 }

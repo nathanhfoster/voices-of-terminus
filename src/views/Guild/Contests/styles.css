@@ -1,8 +1,8 @@
 .Contests {
-    text-align: center;
-  }
-  .Contests h1, .Contests h4 {
-    font-family: "Cinzel Decorative", serif;
-    font-weight: 900;
-  }
-  
+  text-align: center;
+}
+.Contests h1,
+.Contests h4 {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+}

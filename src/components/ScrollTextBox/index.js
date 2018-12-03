@@ -1,64 +1,58 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { connect as reduxConnect } from 'react-redux'
-import './styles.css'
-import { Link } from 'react-router-dom'
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { connect as reduxConnect } from "react-redux";
+import "./styles.css";
+import { Link } from "react-router-dom";
 
-const mapStateToProps = ({}) => ({
-})
+const mapStateToProps = ({}) => ({});
 
-const mapDispatchToProps = {
-}
+const mapDispatchToProps = {};
 
 class ScrollTextBox extends PureComponent {
   constructor(props) {
-    super(props)
- 
+    super(props);
+
     this.state = {
-      URL: '',
-      Title: ''
-    }
+      URL: "",
+      Title: ""
+    };
   }
 
   static propTypes = {
     URL: PropTypes.string,
     Title: PropTypes.string
-  }
+  };
 
   static defaultProps = {
-    URL: '',
-    Title: ''
-  }
-  
+    URL: "",
+    Title: ""
+  };
+
   componentWillMount() {
-    this.getState(this.props)
+    this.getState(this.props);
   }
-  componentWillUpdate() {
-  }
-  componentDidMount() {
-  }
+  componentWillUpdate() {}
+  componentDidMount() {}
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
   getState = props => {
-    const {URL, Title} = props
-    this.setState({URL, Title})
-  }
+    const { URL, Title } = props;
+    this.setState({ URL, Title });
+  };
 
-  componentDidUpdate() {
-  }
+  componentDidUpdate() {}
 
-  componentWillUnmount() {
-  }
+  componentWillUnmount() {}
 
   render() {
-    const {URL, Title} = this.state
+    const { URL, Title } = this.state;
     return (
-      <Link to={URL}className="ScrollTextBox">
+      <Link to={URL} className="ScrollTextBox">
         <p className="fadeIn-10">{Title}</p>
       </Link>
-    )
+    );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(ScrollTextBox)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(ScrollTextBox);

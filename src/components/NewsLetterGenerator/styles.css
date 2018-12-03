@@ -1,36 +1,36 @@
 .NewsLetterGenerator {
-    display: flex;
-    flex-direction: column;
-    position: relative;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .NewsLetterGenerator .select__option--is-disabled {
-    display: none;
+  display: none;
 }
 
 .NewsletterCardContainer .Card {
-    height: 640px;
+  height: 640px;
 }
 
 .NewsletterCardContainer .Preview {
-    max-height: 638px;
+  max-height: 638px;
 }
 
 .CardContainerArticle .previewItem p {
-    padding: 0 8px 0 8px;
+  padding: 0 8px 0 8px;
 }
 
 .CardContainerArticle .previewItem img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .CardContainerNewsletter .previewItem {
 }
 
 .newsletterModal {
-    margin-top: 0;
-    position: absolute;
-    top: var(--navBarHeight);
-    left: 0;
-    right: 0;
+  margin-top: 0;
+  position: absolute;
+  top: var(--navBarHeight);
+  left: 0;
+  right: 0;
 }

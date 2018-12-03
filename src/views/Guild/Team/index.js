@@ -1,45 +1,39 @@
-import React, { PureComponent } from 'react'
-import { connect as reduxConnect } from 'react-redux'
-import { Grid, Row, Col, Image, PageHeader } from 'react-bootstrap'
-import './styles.css'
-import Yarnilla from '../../../images/yarnilla.png'
-import Kodiack from '../../../images/kodiack.png'
-import Leksur from '../../../images/leksur.png'
+import React, { PureComponent } from "react";
+import { connect as reduxConnect } from "react-redux";
+import { Grid, Row, Col, Image, PageHeader } from "react-bootstrap";
+import "./styles.css";
+import Yarnilla from "../../../images/yarnilla.png";
+import Kodiack from "../../../images/kodiack.png";
+import Leksur from "../../../images/leksur.png";
 
-const mapStateToProps = ({}) => ({
-})
+const mapStateToProps = ({}) => ({});
 
-const mapDispatchToProps = {
-}
+const mapDispatchToProps = {};
 
 class Team extends PureComponent {
   constructor(props) {
-    super(props)
- 
-    this.state = {
-    }
+    super(props);
+
+    this.state = {};
   }
 
-  static propTypes = { 
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
-  
+  static defaultProps = {};
+
   componentWillMount() {
-    this.getState(this.props)
+    this.getState(this.props);
   }
 
-  componentDidMount() {
-  }
-  
+  componentDidMount() {}
+
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
   getState = props => {
-    this.setState({})
-  }
+    this.setState({});
+  };
 
   render() {
     return (
@@ -49,8 +43,14 @@ class Team extends PureComponent {
             <Image src={Yarnilla} responsive />
           </Col>
           <Col md={9} sm={12}>
-            <PageHeader>Yarnila Graumond<small>Founder</small></PageHeader>
-            <p>I never gave Leksur a bio, so now I'm prancing around in the streets completely nude screaming "Bless me Oh Mighty Aradune! Blessss meeee!"</p>
+            <PageHeader>
+              Yarnila Graumond<small>Founder</small>
+            </PageHeader>
+            <p>
+              I never gave Leksur a bio, so now I'm prancing around in the
+              streets completely nude screaming "Bless me Oh Mighty Aradune!
+              Blessss meeee!"
+            </p>
           </Col>
         </Row>
         <Row bsClass="teanCard">
@@ -58,9 +58,16 @@ class Team extends PureComponent {
             <Image src={Leksur} responsive />
           </Col>
           <Col lg={9} md={9} sm={12}>
-            <PageHeader>Leksur Ackus<small>Founder</small></PageHeader>
-            <p>A streamer on mixer.com and twitch.tv, Leksur spends his days being an IT jack-of-all-trades. Leksur handles the VOT website as well as provides the Voices of Terminus show with a unique 
-              perspective from a software developer's point of view. Hobbies include: Gaming, tinkering, rc racing and eating Halflings.</p>
+            <PageHeader>
+              Leksur Ackus<small>Founder</small>
+            </PageHeader>
+            <p>
+              A streamer on mixer.com and twitch.tv, Leksur spends his days
+              being an IT jack-of-all-trades. Leksur handles the VOT website as
+              well as provides the Voices of Terminus show with a unique
+              perspective from a software developer's point of view. Hobbies
+              include: Gaming, tinkering, rc racing and eating Halflings.
+            </p>
           </Col>
         </Row>
         <Row bsClass="teanCard">
@@ -69,11 +76,14 @@ class Team extends PureComponent {
           </Col>
           <Col md={9} sm={12}>
             <PageHeader>Kodiack Ironclaw</PageHeader>
-            <p>I'm too busy to give Leksur a short bio b/c I'm super important, la-de-da!</p>
+            <p>
+              I'm too busy to give Leksur a short bio b/c I'm super important,
+              la-de-da!
+            </p>
           </Col>
         </Row>
       </Grid>
-    )
+    );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Team)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Team);

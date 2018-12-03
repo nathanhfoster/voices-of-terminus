@@ -1,4 +1,3 @@
-
 .react-calendar__navigation button {
   border: 0;
   height: 2em;
@@ -12,7 +11,8 @@
 .react-calendar__navigation__arrow:hover {
   color: var(--primaryColor);
 }
-.react-calendar__navigation__arrow, .react-calendar__navigation__label {
+.react-calendar__navigation__arrow,
+.react-calendar__navigation__label {
   font-size: 2em;
   font-weight: bold;
 }
@@ -56,13 +56,20 @@
 .eventTitle {
   flex: 1 0 0;
   user-select: none;
-  font-family: 'proxima_novasemibold', Arial, sans-serif;
+  font-family: "proxima_novasemibold", Arial, sans-serif;
   font-weight: 700;
   overflow: hidden;
   white-space: nowrap;
-  -webkit-mask-image: linear-gradient(to right, #000, #000 calc(100% - 16px), transparent calc(100% - 8px), transparent);
+  -webkit-mask-image: linear-gradient(
+    to right,
+    #000,
+    #000 calc(100% - 16px),
+    transparent calc(100% - 8px),
+    transparent
+  );
 }
-.react-calendar__tile--active .hasEventsContainer time, .react-calendar__month-view .hasEventsContainer time {
+.react-calendar__tile--active .hasEventsContainer time,
+.react-calendar__month-view .hasEventsContainer time {
   position: inherit;
   border: 0;
   border-radius: 0;
@@ -114,7 +121,7 @@
   width: 25px;
   font-weight: 600;
   border-radius: 100%;
-  background-color: rgba(0, 0, 0, .55);
+  background-color: rgba(0, 0, 0, 0.55);
   color: var(--tertiarycolor);
   -webkit-transition: background-color 1s ease-out;
   -moz-transition: background-color 1s ease-out;
@@ -142,4 +149,4 @@
   text-align: center;
   margin: 0;
   padding: 0;
-}  
+}

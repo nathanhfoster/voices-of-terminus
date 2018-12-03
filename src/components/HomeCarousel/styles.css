@@ -1,21 +1,21 @@
 .HomeCarousel {
-    height: 620px;
+  height: 620px;
 }
 
 .CarouselImage {
-    max-height: 620px;
-    width: auto;
-    height: auto;
-    margin: auto;
+  max-height: 620px;
+  width: auto;
+  height: auto;
+  margin: auto;
 }
 
 .HomeCarousel .carousel-caption {
-    background-color: rgba(0, 0, 0, .2);
-    left: 0;
-    right: 0;
-    bottom: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 .HomeCarousel .carousel-indicators {
-    bottom: 0;
+  bottom: 0;
 }

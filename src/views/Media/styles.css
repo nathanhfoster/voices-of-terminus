@@ -1,7 +1,8 @@
-  .Media h1 {
-    font-family: "Cinzel Decorative", serif;
-    font-weight: 900;
-  }
-  .Media li, a {
-    color: var(--tertiaryColor);
-  }
+.Media h1 {
+  font-family: "Cinzel Decorative", serif;
+  font-weight: 900;
+}
+.Media li,
+a {
+  color: var(--tertiaryColor);
+}

@@ -1,4 +1,3 @@
-
 .About {
   margin-top: 20px;
 }
@@ -15,27 +14,27 @@
   width: 751px;
   position: relative;
   text-align: center;
-  background: url('../../../images/lore_mid.png') center repeat-y;
+  background: url("../../../images/lore_mid.png") center repeat-y;
   /* background: url('../../images/lore_top.png') top no-repeat, url('../../images/lore_bottom.png') bottom no-repeat; */
   /* background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,0),rgba(0,0,0,.4), rgba(0,0,0,.5), black, rgba(0,0,0,.5), rgba(0,0,0,.4), rgba(0,0,0,0), rgba(0,0,0,0)); */
-  }
+}
 .votDifferenceContainer::before {
-  content: '';
+  content: "";
   width: inherit;
   position: absolute;
   left: 0px;
   bottom: -110px;
   height: 110px;
-  background: url('../../../images/lore_bottom.png') no-repeat;
-  }
+  background: url("../../../images/lore_bottom.png") no-repeat;
+}
 .votDifferenceContainer::after {
-  content: '';
+  content: "";
   width: inherit;
   position: absolute;
   left: 0px;
   top: -110px;
   height: 110px;
-  background: url('../../../images/lore_top.png') no-repeat;
+  background: url("../../../images/lore_top.png") no-repeat;
 }
 .votDifferenceContainer .votDifferenceText {
   font-size: 24px;
@@ -59,9 +58,11 @@
 .votDifferenceContainer .votDifferenceText .SocialMediaLinks a:hover {
   color: var(--primaryColor);
 }
-.votDifferenceContainer .votDifferenceText .SocialMediaLinks li, .About .votDifferenceContainer .votDifferenceText .SocialMediaLinks a {
+.votDifferenceContainer .votDifferenceText .SocialMediaLinks li,
+.About .votDifferenceContainer .votDifferenceText .SocialMediaLinks a {
   margin: 0 auto;
 }
-.votDifferenceContainer .votDifferenceText .SocialMediaLinks li:hover, .About .votDifferenceContainer .votDifferenceText .SocialMediaLinks a:hover {
+.votDifferenceContainer .votDifferenceText .SocialMediaLinks li:hover,
+.About .votDifferenceContainer .votDifferenceText .SocialMediaLinks a:hover {
   color: var(--primaryColor);
 }

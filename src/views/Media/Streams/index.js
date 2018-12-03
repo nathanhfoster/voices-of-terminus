@@ -1,51 +1,48 @@
-import React, { PureComponent } from 'react'
-import PropTypes from 'prop-types'
-import { connect as reduxConnect } from 'react-redux'
-import './styles.css'
-import './stylesM.css'
-import {getVotTwitchStreams} from '../../../actions/App'
-import { Grid, Row, Col, Image, NavItem} from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
-import Moment from 'react-moment'
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { connect as reduxConnect } from "react-redux";
+import "./styles.css";
+import "./stylesM.css";
+import { getVotTwitchStreams } from "../../../actions/App";
+import { Grid, Row, Col, Image, NavItem } from "react-bootstrap";
+import { LinkContainer } from "react-router-bootstrap";
+import Moment from "react-moment";
 
-const mapStateToProps = ({VotTwitchStreams}) => ({
+const mapStateToProps = ({ VotTwitchStreams }) => ({
   VotTwitchStreams
-})
+});
 
 const mapDispatchToProps = {
   getVotTwitchStreams
-}
+};
 
 class Streams extends PureComponent {
   constructor(props) {
-    super(props)
- 
-    this.state = {
-    }
+    super(props);
+
+    this.state = {};
   }
 
-  static propTypes = { 
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
-  
+  static defaultProps = {};
+
   componentWillMount() {
-    this.getState(this.props)
+    this.getState(this.props);
   }
 
   componentDidMount() {
-    this.props.getVotTwitchStreams()
+    this.props.getVotTwitchStreams();
   }
-  
+
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
   getState = props => {
-    const {VotTwitchStreams} = props
-    this.setState({VotTwitchStreams})
-  }
+    const { VotTwitchStreams } = props;
+    this.setState({ VotTwitchStreams });
+  };
 
   /*
   animated_preview_url: "https://vod-storyboards.twitch.tv/626d9488eaadd9392b35_pantheon_vot_31171011440_1016813646/storyboards/333774978-strip-0.jpg"
@@ -72,45 +69,59 @@ views: 192
 _id: "v333774978"
   */
 
-  renderStreams = streams => streams.map(stream => {
-    const id = stream._id.split('v')[1]
-    const route = `videos/${id}/twitch`
-    return (
-      <LinkContainer to={route}>
-        <NavItem eventKey={id}>
-          <Row className="youTubeContainer">
-            <Col md={3} className="videoImageContainer Center"> 
-              <Image src={stream.thumbnails[0].url} />
-            </Col>
-            <Col md={9}className="videoTitleContainer">
-              <h3>{stream.title}</h3>
-              <p>{stream.description}</p>
-            </Col>
-            <Col md={3} xs={6}>
-              <i className="far fa-clock"/> <Moment fromNow>{stream.created_at}</Moment>
-            </Col>
-            <Col md={3} xs={6}>
-              <i className="far fa-eye"> {stream.views}</i>
-            </Col>
-            <Col md={3} xs={6}>
-              {stream.broadcast_type == 'archive' ? [<span>Type: </span>,<i className="fas fa-archive"/>] :[<span>Type: </span>, <i className="fas fa-headset"></i>]}
-            </Col>
-            <Col md={3} xs={6}>
-             {stream.status == 'recorded' ? [<span>Status: </span>,<i className="fas fa-microphone-alt"/>] :[<span>Status: </span>, <i className="fas fa-microphone-alt-slash"/>]}
-            </Col>
-          </Row>
-       </NavItem>
-      </LinkContainer>
-    )
-  })
+  renderStreams = streams =>
+    streams.map(stream => {
+      const id = stream._id.split("v")[1];
+      const route = `videos/${id}/twitch`;
+      return (
+        <LinkContainer to={route}>
+          <NavItem eventKey={id}>
+            <Row className="youTubeContainer">
+              <Col md={3} className="videoImageContainer Center">
+                <Image src={stream.thumbnails[0].url} />
+              </Col>
+              <Col md={9} className="videoTitleContainer">
+                <h3>{stream.title}</h3>
+                <p>{stream.description}</p>
+              </Col>
+              <Col md={3} xs={6}>
+                <i className="far fa-clock" />{" "}
+                <Moment fromNow>{stream.created_at}</Moment>
+              </Col>
+              <Col md={3} xs={6}>
+                <i className="far fa-eye"> {stream.views}</i>
+              </Col>
+              <Col md={3} xs={6}>
+                {stream.broadcast_type == "archive"
+                  ? [<span>Type: </span>, <i className="fas fa-archive" />]
+                  : [<span>Type: </span>, <i className="fas fa-headset" />]}
+              </Col>
+              <Col md={3} xs={6}>
+                {stream.status == "recorded"
+                  ? [
+                      <span>Status: </span>,
+                      <i className="fas fa-microphone-alt" />
+                    ]
+                  : [
+                      <span>Status: </span>,
+                      <i className="fas fa-microphone-alt-slash" />
+                    ]}
+              </Col>
+            </Row>
+          </NavItem>
+        </LinkContainer>
+      );
+    });
 
   render() {
-    const streams = this.state.VotTwitchStreams.videos ? this.state.VotTwitchStreams.videos : []
+    const streams = this.state.VotTwitchStreams.videos
+      ? this.state.VotTwitchStreams.videos
+      : [];
     return (
       <Grid className="Streams Container fadeIn-2">
         {this.renderStreams(streams)}
       </Grid>
-    )
+    );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Streams)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Streams);

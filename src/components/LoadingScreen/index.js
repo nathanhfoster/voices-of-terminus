@@ -1,57 +1,48 @@
-import React, { PureComponent } from 'react'
-import { connect as reduxConnect } from 'react-redux'
-import './styles.css'
+import React, { PureComponent } from "react";
+import { connect as reduxConnect } from "react-redux";
+import "./styles.css";
 
-const mapStateToProps = ({}) => ({
-})
+const mapStateToProps = ({}) => ({});
 
-const mapDispatchToProps = {
-}
+const mapDispatchToProps = {};
 
 class LoadingScreen extends PureComponent {
   constructor(props) {
-    super(props)
- 
-    this.state = {
-    }
+    super(props);
+
+    this.state = {};
   }
 
-  static propTypes = { 
-  }
+  static propTypes = {};
 
-  static defaultProps = {
-  }
-  
+  static defaultProps = {};
+
   componentWillMount() {
-    this.getState(this.props)
+    this.getState(this.props);
   }
 
-  componentWillUpdate() {
-  }
+  componentWillUpdate() {}
 
-  componentDidMount() {
-  }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
-    this.getState(nextProps)
+    this.getState(nextProps);
   }
 
   getState = props => {
-    this.setState({})
-  }
-  
-  componentDidUpdate() {
-  }
+    this.setState({});
+  };
 
-  componentWillUnmount() {
-  }
+  componentDidUpdate() {}
+
+  componentWillUnmount() {}
 
   render() {
     return (
       <div className="LoadingScreenContainer">
-          <div id="Loading"/>
+        <div id="Loading" />
       </div>
-    )
+    );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(LoadingScreen)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(LoadingScreen);

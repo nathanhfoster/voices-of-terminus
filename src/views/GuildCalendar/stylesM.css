@@ -6,31 +6,30 @@
  max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
  min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
  */
- @media (max-width: 767px) {
-    .hasEventsContainerMobile {
-      position: relative;
-      height: 2vh;
-    }
-    .eventLabelColor {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      flex-shrink: 0;
-      display: inline-flex;
-      margin: 4px auto 0 auto;
-    }
-    .react-calendar__month-view button {
-      min-height: 7vh;
-      max-height: 15vh;
-    }
-    .react-calendar__month-view time {
-      position: relative;
-      top: 0;
-      left: 0;
-      float: none;
-      margin: 0 auto;
-      display: block;
-    }
+@media (max-width: 767px) {
+  .hasEventsContainerMobile {
+    position: relative;
+    height: 2vh;
   }
-  
+  .eventLabelColor {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    flex-shrink: 0;
+    display: inline-flex;
+    margin: 4px auto 0 auto;
+  }
+  .react-calendar__month-view button {
+    min-height: 7vh;
+    max-height: 15vh;
+  }
+  .react-calendar__month-view time {
+    position: relative;
+    top: 0;
+    left: 0;
+    float: none;
+    margin: 0 auto;
+    display: block;
+  }
+}
