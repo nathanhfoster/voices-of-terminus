@@ -65,10 +65,10 @@ class HomeCarousel extends PureComponent {
   renderImages = Images =>
     Images.map(img => (
       <Carousel.Item animateIn={true} animateOut={true}>
-        <img className="CarouselImage Center" src={img.src} />{" "}
+        <img className="CarouselImage Center" src={img.src} />
         <Carousel.Caption>
-          <h3> {img.label} </h3> <p> {img.description} </p>{" "}
-        </Carousel.Caption>{" "}
+          <h3> {img.label} </h3> <p> {img.description} </p>
+        </Carousel.Caption>
       </Carousel.Item>
     ));
 
@@ -76,8 +76,7 @@ class HomeCarousel extends PureComponent {
     const { images } = this.props;
     return (
       <Carousel className="HomeCarousel Container" interval={10000}>
-        {" "}
-        {this.renderImages(images)}{" "}
+        {this.renderImages(images)}
       </Carousel>
     );
   }

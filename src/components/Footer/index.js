@@ -111,13 +111,12 @@ class Footer extends PureComponent {
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
     return (
       <div className="Footer">
-        {" "}
         {shouldShow
           ? [
               <Image className="Female footerImages" src={femaleImage} />,
               <Image className="Male footerImages" src={maleImage} />
             ]
-          : null}{" "}
+          : null}
       </div>
     );
   }

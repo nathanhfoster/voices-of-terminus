@@ -157,7 +157,7 @@ class BackgroundImage extends PureComponent {
       : this.backgroundImageRouteMap(pathname);
     return (
       <div className="BackgroundImage">
-        <Image src={bgImage} />{" "}
+        <Image src={bgImage} />
       </div>
     );
   }

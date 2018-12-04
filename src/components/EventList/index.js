@@ -62,14 +62,13 @@ class EventList extends PureComponent {
 
       return (
         <div>
-          {" "}
           {sameDayEvent ? (
             <ListGroupItem className="Clickable listItem" header={k.name}>
               <span className="EventColorLabelContainer" />
-              <Moment format="HH:mm a - ">{k.startTime}</Moment>{" "}
-              <Moment format="HH:mm a">{k.endTime}</Moment>{" "}
+              <Moment format="HH:mm a - ">{k.startTime}</Moment>
+              <Moment format="HH:mm a">{k.endTime}</Moment>
             </ListGroupItem>
-          ) : null}{" "}
+          ) : null}
         </div>
       );
     });

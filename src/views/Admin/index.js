@@ -285,7 +285,7 @@ class Admin extends PureComponent {
                       ),
                     Footer: Users => (
                       <span>
-                        <i className="fas fa-check" />{" "}
+                        <i className="fas fa-check" />
                         <strong style={{ color: "var(--primaryColor)" }}>
                           {Users.data.reduce(
                             (acc, curr) => acc + curr.opt_in,
@@ -304,7 +304,7 @@ class Admin extends PureComponent {
                     maxWidth: 125,
                     Footer: Users => (
                       <span>
-                        <i className="fas fa-users" />{" "}
+                        <i className="fas fa-users" />
                         <strong style={{ color: "var(--primaryColor)" }}>
                           {Users.data.length}
                         </strong>
@@ -337,7 +337,7 @@ class Admin extends PureComponent {
                     maxWidth: 75,
                     Footer: Users => (
                       <span>
-                        <i className="fas fa-unlock-alt" />{" "}
+                        <i className="fas fa-unlock-alt" />
                         <strong style={{ color: "var(--primaryColor)" }}>
                           {Users.data.reduce(
                             (acc, curr) => acc + curr.is_superuser,
@@ -357,7 +357,7 @@ class Admin extends PureComponent {
                     maxWidth: 75,
                     Footer: Users => (
                       <span>
-                        <i className="fas fa-unlock" />{" "}
+                        <i className="fas fa-unlock" />
                         <strong style={{ color: "var(--primaryColor)" }}>
                           {Users.data.reduce(
                             (acc, curr) => acc + curr.is_staff,
@@ -460,7 +460,7 @@ class Admin extends PureComponent {
                     maxWidth: 60,
                     Footer: Users => (
                       <span>
-                        <i className="fas fa-level-up-alt" />{" "}
+                        <i className="fas fa-level-up-alt" />
                         <strong style={{ color: "var(--primaryColor)" }}>
                           {Math.max(
                             ...Users.data.map(user => user.experience_points)

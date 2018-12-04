@@ -69,7 +69,7 @@ class Drag extends PureComponent {
           onDrag={this.handleDrag}
           onStop={this.handleStop}
         >
-          <div className="handle">Text Box 1 </div>{" "}
+          <div className="handle">Text Box 1 </div>
         </Draggable>
         <Draggable
           axis="both"
@@ -85,8 +85,8 @@ class Drag extends PureComponent {
           onDrag={this.handleDrag}
           onStop={this.handleStop}
         >
-          <div className="handle">Text Box 2 </div>{" "}
-        </Draggable>{" "}
+          <div className="handle">Text Box 2 </div>
+        </Draggable>
       </div>
     );
   }

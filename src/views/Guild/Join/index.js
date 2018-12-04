@@ -43,7 +43,7 @@ class Join extends PureComponent {
                 The <strong>Voices of Terminus</strong>, Pantheon: Rise of the
                 Fallen guild is always seeking out quality individuals to share
                 in the adventure as we wait for and eventually enjoy Pantheon.
-                We will never base our recruitment off of{" "}
+                We will never base our recruitment off of
                 <em>classes needed</em> and we will never resort to headhunting
                 as we are firm believers of <span>Quality &gt; Quantity</span>.
               </p>
@@ -54,11 +54,11 @@ class Join extends PureComponent {
                 self-benefit.
               </p>
               <p>
-                We are also a chatty bunch of people and do <em>require</em>{" "}
-                that all members use{" "}
+                We are also a chatty bunch of people and do <em>require</em>
+                that all members use
                 <a href="https://discordapp.com/" target="_blank">
                   Discord
-                </a>{" "}
+                </a>
                 as it is our primary form of communication.
               </p>
 
@@ -66,18 +66,18 @@ class Join extends PureComponent {
               <p>
                 Want to join the VoT guild? Well, you're in luck! Our
                 application process is extremely simple! Here's what you need to
-                do:{" "}
+                do:
               </p>
               <ol>
                 <li>
-                  Jump on{" "}
+                  Jump on
                   <a href="http://discord.me/vot" target="_blank">
                     Discord
                   </a>
                 </li>
                 <li>
                   Send a DM (Direct Message) to our venerable leader, Yarnila (⛨
-                  Yarnila ©{" "}
+                  Yarnila ©
                   <vot>
                     #8639), and tell him you would like to join our ranks
                   </vot>
@@ -89,12 +89,12 @@ class Join extends PureComponent {
                 <li>
                   If you are accepted, you'll be granted access to guild-only
                   channels. If you're not, that's OK! We've got some fantastic
-                  people in the VoT and our #general chat channel is open to{" "}
+                  people in the VoT and our #general chat channel is open to
                   <strong>everyone</strong>!
                 </li>
                 <li>Chat, laugh, make friends!</li>
                 <li>
-                  Optional: Proclaim your alligance to Leksur and{" "}
+                  Optional: Proclaim your alligance to Leksur and
                   <em>Leksur's Legion</em> in chat!
                 </li>
               </ol>

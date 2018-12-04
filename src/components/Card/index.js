@@ -130,7 +130,8 @@ class Card extends PureComponent {
                 <i className="fas fa-thumbs-up" /> {likeCount ? likeCount : 0}
               </div>
               <div>
-                <i className="fas fa-comment" /> {commentCount ? commentCount : 0}
+                <i className="fas fa-comment" />{" "}
+                {commentCount ? commentCount : 0}
               </div>
             </div>
           </div>

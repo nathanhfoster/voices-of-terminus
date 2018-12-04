@@ -439,9 +439,8 @@ class UserProfile extends PureComponent {
                   style={{ height: "24px" }}
                 />
                 <strong title="Primary | Race | Role | Class |">
-                  {" "}
-                  Primary:{" "}
-                </strong>{" "}
+                  Primary:
+                </strong>
                 {this.renderDividedText([
                   Admin.User.primary_race,
                   Admin.User.primary_role,
@@ -454,9 +453,8 @@ class UserProfile extends PureComponent {
                   style={{ height: "26px" }}
                 />
                 <strong title="Secondary | Race | Role | Class |">
-                  {" "}
-                  Secondary:{" "}
-                </strong>{" "}
+                  Secondary:
+                </strong>
                 {this.renderDividedText([
                   Admin.User.secondary_race,
                   Admin.User.secondary_role,
@@ -468,7 +466,7 @@ class UserProfile extends PureComponent {
                   Admin.User.profession,
                   Admin.User.profession_specialization
                 )}
-                <strong> Profession: </strong>{" "}
+                <strong> Profession: </strong>
                 {this.renderDividedText([
                   Admin.User.profession,
                   Admin.User.profession_specialization
@@ -477,18 +475,18 @@ class UserProfile extends PureComponent {
             </Col>
             <Col md={3} xs={12} className="Center">
               <h3 title="Date Joined">
-                <i className="fas fa-birthday-cake" />{" "}
+                <i className="fas fa-birthday-cake" />
                 <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment>
               </h3>
               <h3 title="Last Login">
-                <i className="fas fa-sign-in-alt" />{" "}
+                <i className="fas fa-sign-in-alt" />
                 <Moment fromNow>{Admin.User.last_login}</Moment>
               </h3>
               <h3 title="Guild Points">
                 <i className="fas fa-coins" /> {Admin.User.guild_points}
               </h3>
               <h3 title="Opt In">
-                <i className="far fa-envelope-open" />{" "}
+                <i className="far fa-envelope-open" />
                 {Admin.User.opt_in ? (
                   <i className="fas fa-check" />
                 ) : (
@@ -506,7 +504,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Well className="userBio" bsSize="large">
-                <i className="fas fa-award" /> Achievements{" "}
+                <i className="fas fa-award" /> Achievements
                 <i className="fas fa-certificate" />
               </Well>
             </Col>

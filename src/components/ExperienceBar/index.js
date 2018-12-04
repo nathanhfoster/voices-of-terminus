@@ -8,8 +8,7 @@ import "./stylesM.css";
 export const ExperienceBar = experience_points => (
   <div className="ExperienceBar Container">
     <div className="experienceText">
-      {" "}
-      <span> {experience_points} </span> / 10000 EXP{" "}
-    </div>{" "}
+      <span> {experience_points} </span> / 10000 EXP
+    </div>
   </div>
 );
