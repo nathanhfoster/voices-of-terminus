@@ -8,7 +8,7 @@ export const getNewsletters = () => {
       .get("newsletters/")
       .then(newsletters => {
         const { Newsletters } = getState();
-        newsletters.data.count > Newsletters.count
+       !Newsletters.count || newsletters.data.count != Newsletters.count
           ? Axios()
               .get("newsletter/likes/")
               .then(likes => {
