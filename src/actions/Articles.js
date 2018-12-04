@@ -8,7 +8,7 @@ export const getArticles = () => {
       .get("articles/")
       .then(articles => {
         const { Articles } = getState();
-        articles.data.count > Articles.count
+       !Articles.count || articles.data.count != Articles.count
           ? Axios()
               .get("article/likes/")
               .then(likes => {
