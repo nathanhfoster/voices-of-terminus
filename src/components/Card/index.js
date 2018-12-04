@@ -57,15 +57,14 @@ class Card extends PureComponent {
     return (
       <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
-          <div className="previewItem"> {ReactHtmlParser(html)} </div>{" "}
-        </div>{" "}
+          <div className="previewItem"> {ReactHtmlParser(html)} </div>
+        </div>
         {summary ? (
           <div className="Summary inlineNoWrap">
             <div className="summaryTitle">
-              <h4 className="inlineNoWrap"> {title} </h4>{" "}
+              <h4 className="inlineNoWrap"> {title} </h4>
             </div>
             <div className="cardActions">
-              {" "}
               {canDelete ? (
                 <Button
                   onClick={e => {
@@ -75,10 +74,9 @@ class Card extends PureComponent {
                   bsSize="small"
                   className="pull-right"
                 >
-                  {" "}
-                  <i className="fa fa-trash-alt" />{" "}
+                  <i className="fa fa-trash-alt" />
                 </Button>
-              ) : null}{" "}
+              ) : null}
               {canUpdate ? (
                 <Button
                   onClick={e => {
@@ -88,11 +86,10 @@ class Card extends PureComponent {
                   bsSize="small"
                   className="pull-right"
                 >
-                  {" "}
-                  <i className="fa fa-pencil-alt" />{" "}
+                  <i className="fa fa-pencil-alt" />
                 </Button>
-              ) : null}{" "}
-            </div>{" "}
+              ) : null}
+            </div>
             <div className="cardInfo">
               <div
                 className="inlineNoWrap"
@@ -100,53 +97,44 @@ class Card extends PureComponent {
                   width: "calc(100% - 64px)%"
                 }}
               >
-                {" "}
-                <i className="fas fa-user" />{" "}
+                <i className="fas fa-user" />
                 <Link
                   to={"/profile/" + author}
                   onClick={e => e.stopPropagation()}
                 >
-                  {" "}
-                  {author_username}{" "}
+                  {author_username}
                 </Link>{" "}
-                <i className="far fa-clock" />{" "}
+                <i className="far fa-clock" />
                 <Moment fromNow>{date_created}</Moment>
               </div>
               <div>
-                {" "}
-                <i className="fas fa-pencil-alt" />{" "}
+                <i className="fas fa-pencil-alt" />
                 <Link
                   to={"/profile/" + last_modified_by}
                   onClick={e => e.stopPropagation()}
                 >
-                  {" "}
-                  {last_modified_by_username}{" "}
+                  {last_modified_by_username}
                 </Link>{" "}
-                <i className="far fa-clock" />{" "}
+                <i className="far fa-clock" />
                 <Moment fromNow>{last_modified}</Moment>
               </div>
               <div>
-                {" "}
-                <i className="fas fa-tags" /> [{tags}]{" "}
-              </div>{" "}
-            </div>{" "}
+                <i className="fas fa-tags" /> [{tags}]
+              </div>
+            </div>
             <div className="cardStats">
               <div>
-                {" "}
-                <i className="far fa-eye" /> {views}{" "}
-              </div>{" "}
+                <i className="far fa-eye" /> {views}
+              </div>
               <div>
-                {" "}
-                <i className="fas fa-thumbs-up" /> {likeCount ? likeCount : 0}{" "}
-              </div>{" "}
+                <i className="fas fa-thumbs-up" /> {likeCount ? likeCount : 0}
+              </div>
               <div>
-                {" "}
-                <i className="fas fa-comment" />{" "}
-                {commentCount ? commentCount : 0}{" "}
-              </div>{" "}
-            </div>{" "}
+                <i className="fas fa-comment" /> {commentCount ? commentCount : 0}
+              </div>
+            </div>
           </div>
-        ) : null}{" "}
+        ) : null}
       </div>
     );
   }
