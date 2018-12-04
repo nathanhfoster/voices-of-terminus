@@ -110,7 +110,7 @@ class Card extends PureComponent {
                   {author_username}{" "}
                 </Link>{" "}
                 <i className="far fa-clock" />{" "}
-                <Moment fromNow> {date_created} </Moment>
+                <Moment fromNow>{date_created}</Moment>
               </div>
               <div>
                 {" "}
@@ -123,7 +123,7 @@ class Card extends PureComponent {
                   {last_modified_by_username}{" "}
                 </Link>{" "}
                 <i className="far fa-clock" />{" "}
-                <Moment fromNow> {last_modified} </Moment>
+                <Moment fromNow>{last_modified}</Moment>
               </div>
               <div>
                 {" "}

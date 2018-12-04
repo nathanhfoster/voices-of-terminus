@@ -171,9 +171,7 @@ class GuildCalendar extends Component {
             <div className="hasEventsContainer">
               <span className="eventLabelColor" />
               <span className="eventStartTime">
-                <Moment format="HH:mma" className="eventStartTime">
-                  {k.startTime}
-                </Moment>
+                <Moment format="HH:mma" className="eventStartTime">{k.startTime}</Moment>
               </span>
               <h6 className="eventTitle">{k.name}</h6>
             </div>
