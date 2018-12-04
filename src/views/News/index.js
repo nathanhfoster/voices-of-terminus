@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import {
@@ -10,22 +10,28 @@ import {
   Tab,
   ButtonToolbar,
   Button,
-  FormGroup,
   InputGroup,
   FormControl
 } from "react-bootstrap";
 import "./styles.css";
 import "./stylesM.css";
 import { clearHtmlDocument } from "../../actions/App";
-import { getArticles, getArticle, deleteArticle } from "../../actions/Articles";
+import {
+  getArticles,
+  getArticle,
+  deleteArticle,
+  nextArticles
+} from "../../actions/Articles";
 import {
   getNewsletters,
   getNewsletter,
-  deleteNewsLetter
+  deleteNewsLetter,
+  nextNewsletters
 } from "../../actions/NewsLetter";
 import Card from "../../components/Card";
 import { withRouter, Redirect } from "react-router-dom";
 import Select from "react-select";
+import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
 import {
   hasUpdatePermission,
@@ -45,13 +51,15 @@ const mapDispatchToProps = {
   getArticle,
   getArticles,
   deleteArticle,
+  nextArticles,
   getNewsletters,
   getNewsletter,
   deleteNewsLetter,
+  nextNewsletters,
   clearHtmlDocument
 };
 
-class News extends Component {
+class News extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -66,70 +74,63 @@ class News extends Component {
   };
 
   static defaultProps = {
-    selectOptions: [
-      { value: "Official", label: "Official" },
-      { value: "Article", label: "Article" },
-      { value: "Newsletter", label: "Newsletter" },
-      { value: "Blog", label: "Blog" },
-      { value: "FanMade", label: "FanMade" },
-      { value: "Guide", label: "Guide" },
-      { value: "Lore", label: "Lore" },
-      { value: "VotShow", label: "VotShow" },
-      { value: "Other", label: "Other" }
-    ],
+    selectOptions: newsSelectOptions,
     Documents: []
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { Articles, Newsletters } = this.state;
-    const { User, Documents, selectValue, search, history } = nextState;
-    const { pathname } = history.location;
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { Articles, Newsletters } = this.state;
+  //   const { User, Documents, selectValue, search, history } = nextState;
+  //   const { pathname } = history.location;
 
-    const currentPathName = this.state.eventKey;
-    const currentUser = this.state.User;
-    const currentDocuments = Articles.concat(Newsletters);
-    const currentSelectValue = this.state.selectValue;
-    const currentSearch = this.state.search;
+  //   const currentPathName = this.state.eventKey;
+  //   const currentUser = this.state.User;
+  //   const currentDocuments =
+  //     Articles.results && Newsletters.results
+  //       ? Articles.results.concat(Newsletters.results)
+  //       : [];
+  //   const currentSelectValue = this.state.selectValue;
+  //   const currentSearch = this.state.search;
 
-    const pathChanged = pathname != currentPathName;
-    const initialLoad = Documents.length === 0;
-    const userChanged = !isEquivalent(currentUser, User);
-    const cardAdded = Documents.length > currentDocuments.length;
-    const cardDeleted = Documents.length < currentDocuments.length;
-    const cardUpdated =
-      !isSubset(
-        Documents.map(k => k.last_modified),
-        currentDocuments.map(k => k.last_modified)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.views),
-        currentDocuments.map(k => k.views)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.likeCount),
-        currentDocuments.map(k => k.likeCount)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.commentCount),
-        currentDocuments.map(k => k.commentCount)
-      );
-    const isFiltering = selectValue != currentSelectValue;
-    const isSearching = search != currentSearch;
-    // search === undefined
-    // console.log("nextProps: ", nextProps)
-    // console.log("nextState: ", nextState)
-    // console.log("this.state: ", this.state)
-    return (
-      pathChanged ||
-      initialLoad ||
-      cardAdded ||
-      cardDeleted ||
-      cardUpdated ||
-      isFiltering ||
-      isSearching ||
-      userChanged
-    );
-  }
+  //   const pathChanged = pathname != currentPathName;
+  //   const initialLoad = Documents.length === 0;
+  //   const userChanged = !isEquivalent(currentUser, User);
+  //   const cardAdded = Documents.length > currentDocuments.length;
+  //   const cardDeleted = Documents.length < currentDocuments.length;
+  //   const cardUpdated =
+  //     !isSubset(
+  //       Documents.map(k => k.last_modified),
+  //       currentDocuments.map(k => k.last_modified)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.views),
+  //       currentDocuments.map(k => k.views)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.likeCount),
+  //       currentDocuments.map(k => k.likeCount)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.commentCount),
+  //       currentDocuments.map(k => k.commentCount)
+  //     );
+  //   const isFiltering = selectValue != currentSelectValue;
+  //   const isSearching = search != currentSearch;
+  //   // search === undefined
+  //   // console.log("nextProps: ", nextProps)
+  //   // console.log("nextState: ", nextState)
+  //   // console.log("this.state: ", this.state)
+  //   return (
+  //     pathChanged ||
+  //     initialLoad ||
+  //     cardAdded ||
+  //     cardDeleted ||
+  //     cardUpdated ||
+  //     isFiltering ||
+  //     isSearching ||
+  //     userChanged
+  //   );
+  // }
 
   componentWillMount() {
     this.getState(this.props);
@@ -151,7 +152,10 @@ class News extends Component {
   getState = props => {
     const { User, Articles, Newsletters, history, ApiResponse } = props;
     const { pathname } = history.location;
-    const Documents = Articles.concat(Newsletters);
+    const Documents =
+      Articles.results && Newsletters.results
+        ? Articles.results.concat(Newsletters.results)
+        : [];
     const selectOptions =
       Documents.length > 1
         ? Documents.map(i => i.tags)[0]
@@ -240,6 +244,7 @@ class News extends Component {
 
   render() {
     //console.log('NEWS')
+    const { Articles, Newsletters } = this.props;
     const { eventKey, history } = this.state;
     const selectValue =
       this.state.selectValue.length > 0
@@ -409,6 +414,19 @@ class News extends Component {
               </Row>
             </Tab>
           </Tabs>
+        </Row>
+        <Row className="Center LoadButton">
+          <Button
+            disabled={!(Articles.next || Newsletters.next)}
+            onClick={() => {
+              Articles.next ? this.props.nextArticles(Articles.next) : null;
+              Newsletters.next
+                ? this.props.nextNewsletters(Newsletters.next)
+                : null;
+            }}
+          >
+            Load more
+          </Button>
         </Row>
       </Grid>
     ) : null;

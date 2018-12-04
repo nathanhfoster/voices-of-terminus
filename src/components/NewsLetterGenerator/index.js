@@ -29,6 +29,7 @@ import defaultDesign from "./defaultDesign.json";
 import Card from "../Card";
 import Select from "react-select";
 import { selectStyles } from "../../helpers/styles";
+import { newsletterSelectOptions } from "../../helpers/select";
 
 const mapStateToProps = ({ Newsletters, HtmlDocument, User }) => ({
   Newsletters,
@@ -68,16 +69,7 @@ class NewsLetterGenerator extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {
-    selectOptions: [
-      { value: "Newsletter", label: "Newsletter", isFixed: true },
-      { value: "Official", label: "Official" },
-      { value: "Blog", label: "Blog" },
-      { value: "FanMade", label: "FanMade" },
-      { value: "Guide", label: "Guide" },
-      { value: "Lore", label: "Lore" },
-      { value: "VotShow", label: "VotShow" },
-      { value: "Other", label: "Other" }
-    ]
+    selectOptions: newsletterSelectOptions
   };
 
   componentWillMount() {
@@ -355,7 +347,7 @@ class NewsLetterGenerator extends PureComponent {
             </Modal.Header>
             <Modal.Body>
               <Form>
-                <Row>{this.renderDesigns(Newsletters)}</Row>
+                <Row>{this.renderDesigns(Newsletters.results)}</Row>
               </Form>
             </Modal.Body>
           </Modal>

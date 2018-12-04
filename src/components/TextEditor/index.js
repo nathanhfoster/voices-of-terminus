@@ -25,6 +25,7 @@ import { withRouter, Redirect } from "react-router-dom";
 import Select from "react-select";
 import { selectStyles } from "../../helpers/styles";
 import { isEquivalent } from "../../helpers";
+import { articleSlectOptions } from "../../helpers/select";
 
 const mapStateToProps = ({ editorState, HtmlDocument, User }) => ({
   editorState,
@@ -68,16 +69,7 @@ class TextEditor extends Component {
   };
 
   static defaultProps = {
-    selectOptions: [
-      { value: "Article", label: "Article", isFixed: true },
-      { value: "Official", label: "Official" },
-      { value: "Blog", label: "Blog" },
-      { value: "FanMade", label: "FanMade" },
-      { value: "Guide", label: "Guide" },
-      { value: "Lore", label: "Lore" },
-      { value: "VotShow", label: "VotShow" },
-      { value: "Other", label: "Other" }
-    ]
+    selectOptions: articleSlectOptions
   };
 
   componentWillMount() {

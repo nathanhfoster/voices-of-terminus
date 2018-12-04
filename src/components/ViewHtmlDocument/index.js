@@ -152,7 +152,7 @@ class ViewHtmlDocument extends PureComponent {
               style={{ height: "50px" }}
               src={com.author_profile_image}
               rounded
-            />
+            />{" "}
             <Link to={"/profile/" + com.author}>{com.author_username}</Link>
           </Col>
           <Col xs={2} className="pull-right">
@@ -170,6 +170,7 @@ class ViewHtmlDocument extends PureComponent {
           <Col xs={12}>
             <i className="far fa-clock" />
             <small>
+              {" "}
               <Moment fromNow>{com.last_modified}</Moment>
             </small>
           </Col>
