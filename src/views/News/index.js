@@ -85,6 +85,8 @@ class News extends Component {
     const { pathname } = history.location;
 
     const documentAddedOrDeleted =
+      Articles.results &&
+      Newsletters.results &&
       Documents.length != Articles.results.concat(Newsletters.results).length;
 
     const currentPathName = this.state.eventKey;
@@ -239,8 +241,13 @@ class News extends Component {
     this.setState({ [name]: value ? value : undefined });
   };
 
+  paginate = (nextArticles, nextNewsletters) => {
+    nextArticles ? this.props.nextArticles(nextArticles) : null;
+    nextNewsletters ? this.props.nextNewsletters(nextNewsletters) : null;
+  };
+
   render() {
-    console.log("NEWS");
+    //console.log("NEWS");
     const { Articles, Newsletters } = this.props;
     const { eventKey, history } = this.state;
     const selectValue =
@@ -415,14 +422,9 @@ class News extends Component {
         <Row className="Center LoadButton">
           <Button
             disabled={!(Articles.next || Newsletters.next)}
-            onClick={() => {
-              Articles.next ? this.props.nextArticles(Articles.next) : null;
-              Newsletters.next
-                ? this.props.nextNewsletters(Newsletters.next)
-                : null;
-            }}
+            onClick={() => this.paginate(Articles.next, Newsletters.next)}
           >
-            Load more
+            <i className="fas fa-download" /> More
           </Button>
         </Row>
       </Grid>
