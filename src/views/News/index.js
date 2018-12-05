@@ -420,12 +420,13 @@ class News extends Component {
           </Tabs>
         </Row>
         <Row className="Center LoadButton">
-          <Button
-            disabled={!(Articles.next || Newsletters.next)}
-            onClick={() => this.paginate(Articles.next, Newsletters.next)}
-          >
-            <i className="fas fa-download" /> More
-          </Button>
+          {!(Articles.next || Newsletters.next) ? null : (
+            <Button
+              onClick={() => this.paginate(Articles.next, Newsletters.next)}
+            >
+              <i className="fas fa-download" /> More
+            </Button>
+          )}
         </Row>
       </Grid>
     ) : null;
