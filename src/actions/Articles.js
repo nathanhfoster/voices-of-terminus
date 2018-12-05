@@ -3,13 +3,11 @@ import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getArticles = () => {
-  return async (dispatch, getState) =>
+  return async (dispatch) =>
     await Axios()
       .get("articles/")
       .then(articles => {
-        const { Articles } = getState();
-        !Articles.count || articles.data.count != Articles.count
-          ? Axios()
+            Axios()
               .get("article/likes/")
               .then(likes => {
                 let likeMap = new Map();
@@ -56,7 +54,6 @@ export const getArticles = () => {
                     });
                   });
               })
-          : null;
       })
       .catch(e => console.log(e));
 };
