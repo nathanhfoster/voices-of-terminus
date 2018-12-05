@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import {
@@ -59,12 +59,12 @@ const mapDispatchToProps = {
   clearHtmlDocument
 };
 
-class News extends PureComponent {
+class News extends Component {
   constructor(props) {
     super(props);
     this.state = {
       selectValue: [],
-      Documents: [],
+      Documents: { results: [] },
       search: ""
     };
   }
@@ -78,59 +78,56 @@ class News extends PureComponent {
     Documents: []
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { Articles, Newsletters } = this.state;
-  //   const { User, Documents, selectValue, search, history } = nextState;
-  //   const { pathname } = history.location;
+  shouldComponentUpdate(nextProps, nextState) {
+    const { Articles, Newsletters } = nextProps;
+    const { Documents } = this.state;
+    const { User, selectValue, search, history } = nextState;
+    const { pathname } = history.location;
 
-  //   const currentPathName = this.state.eventKey;
-  //   const currentUser = this.state.User;
-  //   const currentDocuments =
-  //     Articles.results && Newsletters.results
-  //       ? Articles.results.concat(Newsletters.results)
-  //       : [];
-  //   const currentSelectValue = this.state.selectValue;
-  //   const currentSearch = this.state.search;
+    const documentAddedOrDeleted =
+      Documents.length != Articles.results.concat(Newsletters.results).length;
 
-  //   const pathChanged = pathname != currentPathName;
-  //   const initialLoad = Documents.length === 0;
-  //   const userChanged = !isEquivalent(currentUser, User);
-  //   const cardAdded = Documents.length > currentDocuments.length;
-  //   const cardDeleted = Documents.length < currentDocuments.length;
-  //   const cardUpdated =
-  //     !isSubset(
-  //       Documents.map(k => k.last_modified),
-  //       currentDocuments.map(k => k.last_modified)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.views),
-  //       currentDocuments.map(k => k.views)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.likeCount),
-  //       currentDocuments.map(k => k.likeCount)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.commentCount),
-  //       currentDocuments.map(k => k.commentCount)
-  //     );
-  //   const isFiltering = selectValue != currentSelectValue;
-  //   const isSearching = search != currentSearch;
-  //   // search === undefined
-  //   // console.log("nextProps: ", nextProps)
-  //   // console.log("nextState: ", nextState)
-  //   // console.log("this.state: ", this.state)
-  //   return (
-  //     pathChanged ||
-  //     initialLoad ||
-  //     cardAdded ||
-  //     cardDeleted ||
-  //     cardUpdated ||
-  //     isFiltering ||
-  //     isSearching ||
-  //     userChanged
-  //   );
-  // }
+    const currentPathName = this.state.eventKey;
+    const currentUser = this.state.User;
+    const currentDocuments =
+      Articles.results && Newsletters.results
+        ? Articles.results.concat(Newsletters.results)
+        : [];
+    const currentSelectValue = this.state.selectValue;
+    const currentSearch = this.state.search;
+
+    const pathChanged = pathname != currentPathName;
+    const initialLoad = Documents.length === 0;
+    const userChanged = !isEquivalent(currentUser, User);
+    const cardUpdated =
+      !isSubset(
+        Documents.map(k => k.last_modified),
+        currentDocuments.map(k => k.last_modified)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.views),
+        currentDocuments.map(k => k.views)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.likeCount),
+        currentDocuments.map(k => k.likeCount)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.commentCount),
+        currentDocuments.map(k => k.commentCount)
+      );
+    const isFiltering = selectValue != currentSelectValue;
+    const isSearching = search != currentSearch;
+    return (
+      documentAddedOrDeleted ||
+      pathChanged ||
+      initialLoad ||
+      cardUpdated ||
+      isFiltering ||
+      isSearching ||
+      userChanged
+    );
+  }
 
   componentWillMount() {
     this.getState(this.props);
@@ -243,7 +240,7 @@ class News extends PureComponent {
   };
 
   render() {
-    //console.log('NEWS')
+    console.log("NEWS");
     const { Articles, Newsletters } = this.props;
     const { eventKey, history } = this.state;
     const selectValue =

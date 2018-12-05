@@ -8,7 +8,7 @@ export const getNewsletters = () => {
       .get("newsletters/")
       .then(newsletters => {
         const { Newsletters } = getState();
-       !Newsletters.count || newsletters.data.count != Newsletters.count
+        !Newsletters.count || newsletters.data.count != Newsletters.count
           ? Axios()
               .get("newsletter/likes/")
               .then(likes => {
@@ -66,7 +66,7 @@ export const nextNewsletters = paginator => {
     await Axios(null, paginator)
       .get()
       .then(res => {
-        let { Newsletters } = getState();
+        const { Newsletters } = getState();
         res.data.results = Newsletters.results.concat(res.data.results);
         dispatch({
           type: C.GET_NEWSLETTERS,
@@ -117,11 +117,12 @@ export const postNewsletter = (token, payload) => {
     await Axios(token)
       .post("newsletters/", qs.stringify(payload))
       .then(res => {
-        let { Newsletters } = getState();
-        Newsletters.results.push(res.data);
+        const { Newsletters } = getState();
+        let payload = { ...Newsletters };
+        payload.results.push(res.data);
         dispatch({
           type: C.GET_NEWSLETTERS,
-          payload: Newsletters
+          payload: payload
         });
         dispatch({
           type: C.SET_API_RESPONSE,
@@ -142,11 +143,12 @@ export const postNewsletterLike = (token, payload) => {
     await Axios(token)
       .post(`newsletter/likes/`, qs.stringify(payload))
       .then(res => {
-        let { HtmlDocument } = getState();
-        HtmlDocument.likes.push(res.data);
+        const { HtmlDocument } = getState();
+        let payload = { ...HtmlDocument };
+        payload.likes.push(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: payload
         });
       })
       .catch(e => console.log(e));
@@ -157,11 +159,12 @@ export const updateNewsletterLike = (id, token, payload) => {
     await Axios(token)
       .patch(`newsletter/likes/${id}/`, qs.stringify(payload))
       .then(res => {
-        let { HtmlDocument } = getState();
-        const updatedIndex = HtmlDocument.likes.findIndex(
+        const { HtmlDocument } = getState();
+        let payload = { ...HtmlDocument };
+        const updatedIndex = payload.likes.findIndex(
           like => like.author === res.data.author
         );
-        HtmlDocument.likes[updatedIndex] = res.data;
+        payload.likes[updatedIndex] = res.data;
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: HtmlDocument
@@ -175,11 +178,12 @@ export const postNewsletterComment = (token, payload) => {
     await Axios(token)
       .post(`newsletter/comments/`, qs.stringify(payload))
       .then(res => {
-        let { HtmlDocument } = getState();
-        HtmlDocument.comments.unshift(res.data);
+        const { HtmlDocument } = getState();
+        let payload = { ...HtmlDocument };
+        payload.comments.unshift(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: payload
         });
       })
       .catch(e =>
@@ -195,13 +199,12 @@ export const deleteNewsletterComment = (id, token) => {
     await Axios(token)
       .delete(`newsletter/comments/${id}/`)
       .then(res => {
-        let { HtmlDocument } = getState();
-        HtmlDocument.comments = HtmlDocument.comments.filter(
-          com => com.id !== id
-        );
+        const { HtmlDocument } = getState();
+        res.data = { ...HtmlDocument };
+        res.data.comments = res.data.comments.filter(com => com.id !== id);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: res
         });
       })
       .catch(e => console.log(e));
@@ -244,11 +247,13 @@ export const deleteNewsLetter = (id, token) => {
       .delete(`newsletters/${id}/`)
       .then(res => {
         const { Newsletters } = getState();
-        res = Newsletters;
-        res.results = Newsletters.results.filter(article => article.id !== id);
+        res.data = { ...Newsletters };
+        res.data.results = res.data.results.filter(
+          article => article.id !== id
+        );
         dispatch({
           type: C.GET_NEWSLETTERS,
-          payload: res
+          payload: res.data
         });
       })
       .catch(e => console.log(e));

@@ -4,6 +4,7 @@ import { Grid, Row, Col, Carousel, Image } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
+import { carouselImages } from "../../helpers/backgrounds";
 
 const mapStateToProps = ({}) => ({});
 
@@ -19,29 +20,7 @@ class HomeCarousel extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {
-    images: [
-      {
-        src:
-          "https://www.pantheonmmo.com/images/all-races-to-scale-wallpaper.jpg",
-        label: "First slide label",
-        description:
-          "Nulla vitae elit libero, a pharetra augue mollis interdum."
-      },
-      {
-        src:
-          "https://www.moregameslike.com/wp-content/uploads/2016/04/Pantheon-Rise-of-the-Fallen.jpg",
-        label: "First slide label",
-        description:
-          "Nulla vitae elit libero, a pharetra augue mollis interdum."
-      },
-      {
-        src:
-          "https://static.giantbomb.com/uploads/scale_medium/0/1992/2602381-cc862d042ce555e9ac438eb3a797502e_large.jpg",
-        label: "First slide label",
-        description:
-          "Nulla vitae elit libero, a pharetra augue mollis interdum."
-      }
-    ]
+    images: carouselImages
   };
 
   componentWillMount() {

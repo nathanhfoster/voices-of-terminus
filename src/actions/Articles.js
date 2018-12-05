@@ -8,7 +8,7 @@ export const getArticles = () => {
       .get("articles/")
       .then(articles => {
         const { Articles } = getState();
-       !Articles.count || articles.data.count != Articles.count
+        !Articles.count || articles.data.count != Articles.count
           ? Axios()
               .get("article/likes/")
               .then(likes => {
@@ -66,7 +66,7 @@ export const nextArticles = paginator => {
     await Axios(null, paginator)
       .get()
       .then(res => {
-        let { Articles } = getState();
+        const { Articles } = getState();
         res.data.results = Articles.results.concat(res.data.results);
         dispatch({
           type: C.GET_ARTICLES,
@@ -117,11 +117,12 @@ export const postArticle = (token, payload) => {
     await Axios(token)
       .post("articles/", qs.stringify(payload))
       .then(res => {
-        let { Articles } = getState();
-        Articles.results.push(res.data);
+        const { Articles } = getState();
+        let payload = { ...Articles };
+        payload.results.push(res.data);
         dispatch({
           type: C.GET_ARTICLES,
-          payload: Articles
+          payload: payload
         });
         dispatch({
           type: C.SET_API_RESPONSE,
@@ -142,11 +143,12 @@ export const postArticleLike = (token, payload) => {
     await Axios(token)
       .post(`article/likes/`, qs.stringify(payload))
       .then(res => {
-        let { HtmlDocument } = getState();
-        HtmlDocument.likes.push(res.data);
+        const { HtmlDocument } = getState();
+        let payload = { ...HtmlDocument };
+        payload.likes.push(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: payload
         });
       })
       .catch(e =>
@@ -162,14 +164,15 @@ export const updateArticleLike = (id, token, payload) => {
     await Axios(token)
       .patch(`article/likes/${id}/`, qs.stringify(payload))
       .then(res => {
-        let { HtmlDocument } = getState();
-        const updatedIndex = HtmlDocument.likes.findIndex(
+        const { HtmlDocument } = getState();
+        let payload = { ...HtmlDocument };
+        const updatedIndex = payload.likes.findIndex(
           like => like.author === res.data.author
         );
-        HtmlDocument.likes[updatedIndex] = res.data;
+        payload.likes[updatedIndex] = res.data;
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: payload
         });
       })
       .catch(e => console.log(e));
@@ -180,11 +183,12 @@ export const postArticleComment = (token, payload) => {
     await Axios(token)
       .post(`article/comments/`, qs.stringify(payload))
       .then(res => {
-        let { HtmlDocument } = getState();
-        HtmlDocument.comments.unshift(res.data);
+        const { HtmlDocument } = getState();
+        let payload = { ...HtmlDocument };
+        payload.comments.unshift(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: payload
         });
       })
       .catch(e =>
@@ -200,13 +204,12 @@ export const deleteArticleComment = (id, token) => {
     await Axios(token)
       .delete(`article/comments/${id}/`)
       .then(res => {
-        let { HtmlDocument } = getState();
-        HtmlDocument.comments = HtmlDocument.comments.filter(
-          com => com.id !== id
-        );
+        const { HtmlDocument } = getState();
+        res.data = { ...HtmlDocument };
+        res.data.comments = res.data.comments.filter(com => com.id !== id);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: res.data
         });
       })
       .catch(e => console.log(e));
@@ -249,11 +252,13 @@ export const deleteArticle = (id, token) => {
       .delete(`articles/${id}/`)
       .then(res => {
         const { Articles } = getState();
-        res = Articles;
-        res.results = Articles.results.filter(article => article.id !== id);
+        res.data = { ...Articles };
+        res.data.results = res.data.results.filter(
+          article => article.id !== id
+        );
         dispatch({
           type: C.GET_ARTICLES,
-          payload: res
+          payload: res.data
         });
       })
       .catch(e => console.log(e));
