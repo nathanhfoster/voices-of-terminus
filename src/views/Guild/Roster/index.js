@@ -34,8 +34,9 @@ class Roster extends PureComponent {
 
   static defaultProps = {
     Leaders: ["Yarnila"],
+    Advisors: ["Shaiana"],
     Council: ["Leksur", "Kodiack"],
-    Officers: ["Scribble", "Nomad", "Jorconn", "Shaiana", "Joshue"],
+    Officers: ["Scribble", "Nomad", "Jorconn", "Joshue"],
     Members: [
       "Youmu Svartie",
       "Zathris",
@@ -133,6 +134,9 @@ class Roster extends PureComponent {
     const Leaders = Admin.Users
       ? Admin.Users.filter(user => user.is_leader)
       : this.props.Leaders;
+    const Advisors = Admin.Users
+      ? Admin.Users.filter(user => user.is_advisor)
+      : this.props.Advisors;
     const Council = Admin.Users
       ? Admin.Users.filter(user => user.is_council)
       : this.props.Council;
@@ -157,6 +161,10 @@ class Roster extends PureComponent {
           <Row>
             <h3>Leader(s)</h3>
             {this.renderPeople("#ba0bfb", Leaders)}
+          </Row>
+          <Row>
+            <h3>Advisors</h3>
+            {this.renderPeople("var(--primaryColor)", Advisors)}
           </Row>
           <Row>
             <h3>Council</h3>

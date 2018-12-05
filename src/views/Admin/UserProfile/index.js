@@ -116,8 +116,6 @@ class UserProfile extends PureComponent {
     this.setState({ Admin, User, id });
   };
 
-  componentDidUpdate() {}
-
   componentWillUnmount() {
     this.props.clearUser();
   }
@@ -253,6 +251,7 @@ class UserProfile extends PureComponent {
       is_staff,
       is_active,
       is_leader,
+      is_advisor,
       is_council,
       is_general_officer,
       is_officer,
@@ -291,6 +290,7 @@ class UserProfile extends PureComponent {
       is_staff,
       is_active,
       is_leader,
+      is_advisor,
       is_council,
       is_general_officer,
       is_officer,
@@ -340,12 +340,12 @@ class UserProfile extends PureComponent {
     );
 
   render() {
-    console.log(this.state);
     const { Admin, User } = this.state;
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt({
       is_leader: User.is_leader,
+      is_advisor: User.is_advisor,
       is_council: User.is_council,
       is_general_officer: User.is_general_officer,
       is_officer: User.is_officer,
@@ -356,6 +356,7 @@ class UserProfile extends PureComponent {
     const currentUserStatus = Admin.User
       ? statusLevelInt({
           is_leader: Admin.User.is_leader,
+          is_advisor: Admin.User.is_advisor,
           is_council: Admin.User.is_council,
           is_general_officer: Admin.User.is_general_officer,
           is_officer: Admin.User.is_officer,
@@ -371,6 +372,7 @@ class UserProfile extends PureComponent {
     const UserStatus = Admin.User
       ? {
           is_leader: Admin.User.is_leader,
+          is_advisor: Admin.User.is_advisor,
           is_council: Admin.User.is_council,
           is_general_officer: Admin.User.is_general_officer,
           is_officer: Admin.User.is_officer,
@@ -845,7 +847,7 @@ class UserProfile extends PureComponent {
           <Row className="checkBoxTable">
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus >= 7)}
+                disabled={!(canEdit && loggedInUserStatus >= 8)}
                 checked={Admin.User.is_leader}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -865,6 +867,28 @@ class UserProfile extends PureComponent {
                 </span>
               </Checkbox>
             </Col>
+            <Col xs={12}>
+            <Checkbox
+              disabled={!(canEdit && loggedInUserStatus >= 7)}
+              checked={Admin.User.is_advisor}
+              onClick={e =>
+                this.setState(prevState => ({
+                  Admin: {
+                    ...prevState.Admin,
+                    User: {
+                      ...prevState.Admin.User,
+                      is_advisor: !Admin.User.is_advisor
+                    }
+                  }
+                }))
+              }
+            >
+              <span className="checkBoxText">Advisor</span>
+              <span className="help">
+                Will show up as an advisor in guild roster.
+              </span>
+            </Checkbox>
+          </Col>
             <Col xs={12}>
               <Checkbox
                 disabled={!(canEdit && loggedInUserStatus > 6)}
@@ -998,7 +1022,7 @@ class UserProfile extends PureComponent {
               </Checkbox>
             </Col>
           </Row>
-          {User.is_leader || User.is_council
+          {User.is_leader || User.is_advisor || User.is_council
             ? [
                 <Row>
                   <h2 className="headerBanner">PERMISSIONS</h2>

@@ -83,6 +83,7 @@ class PublicProfile extends Component {
     const { User } = this.state;
     const {
       is_leader,
+      is_advisor,
       is_council,
       is_general_officer,
       is_officer,
@@ -97,6 +98,7 @@ class PublicProfile extends Component {
     } = User ? User : {};
     const UserStatus = {
       is_leader,
+      is_advisor,
       is_council,
       is_general_officer,
       is_officer,
