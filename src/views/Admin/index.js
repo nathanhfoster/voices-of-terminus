@@ -374,6 +374,7 @@ class Admin extends PureComponent {
                     accessor: User =>
                       statusLevelInt({
                         is_leader: User.is_leader,
+                        is_advisor: User.is_advisor,
                         is_council: User.is_council,
                         is_general_officer: User.is_general_officer,
                         is_officer: User.is_officer,
