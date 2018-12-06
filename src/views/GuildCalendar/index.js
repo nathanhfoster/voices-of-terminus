@@ -47,92 +47,92 @@ class GuildCalendar extends Component {
       {
         key: 1,
         name: "Event 1",
-        startTime: new Date(2018, 10, 3, 10, 30),
-        endTime: new Date(2018, 10, 3, 12, 30)
+        startTime: new Date(2018, 11, 3, 10, 30),
+        endTime: new Date(2018, 11, 3, 12, 30)
       },
       {
         key: 2,
         name: "Event 2",
-        startTime: new Date(2018, 10, 3, 10, 30),
-        endTime: new Date(2018, 10, 3, 12, 30)
+        startTime: new Date(2018, 11, 3, 10, 30),
+        endTime: new Date(2018, 11, 3, 12, 30)
       },
       {
         key: 3,
         name: "Event 3",
-        startTime: new Date(2018, 10, 4, 10, 30),
-        endTime: new Date(2018, 10, 4, 12, 30)
+        startTime: new Date(2018, 11, 4, 10, 30),
+        endTime: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 4,
         name: "Event 4",
-        startTime: new Date(2018, 10, 4, 10, 30),
-        endTime: new Date(2018, 10, 4, 12, 30)
+        startTime: new Date(2018, 11, 4, 10, 30),
+        endTime: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 5,
         name: "Event 5",
-        startTime: new Date(2018, 10, 24, 10, 30),
-        endTime: new Date(2018, 10, 4, 12, 30)
+        startTime: new Date(2018, 11, 24, 10, 30),
+        endTime: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 6,
         name: "Event 6",
-        startTime: new Date(2018, 10, 5, 10, 30),
-        endTime: new Date(2018, 10, 4, 12, 30)
+        startTime: new Date(2018, 11, 5, 10, 30),
+        endTime: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 7,
         name: "Event 7",
-        startTime: new Date(2018, 10, 5, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 5, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 8,
         name: "Event 8",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 9,
         name: "Event 9",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 10,
         name: "Event 10",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 11,
         name: "Event 11",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 12,
         name: "Event 12",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 13,
         name: "Event 13",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 14,
         name: "Event 14",
-        startTime: new Date(2018, 10, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        startTime: new Date(2018, 11, 25, 10, 30),
+        endTime: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 15,
         name: "Event 14",
         startTime: new Date(2018, 8, 25, 10, 30),
-        endTime: new Date(2018, 10, 5, 12, 30)
+        endTime: new Date(2018, 11, 5, 12, 30)
       }
     ]
   };
@@ -171,7 +171,9 @@ class GuildCalendar extends Component {
             <div className="hasEventsContainer">
               <span className="eventLabelColor" />
               <span className="eventStartTime">
-                <Moment format="HH:mma" className="eventStartTime">{k.startTime}</Moment>
+                <Moment format="HH:mma" className="eventStartTime">
+                  {k.startTime}
+                </Moment>
               </span>
               <h6 className="eventTitle">{k.name}</h6>
             </div>
