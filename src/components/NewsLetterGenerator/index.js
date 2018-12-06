@@ -226,7 +226,7 @@ class NewsLetterGenerator extends PureComponent {
     } = this.state;
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
-    const design = HtmlDocument.design ? JSON.parse(HtmlDocument.design) : null;
+    const design = HtmlDocument && HtmlDocument.design ? JSON.parse(HtmlDocument.design) : null;
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
     const isEditingDesign = id && design && this.editor && window.unlayer;
 
