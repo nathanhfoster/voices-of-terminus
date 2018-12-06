@@ -479,11 +479,11 @@ class UserProfile extends PureComponent {
             </Col>
             <Col md={3} xs={12} className="Center">
               <h3 title="Date Joined">
-                <i className="fas fa-birthday-cake" />
+                <i className="fas fa-birthday-cake" />{" "}
                 <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment>
               </h3>
               <h3 title="Last Login">
-                <i className="fas fa-sign-in-alt" />
+                <i className="fas fa-sign-in-alt" />{" "}
                 <Moment fromNow>{Admin.User.last_login}</Moment>
               </h3>
               <h3 title="Guild Points">
