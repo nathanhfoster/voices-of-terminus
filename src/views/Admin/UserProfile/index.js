@@ -441,7 +441,8 @@ class UserProfile extends PureComponent {
                   style={{ height: "24px" }}
                 />
                 <strong title="Primary | Race | Role | Class |">
-                  Primary:
+                  {" "}
+                  Primary:{" "}
                 </strong>
                 {this.renderDividedText([
                   Admin.User.primary_race,
@@ -455,7 +456,8 @@ class UserProfile extends PureComponent {
                   style={{ height: "26px" }}
                 />
                 <strong title="Secondary | Race | Role | Class |">
-                  Secondary:
+                  {" "}
+                  Secondary:{" "}
                 </strong>
                 {this.renderDividedText([
                   Admin.User.secondary_race,
@@ -488,7 +490,7 @@ class UserProfile extends PureComponent {
                 <i className="fas fa-coins" /> {Admin.User.guild_points}
               </h3>
               <h3 title="Opt In">
-                <i className="far fa-envelope-open" />
+                <i className="far fa-envelope-open" />{" "}
                 {Admin.User.opt_in ? (
                   <i className="fas fa-check" />
                 ) : (
@@ -868,27 +870,27 @@ class UserProfile extends PureComponent {
               </Checkbox>
             </Col>
             <Col xs={12}>
-            <Checkbox
-              disabled={!(canEdit && loggedInUserStatus >= 7)}
-              checked={Admin.User.is_advisor}
-              onClick={e =>
-                this.setState(prevState => ({
-                  Admin: {
-                    ...prevState.Admin,
-                    User: {
-                      ...prevState.Admin.User,
-                      is_advisor: !Admin.User.is_advisor
+              <Checkbox
+                disabled={!(canEdit && loggedInUserStatus >= 7)}
+                checked={Admin.User.is_advisor}
+                onClick={e =>
+                  this.setState(prevState => ({
+                    Admin: {
+                      ...prevState.Admin,
+                      User: {
+                        ...prevState.Admin.User,
+                        is_advisor: !Admin.User.is_advisor
+                      }
                     }
-                  }
-                }))
-              }
-            >
-              <span className="checkBoxText">Advisor</span>
-              <span className="help">
-                Will show up as an advisor in guild roster.
-              </span>
-            </Checkbox>
-          </Col>
+                  }))
+                }
+              >
+                <span className="checkBoxText">Advisor</span>
+                <span className="help">
+                  Will show up as an advisor in guild roster.
+                </span>
+              </Checkbox>
+            </Col>
             <Col xs={12}>
               <Checkbox
                 disabled={!(canEdit && loggedInUserStatus > 6)}
