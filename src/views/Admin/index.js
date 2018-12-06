@@ -209,9 +209,6 @@ class Admin extends PureComponent {
             className="ActionToolbar"
             componentClass={ButtonToolbar}
           >
-            <Button onClick={() => this.props.history.goBack()}>
-              <i className="fas fa-arrow-left" />
-            </Button>
             <Button onClick={this.handleShow}>
               <i className="fas fa-plus" /> User
             </Button>
