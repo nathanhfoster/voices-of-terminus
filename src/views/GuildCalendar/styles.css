@@ -1,7 +1,4 @@
 .GuildCalendar {
-  width: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
 }
 .react-calendar__navigation button {
   border: 0;
