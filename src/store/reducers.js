@@ -68,7 +68,7 @@ export const Admin = (state = {}, action) => {
   }
 };
 
-export const Settings = (state = {}, action) => {
+export const Settings = (state = {showFooter: true}, action) => {
   switch (action.type) {
     case C.SHOW_FOOTER:
       return { ...state, showFooter: action.payload };
