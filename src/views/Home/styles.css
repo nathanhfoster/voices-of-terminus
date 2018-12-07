@@ -1,6 +1,9 @@
 .Home {
   margin-top: 20px;
   color: var(--tertiarycolor);
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .Home iframe {
   padding: 0;
