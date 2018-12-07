@@ -110,7 +110,7 @@ class Footer extends PureComponent {
     const femaleImage = this.backgroundImageRouteMap(pathname)[0];
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
     return (
-      <div className="Footer">
+      <div className="Footer fadeIn-2">
         {shouldShow
           ? [
               <Image className="Female footerImages" src={femaleImage} />,
