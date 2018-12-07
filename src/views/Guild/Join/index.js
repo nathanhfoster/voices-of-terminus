@@ -55,10 +55,10 @@ class Join extends PureComponent {
               </p>
               <p>
                 We are also a chatty bunch of people and do <em>require</em>
-                that all members use
+                that all members use{" "}
                 <a href="https://discordapp.com/" target="_blank">
                   Discord
-                </a>
+                </a>{" "}
                 as it is our primary form of communication.
               </p>
 
@@ -70,7 +70,7 @@ class Join extends PureComponent {
               </p>
               <ol>
                 <li>
-                  Jump on
+                  Jump on{" "}
                   <a href="http://discord.me/vot" target="_blank">
                     Discord
                   </a>
