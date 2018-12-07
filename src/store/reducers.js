@@ -68,6 +68,15 @@ export const Admin = (state = {}, action) => {
   }
 };
 
+export const Settings = (state = {}, action) => {
+  switch (action.type) {
+    case C.SHOW_FOOTER:
+      return { ...state, showFooter: action.payload };
+    default:
+      return state;
+  }
+};
+
 export const appReducer = combineReducers({
   ApiResponse,
   VoTYouTubeChannelData,
@@ -83,5 +92,6 @@ export const appReducer = combineReducers({
   Newsletters,
   HtmlDocument,
   User,
-  Admin
+  Admin,
+  Settings
 });

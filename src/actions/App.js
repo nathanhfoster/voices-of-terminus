@@ -184,3 +184,9 @@ export const clearHtmlDocument = () => async dispatch =>
     type: C.GET_HTML_DOCUMENT,
     payload: null
   });
+
+export const toggleFooter = toggle => dispatch =>
+  dispatch({
+    type: C.SHOW_FOOTER,
+    payload: toggle
+  });

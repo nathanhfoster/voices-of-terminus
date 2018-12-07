@@ -60,7 +60,6 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
     left: 0 !important;
     float: none !important;
   }
-
   .navbar-nav .open .dropdown-menu {
     background-color: var(--dark_grey);
   }

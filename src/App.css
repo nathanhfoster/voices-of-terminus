@@ -35,6 +35,13 @@
   background-color: rgba(0, 0, 0, var(--mainOpacity));
 }
 
+.nav .open > a,
+.nav .open > a:focus,
+.nav .open > a:hover {
+  border-color: transparent;
+  background-color: rgba(0, 0, 0, var(--mainOpacity));
+}
+
 ::-webkit-scrollbar {
   display: none;
   height: 8px;
@@ -125,5 +132,13 @@ textarea {
   left: 0;
   right: 0;
   top: var(--navBarHeight);
+}
+
+.MainFooter {
+  text-align: center;
+  background: var(--secondaryColor);
+  width: 100%;
+  position: fixed;
   bottom: 0;
+  z-index: 2;
 }

@@ -70,26 +70,3 @@
   animation-duration: 2s;
   animation-fill-mode: forwards;
 }
-
-.HomeFooter {
-  width: 100%;
-  background-color: var(--secondaryColor);
-  opacity: var(--mainOpacity);
-  min-height: 98px;
-}
-
-.footerBanner {
-  height: 20%;
-  margin: 0 auto;
-  text-align: "center";
-}
-.footerBanner img {
-  display: block;
-  width: 100%;
-}
-
-.copyRight {
-  display: table;
-  float: right;
-  bottom: 0;
-}

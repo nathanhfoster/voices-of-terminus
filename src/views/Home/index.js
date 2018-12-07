@@ -148,15 +148,7 @@ class Home extends Component {
             />
           </Col>
         </Row>
-      </Grid>,
-      <footer className="HomeFooter">
-        <Grid className="Container">
-          <span className="copyRight" style={{ fontSize: "12px" }}>
-            &copy; {new Date().getFullYear()} Voices of Terminus. Trademarks,
-            copyrights, and media are property of their respective owners.
-          </span>
-        </Grid>
-      </footer>
+      </Grid>
     ];
   }
 }

@@ -12,7 +12,8 @@ import {
   NavDropdown,
   Image,
   Button,
-  Badge
+  Badge,
+  MenuItem
 } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import vrLogo from "../../images/VR_Logo.png";
@@ -21,13 +22,16 @@ import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
 import { classIcon } from "../../helpers";
 import { isEquivalent } from "../../helpers";
+import { toggleFooter } from "../../actions/App";
 
-const mapStateToProps = ({ User }) => ({
-  User
+const mapStateToProps = ({ User, Settings }) => ({
+  User,
+  Settings
 });
 
 const mapDispatchToProps = {
-  Logout
+  Logout,
+  toggleFooter
 };
 
 class NavBar extends PureComponent {
@@ -81,7 +85,7 @@ class NavBar extends PureComponent {
       primary_role,
       primary_class
     } = User;
-    const { navItem } = this.props;
+    const { showFooter } = this.props.Settings;
     return (
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
@@ -207,13 +211,13 @@ class NavBar extends PureComponent {
 
             {!User.token ? (
               <LinkContainer to="/login">
-                <NavItem eventKey={10}>
+                <NavItem eventKey={9}>
                   <i className="fas fa-sign-in-alt" /> LOGIN
                 </NavItem>
               </LinkContainer>
             ) : (
               <NavDropdown
-                eventKey={5}
+                eventKey={10}
                 title={[
                   primary_class ? (
                     <Image
@@ -228,18 +232,30 @@ class NavBar extends PureComponent {
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/profile">
-                  <NavItem eventKey={6.7}>
+                  <NavItem eventKey={11}>
                     <i className="fas fa-user-circle" /> PROFILE
                   </NavItem>
                 </LinkContainer>
                 <LinkContainer to="/profile">
-                  <NavItem eventKey={6.8}>
+                  <NavItem eventKey={12}>
                     <i className="fas fa-bell" /> MESSAGES <Badge>42</Badge>
                   </NavItem>
                 </LinkContainer>
                 <NavItem onClick={this.Logout}>
                   <i className="fas fa-sign-out-alt" /> LOGOUT
                 </NavItem>
+                <MenuItem divider />
+                <MenuItem
+                  onClick={() => this.props.toggleFooter(!showFooter)}
+                  className="Center"
+                >
+                  {showFooter ? (
+                    <i className="far fa-eye-slash" />
+                  ) : (
+                    <i className="far fa-eye" />
+                  )}{" "}
+                  Footer
+                </MenuItem>
               </NavDropdown>
             )}
           </Nav>

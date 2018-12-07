@@ -7,7 +7,7 @@ import "./App.css";
 import "./AppM.css";
 import "regenerator-runtime/runtime";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Image } from "react-bootstrap";
+import { Button, Image } from "react-bootstrap";
 
 import Admin from "./views/Admin";
 import BackgroundImage from "./components/BackgroundImage";
@@ -27,6 +27,7 @@ import Profile from "./views/Profile";
 import PublicProfile from "./views/Profile/PublicProfile";
 import Login from "./components/Login";
 import PageNotFound from "./views/PageNotFound";
+import { Collapse } from "react-collapse";
 import Footer from "./components/Footer";
 import {
   clearApiResponse,
@@ -46,13 +47,15 @@ const mapStateToProps = ({
   Window,
   User,
   VoTYouTubeChannelData,
-  VRYouTubeChannelData
+  VRYouTubeChannelData,
+  Settings
 }) => ({
   ApiResponse,
   Window,
   User,
   VoTYouTubeChannelData,
-  VRYouTubeChannelData
+  VRYouTubeChannelData,
+  Settings
 });
 
 const mapDispatchToProps = {
@@ -75,8 +78,7 @@ class App extends PureComponent {
       width: null,
       height: null,
       isMobile: false,
-      User: {},
-      update: 0
+      User: {}
     };
   }
 
@@ -163,7 +165,7 @@ class App extends PureComponent {
   }
 
   getState = props => {
-    const { ApiResponse, Window, User, location } = props;
+    const { ApiResponse, Window, User, location, Settings } = props;
     if (ApiResponse) this.alertApiResponse(ApiResponse);
     /* Check if User permissions have changed every 10 seconds */
     if (
@@ -175,7 +177,7 @@ class App extends PureComponent {
         () => this.props.refreshUser(this.props.User.id, this.props.User.token),
         5500
       );
-    this.setState({ ApiResponse, Window, User });
+    this.setState({ ApiResponse, Window, User, Settings });
   };
 
   componentWillUnmount() {
@@ -220,6 +222,8 @@ class App extends PureComponent {
     ));
 
   render() {
+    const { Settings } = this.state;
+    const { showFooter } = Settings;
     const { routeItems, location } = this.props;
     return location.pathname === "/" ? (
       <Redirect to="/home" />
@@ -227,13 +231,26 @@ class App extends PureComponent {
       <div className="App">
         <NavBar />
         <BackgroundImage />
-        <Footer />
-        <div className="routeOverlay">
+        <div
+          className="routeOverlay"
+          style={{ bottom: showFooter ? "var(--navBarHeight" : 0 }}
+        >
           <Switch>
             {this.renderRouteItems(routeItems)}
             <Route component={PageNotFound} />
           </Switch>
         </div>
+        <Collapse
+          isOpened={showFooter}
+          fixedHeight={52}
+          className="MainFooter Container"
+        >
+          <Footer />
+          <footer>
+            &copy; {new Date().getFullYear()} Voices of Terminus. Trademarks,
+            copyrights, and media are property of their respective owners.
+          </footer>
+        </Collapse>
       </div>
     );
   }

@@ -1,4 +1,14 @@
 .Footer {
+  display: flex;
+  position: absolute;
+  bottom: 0;
+  z-index: 3;
+  height: var(--navBarHeight);
+  width: 100%;
+}
+.footerBanner img {
+  display: block;
+  width: 100%;
 }
 
 .footerImages {
