@@ -144,7 +144,7 @@ class Images extends PureComponent {
   render() {
     const { User, search, title, description, gallery_image } = this.state;
     let { Galleries } = this.state;
-    console.log(Galleries);
+    const galleries = Galleries.results ? Galleries.results : []
     const selectValue =
       this.state.selectValue.length > 0
         ? this.state.selectValue
@@ -204,7 +204,7 @@ class Images extends PureComponent {
             </InputGroup>
           </Col>
         </Row>
-        <Row>{this.renderGalleries(Galleries.results)}</Row>
+        <Row>{this.renderGalleries(galleries)}</Row>
         <Row>
           <Modal
             backdrop={false}
