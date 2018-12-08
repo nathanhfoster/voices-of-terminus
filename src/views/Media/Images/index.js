@@ -20,7 +20,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { newsSelectOptions } from "../../../helpers/select";
 import { selectStyles } from "../../../helpers/styles";
-import { postGallery } from "../../../actions/Media";
+import { getGalleries, postGallery } from "../../../actions/Media";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -28,6 +28,7 @@ const mapStateToProps = ({ User, Galleries }) => ({
 });
 
 const mapDispatchToProps = {
+  getGalleries,
   postGallery
 };
 
@@ -54,7 +55,9 @@ class Images extends PureComponent {
   componentWillMount() {
     this.getState(this.props);
   }
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getGalleries();
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -116,24 +119,32 @@ class Images extends PureComponent {
 
   createGallery = e => {
     e.preventDefault();
-    const { User, title, description } = this.state;
+    const { User, title, description, gallery_image } = this.state;
     let { tags } = this.state;
     tags = tags.map(i => i.value).join("|");
-    console.log(User.id);
-    let payload = new FormData();
-    payload.append("title", title);
-    payload.append("description", description);
-    payload.append("slug", "gallery");
-    payload.append("author", User.id);
-    payload.append("tags", tags);
-    payload.append("last_modified_by", User.id);
-
+    const payload = {
+      title,
+      description,
+      image: gallery_image,
+      slug: "gallery",
+      author: User.id,
+      tags,
+      last_modified_by: User.id
+    };
     this.props.postGallery(User.token, payload);
   };
+
+  renderGalleries = galleries =>
+    galleries.map(gallery => (
+      <Col xs={12} className="galleryCardContainer">
+        <h1>{gallery.title}</h1>
+      </Col>
+    ));
 
   render() {
     const { User, search, title, description, gallery_image } = this.state;
     let { Galleries } = this.state;
+    console.log(Galleries);
     const selectValue =
       this.state.selectValue.length > 0
         ? this.state.selectValue
@@ -193,6 +204,7 @@ class Images extends PureComponent {
             </InputGroup>
           </Col>
         </Row>
+        <Row>{this.renderGalleries(Galleries.results)}</Row>
         <Row>
           <Modal
             backdrop={false}

@@ -2,13 +2,24 @@ import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 
-export const postGallery = (token, payload) => {
-  console.log(payload);
-  return async (dispatch, getState) => {
-    await AxiosForm(token, payload)
-      .post("galleries/")
+export const getGalleries = () => {
+  return async dispatch =>
+    await Axios()
+      .get("galleries/")
       .then(res => {
-        console.log(res);
+        dispatch({
+          type: C.GET_GALLERIES,
+          payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+};
+
+export const postGallery = (token, payload) => {
+  return async (dispatch, getState) => {
+    await Axios(token)
+      .post("galleries/", qs.stringify(payload))
+      .then(res => {
         const { Galleries } = getState();
         let payload = { ...Galleries };
         payload.results.push(res.data);

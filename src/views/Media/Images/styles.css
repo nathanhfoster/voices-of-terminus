@@ -1,2 +1,7 @@
-.Template {
+.Images {
+}
+
+.galleryCardContainer {
+  margin-top: 8px;
+  height: var(--cardHeight);
 }

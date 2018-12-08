@@ -3,57 +3,57 @@ import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getArticles = () => {
-  return async (dispatch) =>
+  return async dispatch =>
     await Axios()
       .get("articles/")
       .then(articles => {
+        Axios()
+          .get("article/likes/")
+          .then(likes => {
+            let likeMap = new Map();
+            for (let i = 0; i < likes.data.results.length; i++) {
+              const like = likes.data.results[i];
+              const { document_id, count } = like;
+              likeMap.has(document_id)
+                ? likeMap.set(document_id, likeMap.get(document_id) + count)
+                : likeMap.set(document_id, count);
+            }
             Axios()
-              .get("article/likes/")
-              .then(likes => {
-                let likeMap = new Map();
-                for (let i = 0; i < likes.data.results.length; i++) {
-                  const like = likes.data.results[i];
-                  const { document_id, count } = like;
-                  likeMap.has(document_id)
-                    ? likeMap.set(document_id, likeMap.get(document_id) + count)
-                    : likeMap.set(document_id, count);
+              .get("article/comments/")
+              .then(comments => {
+                let commentMap = new Map();
+                for (let i = 0; i < comments.data.results.length; i++) {
+                  const comment = comments.data.results[i];
+                  const { document_id } = comment;
+                  commentMap.has(document_id)
+                    ? commentMap.set(
+                        document_id,
+                        commentMap.get(document_id) + 1
+                      )
+                    : commentMap.set(document_id, 1);
                 }
-                Axios()
-                  .get("article/comments/")
-                  .then(comments => {
-                    let commentMap = new Map();
-                    for (let i = 0; i < comments.data.results.length; i++) {
-                      const comment = comments.data.results[i];
-                      const { document_id } = comment;
-                      commentMap.has(document_id)
-                        ? commentMap.set(
-                            document_id,
-                            commentMap.get(document_id) + 1
-                          )
-                        : commentMap.set(document_id, 1);
-                    }
-                    for (let i = 0; i < articles.data.results.length; i++) {
-                      articles.data.results[i].likeCount = likeMap.has(
-                        articles.data.results[i].id
-                      )
-                        ? likeMap.get(articles.data.results[i].id)
-                        : 0;
-                      articles.data.results[i].commentCount = commentMap.has(
-                        articles.data.results[i].id
-                      )
-                        ? commentMap.get(articles.data.results[i].id)
-                        : 0;
-                      articles.data.results[i].popularity =
-                        articles.data.results[i].views +
-                        articles.data.results[i].likeCount +
-                        articles.data.results[i].commentCount;
-                    }
-                    dispatch({
-                      type: C.GET_ARTICLES,
-                      payload: articles.data
-                    });
-                  });
-              })
+                for (let i = 0; i < articles.data.results.length; i++) {
+                  articles.data.results[i].likeCount = likeMap.has(
+                    articles.data.results[i].id
+                  )
+                    ? likeMap.get(articles.data.results[i].id)
+                    : 0;
+                  articles.data.results[i].commentCount = commentMap.has(
+                    articles.data.results[i].id
+                  )
+                    ? commentMap.get(articles.data.results[i].id)
+                    : 0;
+                  articles.data.results[i].popularity =
+                    articles.data.results[i].views +
+                    articles.data.results[i].likeCount +
+                    articles.data.results[i].commentCount;
+                }
+                dispatch({
+                  type: C.GET_ARTICLES,
+                  payload: articles.data
+                });
+              });
+          });
       })
       .catch(e => console.log(e));
 };
@@ -203,7 +203,9 @@ export const deleteArticleComment = (id, token) => {
       .then(res => {
         const { HtmlDocument } = getState();
         res.data = { ...HtmlDocument };
-        res.data.comments.results = res.data.comments.results.filter(com => com.id !== id);
+        res.data.comments.results = res.data.comments.results.filter(
+          com => com.id !== id
+        );
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
