@@ -119,7 +119,7 @@ class Images extends PureComponent {
     const { User, title, description } = this.state;
     let { tags } = this.state;
     tags = tags.map(i => i.value).join("|");
-    console.log(User.id)
+    console.log(User.id);
     let payload = new FormData();
     payload.append("title", title);
     payload.append("description", description);
@@ -198,7 +198,7 @@ class Images extends PureComponent {
             backdrop={false}
             {...this.props}
             show={this.state.show}
-            onHide={this.handleHide}
+            onHide={() => this.setState({ show: false })}
             dialogClassName="loginModal"
           >
             <Modal.Header closeButton>
