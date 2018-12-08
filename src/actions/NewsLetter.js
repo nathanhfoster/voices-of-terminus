@@ -142,7 +142,7 @@ export const postNewsletterLike = (token, payload) => {
       .then(res => {
         const { HtmlDocument } = getState();
         let payload = { ...HtmlDocument };
-        payload.likes.push(res.data);
+        payload.likes.results.push(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: payload
@@ -158,13 +158,13 @@ export const updateNewsletterLike = (id, token, payload) => {
       .then(res => {
         const { HtmlDocument } = getState();
         let payload = { ...HtmlDocument };
-        const updatedIndex = payload.likes.findIndex(
+        const updatedIndex = payload.likes.results.findIndex(
           like => like.author === res.data.author
         );
-        payload.likes[updatedIndex] = res.data;
+        payload.likes.results[updatedIndex] = res.data;
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: HtmlDocument
+          payload: payload
         });
       })
       .catch(e => console.log(e));
@@ -177,7 +177,7 @@ export const postNewsletterComment = (token, payload) => {
       .then(res => {
         const { HtmlDocument } = getState();
         let payload = { ...HtmlDocument };
-        payload.comments.unshift(res.data);
+        payload.comments.results.unshift(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: payload
@@ -198,10 +198,10 @@ export const deleteNewsletterComment = (id, token) => {
       .then(res => {
         const { HtmlDocument } = getState();
         res.data = { ...HtmlDocument };
-        res.data.comments = res.data.comments.filter(com => com.id !== id);
+        res.data.comments.results = res.data.comments.results.filter(com => com.id !== id);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
-          payload: res
+          payload: res.data
         });
       })
       .catch(e => console.log(e));

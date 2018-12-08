@@ -76,18 +76,18 @@ class ViewHtmlDocument extends PureComponent {
     const { User, HtmlDocument, match } = this.props;
     const { id } = HtmlDocument;
     const document_id = id;
-    const alreadyLiked = HtmlDocument.likes.findIndex(
+    const alreadyLiked = HtmlDocument.likes.results.findIndex(
       like => like.author === User.id
     );
-    const count = HtmlDocument.likes[alreadyLiked]
-      ? HtmlDocument.likes[alreadyLiked].count + 1
+    const count = HtmlDocument.likes.results[alreadyLiked]
+      ? HtmlDocument.likes.results[alreadyLiked].count + 1
       : 1;
     const payload = { document_id, author: User.id, count };
 
     if (match.path.includes("newsletters")) {
       alreadyLiked !== -1
         ? this.props.updateNewsletterLike(
-            HtmlDocument.likes[alreadyLiked].id,
+            HtmlDocument.likes.results[alreadyLiked].id,
             User.token,
             payload
           )
@@ -96,7 +96,7 @@ class ViewHtmlDocument extends PureComponent {
     if (match.path.includes("articles")) {
       alreadyLiked !== -1
         ? this.props.updateArticleLike(
-            HtmlDocument.likes[alreadyLiked].id,
+            HtmlDocument.likes.results[alreadyLiked].id,
             User.token,
             payload
           )
@@ -202,13 +202,15 @@ class ViewHtmlDocument extends PureComponent {
     const { HtmlDocument } = this.props;
     const { likes, comments } = HtmlDocument ? HtmlDocument : [];
     const likeTotal = likes
-      ? likes.reduce((accumulator, like) => accumulator + like.count, 0)
+      ? likes.results.reduce((accumulator, like) => accumulator + like.count, 0)
       : 0;
     const userLikeIndex = likes
-      ? likes.findIndex(like => like.author === User.id)
+      ? likes.results.findIndex(like => like.author === User.id)
       : -1;
     const amountLiked =
-      User.token && userLikeIndex !== -1 ? likes[userLikeIndex].count : 0;
+      User.token && userLikeIndex !== -1
+        ? likes.results[userLikeIndex].count
+        : 0;
     //console.log("HTMLDOCUMENT")
     return HtmlDocument ? (
       <Grid className="HtmlParser Container fadeIn-2">
@@ -250,7 +252,7 @@ class ViewHtmlDocument extends PureComponent {
           {HtmlDocument.comments ? (
             <Col xs={12}>
               <h1 className="Center">COMMENTS</h1>
-              {this.renderComments(comments)}
+              {this.renderComments(comments.results)}
             </Col>
           ) : null}
           {User.token ? (

@@ -11,8 +11,8 @@ export const getArticles = () => {
               .get("article/likes/")
               .then(likes => {
                 let likeMap = new Map();
-                for (let i = 0; i < likes.data.length; i++) {
-                  const like = likes.data[i];
+                for (let i = 0; i < likes.data.results.length; i++) {
+                  const like = likes.data.results[i];
                   const { document_id, count } = like;
                   likeMap.has(document_id)
                     ? likeMap.set(document_id, likeMap.get(document_id) + count)
@@ -22,8 +22,8 @@ export const getArticles = () => {
                   .get("article/comments/")
                   .then(comments => {
                     let commentMap = new Map();
-                    for (let i = 0; i < comments.data.length; i++) {
-                      const comment = comments.data[i];
+                    for (let i = 0; i < comments.data.results.length; i++) {
+                      const comment = comments.data.results[i];
                       const { document_id } = comment;
                       commentMap.has(document_id)
                         ? commentMap.set(
@@ -142,7 +142,7 @@ export const postArticleLike = (token, payload) => {
       .then(res => {
         const { HtmlDocument } = getState();
         let payload = { ...HtmlDocument };
-        payload.likes.push(res.data);
+        payload.likes.results.push(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: payload
@@ -163,10 +163,10 @@ export const updateArticleLike = (id, token, payload) => {
       .then(res => {
         const { HtmlDocument } = getState();
         let payload = { ...HtmlDocument };
-        const updatedIndex = payload.likes.findIndex(
+        const updatedIndex = payload.likes.results.findIndex(
           like => like.author === res.data.author
         );
-        payload.likes[updatedIndex] = res.data;
+        payload.likes.results[updatedIndex] = res.data;
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: payload
@@ -182,7 +182,7 @@ export const postArticleComment = (token, payload) => {
       .then(res => {
         const { HtmlDocument } = getState();
         let payload = { ...HtmlDocument };
-        payload.comments.unshift(res.data);
+        payload.comments.results.unshift(res.data);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: payload
@@ -203,7 +203,7 @@ export const deleteArticleComment = (id, token) => {
       .then(res => {
         const { HtmlDocument } = getState();
         res.data = { ...HtmlDocument };
-        res.data.comments = res.data.comments.filter(com => com.id !== id);
+        res.data.comments.results = res.data.comments.results.filter(com => com.id !== id);
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
