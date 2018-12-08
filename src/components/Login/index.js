@@ -90,7 +90,6 @@ class Login extends PureComponent {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   setImage = e => {
-    console.log(e);
     const { alert } = this.props;
     var file = e.target.files[0];
     if (file.size > 3145728) {

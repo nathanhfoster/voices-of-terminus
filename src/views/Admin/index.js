@@ -588,7 +588,7 @@ class Admin extends PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.createUserAccount} disabled={canSubmit}>
+              <Button onClick={this.createUserAccount}>
                 Create
               </Button>
             </Modal.Footer>

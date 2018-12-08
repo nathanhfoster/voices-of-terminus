@@ -264,6 +264,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       can_create_article,
+      can_create_galleries,
       can_create_newsletter,
       can_create_calendar_event,
       can_read_article,
@@ -303,6 +304,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       can_create_article,
+      can_create_galleries,
       can_create_newsletter,
       can_create_calendar_event,
       can_read_article,
@@ -1085,6 +1087,23 @@ class UserProfile extends PureComponent {
                       }
                     >
                       Calendar Events
+                    </Checkbox>
+                    <Checkbox
+                      disabled={!canEdit}
+                      checked={Admin.User.can_create_galleries}
+                      onClick={e =>
+                        this.setState(prevState => ({
+                          Admin: {
+                            ...prevState.Admin,
+                            User: {
+                              ...prevState.Admin.User,
+                              can_create_galleries: !Admin.User.can_create_galleries
+                            }
+                          }
+                        }))
+                      }
+                    >
+                      Galleries
                     </Checkbox>
                   </Col>
                   <Col md={3} xs={12}>

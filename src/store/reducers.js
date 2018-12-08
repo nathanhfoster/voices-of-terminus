@@ -68,7 +68,7 @@ export const Admin = (state = {}, action) => {
   }
 };
 
-export const Settings = (state = {showFooter: true}, action) => {
+export const Settings = (state = { showFooter: true }, action) => {
   switch (action.type) {
     case C.SHOW_FOOTER:
       return { ...state, showFooter: action.payload };
@@ -76,6 +76,9 @@ export const Settings = (state = {showFooter: true}, action) => {
       return state;
   }
 };
+
+export const Galleries = (state = {}, action) =>
+  action.type === C.GET_GALLERIES ? action.payload : state;
 
 export const appReducer = combineReducers({
   ApiResponse,
@@ -93,5 +96,6 @@ export const appReducer = combineReducers({
   HtmlDocument,
   User,
   Admin,
-  Settings
+  Settings,
+  Galleries
 });

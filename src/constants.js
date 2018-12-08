@@ -21,6 +21,7 @@ const constants = {
   SET_LOGOUT: "SET_LOGOUT",
   GET_USERS: "GET_USERS",
   GET_USER: "GET_USER",
-  SHOW_FOOTER: "SHOW_FOOTER"
+  SHOW_FOOTER: "SHOW_FOOTER",
+  GET_GALLERIES: "GET_GALLERIES"
 };
 export default constants;
