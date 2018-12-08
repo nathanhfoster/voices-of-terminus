@@ -35,10 +35,10 @@ export const DiscordData = (state = {}, action) =>
 export const editorState = (state = null, action) =>
   action.type === C.SET_EDITOR_STATE ? action.payload : state;
 
-export const Articles = (state = {}, action) =>
+export const Articles = (state = {results: []}, action) =>
   action.type === C.GET_ARTICLES ? action.payload : state;
 
-export const Newsletters = (state = {}, action) =>
+export const Newsletters = (state = {results: []}, action) =>
   action.type === C.GET_NEWSLETTERS ? action.payload : state;
 
 export const HtmlDocument = (state = null, action) =>
@@ -77,7 +77,7 @@ export const Settings = (state = { showFooter: true }, action) => {
   }
 };
 
-export const Galleries = (state = {}, action) =>
+export const Galleries = (state = {results: []}, action) =>
   action.type === C.GET_GALLERIES ? action.payload : state;
 
 export const appReducer = combineReducers({
