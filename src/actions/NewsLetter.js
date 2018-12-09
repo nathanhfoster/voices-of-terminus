@@ -3,57 +3,57 @@ import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getNewsletters = () => {
-  return async (dispatch) =>
+  return async dispatch =>
     await Axios()
       .get("newsletters/")
       .then(newsletters => {
+        Axios()
+          .get("newsletter/likes/")
+          .then(likes => {
+            let likeMap = new Map();
+            for (let i = 0; i < likes.data.results.length; i++) {
+              const like = likes.data.results[i];
+              const { document_id, count } = like;
+              likeMap.has(document_id)
+                ? likeMap.set(document_id, likeMap.get(document_id) + count)
+                : likeMap.set(document_id, count);
+            }
             Axios()
-              .get("newsletter/likes/")
-              .then(likes => {
-                let likeMap = new Map();
-                for (let i = 0; i < likes.data.length; i++) {
-                  const like = likes.data.results[i];
-                  const { document_id, count } = like;
-                  likeMap.has(document_id)
-                    ? likeMap.set(document_id, likeMap.get(document_id) + count)
-                    : likeMap.set(document_id, count);
+              .get("newsletter/comments/")
+              .then(comments => {
+                let commentMap = new Map();
+                for (let i = 0; i < comments.data.results.length; i++) {
+                  const comment = comments.data.results[i];
+                  const { document_id } = comment;
+                  commentMap.has(document_id)
+                    ? commentMap.set(
+                        document_id,
+                        commentMap.get(document_id) + 1
+                      )
+                    : commentMap.set(document_id, 1);
                 }
-                Axios()
-                  .get("newsletter/comments/")
-                  .then(comments => {
-                    let commentMap = new Map();
-                    for (let i = 0; i < comments.data.length; i++) {
-                      const comment = comments.data.results[i];
-                      const { document_id } = comment;
-                      commentMap.has(document_id)
-                        ? commentMap.set(
-                            document_id,
-                            commentMap.get(document_id) + 1
-                          )
-                        : commentMap.set(document_id, 1);
-                    }
-                    for (let i = 0; i < newsletters.data.results.length; i++) {
-                      newsletters.data.results[i].likeCount = likeMap.has(
-                        newsletters.data.results[i].id
-                      )
-                        ? likeMap.get(newsletters.data.results[i].id)
-                        : 0;
-                      newsletters.data.results[i].commentCount = commentMap.has(
-                        newsletters.data.results[i].id
-                      )
-                        ? commentMap.get(newsletters.data.results[i].id)
-                        : 0;
-                      newsletters.data.results[i].popularity =
-                        newsletters.data.results[i].views +
-                        newsletters.data.results[i].likeCount +
-                        newsletters.data.results[i].commentCount;
-                    }
-                    dispatch({
-                      type: C.GET_NEWSLETTERS,
-                      payload: newsletters.data
-                    });
-                  });
-              })
+                for (let i = 0; i < newsletters.data.results.length; i++) {
+                  newsletters.data.results[i].likeCount = likeMap.has(
+                    newsletters.data.results[i].id
+                  )
+                    ? likeMap.get(newsletters.data.results[i].id)
+                    : 0;
+                  newsletters.data.results[i].commentCount = commentMap.has(
+                    newsletters.data.results[i].id
+                  )
+                    ? commentMap.get(newsletters.data.results[i].id)
+                    : 0;
+                  newsletters.data.results[i].popularity =
+                    newsletters.data.results[i].views +
+                    newsletters.data.results[i].likeCount +
+                    newsletters.data.results[i].commentCount;
+                }
+                dispatch({
+                  type: C.GET_NEWSLETTERS,
+                  payload: newsletters.data
+                });
+              });
+          });
       })
       .catch(e => console.log(e));
 };
@@ -198,7 +198,9 @@ export const deleteNewsletterComment = (id, token) => {
       .then(res => {
         const { HtmlDocument } = getState();
         res.data = { ...HtmlDocument };
-        res.data.comments.results = res.data.comments.results.filter(com => com.id !== id);
+        res.data.comments.results = res.data.comments.results.filter(
+          com => com.id !== id
+        );
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
@@ -212,18 +214,19 @@ export const updateNewsLetter = (id, token, payload) => {
     await Axios(token)
       .patch(`newsletters/${id}/`, qs.stringify(payload))
       .then(res => {
-        let { Newsletters } = getState();
-        const updatedIndex = Newsletters.results.findIndex(
+        const { Newsletters } = getState();
+        let payload = { ...Newsletters };
+        const updatedIndex = payload.results.findIndex(
           i => i.id === res.data.id
         );
-        Newsletters.results[updatedIndex] = res.data;
+        payload.results[updatedIndex] = res.data;
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
         });
         dispatch({
           type: C.GET_NEWSLETTERS,
-          payload: Newsletters
+          payload: payload
         });
         dispatch({
           type: C.SET_API_RESPONSE,

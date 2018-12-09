@@ -219,18 +219,19 @@ export const updateArticle = (id, token, payload) => {
     await Axios(token)
       .patch(`articles/${id}/`, qs.stringify(payload))
       .then(res => {
-        let { Articles } = getState();
-        const updatedIndex = Articles.results.findIndex(
+        const { Articles } = getState();
+        let payload = { ...Articles };
+        const updatedIndex = payload.results.findIndex(
           i => i.id === res.data.id
         );
-        Articles.results[updatedIndex] = res.data;
+        payload.results[updatedIndex] = res.data;
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
         });
         dispatch({
           type: C.GET_ARTICLES,
-          payload: Articles
+          payload: payload
         });
         dispatch({
           type: C.SET_API_RESPONSE,
