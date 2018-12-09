@@ -12,7 +12,7 @@ export const getNewsletters = () => {
               .then(likes => {
                 let likeMap = new Map();
                 for (let i = 0; i < likes.data.length; i++) {
-                  const like = likes.data[i];
+                  const like = likes.data.results[i];
                   const { document_id, count } = like;
                   likeMap.has(document_id)
                     ? likeMap.set(document_id, likeMap.get(document_id) + count)
@@ -23,7 +23,7 @@ export const getNewsletters = () => {
                   .then(comments => {
                     let commentMap = new Map();
                     for (let i = 0; i < comments.data.length; i++) {
-                      const comment = comments.data[i];
+                      const comment = comments.data.results[i];
                       const { document_id } = comment;
                       commentMap.has(document_id)
                         ? commentMap.set(
