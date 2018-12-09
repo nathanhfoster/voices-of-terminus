@@ -22,6 +22,7 @@ import ViewHtmlDocument from "./components/ViewHtmlDocument";
 import Forums from "./views/Forums";
 import Guild from "./views/Guild";
 import Media from "./views/Media";
+import Gallery from './views/Media/Images/Gallery'
 import VideoPlayer from "./components/VideoPlayer";
 import Profile from "./views/Profile";
 import PublicProfile from "./views/Profile/PublicProfile";
@@ -122,6 +123,7 @@ class App extends PureComponent {
       { path: "/guild/team", component: Guild },
       { path: "/guild/join", component: Guild },
       { path: "/media/images", component: Media },
+      { path: "/media/images/gallery/:id", component: Gallery },
       { path: "/media/videos", component: Media },
       { path: "/media/videos/:id/:type", component: VideoPlayer },
       { path: "/media/streams", component: Media },

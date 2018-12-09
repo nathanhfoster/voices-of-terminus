@@ -22,6 +22,7 @@ const constants = {
   GET_USERS: "GET_USERS",
   GET_USER: "GET_USER",
   SHOW_FOOTER: "SHOW_FOOTER",
-  GET_GALLERIES: "GET_GALLERIES"
+  GET_GALLERIES: "GET_GALLERIES",
+  GET_GALLERY: "GET_GALLERY"
 };
 export default constants;

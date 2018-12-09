@@ -1,29 +1,30 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import { connect as reduxConnect } from "react-redux";
-import Select from "react-select";
 import {
   Grid,
+  PageHeader,
   Row,
   Col,
+  Image,
   ButtonToolbar,
-  Button,
   InputGroup,
   FormControl,
+  Button,
   Modal,
   Form,
   FormGroup,
-  Image,
   ControlLabel
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import Select from "react-select";
+import { newsSelectOptions } from "../../../../helpers/select";
+import { selectStyles } from "../../../../helpers/styles";
+import { connect as reduxConnect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { viewGalleryImages, postGalleryImage } from "../../../../actions/Media";
+import Moment from "react-moment";
 import "./styles.css";
 import "./stylesM.css";
-import { newsSelectOptions } from "../../../helpers/select";
-import { selectStyles } from "../../../helpers/styles";
-import { getGalleries, postGallery } from "../../../actions/Media";
-import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
-import Moment from "react-moment";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -31,11 +32,11 @@ const mapStateToProps = ({ User, Galleries }) => ({
 });
 
 const mapDispatchToProps = {
-  getGalleries,
-  postGallery
+  viewGalleryImages,
+  postGalleryImage
 };
 
-class Images extends PureComponent {
+class Gallery extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -45,7 +46,7 @@ class Images extends PureComponent {
       show: false,
       title: "",
       description: "",
-      gallery_image: null
+      image: null
     };
   }
 
@@ -58,8 +59,10 @@ class Images extends PureComponent {
   componentWillMount() {
     this.getState(this.props);
   }
+
   componentDidMount() {
-    this.props.getGalleries();
+    const { id } = this.props.match.params;
+    this.props.viewGalleryImages(id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -67,8 +70,14 @@ class Images extends PureComponent {
   }
 
   getState = props => {
-    const { User, Galleries } = props;
-    this.setState({ User, Galleries });
+    const { id } = props.match.params;
+    const { Galleries } = props;
+    const GalleryTitleIndex = Galleries.results.findIndex(
+      gallery => gallery.id == id
+    );
+    const GalleryTitle = Galleries.results[GalleryTitleIndex].title;
+    const { Gallery } = Galleries;
+    this.setState({ id, GalleryTitle, Gallery });
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
@@ -116,41 +125,37 @@ class Images extends PureComponent {
     } else {
       var reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onloadend = () => this.setState({ gallery_image: reader.result });
+      reader.onloadend = () => this.setState({ image: reader.result });
     }
   };
 
-  createGallery = e => {
+  createGalleryImage = e => {
     e.preventDefault();
-    const { User, title, description, gallery_image } = this.state;
+    const { User } = this.props;
+    const { id } = this.state;
+    const { image, title, description } = this.state;
     let { tags } = this.state;
     tags = tags.map(i => i.value).join("|");
     const payload = {
-      title,
-      description,
-      image: gallery_image,
-      slug: "gallery",
+      gallery_id: id,
       author: User.id,
       tags,
-      last_modified_by: User.id
+      image,
+      title,
+      description
     };
-    this.props.postGallery(User.token, payload);
+    this.props.postGalleryImage(User.token, payload);
     this.setState({ show: false });
   };
 
-  renderGalleries = galleries =>
-    galleries.map(gallery => (
-      <Col md={3} xs={12} className="galleryCardContainer">
-        <div
-          className="Clickable galleryCard Hover"
-          onClick={() =>
-            this.props.history.push(`/media/images/gallery/${gallery.id}`)
-          }
-        >
-          <Image src={gallery.image} />
+  renderGalleryImages = images =>
+    images.map(image => (
+      <Col xs={12} className="galleryCardContainer">
+        <div className="Clickable galleryCard Hover" onClick={null}>
+          <Image src={image.image} />
           <div className="gallerySummary">
-            <h4>{gallery.title}</h4>
-            <p>{gallery.description}</p>
+            <h4>{image.title}</h4>
+            <p>{image.description}</p>
             <div className="cardInfo">
               <div
                 className="inlineNoWrap"
@@ -160,16 +165,16 @@ class Images extends PureComponent {
               >
                 <i className="fas fa-user" />
                 <Link
-                  to={"/profile/" + gallery.author}
+                  to={"/profile/" + image.author}
                   onClick={e => e.stopPropagation()}
                 >
-                  {gallery.author_username}
+                  {image.author_username}
                 </Link>{" "}
                 <i className="far fa-clock" />
-                <Moment fromNow>{gallery.date_created}</Moment>
+                <Moment fromNow>{image.date_created}</Moment>
               </div>
               <div>
-                <i className="fas fa-tags" /> [{gallery.tags}]
+                <i className="fas fa-tags" /> [{image.tags}]
               </div>
             </div>
           </div>
@@ -178,15 +183,26 @@ class Images extends PureComponent {
     ));
 
   render() {
-    const { User, search, title, description, gallery_image } = this.state;
-    let { Galleries } = this.state;
-    const galleries = Galleries.results ? Galleries.results : [];
-    const selectValue =
-      this.state.selectValue.length > 0
-        ? this.state.selectValue
-        : this.props.selectOptions;
+    const { User } = this.props;
+    const {
+      GalleryTitle,
+      Gallery,
+      title,
+      description,
+      image,
+      search
+    } = this.state;
+    const images = Gallery ? Gallery.results : [];
     return (
-      <Grid className="Images Container">
+      <Grid className="Gallery Container">
+        <Row>
+          <PageHeader className="pageHeader">Gallery</PageHeader>
+        </Row>
+        <Row className="Center">
+          <Col xs={12}>
+            <h1>{GalleryTitle}</h1>
+          </Col>
+        </Row>
         <Row>
           <Col
             md={3}
@@ -198,7 +214,7 @@ class Images extends PureComponent {
               disabled={!(User.is_superuser || User.can_create_galleries)}
               onClick={() => this.setState({ show: true })}
             >
-              <i className="fas fa-plus" /> Gallery
+              <i className="fas fa-plus" /> Image
             </Button>
           </Col>
           <Col md={5} xs={12}>
@@ -212,7 +228,7 @@ class Images extends PureComponent {
                 name="search"
                 placeholder="Filter by Title or Author..."
                 value={search}
-                onChange={filter => this.onChange(filter, Galleries)}
+                onChange={filter => this.onChange(filter, Gallery)}
               />
             </InputGroup>
           </Col>
@@ -240,7 +256,7 @@ class Images extends PureComponent {
             </InputGroup>
           </Col>
         </Row>
-        <Row>{this.renderGalleries(galleries)}</Row>
+        <Row>{this.renderGalleryImages(images)}</Row>
         <Row>
           <Modal
             backdrop={false}
@@ -309,7 +325,7 @@ class Images extends PureComponent {
                 <Row className="Center">
                   <Col md={12}>
                     <Image
-                      src={gallery_image}
+                      src={image}
                       className="ProfileImages"
                       responsive
                       rounded
@@ -319,7 +335,7 @@ class Images extends PureComponent {
                       style={{ margin: "auto" }}
                       type="file"
                       label="File"
-                      name="gallery_image"
+                      name="image"
                       onChange={this.setImage}
                     />
                   </Col>
@@ -327,7 +343,7 @@ class Images extends PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.createGallery}>Create</Button>
+              <Button onClick={this.createGalleryImage}>Create</Button>
             </Modal.Footer>
           </Modal>
         </Row>
@@ -336,5 +352,5 @@ class Images extends PureComponent {
   }
 }
 export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Images)
+  reduxConnect(mapStateToProps, mapDispatchToProps)(Gallery)
 );

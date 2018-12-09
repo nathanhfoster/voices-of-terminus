@@ -22,7 +22,7 @@ export const postGallery = (token, payload) => {
       .then(res => {
         const { Galleries } = getState();
         let payload = { ...Galleries };
-        payload.results.push(res.data);
+        payload.results.unshift(res.data);
         dispatch({
           type: C.GET_GALLERIES,
           payload: payload
@@ -39,4 +39,39 @@ export const postGallery = (token, payload) => {
         })
       );
   };
+};
+
+export const viewGalleryImages = id => {
+  return async dispatch => {
+    await Axios()
+      .get(`gallery/images/${id}/view/`)
+      .then(res => {
+        dispatch({
+          type: C.GET_GALLERY,
+          payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+  };
+};
+
+export const postGalleryImage = (token, payload) => {
+  return async (dispatch, getState) =>
+    await Axios(token)
+      .post(`gallery/images/`, qs.stringify(payload))
+      .then(res => {
+        const { Galleries } = getState();
+        let payload = { ...Galleries };
+        payload.Gallery.results.unshift(res.data);
+        dispatch({
+          type: C.GET_GALLERIES,
+          payload: payload
+        });
+      })
+      .catch(e =>
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+        })
+      );
 };

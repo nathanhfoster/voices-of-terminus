@@ -5,3 +5,44 @@
   margin-top: 8px;
   height: var(--cardHeight);
 }
+
+.galleryCard {
+  height: 100%;
+  width: 100%;
+  background-color: var(--secondaryColor);
+  opacity: var(--mainOpacity);
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  position: relative;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--gray);
+  border-radius: 4px;
+  transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
+}
+
+.galleryCard img {
+  height: 50%;
+  width: 100%;
+}
+
+.gallerySummary {
+  height: var(--cardSummaryHeight);
+  position: absolute;
+  background-color: var(--dark_grey);
+  flex: 0 0 100px;
+  width: 100%;
+  padding: 6px;
+  left: 0;
+  bottom: 0;
+
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+.gallerySummary h4 {
+  width: 100%;
+  margin: 4px 0 4px 0;
+}
