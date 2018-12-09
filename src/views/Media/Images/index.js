@@ -20,7 +20,12 @@ import "./styles.css";
 import "./stylesM.css";
 import { newsSelectOptions } from "../../../helpers/select";
 import { selectStyles } from "../../../helpers/styles";
-import { getGalleries, postGallery } from "../../../actions/Media";
+import {
+  getGalleries,
+  postGallery,
+  updateGallery,
+  deleteGallery
+} from "../../../actions/Media";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -32,7 +37,9 @@ const mapStateToProps = ({ User, Galleries }) => ({
 
 const mapDispatchToProps = {
   getGalleries,
-  postGallery
+  postGallery,
+  updateGallery,
+  deleteGallery
 };
 
 class Images extends PureComponent {
@@ -43,9 +50,11 @@ class Images extends PureComponent {
       selectValue: [],
       search: "",
       show: false,
+      editing: false,
       title: "",
       description: "",
-      gallery_image: null
+      gallery_image: null,
+      gallery_id: null
     };
   }
 
@@ -138,8 +147,29 @@ class Images extends PureComponent {
     this.setState({ show: false });
   };
 
-  renderGalleries = galleries =>
-    galleries.map(gallery => (
+  updateGallery = e => {
+    e.preventDefault();
+    const { User, title, description, gallery_image, gallery_id } = this.state;
+    let { tags } = this.state;
+    tags = tags.map(i => i.value).join("|");
+    const payload = {
+      title,
+      description,
+      image: gallery_image,
+      slug: "gallery",
+      author: User.id,
+      tags,
+      last_modified_by: User.id
+    };
+    this.props.updateGallery(gallery_id, User.token, payload);
+    this.setState({ show: false, editing: false });
+  };
+
+  renderGalleries = galleries => {
+    const { User } = this.state;
+    const canDelete = User.is_superuser || User.can_create_galleries;
+    const canUpdate = User.is_superuser || User.can_create_galleries;
+    return galleries.map(gallery => (
       <Col md={4} xs={12} className="galleryCardContainer">
         <div
           className="Clickable galleryCard Hover"
@@ -151,6 +181,42 @@ class Images extends PureComponent {
           <div className="gallerySummary">
             <h4>{gallery.title}</h4>
             <p>{gallery.description}</p>
+            <div className="cardActions">
+              {canDelete ? (
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.props.deleteGallery(gallery.id, User.token);
+                  }}
+                  bsSize="small"
+                  className="pull-right"
+                >
+                  <i className="fa fa-trash-alt" />
+                </Button>
+              ) : null}
+              {canUpdate ? (
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.setState({
+                      show: true,
+                      editing: true,
+                      gallery_id: gallery.id,
+                      title: gallery.title,
+                      description: gallery.description,
+                      tags: gallery.tags
+                        .split("|")
+                        .map(i => (i = { value: i, label: i })),
+                      gallery_image: gallery.image
+                    });
+                  }}
+                  bsSize="small"
+                  className="pull-right"
+                >
+                  <i className="fa fa-pencil-alt" />
+                </Button>
+              ) : null}
+            </div>
             <div className="cardInfo">
               <div
                 className="inlineNoWrap"
@@ -168,6 +234,7 @@ class Images extends PureComponent {
                 <i className="far fa-clock" />
                 <Moment fromNow>{gallery.date_created}</Moment>
               </div>
+
               <div>
                 <i className="fas fa-tags" /> [{gallery.tags}]
               </div>
@@ -176,9 +243,17 @@ class Images extends PureComponent {
         </div>
       </Col>
     ));
+  };
 
   render() {
-    const { User, search, title, description, gallery_image } = this.state;
+    const {
+      User,
+      search,
+      title,
+      description,
+      gallery_image,
+      editing
+    } = this.state;
     let { Galleries } = this.state;
     const galleries = Galleries.results ? Galleries.results : [];
     const selectValue =
@@ -246,7 +321,7 @@ class Images extends PureComponent {
             backdrop={false}
             {...this.props}
             show={this.state.show}
-            onHide={() => this.setState({ show: false })}
+            onHide={() => this.setState({ show: false, editing: false })}
             dialogClassName="loginModal"
           >
             <Modal.Header closeButton>
@@ -327,7 +402,11 @@ class Images extends PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.createGallery}>Create</Button>
+              {editing ? (
+                <Button onClick={this.updateGallery}>Update</Button>
+              ) : (
+                <Button onClick={this.createGallery}>Create</Button>
+              )}
             </Modal.Footer>
           </Modal>
         </Row>

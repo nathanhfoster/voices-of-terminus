@@ -21,7 +21,12 @@ import { newsSelectOptions } from "../../../../helpers/select";
 import { selectStyles } from "../../../../helpers/styles";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter } from "react-router-dom";
-import { viewGalleryImages, postGalleryImage } from "../../../../actions/Media";
+import {
+  viewGalleryImages,
+  postGalleryImage,
+  updateGalleryImage,
+  deleteGalleryImage
+} from "../../../../actions/Media";
 import Moment from "react-moment";
 import "./styles.css";
 import "./stylesM.css";
@@ -33,7 +38,9 @@ const mapStateToProps = ({ User, Galleries }) => ({
 
 const mapDispatchToProps = {
   viewGalleryImages,
-  postGalleryImage
+  postGalleryImage,
+  updateGalleryImage,
+  deleteGalleryImage
 };
 
 class Gallery extends PureComponent {
@@ -44,9 +51,11 @@ class Gallery extends PureComponent {
       selectValue: [],
       search: "",
       show: false,
+      editing: false,
       title: "",
       description: "",
-      image: null
+      image: null,
+      image_id: null
     };
   }
 
@@ -71,13 +80,16 @@ class Gallery extends PureComponent {
 
   getState = props => {
     const { id } = props.match.params;
-    const { Galleries } = props;
+    const { User, Galleries } = props;
     const GalleryTitleIndex = Galleries.results.findIndex(
       gallery => gallery.id == id
     );
-    const GalleryTitle = Galleries.results[GalleryTitleIndex].title;
+    const GalleryTitle =
+      Galleries.results.length > 0
+        ? Galleries.results[GalleryTitleIndex].title
+        : null;
     const { Gallery } = Galleries;
-    this.setState({ id, GalleryTitle, Gallery });
+    this.setState({ User, id, GalleryTitle, Gallery });
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
@@ -148,14 +160,71 @@ class Gallery extends PureComponent {
     this.setState({ show: false });
   };
 
-  renderGalleryImages = images =>
-    images.map(image => (
+  updateGalleryImage = e => {
+    e.preventDefault();
+    const { User, title, description, image, image_id } = this.state;
+    let { tags } = this.state;
+    tags = tags.map(i => i.value).join("|");
+    const payload = {
+      title,
+      description,
+      image,
+      slug: "gallery",
+      author: User.id,
+      tags,
+      last_modified_by: User.id
+    };
+    this.props.updateGalleryImage(image_id, User.token, payload);
+    this.setState({ show: false, editing: false });
+  };
+
+  renderGalleryImages = images => {
+    const { User } = this.state;
+    const canDelete = User.is_superuser || User.can_create_galleries;
+    const canUpdate = User.is_superuser || User.can_create_galleries;
+    return images.map(image => (
       <Col xs={6} className="galleryCardContainer">
         <div className="Clickable galleryCard Hover" onClick={null}>
           <Image src={image.image} />
           <div className="gallerySummary">
             <h4>{image.title}</h4>
             <p>{image.description}</p>
+            <div className="cardActions">
+              {canDelete ? (
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.props.deleteGalleryImage(image.id, User.token);
+                  }}
+                  bsSize="small"
+                  className="pull-right"
+                >
+                  <i className="fa fa-trash-alt" />
+                </Button>
+              ) : null}
+              {canUpdate ? (
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    this.setState({
+                      show: true,
+                      editing: true,
+                      image_id: image.id,
+                      title: image.title,
+                      description: image.description,
+                      tags: image.tags
+                        .split("|")
+                        .map(i => (i = { value: i, label: i })),
+                      image: image.image
+                    });
+                  }}
+                  bsSize="small"
+                  className="pull-right"
+                >
+                  <i className="fa fa-pencil-alt" />
+                </Button>
+              ) : null}
+            </div>
             <div className="cardInfo">
               <div
                 className="inlineNoWrap"
@@ -181,6 +250,7 @@ class Gallery extends PureComponent {
         </div>
       </Col>
     ));
+  };
 
   render() {
     const { User } = this.props;
@@ -190,7 +260,8 @@ class Gallery extends PureComponent {
       title,
       description,
       image,
-      search
+      search,
+      editing
     } = this.state;
     const images = Gallery ? Gallery.results : [];
     return (
@@ -343,7 +414,11 @@ class Gallery extends PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.createGalleryImage}>Create</Button>
+              {editing ? (
+                <Button onClick={this.updateGalleryImage}>Update</Button>
+              ) : (
+                <Button onClick={this.createGalleryImage}>Create</Button>
+              )}
             </Modal.Footer>
           </Modal>
         </Row>
