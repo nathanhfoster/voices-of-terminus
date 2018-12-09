@@ -140,7 +140,7 @@ class Images extends PureComponent {
 
   renderGalleries = galleries =>
     galleries.map(gallery => (
-      <Col md={3} xs={12} className="galleryCardContainer">
+      <Col md={4} xs={12} className="galleryCardContainer">
         <div
           className="Clickable galleryCard Hover"
           onClick={() =>
