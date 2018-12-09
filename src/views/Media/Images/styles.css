@@ -4,6 +4,8 @@
 .galleryCardContainer {
   margin-top: 8px;
   height: var(--cardHeight);
+  padding-left: 4px;
+  padding-right: 4px;
 }
 
 .galleryCard {
