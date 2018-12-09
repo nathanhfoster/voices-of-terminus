@@ -8,7 +8,6 @@ import registerServiceWorker from "./registerServiceWorker";
 import storeFactory from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
-import { stat } from "fs";
 require("dotenv").config();
 
 const options = {
@@ -48,8 +47,9 @@ ReactDOM.render(
 registerServiceWorker();
 
 const saveState = () => {
+  const User = JSON.stringify(store.getState().User);
   const state = JSON.stringify(store.getState());
-  localStorage["redux-store"].User = state.User;
+  localStorage.setItem("redux-store", User);
   try {
     localStorage.setItem("redux-store", state);
   } catch (e) {
