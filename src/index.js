@@ -8,6 +8,7 @@ import registerServiceWorker from "./registerServiceWorker";
 import storeFactory from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import { stat } from "fs";
 require("dotenv").config();
 
 const options = {
@@ -48,12 +49,12 @@ registerServiceWorker();
 
 const saveState = () => {
   const state = JSON.stringify(store.getState());
-
+  localStorage["redux-store"].User = state.User;
   try {
     localStorage.setItem("redux-store", state);
   } catch (e) {
     if (isQuotaExceeded(e)) {
-      console.log(localStorage)
+      console.log(localStorage);
       // Storage full, maybe notify user or do some clean-up
       // localStorage.setItem('redux-store', {});
     }
