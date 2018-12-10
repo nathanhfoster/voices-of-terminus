@@ -183,7 +183,7 @@ class Gallery extends PureComponent {
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
     return images.map(image => (
-      <Col md={4} xs={6} className="galleryCardContainer">
+      <Col md={4} xs={12} className="galleryCardContainer">
         <div className="Clickable galleryCard Hover" onClick={null}>
           <Image src={image.image} />
           <div className="gallerySummary">
