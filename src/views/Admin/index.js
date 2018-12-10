@@ -273,7 +273,7 @@ class Admin extends PureComponent {
                     Header: <i className="far fa-envelope-open" />,
                     accessor: "opt_in",
                     filterable: false,
-                    maxWidth: 42,
+                    maxWidth: 27,
                     Cell: props =>
                       props.value ? (
                         <i className="fas fa-check" />
@@ -588,9 +588,7 @@ class Admin extends PureComponent {
               </Form>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={this.createUserAccount}>
-                Create
-              </Button>
+              <Button onClick={this.createUserAccount}>Create</Button>
             </Modal.Footer>
           </Modal>
         </Row>
