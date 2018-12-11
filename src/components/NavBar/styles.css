@@ -141,12 +141,12 @@
   transform: rotate(0);
 }
 .AdminButton {
+  background: none;
   text-align: center;
   margin: 2px auto;
-  width: 80px;
 }
+
 .AdminButton:hover {
-  background-color: var(--tertiarycolor);
+  /* background-color: var(--tertiarycolor); */
   border-radius: 6px;
-  width: 80px;
 }

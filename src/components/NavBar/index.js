@@ -126,9 +126,6 @@ class NavBar extends PureComponent {
               <LinkContainer to="/guild/about">
                 <NavItem eventKey={5.1}>ABOUT</NavItem>
               </LinkContainer>
-              <LinkContainer to="/guild/donate">
-                <NavItem eventKey={5.1}>DONATE</NavItem>
-              </LinkContainer>
               <LinkContainer to="/guild/roster">
                 <NavItem eventKey={5.2}>ROSTER</NavItem>
               </LinkContainer>
@@ -147,6 +144,7 @@ class NavBar extends PureComponent {
               <LinkContainer to="/guild/join">
                 <NavItem eventKey={5.7}>JOIN</NavItem>
               </LinkContainer>
+              <MenuItem divider />
               <NavItem
                 href="https://www.designbyhumans.com/shop/VoicesofTerminus/"
                 target="_blank"
@@ -154,6 +152,11 @@ class NavBar extends PureComponent {
               >
                 <i className="fas fa-store" /> STORE
               </NavItem>
+              <LinkContainer to="/guild/donate">
+                <NavItem eventKey={5.9}>
+                  <i className="fas fa-donate" /> DONATE
+                </NavItem>
+              </LinkContainer>
             </NavDropdown>
             <NavDropdown
               eventKey={6}
@@ -227,7 +230,8 @@ class NavBar extends PureComponent {
                   ) : (
                     <i className="fas fa-user" />
                   ),
-                  " " + User.username
+                  <span>{User.username} </span>,
+                  <Badge>42</Badge>
                 ]}
                 id="basic-nav-dropdown"
               >
@@ -263,10 +267,12 @@ class NavBar extends PureComponent {
             {User.is_superuser || User.is_staff ? (
               <LinkContainer
                 to="/admin"
-                componentClass={Button}
+                // componentClass={Button}
                 className="AdminButton"
               >
-                <NavItem eventKey={7}>ADMIN</NavItem>
+                <NavItem eventKey={7}>
+                  <i className="fas fa-database" /> ADMIN
+                </NavItem>
               </LinkContainer>
             ) : null}
           </Nav>

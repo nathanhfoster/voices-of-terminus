@@ -10,9 +10,12 @@ import maleHalfling from "../../images/backgrounds/halfling_male.png";
 import femaleHuman from "../../images/backgrounds/human_female.png";
 import maleHuman from "../../images/backgrounds/human_male.png";
 import { withRouter } from "react-router-dom";
+import { Collapse } from "react-collapse";
+import { Link } from "react-router-dom";
 
-const mapStateToProps = ({ Window }) => ({
-  Window
+const mapStateToProps = ({ Window, Settings }) => ({
+  Window,
+  Settings
 });
 
 const mapDispatchToProps = {};
@@ -44,12 +47,13 @@ class Footer extends PureComponent {
   }
 
   getState = props => {
-    const { history, location, match, Window } = props;
+    const { history, location, match, Window, Settings } = props;
     this.setState({
       history,
       location,
       match,
-      shouldShow: Window.innerWidth > 1550
+      shouldShow: Window.innerWidth > 1550,
+      Settings
     });
   };
 
@@ -104,19 +108,36 @@ class Footer extends PureComponent {
   };
 
   render() {
-    const { history, location, match } = this.state;
+    const { history, location, match, Settings } = this.state;
+    const { showFooter } = Settings;
     const { pathname } = location;
     const { shouldShow } = this.state;
     const femaleImage = this.backgroundImageRouteMap(pathname)[0];
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
     return (
       <div className="Footer fadeIn-2">
-        {shouldShow
-          ? [
-              <Image className="Female footerImages" src={femaleImage} />,
+        {shouldShow ? (
+          <Collapse
+            isOpened={showFooter}
+            fixedHeight={52}
+            className="MainFooter Container"
+          >
+            <footer>
+              <div>
+                &copy; {new Date().getFullYear()} Voices of Terminus.
+                Trademarks, copyrights, and media are property of their
+                respective owners.
+              </div>
+              <div>
+                <Link to="/privacy-policy">
+                  <i className="fas fa-user-secret" /> Privacy policy
+                </Link>
+              </div>
+              <Image className="Female footerImages" src={femaleImage} />
               <Image className="Male footerImages" src={maleImage} />
-            ]
-          : null}
+            </footer>
+          </Collapse>
+        ) : null}
       </div>
     );
   }

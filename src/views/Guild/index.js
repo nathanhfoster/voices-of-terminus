@@ -44,13 +44,13 @@ class Guild extends Component {
   static defaultProps = {
     TabItems: [
       { eventKey: "/guild/about", Title: "ABOUT", Component: About },
-      { eventKey: "/guild/donate", Title: "DONATE", Component: Donate },
       { eventKey: "/guild/roster", Title: "ROSTER", Component: Roster },
       { eventKey: "/guild/charters", Title: "CHARTERS", Component: Charters },
       { eventKey: "/guild/lore", Title: "LORE", Component: Lore },
       { eventKey: "/guild/contests", Title: "CONTESTS", Component: Contests },
       { eventKey: "/guild/team", Title: "TEAM", Component: Team },
-      { eventKey: "/guild/join", Title: "JOIN", Component: Join }
+      { eventKey: "/guild/join", Title: "JOIN", Component: Join },
+      { eventKey: "/guild/donate", Title: "DONATE", Component: Donate }
     ]
   };
 

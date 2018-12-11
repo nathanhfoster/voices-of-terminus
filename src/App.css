@@ -101,6 +101,22 @@ input[type="color"]:focus,
   outline: 0 none;
 }
 
+input[type="text"],
+textarea {
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  outline: none;
+  /* border: 1px solid var(--primaryColor); */
+}
+
+input[type="text"]:focus,
+textarea:focus {
+  box-shadow: 0 0 5px var(--primaryColor);
+  border: 1px solid var(--primaryColor);
+}
+
 input,
 select,
 textarea {
@@ -143,4 +159,12 @@ textarea {
   position: fixed;
   bottom: 0;
   z-index: 2;
+}
+
+.MainFooter a {
+  color: var(--primaryColor);
+}
+
+.MainFooter a:hover {
+  color: var(--primaryColor);
 }

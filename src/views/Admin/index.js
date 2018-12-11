@@ -273,7 +273,7 @@ class Admin extends PureComponent {
                     Header: <i className="far fa-envelope-open" />,
                     accessor: "opt_in",
                     filterable: false,
-                    maxWidth: 32,
+                    maxWidth: 36,
                     Cell: props =>
                       props.value ? (
                         <i className="fas fa-check" />

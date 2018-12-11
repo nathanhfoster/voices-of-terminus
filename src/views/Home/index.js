@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./styles.css";
 import "./stylesM.css";
 import { Timeline } from "react-twitter-widgets";
-import { Grid, Row, Col, NavItem } from "react-bootstrap";
+import { Grid, Row, Col } from "react-bootstrap";
 import ReactPlayer from "react-player";
 import HomeCarousel from "../../components/HomeCarousel";
 

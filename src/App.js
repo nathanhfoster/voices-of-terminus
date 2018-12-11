@@ -7,7 +7,7 @@ import "./App.css";
 import "./AppM.css";
 import "regenerator-runtime/runtime";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Button, Image } from "react-bootstrap";
+import { Image } from "react-bootstrap";
 
 import Admin from "./views/Admin";
 import BackgroundImage from "./components/BackgroundImage";
@@ -22,14 +22,14 @@ import ViewHtmlDocument from "./components/ViewHtmlDocument";
 import Forums from "./views/Forums";
 import Guild from "./views/Guild";
 import Media from "./views/Media";
-import Gallery from './views/Media/Images/Gallery'
+import Gallery from "./views/Media/Images/Gallery";
 import VideoPlayer from "./components/VideoPlayer";
 import Profile from "./views/Profile";
 import PublicProfile from "./views/Profile/PublicProfile";
 import Login from "./components/Login";
 import PageNotFound from "./views/PageNotFound";
-import { Collapse } from "react-collapse";
 import Footer from "./components/Footer";
+import PrivacyPolicy from "./components/PrivacyPolicy";
 import {
   clearApiResponse,
   setWindow,
@@ -42,6 +42,7 @@ import {
 import { refreshUser } from "./actions/App";
 import "moment-timezone";
 import MomentJS from "moment";
+import { Link } from "react-router-dom";
 
 const mapStateToProps = ({
   ApiResponse,
@@ -131,7 +132,8 @@ class App extends PureComponent {
       { path: "/media/podcasts/:id/:type", component: VideoPlayer },
       { path: "/profile", component: Profile },
       { path: "/profile/:id", component: PublicProfile },
-      { path: "/login", component: Login }
+      { path: "/login", component: Login },
+      { path: "/privacy-policy", component: PrivacyPolicy }
     ]
   };
 
@@ -242,17 +244,7 @@ class App extends PureComponent {
             <Route component={PageNotFound} />
           </Switch>
         </div>
-        <Collapse
-          isOpened={showFooter}
-          fixedHeight={52}
-          className="MainFooter Container"
-        >
-          <Footer />
-          <footer>
-            &copy; {new Date().getFullYear()} Voices of Terminus. Trademarks,
-            copyrights, and media are property of their respective owners.
-          </footer>
-        </Collapse>
+        <Footer />
       </div>
     );
   }
