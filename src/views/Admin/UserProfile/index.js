@@ -505,7 +505,7 @@ class UserProfile extends PureComponent {
             <Col xs={12}>{ExperienceBar(Admin.User.experience_points)}</Col>
             <Col xs={12}>
               <Well className="userBio" bsSize="large">
-                {Admin.User.bio ? User.bio : "No biography given."}
+                {Admin.User.bio ? Admin.User.bio : "No biography given."}
               </Well>
             </Col>
             <Col xs={12}>
@@ -518,28 +518,28 @@ class UserProfile extends PureComponent {
           <Row className="userConnections borderedRow">
             <Col md={3} xs={3}>
               <a
-                href={User.discord_url}
+                href={Admin.User.discord_url}
                 class="fab fa-discord fa-2x"
                 target="_blank"
               />
             </Col>
             <Col md={3} xs={3}>
               <a
-                href={User.twitch_url}
+                href={Admin.User.twitch_url}
                 class="fab fa-twitch fa-2x"
                 target="_blank"
               />
             </Col>
             <Col md={3} xs={3}>
               <a
-                href={User.twitter_url}
+                href={Admin.User.twitter_url}
                 class="fab fa-twitter fa-2x"
                 target="_blank"
               />
             </Col>
             <Col md={3} xs={3}>
               <a
-                href={User.youtube_url}
+                href={Admin.User.youtube_url}
                 class="fab fa-youtube fa-2x"
                 target="_blank"
               />
