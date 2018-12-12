@@ -216,11 +216,6 @@ class ViewHtmlDocument extends PureComponent {
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
           <Col xs={12} className="Center">
-            <Image
-              style={{ height: "200px" }}
-              src={HtmlDocument.author_profile_image}
-              rounded
-            />
             <h2>
               <Link to={"/profile/" + HtmlDocument.author}>
                 {HtmlDocument.author_username}
