@@ -11,8 +11,8 @@ const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID;
 const votPlaylistIdShow = process.env.REACT_APP_VOT_PLAYLIST_ID_SHOW;
 
 export const getVoTYouTubeChannelData = () => {
-  return async dispatch =>
-    await ytube
+  return dispatch =>
+    ytube
       .getChannelsLatestVideos(votYouTubeChanneID, 50)
       .then(res => {
         dispatch({
@@ -24,8 +24,8 @@ export const getVoTYouTubeChannelData = () => {
 };
 
 export const getVotChannelsPlayLists = () => {
-  return async dispatch =>
-    await ytube
+  return dispatch =>
+    ytube
       .getChannelsPlayLists(votYouTubeChanneID, 50)
       .then(res => {
         dispatch({
@@ -37,8 +37,8 @@ export const getVotChannelsPlayLists = () => {
 };
 
 export const getVotPlaylistShow = () => {
-  return async dispatch =>
-    await ytube
+  return dispatch =>
+    ytube
       .getPlaylistVideos(votPlaylistIdShow, 50)
       .then(res => {
         dispatch({
@@ -50,8 +50,8 @@ export const getVotPlaylistShow = () => {
 };
 
 export const getVotTwitchStreams = () => {
-  return async dispatch =>
-    await axios
+  return dispatch =>
+    axios
       .get(
         "https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=jvqb2pnewihctq9ov3on4ajzhyqc7t"
       )
@@ -65,8 +65,8 @@ export const getVotTwitchStreams = () => {
 };
 
 export const getAllVotYouTube = () => {
-  return async dispatch =>
-    await ytube
+  return dispatch =>
+    ytube
       .fetchAllYouTube("Voices of Terminus")
       .then(res => {
         dispatch({
@@ -78,8 +78,8 @@ export const getAllVotYouTube = () => {
 };
 
 export const getVRYouTubeChannelData = () => {
-  return async dispatch =>
-    await ytube
+  return dispatch =>
+    ytube
       .getChannelsLatestVideos(vrYouTubeChanneID, 50)
       .then(res => {
         dispatch({
@@ -96,8 +96,8 @@ export const setWindow = Window => ({
 });
 
 export const login = (username, password, rememberMe) => {
-  return async dispatch =>
-    await Axios()
+  return dispatch =>
+    Axios()
       .post("login/", qs.stringify({ username, password }))
       .then(res => {
         const eightHours = 1 / 3;
@@ -121,8 +121,8 @@ export const login = (username, password, rememberMe) => {
 
 export const Logout = () => {
   Cookies.remove("User_LoginToken");
-  return async dispatch => {
-    await dispatch({
+  return dispatch => {
+    dispatch({
       type: C.SET_LOGOUT,
       payload: null
     });
@@ -131,8 +131,8 @@ export const Logout = () => {
 };
 
 export const setApiResponse = response => {
-  return async dispatch => {
-    await dispatch({
+  return dispatch => {
+    dispatch({
       type: C.SET_API_RESPONSE,
       payload: response
     });
@@ -140,16 +140,16 @@ export const setApiResponse = response => {
 };
 
 export const clearApiResponse = () => {
-  return async dispatch =>
-    await dispatch({
+  return dispatch =>
+    dispatch({
       type: C.SET_API_RESPONSE,
       payload: null
     });
 };
 
 export const getUser = id => {
-  return async dispatch =>
-    await Axios()
+  return dispatch =>
+    Axios()
       .get(`users/${id}/`)
       .then(res => {
         dispatch({
@@ -161,8 +161,8 @@ export const getUser = id => {
 };
 
 export const refreshUser = (id, token) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .get(`users/${id}/refresh/`)
       .then(res => {
         const { User } = getState();
@@ -179,8 +179,8 @@ export const refreshUser = (id, token) => {
       .catch(e => console.log(e));
 };
 
-export const clearHtmlDocument = () => async dispatch =>
-  await dispatch({
+export const clearHtmlDocument = () => dispatch =>
+  dispatch({
     type: C.GET_HTML_DOCUMENT,
     payload: null
   });

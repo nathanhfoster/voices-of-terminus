@@ -4,8 +4,8 @@ import Cookies from "js-cookie";
 
 export const createUser = payload => {
   const eightHours = 1 / 3;
-  return async dispatch =>
-    await AxiosForm(null, payload)
+  return dispatch =>
+    AxiosForm(null, payload)
       .post("users/", payload)
       .then(res => {
         AxiosForm(null, payload)
@@ -25,8 +25,8 @@ export const createUser = payload => {
 };
 
 export const updateProfile = (id, token, payload) => {
-  return async dispatch =>
-    await AxiosForm(token, payload)
+  return dispatch =>
+    AxiosForm(token, payload)
       .patch(`users/${id}/`, payload)
       .then(res => {
         res.data.token = Cookies.get("User_LoginToken");

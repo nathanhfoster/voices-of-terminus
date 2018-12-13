@@ -3,8 +3,8 @@ import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 
 export const getGalleries = () => {
-  return async dispatch =>
-    await Axios()
+  return dispatch =>
+    Axios()
       .get("galleries/")
       .then(res => {
         dispatch({
@@ -16,8 +16,8 @@ export const getGalleries = () => {
 };
 
 export const updateGallery = (id, token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .patch(`galleries/${id}/`, qs.stringify(payload))
       .then(res => {
         const { Galleries } = getState();
@@ -44,8 +44,8 @@ export const updateGallery = (id, token, payload) => {
 };
 
 export const deleteGallery = (id, token) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .delete(`galleries/${id}/`)
       .then(res => {
         const { Galleries } = getState();
@@ -62,8 +62,8 @@ export const deleteGallery = (id, token) => {
 };
 
 export const postGallery = (token, payload) => {
-  return async (dispatch, getState) => {
-    await Axios(token)
+  return (dispatch, getState) => {
+    Axios(token)
       .post("galleries/", qs.stringify(payload))
       .then(res => {
         const { Galleries } = getState();
@@ -88,8 +88,8 @@ export const postGallery = (token, payload) => {
 };
 
 export const viewGalleryImages = id => {
-  return async dispatch => {
-    await Axios()
+  return dispatch => {
+    Axios()
       .get(`gallery/images/${id}/view/`)
       .then(res => {
         dispatch({
@@ -102,8 +102,8 @@ export const viewGalleryImages = id => {
 };
 
 export const postGalleryImage = (token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .post(`gallery/images/`, qs.stringify(payload))
       .then(res => {
         const { Galleries } = getState();
@@ -123,8 +123,8 @@ export const postGalleryImage = (token, payload) => {
 };
 
 export const updateGalleryImage = (id, token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .patch(`gallery/images/${id}/`, qs.stringify(payload))
       .then(res => {
         const { Gallery } = getState().Galleries;
@@ -151,8 +151,8 @@ export const updateGalleryImage = (id, token, payload) => {
 };
 
 export const deleteGalleryImage = (id, token) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .delete(`gallery/images/${id}/`)
       .then(res => {
         const { Gallery } = getState().Galleries;

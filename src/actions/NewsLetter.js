@@ -3,8 +3,8 @@ import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getNewsletters = () => {
-  return async dispatch =>
-    await Axios()
+  return dispatch =>
+    Axios()
       .get("newsletters/all/")
       .then(newsletters => {
         Axios()
@@ -59,8 +59,8 @@ export const getNewsletters = () => {
 };
 
 export const nextNewsletters = paginator => {
-  return async (dispatch, getState) =>
-    await Axios(null, paginator)
+  return (dispatch, getState) =>
+    Axios(null, paginator)
       .get()
       .then(res => {
         const { Newsletters } = getState();
@@ -74,8 +74,8 @@ export const nextNewsletters = paginator => {
 };
 
 export const getNewsletter = id => {
-  return async dispatch =>
-    await Axios()
+  return dispatch =>
+    Axios()
       .get(`newsletters/${id}/`)
       .then(res => {
         dispatch({
@@ -87,8 +87,8 @@ export const getNewsletter = id => {
 };
 
 export const viewNewsletter = id => {
-  return async dispatch =>
-    await Axios()
+  return dispatch =>
+    Axios()
       .get(`newsletters/${id}/view/`)
       .then(res => {
         Axios()
@@ -110,8 +110,8 @@ export const viewNewsletter = id => {
 };
 
 export const postNewsletter = (token, payload) => {
-  return async (dispatch, getState) => {
-    await Axios(token)
+  return (dispatch, getState) => {
+    Axios(token)
       .post("newsletters/", qs.stringify(payload))
       .then(res => {
         const { Newsletters } = getState();
@@ -136,8 +136,8 @@ export const postNewsletter = (token, payload) => {
 };
 
 export const postNewsletterLike = (token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .post(`newsletter/likes/`, qs.stringify(payload))
       .then(res => {
         const { HtmlDocument } = getState();
@@ -152,8 +152,8 @@ export const postNewsletterLike = (token, payload) => {
 };
 
 export const updateNewsletterLike = (id, token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .patch(`newsletter/likes/${id}/`, qs.stringify(payload))
       .then(res => {
         const { HtmlDocument } = getState();
@@ -171,8 +171,8 @@ export const updateNewsletterLike = (id, token, payload) => {
 };
 
 export const postNewsletterComment = (token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .post(`newsletter/comments/`, qs.stringify(payload))
       .then(res => {
         const { HtmlDocument } = getState();
@@ -192,8 +192,8 @@ export const postNewsletterComment = (token, payload) => {
 };
 
 export const deleteNewsletterComment = (id, token) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .delete(`newsletter/comments/${id}/`)
       .then(res => {
         const { HtmlDocument } = getState();
@@ -210,8 +210,8 @@ export const deleteNewsletterComment = (id, token) => {
 };
 
 export const updateNewsLetter = (id, token, payload) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .patch(`newsletters/${id}/`, qs.stringify(payload))
       .then(res => {
         const { Newsletters } = getState();
@@ -242,8 +242,8 @@ export const updateNewsLetter = (id, token, payload) => {
 };
 
 export const deleteNewsLetter = (id, token) => {
-  return async (dispatch, getState) =>
-    await Axios(token)
+  return (dispatch, getState) =>
+    Axios(token)
       .delete(`newsletters/${id}/`)
       .then(res => {
         const { Newsletters } = getState();
