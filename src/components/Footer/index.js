@@ -108,7 +108,7 @@ class Footer extends PureComponent {
   };
 
   render() {
-    const { history, location, match, Settings } = this.state;
+    const { history, location, match, Settings, isMobile } = this.state;
     const { showFooter } = Settings;
     const { pathname } = location;
     const { shouldShow } = this.state;
@@ -131,8 +131,12 @@ class Footer extends PureComponent {
               <i className="fas fa-user-secret" /> Privacy policy
             </Link>
           </div>
-          <Image className="Female footerImages" src={femaleImage} />
-          <Image className="Male footerImages" src={maleImage} />
+          {shouldShow
+            ? [
+                <Image className="Female footerImages" src={femaleImage} />,
+                <Image className="Male footerImages" src={maleImage} />
+              ]
+            : null}
         </footer>
       </Collapse>
     ) : null;
