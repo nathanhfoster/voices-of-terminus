@@ -55,6 +55,13 @@ export const User = (state = {}, action) =>
     ? {}
     : state;
 
+export const Messages = (state = { results: [] }, action) =>
+  action.type === C.GET_MESSAGES
+    ? action.payload
+    : action.type === C.SET_LOGOUT
+    ? {}
+    : state;
+
 export const Admin = (state = {}, action) => {
   switch (action.type) {
     case C.GET_USERS:
@@ -105,5 +112,6 @@ export const appReducer = combineReducers({
   User,
   Admin,
   Settings,
-  Galleries
+  Galleries,
+  Messages
 });

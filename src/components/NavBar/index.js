@@ -24,9 +24,10 @@ import { classIcon } from "../../helpers";
 import { isEquivalent } from "../../helpers";
 import { toggleFooter } from "../../actions/App";
 
-const mapStateToProps = ({ User, Settings }) => ({
+const mapStateToProps = ({ User, Settings, Messages }) => ({
   User,
-  Settings
+  Settings,
+  Messages
 });
 
 const mapDispatchToProps = {
@@ -58,8 +59,8 @@ class NavBar extends PureComponent {
   }
 
   getState = props => {
-    const { User } = props;
-    this.setState({ User });
+    const { User, Messages } = props;
+    this.setState({ User, Messages });
   };
 
   componentWillUpdate() {}
@@ -75,7 +76,11 @@ class NavBar extends PureComponent {
 
   render() {
     const { pathname } = this.props.location;
-    const { User } = this.state;
+    const { User, Messages } = this.state;
+    const unreadMessages = Messages.results.reduce(
+      (acc, curr) => acc + !curr.is_read,
+      0
+    );
     const {
       token,
       id,
@@ -230,8 +235,8 @@ class NavBar extends PureComponent {
                   ) : (
                     <i className="fas fa-user" />
                   ),
-                  <span>{User.username} </span>,
-                  <Badge>42</Badge>
+                  <span> {User.username} </span>,
+                  <Badge>{unreadMessages}</Badge>
                 ]}
                 id="basic-nav-dropdown"
               >
@@ -240,9 +245,10 @@ class NavBar extends PureComponent {
                     <i className="fas fa-user-circle" /> PROFILE
                   </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/profile/messages">
+                <LinkContainer to="/messages">
                   <NavItem eventKey={12}>
-                    <i className="fas fa-bell" /> MESSAGES <Badge>42</Badge>
+                    <i className="fas fa-bell" /> MESSAGES{" "}
+                    <Badge>{unreadMessages}</Badge>
                   </NavItem>
                 </LinkContainer>
                 <NavItem onClick={this.Logout}>

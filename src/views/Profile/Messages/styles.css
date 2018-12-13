@@ -1,2 +1,20 @@
-.Template {
+.Messages {
+}
+
+.Message {
+  padding: 8px;
+  border: 1px solid var(--grey_out);
+  border-radius: 4px;
+}
+
+.Message:hover {
+  border-color: var(--primaryColor);
+}
+
+.MessageTitle {
+  font-size: 16px;
+}
+
+.MessageBody {
+  margin-top: 8px;
 }

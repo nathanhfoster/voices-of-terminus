@@ -40,6 +40,7 @@ import {
   getVRYouTubeChannelData,
   Logout
 } from "./actions/App";
+import { getMessages } from "./actions/Messages";
 import { refreshUser } from "./actions/App";
 import "moment-timezone";
 import MomentJS from "moment";
@@ -69,7 +70,8 @@ const mapDispatchToProps = {
   getAllVotYouTube,
   getVRYouTubeChannelData,
   Logout,
-  refreshUser
+  refreshUser,
+  getMessages
 };
 
 class App extends PureComponent {
@@ -132,8 +134,8 @@ class App extends PureComponent {
       { path: "/media/podcasts", component: Media },
       { path: "/media/podcasts/:id/:type", component: VideoPlayer },
       { path: "/profile", component: Profile },
-      { path: "/profile/:id", component: PublicProfile },
-      { path: "/profile/messages", component: Messages },
+      { path: "/profile/:id/", component: PublicProfile },
+      { path: "/messages", component: Messages },
       { path: "/login", component: Login },
       { path: "/privacy-policy", component: PrivacyPolicy }
     ]
@@ -144,7 +146,8 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    const { VoTYouTubeChannelData, VRYouTubeChannelData } = this.props;
+    const { User, VoTYouTubeChannelData, VRYouTubeChannelData } = this.props;
+    this.props.getMessages(User.id, User.token);
     if (this.shouldUpdate(VoTYouTubeChannelData[0]))
       this.props.getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0]))
