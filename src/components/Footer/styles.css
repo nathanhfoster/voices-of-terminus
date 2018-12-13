@@ -1,16 +1,3 @@
-.Footer {
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  z-index: 3;
-  height: var(--navBarHeight);
-  width: 100%;
-}
-.footerBanner img {
-  display: block;
-  width: 100%;
-}
-
 .footerImages {
   display: flex;
   position: fixed;
@@ -25,4 +12,23 @@
 
 .Male {
   right: 4px;
+}
+
+.MainFooter {
+  display: block;
+  position: absolute;
+  text-align: center;
+  background: var(--secondaryColor);
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  z-index: 1;
+}
+
+.MainFooter a {
+  color: var(--primaryColor);
+}
+
+.MainFooter a:hover {
+  color: var(--primaryColor);
 }

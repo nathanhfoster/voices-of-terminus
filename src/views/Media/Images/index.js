@@ -29,6 +29,8 @@ import {
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
+import matchSorter from "match-sorter";
+import { isSubset } from "../../../helpers";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -165,84 +167,86 @@ class Images extends PureComponent {
     this.setState({ show: false, editing: false });
   };
 
-  renderGalleries = galleries => {
+  renderGalleries = (galleries, filter, dontFilter) => {
     const { User } = this.state;
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
-    return galleries.map(gallery => (
-      <Col md={4} xs={12} className="galleryCardContainer">
-        <div
-          className="Clickable galleryCard Hover"
-          onClick={() =>
-            this.props.history.push(`/media/images/gallery/${gallery.id}`)
-          }
-        >
-          <Image src={gallery.image} />
-          <div className="gallerySummary">
-            <h4>{gallery.title}</h4>
-            <p>{gallery.description}</p>
-            <div className="cardActions">
-              {canDelete ? (
-                <Button
-                  onClick={e => {
-                    e.stopPropagation();
-                    this.props.deleteGallery(gallery.id, User.token);
-                  }}
-                  bsSize="small"
-                  className="pull-right"
-                >
-                  <i className="fa fa-trash-alt" />
-                </Button>
-              ) : null}
-              {canUpdate ? (
-                <Button
-                  onClick={e => {
-                    e.stopPropagation();
-                    this.setState({
-                      show: true,
-                      editing: true,
-                      gallery_id: gallery.id,
-                      title: gallery.title,
-                      description: gallery.description,
-                      tags: gallery.tags
-                        .split("|")
-                        .map(i => (i = { value: i, label: i })),
-                      gallery_image: gallery.image
-                    });
-                  }}
-                  bsSize="small"
-                  className="pull-right"
-                >
-                  <i className="fa fa-pencil-alt" />
-                </Button>
-              ) : null}
-            </div>
-            <div className="cardInfo">
-              <div
-                className="inlineNoWrap"
-                style={{
-                  width: "calc(100% - 64px)%"
-                }}
-              >
-                <i className="fas fa-user" />
-                <Link
-                  to={"/profile/" + gallery.author}
-                  onClick={e => e.stopPropagation()}
-                >
-                  {gallery.author_username}
-                </Link>{" "}
-                <i className="far fa-clock" />
-                <Moment fromNow>{gallery.date_created}</Moment>
+    return galleries
+      .filter(gal => (dontFilter ? gal : isSubset(gal.tags.split("|"), filter)))
+      .map(gallery => (
+        <Col md={4} xs={12} className="galleryCardContainer">
+          <div
+            className="Clickable galleryCard Hover"
+            onClick={() =>
+              this.props.history.push(`/media/images/gallery/${gallery.id}`)
+            }
+          >
+            <Image src={gallery.image} />
+            <div className="gallerySummary">
+              <h4>{gallery.title}</h4>
+              <p>{gallery.description}</p>
+              <div className="cardActions">
+                {canDelete ? (
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.props.deleteGallery(gallery.id, User.token);
+                    }}
+                    bsSize="small"
+                    className="pull-right"
+                  >
+                    <i className="fa fa-trash-alt" />
+                  </Button>
+                ) : null}
+                {canUpdate ? (
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.setState({
+                        show: true,
+                        editing: true,
+                        gallery_id: gallery.id,
+                        title: gallery.title,
+                        description: gallery.description,
+                        tags: gallery.tags
+                          .split("|")
+                          .map(i => (i = { value: i, label: i })),
+                        gallery_image: gallery.image
+                      });
+                    }}
+                    bsSize="small"
+                    className="pull-right"
+                  >
+                    <i className="fa fa-pencil-alt" />
+                  </Button>
+                ) : null}
               </div>
+              <div className="cardInfo">
+                <div
+                  className="inlineNoWrap"
+                  style={{
+                    width: "calc(100% - 64px)%"
+                  }}
+                >
+                  <i className="fas fa-user" />
+                  <Link
+                    to={"/profile/" + gallery.author}
+                    onClick={e => e.stopPropagation()}
+                  >
+                    {gallery.author_username}
+                  </Link>{" "}
+                  <i className="far fa-clock" />
+                  <Moment fromNow>{gallery.date_created}</Moment>
+                </div>
 
-              <div>
-                <i className="fas fa-tags" /> [{gallery.tags}]
+                <div>
+                  <i className="fas fa-tags" /> [{gallery.tags}]
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </Col>
-    ));
+        </Col>
+      ));
   };
 
   render() {
@@ -254,12 +258,20 @@ class Images extends PureComponent {
       gallery_image,
       editing
     } = this.state;
-    let { Galleries } = this.state;
-    const galleries = Galleries.results ? Galleries.results : [];
+    const { Galleries } = this.state;
+    let galleries = Galleries.results ? Galleries.results : [];
+    galleries = search
+      ? matchSorter(galleries, search, {
+          keys: ["title", "author_username", "description"]
+        })
+      : galleries;
     const selectValue =
       this.state.selectValue.length > 0
         ? this.state.selectValue
         : this.props.selectOptions;
+    const filter = selectValue.map(i => i.value);
+    const maxlength = this.props.selectOptions.length;
+    const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
       <Grid className="Images Container">
         <Row>
@@ -315,7 +327,7 @@ class Images extends PureComponent {
             </InputGroup>
           </Col>
         </Row>
-        <Row>{this.renderGalleries(galleries)}</Row>
+        <Row>{this.renderGalleries(galleries, filter, dontFilter)}</Row>
         <Row>
           <Modal
             backdrop={false}

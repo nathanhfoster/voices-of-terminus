@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
+import "./stylesM.css";
 import { Image } from "react-bootstrap";
 import femaleElf from "../../images/backgrounds/elf_female.png";
 import maleElf from "../../images/backgrounds/elf_male.png";
@@ -39,9 +40,8 @@ class Footer extends PureComponent {
     this.getState(this.props);
   }
 
-  componentWillUpdate() {}
-
   componentDidMount() {}
+
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
@@ -114,32 +114,28 @@ class Footer extends PureComponent {
     const { shouldShow } = this.state;
     const femaleImage = this.backgroundImageRouteMap(pathname)[0];
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
-    return (
-      <div className="Footer fadeIn-2">
-        {shouldShow ? (
-          <Collapse
-            isOpened={showFooter}
-            fixedHeight={52}
-            className="MainFooter Container"
-          >
-            <footer>
-              <div>
-                &copy; {new Date().getFullYear()} Voices of Terminus.
-                Trademarks, copyrights, and media are property of their
-                respective owners.
-              </div>
-              <div>
-                <Link to="/privacy-policy">
-                  <i className="fas fa-user-secret" /> Privacy policy
-                </Link>
-              </div>
-              <Image className="Female footerImages" src={femaleImage} />
-              <Image className="Male footerImages" src={maleImage} />
-            </footer>
-          </Collapse>
-        ) : null}
-      </div>
-    );
+
+    return showFooter ? (
+      <Collapse
+        isOpened={showFooter}
+        fixedHeight={52}
+        className="MainFooter Container fadeIn-2"
+      >
+        <footer>
+          <div>
+            &copy; {new Date().getFullYear()} Voices of Terminus. Trademarks,
+            copyrights, and media are property of their respective owners.
+          </div>
+          <div>
+            <Link to="/privacy-policy">
+              <i className="fas fa-user-secret" /> Privacy policy
+            </Link>
+          </div>
+          <Image className="Female footerImages" src={femaleImage} />
+          <Image className="Male footerImages" src={maleImage} />
+        </footer>
+      </Collapse>
+    ) : null;
   }
 }
 export default withRouter(

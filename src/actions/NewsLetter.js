@@ -5,7 +5,7 @@ import qs from "qs";
 export const getNewsletters = () => {
   return async dispatch =>
     await Axios()
-      .get("newsletters/")
+      .get("newsletters/all/")
       .then(newsletters => {
         Axios()
           .get("newsletter/likes/")

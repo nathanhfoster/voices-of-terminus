@@ -146,25 +146,8 @@ textarea {
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
-  z-index: 4;
+  z-index: 1;
   left: 0;
   right: 0;
   top: var(--navBarHeight);
-}
-
-.MainFooter {
-  text-align: center;
-  background: var(--secondaryColor);
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-  z-index: 2;
-}
-
-.MainFooter a {
-  color: var(--primaryColor);
-}
-
-.MainFooter a:hover {
-  color: var(--primaryColor);
 }
