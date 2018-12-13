@@ -146,7 +146,7 @@ textarea {
   overflow-y: auto;
   background-color: rgba(0, 0, 0, 0.6);
   position: absolute;
-  z-index: 1;
+  z-index: 4;
   left: 0;
   right: 0;
   top: var(--navBarHeight);
