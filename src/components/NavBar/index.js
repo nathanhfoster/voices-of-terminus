@@ -240,7 +240,7 @@ class NavBar extends PureComponent {
                     <i className="fas fa-user-circle" /> PROFILE
                   </NavItem>
                 </LinkContainer>
-                <LinkContainer to="/profile">
+                <LinkContainer to="/profile/messages">
                   <NavItem eventKey={12}>
                     <i className="fas fa-bell" /> MESSAGES <Badge>42</Badge>
                   </NavItem>

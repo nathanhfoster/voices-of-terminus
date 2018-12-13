@@ -26,6 +26,7 @@ import Gallery from "./views/Media/Images/Gallery";
 import VideoPlayer from "./components/VideoPlayer";
 import Profile from "./views/Profile";
 import PublicProfile from "./views/Profile/PublicProfile";
+import Messages from "./views/Profile/Messages";
 import Login from "./components/Login";
 import PageNotFound from "./views/PageNotFound";
 import Footer from "./components/Footer";
@@ -132,6 +133,7 @@ class App extends PureComponent {
       { path: "/media/podcasts/:id/:type", component: VideoPlayer },
       { path: "/profile", component: Profile },
       { path: "/profile/:id", component: PublicProfile },
+      { path: "/profile/messages", component: Messages },
       { path: "/login", component: Login },
       { path: "/privacy-policy", component: PrivacyPolicy }
     ]
