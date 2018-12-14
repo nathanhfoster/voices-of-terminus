@@ -3,8 +3,7 @@
 
 .Message {
   padding: 8px;
-  border: 1px solid var(--grey_out);
-  border-radius: 4px;
+  margin-bottom: 8px;
 }
 
 .Message:hover {

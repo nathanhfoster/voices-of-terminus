@@ -90,7 +90,7 @@ class Messages extends PureComponent {
             this.readMessage(id);
             this.setState({ show: true });
           }}
-          className="Message"
+          className="Message borderedRow"
           style={
             !is_read
               ? {
