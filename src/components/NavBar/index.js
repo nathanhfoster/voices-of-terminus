@@ -70,6 +70,7 @@ class NavBar extends PureComponent {
 
   unreadMessages = groups => {
     let count = 0;
+    if (!groups) return count;
     for (let i = 0; i < groups.length; i++) {
       const { messages } = groups[i];
       for (let j = 0; j < messages.length; j++) {

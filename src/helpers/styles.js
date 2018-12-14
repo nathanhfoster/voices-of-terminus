@@ -42,7 +42,8 @@ export const selectStyles = {
   container: (base, state) => ({
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    zIndex: "5"
   }),
   clearIndicator: (base, state) => ({
     ...base,

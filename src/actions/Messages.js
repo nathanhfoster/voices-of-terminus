@@ -43,7 +43,9 @@ export const getMessages = (userId, token) => {
                   recipient
                 ];
               }
-              res.data.results = Object.values(groupMap);
+              res.data.results = Object.values(groupMap).sort(
+                (a, b) => new Date(b.date_created) - new Date(a.date_created)
+              );
               const payload = { ...res.data };
               dispatch({
                 type: C.GET_MESSAGES,
@@ -80,4 +82,56 @@ export const updateMessage = (id, token, payload) => {
         });
       })
       .catch(e => console.log(e));
+};
+
+export const createMessageGroup = (
+  token,
+  author,
+  uri,
+  recipients,
+  title,
+  body
+) => {
+  const groupPayload = { title, author, is_active: true, uri };
+  const messagePayload = { author, body };
+  return async (dispatch, getState) => {
+    const { Messages } = getState();
+    let payload = { ...Messages };
+    return await Axios(token)
+      .post("/user/groups/", qs.stringify(groupPayload))
+      .then(group => {
+        const recipient_group_id = group.data.id;
+        //console.log("res.data: ", group.data);
+        payload.results.unshift(group.data);
+        payload.results[0].messages = new Array();
+
+        Axios(token)
+          .post("/messages/", qs.stringify(messagePayload))
+          .then(message => {
+            const message_id = message.data.id;
+            //console.log("message.data: ", message.data);
+
+            for (let i = 0; i < recipients.length; i++) {
+              const recipient = recipients[i];
+              const messagePayload = {
+                recipient,
+                recipient_group_id,
+                message_id
+              };
+              Axios(token)
+                .post("/message/recipients/", qs.stringify(messagePayload))
+                .then(messageGroup => {
+                  payload.results[0].messages.unshift(messageGroup.data);
+                  //console.log("messageGroup.data: ", messageGroup.data);
+                  dispatch({
+                    type: C.GET_MESSAGES,
+                    payload: payload
+                  });
+                });
+            }
+          })
+          .catch(e => console.log(e));
+      })
+      .catch(e => console.log(e));
+  };
 };
