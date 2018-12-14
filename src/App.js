@@ -147,7 +147,7 @@ class App extends PureComponent {
 
   componentDidMount() {
     const { User, VoTYouTubeChannelData, VRYouTubeChannelData } = this.props;
-    this.props.getMessages(User.id, User.token);
+    if (User.token) this.props.getMessages(User.id, User.token);
     if (this.shouldUpdate(VoTYouTubeChannelData[0]))
       this.props.getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0]))
