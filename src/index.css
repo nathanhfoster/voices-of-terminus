@@ -214,6 +214,7 @@ body {
 }
 .btn-default,
 .modal-content .btn-default {
+  min-height: 38px;
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
@@ -238,8 +239,14 @@ body {
   box-shadow: 4px 4px 4px rgba(245, 245, 245, 0.1);
   transition: border-color 0.4s;
 }
+.btn-toolbar {
+  margin: auto;
+}
+.ActionToolbarRow {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
 .ActionToolbar {
-  margin: 8px 0 8px 0;
   padding: 0;
 }
 .ActionToolbar .input-group-addon {

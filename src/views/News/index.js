@@ -269,7 +269,7 @@ class News extends Component {
         <Row>
           <PageHeader className="pageHeader">NEWS</PageHeader>
         </Row>
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={3}
             xs={12}

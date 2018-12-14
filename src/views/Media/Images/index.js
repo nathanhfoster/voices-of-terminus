@@ -274,7 +274,7 @@ class Images extends PureComponent {
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
       <Grid className="Images Container">
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={3}
             xs={12}

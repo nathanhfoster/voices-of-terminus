@@ -290,7 +290,7 @@ class Gallery extends PureComponent {
             <h1>{GalleryTitle}</h1>
           </Col>
         </Row>
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={3}
             xs={12}

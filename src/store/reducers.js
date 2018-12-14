@@ -75,10 +75,12 @@ export const Admin = (state = {}, action) => {
   }
 };
 
-export const Settings = (state = { showFooter: true }, action) => {
+export const Settings = (state = { showFooter: true, pushMessages: false }, action) => {
   switch (action.type) {
     case C.SHOW_FOOTER:
       return { ...state, showFooter: action.payload };
+    case C.PUSH_MESSAGES:
+      return { ...state, pushMessages: action.payload };
     default:
       return state;
   }

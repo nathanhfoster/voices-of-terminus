@@ -201,7 +201,7 @@ class GuildCalendar extends Component {
         <Row>
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={4}
             xs={12}

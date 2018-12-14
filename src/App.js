@@ -147,7 +147,6 @@ class App extends PureComponent {
 
   componentDidMount() {
     const { User, VoTYouTubeChannelData, VRYouTubeChannelData } = this.props;
-    if (User.token) this.props.getMessages(User.id, User.token);
     if (this.shouldUpdate(VoTYouTubeChannelData[0]))
       this.props.getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0]))
@@ -175,6 +174,7 @@ class App extends PureComponent {
 
   getState = props => {
     const { ApiResponse, Window, User, location, Settings } = props;
+    const { id, token } = User;
     if (ApiResponse) this.alertApiResponse(ApiResponse);
     /* Check if User permissions have changed every 10 seconds */
     if (
@@ -183,7 +183,7 @@ class App extends PureComponent {
       !["/edit/", "/new/"].some(e => location.pathname.includes(e))
     )
       this.interval = setInterval(
-        () => this.props.refreshUser(this.props.User.id, this.props.User.token),
+        () => this.fetchProfileUpdates(id, token, Settings),
         5500
       );
     this.setState({ ApiResponse, Window, User, Settings });
@@ -193,6 +193,12 @@ class App extends PureComponent {
     window.removeEventListener("resize", this.updateWindowDimensions);
     clearInterval(this.interval);
   }
+
+  fetchProfileUpdates = (id, token, Settings) => {
+    const { pushMessages } = Settings;
+    this.props.refreshUser(id, token);
+    if (pushMessages) this.props.getMessages(id, token);
+  };
 
   alertApiResponse = ApiResponse => {
     const { data, status, statusText, headers, config, request } = ApiResponse;

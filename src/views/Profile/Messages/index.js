@@ -29,10 +29,11 @@ import matchSorter from "match-sorter";
 import Select from "react-select";
 import { selectStyles } from "../../../helpers/styles";
 
-const mapStateToProps = ({ Admin, User, Messages }) => ({
+const mapStateToProps = ({ Admin, User, Messages, Settings }) => ({
   Admin,
   User,
-  Messages
+  Messages,
+  Settings
 });
 
 const mapDispatchToProps = {
@@ -65,8 +66,9 @@ class Messages extends PureComponent {
   }
 
   componentDidMount() {
+    const { pushMessages } = this.props.Settings;
     const { id, token } = this.props.User;
-    this.props.getMessages(id, token);
+    if (!pushMessages) this.props.getMessages(id, token);
     this.props.getUsers();
   }
 
@@ -85,7 +87,6 @@ class Messages extends PureComponent {
   readMessage = messages => {
     const { token } = this.props.User;
     const payload = { is_read: true };
-    console.log(messages);
     for (let i = 0; i < messages.length; i++) {
       const { id } = messages[i];
       this.props.updateMessage(id, token, payload);
@@ -216,13 +217,8 @@ class Messages extends PureComponent {
         <Row>
           <PageHeader className="pageHeader">MESSAGES</PageHeader>
         </Row>
-        <Row>
-          <Col
-            md={3}
-            xs={12}
-            className="ActionToolbar"
-            componentClass={ButtonToolbar}
-          >
+        <Row className="ActionToolbarRow">
+          <Col xs={2} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               //disabled={!(User.is_superuser || User.can_create_article)}
               onClick={() => {
@@ -232,7 +228,7 @@ class Messages extends PureComponent {
               <i className="fas fa-comment" /> Message
             </Button>
           </Col>
-          <Col md={5} xs={12}>
+          <Col xs={10}>
             <InputGroup>
               <InputGroup.Addon>
                 <i className="fas fa-search" />

@@ -209,7 +209,7 @@ class TextEditor extends Component {
       <Redirect to="/login" />
     ) : (
       <Grid className="TextEditor Container fadeIn-2">
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={6}
             xs={6}

@@ -202,7 +202,7 @@ class Admin extends PureComponent {
     return User.is_superuser || User.is_staff ? (
       <Grid className="Admin Container fadeIn-2">
         <PageHeader className="pageHeader">ADMIN</PageHeader>
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={12}
             xs={12}

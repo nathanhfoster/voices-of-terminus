@@ -22,7 +22,7 @@ import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
 import { classIcon } from "../../helpers";
 import { isEquivalent } from "../../helpers";
-import { toggleFooter } from "../../actions/App";
+import { toggleFooter, togglerPushMessages } from "../../actions/App";
 
 const mapStateToProps = ({ User, Settings, Messages }) => ({
   User,
@@ -32,7 +32,8 @@ const mapStateToProps = ({ User, Settings, Messages }) => ({
 
 const mapDispatchToProps = {
   Logout,
-  toggleFooter
+  toggleFooter,
+  togglerPushMessages
 };
 
 class NavBar extends PureComponent {
@@ -94,7 +95,7 @@ class NavBar extends PureComponent {
       primary_role,
       primary_class
     } = User;
-    const { showFooter } = this.props.Settings;
+    const { showFooter, pushMessages } = this.props.Settings;
     return (
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
@@ -269,6 +270,17 @@ class NavBar extends PureComponent {
                     <i className="far fa-eye" />
                   )}{" "}
                   Footer
+                </MenuItem>
+                <MenuItem
+                  onClick={() => this.props.togglerPushMessages(!pushMessages)}
+                  className="Center"
+                >
+                  {pushMessages ? (
+                    <i className="fas fa-toggle-on" />
+                  ) : (
+                    <i className="fas fa-toggle-off" />
+                  )}{" "}
+                  Push Messages
                 </MenuItem>
               </NavDropdown>
             )}

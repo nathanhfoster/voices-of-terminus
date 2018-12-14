@@ -398,7 +398,7 @@ class UserProfile extends PureComponent {
           <Row>
             <PageHeader className="pageHeader">PROFILE</PageHeader>
           </Row>
-          <Row>
+          <Row className="ActionToolbarRow">
             <Col
               xs={12}
               className="ActionToolbar"

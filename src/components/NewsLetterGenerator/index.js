@@ -237,7 +237,7 @@ class NewsLetterGenerator extends PureComponent {
       <Redirect to={this.props.history.push("/login")} />
     ) : (
       <Grid className="NewsLetterGenerator Container fadeIn-2">
-        <Row>
+        <Row className="ActionToolbarRow">
           <Col
             md={6}
             xs={6}
