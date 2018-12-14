@@ -69,9 +69,8 @@ export const updateMessage = (id, token, payload) => {
         for (let i = 0; i < payload.results.length; i++) {
           const group = payload.results[i];
           for (let j = 0; j < group.messages.length; j++) {
-            const message = group.messages[i];
+            const message = group.messages[j];
             if (message.id === res.data.id) {
-              console.log("payload: ", payload.results[i].messages[j]);
               payload.results[i].messages[j] = res.data;
             }
           }

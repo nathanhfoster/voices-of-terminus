@@ -83,12 +83,12 @@ class Messages extends PureComponent {
   };
 
   readMessage = messages => {
-    const { User } = this.props;
+    const { token } = this.props.User;
     const payload = { is_read: true };
     console.log(messages);
     for (let i = 0; i < messages.length; i++) {
       const { id } = messages[i];
-      this.props.updateMessage(id, User.token, payload);
+      this.props.updateMessage(id, token, payload);
     }
   };
 
@@ -105,12 +105,12 @@ class Messages extends PureComponent {
     switch (action) {
       case "remove-value":
       case "pop-value":
-        if (removedValue.isFixed) {
-          return;
-        }
+        // if (removedValue.isFixed) {
+        //   return;
+        // }
         break;
       case "clear":
-        recipients = this.state.selectOptions.filter(v => v.isFixed);
+        //recipients = this.state.selectOptions.filter(v => v.isFixed);
         break;
     }
 
