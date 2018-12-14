@@ -77,7 +77,9 @@ class NavBar extends PureComponent {
   render() {
     const { pathname } = this.props.location;
     const { User, Messages } = this.state;
-    const unreadMessages = Messages.results.reduce(
+    const unreadMessages = Messages.results
+    .map(e => e.messages)
+    .reduce(
       (acc, curr) => acc + !curr.is_read,
       0
     );

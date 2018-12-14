@@ -2,35 +2,56 @@ import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 
-const groupMessages = data => {
-  let groupMap = new Map();
-  for (let i = 0; i < data.results.length; i++) {
-    const recipient = data.results[i];
-    const { recipient_group_id, count } = recipient;
-    groupMap.has(recipient_group_id)
-      ? groupMap.set(
-          recipient_group_id,
-          new Array(...groupMap.get(recipient_group_id), recipient)
-        )
-      : groupMap.set(recipient_group_id, new Array(recipient));
-  }
-  return groupMap;
-};
-
 export const getMessages = (userId, token) => {
+  let groupMap = {};
   return dispatch =>
     Axios(token)
       .get(`/message/recipients/${userId}/view/`)
       .then(res => {
-        const groupMap = groupMessages(res.data);
-        //console.log(groupMap, res.data);
-        //res.data.results =
-        //console.log([...groupMap.values()])
-        //res.data.results = [...groupMap.values()]
-        dispatch({
-          type: C.GET_MESSAGES,
-          payload: res.data
-        });
+        for (let i = 0; i < res.data.results.length; i++) {
+          const recipient = res.data.results[i];
+          const { recipient_group_id } = recipient;
+          Axios(token)
+            .get(`user/groups/${recipient_group_id}/`)
+            .then(group => {
+              const {
+                author,
+                author_username,
+                date_created,
+                id,
+                is_active,
+                last_modified,
+                title,
+                uri
+              } = group.data;
+
+              if (!groupMap.hasOwnProperty(recipient_group_id)) {
+                groupMap[recipient_group_id] = {
+                  author,
+                  author_username,
+                  date_created,
+                  id,
+                  is_active,
+                  last_modified,
+                  title,
+                  uri,
+                  messages: [recipient]
+                };
+              } else {
+                groupMap[recipient_group_id].messages = [
+                  ...groupMap[recipient_group_id].messages,
+                  recipient
+                ];
+              }
+              res.data.results = Object.values(groupMap);
+              const payload = { ...res.data };
+              dispatch({
+                type: C.GET_MESSAGES,
+                payload: payload
+              });
+            })
+            .catch(e => console.log(e));
+        }
       })
       .catch(e => console.log(e));
 };
@@ -42,10 +63,17 @@ export const updateMessage = (id, token, payload) => {
       .then(res => {
         const { Messages } = getState();
         let payload = { ...Messages };
-        const updatedIndex = payload.results.findIndex(
-          message => message.id === res.data.id
-        );
-        payload.results[updatedIndex] = res.data;
+        const updatedIndex = [];
+        for (let i = 0; i < payload.results.length; i++) {
+          const group = payload.results[i];
+          for (let j = 0; j < group.messages.length; j++) {
+            const message = group.messages[i];
+            if (message.id === res.data.id) {
+              console.log("payload: ", payload.results[i].messages[j]);
+              payload.results[i].messages[j] = res.data;
+            }
+          }
+        }
         dispatch({
           type: C.GET_MESSAGES,
           payload: payload

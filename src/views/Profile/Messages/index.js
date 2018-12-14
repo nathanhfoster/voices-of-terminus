@@ -64,30 +64,49 @@ class Messages extends PureComponent {
 
   componentWillUnmount() {}
 
-  readMessage = id => {
+  readMessage = messages => {
     const { User } = this.props;
     const payload = { is_read: true };
-    this.props.updateMessage(id, User.token, payload);
+    for (let i = 0; i < messages.length; i++) {
+      const { id } = messages[i];
+      this.props.updateMessage(id, User.token, payload);
+    }
+  };
+
+  hasUnreadMessage = messages => {
+    for (let i = 0; i < messages.length; i++) {
+      if (!messages[i].is_read) return false;
+    }
+    return true;
   };
 
   renderMessagers = messages =>
-    messages.map(message => {
+    messages.map(group => {
       const {
+        author,
+        author_username,
+        date_created,
         id,
-        is_read,
-        recipient_group_id,
-        group_author,
-        group_last_modified,
-        group_title,
-        group_uri,
+        is_active,
+        last_modified,
+        title,
+        uri
+      } = group;
+      const is_read = this.hasUnreadMessage(group.messages);
+      const recentMessage = group.messages[0];
+      const {
+        //id: 4
+        //is_read: false
+        message_body,
         message_id,
-        message_body
-      } = message;
+        message_last_modified
+        //recipient_group_id: 2
+      } = recentMessage;
       return (
         <Row
           onClick={e => {
             e.preventDefault();
-            this.readMessage(id);
+            this.readMessage(group.messages);
             this.setState({ show: true });
           }}
           className="Message borderedRow"
@@ -102,15 +121,15 @@ class Messages extends PureComponent {
         >
           <Col md={4} xs={6}>
             <i className="fas fa-heading" />{" "}
-            <span className="MessageTitle">{group_title}</span>
+            <span className="MessageTitle">{title}</span>
           </Col>
 
           <Col md={4} xs={6}>
-            <i className="far fa-user" /> {group_author}
+            <i className="far fa-user" /> {author_username}
           </Col>
           <Col md={4} xs={6}>
             <i className="far fa-clock" />{" "}
-            <Moment fromNow>{group_last_modified}</Moment>
+            <Moment fromNow>{message_last_modified}</Moment>
           </Col>
           <Col xs={12} className="MessageBody">
             <i className="far fa-comment" /> {message_body}
