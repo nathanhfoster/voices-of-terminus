@@ -47,8 +47,8 @@ class Messages extends PureComponent {
   }
 
   componentDidMount() {
-    // const { id, token } = this.props.User;
-    // this.props.getMessages(id, token);
+    const { id, token } = this.props.User;
+    this.props.getMessages(id, token);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,10 +59,6 @@ class Messages extends PureComponent {
     const { User, Messages } = props;
     this.setState({ User, Messages });
   };
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
 
   readMessage = messages => {
     const { User } = this.props;

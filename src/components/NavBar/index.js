@@ -63,26 +63,27 @@ class NavBar extends PureComponent {
     this.setState({ User, Messages });
   };
 
-  componentWillUpdate() {}
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
-
   Logout = () => {
     this.props.Logout();
     this.props.alert.show([<div>GOODBYE</div>]);
   };
 
+  unreadMessages = groups => {
+    let count = 0;
+    for (let i = 0; i < groups.length; i++) {
+      const { messages } = groups[i];
+      for (let j = 0; j < messages.length; j++) {
+        const { is_read } = messages[j];
+        if (!is_read) count += 1;
+      }
+    }
+    return count;
+  };
+
   render() {
     const { pathname } = this.props.location;
     const { User, Messages } = this.state;
-    const unreadMessages = Messages.results
-    .map(e => e.messages)
-    .reduce(
-      (acc, curr) => acc + !curr.is_read,
-      0
-    );
+    const unreadMessages = this.unreadMessages(Messages.results);
     const {
       token,
       id,
