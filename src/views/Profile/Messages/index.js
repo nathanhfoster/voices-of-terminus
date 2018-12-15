@@ -66,6 +66,14 @@ class Messages extends PureComponent {
   }
 
   componentDidMount() {
+    const { User } = this.props;
+    const { Users } = this.props.Admin;
+    const recipients = Users
+      ? Users.filter(i => i.id === User.id).map(
+          e => (e = { value: e.id, label: e.username, isFixed: true })
+        )
+      : [];
+    this.setState({ recipients });
     const { pushMessages } = this.props.Settings;
     const { id, token } = this.props.User;
     if (!pushMessages) this.props.getMessages(id, token);
@@ -106,12 +114,12 @@ class Messages extends PureComponent {
     switch (action) {
       case "remove-value":
       case "pop-value":
-        // if (removedValue.isFixed) {
-        //   return;
-        // }
+        if (removedValue.isFixed) {
+          return;
+        }
         break;
       case "clear":
-        //recipients = this.state.selectOptions.filter(v => v.isFixed);
+        recipients = this.state.recipients.filter(v => v.isFixed);
         break;
     }
 
