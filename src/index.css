@@ -215,6 +215,7 @@ body {
 .btn-default,
 .modal-content .btn-default {
   min-height: 38px;
+  min-width: 38px;
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
