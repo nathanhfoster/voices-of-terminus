@@ -18,7 +18,10 @@ import { connect as reduxConnect } from "react-redux";
 import {
   getMessages,
   updateMessage,
-  createMessageGroup
+  createMessageGroup,
+  getMessageDetails,
+  getGroupMessageRecipients,
+  postMessage
 } from "../../../actions/Messages";
 import { getUsers } from "../../../actions/Admin";
 import { withRouter, Redirect } from "react-router-dom";
@@ -40,7 +43,10 @@ const mapDispatchToProps = {
   getMessages,
   updateMessage,
   createMessageGroup,
-  getUsers
+  getUsers,
+  getMessageDetails,
+  getGroupMessageRecipients,
+  postMessage
 };
 
 class Messages extends PureComponent {
@@ -52,6 +58,8 @@ class Messages extends PureComponent {
       search: "",
       recipients: [],
       selectOptions: [],
+      modalTitle: "Create Message",
+      creatingMessage: false,
       title: "",
       body: ""
     };
@@ -59,7 +67,9 @@ class Messages extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = {
+    modalTitle: "Create Message"
+  };
 
   componentWillMount() {
     this.getState(this.props);
@@ -86,10 +96,11 @@ class Messages extends PureComponent {
 
   getState = props => {
     const { Admin, User, Messages } = props;
+    const { messageDetails } = Messages;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username }))
       : [];
-    this.setState({ User, Messages, selectOptions });
+    this.setState({ User, Messages, selectOptions, messageDetails });
   };
 
   readMessage = messages => {
@@ -126,8 +137,8 @@ class Messages extends PureComponent {
     this.setState({ recipients });
   };
 
-  renderMessagers = messages =>
-    messages.map(group => {
+  renderGroupMessages = messages => {
+    return messages.map(group => {
       const {
         author,
         author_username,
@@ -136,24 +147,32 @@ class Messages extends PureComponent {
         is_active,
         last_modified,
         title,
-        uri
+        uri,
+        messages
       } = group;
-      const is_read = this.hasUnreadMessage(group.messages);
-      const recentMessage = group.messages[0];
+      const is_read = this.hasUnreadMessage(messages);
+      const recentMessage = messages[0];
       const {
         //id: 4
         //is_read: false
         message_body,
         message_id,
-        message_last_modified
-        //recipient_group_id: 2
+        message_last_modified,
+        recipient_group_id
       } = recentMessage;
       return (
         <Row
           onClick={e => {
             e.preventDefault();
-            this.readMessage(group.messages);
-            this.setState({ show: true });
+            this.readMessage(messages);
+            this.getMessageDetails(messages);
+            this.getGroupMessageRecipients(recipient_group_id);
+            this.setState({
+              show: true,
+              modalTitle: title,
+              recipient_group_id,
+              recipients: []
+            });
           }}
           className="Message borderedRow"
           style={
@@ -165,17 +184,21 @@ class Messages extends PureComponent {
               : null
           }
         >
-          <Col md={4} xs={6}>
+          <Col xs={8}>
             <i className="fas fa-heading" />{" "}
             <span className="MessageTitle">{title}</span>
           </Col>
-
-          <Col md={4} xs={6}>
-            <i className="far fa-user" /> {author_username}
+          <Col xs={4}>
+            <Moment className="pull-right" fromNow>
+              {message_last_modified}
+            </Moment>
+            <i
+              class="fas fa-keyboard pull-right"
+              style={{ margin: "2px 4px 0 0" }}
+            />
           </Col>
-          <Col md={4} xs={6}>
-            <i className="far fa-clock" />{" "}
-            <Moment fromNow>{message_last_modified}</Moment>
+          <Col xs={6}>
+            <i className="far fa-user" /> {author_username}
           </Col>
           <Col xs={12} className="MessageBody">
             <i className="far fa-comment" /> {message_body}
@@ -183,9 +206,42 @@ class Messages extends PureComponent {
         </Row>
       );
     });
+  };
+
+  renderMessageDetails = messagesDetails =>
+    messagesDetails.map(message => {
+      const {
+        id,
+        author,
+        author_username,
+        body,
+        date_created,
+        last_modified,
+        parent_message_id
+      } = message;
+      return (
+        <Row className="Message borderedRow">
+          <Col xs={8}>
+            <i className="far fa-user" /> {author_username}
+          </Col>
+          <Col xs={4}>
+            <Moment className="pull-right" fromNow>
+              {last_modified}
+            </Moment>
+            <i
+              class="fas fa-keyboard pull-right"
+              style={{ margin: "2px 4px 0 0" }}
+            />
+          </Col>
+          <Col xs={12} className="MessageBody">
+            <i className="far fa-comment" /> {body}
+          </Col>
+        </Row>
+      );
+    });
 
   createMessage = (recipients, title, body) => {
-    const { User } = this.state;
+    const { User } = this.props;
     const { token } = User;
     const author = User.id;
     const uri = null;
@@ -201,6 +257,25 @@ class Messages extends PureComponent {
     );
   };
 
+  replyToGroup = body => {
+    const { recipient_group_id } = this.state;
+    const { User, Messages } = this.props;
+    const { messageRecipients } = Messages;
+    const { token, id } = User;
+    const payload = { author: id, body };
+    this.props.postMessage(token, recipient_group_id, messageRecipients, payload);
+  };
+
+  getMessageDetails = groupMessages => {
+    const { token } = this.props.User;
+    this.props.getMessageDetails(token, groupMessages);
+  };
+
+  getGroupMessageRecipients = recipient_group_id => {
+    const { token } = this.props.User;
+    this.props.getGroupMessageRecipients(token, recipient_group_id);
+  };
+
   render() {
     const {
       User,
@@ -209,9 +284,12 @@ class Messages extends PureComponent {
       recipients,
       selectOptions,
       title,
-      body
+      body,
+      modalTitle,
+      creatingMessage,
+      messageDetails,
+      Messages
     } = this.state;
-    let { Messages } = this.state;
     let messages = Messages.results ? Messages.results : [];
     messages = search
       ? matchSorter(messages, search, {
@@ -226,11 +304,16 @@ class Messages extends PureComponent {
           <PageHeader className="pageHeader">MESSAGES</PageHeader>
         </Row>
         <Row className="ActionToolbarRow">
-          <Col md={2} xs={3} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            md={2}
+            xs={3}
+            className="ActionToolbar"
+            componentClass={ButtonToolbar}
+          >
             <Button
               //disabled={!(User.is_superuser || User.can_create_article)}
               onClick={() => {
-                this.setState({ show: true });
+                this.setState({ show: true, creatingMessage: true });
               }}
             >
               <i className="fas fa-comment" /> Message
@@ -252,62 +335,102 @@ class Messages extends PureComponent {
             </InputGroup>
           </Col>
         </Row>
-        {this.renderMessagers(messages)}
+        {this.renderGroupMessages(messages)}
         <Row>
           <Modal
             backdrop={false}
             {...this.props}
             show={show}
-            onHide={() => this.setState({ show: false })}
+            onHide={() =>
+              this.setState({
+                show: false,
+                modalTitle: this.props.modalTitle,
+                creatingMessage: false
+              })
+            }
             dialogClassName="loginModal"
+            bsSize="lg"
           >
             <Modal.Header closeButton>
               <Modal.Title id="contained-modal-title-lg">
-                Create Message
+                <i className="fas fa-comments" /> {modalTitle}
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form className="Container fadeIn-2">
-                <Row>
-                  <Col xs={12}>
-                    <InputGroup>
-                      <InputGroup.Addon>
-                        <i className="fas fa-user-plus" />
-                      </InputGroup.Addon>
-                      <Select
-                        //https://react-select.com/props
-                        value={recipients}
-                        isMulti
-                        styles={selectStyles}
-                        onBlur={e => e.preventDefault()}
-                        blurInputOnSelect={false}
-                        //isClearable={this.state.recipients.some(v => !v.isFixed)}
-                        isSearchable={true}
-                        name="colors"
-                        placeholder="Username..."
-                        className="FilterMultiSelect"
-                        classNamePrefix="select"
-                        onChange={this.onSelectFilterChange}
-                        options={selectOptions}
-                      />
-                    </InputGroup>
-                  </Col>
-                  <Col xs={12}>
-                    <FormGroup>
+              {creatingMessage ? (
+                <Form className="Container fadeIn-2">
+                  <Row>
+                    <Col xs={12}>
                       <InputGroup>
                         <InputGroup.Addon>
-                          <i className="fas fa-heading" />
+                          <i className="fas fa-user-plus" />
                         </InputGroup.Addon>
-                        <FormControl
-                          value={title}
-                          type="text"
-                          placeholder="Title..."
-                          name="title"
-                          onChange={this.onChange.bind(this)}
+                        <Select
+                          //https://react-select.com/props
+                          value={recipients}
+                          isMulti
+                          styles={selectStyles}
+                          onBlur={e => e.preventDefault()}
+                          blurInputOnSelect={false}
+                          //isClearable={this.state.recipients.some(v => !v.isFixed)}
+                          isSearchable={true}
+                          name="colors"
+                          placeholder="Username..."
+                          className="FilterMultiSelect"
+                          classNamePrefix="select"
+                          onChange={this.onSelectFilterChange}
+                          options={selectOptions}
                         />
                       </InputGroup>
-                    </FormGroup>
-                  </Col>
+                    </Col>
+                    <Col xs={12}>
+                      <FormGroup>
+                        <InputGroup>
+                          <InputGroup.Addon>
+                            <i className="fas fa-heading" />
+                          </InputGroup.Addon>
+                          <FormControl
+                            value={title}
+                            type="text"
+                            placeholder="Title..."
+                            name="title"
+                            onChange={this.onChange}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                    <Col xs={12}>
+                      <FormGroup>
+                        <InputGroup>
+                          <InputGroup.Addon>
+                            <i className="fas fa-comment" />
+                          </InputGroup.Addon>
+                          <FormControl
+                            value={body}
+                            componentClass="textarea"
+                            placeholder="Body..."
+                            name="body"
+                            onChange={this.onChange.bind(this)}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                </Form>
+              ) : (
+                this.renderMessageDetails(messageDetails)
+              )}
+            </Modal.Body>
+            <Modal.Footer>
+              {creatingMessage ? (
+                <Button
+                  disabled={recipients.length < 1}
+                  onClick={() => this.createMessage(recipients, title, body)}
+                >
+                  <i className="fas fa-plus" /> Create
+                </Button>
+              ) : (
+                <Row>
                   <Col xs={12}>
                     <FormGroup>
                       <InputGroup>
@@ -324,16 +447,13 @@ class Messages extends PureComponent {
                       </InputGroup>
                     </FormGroup>
                   </Col>
+                  <Col xs={12}>
+                    <Button onClick={() => this.replyToGroup(body)}>
+                      <i className="fas fa-reply-all" /> Reply
+                    </Button>
+                  </Col>
                 </Row>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button
-                disabled={recipients.length < 1}
-                onClick={() => this.createMessage(recipients, title, body)}
-              >
-                Create
-              </Button>
+              )}
             </Modal.Footer>
           </Modal>
         </Row>

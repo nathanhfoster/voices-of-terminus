@@ -14,6 +14,7 @@
 }
 .form-control {
   min-height: 38px;
+  background-color: var(--slate_grey);
 }
 
 .form-control:focus {

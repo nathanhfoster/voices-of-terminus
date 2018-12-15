@@ -55,12 +55,37 @@ export const User = (state = {}, action) =>
     ? {}
     : state;
 
-export const Messages = (state = { results: [] }, action) =>
-  action.type === C.GET_MESSAGES
-    ? action.payload
-    : action.type === C.SET_LOGOUT
-    ? {}
-    : state;
+export const Messages = (
+  state = {
+    count: null,
+    next: null,
+    previous: null,
+    results: [],
+    messageRecipients: [],
+    messageDetails: []
+  },
+  action
+) => {
+  switch (action.type) {
+    case C.GET_MESSAGES:
+      return {
+        count: action.payload.count,
+        next: action.payload.next,
+        previous: action.payload.previous,
+        results: action.payload.results,
+        messageRecipients: state.messageRecipients,
+        messageDetails: state.messageDetails
+      };
+    case C.GET_MESSAGE_DETAILS:
+      return { ...state, messageDetails: action.payload };
+    case C.GET_MESSAGE_RECIPIENTS:
+      return { ...state, messageRecipients: action.payload };
+    case C.SET_LOGOUT:
+      return {};
+    default:
+      return state;
+  }
+};
 
 export const Admin = (state = {}, action) => {
   switch (action.type) {
@@ -75,7 +100,10 @@ export const Admin = (state = {}, action) => {
   }
 };
 
-export const Settings = (state = { showFooter: true, pushMessages: false }, action) => {
+export const Settings = (
+  state = { showFooter: true, pushMessages: false },
+  action
+) => {
   switch (action.type) {
     case C.SHOW_FOOTER:
       return { ...state, showFooter: action.payload };
