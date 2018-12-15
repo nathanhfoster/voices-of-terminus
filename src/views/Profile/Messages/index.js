@@ -263,7 +263,12 @@ class Messages extends PureComponent {
     const { messageRecipients } = Messages;
     const { token, id } = User;
     const payload = { author: id, body };
-    this.props.postMessage(token, recipient_group_id, messageRecipients, payload);
+    this.props.postMessage(
+      token,
+      recipient_group_id,
+      messageRecipients,
+      payload
+    );
   };
 
   getMessageDetails = groupMessages => {
@@ -418,7 +423,7 @@ class Messages extends PureComponent {
                   </Row>
                 </Form>
               ) : (
-                this.renderMessageDetails(messageDetails)
+                this.renderMessageDetails(messageDetails ? messageDetails : [])
               )}
             </Modal.Body>
             <Modal.Footer>
