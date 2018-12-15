@@ -218,7 +218,7 @@ class Messages extends PureComponent {
           <PageHeader className="pageHeader">MESSAGES</PageHeader>
         </Row>
         <Row className="ActionToolbarRow">
-          <Col xs={2} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={2} xs={3} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               //disabled={!(User.is_superuser || User.can_create_article)}
               onClick={() => {
@@ -228,7 +228,7 @@ class Messages extends PureComponent {
               <i className="fas fa-comment" /> Message
             </Button>
           </Col>
-          <Col xs={10}>
+          <Col md={10} xs={9}>
             <InputGroup>
               <InputGroup.Addon>
                 <i className="fas fa-search" />
