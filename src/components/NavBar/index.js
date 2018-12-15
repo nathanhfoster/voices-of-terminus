@@ -260,6 +260,12 @@ class NavBar extends PureComponent {
                   <i className="fas fa-sign-out-alt" /> LOGOUT
                 </NavItem>
                 <MenuItem divider />
+                <LinkContainer to="/articles/new/article">
+                  <NavItem eventKey={13}>
+                    <i className="fas fa-plus" /> ARTICLE
+                  </NavItem>
+                </LinkContainer> 
+                <MenuItem divider />
                 <MenuItem
                   onClick={() => this.props.toggleFooter(!showFooter)}
                   className="Center"
