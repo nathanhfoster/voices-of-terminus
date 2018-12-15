@@ -264,7 +264,12 @@ class NavBar extends PureComponent {
                   <NavItem eventKey={13}>
                     <i className="fas fa-plus" /> ARTICLE
                   </NavItem>
-                </LinkContainer> 
+                </LinkContainer>>
+                <LinkContainer to="/articles/new/newsletter">
+                  <NavItem eventKey={13}>
+                    <i className="fas fa-plus" /> NEWSLETTER
+                  </NavItem>
+                </LinkContainer
                 <MenuItem divider />
                 <MenuItem
                   onClick={() => this.props.toggleFooter(!showFooter)}
