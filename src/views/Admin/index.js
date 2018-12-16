@@ -248,7 +248,7 @@ class Admin extends PureComponent {
                     Header: <i className="fa fa-trash-alt" />,
                     accessor: "id",
                     filterable: false,
-                    maxWidth: 42,
+                    maxWidth: 48,
                     Cell: props => (
                       <Button
                         disabled={!(User.is_superuser && User.is_leader)}
@@ -273,7 +273,7 @@ class Admin extends PureComponent {
                     Header: <i className="far fa-envelope-open" />,
                     accessor: "opt_in",
                     filterable: false,
-                    maxWidth: 36,
+                    maxWidth: 40,
                     Cell: props =>
                       props.value ? (
                         <i className="fas fa-check" />
