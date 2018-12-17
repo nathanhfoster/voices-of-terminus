@@ -73,7 +73,7 @@ export const postMessage = (token, recipient_group_id, recipients, payload) => (
           recipient: recipients[i],
           recipient_group_id,
           message_id: id,
-          is_read: true
+          is_read: payload.id === recipients[i]
         };
 
         Axios(token)
