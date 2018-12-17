@@ -63,11 +63,11 @@ export const postMessage = (token, recipient_group_id, recipients, payload) => (
   getState
 ) => {
   const { messageDetails } = getState().Messages;
-  let finalPayload = [...messageDetails];
+  let finalPayload = {...messageDetails};
   return Axios(token)
     .post("/messages/", qs.stringify(payload))
     .then(res => {
-      const { id, author, parent_message_id } = res.data;
+      const { id, author, group_message_id } = res.data;
       for (let i = 0; i < recipients.length; i++) {
         const messageRecipientPayload = {
           recipient: recipients[i],
@@ -81,7 +81,7 @@ export const postMessage = (token, recipient_group_id, recipients, payload) => (
           .then(replyMessage => {
             const { recipient } = replyMessage.data;
             if (author === recipient) {
-              finalPayload.push(res.data);
+              finalPayload.results.push(res.data);
               dispatch({
                 type: C.GET_MESSAGE_DETAILS,
                 payload: finalPayload
@@ -176,26 +176,16 @@ export const createMessageGroup = (
   };
 };
 
-export const getMessageDetails = (
-  token,
-  groupMessages,
-  recipient_group_id
-) => dispatch => {
-  let payload = [];
-  for (let i = 0; i < groupMessages.length; i++) {
-    const { message_id } = groupMessages[i];
-    Axios(token)
-      .get(`/messages/${message_id}/`)
-      .then(res => {
-        res.data.recipient_group_id = recipient_group_id;
-        payload.push(res.data);
-        dispatch({
-          type: C.GET_MESSAGE_DETAILS,
-          payload: payload
-        });
-      })
-      .catch(e => console.log(e));
-  }
+export const getMessageDetails = (token, recipient_group_id) => dispatch => {
+  Axios(token)
+    .get(`/messages/${recipient_group_id}/view/`)
+    .then(res => {
+      dispatch({
+        type: C.GET_MESSAGE_DETAILS,
+        payload: res.data
+      });
+    })
+    .catch(e => console.log(e));
 };
 
 export const getGroupMessageRecipients = (

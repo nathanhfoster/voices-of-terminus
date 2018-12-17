@@ -98,8 +98,10 @@ class Messages extends PureComponent {
     const { Admin, User, Messages } = props;
     const { messageDetails } = Messages;
     const selectOptions = Admin.Users
-      ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort((a, b) => a.label.localeCompare(b.label))
-      : []
+      ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
+          (a, b) => a.label.localeCompare(b.label)
+        )
+      : [];
     this.setState({ User, Messages, selectOptions, messageDetails });
   };
 
@@ -165,7 +167,7 @@ class Messages extends PureComponent {
           onClick={e => {
             e.preventDefault();
             this.readMessage(messages);
-            this.getMessageDetails(messages);
+            this.getMessageDetails(recipient_group_id);
             this.getGroupMessageRecipients(recipient_group_id);
             this.setState({
               show: true,
@@ -217,7 +219,7 @@ class Messages extends PureComponent {
         body,
         date_created,
         last_modified,
-        parent_message_id
+        group_message_id
       } = message;
       return (
         <Row className="Message borderedRow">
@@ -262,7 +264,7 @@ class Messages extends PureComponent {
     const { User, Messages } = this.props;
     const { messageRecipients } = Messages;
     const { token, id } = User;
-    const payload = { author: id, body };
+    const payload = { author: id, body, group_message_id: recipient_group_id };
     this.props.postMessage(
       token,
       recipient_group_id,
@@ -271,9 +273,9 @@ class Messages extends PureComponent {
     );
   };
 
-  getMessageDetails = groupMessages => {
+  getMessageDetails = recipient_group_id => {
     const { token } = this.props.User;
-    this.props.getMessageDetails(token, groupMessages);
+    this.props.getMessageDetails(token, recipient_group_id);
   };
 
   getGroupMessageRecipients = recipient_group_id => {
@@ -423,7 +425,9 @@ class Messages extends PureComponent {
                   </Row>
                 </Form>
               ) : (
-                this.renderMessageDetails(messageDetails ? messageDetails : [])
+                this.renderMessageDetails(
+                  messageDetails.results ? messageDetails.results : []
+                )
               )}
             </Modal.Body>
             <Modal.Footer>

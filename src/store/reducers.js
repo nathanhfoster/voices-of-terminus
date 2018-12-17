@@ -62,7 +62,7 @@ export const Messages = (
     previous: null,
     results: [],
     messageRecipients: [],
-    messageDetails: []
+    messageDetails: { count: null, next: null, previous: null, results: [] }
   },
   action
 ) => {
@@ -81,7 +81,14 @@ export const Messages = (
     case C.GET_MESSAGE_RECIPIENTS:
       return { ...state, messageRecipients: action.payload };
     case C.SET_LOGOUT:
-      return {};
+      return {
+        count: null,
+        next: null,
+        previous: null,
+        results: [],
+        messageRecipients: [],
+        messageDetails: { count: null, next: null, previous: null, results: [] }
+      };
     default:
       return state;
   }
