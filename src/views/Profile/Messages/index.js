@@ -98,8 +98,8 @@ class Messages extends PureComponent {
     const { Admin, User, Messages } = props;
     const { messageDetails } = Messages;
     const selectOptions = Admin.Users
-      ? Admin.Users.map(i => (i = { value: i.id, label: i.username }))
-      : [];
+      ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort((a, b) => a.label.localeCompare(b.label))
+      : []
     this.setState({ User, Messages, selectOptions, messageDetails });
   };
 

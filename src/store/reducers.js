@@ -101,7 +101,7 @@ export const Admin = (state = {}, action) => {
 };
 
 export const Settings = (
-  state = { showFooter: true, pushMessages: false },
+  state = { showFooter: true, pushMessages: true },
   action
 ) => {
   switch (action.type) {
