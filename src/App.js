@@ -40,6 +40,7 @@ import {
   getVRYouTubeChannelData,
   Logout
 } from "./actions/App";
+import { getUsers } from "./actions/Admin";
 import { getMessages } from "./actions/Messages";
 import { refreshUser } from "./actions/App";
 import "moment-timezone";
@@ -71,7 +72,8 @@ const mapDispatchToProps = {
   getVRYouTubeChannelData,
   Logout,
   refreshUser,
-  getMessages
+  getMessages,
+  getUsers
 };
 
 class App extends PureComponent {
@@ -146,6 +148,7 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
+    this.props.getUsers();
     const { User, VoTYouTubeChannelData, VRYouTubeChannelData } = this.props;
     if (this.shouldUpdate(VoTYouTubeChannelData[0]))
       this.props.getVoTYouTubeChannelData();
