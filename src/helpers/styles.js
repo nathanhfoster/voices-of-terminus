@@ -30,14 +30,14 @@ export const selectStyles = {
   menu: (base, state) => ({
     ...base,
     backgroundColor: "transparent",
-    zIndex: "9999",
+    zIndex: "9999"
   }),
   menuList: (base, state) => ({
     ...base,
     backgroundColor: "transparent"
   }),
   menuPortal: (base, state) => ({
-    ...base,
+    ...base
   }),
   container: (base, state) => ({
     ...base,
@@ -50,11 +50,16 @@ export const selectStyles = {
   }),
   dropdownIndicator: (base, state) => ({
     ...base,
-    color: "var(--tertiarycolor)"
+    color: "var(--tertiarycolor)",
+    ":hover": { color: "var(--primaryColor)" },
   }),
   control: (base, state) => ({
     ...base,
-    backgroundColor: "var(--grey)"
+    backgroundColor: "var(--grey)",
+    borderColor: state.isFocused ? "var(--primaryColor)" : "lightgray",
+    ":hover": { borderColor: "var(--primaryColor)" }, // border style on hover
+    //border: '1px solid lightgray', // default border color
+    boxShadow: "var(--primaryColor)" // no box-shadow
   }),
   option: (base, state) => ({
     ...base,
