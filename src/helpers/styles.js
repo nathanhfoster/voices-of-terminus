@@ -29,7 +29,8 @@ export const selectStyles = {
   */
   menu: (base, state) => ({
     ...base,
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    zIndex: "9999",
   }),
   menuList: (base, state) => ({
     ...base,
@@ -37,13 +38,11 @@ export const selectStyles = {
   }),
   menuPortal: (base, state) => ({
     ...base,
-    backgroundColor: "blue"
   }),
   container: (base, state) => ({
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
-    backgroundColor: "transparent",
-    zIndex: "999",
+    backgroundColor: "transparent"
   }),
   clearIndicator: (base, state) => ({
     ...base,
