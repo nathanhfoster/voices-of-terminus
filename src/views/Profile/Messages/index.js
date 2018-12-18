@@ -157,7 +157,7 @@ class Messages extends PureComponent {
       const {
         //id: 4
         //is_read: false
-        message_body,
+        body,
         message_id,
         message_last_modified,
         recipient_group_id
@@ -203,7 +203,7 @@ class Messages extends PureComponent {
             <i className="far fa-user" /> {author_username}
           </Col>
           <Col xs={12} className="MessageBody">
-            <i className="far fa-comment" /> {message_body}
+            <i className="far fa-comment" /> {body}
           </Col>
         </Row>
       );
@@ -297,7 +297,7 @@ class Messages extends PureComponent {
       messageDetails,
       Messages
     } = this.state;
-    let messages = Messages.results ? Messages.results : [];
+    let messages = Messages.results;
     messages = search
       ? matchSorter(messages, search, {
           keys: ["author_username", "title", "messages.0.message_body"]
