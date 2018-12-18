@@ -15,6 +15,7 @@
 }
 
 .MainFooter {
+  color: var(--tertiarycolor);
   display: block;
   position: absolute;
   text-align: center;

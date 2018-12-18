@@ -119,7 +119,7 @@ class Footer extends PureComponent {
       <Collapse
         isOpened={showFooter}
         fixedHeight={52}
-        className="MainFooter Container fadeIn-2"
+        className="MainFooter fadeIn-2"
       >
         <footer>
           <div>

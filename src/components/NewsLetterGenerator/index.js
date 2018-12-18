@@ -231,7 +231,8 @@ class NewsLetterGenerator extends PureComponent {
     const isEditingDesign = id && design && this.editor && window.unlayer;
 
     const styles = {
-      boxShadow: "0 2px 5px 0 rgba(0, 0, 0, 0.25)"
+      boxShadow: "0 2px 5px 0 rgba(0, 0, 0, 0.25)",
+      width: "100%"
     };
     return !User.token ? (
       <Redirect to={this.props.history.push("/login")} />
