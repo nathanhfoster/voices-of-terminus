@@ -65,7 +65,8 @@ export const selectStyles = {
     ":active": {
       backgroundColor: !state.isSelected
         ? "var(--secondaryColor)"
-        : "var(--grey)"
+        : "var(--grey)",
+      zIndex: "5"
     }
   }),
   placeholder: (base, state) => ({
@@ -79,7 +80,7 @@ export const selectStyles = {
   valueContainer: (base, state) => ({
     ...base,
     backgroundColor: "var(--grey)",
-      zIndex: "5"
+      zIndex: "4"
   }),
   multiValue: (base, state) =>
     state.data.isFixed
