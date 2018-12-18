@@ -133,7 +133,6 @@ export const createMessageGroup = (
   body
 ) => {
   const groupPayload = { title, author, is_active: true, uri };
-  const messagePayload = { author, body };
   return async (dispatch, getState) => {
     const { Messages } = getState();
     let payload = { ...Messages };
@@ -141,7 +140,7 @@ export const createMessageGroup = (
       .post("/user/groups/", qs.stringify(groupPayload))
       .then(group => {
         const recipient_group_id = group.data.id;
-        //console.log("res.data: ", group.data);
+        const messagePayload = { author, body, group_message_id: recipient_group_id};
         payload.results.unshift(group.data);
         payload.results[0].messages = new Array();
 
