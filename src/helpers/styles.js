@@ -42,7 +42,8 @@ export const selectStyles = {
   container: (base, state) => ({
     ...base,
     opacity: state.isDisabled ? ".5" : "1",
-    backgroundColor: "transparent"
+    backgroundColor: "transparent",
+    zIndex: "999",
   }),
   clearIndicator: (base, state) => ({
     ...base,
@@ -65,8 +66,7 @@ export const selectStyles = {
     ":active": {
       backgroundColor: !state.isSelected
         ? "var(--secondaryColor)"
-        : "var(--grey)",
-      zIndex: "5"
+        : "var(--grey)"
     }
   }),
   placeholder: (base, state) => ({
@@ -79,8 +79,7 @@ export const selectStyles = {
   }),
   valueContainer: (base, state) => ({
     ...base,
-    backgroundColor: "var(--grey)",
-      zIndex: "4"
+    backgroundColor: "var(--grey)"
   }),
   multiValue: (base, state) =>
     state.data.isFixed
