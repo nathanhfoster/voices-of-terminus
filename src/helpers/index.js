@@ -517,8 +517,7 @@ export const raceRoleClassOptions = {
       ],
       Utility: [
         { value: "Enchanter", label: "Enchanter" },
-        { value: "Necormancer", label: "Necromancer" },
-        { value: "Paladin", label: "Paladin" },
+        { value: "Necormancer", label: "Necromancer" }, 
         { value: "Rogue", label: "Rogue" },
         { value: "Summoner", label: "Summoner" },
         { value: "Wizard", label: "Wizard" }
