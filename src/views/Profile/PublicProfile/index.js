@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Row, Col, Well, Image } from "react-bootstrap";
+import {
+  Grid,
+  Row,
+  Col,
+  Well,
+  Image,
+  ButtonToolbar,
+  Button
+} from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
@@ -15,7 +23,8 @@ import {
 import Moment from "react-moment";
 import { ExperienceBar } from "../../../components/ExperienceBar";
 
-const mapStateToProps = ({ Admin }) => ({
+const mapStateToProps = ({ User, Admin }) => ({
+  User,
   Admin
 });
 
@@ -80,7 +89,10 @@ class PublicProfile extends Component {
     );
 
   render() {
+    const CurrentUser = this.props.User;
+    const { is_superuser, is_staff } = CurrentUser;
     const { User } = this.state;
+    const { id } = this.props.match.params;
     const {
       is_leader,
       is_advisor,
@@ -115,6 +127,28 @@ class PublicProfile extends Component {
     };
     return User ? (
       <Grid className="PublicProfile Container fadeIn-2">
+        <Row className="ActionToolbarRow">
+          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+            {is_superuser || is_staff ? (
+              <Button
+                onClick={() =>
+                  this.props.history.push(`/admin/user/profile/${id}/`)
+                }
+                className="pull-right"
+              >
+                <i className="fas fa-database" />
+              </Button>
+            ) : null}
+            {CurrentUser.id == id ? (
+              <Button
+                onClick={() => this.props.history.push("/profile/")}
+                className="pull-right"
+              >
+                <i className="fa fa-pencil-alt" />
+              </Button>
+            ) : null}
+          </Col>
+        </Row>
         <Row className="Center">
           <Col md={4} xs={12} className="Center">
             <Image
