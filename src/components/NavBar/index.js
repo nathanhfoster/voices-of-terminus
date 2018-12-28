@@ -259,7 +259,7 @@ class NavBar extends PureComponent {
                 <NavItem onClick={this.Logout}>
                   <i className="fas fa-sign-out-alt" /> LOGOUT
                 </NavItem>
-                {User.can_create_article || User.can_create_newsletter ? (
+                {User.is_superuser || User.can_create_article || User.can_create_newsletter ? (
                   <MenuItem divider />
                 ) : null}
                 {User.is_superuser || User.can_create_article ? (
