@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 
 export const ApiResponse = (state = {}, action) =>
   action.type === C.SET_API_RESPONSE
-    ? action.payload
+    ? action ? action.payload : {}
     : action.type === C.CLEAR_API_RESPONSE
     ? {}
     : state;

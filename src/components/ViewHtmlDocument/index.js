@@ -211,7 +211,7 @@ class ViewHtmlDocument extends PureComponent {
       User.token && userLikeIndex !== -1
         ? likes.results[userLikeIndex].count
         : 0;
-    //console.log("HTMLDOCUMENT")
+    console.log("HTMLDOCUMENT")
     return HtmlDocument ? (
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">

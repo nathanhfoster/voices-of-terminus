@@ -15,6 +15,7 @@
 
 .NewsletterCardContainer .Preview {
   max-height: 638px;
+  overflow: hidden;
 }
 
 .CardContainerArticle .previewItem p {
