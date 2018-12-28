@@ -188,7 +188,7 @@ class NavBar extends PureComponent {
             </NavDropdown>
             <NavDropdown
               eventKey={8}
-              title={[<i className="fas fa-gopuram"/>," VR"]}
+              title={[<i className="fas fa-gopuram" />, " VR"]}
               id="connect-nav-dropdown"
             >
               <Image eventKey={8.1} src={vrLogo} className="vrLogo" />
@@ -259,17 +259,23 @@ class NavBar extends PureComponent {
                 <NavItem onClick={this.Logout}>
                   <i className="fas fa-sign-out-alt" /> LOGOUT
                 </NavItem>
-                <MenuItem divider />
-                <LinkContainer to="/articles/new/article">
-                  <NavItem eventKey={13}>
-                    <i className="fas fa-plus" /> ARTICLE
-                  </NavItem>
-                </LinkContainer>
-                <LinkContainer to="/articles/new/newsletter">
-                  <NavItem eventKey={13}>
-                    <i className="fas fa-plus" /> NEWSLETTER
-                  </NavItem>
-                </LinkContainer>
+                {User.can_create_article || User.can_create_newsletter ? (
+                  <MenuItem divider />
+                ) : null}
+                {User.is_superuser || User.can_create_article ? (
+                  <LinkContainer to="/articles/new/article">
+                    <NavItem eventKey={13}>
+                      <i className="fas fa-plus" /> ARTICLE
+                    </NavItem>
+                  </LinkContainer>
+                ) : null}
+                {User.is_superuser || User.can_create_newsletter ? (
+                  <LinkContainer to="/articles/new/newsletter">
+                    <NavItem eventKey={13}>
+                      <i className="fas fa-plus" /> NEWSLETTER
+                    </NavItem>
+                  </LinkContainer>
+                ) : null}
                 <MenuItem divider />
                 <MenuItem
                   onClick={() => this.props.toggleFooter(!showFooter)}

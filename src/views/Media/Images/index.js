@@ -56,7 +56,7 @@ class Images extends PureComponent {
       title: "",
       description: "",
       gallery_image: null,
-      gallery_id: null,
+      gallery_id: null
     };
   }
 

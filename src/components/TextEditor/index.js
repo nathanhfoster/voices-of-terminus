@@ -223,10 +223,10 @@ class TextEditor extends Component {
       suggestions
     } = this.state;
 
-    console.log(suggestions);
-
     return !User.token ? (
       <Redirect to="/login" />
+    ) : !(User.is_superuser || User.can_create_article) ? (
+      <Redirect to={this.props.history.goBack()} />
     ) : (
       <Grid className="TextEditor Container fadeIn-2">
         <Row className="ActionToolbarRow">
