@@ -21,23 +21,27 @@ import htmlToDraft from "html-to-draftjs";
 import { setEditorState } from "../../actions/TextEditor";
 import { clearHtmlDocument } from "../../actions/App";
 import { postArticle, updateArticle } from "../../actions/Articles";
+import { getUsers } from "../../actions/Admin";
 import { withRouter, Redirect } from "react-router-dom";
 import Select from "react-select";
 import { selectStyles } from "../../helpers/styles";
 import { isEquivalent } from "../../helpers";
 import { articleSlectOptions } from "../../helpers/select";
+import { options } from "./options";
 
-const mapStateToProps = ({ editorState, HtmlDocument, User }) => ({
+const mapStateToProps = ({ editorState, HtmlDocument, User, Admin }) => ({
   editorState,
   HtmlDocument,
-  User
+  User,
+  Admin
 });
 
 const mapDispatchToProps = {
   postArticle,
   setEditorState,
   updateArticle,
-  clearHtmlDocument
+  clearHtmlDocument,
+  getUsers
 };
 
 class TextEditor extends Component {
@@ -57,6 +61,7 @@ class TextEditor extends Component {
       slug: null,
       tags: "",
       title: "",
+      suggestions: [],
 
       editorState: null,
       show: false,
@@ -91,14 +96,25 @@ class TextEditor extends Component {
     return editorChanged || titleChanged || userChanged || isFiltering;
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.getUsers();
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    let { selectOptions, editorState } = props;
+    let { selectOptions, editorState, Admin } = props;
+    const { Users } = Admin;
+    const suggestions = Users.map(
+      user =>
+        (user = {
+          text: user.username,
+          value: user.username,
+          url: `/profile/${user.id}`
+        })
+    );
     const { User, HtmlDocument, match } = props;
     const Leader = User.is_leader || User.is_council;
     selectOptions[1].isDisabled = !(User.is_leader || User.is_council);
@@ -131,7 +147,8 @@ class TextEditor extends Component {
       tags,
       title,
       editorState,
-      selectValue: this.orderOptions(selectValue)
+      selectValue: this.orderOptions(selectValue),
+      suggestions
     });
   };
 
@@ -202,8 +219,11 @@ class TextEditor extends Component {
       title,
       editorState,
       HtmlDocument,
-      selectValue
+      selectValue,
+      suggestions
     } = this.state;
+
+    console.log(suggestions);
 
     return !User.token ? (
       <Redirect to="/login" />
@@ -304,7 +324,15 @@ class TextEditor extends Component {
               onEditorStateChange={this.onEditorStateChange}
               onFocus={e => e.preventDefault()}
               onBlur={e => e.preventDefault()}
+              onTab={e => e.preventDefault()}
               blurInputOnSelect={false}
+              toolbar={options}
+              mention={{
+                separator: " ",
+                trigger: "@",
+                suggestions: suggestions
+              }}
+              // toolbarOnFocus
               // stripPastedStyles="off"
               // spellCheck="off"
               // autoCapitalize="off"

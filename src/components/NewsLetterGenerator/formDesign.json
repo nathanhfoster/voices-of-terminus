@@ -1,0 +1,190 @@
+{
+  "counters": {
+    "u_column": 3,
+    "u_row": 3,
+    "u_content_form": 2,
+    "u_content_text": 2
+  },
+  "body": {
+    "rows": [
+      {
+        "cells": [1],
+        "columns": [
+          {
+            "contents": [
+              {
+                "type": "text",
+                "values": {
+                  "containerPadding": "10px",
+                  "_meta": {
+                    "htmlID": "u_content_text_2",
+                    "htmlClassNames": "u_content_text"
+                  },
+                  "selectable": true,
+                  "draggable": true,
+                  "deletable": true,
+                  "color": "#000",
+                  "textAlign": "left",
+                  "lineHeight": "140%",
+                  "text": "<p style=\"font-size: 14px; line-height: 140%;\"><span style=\"color: #ffffff; font-size: 18px; line-height: 25.2px;\">Description...</span></p>"
+                }
+              }
+            ],
+            "values": {
+              "_meta": {
+                "htmlID": "u_column_3",
+                "htmlClassNames": "u_column"
+              }
+            }
+          }
+        ],
+        "values": {
+          "backgroundColor": "",
+          "backgroundImage": {
+            "url": "",
+            "fullWidth": true,
+            "repeat": false,
+            "center": true,
+            "cover": false
+          },
+          "padding": "10px",
+          "noStackMobile": false,
+          "columnsBackgroundColor": "",
+          "_meta": {
+            "htmlID": "u_row_3",
+            "htmlClassNames": "u_row"
+          },
+          "selectable": true,
+          "draggable": true,
+          "deletable": true
+        }
+      },
+      {
+        "cells": [1],
+        "columns": [
+          {
+            "contents": [
+              {
+                "type": "form",
+                "values": {
+                  "containerPadding": "10px",
+                  "_meta": {
+                    "htmlID": "u_content_form_1",
+                    "htmlClassNames": "u_content_form"
+                  },
+                  "selectable": true,
+                  "draggable": true,
+                  "deletable": true,
+                  "fields": [
+                    {
+                      "name": "options",
+                      "type": "checkbox",
+                      "label": "Options",
+                      "placeholder_text": "Enter email here",
+                      "show_label": true,
+                      "required": true,
+                      "options": "Option1\nOption2\nOption3"
+                    },
+                    {
+                      "type": "checkbox",
+                      "name": "more_options",
+                      "label": "More Options",
+                      "value": "",
+                      "options": "More1\nMore2\nMore3",
+                      "show_label": true
+                    }
+                  ],
+                  "fieldBorder": {
+                    "borderTopWidth": "1px",
+                    "borderTopStyle": "solid",
+                    "borderTopColor": "#CCC",
+                    "borderLeftWidth": "1px",
+                    "borderLeftStyle": "solid",
+                    "borderLeftColor": "#CCC",
+                    "borderRightWidth": "1px",
+                    "borderRightStyle": "solid",
+                    "borderRightColor": "#CCC",
+                    "borderBottomWidth": "1px",
+                    "borderBottomStyle": "solid",
+                    "borderBottomColor": "#CCC"
+                  },
+                  "fieldBorderRadius": "0px",
+                  "fieldPadding": "10px",
+                  "fieldBackgroundColor": "#FFF",
+                  "fieldColor": "#000",
+                  "fieldFontSize": "12px",
+                  "formWidth": "100%",
+                  "formAlign": "center",
+                  "fieldDistance": "10px",
+                  "labelFontSize": "14px",
+                  "labelColor": "#ffffff",
+                  "labelAlign": "left",
+                  "labelPadding": "0px 0px 3px",
+                  "buttonText": "Submit",
+                  "buttonColors": {
+                    "color": "#FFF",
+                    "backgroundColor": "#ff9800",
+                    "hoverColor": "#00b2ff"
+                  },
+                  "buttonAlign": "center",
+                  "buttonWidth": "50%",
+                  "buttonFontSize": "14px",
+                  "buttonBorder": {},
+                  "buttonBorderRadius": "4px",
+                  "buttonPadding": "10px",
+                  "buttonMargin": "5px 0px 0px",
+                  "fieldWidth": "100%"
+                }
+              }
+            ],
+            "values": {
+              "_meta": {
+                "htmlID": "u_column_1",
+                "htmlClassNames": "u_column"
+              }
+            }
+          }
+        ],
+        "values": {
+          "backgroundColor": "",
+          "backgroundImage": {
+            "url": "",
+            "fullWidth": true,
+            "repeat": false,
+            "center": true,
+            "cover": false
+          },
+          "padding": "10px",
+          "noStackMobile": false,
+          "columnsBackgroundColor": "",
+          "_meta": {
+            "htmlID": "u_row_1",
+            "htmlClassNames": "u_row"
+          },
+          "selectable": true,
+          "draggable": true,
+          "deletable": true
+        }
+      }
+    ],
+    "values": {
+      "backgroundColor": "#000000",
+      "backgroundImage": {
+        "url": "",
+        "fullWidth": true,
+        "repeat": false,
+        "center": true,
+        "cover": false
+      },
+      "contentWidth": "500px",
+      "fontFamily": {
+        "label": "Arial",
+        "value": "arial,helvetica,sans-serif"
+      },
+      "_meta": {
+        "htmlID": "u_body",
+        "htmlClassNames": "u_body"
+      }
+    }
+  }
+}

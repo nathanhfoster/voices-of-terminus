@@ -26,6 +26,15 @@ export const getRandomInt = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
+export const getImageBase64 = image => {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+};
+
 export const isEmpty = obj => {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
@@ -517,7 +526,7 @@ export const raceRoleClassOptions = {
       ],
       Utility: [
         { value: "Enchanter", label: "Enchanter" },
-        { value: "Necormancer", label: "Necromancer" }, 
+        { value: "Necormancer", label: "Necromancer" },
         { value: "Rogue", label: "Rogue" },
         { value: "Summoner", label: "Summoner" },
         { value: "Wizard", label: "Wizard" }

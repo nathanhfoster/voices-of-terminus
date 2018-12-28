@@ -55,6 +55,16 @@
 .TextEditor .Wrapper .rdw-dropdown-carettoclose {
   border-bottom: 6px solid white;
 }
+.TextEditor .Wrapper .rdw-suggestion-dropdown {
+  background-color: var(--grey);
+}
+.TextEditor .Wrapper .rdw-suggestion-option:hover,
+.TextEditor .Wrapper .rdw-suggestion-option-active {
+  background-color: var(--primaryColor);
+}
+.TextEditor .Wrapper .rdw-mention-link {
+  background-color: transparent;
+}
 .TextEditor .Wrapper .rdw-embedded-modal {
   box-shadow: transparent;
 }

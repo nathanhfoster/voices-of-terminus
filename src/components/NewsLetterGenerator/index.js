@@ -25,9 +25,11 @@ import {
 } from "../../actions/NewsLetter";
 import { clearHtmlDocument } from "../../actions/App";
 import { withRouter, Redirect } from "react-router-dom";
+import formDesign from "./formDesign.json";
 import defaultDesign from "./defaultDesign.json";
 import Card from "../Card";
 import Select from "react-select";
+import { getImageBase64 } from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/select";
 
@@ -133,15 +135,17 @@ class NewsLetterGenerator extends PureComponent {
 
   loadNewsletterDesign = design => this.editor.loadDesign(design);
 
+  loadFormDesign = () => window.unlayer.loadTemplate(4447);
+
   onDesignLoad = design => {
     //this.editor.setMergeTags([{name: 'First Name'}])
 
     // Custom Image Storage in Base64
-    window.unlayer.registerCallback("image", (file, done) => {
+    window.unlayer.registerCallback("image", async (file, done) => {
       const image = file.attachments[0];
-      const reader = new FileReader();
-      reader.readAsDataURL(image);
-      reader.onloadend = () => done({ progress: 100, url: reader.result });
+      await getImageBase64(image).then(imageBase64 =>
+        done({ progress: 100, url: imageBase64 })
+      );
     });
   };
 
@@ -226,7 +230,10 @@ class NewsLetterGenerator extends PureComponent {
     } = this.state;
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
-    const design = HtmlDocument && HtmlDocument.design ? JSON.parse(HtmlDocument.design) : null;
+    const design =
+      HtmlDocument && HtmlDocument.design
+        ? JSON.parse(HtmlDocument.design)
+        : null;
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
     const isEditingDesign = id && design && this.editor && window.unlayer;
 
@@ -239,12 +246,7 @@ class NewsLetterGenerator extends PureComponent {
     ) : (
       <Grid className="NewsLetterGenerator Container fadeIn-2">
         <Row className="ActionToolbarRow">
-          <Col
-            md={6}
-            xs={6}
-            className="ActionToolbar"
-            componentClass={ButtonToolbar}
-          >
+          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               disabled={!selectValue[0].value}
               onClick={this.postNewsletter}
@@ -255,12 +257,12 @@ class NewsLetterGenerator extends PureComponent {
               UPDATE
             </Button>
           </Col>
-          <Col
-            md={6}
-            xs={6}
-            className="ActionToolbar"
-            componentClass={ButtonToolbar}
-          >
+          <Col xs={4}>
+            <Button onClick={this.loadFormDesign}>
+              <i className="fab fa-wpforms" />
+            </Button>
+          </Col>
+          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.handleShow} className="pull-right">
               LOAD
             </Button>
@@ -330,6 +332,23 @@ class NewsLetterGenerator extends PureComponent {
             style={styles}
             onDesignLoad={this.onDesignLoad}
             onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
+            options={{
+              //templateId: 1,
+              tools: {
+                image: {
+                  enabled: true
+                  //position: 1
+                },
+                form: {
+                  enabled: true
+                },
+                "custom#custom_tool": {
+                  data: {
+                    user: User.id
+                  }
+                }
+              }
+            }}
           />
         </Row>
         <Row>
