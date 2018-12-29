@@ -33,8 +33,8 @@ class ConfirmAction extends PureComponent {
   }
 
   getState = props => {
-    const { Action, Disabled, Icon, hasPermission, Size, Class } = props;
-    this.setState({ Action, Disabled, Icon, hasPermission, Size, Class });
+    const { Action, Disabled, Icon, hasPermission, Size, Class, Title } = props;
+    this.setState({ Action, Disabled, Icon, hasPermission, Size, Class, Title });
   };
 
   handleHide = e => {
@@ -58,6 +58,7 @@ class ConfirmAction extends PureComponent {
       hasPermission,
       Size,
       Class,
+      Title,
       show
     } = this.state;
     return hasPermission
@@ -89,7 +90,7 @@ class ConfirmAction extends PureComponent {
             <Modal.Body>
               <Row>
                 <Col xs={12}>
-                  <h4 className="Center">Are you sure?</h4>
+                  <h4 className="Center">Are you sure you want to delete "{Title}"?</h4>
                 </Col>
               </Row>
             </Modal.Body>
@@ -97,7 +98,7 @@ class ConfirmAction extends PureComponent {
               <Row>
                 <Col md={12} className="Center">
                   <ButtonGroup>
-                    <Button onClick={Action} bsStyle="danger">Yes</Button>
+                    <Button onClick={Action} style={{backgroundColor: 'var(--color_alizarin)'}}>Yes</Button>
                     <Button onClick={this.handleHide}>No</Button>
                   </ButtonGroup>
                 </Col>

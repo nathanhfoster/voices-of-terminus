@@ -262,6 +262,7 @@ class Admin extends PureComponent {
                         hasPermission={true}
                         Size="small"
                         Class=""
+                        Title={props.original.username}
                       />
                     )
                   }

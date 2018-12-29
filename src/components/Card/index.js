@@ -76,6 +76,7 @@ class Card extends PureComponent {
                 hasPermission={canDelete}
                 Size="small"
                 Class="pull-right"
+                Title={title}
               />
               {canUpdate ? (
                 <Button

@@ -205,6 +205,7 @@ class Gallery extends PureComponent {
                   hasPermission={canDelete}
                   Size="small"
                   Class="pull-right"
+                  Title={image.title}
                 />
                 {canUpdate ? (
                   <Button
