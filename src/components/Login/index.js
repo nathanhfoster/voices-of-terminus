@@ -37,14 +37,13 @@ class Login extends PureComponent {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleHide = this.handleHide.bind(this);
 
     this.state = {
       username: "",
       password: "",
       reEnterPassword: "",
       email: "",
+      opt_in: false,
       bio: "",
       primary_role: "",
       primary_class: "",
@@ -106,10 +105,6 @@ class Login extends PureComponent {
     const { username, password, rememberMe } = this.state;
     this.props.login(username, password, rememberMe);
   };
-
-  handleShow = () => this.setState({ show: true });
-
-  handleHide = () => this.setState({ show: false });
 
   createUserAccount = e => {
     e.preventDefault();
@@ -206,8 +201,10 @@ class Login extends PureComponent {
       reEnterPassword,
       email,
       profile_image,
-      opt_in
+      opt_in,
+      show
     } = this.state;
+
     return User.token ? (
       <Redirect to={this.props.history.goBack()} />
     ) : (
@@ -261,8 +258,12 @@ class Login extends PureComponent {
               <Col md={12} className="Center">
                 <ButtonGroup>
                   <Button type="submit">Sign in</Button>
-                  <Button onClick={this.handleShow}>Create Account</Button>
-                  <Button onClick={this.handleShow}>Forgot Password</Button>
+                  <Button onClick={() => this.setState({ show: true })}>
+                    Create Account
+                  </Button>
+                  <Button onClick={() => this.setState({ show: true })}>
+                    Forgot Password
+                  </Button>
                 </ButtonGroup>
               </Col>
             </Row>
@@ -271,8 +272,8 @@ class Login extends PureComponent {
             <Modal
               backdrop={false}
               {...this.props}
-              show={this.state.show}
-              onHide={this.handleHide}
+              show={show}
+              onHide={() => this.setState({ show: false })}
               dialogClassName="loginModal"
             >
               <Modal.Header closeButton>

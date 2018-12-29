@@ -31,6 +31,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import matchSorter from "match-sorter";
 import { isSubset } from "../../../helpers";
+import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -186,18 +187,17 @@ class Images extends PureComponent {
               <h4>{gallery.title}</h4>
               <p>{gallery.description}</p>
               <div className="cardActions">
-                {canDelete ? (
-                  <Button
-                    onClick={e => {
-                      e.stopPropagation();
-                      this.props.deleteGallery(gallery.id, User.token);
-                    }}
-                    bsSize="small"
-                    className="pull-right"
-                  >
-                    <i className="fa fa-trash-alt" />
-                  </Button>
-                ) : null}
+                <ConfirmAction
+                  Action={e => {
+                    e.stopPropagation();
+                    this.props.deleteGallery(gallery.id, User.token);
+                  }}
+                  Disabled={false}
+                  Icon={<i className="fa fa-trash-alt" />}
+                  hasPermission={canDelete}
+                  Size="small"
+                  Class="pull-right"
+                />
                 {canUpdate ? (
                   <Button
                     onClick={e => {

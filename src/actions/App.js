@@ -176,7 +176,14 @@ export const refreshUser = (id, token) => {
           payload: res.data
         });
       })
-      .catch(e => console.log(e));
+      .catch(e =>
+        e && e.response.status == 401
+          ? dispatch({
+              type: C.SET_LOGOUT,
+              payload: null
+            })
+          : console.log(e)
+      );
 };
 
 export const clearHtmlDocument = () => dispatch =>

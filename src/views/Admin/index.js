@@ -26,6 +26,7 @@ import "./stylesM.css";
 import { getUsers, createUser, deleteUser } from "../../actions/Admin";
 import { statusLevelInt, statusLevelString } from "../../helpers";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
+import ConfirmAction from "../../components/ConfirmAction";
 
 const mapStateToProps = ({ Admin, User, Window }) => ({
   Admin,
@@ -186,6 +187,7 @@ class Admin extends PureComponent {
 
   render() {
     const canSubmit = !this.cantSubmit();
+    const { token } = this.props.User;
     const {
       Admin,
       User,
@@ -250,18 +252,17 @@ class Admin extends PureComponent {
                     filterable: false,
                     maxWidth: 48,
                     Cell: props => (
-                      <Button
-                        disabled={!(User.is_superuser && User.is_leader)}
-                        onClick={() =>
-                          this.deleteThisUser(
-                            this.props.User.token,
-                            props.value
-                          )
-                        }
-                        bsSize="small"
-                      >
-                        <i className="fa fa-trash-alt" />
-                      </Button>
+                      <ConfirmAction
+                        Action={e => {
+                          e.stopPropagation();
+                          this.deleteThisUser(token, props.value);
+                        }}
+                        Disabled={!(User.is_superuser && User.is_leader)}
+                        Icon={<i className="fa fa-trash-alt" />}
+                        hasPermission={true}
+                        Size="small"
+                        Class=""
+                      />
                     )
                   }
                 ]

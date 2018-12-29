@@ -32,6 +32,7 @@ import matchSorter from "match-sorter";
 import { isSubset } from "../../../../helpers";
 import "./styles.css";
 import "./stylesM.css";
+import ConfirmAction from "../../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -194,18 +195,17 @@ class Gallery extends PureComponent {
               <h4>{image.title}</h4>
               <p>{image.description}</p>
               <div className="cardActions">
-                {canDelete ? (
-                  <Button
-                    onClick={e => {
-                      e.stopPropagation();
-                      this.props.deleteGalleryImage(image.id, User.token);
-                    }}
-                    bsSize="small"
-                    className="pull-right"
-                  >
-                    <i className="fa fa-trash-alt" />
-                  </Button>
-                ) : null}
+                <ConfirmAction
+                  Action={e => {
+                    e.stopPropagation();
+                    this.props.deleteGalleryImage(image.id, User.token);
+                  }}
+                  Disabled={false}
+                  Icon={<i className="fa fa-trash-alt" />}
+                  hasPermission={canDelete}
+                  Size="small"
+                  Class="pull-right"
+                />
                 {canUpdate ? (
                   <Button
                     onClick={e => {

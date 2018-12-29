@@ -131,17 +131,6 @@ class ViewHtmlDocument extends PureComponent {
     if (path.includes("articles")) this.props.deleteArticleComment(id, token);
   };
 
-  // id(pin): 1
-  // article(pin): 7
-  // author(pin): 1
-  // author_username(pin): "admin"
-  // text(pin): "TESTING"
-  // date_created(pin): "2018-11-17T05:42:04.493467Z"
-  // last_modified(pin): "2018-11-17T05:42:04.493467Z"
-  // last_modified_by(pin): 1
-  // last_modified_by_username(pin): "admin"
-  // likes(pin): 5
-
   renderComments = comments =>
     comments.map(com => {
       const { User } = this.props;
@@ -211,7 +200,7 @@ class ViewHtmlDocument extends PureComponent {
       User.token && userLikeIndex !== -1
         ? likes.results[userLikeIndex].count
         : 0;
-    console.log("HTMLDOCUMENT")
+    console.log("HTMLDOCUMENT");
     return HtmlDocument ? (
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">

@@ -7,6 +7,7 @@ import "./styles.css";
 
 import { withRouter } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
+import ConfirmAction from "../ConfirmAction";
 
 class Card extends PureComponent {
   constructor(props) {
@@ -65,18 +66,17 @@ class Card extends PureComponent {
               <h4 className="inlineNoWrap"> {title} </h4>
             </div>
             <div className="cardActions">
-              {canDelete ? (
-                <Button
-                  onClick={e => {
-                    e.stopPropagation();
-                    deleteCard(id, User.token);
-                  }}
-                  bsSize="small"
-                  className="pull-right"
-                >
-                  <i className="fa fa-trash-alt" />
-                </Button>
-              ) : null}
+              <ConfirmAction
+                Action={e => {
+                  e.stopPropagation();
+                  deleteCard(id, User.token);
+                }}
+                Disabled={false}
+                Icon={<i className="fa fa-trash-alt" />}
+                hasPermission={canDelete}
+                Size="small"
+                Class="pull-right"
+              />
               {canUpdate ? (
                 <Button
                   onClick={e => {
