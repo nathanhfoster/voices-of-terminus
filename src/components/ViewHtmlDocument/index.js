@@ -35,6 +35,7 @@ import {
 } from "../../actions/Articles";
 import { withRouter, Link } from "react-router-dom";
 import Moment from "react-moment";
+import ConfirmAction from "../ConfirmAction";
 
 const mapStateToProps = ({ User, HtmlDocument }) => ({
   User,
@@ -145,16 +146,17 @@ class ViewHtmlDocument extends PureComponent {
             <Link to={"/profile/" + com.author}>{com.author_username}</Link>
           </Col>
           <Col xs={2} className="pull-right">
-            {User.is_superuser || User.id === com.author ? (
-              <Button
-                onClick={() =>
-                  this.deleteComment(com.id, this.props.User.token)
-                }
-                className="pull-right"
-              >
-                <i className="fa fa-trash-alt" />
-              </Button>
-            ) : null}
+            <ConfirmAction
+              Action={e => {
+                this.deleteComment(com.id, this.props.User.token);
+              }}
+              Disabled={false}
+              Icon={<i className="fa fa-trash-alt" />}
+              hasPermission={User.is_superuser || User.id === com.author}
+              Size=""
+              Class="pull-right"
+              Title={com.text}
+            />
           </Col>
           <Col xs={12}>
             <i className="far fa-clock" />
