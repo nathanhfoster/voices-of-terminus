@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import { Provider as AlertProvider } from "react-alert";
-import AlertTemplate from "react-alert-template-basic";
+import AlertTemplate from "./components/AlertTemplate";
 import registerServiceWorker from "./registerServiceWorker";
 import storeFactory from "./store";
 import { Provider } from "react-redux";
@@ -11,9 +11,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 require("dotenv").config();
 
 const options = {
-  position: "bottom center",
-  timeout: 3850,
-  offset: "30px",
+  position: "top left",
+  //timeout: 3850,
+  offset: "66px",
   transition: "scale"
 };
 
@@ -37,7 +37,11 @@ const store = storeFactory(initialState);
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <AlertProvider template={AlertTemplate} {...options}>
+      <AlertProvider
+        template={AlertTemplate}
+        {...options}
+        style={{ backgroundColor: "red" }}
+      >
         <App />
       </AlertProvider>
     </Router>
@@ -54,7 +58,7 @@ const saveState = () => {
     localStorage.setItem("redux-store", state);
   } catch (e) {
     if (isQuotaExceeded(e)) {
-     // console.log(localStorage);
+      // console.log(localStorage);
       // Storage full, maybe notify user or do some clean-up
       // localStorage.setItem('redux-store', {});
     }
