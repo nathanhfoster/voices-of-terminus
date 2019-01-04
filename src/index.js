@@ -37,11 +37,7 @@ const store = storeFactory(initialState);
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <AlertProvider
-        template={AlertTemplate}
-        {...options}
-        style={{ backgroundColor: "red" }}
-      >
+      <AlertProvider template={AlertTemplate} {...options}>
         <App />
       </AlertProvider>
     </Router>
@@ -51,13 +47,12 @@ ReactDOM.render(
 registerServiceWorker();
 
 const saveState = () => {
-  const User = JSON.stringify(store.getState().User);
-  const state = JSON.stringify(store.getState());
-  localStorage.setItem("redux-store", User);
+  let state = JSON.stringify(store.getState());
   try {
     localStorage.setItem("redux-store", state);
   } catch (e) {
     if (isQuotaExceeded(e)) {
+      console.log(localStorage);
       // console.log(localStorage);
       // Storage full, maybe notify user or do some clean-up
       // localStorage.setItem('redux-store', {});
