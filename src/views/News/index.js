@@ -151,10 +151,7 @@ class News extends Component {
   getState = props => {
     const { User, Articles, Newsletters, history, ApiResponse } = props;
     const { pathname } = history.location;
-    const Documents =
-      Articles.results && Newsletters.results
-        ? Articles.results.concat(Newsletters.results)
-        : [];
+    const Documents = Articles.results.concat(Newsletters.results);
     const selectOptions =
       Documents.length > 1
         ? Documents.map(i => i.tags)[0]
@@ -205,7 +202,7 @@ class News extends Component {
           className += "CardContainerNewsletter";
         }
         return (
-          <Col className={className} md={3} sm={6} xs={12}>
+          <Col className={className} md={3} sm={6} xs={12} key={card.id}>
             <Card
               {...card}
               User={User}
@@ -247,7 +244,6 @@ class News extends Component {
   };
 
   render() {
-    //console.log("NEWS");
     const { Articles, Newsletters } = this.props;
     const { eventKey, history } = this.state;
     const selectValue =
@@ -261,6 +257,7 @@ class News extends Component {
           keys: ["title", "author_username", "last_modified_by_username"]
         })
       : Documents;
+    console.log(Documents);
     const filter = selectValue.map(i => i.value);
     const maxlength = this.props.selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;

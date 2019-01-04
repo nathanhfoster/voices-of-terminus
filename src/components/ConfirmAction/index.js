@@ -28,15 +28,6 @@ class ConfirmAction extends PureComponent {
 
   static defaultProps = {};
 
-  componentWillMount() {
-    this.getState(this.props);
-  }
-
-  getState = props => {
-    const { Action, Disabled, Icon, hasPermission, Size, Class, Title } = props;
-    this.setState({ Action, Disabled, Icon, hasPermission, Size, Class, Title });
-  };
-
   handleHide = e => {
     e ? e.stopPropagation() : null;
     this.setState({ show: false });
@@ -51,6 +42,7 @@ class ConfirmAction extends PureComponent {
   };
 
   render() {
+    const { show } = this.state;
     const {
       Action,
       Disabled,
@@ -58,9 +50,8 @@ class ConfirmAction extends PureComponent {
       hasPermission,
       Size,
       Class,
-      Title,
-      show
-    } = this.state;
+      Title
+    } = this.props;
     return hasPermission
       ? [
           <Button
@@ -90,7 +81,9 @@ class ConfirmAction extends PureComponent {
             <Modal.Body>
               <Row>
                 <Col xs={12}>
-                  <h4 className="Center">Are you sure you want to delete "{Title}"?</h4>
+                  <h4 className="Center">
+                    Are you sure you want to delete "{Title}"?
+                  </h4>
                 </Col>
               </Row>
             </Modal.Body>
@@ -98,7 +91,12 @@ class ConfirmAction extends PureComponent {
               <Row>
                 <Col md={12} className="Center">
                   <ButtonGroup>
-                    <Button onClick={Action} style={{backgroundColor: 'var(--color_alizarin)'}}>Yes</Button>
+                    <Button
+                      onClick={Action}
+                      style={{ backgroundColor: "var(--color_alizarin)" }}
+                    >
+                      Yes
+                    </Button>
                     <Button onClick={this.handleHide}>No</Button>
                   </ButtonGroup>
                 </Col>
