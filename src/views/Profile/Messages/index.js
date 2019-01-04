@@ -164,6 +164,7 @@ class Messages extends PureComponent {
       } = recentMessage;
       return (
         <Row
+          key={recipient_group_id}
           onClick={e => {
             e.preventDefault();
             this.readMessage(messages);
