@@ -35,7 +35,8 @@ const store = storeFactory(initialState);
 // window.store = store
 const Clean = array => {
   for (let i = 0; i < array.length; i++) {
-    array[i].html = "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>";
+    array[i].html =
+      "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>";
   }
   return array;
 };
@@ -60,12 +61,13 @@ const saveState = () => {
   } catch (e) {
     if (isQuotaExceeded(e)) {
       // console.log(localStorage);
-      if (reduxStore.Articles.hasOwnProperty("results"))
-        reduxStore.Articles.results = Clean(reduxStore.Articles.results);
-      if (reduxStore.Newsletters.hasOwnProperty("results"))
-        reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
-      state = JSON.stringify(reduxStore);
-      localStorage.setItem("redux-store", state);
+
+      // if (reduxStore.Articles.hasOwnProperty("results"))
+      //   reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+      // if (reduxStore.Newsletters.hasOwnProperty("results"))
+      //   reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
+      // state = JSON.stringify(reduxStore);
+      // localStorage.setItem("redux-store", state);
     }
   }
 
