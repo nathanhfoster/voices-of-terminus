@@ -34,11 +34,11 @@ const store = storeFactory(initialState);
 // window.React = React
 // window.store = store
 const Clean = array => {
-  for(let i = 0; i < array.length; i++) {
-    array[i].html = "<h1>Loading...<\h1>"
+  for (let i = 0; i < array.length; i++) {
+    array[i].html = "<h1 className='Center'>Loading...<h1>";
   }
   return array;
-} 
+};
 
 ReactDOM.render(
   <Provider store={store}>
@@ -61,12 +61,12 @@ const saveState = () => {
     if (isQuotaExceeded(e)) {
       // console.log(localStorage);
 
-  if(reduxStore.Articles.hasOwnProperty("results"))
-    reduxStore.Articles.results = Clean(reduxStore.Articles.results);
-  if(reduxStore.Newsletters.hasOwnProperty("results"))
-    reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
-      state = JSON.stringify(reduxStore);
-      localStorage.setItem('redux-store', state);
+      // if (reduxStore.Articles.hasOwnProperty("results"))
+      //   reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+      // if (reduxStore.Newsletters.hasOwnProperty("results"))
+      //   reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
+      // state = JSON.stringify(reduxStore);
+      // localStorage.setItem("redux-store", state);
     }
   }
 
