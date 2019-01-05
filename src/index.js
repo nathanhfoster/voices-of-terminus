@@ -33,6 +33,12 @@ const initialState = localStorage["redux-store"]
 const store = storeFactory(initialState);
 // window.React = React
 // window.store = store
+const Clean = array => {
+  for(let i = 0; i < array.length; i++) {
+    array[i].html = "<h1>Loading...<\h1>"
+  }
+  return array;
+} 
 
 ReactDOM.render(
   <Provider store={store}>
@@ -47,7 +53,10 @@ ReactDOM.render(
 registerServiceWorker();
 
 const saveState = () => {
-  let state = JSON.stringify(store.getState());
+  let reduxStore = store.getState();
+  reduxStore.Articles = Clean(reduxStore.Articles.results);
+  reduxStore.Newsletters = Clean(reduxStore.Newsletters.results);
+  let state = JSON.stringify(reduxStore);
   try {
     localStorage.setItem("redux-store", state);
   } catch (e) {
