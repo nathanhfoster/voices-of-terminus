@@ -54,8 +54,10 @@ registerServiceWorker();
 
 const saveState = () => {
   let reduxStore = store.getState();
-  reduxStore.Articles = Clean(reduxStore.Articles.results);
-  reduxStore.Newsletters = Clean(reduxStore.Newsletters.results);
+  if(reduxStore.Articles.hasOwnProperty("results"))
+    reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+  if(reduxStore.Newsletters.hasOwnProperty("results"))
+    reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
   let state = JSON.stringify(reduxStore);
   try {
     localStorage.setItem("redux-store", state);
