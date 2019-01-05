@@ -151,7 +151,7 @@ class News extends Component {
   getState = props => {
     const { User, Articles, Newsletters, history, ApiResponse } = props;
     const { pathname } = history.location;
-    const Documents = Articles.results.concat(Newsletters.results);
+    const Documents = Articles.results && Newsletters.results ? Articles.results.concat(Newsletters.results) : [];
     const selectOptions =
       Documents.length > 1
         ? Documents.map(i => i.tags)[0]
