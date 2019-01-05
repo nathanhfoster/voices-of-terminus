@@ -54,18 +54,19 @@ registerServiceWorker();
 
 const saveState = () => {
   let reduxStore = store.getState();
-  if(reduxStore.Articles.hasOwnProperty("results"))
-    reduxStore.Articles.results = Clean(reduxStore.Articles.results);
-  if(reduxStore.Newsletters.hasOwnProperty("results"))
-    reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
   let state = JSON.stringify(reduxStore);
   try {
     localStorage.setItem("redux-store", state);
   } catch (e) {
     if (isQuotaExceeded(e)) {
       // console.log(localStorage);
-      // Storage full, maybe notify user or do some clean-up
-      // localStorage.setItem('redux-store', {});
+
+  if(reduxStore.Articles.hasOwnProperty("results"))
+    reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+  if(reduxStore.Newsletters.hasOwnProperty("results"))
+    reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
+      state = JSON.stringify(reduxStore);
+      localStorage.setItem('redux-store', state);
     }
   }
 
