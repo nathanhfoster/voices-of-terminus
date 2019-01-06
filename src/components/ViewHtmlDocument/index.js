@@ -87,15 +87,15 @@ class ViewHtmlDocument extends PureComponent {
     const { id } = params;
     if (path.includes("articles")) {
       const reduxArticle = Articles.results.findIndex(k => k.id == id);
-      reduxArticle == -1
-        ? viewArticle(id)
-        : setHtmlDocument(Articles.results[reduxArticle]);
+      if (reduxArticle != -1)
+        setHtmlDocument(Articles.results[reduxArticle]);
+      viewArticle(id);
     }
     if (path.includes("newsletters")) {
       const reduxNewsletter = Newsletters.results.findIndex(k => k.id == id);
-      reduxNewsletter == -1
-        ? viewNewsletter(id)
-        : setHtmlDocument(Newsletters.results[reduxNewsletter]);
+      if (reduxNewsletter != -1)
+        setHtmlDocument(Newsletters.results[reduxNewsletter]);
+      viewNewsletter(id);
     }
   }
 
@@ -253,7 +253,13 @@ class ViewHtmlDocument extends PureComponent {
           <Col xs={12}>
             <PageHeader className="Center">{HtmlDocument.title}</PageHeader>
           </Col>
-          <Col xs={12}>{ReactHtmlParser(HtmlDocument.html)}</Col>
+          <Col xs={12}>
+            {ReactHtmlParser(
+              HtmlDocument.html
+                ? HtmlDocument.html
+                : "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
+            )}
+          </Col>
           <Col xs={6} className="Center">
             <h3>
               <i className="far fa-eye" /> {HtmlDocument.views}

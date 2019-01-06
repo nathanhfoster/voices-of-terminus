@@ -55,8 +55,8 @@ export const getArticles = () => {
                   !isSubset(
                     Articles.results.map(k => k.id),
                     articles.data.results.map(k => k.id)
-                  )
-                  ||!isSubset(
+                  ) ||
+                  !isSubset(
                     Articles.results.map(k => k.last_modified),
                     articles.data.results.map(k => k.last_modified)
                   )
