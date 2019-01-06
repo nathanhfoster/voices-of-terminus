@@ -87,7 +87,6 @@ export const getNewsletterHtml = id => {
           newsletter => newsletter.id === id
         );
         payload.results[updatedIndex].html = html;
-        console.log(payload.results[updatedIndex].id);
         dispatch({
           type: C.GET_NEWSLETTERS,
           payload: payload

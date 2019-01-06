@@ -82,63 +82,74 @@ class News extends Component {
     Documents: []
   };
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { Articles, Newsletters } = nextProps;
-  //   const { Documents } = this.state;
-  //   const { User, selectValue, search, history } = nextState;
-  //   const { pathname } = history.location;
+  shouldComponentUpdate(nextProps, nextState) {
+    let { Articles, Newsletters } = nextProps;
+    const { Documents } = this.state;
+    const CurrentArticles = this.state.Articles;
+    const CurrentNewsletters = this.state.Newsletters;
+    const { User, selectValue, search, history } = nextState;
+    const { pathname } = history.location;
 
-  //   const documentAddedOrDeleted =
-  //     Articles.results &&
-  //     Newsletters.results &&
-  //     Documents.length != Articles.results.concat(Newsletters.results).length;
+    Articles.results = Articles.hasOwnProperty("results")
+      ? Articles.results
+      : [];
+    Newsletters.results = Newsletters.hasOwnProperty("results")
+      ? Newsletters.results
+      : [];
 
-  //   const currentPathName = this.state.eventKey;
-  //   const currentUser = this.state.User;
-  //   const currentDocuments =
-  //     Articles.results && Newsletters.results
-  //       ? Articles.results.concat(Newsletters.results)
-  //       : [];
-  //   const currentSelectValue = this.state.selectValue;
-  //   const currentSearch = this.state.search;
+    const documentAddedOrDeleted =
+      Documents.length != Articles.results.concat(Newsletters.results).length;
 
-  //   const pathChanged = pathname != currentPathName;
-  //   const initialLoad = Documents.length === 0;
-  //   const userChanged = !isEquivalent(currentUser, User);
+    const currentPathName = this.state.eventKey;
+    const currentUser = this.state.User;
+    const currentDocuments = Articles.results.concat(Newsletters.results);
 
-  //   const cardUpdated =
-  //     !isSubset(
-  //       Documents.map(k => k.html),
-  //       currentDocuments.map(k => k.html)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.last_modified),
-  //       currentDocuments.map(k => k.last_modified)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.views),
-  //       currentDocuments.map(k => k.views)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.likeCount),
-  //       currentDocuments.map(k => k.likeCount)
-  //     ) ||
-  //     !isSubset(
-  //       Documents.map(k => k.commentCount),
-  //       currentDocuments.map(k => k.commentCount)
-  //     );
-  //   const isFiltering = selectValue != currentSelectValue;
-  //   const isSearching = search != currentSearch;
-  //   return (
-  //     documentAddedOrDeleted ||
-  //     pathChanged ||
-  //     initialLoad ||
-  //     cardUpdated ||
-  //     isFiltering ||
-  //     isSearching ||
-  //     userChanged
-  //   );
-  // }
+    const currentSelectValue = this.state.selectValue;
+    const currentSearch = this.state.search;
+
+    const pathChanged = pathname != currentPathName;
+    const initialLoad = Documents.length === 0;
+    const userChanged = !isEquivalent(currentUser, User);
+
+    const cardUpdated =
+      Articles.loading == CurrentArticles.loading ||
+      Newsletters.loading == CurrentNewsletters.loading ||
+      !isSubset(
+        Articles.results.map(k => k.html),
+        CurrentArticles.results.map(k => k.html)
+      ) ||
+      !isSubset(
+        Newsletters.results.map(k => k.html),
+        CurrentNewsletters.results.map(k => k.html)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.last_modified),
+        currentDocuments.map(k => k.last_modified)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.views),
+        currentDocuments.map(k => k.views)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.likeCount),
+        currentDocuments.map(k => k.likeCount)
+      ) ||
+      !isSubset(
+        Documents.map(k => k.commentCount),
+        currentDocuments.map(k => k.commentCount)
+      );
+    const isFiltering = selectValue != currentSelectValue;
+    const isSearching = search != currentSearch;
+    return (
+      documentAddedOrDeleted ||
+      pathChanged ||
+      initialLoad ||
+      cardUpdated ||
+      isFiltering ||
+      isSearching ||
+      userChanged
+    );
+  }
 
   componentWillMount() {
     this.getState(this.props);
@@ -168,10 +179,10 @@ class News extends Component {
     Newsletters.results = Newsletters.hasOwnProperty("results")
       ? Newsletters.results
       : [];
+    this.getHtml(Articles, Newsletters);
     const { pathname } = history.location;
     const Documents = Articles.results.concat(Newsletters.results);
-    const emptyHtml = Documents.findIndex(doc => !doc.html);
-    emptyHtml != -1 ? this.getHtml(Documents[emptyHtml]) : null;
+
     const selectOptions =
       Documents.length > 1
         ? Documents.map(i => i.tags)[0]
@@ -190,19 +201,20 @@ class News extends Component {
     });
   };
 
-  getHtml = Document => {
-    const { id } = Document;
-    if (Document.tags.includes("Article")) {
-      return (this.interval = setInterval(
-        () => this.props.getArticlerHtml(id),
-        1500
-      ));
+  getHtml = (Articles, Newsletters) => {
+    const emptyArticleHtml = Articles.results.findIndex(
+      article => !article.html
+    );
+    const emptyNewsletterHtml = Newsletters.results.findIndex(
+      newsletter => !newsletter.html
+    );
+    if (emptyArticleHtml != -1 && !Articles.loading) {
+      return this.props.getArticlerHtml(Articles.results[emptyArticleHtml].id);
     }
-    if (Document.tags.includes("Newsletter")) {
-      return (this.interval = setInterval(
-        () => this.props.getNewsletterHtml(id),
-        1500
-      ));
+    if (emptyNewsletterHtml != -1 && !Newsletters.loading) {
+      return this.props.getNewsletterHtml(
+        Newsletters.results[emptyNewsletterHtml].id
+      );
     }
   };
 
@@ -280,6 +292,7 @@ class News extends Component {
   };
 
   render() {
+    //console.log("NEWS");
     const { Articles, Newsletters } = this.props;
     const { eventKey, history } = this.state;
     const selectValue =
