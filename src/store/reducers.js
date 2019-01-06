@@ -3,7 +3,9 @@ import { combineReducers } from "redux";
 
 export const ApiResponse = (state = {}, action) =>
   action.type === C.SET_API_RESPONSE
-    ? action ? action.payload : {}
+    ? action
+      ? action.payload
+      : {}
     : action.type === C.CLEAR_API_RESPONSE
     ? {}
     : state;
@@ -35,11 +37,61 @@ export const DiscordData = (state = {}, action) =>
 export const editorState = (state = null, action) =>
   action.type === C.SET_EDITOR_STATE ? action.payload : state;
 
-export const Articles = (state = { results: [] }, action) =>
-  action.type === C.GET_ARTICLES ? action.payload : state;
+  export const Articles = (state = { results: [] }, action) => {
+    switch (action.type) {
+      case C.GET_ARTICLES_LOADING:
+        return {
+          ...state,
+          loading: true,
+          loaded: false
+        };
+      case C.GET_ARTICLES:
+        return {
+          ...action.payload,
+          loading: false,
+          loaded: true,
+          error: null
+        };
+  
+      case C.GET_ARTICLES_ERROR:
+        return {
+          ...state,
+          loading: false,
+          loaded: true,
+          error: action.payload
+        };
+      default:
+        return state;
+    }
+  };
 
-export const Newsletters = (state = { results: [] }, action) =>
-  action.type === C.GET_NEWSLETTERS ? action.payload : state;
+export const Newsletters = (state = { results: [] }, action) => {
+  switch (action.type) {
+    case C.GET_NEWSLETTERS_LOADING:
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    case C.GET_NEWSLETTERS:
+      return {
+        ...action.payload,
+        loading: false,
+        loaded: true,
+        error: null
+      };
+
+    case C.GET_NEWSLETTERS_ERROR:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
 export const HtmlDocument = (state = null, action) =>
   action.type === C.GET_HTML_DOCUMENT

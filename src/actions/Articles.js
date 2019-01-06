@@ -3,9 +3,10 @@ import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getArticles = () => {
-  return dispatch =>
+  return dispatch => {
+    dispatch({ type: C.GET_ARTICLES_LOADING });
     Axios()
-      .get("articles/")
+      .get("articles/all/")
       .then(articles => {
         Axios()
           .get("article/likes/")
@@ -55,7 +56,8 @@ export const getArticles = () => {
               });
           });
       })
-      .catch(e => console.log(e));
+      .catch(e => dispatch({ type: C.GET_ARTICLES_ERROR, payload: e }));
+  };
 };
 
 export const nextArticles = paginator => {
@@ -68,6 +70,26 @@ export const nextArticles = paginator => {
         dispatch({
           type: C.GET_ARTICLES,
           payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+};
+
+export const getArticlerHtml = id => {
+  return (dispatch, getState) =>
+    Axios()
+      .get(`articles/${id}/html/`)
+      .then(res => {
+        const { id, html } = res.data;
+        const { Articles } = getState();
+        let payload = { ...Articles };
+        const updatedIndex = payload.results.findIndex(
+          article => article.id === id
+        );
+        payload.results[updatedIndex].html = html;
+        dispatch({
+          type: C.GET_ARTICLES,
+          payload: payload
         });
       })
       .catch(e => console.log(e));

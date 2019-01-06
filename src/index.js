@@ -65,7 +65,6 @@ const saveState = () => {
   } catch (e) {
     if (isQuotaExceeded(e)) {
       // console.log(localStorage);
-
       // if (reduxStore.Articles.hasOwnProperty("results"))
       //   reduxStore.Articles.results = Clean(reduxStore.Articles.results);
       // if (reduxStore.Newsletters.hasOwnProperty("results"))

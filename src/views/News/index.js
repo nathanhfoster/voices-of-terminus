@@ -19,12 +19,14 @@ import { clearHtmlDocument } from "../../actions/App";
 import {
   getArticles,
   getArticle,
+  getArticlerHtml,
   deleteArticle,
   nextArticles
 } from "../../actions/Articles";
 import {
   getNewsletters,
   getNewsletter,
+  getNewsletterHtml,
   deleteNewsLetter,
   nextNewsletters
 } from "../../actions/NewsLetter";
@@ -50,10 +52,12 @@ const mapStateToProps = ({ User, Articles, Newsletters }) => ({
 const mapDispatchToProps = {
   getArticle,
   getArticles,
+  getArticlerHtml,
   deleteArticle,
   nextArticles,
   getNewsletters,
   getNewsletter,
+  getNewsletterHtml,
   deleteNewsLetter,
   nextNewsletters,
   clearHtmlDocument
@@ -78,58 +82,63 @@ class News extends Component {
     Documents: []
   };
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const { Articles, Newsletters } = nextProps;
-    const { Documents } = this.state;
-    const { User, selectValue, search, history } = nextState;
-    const { pathname } = history.location;
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { Articles, Newsletters } = nextProps;
+  //   const { Documents } = this.state;
+  //   const { User, selectValue, search, history } = nextState;
+  //   const { pathname } = history.location;
 
-    const documentAddedOrDeleted =
-      Articles.results &&
-      Newsletters.results &&
-      Documents.length != Articles.results.concat(Newsletters.results).length;
+  //   const documentAddedOrDeleted =
+  //     Articles.results &&
+  //     Newsletters.results &&
+  //     Documents.length != Articles.results.concat(Newsletters.results).length;
 
-    const currentPathName = this.state.eventKey;
-    const currentUser = this.state.User;
-    const currentDocuments =
-      Articles.results && Newsletters.results
-        ? Articles.results.concat(Newsletters.results)
-        : [];
-    const currentSelectValue = this.state.selectValue;
-    const currentSearch = this.state.search;
+  //   const currentPathName = this.state.eventKey;
+  //   const currentUser = this.state.User;
+  //   const currentDocuments =
+  //     Articles.results && Newsletters.results
+  //       ? Articles.results.concat(Newsletters.results)
+  //       : [];
+  //   const currentSelectValue = this.state.selectValue;
+  //   const currentSearch = this.state.search;
 
-    const pathChanged = pathname != currentPathName;
-    const initialLoad = Documents.length === 0;
-    const userChanged = !isEquivalent(currentUser, User);
-    const cardUpdated =
-      !isSubset(
-        Documents.map(k => k.last_modified),
-        currentDocuments.map(k => k.last_modified)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.views),
-        currentDocuments.map(k => k.views)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.likeCount),
-        currentDocuments.map(k => k.likeCount)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.commentCount),
-        currentDocuments.map(k => k.commentCount)
-      );
-    const isFiltering = selectValue != currentSelectValue;
-    const isSearching = search != currentSearch;
-    return (
-      documentAddedOrDeleted ||
-      pathChanged ||
-      initialLoad ||
-      cardUpdated ||
-      isFiltering ||
-      isSearching ||
-      userChanged
-    );
-  }
+  //   const pathChanged = pathname != currentPathName;
+  //   const initialLoad = Documents.length === 0;
+  //   const userChanged = !isEquivalent(currentUser, User);
+
+  //   const cardUpdated =
+  //     !isSubset(
+  //       Documents.map(k => k.html),
+  //       currentDocuments.map(k => k.html)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.last_modified),
+  //       currentDocuments.map(k => k.last_modified)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.views),
+  //       currentDocuments.map(k => k.views)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.likeCount),
+  //       currentDocuments.map(k => k.likeCount)
+  //     ) ||
+  //     !isSubset(
+  //       Documents.map(k => k.commentCount),
+  //       currentDocuments.map(k => k.commentCount)
+  //     );
+  //   const isFiltering = selectValue != currentSelectValue;
+  //   const isSearching = search != currentSearch;
+  //   return (
+  //     documentAddedOrDeleted ||
+  //     pathChanged ||
+  //     initialLoad ||
+  //     cardUpdated ||
+  //     isFiltering ||
+  //     isSearching ||
+  //     userChanged
+  //   );
+  // }
 
   componentWillMount() {
     this.getState(this.props);
@@ -141,10 +150,12 @@ class News extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    clearInterval(this.interval);
     this.getState(nextProps);
   }
 
   componentWillUnmount() {
+    clearInterval(this.interval);
     this.props.clearHtmlDocument();
   }
 
@@ -159,6 +170,8 @@ class News extends Component {
       : [];
     const { pathname } = history.location;
     const Documents = Articles.results.concat(Newsletters.results);
+    const emptyHtml = Documents.findIndex(doc => !doc.html);
+    emptyHtml != -1 ? this.getHtml(Documents[emptyHtml]) : null;
     const selectOptions =
       Documents.length > 1
         ? Documents.map(i => i.tags)[0]
@@ -175,6 +188,22 @@ class News extends Component {
       history,
       ApiResponse
     });
+  };
+
+  getHtml = Document => {
+    const { id } = Document;
+    if (Document.tags.includes("Article")) {
+      return (this.interval = setInterval(
+        () => this.props.getArticlerHtml(id),
+        1500
+      ));
+    }
+    if (Document.tags.includes("Newsletter")) {
+      return (this.interval = setInterval(
+        () => this.props.getNewsletterHtml(id),
+        1500
+      ));
+    }
   };
 
   //Filter the Documents if the documents tags array contains the filter array

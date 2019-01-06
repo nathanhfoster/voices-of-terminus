@@ -3,7 +3,8 @@ import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getNewsletters = () => {
-  return dispatch =>
+  return dispatch => {
+    dispatch({ type: C.GET_NEWSLETTERS_LOADING });
     Axios()
       .get("newsletters/all/")
       .then(newsletters => {
@@ -55,7 +56,8 @@ export const getNewsletters = () => {
               });
           });
       })
-      .catch(e => console.log(e));
+      .catch(e => dispatch({ type: C.GET_NEWSLETTERS_ERROR, payload: e }));
+  };
 };
 
 export const nextNewsletters = paginator => {
@@ -68,6 +70,27 @@ export const nextNewsletters = paginator => {
         dispatch({
           type: C.GET_NEWSLETTERS,
           payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+};
+
+export const getNewsletterHtml = id => {
+  return (dispatch, getState) =>
+    Axios()
+      .get(`newsletters/${id}/html/`)
+      .then(res => {
+        const { id, html } = res.data;
+        const { Newsletters } = getState();
+        let payload = { ...Newsletters };
+        const updatedIndex = payload.results.findIndex(
+          newsletter => newsletter.id === id
+        );
+        payload.results[updatedIndex].html = html;
+        console.log(payload.results[updatedIndex].id);
+        dispatch({
+          type: C.GET_NEWSLETTERS,
+          payload: payload
         });
       })
       .catch(e => console.log(e));

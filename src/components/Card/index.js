@@ -58,7 +58,14 @@ class Card extends PureComponent {
     return (
       <div className="Clickable Card Hover" onClick={click}>
         <div className="Preview">
-          <div className="previewItem"> {ReactHtmlParser(html)} </div>
+          <div className="previewItem">
+            {" "}
+            {ReactHtmlParser(
+              html
+                ? html
+                : "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
+            )}{" "}
+          </div>
         </div>
         {summary ? (
           <div className="Summary inlineNoWrap">
