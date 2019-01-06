@@ -71,23 +71,42 @@ class ViewHtmlDocument extends PureComponent {
 
   static propTypes = {};
 
+  componentWillMount() {
+    this.getState(this.props);
+  }
+
   componentDidMount() {
-    const { Articles, Newsletters, viewNewsletter, viewArticle } = this.props;
+    const {
+      Articles,
+      Newsletters,
+      viewNewsletter,
+      viewArticle,
+      setHtmlDocument
+    } = this.props;
     const { params, path } = this.props.match;
     const { id } = params;
     if (path.includes("articles")) {
       const reduxArticle = Articles.results.findIndex(k => k.id == id);
-      reduxArticle != -1
+      reduxArticle == -1
         ? viewArticle(id)
         : setHtmlDocument(Articles.results[reduxArticle]);
     }
     if (path.includes("newsletters")) {
       const reduxNewsletter = Newsletters.results.findIndex(k => k.id == id);
-      reduxNewsletter != -1
+      reduxNewsletter == -1
         ? viewNewsletter(id)
         : setHtmlDocument(Newsletters.results[reduxNewsletter]);
     }
   }
+
+  componentWillReceiveProps(nextProps) {
+    this.getState(nextProps);
+  }
+
+  getState = props => {
+    const { HtmlDocument } = props;
+    this.setState({ HtmlDocument });
+  };
 
   likeDocument = () => {
     const { User, HtmlDocument, match } = this.props;
@@ -205,8 +224,7 @@ class ViewHtmlDocument extends PureComponent {
 
   render() {
     const { User } = this.props;
-    const { text } = this.state;
-    const { HtmlDocument } = this.props;
+    const { text, HtmlDocument } = this.state;
     const { likes, comments } = HtmlDocument ? HtmlDocument : [];
     const likeTotal = likes
       ? likes.results.reduce((accumulator, like) => accumulator + like.count, 0)
@@ -218,7 +236,7 @@ class ViewHtmlDocument extends PureComponent {
       User.token && userLikeIndex !== -1
         ? likes.results[userLikeIndex].count
         : 0;
-    //console.log("HTMLDOCUMENT");
+    // console.log("HTMLDOCUMENT");
     return HtmlDocument ? (
       <Grid className="HtmlParser Container fadeIn-2">
         <Row className="ViewHtmlDocument">
