@@ -203,10 +203,10 @@ class News extends Component {
 
   getHtml = (Articles, Newsletters) => {
     const emptyArticleHtml = Articles.results.findIndex(
-      article => !article.html
+      article => !article.hasOwnProperty("html")
     );
     const emptyNewsletterHtml = Newsletters.results.findIndex(
-      newsletter => !newsletter.html
+      newsletter => !newsletter.hasOwnProperty("html")
     );
     if (emptyArticleHtml != -1 && !Articles.loading) {
       return this.props.getArticlerHtml(Articles.results[emptyArticleHtml].id);

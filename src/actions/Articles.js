@@ -59,6 +59,10 @@ export const getArticles = () => {
                   !isSubset(
                     Articles.results.map(k => k.last_modified),
                     articles.data.results.map(k => k.last_modified)
+                  ) ||
+                  !isSubset(
+                    Articles.results.map(k => k.views),
+                    articles.data.results.map(k => k.views)
                   )
                 ) {
                   dispatch({
@@ -122,10 +126,21 @@ export const getArticle = id => {
 };
 
 export const viewArticle = id => {
-  return dispatch =>
+  return (dispatch, getState) =>
     Axios()
       .get(`articles/${id}/view/`)
       .then(res => {
+        const { id, views } = res.data;
+        const { Articles } = getState();
+        let payload = { ...Articles };
+        const ArticleViewsIndex = payload.results.findIndex(k => k.id == id);
+        if (ArticleViewsIndex != -1) {
+          payload.results[ArticleViewsIndex].views = views;
+          dispatch({
+            type: C.GET_ARTICLES,
+            payload: payload
+          });
+        }
         Axios()
           .get(`article/likes/${id}/view/`)
           .then(likes => {

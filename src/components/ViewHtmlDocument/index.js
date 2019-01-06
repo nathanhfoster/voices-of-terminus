@@ -87,8 +87,7 @@ class ViewHtmlDocument extends PureComponent {
     const { id } = params;
     if (path.includes("articles")) {
       const reduxArticle = Articles.results.findIndex(k => k.id == id);
-      if (reduxArticle != -1)
-        setHtmlDocument(Articles.results[reduxArticle]);
+      if (reduxArticle != -1) setHtmlDocument(Articles.results[reduxArticle]);
       viewArticle(id);
     }
     if (path.includes("newsletters")) {

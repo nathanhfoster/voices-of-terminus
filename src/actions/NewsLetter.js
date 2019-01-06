@@ -59,6 +59,10 @@ export const getNewsletters = () => {
                   !isSubset(
                     Newsletters.results.map(k => k.last_modified),
                     newsletters.data.results.map(k => k.last_modified)
+                  ) ||
+                  !isSubset(
+                    Newsletters.results.map(k => k.views),
+                    newsletters.data.results.map(k => k.views)
                   )
                 ) {
                   dispatch({
@@ -122,10 +126,21 @@ export const getNewsletter = id => {
 };
 
 export const viewNewsletter = id => {
-  return dispatch =>
+  return (dispatch, getState) =>
     Axios()
       .get(`newsletters/${id}/view/`)
       .then(res => {
+        const { id, views } = res.data;
+        const { Newsletters } = getState();
+        let payload = { ...Newsletters };
+        const NewsletterViewsIndex = payload.results.findIndex(k => k.id == id);
+        if (NewsletterViewsIndex != -1) {
+          payload.results[NewsletterViewsIndex].views = views;
+          dispatch({
+            type: C.GET_NEWSLETTERS,
+            payload: payload
+          });
+        }
         Axios()
           .get(`newsletter/likes/${id}/view/`)
           .then(likes => {
