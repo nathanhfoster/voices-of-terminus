@@ -186,6 +186,10 @@ export const refreshUser = (id, token) => {
       );
 };
 
+export const setHtmlDocument = Document => dispatch => {
+  dispatch({ type: C.GET_HTML_DOCUMENT, payload: Document });
+};
+
 export const clearHtmlDocument = () => dispatch =>
   dispatch({
     type: C.GET_HTML_DOCUMENT,

@@ -33,16 +33,21 @@ import {
   postArticleComment,
   deleteArticleComment
 } from "../../actions/Articles";
+import { setHtmlDocument } from "../../actions/App";
 import { withRouter, Link } from "react-router-dom";
 import Moment from "react-moment";
 import ConfirmAction from "../ConfirmAction";
 
-const mapStateToProps = ({ User, HtmlDocument }) => ({
+const mapStateToProps = ({ User, Articles, Newsletters, HtmlDocument }) => ({
   User,
+  Articles,
+  Newsletters,
   HtmlDocument
 });
 
 const mapDispatchToProps = {
+  setHtmlDocument,
+
   viewNewsletter,
   postNewsletterLike,
   updateNewsletterLike,
@@ -67,10 +72,21 @@ class ViewHtmlDocument extends PureComponent {
   static propTypes = {};
 
   componentDidMount() {
-    const { viewNewsletter, viewArticle } = this.props;
+    const { Articles, Newsletters, viewNewsletter, viewArticle } = this.props;
     const { params, path } = this.props.match;
-    if (path.includes("newsletters")) viewNewsletter(params.id);
-    if (path.includes("articles")) viewArticle(params.id);
+    const { id } = params;
+    if (path.includes("articles")) {
+      const reduxArticle = Articles.results.findIndex(k => k.id == id);
+      reduxArticle != -1
+        ? viewArticle(id)
+        : setHtmlDocument(Articles.results[reduxArticle]);
+    }
+    if (path.includes("newsletters")) {
+      const reduxNewsletter = Newsletters.results.findIndex(k => k.id == id);
+      reduxNewsletter != -1
+        ? viewNewsletter(id)
+        : setHtmlDocument(Newsletters.results[reduxNewsletter]);
+    }
   }
 
   likeDocument = () => {
