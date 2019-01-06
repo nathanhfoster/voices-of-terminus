@@ -56,6 +56,10 @@ export const getArticles = () => {
                     Articles.results.map(k => k.id),
                     articles.data.results.map(k => k.id)
                   )
+                  ||!isSubset(
+                    Articles.results.map(k => k.last_modified),
+                    articles.data.results.map(k => k.last_modified)
+                  )
                 ) {
                   dispatch({
                     type: C.GET_ARTICLES,
