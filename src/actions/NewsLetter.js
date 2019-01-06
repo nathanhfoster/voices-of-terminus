@@ -1,9 +1,10 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
+import { isSubset } from "../helpers";
 
 export const getNewsletters = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: C.GET_NEWSLETTERS_LOADING });
     Axios()
       .get("newsletters/all/")
@@ -49,10 +50,18 @@ export const getNewsletters = () => {
                     newsletters.data.results[i].likeCount +
                     newsletters.data.results[i].commentCount;
                 }
-                dispatch({
-                  type: C.GET_NEWSLETTERS,
-                  payload: newsletters.data
-                });
+                const { Newsletters } = getState();
+                if (
+                  !isSubset(
+                    Newsletters.results.map(k => k.id),
+                    newsletters.data.results.map(k => k.id)
+                  )
+                ) {
+                  dispatch({
+                    type: C.GET_NEWSLETTERS,
+                    payload: newsletters.data
+                  });
+                }
               });
           });
       })
