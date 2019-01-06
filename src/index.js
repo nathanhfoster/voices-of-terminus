@@ -37,9 +37,10 @@ const Clean = array => {
   for (let i = 0; i < array.length; i++) {
     const item = array[i];
     item.html =
-      "<div style='position: absolute; top: 25%; right: 50%;'>" +
+      "<h1>" +
       item.title +
-      " <i class='fa fa-spinner fa-spin'/></div>";
+      "</h1>" +
+      "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>";
   }
   return array;
 };
