@@ -33,6 +33,7 @@ import { isSubset } from "../../../../helpers";
 import "./styles.css";
 import "./stylesM.css";
 import ConfirmAction from "../../../../components/ConfirmAction";
+import Lightbox from "react-image-lightbox";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -58,7 +59,9 @@ class Gallery extends PureComponent {
       title: "",
       description: "",
       image: null,
-      image_id: null
+      image_id: null,
+      photoIndex: 0,
+      isOpen: false
     };
   }
 
@@ -188,8 +191,11 @@ class Gallery extends PureComponent {
     return images
       .filter(img => (dontFilter ? img : isSubset(img.tags.split("|"), filter)))
       .map(image => (
-        <Col md={4} xs={12} className="galleryCardContainer">
-          <div className="Clickable galleryCard Hover" onClick={null}>
+        <Col md={4} xs={12} className="galleryCardContainer" key={image.id}>
+          <div
+            className="Clickable galleryCard Hover"
+            onClick={() => this.setState({ isOpen: true })}
+          >
             <Image src={image.image} />
             <div className="gallerySummary">
               <h4>{image.title}</h4>
@@ -266,7 +272,9 @@ class Gallery extends PureComponent {
       description,
       image,
       search,
-      editing
+      editing,
+      photoIndex,
+      isOpen
     } = this.state;
     let images = Gallery ? Gallery.results : [];
     images = search
@@ -345,6 +353,28 @@ class Gallery extends PureComponent {
           </Col>
         </Row>
         <Row>{this.renderGalleryImages(images, filter, dontFilter)}</Row>
+        <Row>
+          {isOpen && (
+            <Lightbox
+              mainSrc={images[photoIndex].image}
+              nextSrc={images[(photoIndex + 1) % images.length].image}
+              prevSrc={
+                images[(photoIndex + images.length - 1) % images.length].image
+              }
+              onCloseRequest={() => this.setState({ isOpen: false })}
+              onMovePrevRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + images.length - 1) % images.length
+                })
+              }
+              onMoveNextRequest={() =>
+                this.setState({
+                  photoIndex: (photoIndex + 1) % images.length
+                })
+              }
+            />
+          )}
+        </Row>
         <Row>
           <Modal
             backdrop={false}

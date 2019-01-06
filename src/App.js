@@ -45,7 +45,7 @@ import { getMessages } from "./actions/Messages";
 import { refreshUser } from "./actions/App";
 import "moment-timezone";
 import MomentJS from "moment";
-import { Link } from "react-router-dom";
+import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
 
 const mapStateToProps = ({
   ApiResponse,
