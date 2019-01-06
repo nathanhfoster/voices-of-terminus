@@ -130,12 +130,12 @@ export const viewArticle = id => {
     Axios()
       .get(`articles/${id}/view/`)
       .then(res => {
-        const { id, views } = res.data;
+        const { id } = res.data;
         const { Articles } = getState();
         let payload = { ...Articles };
         const ArticleViewsIndex = payload.results.findIndex(k => k.id == id);
         if (ArticleViewsIndex != -1) {
-          payload.results[ArticleViewsIndex].views = views;
+          payload.results[ArticleViewsIndex] = res.data;
           dispatch({
             type: C.GET_ARTICLES,
             payload: payload
