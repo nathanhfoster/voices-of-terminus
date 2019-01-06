@@ -66,12 +66,12 @@ const saveState = () => {
     if (isQuotaExceeded(e)) {
       // console.log(localStorage);
 
-      if (reduxStore.Articles.hasOwnProperty("results"))
-        reduxStore.Articles.results = Clean(reduxStore.Articles.results);
-      if (reduxStore.Newsletters.hasOwnProperty("results"))
-        reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
-      state = JSON.stringify(reduxStore);
-      localStorage.setItem("redux-store", state);
+      // if (reduxStore.Articles.hasOwnProperty("results"))
+      //   reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+      // if (reduxStore.Newsletters.hasOwnProperty("results"))
+      //   reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
+      // state = JSON.stringify(reduxStore);
+      // localStorage.setItem("redux-store", state);
     }
   }
 

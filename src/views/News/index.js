@@ -150,9 +150,13 @@ class News extends Component {
 
   getState = props => {
     const { User, history, ApiResponse } = props;
-    let { Articles, Newsletters} = props;
-    Articles.results = Articles.hasOwnProperty("results") ? Articles.results : [];
-    Newsletters.results = Newsletters.hasOwnProperty("results") ? Newsletters.results : [];
+    let { Articles, Newsletters } = props;
+    Articles.results = Articles.hasOwnProperty("results")
+      ? Articles.results
+      : [];
+    Newsletters.results = Newsletters.hasOwnProperty("results")
+      ? Newsletters.results
+      : [];
     const { pathname } = history.location;
     const Documents = Articles.results.concat(Newsletters.results);
     const selectOptions =
@@ -260,7 +264,6 @@ class News extends Component {
           keys: ["title", "author_username", "last_modified_by_username"]
         })
       : Documents;
-    console.log(Documents);
     const filter = selectValue.map(i => i.value);
     const maxlength = this.props.selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
@@ -429,7 +432,11 @@ class News extends Component {
           )}
         </Row>
       </Grid>
-    ) : null;
+    ) : (
+      <div style="position: absolute; top: 25%; right: 50%;">
+        <i class="fa fa-spinner fa-spin" />
+      </div>
+    );
   }
 }
 export default withRouter(
