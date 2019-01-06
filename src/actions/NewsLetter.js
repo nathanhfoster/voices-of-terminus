@@ -56,6 +56,10 @@ export const getNewsletters = () => {
                     Newsletters.results.map(k => k.id),
                     newsletters.data.results.map(k => k.id)
                   )
+                  ||! isSubset(
+                    Newsletters.results.map(k => k.last_modified),
+                    newsletters.data.results.map(k => k.last_modified)
+                  )
                 ) {
                   dispatch({
                     type: C.GET_NEWSLETTERS,
