@@ -11,9 +11,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 require("dotenv").config();
 
 const options = {
-  position: "top left",
-  //timeout: 3850,
-  offset: "66px",
+  position: "top center",
+  timeout: 3850,
+  offset: "calc(var(--navBarHeight) + 10px)",
   transition: "scale"
 };
 
@@ -62,12 +62,12 @@ const saveState = () => {
     if (isQuotaExceeded(e)) {
       // console.log(localStorage);
 
-      // if (reduxStore.Articles.hasOwnProperty("results"))
-      //   reduxStore.Articles.results = Clean(reduxStore.Articles.results);
-      // if (reduxStore.Newsletters.hasOwnProperty("results"))
-      //   reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
-      // state = JSON.stringify(reduxStore);
-      // localStorage.setItem("redux-store", state);
+      if (reduxStore.Articles.hasOwnProperty("results"))
+        reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+      if (reduxStore.Newsletters.hasOwnProperty("results"))
+        reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
+      state = JSON.stringify(reduxStore);
+      localStorage.setItem("redux-store", state);
     }
   }
 
