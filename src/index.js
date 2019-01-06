@@ -35,8 +35,11 @@ const store = storeFactory(initialState);
 // window.store = store
 const Clean = array => {
   for (let i = 0; i < array.length; i++) {
-    array[i].html =
-      "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>";
+    const item = array[i];
+    item.html =
+      "<div style='position: absolute; top: 25%; right: 50%;'>" +
+      item.title +
+      " <i class='fa fa-spinner fa-spin'/></div>";
   }
   return array;
 };
