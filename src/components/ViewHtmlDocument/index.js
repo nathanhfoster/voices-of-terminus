@@ -227,7 +227,7 @@ class ViewHtmlDocument extends PureComponent {
     const { likes, comments } = HtmlDocument ? HtmlDocument : [];
     const likeTotal = likes
       ? likes.results.reduce((accumulator, like) => accumulator + like.count, 0)
-      : 0;
+      : null;
     const userLikeIndex = likes
       ? likes.results.findIndex(like => like.author === User.id)
       : -1;
@@ -267,7 +267,7 @@ class ViewHtmlDocument extends PureComponent {
           <Col xs={6} className="Center">
             <h3>
               <Button
-                disabled={!(User.token && amountLiked < 5)}
+                disabled={!(User.token && amountLiked < 5 && likeTotal)}
                 onClick={this.likeDocument}
               >
                 <i className="fa fa-thumbs-up" /> {likeTotal}
