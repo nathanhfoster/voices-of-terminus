@@ -30,10 +30,6 @@ export const updateGallery = (id, token, payload) => {
           type: C.GET_GALLERIES,
           payload: payload
         });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
-        });
       })
       .catch(e =>
         dispatch({
@@ -72,10 +68,6 @@ export const postGallery = (token, payload) => {
         dispatch({
           type: C.GET_GALLERIES,
           payload: payload
-        });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
         });
       })
       .catch(e =>
@@ -136,10 +128,6 @@ export const updateGalleryImage = (id, token, payload) => {
         dispatch({
           type: C.GET_GALLERY,
           payload: payload
-        });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
         });
       })
       .catch(e =>
