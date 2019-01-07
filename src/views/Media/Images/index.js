@@ -195,7 +195,13 @@ class Images extends PureComponent {
               this.props.history.push(`/media/images/gallery/${gallery.id}`)
             }
           >
-            <Image src={gallery.image} />
+            {gallery.image ? (
+              <Image src={gallery.image} />
+            ) : (
+              <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                <i className="fa fa-spinner fa-spin" />
+              </div>
+            )}
             <div className="gallerySummary">
               <h4>{gallery.title}</h4>
               <p>{gallery.description}</p>

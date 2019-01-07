@@ -209,7 +209,13 @@ class Gallery extends PureComponent {
             className="Clickable galleryCard Hover"
             onClick={() => this.setState({ isOpen: true, photoIndex: index })}
           >
-            <Image src={image.image} />
+            {image.image ? (
+              <Image src={image.image} />
+            ) : (
+              <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                <i className="fa fa-spinner fa-spin" />
+              </div>
+            )}
             <div className="gallerySummary">
               <h4>{image.title}</h4>
               <p>{image.description}</p>
