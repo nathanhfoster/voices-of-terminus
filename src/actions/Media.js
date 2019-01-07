@@ -6,7 +6,7 @@ export const getGalleries = () => {
   return dispatch => {
     dispatch({ type: C.GET_GALLERIES_LOADING });
     return Axios()
-      .get("galleries/")
+      .get("galleries/all/")
       .then(res => {
         dispatch({
           type: C.GET_GALLERIES,
@@ -143,11 +143,11 @@ export const postGalleryImage = (token, payload) => {
     Axios(token)
       .post(`gallery/images/`, qs.stringify(payload))
       .then(res => {
-        const { Galleries } = getState();
-        let payload = { ...Galleries };
-        payload.Gallery.results.unshift(res.data);
+        const { Gallery } = getState().Galleries;
+        let payload = { ...Gallery };
+        payload.results.unshift(res.data);
         dispatch({
-          type: C.GET_GALLERIES,
+          type: C.GET_GALLERY,
           payload: payload
         });
       })
