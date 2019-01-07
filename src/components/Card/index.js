@@ -70,7 +70,9 @@ class Card extends PureComponent {
         {summary ? (
           <div className="Summary inlineNoWrap">
             <div className="summaryTitle">
-              <h4 className="inlineNoWrap"> {title} </h4>
+              <h4 className="inlineNoWrap">
+                <i className="fas fa-heading" /> {title}
+              </h4>
             </div>
             <div className="cardActions">
               <ConfirmAction

@@ -35,6 +35,7 @@ import "./styles.css";
 import "./stylesM.css";
 import ConfirmAction from "../../../../components/ConfirmAction";
 import Lightbox from "react-image-lightbox";
+import { withAlert } from "react-alert";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -93,7 +94,7 @@ class Gallery extends PureComponent {
       gallery => gallery.id == id
     );
     const GalleryTitle =
-      Galleries.results.length > 0
+      Galleries.results && Galleries.results.length > 0
         ? Galleries.results[GalleryTitleIndex].title
         : null;
     const { Gallery } = Galleries;
@@ -173,7 +174,8 @@ class Gallery extends PureComponent {
       tags,
       image,
       title,
-      description
+      description,
+      last_modified_by: User.id
     };
     this.props.postGalleryImage(User.token, payload);
     this.setState({ show: false });
@@ -217,8 +219,12 @@ class Gallery extends PureComponent {
               </div>
             )}
             <div className="gallerySummary">
-              <h4>{image.title}</h4>
-              <p>{image.description}</p>
+              <h4>
+                <i className="fas fa-heading" /> {image.title}
+              </h4>
+              <p>
+                <i className="fas fa-clipboard" /> {image.description}
+              </p>
               <div className="cardActions">
                 <ConfirmAction
                   Action={e => {
@@ -271,6 +277,17 @@ class Gallery extends PureComponent {
                   </Link>{" "}
                   <i className="far fa-clock" />
                   <Moment fromNow>{image.date_created}</Moment>
+                </div>
+                <div className="inlineNoWrap">
+                  <i className="fas fa-pencil-alt" />
+                  <Link
+                    to={"/profile/" + image.last_modified_by}
+                    onClick={e => e.stopPropagation()}
+                  >
+                    {image.last_modified_by_username}
+                  </Link>{" "}
+                  <i className="far fa-clock" />
+                  <Moment fromNow>{image.last_modified}</Moment>
                 </div>
                 <div>
                   <i className="fas fa-tags" /> [{image.tags}]
@@ -500,5 +517,5 @@ class Gallery extends PureComponent {
   }
 }
 export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Gallery)
+  withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(Gallery))
 );

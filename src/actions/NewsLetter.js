@@ -63,10 +63,6 @@ export const getNewsletters = () => {
                   !isSubset(
                     Newsletters.results.map(k => k.last_modified),
                     newsletters.data.results.map(k => k.last_modified)
-                  ) ||
-                  !isSubset(
-                    Newsletters.results.map(k => k.views),
-                    newsletters.data.results.map(k => k.views)
                   )
                 ) {
                   dispatch({

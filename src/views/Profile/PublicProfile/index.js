@@ -51,7 +51,7 @@ class PublicProfile extends PureComponent {
   componentDidMount() {
     const { Users } = this.props.Admin;
     const { id } = this.props.match.params;
-    const UserIndex = Users.findIndex(user => user.id == id);
+    const UserIndex = Users && Users.findIndex(user => user.id == id);
     if (UserIndex != -1) this.props.setUser(Users[UserIndex]);
     this.props.getUser(id);
   }

@@ -203,8 +203,12 @@ class Images extends PureComponent {
               </div>
             )}
             <div className="gallerySummary">
-              <h4>{gallery.title}</h4>
-              <p>{gallery.description}</p>
+              <h4>
+                <i className="fas fa-heading" /> {gallery.title}
+              </h4>
+              <p>
+                <i className="fas fa-clipboard" /> {gallery.description}
+              </p>
               <div className="cardActions">
                 <ConfirmAction
                   Action={e => {
@@ -258,7 +262,17 @@ class Images extends PureComponent {
                   <i className="far fa-clock" />
                   <Moment fromNow>{gallery.date_created}</Moment>
                 </div>
-
+                <div className="inlineNoWrap">
+                  <i className="fas fa-pencil-alt" />
+                  <Link
+                    to={"/profile/" + gallery.last_modified_by}
+                    onClick={e => e.stopPropagation()}
+                  >
+                    {gallery.last_modified_by_username}
+                  </Link>{" "}
+                  <i className="far fa-clock" />
+                  <Moment fromNow>{gallery.last_modified}</Moment>
+                </div>
                 <div>
                   <i className="fas fa-tags" /> [{gallery.tags}]
                 </div>

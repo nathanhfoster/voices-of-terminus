@@ -1,17 +1,32 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
+import { isSubset } from "../helpers";
 
 export const getGalleries = () => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: C.GET_GALLERIES_LOADING });
     return Axios()
       .get("galleries/all/")
-      .then(res => {
-        dispatch({
-          type: C.GET_GALLERIES,
-          payload: res.data
-        });
+      .then(galleries => {
+        const { Galleries } = getState();
+        const hasImage = Galleries.results.every(gallery => gallery.image);
+        if (
+          !hasImage ||
+          !isSubset(
+            Galleries.results.map(k => k.id),
+            galleries.data.results.map(k => k.id)
+          ) ||
+          !isSubset(
+            Galleries.results.map(k => k.last_modified),
+            galleries.data.results.map(k => k.last_modified)
+          )
+        ) {
+          dispatch({
+            type: C.GET_GALLERIES,
+            payload: galleries.data
+          });
+        }
       })
       .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
   };
@@ -39,6 +54,7 @@ export const getGalleryImage = id => {
 };
 
 export const updateGallery = (id, token, payload) => {
+  delete payload.image;
   return (dispatch, getState) =>
     Axios(token)
       .patch(`galleries/${id}/`, qs.stringify(payload))
@@ -103,17 +119,35 @@ export const postGallery = (token, payload) => {
 };
 
 export const viewGalleryImages = id => {
-  return dispatch => {
+  return (dispatch, getState) => {
     dispatch({ type: C.GET_GALLERY_LOADING });
     Axios()
       .get(`gallery/images/${id}/view/`)
-      .then(res => {
-        dispatch({
-          type: C.GET_GALLERY,
-          payload: res.data
-        });
+      .then(gallery => {
+        const { Gallery } = getState().Galleries;
+        const hasImage = Gallery.results.every(gallery => gallery.image);
+        if (
+          !hasImage ||
+          !isSubset(
+            Gallery.results.map(k => k.id),
+            gallery.data.results.map(k => k.id)
+          ) ||
+          !isSubset(
+            Gallery.results.map(k => k.last_modified),
+            gallery.data.results.map(k => k.last_modified)
+          ) ||
+          !isSubset(
+            Gallery.results.map(k => k.views),
+            gallery.data.results.map(k => k.views)
+          )
+        ) {
+          dispatch({
+            type: C.GET_GALLERY,
+            payload: gallery.data
+          });
+        }
       })
-      .catch(e => dispatch({ type: C.GET_GALLERY_ERROR }));
+      .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
   };
 };
 
