@@ -50,26 +50,28 @@ export const getArticles = () => {
                     articles.data.results[i].likeCount +
                     articles.data.results[i].commentCount;
                 }
-                // const { Articles } = getState();
-                // if (
-                //   !isSubset(
-                //     Articles.results.map(k => k.id),
-                //     articles.data.results.map(k => k.id)
-                //   ) ||
-                //   !isSubset(
-                //     Articles.results.map(k => k.last_modified),
-                //     articles.data.results.map(k => k.last_modified)
-                //   ) ||
-                //   !isSubset(
-                //     Articles.results.map(k => k.views),
-                //     articles.data.results.map(k => k.views)
-                //   )
-                // ) {
-                dispatch({
-                  type: C.GET_ARTICLES,
-                  payload: articles.data
-                });
-                //}
+                const { Articles } = getState();
+                const hasHtml = Articles.results.every(article => article.html);
+                if (
+                  !hasHtml ||
+                  !isSubset(
+                    Articles.results.map(k => k.id),
+                    articles.data.results.map(k => k.id)
+                  ) ||
+                  !isSubset(
+                    Articles.results.map(k => k.last_modified),
+                    articles.data.results.map(k => k.last_modified)
+                  ) ||
+                  !isSubset(
+                    Articles.results.map(k => k.views),
+                    articles.data.results.map(k => k.views)
+                  )
+                ) {
+                  dispatch({
+                    type: C.GET_ARTICLES,
+                    payload: articles.data
+                  });
+                }
               });
           });
       })
