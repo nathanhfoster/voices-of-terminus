@@ -190,11 +190,11 @@ class Gallery extends PureComponent {
     const canUpdate = User.is_superuser || User.can_create_galleries;
     return images
       .filter(img => (dontFilter ? img : isSubset(img.tags.split("|"), filter)))
-      .map(image => (
+      .map((image, index) => (
         <Col md={4} xs={12} className="galleryCardContainer" key={image.id}>
           <div
             className="Clickable galleryCard Hover"
-            onClick={() => this.setState({ isOpen: true })}
+            onClick={() => this.setState({ isOpen: true, photoIndex: index })}
           >
             <Image src={image.image} />
             <div className="gallerySummary">
@@ -356,9 +356,16 @@ class Gallery extends PureComponent {
         <Row>
           {isOpen && (
             <Lightbox
+              imageTitle={images[photoIndex].title}
+              imageCaption={images[photoIndex].description}
               mainSrc={images[photoIndex].image}
+              mainSrcThumbnail={images[photoIndex].image}
               nextSrc={images[(photoIndex + 1) % images.length].image}
+              nextSrcThumbnail={images[(photoIndex + 1) % images.length].image}
               prevSrc={
+                images[(photoIndex + images.length - 1) % images.length].image
+              }
+              prevSrcThumbnail={
                 images[(photoIndex + images.length - 1) % images.length].image
               }
               onCloseRequest={() => this.setState({ isOpen: false })}
