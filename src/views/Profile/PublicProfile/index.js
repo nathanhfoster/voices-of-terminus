@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -12,7 +12,7 @@ import {
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { getUser } from "../../../actions/App";
+import { getUser, setUser } from "../../../actions/App";
 import { withRouter } from "react-router-dom";
 import {
   statusLevelInt,
@@ -29,10 +29,11 @@ const mapStateToProps = ({ User, Admin }) => ({
 });
 
 const mapDispatchToProps = {
-  getUser
+  getUser,
+  setUser
 };
 
-class PublicProfile extends Component {
+class PublicProfile extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -47,10 +48,11 @@ class PublicProfile extends Component {
     this.getState(this.props);
   }
 
-  componentWillUpdate() {}
-
   componentDidMount() {
+    const { Users } = this.props.Admin;
     const { id } = this.props.match.params;
+    const UserIndex = Users.findIndex(user => user.id == id);
+    if (UserIndex != -1) this.props.setUser(Users[UserIndex]);
     this.props.getUser(id);
   }
 
@@ -62,10 +64,6 @@ class PublicProfile extends Component {
     const { User } = props.Admin;
     this.setState({ User });
   };
-
-  componentDidUpdate() {}
-
-  componentWillUnmount() {}
 
   renderRoles = roles =>
     Object.keys(roles).map(k => {

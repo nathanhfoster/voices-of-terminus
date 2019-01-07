@@ -147,6 +147,14 @@ export const clearApiResponse = () => {
     });
 };
 
+export const setUser = User => {
+  return dispatch =>
+    dispatch({
+      type: C.GET_USER,
+      payload: User
+    });
+};
+
 export const getUser = id => {
   return dispatch =>
     Axios()
