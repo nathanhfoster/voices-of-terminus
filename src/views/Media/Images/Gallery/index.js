@@ -23,6 +23,7 @@ import { connect as reduxConnect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import {
   viewGalleryImages,
+  viewGalleryImage,
   postGalleryImage,
   updateGalleryImage,
   deleteGalleryImage
@@ -42,6 +43,7 @@ const mapStateToProps = ({ User, Galleries }) => ({
 
 const mapDispatchToProps = {
   viewGalleryImages,
+  viewGalleryImage,
   postGalleryImage,
   updateGalleryImage,
   deleteGalleryImage
@@ -95,7 +97,18 @@ class Gallery extends PureComponent {
         ? Galleries.results[GalleryTitleIndex].title
         : null;
     const { Gallery } = Galleries;
+    this.getGalleryImage(Gallery);
     this.setState({ User, id, GalleryTitle, Gallery });
+  };
+
+  getGalleryImage = Gallery => {
+    const { loading, results } = Gallery;
+    const emptyGalleryImage = results.findIndex(
+      gallery => !gallery.hasOwnProperty("image")
+    );
+    if (emptyGalleryImage != -1 && !loading)
+      return this.props.viewGalleryImage(results[emptyGalleryImage].id);
+    return null;
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {

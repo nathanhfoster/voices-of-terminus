@@ -37,33 +37,33 @@ export const DiscordData = (state = {}, action) =>
 export const editorState = (state = null, action) =>
   action.type === C.SET_EDITOR_STATE ? action.payload : state;
 
-  export const Articles = (state = { results: [] }, action) => {
-    switch (action.type) {
-      case C.GET_ARTICLES_LOADING:
-        return {
-          ...state,
-          loading: true,
-          loaded: false
-        };
-      case C.GET_ARTICLES:
-        return {
-          ...action.payload,
-          loading: false,
-          loaded: true,
-          error: null
-        };
-  
-      case C.GET_ARTICLES_ERROR:
-        return {
-          ...state,
-          loading: false,
-          loaded: true,
-          error: action.payload
-        };
-      default:
-        return state;
-    }
-  };
+export const Articles = (state = { results: [] }, action) => {
+  switch (action.type) {
+    case C.GET_ARTICLES_LOADING:
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    case C.GET_ARTICLES:
+      return {
+        ...action.payload,
+        loading: false,
+        loaded: true,
+        error: null
+      };
+
+    case C.GET_ARTICLES_ERROR:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        error: action.payload
+      };
+    default:
+      return state;
+  }
+};
 
 export const Newsletters = (state = { results: [] }, action) => {
   switch (action.type) {
@@ -173,12 +173,48 @@ export const Settings = (
   }
 };
 
-export const Galleries = (state = { results: [] }, action) => {
+export const Galleries = (state = { results: [], Gallery: {} }, action) => {
   switch (action.type) {
+    case C.GET_GALLERIES_LOADING:
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
     case C.GET_GALLERIES:
-      return action.payload;
+      return {
+        ...action.payload,
+        loading: false,
+        loaded: true,
+        error: null,
+        Gallery: { results: [] }
+      };
+
+    case C.GET_GALLERY_LOADING:
+      return {
+        ...state,
+        loading: false,
+        loaded: true
+      };
+
     case C.GET_GALLERY:
-      return { ...state, Gallery: action.payload };
+      return {
+        ...state,
+        Gallery: {
+          ...action.payload,
+          loading: false,
+          loaded: true,
+          error: null
+        }
+      };
+
+    case C.GET_GALLERY_ERROR:
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        error: action.payload
+      };
     default:
       return state;
   }

@@ -3,8 +3,9 @@ import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 
 export const getGalleries = () => {
-  return dispatch =>
-    Axios()
+  return dispatch => {
+    dispatch({ type: C.GET_GALLERIES_LOADING });
+    return Axios()
       .get("galleries/")
       .then(res => {
         dispatch({
@@ -12,7 +13,29 @@ export const getGalleries = () => {
           payload: res.data
         });
       })
-      .catch(e => console.log(e));
+      .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
+  };
+};
+
+export const getGalleryImage = id => {
+  return (dispatch, getState) => {
+    Axios()
+      .get(`galleries/${id}/image/`)
+      .then(res => {
+        const { id, image } = res.data;
+        const { Galleries } = getState();
+        let payload = { ...Galleries };
+        const updatedIndex = payload.results.findIndex(
+          gallery => gallery.id == id
+        );
+        payload.results[updatedIndex].image = image;
+        dispatch({
+          type: C.GET_GALLERIES,
+          payload: payload
+        });
+      })
+      .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
+  };
 };
 
 export const updateGallery = (id, token, payload) => {
@@ -81,12 +104,34 @@ export const postGallery = (token, payload) => {
 
 export const viewGalleryImages = id => {
   return dispatch => {
+    dispatch({ type: C.GET_GALLERY_LOADING });
     Axios()
       .get(`gallery/images/${id}/view/`)
       .then(res => {
         dispatch({
           type: C.GET_GALLERY,
           payload: res.data
+        });
+      })
+      .catch(e => dispatch({ type: C.GET_GALLERY_ERROR }));
+  };
+};
+
+export const viewGalleryImage = id => {
+  return (dispatch, getState) => {
+    Axios()
+      .get(`gallery/images/${id}/image/`)
+      .then(res => {
+        const { id, image } = res.data;
+        const { Gallery } = getState().Galleries;
+        let payload = { ...Gallery };
+        const updatedIndex = payload.results.findIndex(
+          gallery => gallery.id == id
+        );
+        payload.results[updatedIndex].image = image;
+        dispatch({
+          type: C.GET_GALLERY,
+          payload: payload
         });
       })
       .catch(e => console.log(e));

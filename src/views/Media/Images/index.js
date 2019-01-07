@@ -22,6 +22,7 @@ import { newsSelectOptions } from "../../../helpers/select";
 import { selectStyles } from "../../../helpers/styles";
 import {
   getGalleries,
+  getGalleryImage,
   postGallery,
   updateGallery,
   deleteGallery
@@ -40,6 +41,7 @@ const mapStateToProps = ({ User, Galleries }) => ({
 
 const mapDispatchToProps = {
   getGalleries,
+  getGalleryImage,
   postGallery,
   updateGallery,
   deleteGallery
@@ -80,7 +82,18 @@ class Images extends PureComponent {
 
   getState = props => {
     const { User, Galleries } = props;
+    this.getGalleryImage(Galleries);
     this.setState({ User, Galleries });
+  };
+
+  getGalleryImage = Galleries => {
+    const { loading, results } = Galleries;
+    const emptyGalleryImage = results.findIndex(
+      gallery => !gallery.hasOwnProperty("image")
+    );
+    if (emptyGalleryImage != -1 && !loading)
+      return this.props.getGalleryImage(results[emptyGalleryImage].id);
+    return null;
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
