@@ -36,7 +36,8 @@ const store = storeFactory(initialState);
 const Clean = array => {
   for (let i = 0; i < array.length; i++) {
     const item = array[i];
-    delete item.html;
+    if (item.hasOwnProperty("html")) delete item.html;
+    if (item.hasOwnProperty("image")) delete item.image;
   }
   return array;
 };
@@ -61,12 +62,14 @@ const saveState = () => {
   } catch (e) {
     if (isQuotaExceeded(e)) {
       //console.log(localStorage);
-      // if (reduxStore.Articles.hasOwnProperty("results"))
-      //   reduxStore.Articles.results = Clean(reduxStore.Articles.results);
-      // if (reduxStore.Newsletters.hasOwnProperty("results"))
-      //   reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
-      // state = JSON.stringify(reduxStore);
-      // localStorage.setItem("redux-store", state);
+      if (reduxStore.Articles.hasOwnProperty("results"))
+        reduxStore.Articles.results = Clean(reduxStore.Articles.results);
+      if (reduxStore.Newsletters.hasOwnProperty("results"))
+        reduxStore.Newsletters.results = Clean(reduxStore.Newsletters.results);
+      if (reduxStore.Galleries.hasOwnProperty("results"))
+        reduxStore.Galleries.results = Clean(reduxStore.Galleries.results);
+      state = JSON.stringify(reduxStore);
+      localStorage.setItem("redux-store", state);
     }
   }
 
