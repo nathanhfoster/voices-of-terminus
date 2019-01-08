@@ -206,8 +206,9 @@ class Gallery extends PureComponent {
     return images
       .filter(img => (dontFilter ? img : isSubset(img.tags.split("|"), filter)))
       .map((image, index) => (
-        <Col md={4} xs={12} className="galleryCardContainer" key={image.id}>
+        <Col md={4} xs={12} className="galleryCardContainer">
           <div
+            key={image.id}
             className="Clickable galleryCard Hover"
             onClick={() => this.setState({ isOpen: true, photoIndex: index })}
           >

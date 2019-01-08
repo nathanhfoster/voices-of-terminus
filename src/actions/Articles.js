@@ -68,7 +68,7 @@ export const getArticles = () => {
                   )
                 ) {
                   dispatch({
-                    type: C.GET_ARTICLES,
+                    type: C.GET_ARTICLES_SUCCESS,
                     payload: articles.data
                   });
                 }
@@ -87,7 +87,7 @@ export const nextArticles = paginator => {
         const { Articles } = getState();
         res.data.results = Articles.results.concat(res.data.results);
         dispatch({
-          type: C.GET_ARTICLES,
+          type: C.GET_ARTICLES_SUCCESS,
           payload: res.data
         });
       })
@@ -107,7 +107,7 @@ export const getArticlerHtml = id => {
         );
         payload.results[updatedIndex].html = html;
         dispatch({
-          type: C.GET_ARTICLES,
+          type: C.GET_ARTICLES_SUCCESS,
           payload: payload
         });
       })
@@ -139,7 +139,7 @@ export const viewArticle = id => {
         if (ArticleViewsIndex != -1) {
           payload.results[ArticleViewsIndex] = res.data;
           dispatch({
-            type: C.GET_ARTICLES,
+            type: C.GET_ARTICLES_SUCCESS,
             payload: payload
           });
         }
@@ -163,14 +163,16 @@ export const viewArticle = id => {
 
 export const postArticle = (token, payload) => {
   return (dispatch, getState) => {
+    dispatch({ type: C.POST_ARTICLES_LOADING });
     Axios(token)
       .post("articles/", qs.stringify(payload))
       .then(res => {
         const { Articles } = getState();
         let payload = { ...Articles };
         payload.results.push(res.data);
+        dispatch({ type: C.POST_ARTICLES_SUCCESS });
         dispatch({
-          type: C.GET_ARTICLES,
+          type: C.GET_ARTICLES_SUCCESS,
           payload: payload
         });
         dispatch({
@@ -267,7 +269,8 @@ export const deleteArticleComment = (id, token) => {
 };
 
 export const updateArticle = (id, token, payload) => {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.UPDATE_ARTICLES_LOADING });
     Axios(token)
       .patch(`articles/${id}/`, qs.stringify(payload))
       .then(res => {
@@ -277,17 +280,14 @@ export const updateArticle = (id, token, payload) => {
           i => i.id === res.data.id
         );
         payload.results[updatedIndex] = res.data;
+        dispatch({ type: C.UPDATE_ARTICLES_SUCCESS });
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
         });
         dispatch({
-          type: C.GET_ARTICLES,
+          type: C.GET_ARTICLES_SUCCESS,
           payload: payload
-        });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
         });
       })
       .catch(e =>
@@ -296,6 +296,7 @@ export const updateArticle = (id, token, payload) => {
           payload: e.response
         })
       );
+  };
 };
 
 export const deleteArticle = (id, token) => {
@@ -309,9 +310,12 @@ export const deleteArticle = (id, token) => {
           article => article.id !== id
         );
         dispatch({
-          type: C.GET_ARTICLES,
+          type: C.GET_ARTICLES_SUCCESS,
           payload: res.data
         });
       })
       .catch(e => console.log(e));
 };
+
+export const clearArticlesApi = () => dispatch =>
+  dispatch({ type: C.CLEAR_ARTICLES_API });

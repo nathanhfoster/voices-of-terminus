@@ -66,7 +66,7 @@ export const getNewsletters = () => {
                   )
                 ) {
                   dispatch({
-                    type: C.GET_NEWSLETTERS,
+                    type: C.GET_NEWSLETTERS_SUCCESS,
                     payload: newsletters.data
                   });
                 }
@@ -85,7 +85,7 @@ export const nextNewsletters = paginator => {
         const { Newsletters } = getState();
         res.data.results = Newsletters.results.concat(res.data.results);
         dispatch({
-          type: C.GET_NEWSLETTERS,
+          type: C.GET_NEWSLETTERS_SUCCESS,
           payload: res.data
         });
       })
@@ -105,7 +105,7 @@ export const getNewsletterHtml = id => {
         );
         payload.results[updatedIndex].html = html;
         dispatch({
-          type: C.GET_NEWSLETTERS,
+          type: C.GET_NEWSLETTERS_SUCCESS,
           payload: payload
         });
       })
@@ -137,7 +137,7 @@ export const viewNewsletter = id => {
         if (NewsletterViewsIndex != -1) {
           payload.results[NewsletterViewsIndex] = res.data;
           dispatch({
-            type: C.GET_NEWSLETTERS,
+            type: C.GET_NEWSLETTERS_SUCCESS,
             payload: payload
           });
         }
@@ -161,19 +161,17 @@ export const viewNewsletter = id => {
 
 export const postNewsletter = (token, payload) => {
   return (dispatch, getState) => {
+    dispatch({ type: C.POST_NEWSLETTERS_LOADING });
     Axios(token)
       .post("newsletters/", qs.stringify(payload))
       .then(res => {
         const { Newsletters } = getState();
         let payload = { ...Newsletters };
         payload.results.push(res.data);
+        dispatch({ type: C.POST_NEWSLETTERS_SUCCESS });
         dispatch({
-          type: C.GET_NEWSLETTERS,
+          type: C.GET_NEWSLETTERS_SUCCESS,
           payload: payload
-        });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
         });
       })
       .catch(e =>
@@ -260,7 +258,8 @@ export const deleteNewsletterComment = (id, token) => {
 };
 
 export const updateNewsLetter = (id, token, payload) => {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.UPDATE_NEWSLETTERS_LOADING });
     Axios(token)
       .patch(`newsletters/${id}/`, qs.stringify(payload))
       .then(res => {
@@ -270,17 +269,14 @@ export const updateNewsLetter = (id, token, payload) => {
           i => i.id === res.data.id
         );
         payload.results[updatedIndex] = res.data;
+        dispatch({ type: C.UPDATE_NEWSLETTERS_SUCCESS });
         dispatch({
           type: C.GET_HTML_DOCUMENT,
           payload: res.data
         });
         dispatch({
-          type: C.GET_NEWSLETTERS,
+          type: C.GET_NEWSLETTERS_SUCCESS,
           payload: payload
-        });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
         });
       })
       .catch(e =>
@@ -289,6 +285,7 @@ export const updateNewsLetter = (id, token, payload) => {
           payload: e.response
         })
       );
+  };
 };
 
 export const deleteNewsLetter = (id, token) => {
@@ -302,9 +299,12 @@ export const deleteNewsLetter = (id, token) => {
           article => article.id !== id
         );
         dispatch({
-          type: C.GET_NEWSLETTERS,
+          type: C.GET_NEWSLETTERS_SUCCESS,
           payload: res.data
         });
       })
       .catch(e => console.log(e));
 };
+
+export const clearNewsletterApi = () => dispatch =>
+  dispatch({ type: C.CLEAR_NEWSLETTERS_API });

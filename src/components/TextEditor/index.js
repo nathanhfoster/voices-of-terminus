@@ -20,7 +20,11 @@ import draftToHtml from "draftjs-to-html";
 import htmlToDraft from "html-to-draftjs";
 import { setEditorState } from "../../actions/TextEditor";
 import { clearHtmlDocument } from "../../actions/App";
-import { postArticle, updateArticle } from "../../actions/Articles";
+import {
+  postArticle,
+  updateArticle,
+  clearArticlesApi
+} from "../../actions/Articles";
 import { getUsers } from "../../actions/Admin";
 import { withRouter, Redirect } from "react-router-dom";
 import Select from "react-select";
@@ -28,8 +32,16 @@ import { selectStyles } from "../../helpers/styles";
 import { isEquivalent } from "../../helpers";
 import { articleSlectOptions } from "../../helpers/select";
 import { options } from "./options";
+import { Articles } from "../../store/reducers";
 
-const mapStateToProps = ({ editorState, HtmlDocument, User, Admin }) => ({
+const mapStateToProps = ({
+  Articles,
+  editorState,
+  HtmlDocument,
+  User,
+  Admin
+}) => ({
+  Articles,
   editorState,
   HtmlDocument,
   User,
@@ -41,7 +53,8 @@ const mapDispatchToProps = {
   setEditorState,
   updateArticle,
   clearHtmlDocument,
-  getUsers
+  getUsers,
+  clearArticlesApi
 };
 
 class TextEditor extends Component {
@@ -97,7 +110,9 @@ class TextEditor extends Component {
   }
 
   componentDidMount() {
-    this.props.getUsers();
+    const { getUsers, clearArticlesApi } = this.props;
+    clearArticlesApi();
+    getUsers();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -105,7 +120,7 @@ class TextEditor extends Component {
   }
 
   getState = props => {
-    let { selectOptions, editorState, Admin } = props;
+    let { Articles, selectOptions, editorState, Admin } = props;
     const { Users } = Admin;
     const suggestions = Users.map(
       user =>
@@ -140,6 +155,7 @@ class TextEditor extends Component {
     } else editorState = EditorState.createEmpty();
 
     this.setState({
+      Articles,
       User,
       HtmlDocument,
       id,
@@ -153,9 +169,11 @@ class TextEditor extends Component {
   };
 
   componentWillUnmount() {
+    const { setEditorState, clearHtmlDocument, clearArticlesApi } = this.props;
     const { editorState } = this.state;
-    this.props.setEditorState(editorState);
-    this.props.clearHtmlDocument();
+    clearArticlesApi();
+    setEditorState(editorState);
+    clearHtmlDocument();
   }
 
   onEditorStateChange = editorState => {
@@ -220,9 +238,11 @@ class TextEditor extends Component {
       editorState,
       HtmlDocument,
       selectValue,
-      suggestions
+      suggestions,
+      Articles
     } = this.state;
-
+    const { posting, posted, updating, updated, error } = Articles;
+    console.log(posting, posted);
     return !User.token ? (
       <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_article) ? (
@@ -241,14 +261,34 @@ class TextEditor extends Component {
               type="submit"
               onClick={this.postArticle}
             >
-              Post
+              {posting && !posted
+                ? [<i className="fa fa-spinner fa-spin" />, " POST"]
+                : !posting && posted && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " POST"
+                  ]
+                : "POST"}
             </Button>
             <Button
               type="submit"
               onClick={() => this.updateArticle(id)}
               disabled={!id}
             >
-              Update
+              {updating && !updated
+                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                : !updating && updated && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " UPDATE"
+                  ]
+                : "UPDATE"}
             </Button>
           </Col>
           <Col

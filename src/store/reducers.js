@@ -1,5 +1,6 @@
 import C from "../constants.js";
 import { combineReducers } from "redux";
+import { stat } from "fs";
 
 export const ApiResponse = (state = {}, action) =>
   action.type === C.SET_API_RESPONSE
@@ -37,33 +38,71 @@ export const DiscordData = (state = {}, action) =>
 export const editorState = (state = null, action) =>
   action.type === C.SET_EDITOR_STATE ? action.payload : state;
 
-export const Articles = (state = { results: [] }, action) => {
-  switch (action.type) {
-    case C.GET_ARTICLES_LOADING:
-      return {
-        ...state,
-        loading: true,
-        loaded: false
-      };
-    case C.GET_ARTICLES:
-      return {
-        ...action.payload,
-        loading: false,
-        loaded: true,
-        error: null
-      };
-
-    case C.GET_ARTICLES_ERROR:
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        error: action.payload
-      };
-    default:
-      return state;
-  }
-};
+  export const Articles = (state = { results: [] }, action) => {
+    switch (action.type) {
+      case C.GET_ARTICLES_LOADING:
+        return {
+          ...state,
+          loading: true,
+          loaded: false
+        };
+      case C.GET_ARTICLES_SUCCESS:
+        const { posting, posted, updating, updated } = state;
+        return {
+          ...action.payload,
+          loading: false,
+          loaded: true,
+          posting,
+          posted,
+          updating,
+          updated,
+          error: null
+        };
+      case C.GET_ARTICLES_ERROR:
+        return {
+          ...state,
+          loading: false,
+          loaded: true,
+          error: action.payload
+        };
+      case C.POST_ARTICLES_LOADING:
+        return {
+          ...state,
+          posting: true,
+          posted: false
+        };
+      case C.POST_ARTICLES_SUCCESS:
+        return {
+          ...state,
+          posting: false,
+          posted: true,
+          error: null
+        };
+      case C.UPDATE_ARTICLES_LOADING:
+        return {
+          ...state,
+          updating: true,
+          updated: false
+        };
+      case C.UPDATE_ARTICLES_SUCCESS:
+        return {
+          ...state,
+          updating: false,
+          updated: true,
+          error: null
+        };
+      case C.CLEAR_ARTICLES_API:
+        return {
+          ...state,
+          posting: false,
+          posted: false,
+          updating: false,
+          updated: false
+        };
+      default:
+        return state;
+    }
+  };
 
 export const Newsletters = (state = { results: [] }, action) => {
   switch (action.type) {
@@ -73,20 +112,58 @@ export const Newsletters = (state = { results: [] }, action) => {
         loading: true,
         loaded: false
       };
-    case C.GET_NEWSLETTERS:
+    case C.GET_NEWSLETTERS_SUCCESS:
+      const { posting, posted, updating, updated } = state;
       return {
         ...action.payload,
         loading: false,
         loaded: true,
+        posting,
+        posted,
+        updating,
+        updated,
         error: null
       };
-
     case C.GET_NEWSLETTERS_ERROR:
       return {
         ...state,
         loading: false,
         loaded: true,
         error: action.payload
+      };
+    case C.POST_NEWSLETTERS_LOADING:
+      return {
+        ...state,
+        posting: true,
+        posted: false
+      };
+    case C.POST_NEWSLETTERS_SUCCESS:
+      return {
+        ...state,
+        posting: false,
+        posted: true,
+        error: null
+      };
+    case C.UPDATE_NEWSLETTERS_LOADING:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      };
+    case C.UPDATE_NEWSLETTERS_SUCCESS:
+      return {
+        ...state,
+        updating: false,
+        updated: true,
+        error: null
+      };
+    case C.CLEAR_NEWSLETTERS_API:
+      return {
+        ...state,
+        posting: false,
+        posted: false,
+        updating: false,
+        updated: false
       };
     default:
       return state;

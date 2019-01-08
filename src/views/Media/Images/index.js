@@ -190,6 +190,7 @@ class Images extends PureComponent {
       .map(gallery => (
         <Col md={4} xs={12} className="galleryCardContainer">
           <div
+            key={gallery.id}
             className="Clickable galleryCard Hover"
             onClick={() =>
               this.props.history.push(`/media/images/gallery/${gallery.id}`)

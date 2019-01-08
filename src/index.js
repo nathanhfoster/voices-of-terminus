@@ -73,8 +73,8 @@ const saveState = () => {
     }
   }
 
-  function isQuotaExceeded(e) {
-    var quotaExceeded = false;
+  const isQuotaExceeded = e => {
+    let quotaExceeded = false;
     if (e) {
       if (e.code) {
         switch (e.code) {
@@ -94,6 +94,6 @@ const saveState = () => {
       }
     }
     return quotaExceeded;
-  }
+  };
 };
 store.subscribe(saveState);

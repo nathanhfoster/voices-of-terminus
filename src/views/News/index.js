@@ -250,9 +250,10 @@ class News extends Component {
           className += "CardContainerNewsletter";
         }
         return (
-          <Col className={className} md={3} sm={6} xs={12} key={card.id}>
+          <Col className={className} md={3} sm={6} xs={12}>
             <Card
               {...card}
+              key={card.id}
               User={User}
               canDelete={hasDeletePermission(User, card.author, card.tags)}
               canUpdate={hasUpdatePermission(User, card.author, card.tags)}
@@ -475,8 +476,8 @@ class News extends Component {
         </Row>
       </Grid>
     ) : (
-      <div style="position: absolute; top: 25%; right: 50%;">
-        <i class="fa fa-spinner fa-spin" />
+      <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+        <i className="fa fa-spinner fa-spin" />
       </div>
     );
   }

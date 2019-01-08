@@ -21,7 +21,8 @@ import {
   getNewsletters,
   getNewsletter,
   deleteNewsLetter,
-  updateNewsLetter
+  updateNewsLetter,
+  clearNewsletterApi
 } from "../../actions/NewsLetter";
 import { clearHtmlDocument } from "../../actions/App";
 import { withRouter, Redirect } from "react-router-dom";
@@ -45,7 +46,8 @@ const mapDispatchToProps = {
   getNewsletter,
   deleteNewsLetter,
   updateNewsLetter,
-  clearHtmlDocument
+  clearHtmlDocument,
+  clearNewsletterApi
 };
 
 class NewsLetterGenerator extends PureComponent {
@@ -78,7 +80,10 @@ class NewsLetterGenerator extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { clearNewsletterApi } = this.props;
+    clearNewsletterApi();
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -110,8 +115,10 @@ class NewsLetterGenerator extends PureComponent {
   };
 
   componentWillUnmount() {
+    const { clearHtmlDocument, clearNewsletterApi } = this.props;
     this.setState({ HtmlDocument: null });
-    this.props.clearHtmlDocument();
+    clearHtmlDocument();
+    clearNewsletterApi();
   }
 
   postNewsletter = () => {
@@ -228,6 +235,7 @@ class NewsLetterGenerator extends PureComponent {
       id,
       selectValue
     } = this.state;
+    const { posting, posted, updating, updated, error } = Newsletters;
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
     const design =
@@ -253,10 +261,30 @@ class NewsLetterGenerator extends PureComponent {
               disabled={!selectValue[0].value}
               onClick={this.postNewsletter}
             >
-              POST
+              {posting && !posted
+                ? [<i className="fa fa-spinner fa-spin" />, " POST"]
+                : !posting && posted && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " POST"
+                  ]
+                : "POST"}
             </Button>
             <Button onClick={this.updateNewsletter} disabled={!isEditingDesign}>
-              UPDATE
+              {updating && !updated
+                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                : !updating && updated && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " UPDATE"
+                  ]
+                : "UPDATE"}
             </Button>
           </Col>
           <Col xs={4}>
