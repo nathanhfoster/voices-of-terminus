@@ -267,9 +267,7 @@ class ViewHtmlDocument extends PureComponent {
           <Col xs={6} className="Center">
             <h3>
               <Button
-                disabled={
-                  !((User.token && amountLiked < 5 && likes) || likeTotal)
-                }
+                disabled={!(User.token && amountLiked < 5)}
                 onClick={this.likeDocument}
               >
                 <i className="fa fa-thumbs-up" /> {likeTotal}
