@@ -185,7 +185,7 @@ export const refreshUser = (id, token) => {
         });
       })
       .catch(e =>
-        e && e.response.status == 401
+        e.response && e.response.status == 401
           ? dispatch({
               type: C.SET_LOGOUT,
               payload: null
