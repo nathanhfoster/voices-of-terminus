@@ -301,7 +301,6 @@ class Gallery extends PureComponent {
   };
 
   render() {
-    const { User } = this.props;
     const {
       GalleryTitle,
       Gallery,
@@ -311,8 +310,11 @@ class Gallery extends PureComponent {
       search,
       editing,
       photoIndex,
-      isOpen
+      isOpen,
+      User
     } = this.state;
+    const canDelete = User.is_superuser || User.can_create_galleries;
+    const canUpdate = User.is_superuser || User.can_create_galleries;
     let images = Gallery ? Gallery.results : [];
     images = search
       ? matchSorter(images, search, {
@@ -393,6 +395,50 @@ class Gallery extends PureComponent {
         <Row>
           {isOpen && (
             <Lightbox
+              toolbarButtons={[
+                canUpdate ? (
+                  <Button
+                    className="LightboxButton"
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.setState({
+                        show: true,
+                        editing: true,
+                        image_id: images[photoIndex].id,
+                        title: images[photoIndex].title,
+                        description: images[photoIndex].description,
+                        tags: images[photoIndex].tags
+                          .split("|")
+                          .map(i => (i = { value: i, label: i })),
+                        image: images[photoIndex].image
+                      });
+                    }}
+                  >
+                    <i className="fa fa-pencil-alt" />
+                  </Button>
+                ) : null,
+                <ConfirmAction
+                  Action={e => {
+                    e.stopPropagation();
+                    this.props.deleteGalleryImage(
+                      images[photoIndex].id,
+                      User.token
+                    );
+                    this.setState({
+                      isOpen: false,
+                      images: images.filter(
+                        img => img.id != images[photoIndex].id
+                      )
+                    });
+                  }}
+                  Disabled={false}
+                  Icon={<i className="fa fa-trash-alt" />}
+                  hasPermission={canDelete}
+                  Size=""
+                  Class="LightboxButton"
+                  Title={images[photoIndex].title}
+                />
+              ]}
               imageTitle={images[photoIndex].title}
               imageCaption={images[photoIndex].description}
               mainSrc={images[photoIndex].image}
@@ -416,6 +462,11 @@ class Gallery extends PureComponent {
                   photoIndex: (photoIndex + 1) % images.length
                 })
               }
+              nextLabel={<i className="fas fa-caret-right fa-2x">NEXT</i>}
+              // prevLabel={}
+              // zoomInLabel={}
+              // zoomOutLabel={}
+              // closeLabel={}
             />
           )}
         </Row>

@@ -1,2 +1,17 @@
-.Template {
+.LightboxButton {
+  margin: 4px;
 }
+.LightboxIcon:hover {
+  color: var(--primaryColor);
+}
+/* 
+.ril__zoomInButton {
+  background: none !important;
+}
+
+.ril__zoomInButton:before {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  content: "\f00e";
+  font-size: 24px;
+} */
