@@ -4,16 +4,18 @@ import axios from "axios";
 import Cookies from "js-cookie";
 import YTube from "ytube";
 import qs from "qs";
-const youTubeKey = process.env.REACT_APP_YOUTUBE_API_KEY;
-const ytube = new YTube(youTubeKey);
-const votYouTubeChanneID = process.env.REACT_APP_VOT_YOUTUBE_CHANNEL_ID;
-const vrYouTubeChanneID = process.env.REACT_APP_VR_YOUTUBE_CHANNEL_ID;
-const votPlaylistIdShow = process.env.REACT_APP_VOT_PLAYLIST_ID_SHOW;
+const {
+  REACT_APP_YOUTUBE_API_KEY,
+  REACT_APP_VOT_YOUTUBE_CHANNEL_ID,
+  REACT_APP_VR_YOUTUBE_CHANNEL_ID,
+  REACT_APP_VOT_PLAYLIST_ID_SHOW
+} = process.env;
+const ytube = new YTube(REACT_APP_YOUTUBE_API_KEY);
 
 export const getVoTYouTubeChannelData = () => {
   return dispatch =>
     ytube
-      .getChannelsLatestVideos(votYouTubeChanneID, 50)
+      .getChannelsLatestVideos(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
       .then(res => {
         dispatch({
           type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
@@ -26,7 +28,7 @@ export const getVoTYouTubeChannelData = () => {
 export const getVotChannelsPlayLists = () => {
   return dispatch =>
     ytube
-      .getChannelsPlayLists(votYouTubeChanneID, 50)
+      .getChannelsPlayLists(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
       .then(res => {
         dispatch({
           type: C.GET_VOT_CHANNELS_PLAYLISTS,
@@ -39,7 +41,7 @@ export const getVotChannelsPlayLists = () => {
 export const getVotPlaylistShow = () => {
   return dispatch =>
     ytube
-      .getPlaylistVideos(votPlaylistIdShow, 50)
+      .getPlaylistVideos(REACT_APP_VOT_PLAYLIST_ID_SHOW, 50)
       .then(res => {
         dispatch({
           type: C.GET_VOT_PLAYLIST_SHOW,
@@ -80,7 +82,7 @@ export const getAllVotYouTube = () => {
 export const getVRYouTubeChannelData = () => {
   return dispatch =>
     ytube
-      .getChannelsLatestVideos(vrYouTubeChanneID, 50)
+      .getChannelsLatestVideos(REACT_APP_VR_YOUTUBE_CHANNEL_ID, 50)
       .then(res => {
         dispatch({
           type: C.GET_VR_YOUTUBE_CHANNEL_DATA,

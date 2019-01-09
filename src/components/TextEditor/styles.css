@@ -102,6 +102,7 @@
 }
 
 .TextEditor .DraftEditor-root {
+  overflow: auto;
   padding: 0 20px 0 20px;
 }
 .TextEditor .Editor {
@@ -110,8 +111,8 @@
   border: 0;
   border-radius: 4px;
   border: 1px solid var(--gray);
-  padding: 8px;
-  letter-spacing: 2px;
+  /* padding: 8px; */
+  letter-spacing: 1.1px;
 }
 .TextEditor .rdw-editor-toolbar {
   /* margin-bottom: 20px; */

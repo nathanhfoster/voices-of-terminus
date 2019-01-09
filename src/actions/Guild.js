@@ -1,11 +1,11 @@
 import C from "../constants";
 import axios from "axios";
-const DISCORD_URL = process.env.REACT_APP_DISCORD_API_URL;
+const { REACT_APP_DISCORD_API_URL } = process.env;
 
 export const getGuildMembers = () => {
   return dispatch =>
     axios
-      .get(DISCORD_URL)
+      .get(REACT_APP_DISCORD_API_URL)
       .then(res => res.data)
       .then(payload => {
         const discordMembers = Object.keys(payload.members).map(i => {

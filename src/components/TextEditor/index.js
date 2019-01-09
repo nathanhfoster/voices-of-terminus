@@ -172,7 +172,7 @@ class TextEditor extends Component {
     const { setEditorState, clearHtmlDocument, clearArticlesApi } = this.props;
     const { editorState } = this.state;
     clearArticlesApi();
-    setEditorState(editorState);
+    //setEditorState(editorState);
     clearHtmlDocument();
   }
 
@@ -242,7 +242,6 @@ class TextEditor extends Component {
       Articles
     } = this.state;
     const { posting, posted, updating, updated, error } = Articles;
-    console.log(posting, posted);
     return !User.token ? (
       <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_article) ? (

@@ -33,6 +33,7 @@ import Select from "react-select";
 import { getImageBase64 } from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/select";
+import { getFavorites, postStatus } from "../../actions/Twitter";
 
 const mapStateToProps = ({ Newsletters, HtmlDocument, User }) => ({
   Newsletters,
@@ -81,6 +82,8 @@ class NewsLetterGenerator extends PureComponent {
   }
 
   componentDidMount() {
+    getFavorites();
+    postStatus();
     const { clearNewsletterApi } = this.props;
     clearNewsletterApi();
   }
