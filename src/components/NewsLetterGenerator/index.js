@@ -357,6 +357,7 @@ class NewsLetterGenerator extends PureComponent {
           <EmailEditor
             id="editor"
             projectId="1558"
+            displayMode="web"
             templateId="UVUlFBYAZkRx58DwbDkC3BU4JrEmCW9AN8flo4vYtEAg9h1ULftKMXpu2UIEGDZs"
             minHeight="calc(100vh - 58px)"
             ref={editor => (this.editor = editor)}
