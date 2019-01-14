@@ -367,6 +367,14 @@ class NewsLetterGenerator extends PureComponent {
             onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
             options={{
               //templateId: 1,
+              appearance: {
+    theme: 'dark',
+    panels: {
+      tools: {
+        dock: 'right'
+      }
+    }
+  },
               tools: {
                 image: {
                   enabled: true
