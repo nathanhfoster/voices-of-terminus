@@ -15,7 +15,6 @@ let client = new Twitter({
 });
 
 export const getFavorites = () => {
-  console.log("CALLED: ", REACT_APP_TWITTER_CONSUMER_KEY);
   client.get("favorites/list", function(error, tweets, response) {
     if (error) throw error;
     console.log(tweets); // The favorites.

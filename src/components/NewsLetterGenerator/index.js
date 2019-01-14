@@ -82,8 +82,6 @@ class NewsLetterGenerator extends PureComponent {
   }
 
   componentDidMount() {
-    getFavorites();
-    postStatus();
     const { clearNewsletterApi } = this.props;
     clearNewsletterApi();
   }
@@ -368,13 +366,13 @@ class NewsLetterGenerator extends PureComponent {
             options={{
               //templateId: 1,
               appearance: {
-    theme: 'dark',
-    panels: {
-      tools: {
-        dock: 'right'
-      }
-    }
-  },
+                theme: "dark",
+                panels: {
+                  tools: {
+                    dock: "left"
+                  }
+                }
+              },
               tools: {
                 image: {
                   enabled: true
