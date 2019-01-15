@@ -95,7 +95,7 @@ class Media extends Component {
       <Tab
         eventKey={k.eventKey}
         title={k.Title}
-        className="fadeIn-2"
+        className="fadeIn"
         unmountOnExit={true}
       >
         {<k.Component />}
@@ -106,7 +106,7 @@ class Media extends Component {
     const { eventKey, history } = this.state;
     const { TabItems } = this.props;
     return (
-      <Grid className="Media Container fadeIn-2">
+      <Grid className="Media Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">MEDIA</PageHeader>
         </Row>

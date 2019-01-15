@@ -12,8 +12,8 @@
   min-height: 38px;
   min-width: 43px;
 }
-.form-control {
-  min-height: 38px;
+.form-control, .FilterMultiSelect {
+  min-height: 42px;
   background-color: var(--slate_grey);
 }
 

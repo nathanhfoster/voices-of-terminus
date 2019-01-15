@@ -124,7 +124,7 @@ class PublicProfile extends PureComponent {
       is_crafter_lead
     };
     return User ? (
-      <Grid className="PublicProfile Container fadeIn-2">
+      <Grid className="PublicProfile Container fadeIn">
         <Row className="ActionToolbarRow">
           <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             {is_superuser || is_staff ? (

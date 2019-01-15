@@ -208,7 +208,7 @@ class Login extends PureComponent {
     return User.token ? (
       <Redirect to={this.props.history.goBack()} />
     ) : (
-      <Grid className="Login Container fadeIn-2">
+      <Grid className="Login Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">LOGIN</PageHeader>
         </Row>
@@ -282,7 +282,7 @@ class Login extends PureComponent {
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
-                <Form className="Container fadeIn-2">
+                <Form className="Container fadeIn">
                   <Row>
                     <Col md={12}>
                       <FormGroup validationState={this.validateUsername()}>

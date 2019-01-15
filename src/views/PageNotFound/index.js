@@ -37,7 +37,7 @@ class PageNotFound extends PureComponent {
 
   render() {
     return (
-      <Grid className="PageNotFound Container fadeIn-2">
+      <Grid className="PageNotFound Container fadeIn">
         <Row className="pageNotFoundContainer">
           <Col className="pageNotFoundImage" md={4} xs={6}>
             <Image src={skar} responsive />

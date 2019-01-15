@@ -197,7 +197,7 @@ class GuildCalendar extends Component {
   render() {
     const { events, activeDate } = this.state;
     return (
-      <Grid className="GuildCalendar Container fadeIn-2">
+      <Grid className="GuildCalendar Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">CALENDAR</PageHeader>
         </Row>

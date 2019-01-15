@@ -70,7 +70,7 @@ class Podcasts extends PureComponent {
   render() {
     const { VotPlaylistShow } = this.state;
     return (
-      <Grid className="Podcasts Container fadeIn-2">
+      <Grid className="Podcasts Container fadeIn">
         {this.renderPlaylistItems(
           VotPlaylistShow.sort(
             (a, b) => new Date(b.publishedAt) - new Date(a.publishedAt)

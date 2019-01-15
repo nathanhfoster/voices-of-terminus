@@ -202,11 +202,10 @@ class Admin extends PureComponent {
     const { Users } = Admin;
 
     return User.is_superuser || User.is_staff ? (
-      <Grid className="Admin Container fadeIn-2">
+      <Grid className="Admin Container fadeIn">
         <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row className="ActionToolbarRow">
           <Col
-            md={12}
             xs={12}
             className="ActionToolbar"
             componentClass={ButtonToolbar}
@@ -235,6 +234,12 @@ class Admin extends PureComponent {
               disabled
             >
               <i className="fas fa-plus" /> Event
+            </Button>
+            <Button
+              disabled={!User.is_superuser}
+              onClick={() => this.props.history.push("/polls/new/poll")}
+            >
+              <i className="fas fa-plus" /> Poll
             </Button>
           </Col>
         </Row>
@@ -500,7 +505,7 @@ class Admin extends PureComponent {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form className="Container fadeIn-2">
+              <Form className="Container fadeIn">
                 <Row>
                   <Col md={12}>
                     <FormGroup validationState={this.validateUsername()}>

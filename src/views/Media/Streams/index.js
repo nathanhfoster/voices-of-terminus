@@ -118,7 +118,7 @@ _id: "v333774978"
       ? this.state.VotTwitchStreams.videos
       : [];
     return (
-      <Grid className="Streams Container fadeIn-2">
+      <Grid className="Streams Container fadeIn">
         {this.renderStreams(streams)}
       </Grid>
     );

@@ -65,7 +65,7 @@ class Lore extends PureComponent {
   render() {
     const { guildLore, contestWinners } = this.props;
     return (
-      <Grid className="Lore Container fadeIn-2">
+      <Grid className="Lore Container fadeIn">
         <Row>
           <h3>Guild Lore</h3>
           {this.renderLoreItems(guildLore)}

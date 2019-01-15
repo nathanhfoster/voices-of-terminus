@@ -51,7 +51,7 @@ export const selectStyles = {
   dropdownIndicator: (base, state) => ({
     ...base,
     color: "var(--tertiarycolor)",
-    ":hover": { color: "var(--primaryColor)" },
+    ":hover": { color: "var(--primaryColor)" }
   }),
   control: (base, state) => ({
     ...base,
@@ -63,6 +63,7 @@ export const selectStyles = {
   }),
   option: (base, state) => ({
     ...base,
+    padding: 12,
     borderBottom: "1px solid var(--primaryColor)",
     borderRadius: "4px",
     backgroundColor: state.isFocused ? "var(--primaryColor)" : "var(--grey)",
@@ -83,6 +84,7 @@ export const selectStyles = {
   }),
   valueContainer: (base, state) => ({
     ...base,
+    minHeight: 42,
     backgroundColor: "var(--grey)"
   }),
   multiValue: (base, state) =>

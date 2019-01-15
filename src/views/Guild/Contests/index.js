@@ -34,7 +34,7 @@ class Contests extends PureComponent {
 
   render() {
     return (
-      <Grid className="Contests Container fadeIn-2">
+      <Grid className="Contests Container fadeIn">
         <Row>
           <PageHeader>CURRENT</PageHeader>
           <Col sm={12}>

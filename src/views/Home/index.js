@@ -66,7 +66,7 @@ class Home extends Component {
       }
     };
     return [
-      <Grid className="Home Container fadeIn-2 ">
+      <Grid className="Home Container fadeIn ">
         <Row>
           <Col xs={12}>
             <HomeCarousel />

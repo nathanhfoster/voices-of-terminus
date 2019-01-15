@@ -375,7 +375,7 @@ class Profile extends PureComponent {
     return !token ? (
       <Redirect to={this.props.history.push("/login")} />
     ) : (
-      <Grid className="Profile Container fadeIn-2">
+      <Grid className="Profile Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>

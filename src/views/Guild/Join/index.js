@@ -34,7 +34,7 @@ class Join extends PureComponent {
 
   render() {
     return (
-      <Grid className="Join Container fadeIn-2">
+      <Grid className="Join Container fadeIn">
         <Row>
           <Col>
             <div class="section no-pad-top">

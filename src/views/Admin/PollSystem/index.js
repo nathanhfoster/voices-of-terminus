@@ -9,7 +9,7 @@ const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = {};
 
-class Template extends Component {
+class PollSystem extends Component {
   constructor(props) {
     super(props);
 
@@ -30,8 +30,6 @@ class Template extends Component {
 
   componentWillUpdate() {}
 
-  /* render() */
-
   componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
@@ -42,12 +40,18 @@ class Template extends Component {
     this.setState({});
   };
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate() {}
 
   componentWillUnmount() {}
 
   render() {
-    return <Grid className="Template Container">Template</Grid>;
+    return (
+      <Grid className="PollSystem Container">
+        <Row>
+          <Col>DISPLAY POLLS</Col>
+        </Row>
+      </Grid>
+    );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Template);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(PollSystem);

@@ -311,7 +311,7 @@ class News extends Component {
     const maxlength = this.props.selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return Documents ? (
-      <Grid className="News Container fadeIn-2">
+      <Grid className="News Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">NEWS</PageHeader>
         </Row>
@@ -390,7 +390,7 @@ class News extends Component {
             <Tab
               eventKey="/news/latest"
               title="LATEST"
-              className="fadeIn-2"
+              className="fadeIn"
               unmountOnExit={true}
             >
               <Row>
@@ -409,7 +409,7 @@ class News extends Component {
             <Tab
               eventKey="/news/suggested"
               title="SUGGESTED"
-              className="fadeIn-2"
+              className="fadeIn"
               unmountOnExit={true}
             >
               <Row>
@@ -427,7 +427,7 @@ class News extends Component {
             <Tab
               eventKey="/news/popular"
               title="POPULAR"
-              className="fadeIn-2"
+              className="fadeIn"
               unmountOnExit={true}
             >
               <Row>
@@ -445,7 +445,7 @@ class News extends Component {
             <Tab
               eventKey="/news/my-docs"
               title="MY DOCS"
-              className="fadeIn-2"
+              className="fadeIn"
               unmountOnExit={true}
             >
               <Row>

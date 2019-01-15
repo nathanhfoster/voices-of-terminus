@@ -88,7 +88,7 @@ class VideoPlayer extends PureComponent {
     const { id, type, pip, playing, muted } = this.state;
     const url = this.switchPlayer(id, type);
     return (
-      <Grid className="VideoPlayer Container fadeIn-2">
+      <Grid className="VideoPlayer Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">Watch</PageHeader>
         </Row>

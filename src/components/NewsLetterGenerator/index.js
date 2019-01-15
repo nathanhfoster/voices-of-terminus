@@ -255,7 +255,7 @@ class NewsLetterGenerator extends PureComponent {
     ) : !(User.is_superuser || User.can_create_newsletter) ? (
       <Redirect to={this.props.history.goBack()} />
     ) : (
-      <Grid className="NewsLetterGenerator Container fadeIn-2">
+      <Grid className="NewsLetterGenerator Container fadeIn">
         <Row className="ActionToolbarRow">
           <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button

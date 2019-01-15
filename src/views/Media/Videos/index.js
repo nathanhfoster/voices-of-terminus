@@ -70,7 +70,7 @@ class Videos extends PureComponent {
   render() {
     const { VoTYouTubeChannelData } = this.state;
     return (
-      <Grid className="Videos Container fadeIn-2">
+      <Grid className="Videos Container fadeIn">
         {VoTYouTubeChannelData.length > 1
           ? this.renderVideos(VoTYouTubeChannelData)
           : null}

@@ -35,7 +35,7 @@ class Donate extends PureComponent {
 
   render() {
     return (
-      <Grid className="Donate Container fadeIn-2">
+      <Grid className="Donate Container fadeIn">
         <Row>
           <Col className="donationText" xs={12}>
             <p>

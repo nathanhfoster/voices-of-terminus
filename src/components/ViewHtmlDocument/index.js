@@ -237,7 +237,7 @@ class ViewHtmlDocument extends PureComponent {
         : 0;
     //console.log("HTMLDOCUMENT");
     return HtmlDocument ? (
-      <Grid className="HtmlParser Container fadeIn-2">
+      <Grid className="HtmlParser Container fadeIn">
         <Row className="ViewHtmlDocument">
           <Col xs={12} className="Center">
             <h2>

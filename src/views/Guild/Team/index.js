@@ -37,7 +37,7 @@ class Team extends PureComponent {
 
   render() {
     return (
-      <Grid className="Team Container fadeIn-2">
+      <Grid className="Team Container fadeIn">
         <Row bsClass="teanCard">
           <Col md={3}>
             <Image src={Yarnilla} responsive />

@@ -10,6 +10,8 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import Admin from "./views/Admin";
+import PollSystem from "./views/Admin/PollSystem";
+import PollGenerator from "./components/PollGenerator";
 import BackgroundImage from "./components/BackgroundImage";
 import UserProfile from "./views/Admin/UserProfile";
 import NavBar from "./components/NavBar";
@@ -45,7 +47,7 @@ import { getMessages } from "./actions/Messages";
 import { refreshUser } from "./actions/App";
 import "moment-timezone";
 import MomentJS from "moment";
-import 'react-image-lightbox/style.css'; // This only needs to be imported once in your app
+import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 
 const mapStateToProps = ({
   ApiResponse,
@@ -107,6 +109,10 @@ class App extends PureComponent {
     routeItems: [
       { path: "/home", component: Home },
       { path: "/admin", component: Admin },
+      { path: "/polls", component: PollSystem },
+      { path: "/polls/:id", component: PollSystem },
+      { path: "/polls/new/poll", component: PollGenerator },
+      { path: "/polls/edit/poll/:id", component: PollGenerator },
       { path: "/admin/user/profile/:id", component: UserProfile },
       { path: "/articles/:id", component: ViewHtmlDocument },
       { path: "/articles/new/article", component: TextEditor },

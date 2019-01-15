@@ -36,7 +36,7 @@ class Forums extends PureComponent {
 
   render() {
     return (
-      <Grid className="Forums Container fadeIn-2">
+      <Grid className="Forums Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">FORUMS</PageHeader>
         </Row>
@@ -46,7 +46,7 @@ class Forums extends PureComponent {
               <Tab
                 eventKey={1}
                 title="CATEGORIES"
-                className="fadeIn-2"
+                className="fadeIn"
                 unmountOnExit={true}
               >
                 Categories
@@ -54,7 +54,7 @@ class Forums extends PureComponent {
               <Tab
                 eventKey={2}
                 title="ALL TOPICS"
-                className="fadeIn-2"
+                className="fadeIn"
                 unmountOnExit={true}
               >
                 All topics

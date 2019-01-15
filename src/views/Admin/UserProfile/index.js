@@ -1097,7 +1097,8 @@ class UserProfile extends PureComponent {
                             ...prevState.Admin,
                             User: {
                               ...prevState.Admin.User,
-                              can_create_galleries: !Admin.User.can_create_galleries
+                              can_create_galleries: !Admin.User
+                                .can_create_galleries
                             }
                           }
                         }))

@@ -215,10 +215,14 @@ body {
 }
 .btn-default,
 .modal-content .btn-default {
+  min-height: 42px;
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+.btn-sm {
+  min-height: 28px;
 }
 .btn-default:hover,
 .modal-content .btn-default:hover {
@@ -332,12 +336,12 @@ a:visited {
   -o-transition: background-color 0.5s ease-out;
   transition: background-color 0.5s ease-out;
 }
-.fadeIn-2 {
-  -webkit-animation: fadein 450ms; /* Safari, Chrome and Opera > 12.1 */
-  -moz-animation: fadein 550ms; /* Firefox < 16 */
-  -ms-animation: fadein 550ms; /* Internet Explorer */
-  -o-animation: fadein 550ms; /* Opera < 12.1 */
-  animation: fadein 550ms;
+.fadeIn {
+  -webkit-animation: fadein 200ms; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 200ms; /* Firefox < 16 */
+  -ms-animation: fadein 200ms; /* Internet Explorer */
+  -o-animation: fadein 200ms; /* Opera < 12.1 */
+  animation: fadein 200ms;
 }
 
 @keyframes fadein {

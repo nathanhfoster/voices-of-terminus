@@ -1,0 +1,11 @@
+.PollGenerator input {
+  margin-bottom: 16px;
+}
+
+.AddChoice {
+    opacity: .55;
+}
+
+.AddChoice:focus {
+    opacity: 1;
+}

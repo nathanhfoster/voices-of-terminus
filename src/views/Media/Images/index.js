@@ -377,7 +377,7 @@ class Images extends PureComponent {
               </Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <Form className="Container fadeIn-2">
+              <Form className="Container fadeIn">
                 <Row>
                   <Col md={12}>
                     <FormGroup>

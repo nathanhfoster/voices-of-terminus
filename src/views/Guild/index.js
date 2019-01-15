@@ -78,7 +78,7 @@ class Guild extends Component {
         <Tab
           eventKey={k.eventKey}
           title={k.Title}
-          className="fadeIn-2"
+          className="fadeIn"
           unmountOnExit={true}
         >
           {<k.Component />}
@@ -90,7 +90,7 @@ class Guild extends Component {
     const { eventKey, history } = this.state;
     const { TabItems } = this.props;
     return (
-      <Grid className="Guild Container fadeIn-2">
+      <Grid className="Guild Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">GUILD</PageHeader>
         </Row>

@@ -366,7 +366,7 @@ class Messages extends PureComponent {
             </Modal.Header>
             <Modal.Body>
               {creatingMessage ? (
-                <Form className="Container fadeIn-2">
+                <Form className="Container fadeIn">
                   <Row>
                     <Col xs={12}>
                       <InputGroup>

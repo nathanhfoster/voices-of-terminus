@@ -247,7 +247,7 @@ class TextEditor extends Component {
     ) : !(User.is_superuser || User.can_create_article) ? (
       <Redirect to={this.props.history.goBack()} />
     ) : (
-      <Grid className="TextEditor Container fadeIn-2">
+      <Grid className="TextEditor Container fadeIn">
         <Row className="ActionToolbarRow">
           <Col
             md={6}

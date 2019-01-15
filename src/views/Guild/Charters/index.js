@@ -36,7 +36,7 @@ class Charters extends PureComponent {
 
   render() {
     return (
-      <Grid className="Charters Container fadeIn-2">
+      <Grid className="Charters Container fadeIn">
         <Row>
           <Col>
             <h3>The Voice of Terminus Principles</h3>

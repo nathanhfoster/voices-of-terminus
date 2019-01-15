@@ -36,7 +36,7 @@ class About extends PureComponent {
 
   render() {
     return (
-      <Grid className="About Container fadeIn-2">
+      <Grid className="About Container fadeIn">
         <Row>
           <Col className="votDifferenceContainer">
             <div className="votDifferenceText">
