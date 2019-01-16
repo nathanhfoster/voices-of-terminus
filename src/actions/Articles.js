@@ -175,10 +175,6 @@ export const postArticle = (token, payload) => {
           type: C.GET_ARTICLES_SUCCESS,
           payload: payload
         });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
-        });
       })
       .catch(e =>
         dispatch({
