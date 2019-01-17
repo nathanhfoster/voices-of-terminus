@@ -117,7 +117,7 @@ class PollGenerator extends Component {
       const { NewChoice } = this.state;
       const { type, Question, Choices } = p;
       return (
-        <Row className="Polls Center borderedRow">
+        <Row className="Polls Center borderedRow" key={i}>
           <Col xs={12}>
             <ControlLabel>Question</ControlLabel>
           </Col>
