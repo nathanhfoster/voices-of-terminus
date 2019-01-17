@@ -41,6 +41,7 @@ export const selectStyles = {
   }),
   container: (base, state) => ({
     ...base,
+    fontSize: "medium",
     opacity: state.isDisabled ? ".5" : "1",
     backgroundColor: "transparent"
   }),
@@ -89,10 +90,13 @@ export const selectStyles = {
     minHeight: 50,
     backgroundColor: "var(--grey)"
   }),
-  multiValue: (base, state) =>
-    state.data.isFixed
-      ? { ...base, backgroundColor: "var(--grey_out)" }
-      : { ...base, backgroundColor: "var(--primaryColor)" },
+  multiValue: (base, state) => ({
+    ...base,
+    fontSize: 20,
+    backgroundColor: state.data.isFixed
+      ? "var(--grey_out)"
+      : "var(--primaryColor)"
+  }),
   multiValueLabel: (base, state) =>
     state.data.isFixed
       ? { ...base, fontWeight: "bold", color: "white", paddingRight: 6 }

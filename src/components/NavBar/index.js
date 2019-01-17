@@ -276,6 +276,11 @@ class NavBar extends PureComponent {
                     </NavItem>
                   </LinkContainer>
                 ) : null}
+                {User.is_superuser || User.is_staff ? (  <LinkContainer to="/polls/new/poll">
+                <NavItem eventKey={13}>
+                  <i className="fas fa-plus" /> POLL
+                </NavItem>
+              </LinkContainer>): null}
                 <MenuItem divider />
                 <MenuItem
                   onClick={() => this.props.toggleFooter(!showFooter)}

@@ -32,7 +32,6 @@ import { selectStyles } from "../../helpers/styles";
 import { isEquivalent } from "../../helpers";
 import { articleSlectOptions } from "../../helpers/select";
 import { options } from "./options";
-import { Articles } from "../../store/reducers";
 
 const mapStateToProps = ({
   Articles,
@@ -144,15 +143,15 @@ class TextEditor extends Component {
     const { id } = match ? match.params : null;
 
     // Set the editorState from Redux if it exists else create an empty state
-    if (HtmlDocument) {
-      const blocksFromHtml = htmlToDraft(HtmlDocument.html);
-      const { contentBlocks, entityMap } = blocksFromHtml;
-      const contentState = ContentState.createFromBlockArray(
-        contentBlocks,
-        entityMap
-      );
-      editorState = EditorState.createWithContent(contentState);
+    if (editorState) {
+      editorState = this.htmlToEditorState(editorState);
     } else editorState = EditorState.createEmpty();
+
+    // If HTML Document has been loaded from Redux
+    if (HtmlDocument) {
+      const { html } = HtmlDocument;
+      editorState = this.htmlToEditorState(html);
+    }
 
     this.setState({
       Articles,
@@ -168,11 +167,21 @@ class TextEditor extends Component {
     });
   };
 
+  htmlToEditorState = html => {
+    const blocksFromHtml = htmlToDraft(html);
+    const { contentBlocks, entityMap } = blocksFromHtml;
+    const contentState = ContentState.createFromBlockArray(
+      contentBlocks,
+      entityMap
+    );
+    return EditorState.createWithContent(contentState);
+  };
+
   componentWillUnmount() {
     const { setEditorState, clearHtmlDocument, clearArticlesApi } = this.props;
     const { editorState } = this.state;
     clearArticlesApi();
-    //setEditorState(editorState);
+    setEditorState(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     clearHtmlDocument();
   }
 
@@ -323,6 +332,7 @@ class TextEditor extends Component {
                   type="text"
                   placeholder="Title"
                   name="title"
+                  autoFocus={true}
                   onChange={this.onChange.bind(this)}
                 />
               </InputGroup>
@@ -362,7 +372,12 @@ class TextEditor extends Component {
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
               onFocus={e => e.preventDefault()}
-              onBlur={e => e.preventDefault()}
+              onBlur={(e, editorState) => {
+                this.props.setEditorState(
+                  draftToHtml(convertToRaw(editorState.getCurrentContent()))
+                );
+                this.setState({ editorState });
+              }}
               onTab={e => e.preventDefault()}
               blurInputOnSelect={false}
               toolbar={options}

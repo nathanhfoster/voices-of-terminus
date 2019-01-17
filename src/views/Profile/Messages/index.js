@@ -333,7 +333,6 @@ class Messages extends PureComponent {
                 <i className="fas fa-search" />
               </InputGroup.Addon>
               <FormControl
-                style={{ fontSize: "medium" }}
                 type="text"
                 name="search"
                 placeholder="Filter by Title or Author..."

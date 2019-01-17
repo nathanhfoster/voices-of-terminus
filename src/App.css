@@ -121,6 +121,7 @@ input,
 select,
 textarea {
   color: var(--tertiarycolor) !important;
+  font-size: medium !important;
 }
 
 ::placeholder {
