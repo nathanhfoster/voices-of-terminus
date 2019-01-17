@@ -15,6 +15,9 @@ import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
 import ConfirmAction from "../ConfirmAction";
+import Select from "react-select";
+import { PollChoices, switchPollTypeIcon } from "../../helpers";
+import { selectStyles } from "../../helpers/styles";
 
 const mapStateToProps = ({ User }) => ({ User });
 
@@ -32,9 +35,9 @@ class PollGenerator extends Component {
   static propTypes = {};
 
   static defaultProps = {
-    Polls: [{ postion: 0, type: "Multiple", Question: "", Choices: [] }],
-    PollTypes: ["Multiple"],
-    Choices: []
+    Polls: [
+      { postion: 0, type: PollChoices[0].value, Question: "", Choices: [] }
+    ]
   };
 
   focusInput = component => {
@@ -92,56 +95,115 @@ class PollGenerator extends Component {
     this.setState({ Polls });
   };
 
-  switchPoll = type => {
-    switch (type) {
-      case "Multiple":
-        return "MULTIPLE";
-      default:
-        null;
+  selectOnChange = (e, a, i) => {
+    const { value } = e;
+    let { Polls } = this.state;
+    switch (a.action) {
+      case "clear":
+        Polls[i].type = "";
+        return this.setState({ Polls });
+
+      case "select-option":
+        if (Polls[i].Choices.length > 0 && value == "Text")
+          Polls[i].Choices.length = 0;
+        Polls[i].type = value;
+        return this.setState({ Polls });
     }
   };
 
   renderPolls = Polls =>
     Polls.map((p, i) => {
       const { NewChoice } = this.state;
-      const { Question, Choices } = p;
-      return [
-        <Col xs={12}>
-          <ControlLabel>Question</ControlLabel>
-          <FormControl
-            id={i}
-            value={Question}
-            type="text"
-            placeholder="Enter question..."
-            onChange={this.onQuestionChange}
-            autoFocus={Choices.length < 1}
-          />
-          <i className="fas fa-poll-h" /> {this.switchPoll(p.type)}
-        </Col>,
-        <Col xs={12}>
-          <FormGroup key={i}>
-            <ControlLabel>Choices</ControlLabel>
-            {this.renderChoices(Choices, i)}
-            <FormControl
-              className="AddChoice"
-              id={i}
-              value={NewChoice}
-              type="text"
-              placeholder="Enter choice..."
-              onChange={this.addChoice}
-              autoFocus={Choices.length < 1}
-            />
-          </FormGroup>
-        </Col>
-      ];
+      const { type, Question, Choices } = p;
+      return (
+        <Row className="Polls Center borderedRow">
+          <Col xs={12}>
+            <ControlLabel>Question</ControlLabel>
+          </Col>
+          <Col md={9} xs={12}>
+            <InputGroup>
+              <InputGroup.Addon>
+                <i className="far fa-question-circle" />
+              </InputGroup.Addon>
+              <FormControl
+                id={i}
+                value={Question}
+                type="text"
+                placeholder="Enter question..."
+                onChange={this.onQuestionChange}
+                autoFocus={Choices.length < 1}
+              />
+            </InputGroup>
+          </Col>
+          <Col md={3} xs={12}>
+            <InputGroup>
+              <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
+              <Select
+                value={type ? { value: type, label: type } : null}
+                onChange={(e, a) => this.selectOnChange(e, a, i)}
+                options={PollChoices}
+                isClearable={false}
+                isSearchable={false}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </InputGroup>
+          </Col>
+          <Col xs={12}>{this.switchPoll(type, Choices, NewChoice, i)}</Col>
+        </Row>
+      );
     });
 
-  renderChoices = (Choices, pollIndex) =>
+  switchPoll = (type, Choices, NewChoice, i) => {
+    switch (type) {
+      case "Text":
+        return (
+          <FormGroup>
+            <ControlLabel>Response</ControlLabel>
+            <FormControl type="text" placeholder="Text..." disabled />
+          </FormGroup>
+        );
+      case "Image":
+        return (
+          <FormGroup>
+            <ControlLabel>Image</ControlLabel>
+            <FormControl
+              disabled
+              style={{ margin: "auto" }}
+              type="file"
+              label="File"
+            />
+          </FormGroup>
+        );
+      // Default is covers case: "Checkbox" || "Multiple"
+      default:
+        return (
+          <FormGroup key={i}>
+            <ControlLabel>Choices</ControlLabel>
+            {this.renderChoices(Choices, i, type)}
+            <InputGroup className="AddChoice">
+              <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
+              <FormControl
+                id={i}
+                value={NewChoice}
+                type="text"
+                placeholder="Add a choice..."
+                onChange={this.addChoice}
+                autoFocus={Choices.length < 1}
+              />
+            </InputGroup>
+          </FormGroup>
+        );
+    }
+  };
+
+  renderChoices = (Choices, pollIndex, type) =>
     Choices.map((c, i) => {
       const { postion, value } = c;
-      console.log(Choices, value);
       return (
         <InputGroup key={i}>
+          <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
           <FormControl
             id={pollIndex}
             key={i}
@@ -187,7 +249,12 @@ class PollGenerator extends Component {
                 this.setState({
                   Polls: [
                     ...Polls,
-                    { postion: 0, type: "Multiple", Question: "", Choices: [] }
+                    {
+                      postion: 0,
+                      type: PollChoices[0].value,
+                      Question: "",
+                      Choices: []
+                    }
                   ]
                 })
               }
@@ -196,7 +263,7 @@ class PollGenerator extends Component {
             </Button>
           </Col>
         </Row>
-        <Row>{this.renderPolls(Polls)}</Row>
+        {this.renderPolls(Polls)}
       </Grid>
     ) : null;
   }

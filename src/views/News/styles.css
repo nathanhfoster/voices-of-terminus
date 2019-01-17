@@ -12,8 +12,13 @@
   min-height: 38px;
   min-width: 43px;
 }
-.form-control, .FilterMultiSelect {
-  min-height: 42px;
+.form-control[disabled] {
+  opacity: var(--disabledOpacity);
+  background-color: var(--slate_grey);
+}
+.form-control,
+.FilterMultiSelect {
+  min-height: 50px;
   background-color: var(--slate_grey);
 }
 

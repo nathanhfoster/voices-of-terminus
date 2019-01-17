@@ -1,11 +1,29 @@
 .PollGenerator input {
   margin-bottom: 16px;
 }
-
-.AddChoice {
-    opacity: .55;
+.Polls {
+  margin-bottom: 8px;
+}
+.Polls .input-group {
+  margin-bottom: 24px;
+}
+.Polls:focus-within {
+  border-color: var(--primaryColor);
+}
+.Polls i {
+  width: 32x;
+  font-size: 1.4em;
 }
 
-.AddChoice:focus {
-    opacity: 1;
+.Polls label {
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.AddChoice {
+  opacity: var(--disabledOpacity);
+}
+
+.AddChoice:focus-within {
+  opacity: 1;
 }

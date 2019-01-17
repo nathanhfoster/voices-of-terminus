@@ -718,3 +718,52 @@ export const professionSpecializationOptions = {
     { value: "Carver", label: "Carver" }
   ]
 };
+
+const choiceStyle = {
+  margin: "auto 4px",
+  display: "inline-block"
+};
+
+export const PollChoices = [
+  {
+    value: "Multiple",
+    label: [
+      <i className="fas fa-check-square" />,
+      <div style={choiceStyle}>Multiple</div>
+    ]
+  },
+  {
+    value: "Select",
+    label: [
+      <i className="far fa-dot-circle" />,
+      <div style={choiceStyle}>Select</div>
+    ]
+  },
+  {
+    value: "Text",
+    label: [
+      <i className="fas fa-align-left" />,
+      <div style={choiceStyle}>Text</div>
+    ]
+  },
+  {
+    value: "Image",
+    label: [
+      <i className="fas fa-cloud-upload-alt" />,
+      <div style={choiceStyle}>Image</div>
+    ]
+  }
+];
+
+export const switchPollTypeIcon = type => {
+  switch (type) {
+    case "Multiple":
+      return <i className="fas fa-check-square" />;
+    case "Select":
+      return <i className="far fa-dot-circle" />;
+    case "Text":
+      return <i className="fas fa-align-left" />;
+    case "Image":
+      return <i className="fas fa-cloud-upload-alt" />;
+  }
+};

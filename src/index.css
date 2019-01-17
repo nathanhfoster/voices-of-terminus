@@ -78,6 +78,7 @@
     var(--quaternaryColor),
     var(--quinaryColor)
   );
+  --disabledOpacity: .75;
   --primaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
   --secondaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, 0.5);

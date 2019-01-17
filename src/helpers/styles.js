@@ -55,8 +55,11 @@ export const selectStyles = {
   }),
   control: (base, state) => ({
     ...base,
+    margin: "0 auto",
     backgroundColor: "var(--grey)",
     borderColor: state.isFocused ? "var(--primaryColor)" : "lightgray",
+    borderTopLeftRadius: 0,
+    borderBottomLeftRadius: 0,
     ":hover": { borderColor: "var(--primaryColor)" }, // border style on hover
     //border: '1px solid lightgray', // default border color
     boxShadow: "var(--primaryColor)" // no box-shadow
@@ -65,7 +68,6 @@ export const selectStyles = {
     ...base,
     padding: 12,
     borderBottom: "1px solid var(--primaryColor)",
-    borderRadius: "4px",
     backgroundColor: state.isFocused ? "var(--primaryColor)" : "var(--grey)",
     color: "white",
     ":active": {
@@ -84,7 +86,7 @@ export const selectStyles = {
   }),
   valueContainer: (base, state) => ({
     ...base,
-    minHeight: 42,
+    minHeight: 50,
     backgroundColor: "var(--grey)"
   }),
   multiValue: (base, state) =>
