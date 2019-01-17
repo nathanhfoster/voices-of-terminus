@@ -131,7 +131,7 @@ class PollGenerator extends Component {
                 type="text"
                 placeholder="Enter question..."
                 onChange={this.onQuestionChange}
-                autoFocus={Choices.length < 1}
+                autoFocus={true}
               />
             </InputGroup>
           </Col>
@@ -150,12 +150,14 @@ class PollGenerator extends Component {
               />
             </InputGroup>
           </Col>
-          <Col xs={12}>{this.switchPoll(type, Choices, NewChoice, i)}</Col>
+          <Col xs={12}>
+            {this.switchPoll(Question, type, Choices, NewChoice, i)}
+          </Col>
         </Row>
       );
     });
 
-  switchPoll = (type, Choices, NewChoice, i) => {
+  switchPoll = (Question, type, Choices, NewChoice, i) => {
     switch (type) {
       case "Text":
         return (
@@ -181,7 +183,7 @@ class PollGenerator extends Component {
         return (
           <FormGroup key={i}>
             <ControlLabel>Choices</ControlLabel>
-            {this.renderChoices(Choices, i, type)}
+            {this.renderChoices(Question, Choices, i, type)}
             <InputGroup className="AddChoice">
               <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
               <FormControl
@@ -190,7 +192,6 @@ class PollGenerator extends Component {
                 type="text"
                 placeholder="Add a choice..."
                 onChange={this.addChoice}
-                autoFocus={Choices.length < 1}
               />
             </InputGroup>
           </FormGroup>
@@ -198,7 +199,7 @@ class PollGenerator extends Component {
     }
   };
 
-  renderChoices = (Choices, pollIndex, type) =>
+  renderChoices = (Question, Choices, pollIndex, type) =>
     Choices.map((c, i) => {
       const { postion, value } = c;
       return (
