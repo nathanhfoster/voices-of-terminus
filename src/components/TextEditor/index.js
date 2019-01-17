@@ -373,6 +373,7 @@ class TextEditor extends Component {
               onEditorStateChange={this.onEditorStateChange}
               onFocus={e => e.preventDefault()}
               onBlur={(e, editorState) => {
+                e.preventDefault();
                 this.props.setEditorState(
                   draftToHtml(convertToRaw(editorState.getCurrentContent()))
                 );
