@@ -251,7 +251,7 @@ class NewsLetterGenerator extends PureComponent {
       width: "100%"
     };
     return !User.token ? (
-      <Redirect to={this.props.history.push("/login")} />
+      <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_newsletter) ? (
       <Redirect to={this.props.history.goBack()} />
     ) : (

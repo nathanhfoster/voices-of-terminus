@@ -373,7 +373,7 @@ class Profile extends PureComponent {
       guild_points
     } = this.state;
     return !token ? (
-      <Redirect to={this.props.history.push("/login")} />
+      <Redirect to="/login" />
     ) : (
       <Grid className="Profile Container fadeIn">
         <Row>

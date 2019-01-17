@@ -18,6 +18,7 @@ import ConfirmAction from "../ConfirmAction";
 import Select from "react-select";
 import { PollChoices, switchPollTypeIcon } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
+import { withRouter, Redirect } from "react-router-dom";
 
 const mapStateToProps = ({ User }) => ({ User });
 
@@ -266,7 +267,11 @@ class PollGenerator extends Component {
         </Row>
         {this.renderPolls(Polls)}
       </Grid>
-    ) : null;
+    ) : User.token ? (
+      <Redirect to={this.props.history.goBack()} />
+    ) : (
+      <Redirect to="/login" />
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator);

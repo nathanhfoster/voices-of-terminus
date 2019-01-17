@@ -205,11 +205,7 @@ class Admin extends PureComponent {
       <Grid className="Admin Container fadeIn">
         <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row className="ActionToolbarRow">
-          <Col
-            xs={12}
-            className="ActionToolbar"
-            componentClass={ButtonToolbar}
-          >
+          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.handleShow}>
               <i className="fas fa-plus" /> User
             </Button>
@@ -600,8 +596,10 @@ class Admin extends PureComponent {
           </Modal>
         </Row>
       </Grid>
-    ) : (
+    ) : User.token ? (
       <Redirect to={this.props.history.goBack()} />
+    ) : (
+      <Redirect to="/login" />
     );
   }
 }
