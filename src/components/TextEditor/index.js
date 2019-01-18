@@ -145,13 +145,12 @@ class TextEditor extends Component {
     // Set the editorState from Redux if it exists else create an empty state
     if (editorState) {
       editorState = this.htmlToEditorState(editorState);
+    } else if (HtmlDocument) {
+      const { html } = HtmlDocument;
+      editorState = this.htmlToEditorState(html);
     } else editorState = EditorState.createEmpty();
 
     // If HTML Document has been loaded from Redux
-    if (HtmlDocument) {
-      const { html } = HtmlDocument;
-      editorState = this.htmlToEditorState(html);
-    }
 
     this.setState({
       Articles,
