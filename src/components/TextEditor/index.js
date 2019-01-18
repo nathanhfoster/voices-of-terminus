@@ -144,7 +144,11 @@ class TextEditor extends Component {
     const { path } = match ? match : null;
 
     // If HTML Document has been loaded from Redux and editing a Article
-    if (HtmlDocument && path.includes("edit")) {
+    if (
+      HtmlDocument &&
+      path.includes("edit") &&
+      this.state.editorState != editorState
+    ) {
       const { html } = HtmlDocument;
       editorState = this.htmlToEditorState(html);
     }
