@@ -214,7 +214,7 @@ body {
 }
 .btn-default,
 .modal-content .btn-default {
-  min-height: calc(var(--inputButtonHeight) - 12px);
+  min-height: var(--inputButtonHeight);
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
