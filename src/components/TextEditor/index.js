@@ -74,6 +74,7 @@ class TextEditor extends Component {
       tags: "",
       title: "",
       suggestions: [],
+      articleLoaded: false,
 
       editorState: null,
       show: false,
@@ -119,6 +120,7 @@ class TextEditor extends Component {
   }
 
   getState = props => {
+    const { articleLoaded } = this.state;
     let { Articles, selectOptions, editorState, Admin } = props;
     const { Users } = Admin;
     const suggestions = Users.map(
@@ -144,13 +146,10 @@ class TextEditor extends Component {
     const { path } = match ? match : null;
 
     // If HTML Document has been loaded from Redux and editing a Article
-    if (
-      HtmlDocument &&
-      path.includes("edit") &&
-      this.state.editorState != editorState
-    ) {
+    if (HtmlDocument && path.includes("edit") && !articleLoaded) {
       const { html } = HtmlDocument;
       editorState = this.htmlToEditorState(html);
+      this.setState({ articleLoaded: true });
     }
     // Set the editorState from Redux if it exists else create an empty state
     else if (editorState) {
