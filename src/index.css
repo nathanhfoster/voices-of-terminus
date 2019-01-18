@@ -3,16 +3,15 @@
   --cursor: url("./images/Cursor.png"), auto;
   --navBarHeight: 52px;
   --footerHeight: 126px;
+  --inputButtonHeight: 40px;
   --primaryColor: #ff9800;
   --secondaryColor: black;
   --tertiarycolor: white;
   --quaternaryColor: #00dae4;
   --quinaryColor: #2de5d2;
   --light_grey: rgb(204, 204, 204);
-  --grey: #404048;
-  --slate_grey: #36363d;
-  --dark_grey: #2d2d32;
-  --grey_out: rgba(163, 163, 172, 0.4);
+  --grey: #575e6a;
+  --slate_grey: #29303b;
   --dark_border: rgba(29, 29, 31, 0.3);
   --loadColor_1: radial-gradient(
     closest-side at 50% 50%,
@@ -78,7 +77,7 @@
     var(--quaternaryColor),
     var(--quinaryColor)
   );
-  --disabledOpacity: .75;
+  --disabledOpacity: 0.75;
   --primaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
   --secondaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, 0.5);
@@ -86,7 +85,6 @@
   --mainOpacity: 0.95;
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
-  --inputHeight: 34px;
   --cardHeight: 300px;
   --cardSummaryHeight: 140px;
 
@@ -216,7 +214,7 @@ body {
 }
 .btn-default,
 .modal-content .btn-default {
-  min-height: 42px;
+  min-height: calc(var(--inputButtonHeight) - 12px);
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
@@ -263,7 +261,7 @@ body {
 }
 .ActionToolbar .input-group-addon select {
   background: var(--slate_grey);
-  height: var(--inputHeight);
+  height: var(--inputButtonHeight);
 }
 .Center {
   text-align: center;

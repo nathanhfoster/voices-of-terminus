@@ -28,7 +28,7 @@
 .Summary {
   height: var(--cardSummaryHeight);
   position: absolute;
-  background-color: var(--dark_grey);
+  background-color: var(--slate_grey);
   flex: 0 0 100px;
   width: 100%;
   padding: 6px;

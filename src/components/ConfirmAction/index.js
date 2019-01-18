@@ -93,7 +93,7 @@ class ConfirmAction extends PureComponent {
                   <ButtonGroup>
                     <Button
                       onClick={Action}
-                      style={{ backgroundColor: "var(--color_alizarin)" }}
+                      className="ConfirmActionButton"
                     >
                       Yes
                     </Button>

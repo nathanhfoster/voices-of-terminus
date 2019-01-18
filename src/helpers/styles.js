@@ -56,8 +56,9 @@ export const selectStyles = {
   }),
   control: (base, state) => ({
     ...base,
+    minHeight: "var(--inputButtonHeight)",
     margin: "0 auto",
-    backgroundColor: "var(--grey)",
+    backgroundColor: "var(--slate_grey)",
     borderColor: state.isFocused ? "var(--primaryColor)" : "lightgray",
     borderTopLeftRadius: 0,
     borderBottomLeftRadius: 0,
@@ -67,14 +68,16 @@ export const selectStyles = {
   }),
   option: (base, state) => ({
     ...base,
-    padding: 12,
+    minHeight: "var(--inputButtonHeight)",
     borderBottom: "1px solid var(--primaryColor)",
-    backgroundColor: state.isFocused ? "var(--primaryColor)" : "var(--grey)",
+    backgroundColor: state.isFocused
+      ? "var(--primaryColor)"
+      : "var(--slate_grey)",
     color: "white",
     ":active": {
       backgroundColor: !state.isSelected
         ? "var(--secondaryColor)"
-        : "var(--grey)"
+        : "var(--slate_grey)"
     }
   }),
   placeholder: (base, state) => ({
@@ -87,15 +90,12 @@ export const selectStyles = {
   }),
   valueContainer: (base, state) => ({
     ...base,
-    minHeight: 50,
-    backgroundColor: "var(--grey)"
+    backgroundColor: "var(--slate_grey)"
   }),
   multiValue: (base, state) => ({
     ...base,
     fontSize: 20,
-    backgroundColor: state.data.isFixed
-      ? "var(--grey_out)"
-      : "var(--primaryColor)"
+    backgroundColor: state.data.isFixed ? "var(--grey)" : "var(--primaryColor)"
   }),
   multiValueLabel: (base, state) =>
     state.data.isFixed

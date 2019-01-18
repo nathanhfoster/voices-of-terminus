@@ -3,7 +3,7 @@
 }
 
 .borderedRow {
-  border: 1px solid var(--grey_out);
+  border: 1px solid var(--grey);
   border-radius: 4px;
   padding: 8px;
 }
@@ -40,7 +40,7 @@
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  border: 1px solid var(--grey_out);
+  border: 1px solid var(--grey);
 }
 
 .checkBoxText {

@@ -67,7 +67,9 @@ class NewsLetterGenerator extends PureComponent {
       tags: null,
       title: null,
       id: null,
-      selectValue: null
+      selectValue: null,
+      design: null,
+      newsletterLoaded: false
     };
   }
 
@@ -103,7 +105,12 @@ class NewsLetterGenerator extends PureComponent {
           .map(i => (i = { value: i, label: i }))
       : [];
     const selectValue = [selectOptions[0], ...tags];
+    let design = null;
+    if (HtmlDocument && HtmlDocument.design)
+      design = JSON.parse(HtmlDocument.design);
+
     this.setState({
+      design,
       User,
       Newsletters,
       HtmlDocument,
@@ -141,7 +148,10 @@ class NewsLetterGenerator extends PureComponent {
     });
   };
 
-  loadNewsletterDesign = design => this.editor.loadDesign(design);
+  loadNewsletterDesign = design => {
+    this.editor.loadDesign(design);
+    this.setState({ newsletterLoaded: true });
+  };
 
   loadFormDesign = () => window.unlayer.loadTemplate(4447);
 
@@ -227,6 +237,7 @@ class NewsLetterGenerator extends PureComponent {
 
   render() {
     const {
+      design,
       User,
       Newsletters,
       HtmlDocument,
@@ -234,17 +245,16 @@ class NewsLetterGenerator extends PureComponent {
       tags,
       title,
       id,
-      selectValue
+      selectValue,
+      newsletterLoaded
     } = this.state;
     const { posting, posted, updating, updated, error } = Newsletters;
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one
-    const design =
-      HtmlDocument && HtmlDocument.design
-        ? JSON.parse(HtmlDocument.design)
-        : null;
+
     // True if there are paramaters in the url, redux updated the state in getstate(), and if the editor has loaded into memory
-    const isEditingDesign = id && design && this.editor && window.unlayer;
+    const isEditingDesign =
+      id && design && this.editor && window.unlayer && !newsletterLoaded;
 
     const styles = {
       boxShadow: "0 2px 5px 0 rgba(0, 0, 0, 0.25)",
@@ -365,7 +375,7 @@ class NewsLetterGenerator extends PureComponent {
             onDesignLoad={this.onDesignLoad}
             onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
             options={{
-              //templateId: 1,
+              templateId: 4447,
               appearance: {
                 theme: "dark",
                 panels: {

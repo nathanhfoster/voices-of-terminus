@@ -7,9 +7,18 @@
 }
 
 .confirmModal .modal-content {
-  background-color: var(--grey);
+  background-color: var(--slate_grey);
 }
 
 .confirmModal .close {
   display: none;
+}
+
+.ConfirmActionButton {
+  background-color: var(--color_alizarin) !important;
+}
+
+.ConfirmActionButton:hover {
+  background-color: var(--tertiarycolor) !important;
+  color: var(--tertiarycolor);
 }

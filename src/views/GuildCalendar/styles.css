@@ -79,8 +79,8 @@
   color: inherit;
 }
 .react-calendar__month-view__days__day--neighboringMonth {
-  background-color: var(--dark_grey);
-  color: var(--grey_out);
+  background-color: var(--grey);
+  color: var(--grey);
   opacity: var(--mainOpacity);
 }
 .react-calendar__month-view__weekdays {

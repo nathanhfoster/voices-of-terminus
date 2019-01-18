@@ -1,7 +1,7 @@
 .PublicProfile {
   padding: 20px;
   border-radius: 6px;
-  background-color: var(--dark_grey);
+  background-color: var(--grey);
   opacity: var(--mainOpacity);
 }
 

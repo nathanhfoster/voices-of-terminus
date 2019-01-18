@@ -6,10 +6,11 @@
 }
 
 .input-group-addon {
+  padding: 3px 6px;
   border-color: var(--light_grey);
   background-color: var(--slate_grey);
   color: var(--tertiarycolor);
-  min-height: 38px;
+  height: var(--inputButtonHeight);
   min-width: 43px;
 }
 .form-control[disabled] {
@@ -18,7 +19,7 @@
 }
 .form-control,
 .FilterMultiSelect {
-  min-height: 50px;
+  height: var(--inputButtonHeight);
   background-color: var(--slate_grey);
 }
 

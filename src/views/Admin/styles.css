@@ -90,7 +90,7 @@ div.-sort-desc::after {
 }
 
 .ReactTable .-pagination .-btn {
-  background-color: var(--grey_out);
+  background-color: var(--grey);
   color: var(--tertiarycolor);
 }
 

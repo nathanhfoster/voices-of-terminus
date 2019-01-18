@@ -37,7 +37,7 @@
 .commentContainer {
   display: block;
   width: 100%;
-  border: 1px solid var(--grey_out);
+  border: 1px solid var(--grey);
   border-radius: 4px;
   padding: 8px;
   margin: 16px 0;
@@ -49,7 +49,7 @@
   background-color: var(--grey);
   padding: 16px;
   border-radius: 4px;
-  border: 1px solid var(--grey_out);
+  border: 1px solid var(--grey);
 }
 
 .commentTextArea {
