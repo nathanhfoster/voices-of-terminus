@@ -141,16 +141,17 @@ class TextEditor extends Component {
       : [];
     const selectValue = [selectOptions[0], ...tags];
     const { id } = match ? match.params : null;
+    const { path } = match ? match : null;
 
-    // Set the editorState from Redux if it exists else create an empty state
-    if (editorState) {
-      editorState = this.htmlToEditorState(editorState);
-    } else if (HtmlDocument) {
+    // If HTML Document has been loaded from Redux and editing a Article
+    if (HtmlDocument && path.includes("edit")) {
       const { html } = HtmlDocument;
       editorState = this.htmlToEditorState(html);
+    }
+    // Set the editorState from Redux if it exists else create an empty state
+    else if (editorState) {
+      editorState = this.htmlToEditorState(editorState);
     } else editorState = EditorState.createEmpty();
-
-    // If HTML Document has been loaded from Redux
 
     this.setState({
       Articles,
