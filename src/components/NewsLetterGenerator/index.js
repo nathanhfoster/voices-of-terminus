@@ -366,8 +366,7 @@ class NewsLetterGenerator extends PureComponent {
         <Row>
           <EmailEditor
             id="editor"
-            projectId={1071}
-            //projectId={1558}
+            projectId={1558}
             displayMode="web"
             templateId="UVUlFBYAZkRx58DwbDkC3BU4JrEmCW9AN8flo4vYtEAg9h1ULftKMXpu2UIEGDZs"
             minHeight="calc(100vh - 58px)"
