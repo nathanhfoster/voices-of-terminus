@@ -384,6 +384,21 @@ class NewsLetterGenerator extends PureComponent {
                   }
                 }
               },
+              // customCSS: [
+              //   `
+              //     body {
+              //       background-color: yellow !important;
+              //     }
+              //     .design-web {
+              //       background-color: red !important;
+              //     }
+              //   `
+              // ],
+              // customJS: [
+              //   `
+              //     console.log('I am custom JS!');
+              //   `
+              // ],
               tools: {
                 image: {
                   enabled: true
@@ -392,7 +407,7 @@ class NewsLetterGenerator extends PureComponent {
                 form: {
                   enabled: true
                 },
-                "custom#custom_tool": {
+                "custom#video": {
                   data: {
                     user: User.id
                   }
