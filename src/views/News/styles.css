@@ -17,8 +17,7 @@
   opacity: var(--disabledOpacity);
   background-color: var(--slate_grey);
 }
-.form-control,
-.FilterMultiSelect {
+.form-control {
   height: var(--inputButtonHeight);
   background-color: var(--slate_grey);
 }
@@ -26,9 +25,6 @@
 .form-control:focus {
   border-color: var(--primaryColor);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--primaryColor);
-}
-
-.FilterMultiSelect {
 }
 
 .LoadButton {

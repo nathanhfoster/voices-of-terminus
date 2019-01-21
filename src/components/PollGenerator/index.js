@@ -9,6 +9,7 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
+  Form,
   InputGroup
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
@@ -16,28 +17,37 @@ import "./styles.css";
 import "./stylesM.css";
 import ConfirmAction from "../ConfirmAction";
 import Select from "react-select";
-import { PollChoices, switchPollTypeIcon } from "../../helpers";
+import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import { withRouter, Redirect } from "react-router-dom";
+import { PostPoll } from "../../actions/Polls";
 
-const mapStateToProps = ({ User }) => ({ User });
+const mapStateToProps = ({ User, Admin }) => ({ User, Admin });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { PostPoll };
 
 class PollGenerator extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      NewChoice: ""
+      NewChoice: "",
+      Recipients: [],
+      selectOptions: []
     };
   }
 
   static propTypes = {};
 
   static defaultProps = {
-    Polls: [
-      { postion: 0, type: PollChoices[0].value, Question: "", Choices: [] }
+    title: "",
+    Questions: [
+      {
+        postion: 0,
+        question: "",
+        question_type: PollChoices[0].value,
+        Responses: []
+      }
     ]
   };
 
@@ -57,15 +67,29 @@ class PollGenerator extends Component {
 
   componentWillUpdate() {}
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { User } = this.props;
+    const { Users } = this.props.Admin;
+    const Recipients = Users
+      ? Users.filter(i => i.id === User.id).map(
+          e => (e = { value: e.id, label: e.username, isFixed: true })
+        )
+      : [];
+    this.setState({ Recipients });
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    const { Polls, Choices } = props;
-    this.setState({ Polls, Choices });
+    const { Questions, User, Admin, title } = props;
+    const selectOptions = Admin.Users
+      ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
+          (a, b) => a.label.localeCompare(b.label)
+        )
+      : [];
+    this.setState({ Questions, selectOptions, title });
   };
 
   componentDidUpdate(prevProps, prevState) {}
@@ -74,50 +98,66 @@ class PollGenerator extends Component {
 
   onQuestionChange = e => {
     const { id, value } = e.target;
-    let { Polls } = this.state;
+    let { Questions } = this.state;
 
-    Polls[id].Question = value;
-    this.setState({ Polls });
+    Questions[id].question = value;
+    this.setState({ Questions });
   };
 
-  onChoiceChange = (choiceIndex, e) => {
+  onResponseChange = (responseIndex, e) => {
     const { id, value } = e.target;
-    let { Polls } = this.state;
+    let { Questions } = this.state;
 
-    Polls[id].Choices[choiceIndex].value = value;
-    this.setState({ Polls });
+    Questions[id].Responses[responseIndex].response = value;
+    this.setState({ Questions });
   };
 
   addChoice = e => {
     const { id, value } = e.target;
-    let { Polls } = this.state;
-    const { length } = Polls[id].Choices;
-    Polls[id].Choices.push({ postion: length, value: value });
-    this.setState({ Polls });
+    let { Questions } = this.state;
+    const { length } = Questions[id].Responses;
+    Questions[id].Responses.push({ postion: length, response: value });
+    this.setState({ Questions });
+  };
+
+  onSelectFilterChange = (Recipients, { action, removedValue }) => {
+    switch (action) {
+      case "remove-value":
+      case "pop-value":
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case "clear":
+        Recipients = this.state.Recipients.filter(v => v.isFixed);
+        break;
+    }
+
+    this.setState({ Recipients });
   };
 
   selectOnChange = (e, a, i) => {
     const { value } = e;
-    let { Polls } = this.state;
+    let { Questions } = this.state;
     switch (a.action) {
       case "clear":
-        Polls[i].type = "";
-        return this.setState({ Polls });
+        Questions[i].question_type = "";
+        return this.setState({ Questions });
 
       case "select-option":
-        if (Polls[i].Choices.length > 0 && value == "Text")
-          Polls[i].Choices.length = 0;
-        Polls[i].type = value;
-        return this.setState({ Polls });
+        if (Questions[i].Responses.length > 0 && value == "Text")
+          Questions[i].Responses.length = 0;
+        Questions[i].question_type = value;
+        return this.setState({ Questions });
     }
   };
 
-  renderPolls = Polls =>
-    Polls.map((p, i) => {
+  renderQuestions = Questions =>
+    Questions.map((q, i) => {
       const { NewChoice } = this.state;
-      const { type, Question, Choices } = p;
+      const { question_type, Question, Responses } = q;
       return (
-        <Row className="Polls Center borderedRow" key={i}>
+        <Row className="Questions Center borderedRow" key={i}>
           <Col xs={12}>
             <ControlLabel>Question</ControlLabel>
           </Col>
@@ -129,7 +169,7 @@ class PollGenerator extends Component {
               <FormControl
                 id={i}
                 value={Question}
-                type="text"
+                question_type="text"
                 placeholder="Enter question..."
                 onChange={this.onQuestionChange}
                 autoFocus={true}
@@ -138,9 +178,15 @@ class PollGenerator extends Component {
           </Col>
           <Col md={3} xs={12}>
             <InputGroup>
-              <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
+              <InputGroup.Addon>
+                {switchPollTypeIcon(question_type)}
+              </InputGroup.Addon>
               <Select
-                value={type ? { value: type, label: type } : null}
+                value={
+                  question_type
+                    ? { value: question_type, label: question_type }
+                    : null
+                }
                 onChange={(e, a) => this.selectOnChange(e, a, i)}
                 options={PollChoices}
                 isClearable={false}
@@ -152,19 +198,19 @@ class PollGenerator extends Component {
             </InputGroup>
           </Col>
           <Col xs={12}>
-            {this.switchPoll(Question, type, Choices, NewChoice, i)}
+            {this.switchPoll(Question, question_type, Responses, NewChoice, i)}
           </Col>
         </Row>
       );
     });
 
-  switchPoll = (Question, type, Choices, NewChoice, i) => {
-    switch (type) {
+  switchPoll = (Question, question_type, Responses, NewChoice, i) => {
+    switch (question_type) {
       case "Text":
         return (
           <FormGroup>
             <ControlLabel>Response</ControlLabel>
-            <FormControl type="text" placeholder="Text..." disabled />
+            <FormControl question_type="text" placeholder="Text..." disabled />
           </FormGroup>
         );
       case "Image":
@@ -174,7 +220,7 @@ class PollGenerator extends Component {
             <FormControl
               disabled
               style={{ margin: "auto" }}
-              type="file"
+              question_type="file"
               label="File"
             />
           </FormGroup>
@@ -183,14 +229,16 @@ class PollGenerator extends Component {
       default:
         return (
           <FormGroup key={i}>
-            <ControlLabel>Choices</ControlLabel>
-            {this.renderChoices(Question, Choices, i, type)}
+            <ControlLabel>Responses</ControlLabel>
+            {this.renderResponses(Question, Responses, i, question_type)}
             <InputGroup className="AddChoice">
-              <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
+              <InputGroup.Addon>
+                {switchPollTypeIcon(question_type)}
+              </InputGroup.Addon>
               <FormControl
                 id={i}
                 value={NewChoice}
-                type="text"
+                question_type="text"
                 placeholder="Add a choice..."
                 onChange={this.addChoice}
               />
@@ -200,19 +248,21 @@ class PollGenerator extends Component {
     }
   };
 
-  renderChoices = (Question, Choices, pollIndex, type) =>
-    Choices.map((c, i) => {
+  renderResponses = (Question, Responses, pollIndex, question_type) =>
+    Responses.map((c, i) => {
       const { postion, value } = c;
       return (
         <InputGroup key={i}>
-          <InputGroup.Addon>{switchPollTypeIcon(type)}</InputGroup.Addon>
+          <InputGroup.Addon>
+            {switchPollTypeIcon(question_type)}
+          </InputGroup.Addon>
           <FormControl
             id={pollIndex}
             key={i}
             value={value}
-            type="text"
+            question_type="text"
             placeholder={value}
-            onChange={e => this.onChoiceChange(i, e)}
+            onChange={e => this.onResponseChange(i, e)}
             autoFocus={postion == i}
           />
           <InputGroup.Addon>
@@ -234,28 +284,70 @@ class PollGenerator extends Component {
     });
 
   deleteChoice = (pollIndex, i) => {
-    let { Choices } = this.state.Polls[pollIndex];
-    delete Choices[i];
-    this.setState({ Choices });
+    let { Responses } = this.state.Questions[pollIndex];
+    delete Responses[i];
+    this.setState({ Responses });
   };
 
+  selectGuildRecipients = (User, Users) =>
+    Users.filter(
+      user =>
+        statusLevelInt({
+          is_leader: user.is_leader,
+          is_advisor: user.is_advisor,
+          is_council: user.is_council,
+          is_general_officer: user.is_general_officer,
+          is_officer: user.is_officer,
+          is_senior_member: user.is_senior_member,
+          is_junior_member: user.is_junior_member,
+          is_recruit: user.is_recruit
+        }) != 0
+    )
+      .map(
+        i =>
+          (i = {
+            value: i.id,
+            label: i.username,
+            isFixed: i.id === User.id
+          })
+      )
+      .sort((a, b) => a.label.localeCompare(b.label));
+
+  onChange = e => this.setState({ [e.target.name]: e.target.value });
+
   render() {
-    const { User } = this.props;
-    const { Polls, Choices, NewChoice } = this.state;
+    const { User, Admin, PostPoll } = this.props;
+    const { Questions, Recipients, selectOptions, title } = this.state;
+    console.log(Recipients.map(r => (r = { recipient: r.value })));
     return User.is_superuser || User.is_staff ? (
       <Grid className="PollGenerator Container">
         <Row className="ActionToolbarRow">
-          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={4}>
+            <Button
+              onClick={e =>
+                PostPoll(
+                  User.token,
+                  User.id,
+                  title,
+                  Questions,
+                  Recipients.map(r => (r = { recipient: r.value }))
+                )
+              }
+            >
+              Post
+            </Button>
+          </Col>
+          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               onClick={e =>
                 this.setState({
-                  Polls: [
-                    ...Polls,
+                  Questions: [
+                    ...Questions,
                     {
                       postion: 0,
-                      type: PollChoices[0].value,
+                      question_type: PollChoices[0].value,
                       Question: "",
-                      Choices: []
+                      Responses: []
                     }
                   ]
                 })
@@ -264,8 +356,61 @@ class PollGenerator extends Component {
               <i className="fas fa-plus" /> Question
             </Button>
           </Col>
+          <Col md={4}>
+            <Button
+              onClick={e =>
+                this.setState({
+                  Recipients: this.selectGuildRecipients(User, Admin.Users)
+                })
+              }
+            >
+              <i className="fas fa-user-plus" /> Guild
+            </Button>
+          </Col>
         </Row>
-        {this.renderPolls(Polls)}
+        <Row>
+          <Form className="Container fadeIn">
+            <Row>
+              <Col xs={12}>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-heading" />
+                  </InputGroup.Addon>
+                  <FormControl
+                    value={title}
+                    type="text"
+                    placeholder="Title"
+                    name="title"
+                    onChange={e => this.onChange(e)}
+                  />
+                </InputGroup>
+              </Col>
+              <Col xs={12}>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-user-plus" />
+                  </InputGroup.Addon>
+                  <Select
+                    //https://react-select.com/props
+                    value={Recipients}
+                    isMulti
+                    styles={selectStyles}
+                    onBlur={e => e.preventDefault()}
+                    blurInputOnSelect={false}
+                    //isClearable={this.state.Recipients.some(v => !v.isFixed)}
+                    isSearchable={true}
+                    name="colors"
+                    placeholder="Username..."
+                    classNamePrefix="select"
+                    onChange={this.onSelectFilterChange}
+                    options={selectOptions}
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+          </Form>
+        </Row>
+        {this.renderQuestions(Questions)}
       </Grid>
     ) : User.token ? (
       <Redirect to={this.props.history.goBack()} />

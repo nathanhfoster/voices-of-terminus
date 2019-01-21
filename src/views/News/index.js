@@ -367,7 +367,6 @@ class News extends Component {
                 isSearchable={false}
                 name="colors"
                 placeholder="Filter by tags..."
-                className="FilterMultiSelect"
                 classNamePrefix="select"
                 onChange={this.onSelectChange}
                 options={this.props.selectOptions}

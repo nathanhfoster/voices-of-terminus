@@ -383,7 +383,6 @@ class Messages extends PureComponent {
                           isSearchable={true}
                           name="colors"
                           placeholder="Username..."
-                          className="FilterMultiSelect"
                           classNamePrefix="select"
                           onChange={this.onSelectFilterChange}
                           options={selectOptions}

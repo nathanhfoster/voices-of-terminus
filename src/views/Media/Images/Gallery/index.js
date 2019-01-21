@@ -382,7 +382,6 @@ class Gallery extends PureComponent {
                 isSearchable={false}
                 name="colors"
                 placeholder="Filter by tags..."
-                className="FilterMultiSelect"
                 classNamePrefix="select"
                 onChange={this.onSelectFilterChange}
                 options={this.props.selectOptions}
@@ -526,7 +525,6 @@ class Gallery extends PureComponent {
                         isSearchable={false}
                         name="colors"
                         placeholder="Tags..."
-                        className="FilterMultiSelect"
                         classNamePrefix="select"
                         onChange={this.onSelectTagChange}
                         options={this.props.selectOptions}

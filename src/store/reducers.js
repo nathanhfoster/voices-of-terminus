@@ -223,6 +223,24 @@ export const Messages = (
   }
 };
 
+export const Polls = (
+  state = {
+    results: [],
+    Questions: [
+      { question: "", question_type: "", Responses: [{ response: "" }] }
+    ],
+    Recipients: []
+  },
+  action
+) => {
+  switch (action.type) {
+    case C.GET_POLLS:
+      return { ...action.payload };
+    default:
+      return state;
+  }
+};
+
 export const Admin = (state = {}, action) => {
   switch (action.type) {
     case C.GET_USERS:
@@ -315,5 +333,6 @@ export const appReducer = combineReducers({
   Admin,
   Settings,
   Galleries,
-  Messages
+  Messages,
+  Polls
 });

@@ -68,7 +68,6 @@ export const selectStyles = {
   }),
   option: (base, state) => ({
     ...base,
-    minHeight: "var(--inputButtonHeight)",
     borderBottom: "1px solid var(--primaryColor)",
     backgroundColor: state.isFocused
       ? "var(--primaryColor)"
