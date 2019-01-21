@@ -1,16 +1,26 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
+/*
+results: [
+      {
+        Questions: [
+          { question: "", question_type: "", Responses: [{ response: "" }] }
+        ],
+        Recipients: []
+      }
+    ]
+*/
 
 export const PostPoll = (token, author, title, Questions, Recipients) => {
   const pollPayload = { author, title };
-  return async (dispatch, getState) => {
-    const { Polls } = getState();
-    let payload = { ...Polls };
+  return async dispatch => {
     return await Axios(token)
       .post("/polls/", qs.stringify(pollPayload))
       .then(poll => {
-        console.log("poll: ", poll.data);
+        poll.data.Questions = [];
+        poll.data.Questions.Responses = [];
+        poll.data.Recipients = [];
         const poll_id = poll.data.id;
         const recipient_poll_id = poll.data.id;
 
@@ -22,24 +32,20 @@ export const PostPoll = (token, author, title, Questions, Recipients) => {
             question_type,
             poll_id
           };
-          console.log("pollQuestionPayload: ", pollQuestionPayload);
           Axios(token)
-            .post("poll/Questions/", qs.stringify(pollQuestionPayload))
+            .post("poll/questions/", qs.stringify(pollQuestionPayload))
             .then(question => {
-              console.log("question: ", question.data);
               const question_id = question.data.id;
               for (let i = 0; i < Responses.length; i++) {
                 const { response } = Responses[i];
                 const responsePayload = { author, response, question_id };
-                console.log("responsePayload: ", responsePayload);
                 Axios(token)
                   .post("poll/responses/", qs.stringify(responsePayload))
                   .then(response => {
-                    console.log("response: ", response);
-                    payload.Questions.Responses.unshift(response.data);
+                    poll.data.Questions.Responses.push(response.data);
                   });
               }
-              payload.Questions.unshift(question.data);
+              poll.data.Questions.push(question.data);
             })
             .catch(e => console.log(e));
         }
@@ -47,18 +53,16 @@ export const PostPoll = (token, author, title, Questions, Recipients) => {
         for (let i = 0; i < Recipients.length; i++) {
           const { recipient } = Recipients[i];
           const recipientPayload = { recipient, recipient_poll_id };
-          console.log("recipientPayload: ", recipientPayload);
           Axios(token)
             .post("poll/recipients/", qs.stringify(recipientPayload))
             .then(res => {
-              console.log("response: ", res.data);
-              payload.Recipients.push(res.data);
+              poll.data.Recipients.push(res.data);
             })
             .catch(e => console.log(e));
         }
         dispatch({
-          type: C.GET_MESSAGES,
-          payload: payload
+          type: C.GET_POLLS_SUCCESS,
+          payload: poll.data
         });
       })
       .catch(e => console.log(e));

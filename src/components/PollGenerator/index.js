@@ -112,7 +112,7 @@ class PollGenerator extends Component {
     this.setState({ Questions });
   };
 
-  addChoice = e => {
+  addResponse = e => {
     const { id, value } = e.target;
     let { Questions } = this.state;
     const { length } = Questions[id].Responses;
@@ -231,7 +231,7 @@ class PollGenerator extends Component {
           <FormGroup key={i}>
             <ControlLabel>Responses</ControlLabel>
             {this.renderResponses(Question, Responses, i, question_type)}
-            <InputGroup className="AddChoice">
+            <InputGroup className="addResponse">
               <InputGroup.Addon>
                 {switchPollTypeIcon(question_type)}
               </InputGroup.Addon>
@@ -240,7 +240,7 @@ class PollGenerator extends Component {
                 value={NewChoice}
                 question_type="text"
                 placeholder="Add a choice..."
-                onChange={this.addChoice}
+                onChange={this.addResponse}
               />
             </InputGroup>
           </FormGroup>
@@ -250,7 +250,7 @@ class PollGenerator extends Component {
 
   renderResponses = (Question, Responses, pollIndex, question_type) =>
     Responses.map((c, i) => {
-      const { postion, value } = c;
+      const { postion, response } = c;
       return (
         <InputGroup key={i}>
           <InputGroup.Addon>
@@ -259,9 +259,9 @@ class PollGenerator extends Component {
           <FormControl
             id={pollIndex}
             key={i}
-            value={value}
+            value={response}
             question_type="text"
-            placeholder={value}
+            placeholder={response}
             onChange={e => this.onResponseChange(i, e)}
             autoFocus={postion == i}
           />
@@ -276,7 +276,7 @@ class PollGenerator extends Component {
               hasPermission={true}
               Size="small"
               Class="pull-right"
-              Title={value}
+              Title={response}
             />
           </InputGroup.Addon>
         </InputGroup>
@@ -318,7 +318,6 @@ class PollGenerator extends Component {
   render() {
     const { User, Admin, PostPoll } = this.props;
     const { Questions, Recipients, selectOptions, title } = this.state;
-    console.log(Recipients.map(r => (r = { recipient: r.value })));
     return User.is_superuser || User.is_staff ? (
       <Grid className="PollGenerator Container">
         <Row className="ActionToolbarRow">

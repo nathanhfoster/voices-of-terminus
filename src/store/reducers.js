@@ -225,17 +225,60 @@ export const Messages = (
 
 export const Polls = (
   state = {
-    results: [],
-    Questions: [
-      { question: "", question_type: "", Responses: [{ response: "" }] }
-    ],
-    Recipients: []
+    results: []
   },
   action
 ) => {
-  switch (action.type) {
-    case C.GET_POLLS:
-      return { ...action.payload };
+  const { type, payload } = action;
+  switch (type) {
+    case C.GET_POLLS_LOADING:
+      return {
+        ...state,
+        loading: true,
+        loaded: false
+      };
+    case C.GET_POLLS_SUCCESS:
+      console.log(payload);
+      console.log(state);
+      const { Questions, Responses } = payload;
+      const { posting, posted, updating, updated } = state;
+      return Object.assign({}, state, {
+        ...state,
+        loading: false,
+        loaded: true,
+        posting,
+        posted,
+        updating,
+        updated,
+        error: null,
+        results: [...state.results, payload]
+      });
+    case C.POST_POLLS_LOADING:
+      return {
+        ...state,
+        posting: true,
+        posted: false
+      };
+    case C.POST_POLLS_SUCCESS:
+      return {
+        ...state,
+        posting: false,
+        posted: true,
+        error: null
+      };
+    case C.UPDATE_POLLS_LOADING:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      };
+    case C.UPDATE_POLLS_SUCCESS:
+      return {
+        ...state,
+        updating: false,
+        updated: true,
+        error: null
+      };
     default:
       return state;
   }
