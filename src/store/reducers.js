@@ -238,8 +238,8 @@ export const Polls = (
         loaded: false
       };
     case C.GET_POLLS_SUCCESS:
-      console.log(payload);
-      console.log(state);
+      console.log("PAYLOAD: ", payload);
+      console.log("STATE: ", state);
       const { Questions, Responses } = payload;
       const { posting, posted, updating, updated } = state;
       return Object.assign({}, state, {

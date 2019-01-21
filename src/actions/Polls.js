@@ -19,7 +19,6 @@ export const PostPoll = (token, author, title, Questions, Recipients) => {
       .post("/polls/", qs.stringify(pollPayload))
       .then(poll => {
         poll.data.Questions = [];
-        poll.data.Questions.Responses = [];
         poll.data.Recipients = [];
         const poll_id = poll.data.id;
         const recipient_poll_id = poll.data.id;
@@ -36,16 +35,19 @@ export const PostPoll = (token, author, title, Questions, Recipients) => {
             .post("poll/questions/", qs.stringify(pollQuestionPayload))
             .then(question => {
               const question_id = question.data.id;
+              poll.data.Questions.unshift(question.data);
               for (let i = 0; i < Responses.length; i++) {
                 const { response } = Responses[i];
                 const responsePayload = { author, response, question_id };
                 Axios(token)
                   .post("poll/responses/", qs.stringify(responsePayload))
                   .then(response => {
-                    poll.data.Questions.Responses.push(response.data);
+                    poll.data.Questions[0].Responses = poll.data.Questions[0]
+                      .Responses
+                      ? [...poll.data.Questions[0].Responses, response.data]
+                      : [response.data];
                   });
               }
-              poll.data.Questions.push(question.data);
             })
             .catch(e => console.log(e));
         }
