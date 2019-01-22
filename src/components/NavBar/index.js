@@ -259,7 +259,9 @@ class NavBar extends PureComponent {
                 <NavItem onClick={this.Logout}>
                   <i className="fas fa-sign-out-alt" /> LOGOUT
                 </NavItem>
-                {User.is_superuser || User.can_create_article || User.can_create_newsletter ? (
+                {User.is_superuser ||
+                User.can_create_article ||
+                User.can_create_newsletter ? (
                   <MenuItem divider />
                 ) : null}
                 {User.is_superuser || User.can_create_article ? (
@@ -276,11 +278,21 @@ class NavBar extends PureComponent {
                     </NavItem>
                   </LinkContainer>
                 ) : null}
-                {User.is_superuser || User.is_staff ? (  <LinkContainer to="/polls/new/poll">
-                <NavItem eventKey={13}>
-                  <i className="fas fa-plus" /> POLL
-                </NavItem>
-              </LinkContainer>): null}
+                {User.is_superuser || User.is_staff ? (
+                  <LinkContainer to="/polls/new/poll">
+                    <NavItem eventKey={13}>
+                      <i className="fas fa-plus" /> POLL
+                    </NavItem>
+                  </LinkContainer>
+                ) : null}
+                <MenuItem divider />
+                {User.is_superuser || User.is_staff ? (
+                  <LinkContainer to="/polls">
+                    <NavItem eventKey={13}>
+                      <i className="fas fa-eye" /> POLL
+                    </NavItem>
+                  </LinkContainer>
+                ) : null}
                 <MenuItem divider />
                 <MenuItem
                   onClick={() => this.props.toggleFooter(!showFooter)}

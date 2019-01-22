@@ -225,11 +225,14 @@ export const Messages = (
 
 export const Polls = (
   state = {
-    results: []
+    results: [],
+    Questions: { results: [] },
+    Responses: { results: [] },
+    Recipients: { results: [] }
   },
   action
 ) => {
-  const { type, payload } = action;
+  const { id, type, payload } = action;
   switch (type) {
     case C.GET_POLLS_LOADING:
       return {
@@ -238,12 +241,8 @@ export const Polls = (
         loaded: false
       };
     case C.GET_POLLS_SUCCESS:
-      console.log("PAYLOAD: ", payload);
-      console.log("STATE: ", state);
-      const { Questions, Responses } = payload;
       const { posting, posted, updating, updated } = state;
-      return Object.assign({}, state, {
-        ...state,
+      return {
         loading: false,
         loaded: true,
         posting,
@@ -251,8 +250,15 @@ export const Polls = (
         updating,
         updated,
         error: null,
-        results: [...state.results, payload]
-      });
+        ...state,
+        count: payload.count,
+        next: payload.next,
+        previous: payload.previous,
+        results: payload.results,
+        Questions: state.Questions,
+        Responses: state.Responses,
+        Recipients: state.Recipients
+      };
     case C.POST_POLLS_LOADING:
       return {
         ...state,
@@ -278,6 +284,36 @@ export const Polls = (
         updating: false,
         updated: true,
         error: null
+      };
+    case C.GET_QUESTIONS:
+      return {
+        ...state,
+        Questions: {
+          ...payload,
+          loading: false,
+          loaded: true,
+          error: null
+        }
+      };
+    case C.GET_RESPONSES:
+      return {
+        ...state,
+        Responses: {
+          ...payload,
+          loading: false,
+          loaded: true,
+          error: null
+        }
+      };
+    case C.GET_RECIPIENTS:
+      return {
+        ...state,
+        Recipients: {
+          ...payload,
+          loading: false,
+          loaded: true,
+          error: null
+        }
       };
     default:
       return state;

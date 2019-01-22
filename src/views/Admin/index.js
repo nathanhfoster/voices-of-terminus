@@ -205,7 +205,12 @@ class Admin extends PureComponent {
       <Grid className="Admin Container fadeIn">
         <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row className="ActionToolbarRow">
-          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            md={8}
+            xs={12}
+            className="ActionToolbar"
+            componentClass={ButtonToolbar}
+          >
             <Button onClick={this.handleShow}>
               <i className="fas fa-plus" /> User
             </Button>
@@ -236,6 +241,14 @@ class Admin extends PureComponent {
               onClick={() => this.props.history.push("/polls/new/poll")}
             >
               <i className="fas fa-plus" /> Poll
+            </Button>
+          </Col>
+          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button
+              disabled={!User.is_superuser}
+              onClick={() => this.props.history.push("/polls/")}
+            >
+              <i className="fas fa-eye" /> Poll
             </Button>
           </Col>
         </Row>
