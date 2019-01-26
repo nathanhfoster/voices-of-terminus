@@ -375,11 +375,11 @@ class TextEditor extends Component {
               editorState={editorState}
               onEditorStateChange={this.onEditorStateChange}
               onFocus={e => e.preventDefault()}
-              onBlur={(e, editorState) => {
-                this.props.setEditorState(
-                  draftToHtml(convertToRaw(editorState.getCurrentContent()))
-                );
-              }}
+              // onBlur={(e, editorState) => {
+              //   this.props.setEditorState(
+              //     draftToHtml(convertToRaw(editorState.getCurrentContent()))
+              //   );
+              // }}
               onTab={e => e.preventDefault()}
               blurInputOnSelect={false}
               toolbar={options}

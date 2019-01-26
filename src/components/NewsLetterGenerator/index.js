@@ -302,6 +302,15 @@ class NewsLetterGenerator extends PureComponent {
             <Button onClick={this.loadFormDesign}>
               <i className="fab fa-wpforms" />
             </Button>
+            <Button
+              onClick={() =>
+                navigator.clipboard
+                  .readText()
+                  .then(text => this.loadNewsletterDesign(JSON.parse(text)))
+              }
+            >
+              <i className="fas fa-paste" />
+            </Button>
           </Col>
           <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.handleShow} className="pull-right">
@@ -319,16 +328,6 @@ class NewsLetterGenerator extends PureComponent {
               className="pull-right"
             >
               CLEAR
-            </Button>
-            <Button
-              onClick={() =>
-                navigator.clipboard
-                  .readText()
-                  .then(text => this.loadNewsletterDesign(JSON.parse(text)))
-              }
-              className="pull-right"
-            >
-              <i className="fas fa-paste" />
             </Button>
           </Col>
         </Row>
