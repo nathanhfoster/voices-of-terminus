@@ -1,3 +1,7 @@
-.PollSystem {
-  
+.PollSystem .row {
+    margin-bottom: 16px;
+}
+.PollSystem .row:hover {
+  border-color: var(--primaryColor);
+  transition: border-color 0.4s;
 }

@@ -46,7 +46,7 @@ class PollGenerator extends Component {
         postion: 0,
         question: "",
         question_type: PollChoices[0].value,
-        Responses: []
+        Choices: []
       }
     ]
   };
@@ -99,24 +99,23 @@ class PollGenerator extends Component {
   onQuestionChange = e => {
     const { id, value } = e.target;
     let { Questions } = this.state;
-
-    Questions[id].question = value;
+    Questions[parseInt(id)].question = value;
     this.setState({ Questions });
   };
 
-  onResponseChange = (responseIndex, e) => {
+  onChoiceChange = (choiceIndex, e) => {
     const { id, value } = e.target;
     let { Questions } = this.state;
 
-    Questions[id].Responses[responseIndex].response = value;
+    Questions[parseInt(id)].Choices[choiceIndex].title = value;
     this.setState({ Questions });
   };
 
-  addResponse = e => {
+  addChoice = e => {
     const { id, value } = e.target;
     let { Questions } = this.state;
-    const { length } = Questions[id].Responses;
-    Questions[id].Responses.push({ postion: length, response: value });
+    const { length } = Questions[id].Choices;
+    Questions[id].Choices.push({ postion: length, title: value });
     this.setState({ Questions });
   };
 
@@ -145,8 +144,8 @@ class PollGenerator extends Component {
         return this.setState({ Questions });
 
       case "select-option":
-        if (Questions[i].Responses.length > 0 && value == "Text")
-          Questions[i].Responses.length = 0;
+        if (Questions[i].Choices.length > 0 && value == "Text")
+          Questions[i].Choices.length = 0;
         Questions[i].question_type = value;
         return this.setState({ Questions });
     }
@@ -155,7 +154,7 @@ class PollGenerator extends Component {
   renderQuestions = Questions =>
     Questions.map((q, i) => {
       const { NewChoice } = this.state;
-      const { question_type, Question, Responses } = q;
+      const { question_type, Question, Choices } = q;
       return (
         <Row className="Questions Center borderedRow" key={i}>
           <Col xs={12}>
@@ -167,7 +166,8 @@ class PollGenerator extends Component {
                 <i className="far fa-question-circle" />
               </InputGroup.Addon>
               <FormControl
-                id={i}
+                id={`${i}`}
+                key={i}
                 value={Question}
                 question_type="text"
                 placeholder="Enter question..."
@@ -198,18 +198,18 @@ class PollGenerator extends Component {
             </InputGroup>
           </Col>
           <Col xs={12}>
-            {this.switchPoll(Question, question_type, Responses, NewChoice, i)}
+            {this.switchPoll(question_type, Choices, NewChoice, i)}
           </Col>
         </Row>
       );
     });
 
-  switchPoll = (Question, question_type, Responses, NewChoice, i) => {
+  switchPoll = (question_type, Choices, NewChoice, i) => {
     switch (question_type) {
       case "Text":
         return (
           <FormGroup>
-            <ControlLabel>Response</ControlLabel>
+            <ControlLabel>Choice</ControlLabel>
             <FormControl question_type="text" placeholder="Text..." disabled />
           </FormGroup>
         );
@@ -229,18 +229,19 @@ class PollGenerator extends Component {
       default:
         return (
           <FormGroup key={i}>
-            <ControlLabel>Responses</ControlLabel>
-            {this.renderResponses(Question, Responses, i, question_type)}
-            <InputGroup className="addResponse">
+            <ControlLabel>Choices</ControlLabel>
+            {this.renderChoices(Choices, i, question_type)}
+            <InputGroup className="AddChoice">
               <InputGroup.Addon>
                 {switchPollTypeIcon(question_type)}
               </InputGroup.Addon>
               <FormControl
-                id={i}
+                id={`${i}`}
+                key={i}
                 value={NewChoice}
                 question_type="text"
                 placeholder="Add a choice..."
-                onChange={this.addResponse}
+                onChange={this.addChoice}
               />
             </InputGroup>
           </FormGroup>
@@ -248,21 +249,20 @@ class PollGenerator extends Component {
     }
   };
 
-  renderResponses = (Question, Responses, pollIndex, question_type) =>
-    Responses.map((c, i) => {
-      const { postion, response } = c;
+  renderChoices = (Choices, pollIndex, question_type) =>
+    Choices.map((c, i) => {
+      const { postion, title } = c;
       return (
         <InputGroup key={i}>
           <InputGroup.Addon>
             {switchPollTypeIcon(question_type)}
           </InputGroup.Addon>
           <FormControl
-            id={pollIndex}
-            key={i}
-            value={response}
+            id={`${pollIndex}`}
+            value={title}
             question_type="text"
-            placeholder={response}
-            onChange={e => this.onResponseChange(i, e)}
+            placeholder={title}
+            onChange={e => this.onChoiceChange(i, e)}
             autoFocus={postion == i}
           />
           <InputGroup.Addon>
@@ -276,7 +276,7 @@ class PollGenerator extends Component {
               hasPermission={true}
               Size="small"
               Class="pull-right"
-              Title={response}
+              Title={title}
             />
           </InputGroup.Addon>
         </InputGroup>
@@ -284,9 +284,9 @@ class PollGenerator extends Component {
     });
 
   deleteChoice = (pollIndex, i) => {
-    let { Responses } = this.state.Questions[pollIndex];
-    delete Responses[i];
-    this.setState({ Responses });
+    let { Choices } = this.state.Questions[pollIndex];
+    delete Choices[i];
+    this.setState({ Choices });
   };
 
   selectGuildRecipients = (User, Users) =>
@@ -318,6 +318,7 @@ class PollGenerator extends Component {
   render() {
     const { User, Admin, PostPoll } = this.props;
     const { Questions, Recipients, selectOptions, title } = this.state;
+
     return User.is_superuser || User.is_staff ? (
       <Grid className="PollGenerator Container">
         <Row className="ActionToolbarRow">
@@ -343,10 +344,10 @@ class PollGenerator extends Component {
                   Questions: [
                     ...Questions,
                     {
-                      postion: 0,
+                      postion: Questions.length,
+                      question: "",
                       question_type: PollChoices[0].value,
-                      Question: "",
-                      Responses: []
+                      Choices: []
                     }
                   ]
                 })

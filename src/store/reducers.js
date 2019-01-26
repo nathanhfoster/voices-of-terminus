@@ -226,9 +226,11 @@ export const Messages = (
 export const Polls = (
   state = {
     results: [],
-    Questions: { results: [] },
-    Responses: { results: [] },
-    Recipients: { results: [] }
+    Poll: {},
+    Questions: [],
+    Choices: [],
+    Responses: [],
+    Recipients: []
   },
   action
 ) => {
@@ -251,14 +253,18 @@ export const Polls = (
         updated,
         error: null,
         ...state,
-        count: payload.count,
-        next: payload.next,
-        previous: payload.previous,
-        results: payload.results,
-        Questions: state.Questions,
-        Responses: state.Responses,
-        Recipients: state.Recipients
+        ...payload,
+        // count: payload.count,
+        // next: payload.next,
+        // previous: payload.previous,
+        // results: payload.results,
+        // Questions: state.Questions,
+        // Choices: state.Choices,
+        // Responses: state.Responses,
+        // Recipients: state.Recipients
       };
+    case C.GET_POLL:
+      return { ...state, Poll: payload };
     case C.POST_POLLS_LOADING:
       return {
         ...state,
@@ -288,32 +294,22 @@ export const Polls = (
     case C.GET_QUESTIONS:
       return {
         ...state,
-        Questions: {
-          ...payload,
-          loading: false,
-          loaded: true,
-          error: null
-        }
+        Questions: payload
+      };
+    case C.GET_CHOICES:
+      return {
+        ...state,
+        Choices: payload
       };
     case C.GET_RESPONSES:
       return {
         ...state,
-        Responses: {
-          ...payload,
-          loading: false,
-          loaded: true,
-          error: null
-        }
+        Responses: payload
       };
     case C.GET_RECIPIENTS:
       return {
         ...state,
-        Recipients: {
-          ...payload,
-          loading: false,
-          loaded: true,
-          error: null
-        }
+        Recipients: payload
       };
     default:
       return state;

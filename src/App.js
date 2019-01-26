@@ -238,7 +238,9 @@ class App extends PureComponent {
   }
 
   renderRouteItems = routeItems =>
-    routeItems.map(k => <Route exact path={k.path} component={k.component} />);
+    routeItems.map((k, i) => (
+      <Route exact key={i} path={k.path} component={k.component} />
+    ));
 
   renderBackgroundImages = (images, shouldRespond) =>
     images.map(k => (

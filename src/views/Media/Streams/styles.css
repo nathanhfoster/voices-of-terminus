@@ -11,7 +11,7 @@
 .Streams .youTubeContainer {
   padding: 0;
   margin: 20px 0 0 0;
-  background-color: var(--grey);
+  background-color: var(--slate_grey);
   opacity: var(--mainOpacity);
   border: 1px solid var(--gray);
   border-radius: 4px;

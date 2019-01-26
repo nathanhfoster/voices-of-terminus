@@ -24,7 +24,7 @@
 
 .form-control:focus {
   border-color: var(--primaryColor);
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--primaryColor);
+  box-shadow: 0 1px 1px var(--primaryColor);
 }
 
 .LoadButton {

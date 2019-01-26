@@ -133,8 +133,12 @@ class Footer extends PureComponent {
           </div>
           {shouldShow
             ? [
-                <Image className="Female footerImages" src={femaleImage} />,
-                <Image className="Male footerImages" src={maleImage} />
+                <Image
+                  key={1}
+                  className="Female footerImages"
+                  src={femaleImage}
+                />,
+                <Image key={2} className="Male footerImages" src={maleImage} />
               ]
             : null}
         </footer>

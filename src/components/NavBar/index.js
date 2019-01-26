@@ -129,92 +129,92 @@ class NavBar extends PureComponent {
               </NavItem>
             </LinkContainer>
             <NavDropdown
-              eventKey={5}
-              title={[<i className="fab fa-fort-awesome" />, " GUILD"]}
+              eventKey={6}
+              title={[<i key={6} className="fab fa-fort-awesome" />, " GUILD"]}
               id="basic-nav-dropdown"
             >
               <LinkContainer to="/guild/about">
-                <NavItem eventKey={5.1}>ABOUT</NavItem>
+                <NavItem eventKey={6.1}>ABOUT</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/roster">
-                <NavItem eventKey={5.2}>ROSTER</NavItem>
+                <NavItem eventKey={6.2}>ROSTER</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/charters">
-                <NavItem eventKey={5.3}>CHARTERS</NavItem>
+                <NavItem eventKey={6.3}>CHARTERS</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/lore">
-                <NavItem eventKey={5.4}>LORE</NavItem>
+                <NavItem eventKey={6.4}>LORE</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/contests">
-                <NavItem eventKey={5.5}>CONTESTS</NavItem>
+                <NavItem eventKey={6.5}>CONTESTS</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/team">
-                <NavItem eventKey={5.6}>TEAM</NavItem>
+                <NavItem eventKey={6.6}>TEAM</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/join">
-                <NavItem eventKey={5.7}>JOIN</NavItem>
+                <NavItem eventKey={6.7}>JOIN</NavItem>
               </LinkContainer>
               <MenuItem divider />
               <NavItem
                 href="https://www.designbyhumans.com/shop/VoicesofTerminus/"
                 target="_blank"
-                eventKey={5.8}
+                eventKey={6.8}
               >
                 <i className="fas fa-store" /> STORE
               </NavItem>
               <LinkContainer to="/guild/donate">
-                <NavItem eventKey={5.9}>
+                <NavItem eventKey={6.9}>
                   <i className="fas fa-donate" /> DONATE
                 </NavItem>
               </LinkContainer>
             </NavDropdown>
             <NavDropdown
-              eventKey={6}
-              title={[<i className="fas fa-compact-disc" />, " MEDIA"]}
+              eventKey={7}
+              title={[<i key={7} className="fas fa-compact-disc" />, " MEDIA"]}
               id="basic-nav-dropdown"
             >
               <LinkContainer to="/media/images">
-                <NavItem eventKey={6.1}>IMAGES</NavItem>
+                <NavItem eventKey={7.1}>IMAGES</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/videos">
-                <NavItem eventKey={6.2}>VIDEOS</NavItem>
+                <NavItem eventKey={7.2}>VIDEOS</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/streams">
-                <NavItem eventKey={6.3}>STREAMS</NavItem>
+                <NavItem eventKey={7.3}>STREAMS</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/podcasts">
-                <NavItem eventKey={6.4}>PODCASTS</NavItem>
+                <NavItem eventKey={7.4}>PODCASTS</NavItem>
               </LinkContainer>
             </NavDropdown>
             <NavDropdown
               eventKey={8}
-              title={[<i className="fas fa-gopuram" />, " VR"]}
+              title={[<i key={8} className="fas fa-gopuram" />, " VR"]}
               id="connect-nav-dropdown"
             >
-              <Image eventKey={8.1} src={vrLogo} className="vrLogo" />
+              <Image src={vrLogo} className="vrLogo" />
               <NavItem
-                eventKey={8.2}
+                eventKey={8.1}
                 href="http://pantheonmmo.com/?referer=VoicesOfTerminus"
                 target="_blank"
               >
                 WEBSITE
               </NavItem>
               <NavItem
-                eventKey={8.3}
+                eventKey={8.2}
                 href="http://visionaryrealms.com/?referer=VoicesOfTerminus"
                 target="_blank"
               >
                 NEWS + EVENTS
               </NavItem>
               <NavItem
-                eventKey={8.4}
+                eventKey={8.3}
                 href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ"
                 target="_blank"
               >
                 GAMEPLAY
               </NavItem>
               <NavItem
-                eventKey={8.5}
+                eventKey={8.4}
                 href="http://www.pantheonmmo.com/news/latest_news/"
                 target="_blank"
               >
@@ -238,20 +238,20 @@ class NavBar extends PureComponent {
                       style={{ height: "25px" }}
                     />
                   ) : (
-                    <i className="fas fa-user" />
+                    <i key={10.1} className="fas fa-user" />
                   ),
-                  <span> {User.username} </span>,
-                  <Badge>{unreadMessages}</Badge>
+                  <span key={10.2}> {User.username} </span>,
+                  <Badge key={10.3}>{unreadMessages}</Badge>
                 ]}
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/profile">
-                  <NavItem eventKey={11}>
+                  <NavItem eventKey={10.4}>
                     <i className="fas fa-user-circle" /> PROFILE
                   </NavItem>
                 </LinkContainer>
                 <LinkContainer to="/messages">
-                  <NavItem eventKey={12}>
+                  <NavItem eventKey={10.5}>
                     <i className="fas fa-bell" /> MESSAGES{" "}
                     <Badge>{unreadMessages}</Badge>
                   </NavItem>
@@ -266,21 +266,21 @@ class NavBar extends PureComponent {
                 ) : null}
                 {User.is_superuser || User.can_create_article ? (
                   <LinkContainer to="/articles/new/article">
-                    <NavItem eventKey={13}>
+                    <NavItem eventKey={10.6}>
                       <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
                 ) : null}
                 {User.is_superuser || User.can_create_newsletter ? (
                   <LinkContainer to="/articles/new/newsletter">
-                    <NavItem eventKey={13}>
+                    <NavItem eventKey={10.7}>
                       <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
                   </LinkContainer>
                 ) : null}
                 {User.is_superuser || User.is_staff ? (
                   <LinkContainer to="/polls/new/poll">
-                    <NavItem eventKey={13}>
+                    <NavItem eventKey={10.8}>
                       <i className="fas fa-plus" /> POLL
                     </NavItem>
                   </LinkContainer>
@@ -288,7 +288,7 @@ class NavBar extends PureComponent {
                 <MenuItem divider />
                 {User.is_superuser || User.is_staff ? (
                   <LinkContainer to="/polls">
-                    <NavItem eventKey={13}>
+                    <NavItem eventKey={10.9}>
                       <i className="fas fa-eye" /> POLL
                     </NavItem>
                   </LinkContainer>
@@ -326,7 +326,7 @@ class NavBar extends PureComponent {
                 // componentClass={Button}
                 className="AdminButton"
               >
-                <NavItem eventKey={7}>
+                <NavItem eventKey={11}>
                   <i className="fas fa-database" /> ADMIN
                 </NavItem>
               </LinkContainer>

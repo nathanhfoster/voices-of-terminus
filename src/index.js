@@ -22,9 +22,10 @@ const options = {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker
     .register("/registerServiceWorker.js")
-    .then(function() {
+    .then(() => {
       console.log("Service Worker Registered");
-    });
+    })
+    .catch(e => console.log("Service Worker Did Not Register"));
 }
 
 const initialState = localStorage["redux-store"]
