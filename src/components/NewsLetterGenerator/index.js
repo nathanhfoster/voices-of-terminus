@@ -320,6 +320,16 @@ class NewsLetterGenerator extends PureComponent {
             >
               CLEAR
             </Button>
+            <Button
+              onClick={() =>
+                navigator.clipboard
+                  .readText()
+                  .then(text => this.loadNewsletterDesign(JSON.parse(text)))
+              }
+              className="pull-right"
+            >
+              <i className="fas fa-paste" />
+            </Button>
           </Col>
         </Row>
         <Row>
