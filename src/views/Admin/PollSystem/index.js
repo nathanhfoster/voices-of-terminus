@@ -220,7 +220,7 @@ class PollSystem extends Component {
       <Grid className="PollSystem Container">
         <Row>
           <PageHeader className="pageHeader">
-            {Poll & & pollId ? `${Poll.title}` : `POLLS`}
+            {Poll && pollId ? `${Poll.title}` : `POLLS`}
           </PageHeader>
         </Row>
         {pollId
