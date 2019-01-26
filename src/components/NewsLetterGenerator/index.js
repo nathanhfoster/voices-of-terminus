@@ -298,7 +298,7 @@ class NewsLetterGenerator extends PureComponent {
                 : "UPDATE"}
             </Button>
           </Col>
-          <Col xs={4}>
+          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button onClick={this.loadFormDesign}>
               <i className="fab fa-wpforms" />
             </Button>
