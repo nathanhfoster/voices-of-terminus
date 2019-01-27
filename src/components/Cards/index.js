@@ -7,6 +7,40 @@ import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
 import "./styles.css";
 
+const Html = (html, title) =>
+  html
+    ? ` <table
+      id="u_content_text_1"
+      class="u_content_text"
+      role="presentation"
+      cellpadding="0"
+      cellspacing="0"
+      width="100%"
+      border="0"
+    >
+      <tbody>
+        <tr>
+          <td
+            style="overflow-wrap: break-word;padding:10px;"
+            align="left"
+          >
+            <div style="color: #ffffff; line-height: 140%; text-align: left;">
+              <p style="font-size: 24px; line-height: 140%; text-align: center;">
+                <span style="text-decoration: underline; font-size: 14px; line-height: 19.6px;">
+                  <span style="font-size: 18px; line-height: 25.2px;">
+                    ${title}
+                  </span>
+                </span>
+              </p>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>`
+    : `<div style="position: absolute; top: 25%; right: 50%;">
+      <i class="fa fa-spinner fa-spin" />
+    </div>`;
+
 const options = {
   decodeEntities: true,
   transform
@@ -67,41 +101,7 @@ const Cards = props => {
   return (
     <div className="Clickable Card Hover" onClick={click} key={id}>
       <div className="Preview">
-        <div className="previewItem">
-          {ReactHtmlParser(
-            title
-              ? `<table
-                id="u_content_text_1"
-                class="u_content_text"
-                style="font-family:Goblin Hand;"
-                role="presentation"
-                cellpadding="0"
-                cellspacing="0"
-                width="100%"
-                border="0"
-              >
-                <tbody>
-                  <tr>
-                    <td
-                      style="overflow-wrap: break-word;padding:10px;font-family:Goblin Hand;"
-                      align="left"
-                    >
-                      <div style="color: #ffffff; line-height: 140%; text-align: left;">
-                        <p style="font-size: 24px; line-height: 140%; text-align: center;">
-                          <span style="text-decoration: underline; font-size: 14px; line-height: 19.6px;">
-                            <span style="font-size: 18px; line-height: 25.2px; font-family: Goblin Hand;">
-                              ${title}
-                            </span>
-                          </span>
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>`
-              : "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
-          )}
-        </div>
+        <div className="previewItem">{ReactHtmlParser(Html(html, title))}</div>
       </div>
       {summary ? (
         <div className="Summary inlineNoWrap">

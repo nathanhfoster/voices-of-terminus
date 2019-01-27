@@ -117,6 +117,8 @@ class News extends Component {
     const userChanged = !isEquivalent(currentUser, User);
 
     const cardUpdated =
+      Articles.loading == CurrentArticles.loading ||
+      Newsletters.loading == CurrentNewsletters.loading ||
       !isSubset(
         Articles.results.map(k => k.html),
         CurrentArticles.results.map(k => k.html)
@@ -141,32 +143,6 @@ class News extends Component {
         Documents.map(k => k.commentCount),
         currentDocuments.map(k => k.commentCount)
       );
-    // console.log(
-    //   !isSubset(
-    //     Articles.results.map(k => k.html),
-    //     CurrentArticles.results.map(k => k.html)
-    //   ),
-    //   !isSubset(
-    //     Newsletters.results.map(k => k.html),
-    //     CurrentNewsletters.results.map(k => k.html)
-    //   ),
-    //   !isSubset(
-    //     Documents.map(k => k.last_modified),
-    //     currentDocuments.map(k => k.last_modified)
-    //   ),
-    //   !isSubset(
-    //     Documents.map(k => k.views),
-    //     currentDocuments.map(k => k.views)
-    //   ),
-    //   !isSubset(
-    //     Documents.map(k => k.likeCount),
-    //     currentDocuments.map(k => k.likeCount)
-    //   ),
-    //   !isSubset(
-    //     Documents.map(k => k.commentCount),
-    //     currentDocuments.map(k => k.commentCount)
-    //   )
-    // );
     const isFiltering = selectValue != currentSelectValue;
     const isSearching = search != currentSearch;
     return (
@@ -428,11 +404,7 @@ class News extends Component {
             mountOnEnter={false}
             unmountOnExit={true}
           >
-            <Tab
-              eventKey="/news/latest"
-              title="LATEST"
-              className="fadeIn"
-            >
+            <Tab eventKey="/news/latest" title="LATEST" className="fadeIn">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -463,11 +435,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab
-              eventKey="/news/popular"
-              title="POPULAR"
-              className="fadeIn"
-            >
+            <Tab eventKey="/news/popular" title="POPULAR" className="fadeIn">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -480,11 +448,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab
-              eventKey="/news/my-docs"
-              title="MY DOCS"
-              className="fadeIn"
-            >
+            <Tab eventKey="/news/my-docs" title="MY DOCS" className="fadeIn">
               <Row>
                 {!User.token ? (
                   <Redirect to="/login" />
