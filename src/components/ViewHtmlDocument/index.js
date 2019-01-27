@@ -25,7 +25,7 @@ import {
   updateNewsletterLike,
   postNewsletterComment,
   deleteNewsletterComment
-} from "../../actions/NewsLetter";
+} from "../../actions/NewsLetters";
 import {
   viewArticle,
   postArticleLike,

@@ -7,6 +7,7 @@ import ReactHtmlParser from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
 import "./styles.css";
 
+
 const Cards = props => {
   console.log("CARD");
   const {

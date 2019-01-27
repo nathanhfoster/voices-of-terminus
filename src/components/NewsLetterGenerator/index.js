@@ -23,7 +23,7 @@ import {
   deleteNewsLetter,
   updateNewsLetter,
   clearNewsletterApi
-} from "../../actions/NewsLetter";
+} from "../../actions/NewsLetters";
 import { clearHtmlDocument } from "../../actions/App";
 import { withRouter, Redirect } from "react-router-dom";
 import formDesign from "./formDesign.json";

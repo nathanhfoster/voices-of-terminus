@@ -94,6 +94,23 @@ export const nextNewsletters = paginator => {
   };
 };
 
+export const getNewslettersAllHtml = () => {
+  console.log("getNewslettersAllHtml");
+  return dispatch => {
+    dispatch({ type: C.GET_NEWSLETTERS_LOADING });
+    Axios()
+      .get(`newsletters/allhtml/`)
+      .then(res => {
+        console.log("getNewslettersAllHtml done");
+        dispatch({
+          type: C.GET_NEWSLETTERS_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+  };
+};
+
 export const getNewsletterHtml = id => {
   return (dispatch, getState) => {
     dispatch({ type: C.GET_NEWSLETTERS_LOADING });

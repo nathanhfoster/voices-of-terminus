@@ -91,10 +91,7 @@ class ConfirmAction extends PureComponent {
               <Row>
                 <Col md={12} className="Center">
                   <ButtonGroup>
-                    <Button
-                      onClick={Action}
-                      className="ConfirmActionButton"
-                    >
+                    <Button onClick={Action} className="ConfirmActionButton">
                       Yes
                     </Button>
                     <Button onClick={this.handleHide}>No</Button>

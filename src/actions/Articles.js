@@ -96,7 +96,22 @@ export const nextArticles = paginator => {
   };
 };
 
-export const getArticlerHtml = id => {
+export const getArticlesAllHtml = () => {
+  return dispatch => {
+    dispatch({ type: C.GET_ARTICLES_LOADING });
+    Axios()
+      .get(`articles/allhtml/`)
+      .then(res => {
+        dispatch({
+          type: C.GET_ARTICLES_SUCCESS,
+          payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+  };
+};
+
+export const getArticleHtml = id => {
   return (dispatch, getState) => {
     dispatch({ type: C.GET_ARTICLES_LOADING });
     Axios()

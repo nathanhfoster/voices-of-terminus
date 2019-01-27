@@ -18,19 +18,22 @@ import "./stylesM.css";
 import { clearHtmlDocument } from "../../actions/App";
 import {
   getArticles,
+  getArticlesAllHtml,
   getArticle,
-  getArticlerHtml,
+  getArticleHtml,
   deleteArticle,
   nextArticles
 } from "../../actions/Articles";
 import {
   getNewsletters,
+  getNewslettersAllHtml,
   getNewsletter,
   getNewsletterHtml,
   deleteNewsLetter,
   nextNewsletters
-} from "../../actions/NewsLetter";
+} from "../../actions/NewsLetters";
 import Card from "../../components/Card";
+import Cards from "../../components/Cards";
 import { withRouter, Redirect } from "react-router-dom";
 import Select from "react-select";
 import { newsSelectOptions } from "../../helpers/select";
@@ -50,12 +53,14 @@ const mapStateToProps = ({ User, Articles, Newsletters }) => ({
 });
 
 const mapDispatchToProps = {
-  getArticle,
   getArticles,
-  getArticlerHtml,
+  getArticlesAllHtml,
+  getArticle,
+  getArticleHtml,
   deleteArticle,
   nextArticles,
   getNewsletters,
+  getNewslettersAllHtml,
   getNewsletter,
   getNewsletterHtml,
   deleteNewsLetter,
@@ -112,8 +117,6 @@ class News extends Component {
     const userChanged = !isEquivalent(currentUser, User);
 
     const cardUpdated =
-      Articles.loading == CurrentArticles.loading ||
-      Newsletters.loading == CurrentNewsletters.loading ||
       !isSubset(
         Articles.results.map(k => k.html),
         CurrentArticles.results.map(k => k.html)
@@ -138,6 +141,32 @@ class News extends Component {
         Documents.map(k => k.commentCount),
         currentDocuments.map(k => k.commentCount)
       );
+    // console.log(
+    //   !isSubset(
+    //     Articles.results.map(k => k.html),
+    //     CurrentArticles.results.map(k => k.html)
+    //   ),
+    //   !isSubset(
+    //     Newsletters.results.map(k => k.html),
+    //     CurrentNewsletters.results.map(k => k.html)
+    //   ),
+    //   !isSubset(
+    //     Documents.map(k => k.last_modified),
+    //     currentDocuments.map(k => k.last_modified)
+    //   ),
+    //   !isSubset(
+    //     Documents.map(k => k.views),
+    //     currentDocuments.map(k => k.views)
+    //   ),
+    //   !isSubset(
+    //     Documents.map(k => k.likeCount),
+    //     currentDocuments.map(k => k.likeCount)
+    //   ),
+    //   !isSubset(
+    //     Documents.map(k => k.commentCount),
+    //     currentDocuments.map(k => k.commentCount)
+    //   )
+    // );
     const isFiltering = selectValue != currentSelectValue;
     const isSearching = search != currentSearch;
     return (
@@ -156,8 +185,16 @@ class News extends Component {
   }
 
   componentDidMount() {
-    this.props.getArticles();
-    this.props.getNewsletters();
+    const {
+      getArticles,
+      getNewsletters,
+      getArticlesAllHtml,
+      getNewslettersAllHtml
+    } = this.props;
+    getArticles();
+    getNewsletters();
+    getArticlesAllHtml();
+    getNewslettersAllHtml();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -179,7 +216,7 @@ class News extends Component {
     Newsletters.results = Newsletters.hasOwnProperty("results")
       ? Newsletters.results
       : [];
-    this.getHtml(Articles, Newsletters);
+    //this.getHtml(Articles, Newsletters);
     const { pathname } = history.location;
     const Documents = Articles.results.concat(Newsletters.results);
 
@@ -209,9 +246,13 @@ class News extends Component {
       newsletter => !newsletter.hasOwnProperty("html")
     );
     if (emptyArticleHtml != -1 && !Articles.loading && !Newsletters.loading) {
-      return this.props.getArticlerHtml(Articles.results[emptyArticleHtml].id);
+      return this.props.getArticleHtml(Articles.results[emptyArticleHtml].id);
     }
-    if (emptyNewsletterHtml != -1 && !Newsletters.loading && !Articles.loading) {
+    if (
+      emptyNewsletterHtml != -1 &&
+      !Newsletters.loading &&
+      !Articles.loading
+    ) {
       return this.props.getNewsletterHtml(
         Newsletters.results[emptyNewsletterHtml].id
       );
@@ -251,17 +292,17 @@ class News extends Component {
         }
         return (
           <Col className={className} md={3} sm={6} xs={12}>
-            <Card
-              {...card}
-              key={card.id}
-              User={User}
-              canDelete={hasDeletePermission(User, card.author, card.tags)}
-              canUpdate={hasUpdatePermission(User, card.author, card.tags)}
-              click={click}
-              editCard={editCard}
-              deleteCard={deleteCard}
-              summary={true}
-            />
+            {Cards({
+              ...card,
+              key: card.id,
+              User,
+              canDelete: hasDeletePermission(User, card.author, card.tags),
+              canUpdate: hasUpdatePermission(User, card.author, card.tags),
+              click,
+              editCard,
+              deleteCard,
+              summary: true
+            })}
           </Col>
         );
       });
@@ -384,12 +425,13 @@ class News extends Component {
               history.push(eventKey);
             }}
             animation={false}
+            mountOnEnter={false}
+            unmountOnExit={false}
           >
             <Tab
               eventKey="/news/latest"
               title="LATEST"
               className="fadeIn"
-              unmountOnExit={true}
             >
               <Row>
                 {Documents.length
@@ -408,7 +450,6 @@ class News extends Component {
               eventKey="/news/suggested"
               title="SUGGESTED"
               className="fadeIn"
-              unmountOnExit={true}
             >
               <Row>
                 {Documents.length
@@ -426,7 +467,6 @@ class News extends Component {
               eventKey="/news/popular"
               title="POPULAR"
               className="fadeIn"
-              unmountOnExit={true}
             >
               <Row>
                 {Documents.length
@@ -444,7 +484,6 @@ class News extends Component {
               eventKey="/news/my-docs"
               title="MY DOCS"
               className="fadeIn"
-              unmountOnExit={true}
             >
               <Row>
                 {!User.token ? (
