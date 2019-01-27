@@ -426,7 +426,7 @@ class News extends Component {
             }}
             animation={false}
             mountOnEnter={false}
-            unmountOnExit={false}
+            unmountOnExit={true}
           >
             <Tab
               eventKey="/news/latest"
