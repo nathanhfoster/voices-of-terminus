@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Row, Col, PageHeader, Checkbox } from "react-bootstrap";
+import {
+  Grid,
+  Row,
+  Col,
+  PageHeader,
+  FormGroup,
+  Checkbox,
+  Radio
+} from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
@@ -150,7 +158,7 @@ class PollSystem extends Component {
             </h3>
             {Choices.length > 0 && Choices[i]
               ? Choices[i].map(c => {
-                  const { id, title, response } = c;
+                  const { id, title, question_id } = c;
                   return (
                     <Col xs={12}>
                       {this.switchQuestionChoices(
@@ -158,6 +166,8 @@ class PollSystem extends Component {
                         question_type,
                         title,
                         User,
+                        Questions,
+                        Choices,
                         Responses
                       )}
                     </Col>
@@ -172,12 +182,21 @@ class PollSystem extends Component {
     );
   };
 
-  switchQuestionChoices = (choiceId, question_type, title, User, Responses) => {
+  switchQuestionChoices = (
+    choiceId,
+    question_type,
+    title,
+    User,
+    Questions,
+    Choices,
+    Responses
+  ) => {
     const { PostResponse, EditResponse } = this.props;
     const usersResponses = Responses.flat(2).filter(r => r.author == User.id);
     const responseIndex = usersResponses.findIndex(
       response => response.choice_id == choiceId
     );
+    console.log(Responses);
     const usersResponse =
       responseIndex != -1 ? usersResponses[responseIndex] : {};
     const { id, response } = usersResponse;
@@ -188,7 +207,7 @@ class PollSystem extends Component {
       choice_id: choiceId
     };
     switch (question_type) {
-      default:
+      case "Multiple":
         return (
           <Checkbox
             key={choiceId}
@@ -201,6 +220,36 @@ class PollSystem extends Component {
           >
             <span className="checkBoxText">{title}</span>
           </Checkbox>
+        );
+      case "Select":
+        return (
+          <Checkbox
+            key={choiceId}
+            checked={checked}
+            onClick={() =>
+              !response
+                ? PostResponse(User.token, payload)
+                : EditResponse(User.token, id, payload)
+            }
+          >
+            <span className="checkBoxText">{title}</span>
+          </Checkbox>
+        );
+      case "Text":
+      case "Image":
+      default:
+        return (
+          <Radio
+            key={choiceId}
+            checked={checked}
+            onClick={() =>
+              !response
+                ? PostResponse(User.token, payload)
+                : EditResponse(User.token, id, payload)
+            }
+          >
+            <span className="checkBoxText">{title}</span>
+          </Radio>
         );
     }
   };
