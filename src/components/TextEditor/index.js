@@ -184,7 +184,7 @@ class TextEditor extends Component {
     const { setEditorState, clearHtmlDocument, clearArticlesApi } = this.props;
     const { editorState } = this.state;
     clearArticlesApi();
-    setEditorState(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+   // setEditorState(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     clearHtmlDocument();
   }
 

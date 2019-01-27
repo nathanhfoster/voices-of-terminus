@@ -78,7 +78,8 @@ export const getNewsletters = () => {
 };
 
 export const nextNewsletters = paginator => {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.GET_NEWSLETTERS_LOADING });
     Axios(null, paginator)
       .get()
       .then(res => {
@@ -90,10 +91,12 @@ export const nextNewsletters = paginator => {
         });
       })
       .catch(e => console.log(e));
+  };
 };
 
 export const getNewsletterHtml = id => {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.GET_NEWSLETTERS_LOADING });
     Axios()
       .get(`newsletters/${id}/html/`)
       .then(res => {
@@ -110,6 +113,7 @@ export const getNewsletterHtml = id => {
         });
       })
       .catch(e => console.log(e));
+  };
 };
 
 export const getNewsletter = id => {

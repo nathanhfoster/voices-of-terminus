@@ -42,7 +42,6 @@ class Card extends PureComponent {
       author,
       author_username,
       html,
-      desgin,
       date_created,
       id,
       last_modified,

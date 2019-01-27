@@ -80,7 +80,8 @@ export const getArticles = () => {
 };
 
 export const nextArticles = paginator => {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.GET_ARTICLES_LOADING });
     Axios(null, paginator)
       .get()
       .then(res => {
@@ -92,10 +93,12 @@ export const nextArticles = paginator => {
         });
       })
       .catch(e => console.log(e));
+  };
 };
 
 export const getArticlerHtml = id => {
-  return (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.GET_ARTICLES_LOADING });
     Axios()
       .get(`articles/${id}/html/`)
       .then(res => {
@@ -112,6 +115,7 @@ export const getArticlerHtml = id => {
         });
       })
       .catch(e => console.log(e));
+  };
 };
 
 export const getArticle = id => {
