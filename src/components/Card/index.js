@@ -5,7 +5,6 @@ import { Grid, Row, Col, Button } from "react-bootstrap";
 import Moment from "react-moment";
 import "./styles.css";
 
-import { withRouter } from "react-router-dom";
 import ReactHtmlParser from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
 
@@ -30,7 +29,7 @@ class Card extends PureComponent {
   };
 
   render() {
-    //console.log('CARD')
+    console.log('CARD')
     const {
       User,
       canDelete,
@@ -148,4 +147,4 @@ class Card extends PureComponent {
     );
   }
 }
-export default withRouter(Card);
+export default Card;
