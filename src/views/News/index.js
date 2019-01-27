@@ -193,8 +193,8 @@ class News extends Component {
     } = this.props;
     getArticles();
     getNewsletters();
-    getArticlesAllHtml();
-    getNewslettersAllHtml();
+    //getArticlesAllHtml();
+    //getNewslettersAllHtml();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -216,7 +216,7 @@ class News extends Component {
     Newsletters.results = Newsletters.hasOwnProperty("results")
       ? Newsletters.results
       : [];
-    //this.getHtml(Articles, Newsletters);
+    this.getHtml(Articles, Newsletters);
     const { pathname } = history.location;
     const Documents = Articles.results.concat(Newsletters.results);
 
