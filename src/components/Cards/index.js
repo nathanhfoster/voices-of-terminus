@@ -3,13 +3,44 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import Moment from "react-moment";
-import ReactHtmlParser from "react-html-parser";
+import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
 import "./styles.css";
 
+const options = {
+  decodeEntities: true,
+  transform
+};
+
+function transform(node, index) {
+  // return null to block certain elements
+  // don't allow <span> elements
+  if (node.type === "tag" && node.name === "span") {
+    return null;
+  }
+
+  // Transform <ul> into <ol>
+  // A node can be modified and passed to the convertNodeToElement function which will continue to render it and it's children
+  if (node.type === "tag" && node.name === "ul") {
+    node.name = "ol";
+    return convertNodeToElement(node, index, transform);
+  }
+
+  // return an <i> element for every <b>
+  // a key must be included for all elements
+  if (node.type === "tag" && node.name === "b") {
+    return <i key={index}>I am now in italics, not bold</i>;
+  }
+
+  // all links must open in a new window
+  if (node.type === "tag" && node.name === "a") {
+    node.attribs.target = "_blank";
+    return convertNodeToElement(node, index, transform);
+  }
+}
 
 const Cards = props => {
-  console.log("CARD");
+  //console.log("CARD");
   const {
     User,
     canDelete,
@@ -38,8 +69,36 @@ const Cards = props => {
       <div className="Preview">
         <div className="previewItem">
           {ReactHtmlParser(
-            html
-              ? html
+            title
+              ? `<table
+                id="u_content_text_1"
+                class="u_content_text"
+                style="font-family:Goblin Hand;"
+                role="presentation"
+                cellpadding="0"
+                cellspacing="0"
+                width="100%"
+                border="0"
+              >
+                <tbody>
+                  <tr>
+                    <td
+                      style="overflow-wrap: break-word;padding:10px;font-family:Goblin Hand;"
+                      align="left"
+                    >
+                      <div style="color: #ffffff; line-height: 140%; text-align: left;">
+                        <p style="font-size: 24px; line-height: 140%; text-align: center;">
+                          <span style="text-decoration: underline; font-size: 14px; line-height: 19.6px;">
+                            <span style="font-size: 18px; line-height: 25.2px; font-family: Goblin Hand;">
+                              ${title}
+                            </span>
+                          </span>
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>`
               : "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
           )}
         </div>
