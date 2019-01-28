@@ -245,6 +245,7 @@ export const Polls = (
     case C.GET_POLLS_SUCCESS:
       const { posting, posted, updating, updated } = state;
       return {
+        ...state,
         loading: false,
         loaded: true,
         posting,
@@ -252,8 +253,7 @@ export const Polls = (
         updating,
         updated,
         error: null,
-        ...state,
-        ...payload,
+        ...payload
         // count: payload.count,
         // next: payload.next,
         // previous: payload.previous,
@@ -264,7 +264,17 @@ export const Polls = (
         // Recipients: state.Recipients
       };
     case C.GET_POLL:
-      return { ...state, Poll: payload };
+      return {
+        ...state,
+        loading: false,
+        loaded: true,
+        posting,
+        posted,
+        updating,
+        updated,
+        error: null,
+        Poll: payload
+      };
     case C.POST_POLLS_LOADING:
       return {
         ...state,
@@ -274,8 +284,12 @@ export const Polls = (
     case C.POST_POLLS_SUCCESS:
       return {
         ...state,
-        posting: false,
-        posted: true,
+        loading: false,
+        loaded: true,
+        posting,
+        posted,
+        updating,
+        updated,
         error: null
       };
     case C.UPDATE_POLLS_LOADING:
@@ -305,6 +319,19 @@ export const Polls = (
       return {
         ...state,
         Responses: payload
+      };
+    case C.POST_RESPONSES_LOADING:
+      return {
+        ...state,
+        posting: true,
+        posted: false
+      };
+    case C.POST_RESPONSES_SUCCESS:
+      return {
+        ...state,
+        posting: false,
+        posted: true,
+        error: null
       };
     case C.GET_RECIPIENTS:
       return {

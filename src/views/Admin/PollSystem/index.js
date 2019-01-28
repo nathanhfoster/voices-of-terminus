@@ -247,6 +247,17 @@ class PollSystem extends Component {
           </Radio>
         );
       case "Text":
+        const { Polls } = this.props;
+        const {
+          loading,
+          loaded,
+          posting,
+          posted,
+          updating,
+          updated,
+          error
+        } = Polls;
+        console.log(posting, posted);
         const stateResponse = this.state.response;
         payload.response = stateResponse;
         return (
@@ -279,7 +290,17 @@ class PollSystem extends Component {
                     : EditResponse(User.token, id, payload)
                 }
               >
-                Submit
+                {posting && !posted
+                  ? [<i className="fa fa-spinner fa-spin" />, " POST"]
+                  : !posting && posted && !error
+                  ? [
+                      <i
+                        className="fas fa-check"
+                        style={{ color: "var(--color_emerald)" }}
+                      />,
+                      " SUBMIT"
+                    ]
+                  : "SUBMIT"}
               </Button>
             </InputGroup.Addon>
           </InputGroup>

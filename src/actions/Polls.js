@@ -176,10 +176,12 @@ const PostRecipients = (
 };
 
 export const PostResponse = (token, payload) => {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
+    dispatch({ type: C.POST_RESPONSES_LOADING });
     Axios(token)
       .post("poll/responses/", qs.stringify(payload))
       .then(response => {
+        dispatch({ type: C.POST_RESPONSES_SUCCESS });
         GetChoiceResponses(token, dispatch, getState);
       })
       .catch(e => console.log(e, "PostResponse payload: ", payload));
@@ -187,11 +189,14 @@ export const PostResponse = (token, payload) => {
 };
 
 export const EditResponse = (token, id, payload) => {
-  return async (dispatch, getState) =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.POST_RESPONSES_LOADING });
     Axios(token)
       .patch(`poll/responses/${id}/`, qs.stringify(payload))
       .then(response => {
+        dispatch({ type: C.POST_RESPONSES_SUCCESS });
         GetChoiceResponses(token, dispatch, getState);
       })
       .catch(e => console.log(e, "EditResponse payload: ", payload));
+  };
 };
