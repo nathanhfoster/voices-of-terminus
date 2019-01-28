@@ -331,6 +331,7 @@ class PollGenerator extends Component {
                 PostPoll(
                   User.token,
                   User.id,
+                  User.username,
                   title,
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))

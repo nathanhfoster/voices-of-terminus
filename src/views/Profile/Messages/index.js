@@ -157,7 +157,7 @@ class Messages extends PureComponent {
       const {
         //id: 4
         //is_read: false
-        body,
+        message_body,
         message_id,
         message_last_modified,
         recipient_group_id
@@ -170,12 +170,14 @@ class Messages extends PureComponent {
             this.readMessage(messages);
             this.getMessageDetails(recipient_group_id);
             this.getGroupMessageRecipients(recipient_group_id);
-            this.setState({
-              show: true,
-              modalTitle: title,
-              recipient_group_id,
-              recipients: []
-            });
+            !uri
+              ? this.setState({
+                  show: true,
+                  modalTitle: title,
+                  recipient_group_id,
+                  recipients: []
+                })
+              : this.props.history.push(uri);
           }}
           className="Message borderedRow"
           style={
@@ -204,7 +206,7 @@ class Messages extends PureComponent {
             <i className="far fa-user" /> {author_username}
           </Col>
           <Col xs={12} className="MessageBody">
-            <i className="far fa-comment" /> {body}
+            <i className="far fa-comment" /> {message_body}
           </Col>
         </Row>
       );

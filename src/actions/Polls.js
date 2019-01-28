@@ -81,7 +81,14 @@ export const GetPolls = token => {
   };
 };
 
-export const PostPoll = (token, author, title, Questions, Recipients) => {
+export const PostPoll = (
+  token,
+  author,
+  username,
+  title,
+  Questions,
+  Recipients
+) => {
   const pollPayload = { author, title };
   return (dispatch, getState) => {
     dispatch({ type: C.GET_POLLS_LOADING });
@@ -100,10 +107,80 @@ export const PostPoll = (token, author, title, Questions, Recipients) => {
         // });
 
         PostQuestions(author, id, token, Questions, dispatch, getState);
-        PostRecipients(id, token, Recipients, dispatch, getState);
+        PostRecipients(id, token, Recipients, getState);
+
+        const uri = `/polls/${id}`;
+        const body = `Click on this message to fill out a new poll`;
+        const recipients = Recipients.map(r => r.recipient);
+
+        createMessageGroup(
+          token,
+          author,
+          uri,
+          recipients,
+          title,
+          body,
+          dispatch,
+          getState
+        );
       })
       .catch(e => console.log(e));
   };
+};
+
+const createMessageGroup = (
+  token,
+  author,
+  uri,
+  recipients,
+  title,
+  body,
+  dispatch,
+  getState
+) => {
+  const groupPayload = { title, author, is_active: true, uri };
+  const { Messages } = getState();
+  let payload = { ...Messages };
+  Axios(token)
+    .post("/user/groups/", qs.stringify(groupPayload))
+    .then(group => {
+      const recipient_group_id = group.data.id;
+      const messagePayload = {
+        author,
+        body,
+        group_message_id: recipient_group_id
+      };
+      payload.results.unshift(group.data);
+      payload.results[0].messages = new Array();
+
+      Axios(token)
+        .post("/messages/", qs.stringify(messagePayload))
+        .then(message => {
+          const message_id = message.data.id;
+          //console.log("message.data: ", message.data);
+
+          for (let i = 0; i < recipients.length; i++) {
+            const recipient = recipients[i];
+            const messagePayload = {
+              recipient,
+              recipient_group_id,
+              message_id
+            };
+            Axios(token)
+              .post("/message/recipients/", qs.stringify(messagePayload))
+              .then(messageGroup => {
+                payload.results[0].messages.unshift(messageGroup.data);
+                //console.log("messageGroup.data: ", messageGroup.data);
+                dispatch({
+                  type: C.GET_MESSAGES,
+                  payload: payload
+                });
+              });
+          }
+        })
+        .catch(e => console.log(e));
+    })
+    .catch(e => console.log(e));
 };
 
 const PostQuestions = (
@@ -130,7 +207,7 @@ const PostQuestions = (
         const question_id = question.data.id;
         payload.push(question.data);
 
-        PostChoices(author, question_id, token, Choices, dispatch);
+        PostChoices(author, question_id, token, Choices);
       })
       .catch(e => console.log(e, "pollQuestionPayload: ", pollQuestionPayload));
   }
@@ -140,7 +217,7 @@ const PostQuestions = (
   // });
 };
 
-const PostChoices = (author, question_id, token, Choices, dispatch) => {
+const PostChoices = (author, question_id, token, Choices) => {
   let payload = [];
   for (let i = 0; i < Choices.length; i++) {
     const { title } = Choices[i];
@@ -154,13 +231,7 @@ const PostChoices = (author, question_id, token, Choices, dispatch) => {
   }
   //dispatch({ type: C.GET_CHOICES, payload: payload });
 };
-const PostRecipients = (
-  recipient_poll_id,
-  token,
-  Recipients,
-  dispatch,
-  getState
-) => {
+const PostRecipients = (recipient_poll_id, token, Recipients, getState) => {
   const payload = getState().Polls.Recipients;
   for (let i = 0; i < Recipients.length; i++) {
     const { recipient } = Recipients[i];

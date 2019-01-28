@@ -63,7 +63,7 @@ export const postMessage = (token, recipient_group_id, recipients, payload) => (
   getState
 ) => {
   const { messageDetails } = getState().Messages;
-  let finalPayload = {...messageDetails};
+  let finalPayload = { ...messageDetails };
   return Axios(token)
     .post("/messages/", qs.stringify(payload))
     .then(res => {
@@ -140,7 +140,11 @@ export const createMessageGroup = (
       .post("/user/groups/", qs.stringify(groupPayload))
       .then(group => {
         const recipient_group_id = group.data.id;
-        const messagePayload = { author, body, group_message_id: recipient_group_id};
+        const messagePayload = {
+          author,
+          body,
+          group_message_id: recipient_group_id
+        };
         payload.results.unshift(group.data);
         payload.results[0].messages = new Array();
 
