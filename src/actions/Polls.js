@@ -32,7 +32,10 @@ const GetQuestionChoices = (token, Questions, dispatch, getState) => {
       .get(`/poll/choices/${questionId}/view/`)
       .then(responses => {
         payload.push(responses.data);
-        dispatch({ type: C.GET_CHOICES, payload: payload });
+        dispatch({
+          type: C.GET_CHOICES,
+          payload: payload.sort((a, b) => a[0].question_id - b[0].question_id)
+        });
       })
       .catch(e => console.log(e));
   }
@@ -41,13 +44,13 @@ const GetQuestionChoices = (token, Questions, dispatch, getState) => {
 
 const GetChoiceResponses = (token, dispatch, getState) => {
   const Choices = getState().Polls.Choices.flat(2);
-  let payload = [];
+  let payload = { results: [] };
   for (let i = 0; i < Choices.length; i++) {
     const choiceId = Choices[i].id;
     Axios(token)
       .get(`/poll/responses/${choiceId}/view/`)
       .then(responses => {
-        payload.push(responses.data);
+        payload.results.push(responses.data);
         dispatch({ type: C.GET_RESPONSES, payload: payload });
       })
       .catch(e => console.log(e));
@@ -240,18 +243,19 @@ const PostRecipients = (recipient_poll_id, token, Recipients, getState) => {
   //dispatch({ type: C.GET_RECIPIENTS, payload: payload });
 };
 
-export const PostResponse = (token, payload) => {
+export const PostResponse = (token, payload, question_type) => {
+  const isText = question_type === "Text";
   return (dispatch, getState) => {
-    dispatch({ type: C.POST_POLLS_LOADING });
+    if (isText) dispatch({ type: C.POST_RESPONSE_LOADING });
     Axios(token)
       .post("poll/responses/", qs.stringify(payload))
       .then(response => {
-        dispatch({ type: C.POST_POLLS_SUCCESS });
+        if (isText) dispatch({ type: C.POST_RESPONSE_SUCCESS });
         GetChoiceResponses(token, dispatch, getState);
       })
       .catch(e => {
         console.log(e, "PostResponse payload: ", payload);
-        dispatch({ type: C.POST_POLLS_ERROR });
+        dispatch({ type: C.POST_RESPONSE_ERROR });
         dispatch({
           type: C.SET_API_RESPONSE,
           payload: e.response
@@ -260,18 +264,18 @@ export const PostResponse = (token, payload) => {
   };
 };
 
-export const EditResponse = (token, id, payload) => {
+export const EditResponse = (token, id, payload, question_type) => {
   return (dispatch, getState) => {
-    dispatch({ type: C.POST_POLLS_LOADING });
+    dispatch({ type: C.POST_RESPONSE_LOADING });
     Axios(token)
       .patch(`poll/responses/${id}/`, qs.stringify(payload))
       .then(response => {
-        dispatch({ type: C.POST_RESPONSES_SUCCESS });
+        dispatch({ type: C.POST_RESPONSE_SUCCESS });
         GetChoiceResponses(token, dispatch, getState);
       })
       .catch(e => {
         console.log(e, "EditResponse payload: ", payload);
-        dispatch({ type: C.POST_POLLS_ERROR });
+        dispatch({ type: C.POST_RESPONSE_ERROR });
         dispatch({
           type: C.SET_API_RESPONSE,
           payload: e.response
@@ -282,3 +286,6 @@ export const EditResponse = (token, id, payload) => {
 
 export const clearPollsApi = () => dispatch =>
   dispatch({ type: C.CLEAR_POLLS_API });
+
+export const clearResponses = () => dispatch =>
+  dispatch({ type: C.CLEAR_RESPONSES });

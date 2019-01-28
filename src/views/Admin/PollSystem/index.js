@@ -21,6 +21,7 @@ import {
   GetPollRecipients,
   GetPolls,
   PostResponse,
+  clearResponses,
   EditResponse,
   clearPollsApi
 } from "../../../actions/Polls";
@@ -35,6 +36,7 @@ const mapDispatchToProps = {
   GetPollRecipients,
   GetPolls,
   PostResponse,
+  clearResponses,
   EditResponse,
   clearPollsApi
 };
@@ -115,8 +117,9 @@ class PollSystem extends Component {
   }
 
   componentWillUnmount() {
-    const { clearPollsApi } = this.props;
+    const { clearPollsApi, clearResponses } = this.props;
     clearPollsApi();
+    clearResponses();
   }
 
   renderPolls = Polls =>
@@ -155,6 +158,8 @@ class PollSystem extends Component {
     });
 
   renderQuestions = (User, Questions, Choices, Responses, Recipients) => {
+    console.log("Questions: ", Questions);
+    console.log("Choices: ", Choices);
     const isRecipient = Recipients.findIndex(e => User.id == e.recipient) != -1;
     // console.log("Questions: ", Questions);
     // console.log("Choices: ", Choices);
@@ -204,7 +209,7 @@ class PollSystem extends Component {
     Responses
   ) => {
     const { PostResponse, EditResponse } = this.props;
-    const usersResponses = Responses.flat(2).filter(
+    const usersResponses = Responses.results.flat(2).filter(
       r => r.author === User.id && Choices.some(c => c.id === r.choice_id)
     );
 
@@ -230,8 +235,8 @@ class PollSystem extends Component {
             checked={checked}
             onClick={() =>
               !response
-                ? PostResponse(User.token, payload)
-                : EditResponse(User.token, id, payload)
+                ? PostResponse(User.token, payload, question_type)
+                : EditResponse(User.token, id, payload, question_type)
             }
           >
             <span className="checkBoxText">{title}</span>
@@ -256,7 +261,6 @@ class PollSystem extends Component {
           </Radio>
         );
       case "Text":
-        const { Polls } = this.props;
         const {
           loading,
           loaded,
@@ -265,7 +269,7 @@ class PollSystem extends Component {
           updating,
           updated,
           error
-        } = Polls;
+        } = Responses;
         console.log(response);
         const stateResponse = this.state.response;
         payload.response = stateResponse;

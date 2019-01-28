@@ -229,7 +229,7 @@ export const Polls = (
     Poll: {},
     Questions: [],
     Choices: [],
-    Responses: [],
+    Responses: { results: [] },
     Recipients: []
   },
   action
@@ -300,6 +300,36 @@ export const Polls = (
         ...state,
         Responses: payload
       };
+    case C.CLEAR_RESPONSES:
+      return {
+        ...state,
+        Responses: []
+      };
+    case C.POST_RESPONSE_LOADING:
+      return {
+        ...state,
+        Responses: { ...state.Responses, posting: true, posted: false }
+      };
+    case C.POST_RESPONSE_SUCCESS:
+      return {
+        ...state,
+        Responses: {
+          ...state.Responses,
+          posting: false,
+          posted: true,
+          error: null
+        }
+      };
+    case C.POST_RESPONSE_ERROR:
+      return {
+        ...state,
+        Responses: {
+          ...state.Responses,
+          posting: false,
+          posted: true,
+          error: true
+        }
+      };
     case C.GET_RECIPIENTS:
       return {
         ...state,
@@ -315,7 +345,7 @@ export const Polls = (
         error: null
       };
     default:
-      return { ...state, Responses: [] };
+      return { ...state };
   }
 };
 
