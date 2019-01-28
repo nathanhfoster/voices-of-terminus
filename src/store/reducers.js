@@ -298,7 +298,7 @@ export const Polls = (
     case C.GET_RESPONSES:
       return {
         ...state,
-        Responses: { ...state.Responses, results: payload }
+        Responses: { ...state.Responses, ...payload }
       };
     case C.CLEAR_RESPONSES:
       return {
