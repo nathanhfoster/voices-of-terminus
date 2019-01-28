@@ -298,12 +298,12 @@ export const Polls = (
     case C.GET_RESPONSES:
       return {
         ...state,
-        Responses: payload
+        Responses: { ...state.Responses, results: payload }
       };
     case C.CLEAR_RESPONSES:
       return {
         ...state,
-        Responses: []
+        Responses: { ...state.Responses, results: [] }
       };
     case C.POST_RESPONSE_LOADING:
       return {
