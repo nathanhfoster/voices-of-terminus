@@ -198,11 +198,34 @@ export const getGroupMessageRecipients = (
   Axios(token)
     .get(`/message/recipients/${recipient_group_id}/group/`)
     .then(res => {
-      let payload = res.data.map(e => e.recipient_id);
       dispatch({
         type: C.GET_MESSAGE_RECIPIENTS,
-        payload: payload
+        payload: res.data
       });
     })
     .catch(e => console.log(e));
+};
+
+export const deleteMessageRecipient = (token, userId, id, messageId) => {
+  return (dispatch, getState) => {
+    const recipientPayload = [...getState().Messages.messageRecipients].filter(
+      r => r.recipient_id != userId
+    );
+    let messagePayload = { ...getState().Messages };
+    messagePayload.count -= 1;
+    messagePayload.results = messagePayload.results.filter(
+      m => m.id != messageId
+    );
+
+    Axios(token)
+      .delete(`/message/recipients/${id}/`)
+      .then(res => {
+        dispatch({
+          type: C.GET_MESSAGE_RECIPIENTS,
+          payload: recipientPayload
+        });
+        dispatch({ type: C.GET_MESSAGES, payload: messagePayload });
+      })
+      .catch(e => console.log(e));
+  };
 };

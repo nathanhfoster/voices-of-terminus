@@ -21,7 +21,8 @@ import {
   GetPollRecipients,
   GetPolls,
   PostResponse,
-  EditResponse
+  EditResponse,
+  clearPollsApi
 } from "../../../actions/Polls";
 import Moment from "react-moment";
 import { isSubset, switchPollTypeIcon } from "../../../helpers";
@@ -34,7 +35,8 @@ const mapDispatchToProps = {
   GetPollRecipients,
   GetPolls,
   PostResponse,
-  EditResponse
+  EditResponse,
+  clearPollsApi
 };
 
 class PollSystem extends Component {
@@ -64,10 +66,12 @@ class PollSystem extends Component {
       GetPoll,
       GetPollQuestions,
       GetPollRecipients,
-      GetPolls
+      GetPolls,
+      clearPollsApi
     } = this.props;
     const { token } = User;
     const { pollId } = this.state;
+    clearPollsApi();
     if (pollId) {
       GetPoll(token, pollId);
       GetPollQuestions(token, pollId);
@@ -108,6 +112,11 @@ class PollSystem extends Component {
       GetPollQuestions(token, nextPollId);
       GetPollRecipients(token, nextPollId);
     }
+  }
+
+  componentWillUnmount() {
+    const { clearPollsApi } = this.props;
+    clearPollsApi();
   }
 
   renderPolls = Polls =>
@@ -196,7 +205,7 @@ class PollSystem extends Component {
   ) => {
     const { PostResponse, EditResponse } = this.props;
     const usersResponses = Responses.flat(2).filter(
-      r => r.author === User.id && Choices.some(e => e.id === r.choice_id)
+      r => r.author === User.id && Choices.some(c => c.id === r.choice_id)
     );
 
     const responseIndex = usersResponses.findIndex(
@@ -257,7 +266,7 @@ class PollSystem extends Component {
           updated,
           error
         } = Polls;
-        console.log(posting, posted);
+        console.log(response);
         const stateResponse = this.state.response;
         payload.response = stateResponse;
         return (
@@ -297,6 +306,14 @@ class PollSystem extends Component {
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
+                      />,
+                      " SUBMIT"
+                    ]
+                  : error
+                  ? [
+                      <i
+                        className="fas fa-times"
+                        style={{ color: "var(--color_alizarin)" }}
                       />,
                       " SUBMIT"
                     ]

@@ -245,7 +245,6 @@ export const Polls = (
     case C.GET_POLLS_SUCCESS:
       const { posting, posted, updating, updated } = state;
       return {
-        ...state,
         loading: false,
         loaded: true,
         posting,
@@ -253,6 +252,7 @@ export const Polls = (
         updating,
         updated,
         error: null,
+        ...state,
         ...payload
         // count: payload.count,
         // next: payload.next,
@@ -264,17 +264,7 @@ export const Polls = (
         // Recipients: state.Recipients
       };
     case C.GET_POLL:
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        posting,
-        posted,
-        updating,
-        updated,
-        error: null,
-        Poll: payload
-      };
+      return { ...state, Poll: payload };
     case C.POST_POLLS_LOADING:
       return {
         ...state,
@@ -284,26 +274,16 @@ export const Polls = (
     case C.POST_POLLS_SUCCESS:
       return {
         ...state,
-        loading: false,
-        loaded: true,
-        posting,
-        posted,
-        updating,
-        updated,
+        posting: false,
+        posted: true,
         error: null
       };
-    case C.UPDATE_POLLS_LOADING:
+    case C.POST_POLLS_ERROR:
       return {
         ...state,
-        updating: true,
-        updated: false
-      };
-    case C.UPDATE_POLLS_SUCCESS:
-      return {
-        ...state,
-        updating: false,
-        updated: true,
-        error: null
+        posting: false,
+        posted: true,
+        error: true
       };
     case C.GET_QUESTIONS:
       return {
@@ -320,26 +300,22 @@ export const Polls = (
         ...state,
         Responses: payload
       };
-    case C.POST_RESPONSES_LOADING:
-      return {
-        ...state,
-        posting: true,
-        posted: false
-      };
-    case C.POST_RESPONSES_SUCCESS:
-      return {
-        ...state,
-        posting: false,
-        posted: true,
-        error: null
-      };
     case C.GET_RECIPIENTS:
       return {
         ...state,
         Recipients: payload
       };
+    case C.CLEAR_POLLS_API:
+      return {
+        ...state,
+        posting: false,
+        posted: false,
+        updating: false,
+        updated: false,
+        error: null
+      };
     default:
-      return state;
+      return { ...state, Responses: [] };
   }
 };
 

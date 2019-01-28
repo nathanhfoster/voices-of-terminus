@@ -20,11 +20,11 @@ import Select from "react-select";
 import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import { withRouter, Redirect } from "react-router-dom";
-import { PostPoll } from "../../actions/Polls";
+import { PostPoll, clearPollsApi } from "../../actions/Polls";
 
-const mapStateToProps = ({ User, Admin }) => ({ User, Admin });
+const mapStateToProps = ({ User, Polls, Admin }) => ({ User, Polls, Admin });
 
-const mapDispatchToProps = { PostPoll };
+const mapDispatchToProps = { PostPoll, clearPollsApi };
 
 class PollGenerator extends Component {
   constructor(props) {
@@ -68,8 +68,9 @@ class PollGenerator extends Component {
   componentWillUpdate() {}
 
   componentDidMount() {
-    const { User } = this.props;
+    const { User, clearPollsApi } = this.props;
     const { Users } = this.props.Admin;
+    clearPollsApi();
     const Recipients = Users
       ? Users.filter(i => i.id === User.id).map(
           e => (e = { value: e.id, label: e.username, isFixed: true })
@@ -94,7 +95,10 @@ class PollGenerator extends Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    const { clearPollsApi } = this.props;
+    clearPollsApi();
+  }
 
   onQuestionChange = e => {
     const { id, value } = e.target;
@@ -212,7 +216,12 @@ class PollGenerator extends Component {
         return (
           <FormGroup>
             <ControlLabel>Choice</ControlLabel>
-            <FormControl question_type="text" placeholder="Text..." disabled />
+            <FormControl
+              question_type="text"
+              placeholder="Text..."
+              value={Choices[0].title}
+              disabled
+            />
           </FormGroup>
         );
       case "Image":
@@ -319,8 +328,17 @@ class PollGenerator extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { User, Admin, PostPoll } = this.props;
-    const { Questions, Recipients, selectOptions, title } = this.state;
+    const { User, Admin, Polls, PostPoll } = this.props;
+    const { Questions, Recipients, selectOptions, title, body } = this.state;
+    const {
+      loading,
+      loaded,
+      posting,
+      posted,
+      updating,
+      updated,
+      error
+    } = Polls;
 
     return User.is_superuser || User.is_staff ? (
       <Grid className="PollGenerator Container">
@@ -333,12 +351,23 @@ class PollGenerator extends Component {
                   User.id,
                   User.username,
                   title,
+                  body,
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))
                 )
               }
             >
-              Post
+              {posting && !posted
+                ? [<i className="fa fa-spinner fa-spin" />, " POST"]
+                : !posting && posted && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " POST"
+                  ]
+                : "POST"}
             </Button>
           </Col>
           <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
@@ -385,6 +414,20 @@ class PollGenerator extends Component {
                     type="text"
                     placeholder="Title"
                     name="title"
+                    onChange={e => this.onChange(e)}
+                  />
+                </InputGroup>
+              </Col>
+              <Col xs={12}>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-comment" />
+                  </InputGroup.Addon>
+                  <FormControl
+                    value={body}
+                    type="text"
+                    placeholder="Body"
+                    name="body"
                     onChange={e => this.onChange(e)}
                   />
                 </InputGroup>

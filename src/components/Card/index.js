@@ -29,7 +29,7 @@ class Card extends PureComponent {
   };
 
   render() {
-    console.log('CARD')
+    //console.log('CARD')
     const {
       User,
       canDelete,

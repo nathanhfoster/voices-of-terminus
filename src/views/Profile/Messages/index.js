@@ -12,7 +12,7 @@ import {
   ButtonToolbar,
   FormGroup,
   InputGroup,
-  ControlLabel
+  ButtonGroup
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import {
@@ -21,7 +21,8 @@ import {
   createMessageGroup,
   getMessageDetails,
   getGroupMessageRecipients,
-  postMessage
+  postMessage,
+  deleteMessageRecipient
 } from "../../../actions/Messages";
 import { getUsers } from "../../../actions/Admin";
 import { withRouter, Redirect } from "react-router-dom";
@@ -31,6 +32,7 @@ import "./stylesM.css";
 import matchSorter from "match-sorter";
 import Select from "react-select";
 import { selectStyles } from "../../../helpers/styles";
+import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ Admin, User, Messages, Settings }) => ({
   Admin,
@@ -46,7 +48,8 @@ const mapDispatchToProps = {
   getUsers,
   getMessageDetails,
   getGroupMessageRecipients,
-  postMessage
+  postMessage,
+  deleteMessageRecipient
 };
 
 class Messages extends PureComponent {
@@ -170,14 +173,13 @@ class Messages extends PureComponent {
             this.readMessage(messages);
             this.getMessageDetails(recipient_group_id);
             this.getGroupMessageRecipients(recipient_group_id);
-            !uri
-              ? this.setState({
-                  show: true,
-                  modalTitle: title,
-                  recipient_group_id,
-                  recipients: []
-                })
-              : this.props.history.push(uri);
+            this.setState({
+              show: true,
+              modalTitle: title,
+              uri,
+              recipient_group_id,
+              recipients: []
+            });
           }}
           className="Message borderedRow"
           style={
@@ -189,20 +191,15 @@ class Messages extends PureComponent {
               : null
           }
         >
-          <Col xs={8}>
+          <Col md={8}>
             <i className="fas fa-heading" />{" "}
             <span className="MessageTitle">{title}</span>
           </Col>
-          <Col xs={4}>
-            <Moment className="pull-right" fromNow>
-              {message_last_modified}
-            </Moment>
-            <i
-              class="fas fa-keyboard pull-right"
-              style={{ margin: "2px 4px 0 0" }}
-            />
+          <Col md={4}>
+            <i class="fas fa-keyboard" style={{ margin: "2px 4px 0 0" }} />{" "}
+            <Moment fromNow>{message_last_modified}</Moment>
           </Col>
-          <Col xs={6}>
+          <Col md={6}>
             <i className="far fa-user" /> {author_username}
           </Col>
           <Col xs={12} className="MessageBody">
@@ -300,7 +297,9 @@ class Messages extends PureComponent {
       messageDetails,
       Messages
     } = this.state;
+    console.log("MESSAGES: ", Messages);
     let messages = Messages.results;
+    const { messageRecipients } = Messages;
     messages = search
       ? matchSorter(messages, search, {
           keys: ["author_username", "title", "messages.0.message_body"]
@@ -441,26 +440,59 @@ class Messages extends PureComponent {
                 </Button>
               ) : (
                 <Row>
-                  <Col xs={12}>
-                    <FormGroup>
-                      <InputGroup>
-                        <InputGroup.Addon>
-                          <i className="fas fa-comment" />
-                        </InputGroup.Addon>
-                        <FormControl
-                          value={body}
-                          componentClass="textarea"
-                          placeholder="Body..."
-                          name="body"
-                          onChange={this.onChange.bind(this)}
-                        />
-                      </InputGroup>
-                    </FormGroup>
-                  </Col>
-                  <Col xs={12}>
-                    <Button onClick={() => this.replyToGroup(body)}>
-                      <i className="fas fa-reply-all" /> Reply
-                    </Button>
+                  {!this.state.uri ? (
+                    <Col xs={12}>
+                      <FormGroup>
+                        <InputGroup>
+                          <InputGroup.Addon>
+                            <i className="fas fa-comment" />
+                          </InputGroup.Addon>
+                          <FormControl
+                            value={body}
+                            componentClass="textarea"
+                            placeholder="Body..."
+                            name="body"
+                            onChange={this.onChange.bind(this)}
+                          />
+                        </InputGroup>
+                      </FormGroup>
+                    </Col>
+                  ) : null}
+                  <Col xs={12} className="Center">
+                    <ButtonGroup>
+                      {this.state.uri ? (
+                        <Button
+                          onClick={() =>
+                            this.props.history.push(this.state.uri)
+                          }
+                        >
+                          <i className="fas fa-link" /> Poll
+                        </Button>
+                      ) : (
+                        <Button onClick={() => this.replyToGroup(body)}>
+                          <i className="fas fa-reply-all" /> Reply
+                        </Button>
+                      )}
+                      <ConfirmAction
+                        Action={e => {
+                          const { id, message_id } = messageRecipients.filter(
+                            r => r.recipient_id === User.id
+                          )[0];
+                          e.stopPropagation();
+                          this.props.deleteMessageRecipient(
+                            User.token,
+                            User.id,
+                            id,
+                            message_id
+                          );
+                          this.setState({ show: false });
+                        }}
+                        Disabled={false}
+                        Icon={<i className="fa fa-trash-alt" />}
+                        hasPermission={true}
+                        Title={this.state.modalTitle}
+                      />
+                    </ButtonGroup>
                   </Col>
                 </Row>
               )}
