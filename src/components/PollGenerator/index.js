@@ -144,8 +144,10 @@ class PollGenerator extends Component {
         return this.setState({ Questions });
 
       case "select-option":
-        if (Questions[i].Choices.length > 0 && value == "Text")
+        if (value == "Text") {
           Questions[i].Choices.length = 0;
+          Questions[i].Choices.push({ postion: 0, title: "" });
+        }
         Questions[i].question_type = value;
         return this.setState({ Questions });
     }
@@ -286,6 +288,7 @@ class PollGenerator extends Component {
   deleteChoice = (pollIndex, i) => {
     let { Choices } = this.state.Questions[pollIndex];
     delete Choices[i];
+    Choices.length -= 1;
     this.setState({ Choices });
   };
 

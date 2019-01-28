@@ -6,6 +6,9 @@ import {
   Col,
   PageHeader,
   FormGroup,
+  InputGroup,
+  FormControl,
+  Button,
   Checkbox,
   Radio
 } from "react-bootstrap";
@@ -202,15 +205,14 @@ class PollSystem extends Component {
 
     const usersResponse =
       responseIndex != -1 ? usersResponses[responseIndex] : {};
-    const { id, response } = usersResponse;
+    let { id, response } = usersResponse;
     const checked = response === "true";
 
-    const payload = {
+    let payload = {
       author: User.id,
       response: !checked,
       choice_id: choiceId
     };
-
     switch (question_type) {
       case "Multiple":
         return (
@@ -245,23 +247,52 @@ class PollSystem extends Component {
           </Radio>
         );
       case "Text":
+        const stateResponse = this.state.response;
+        payload.response = stateResponse;
+        return (
+          <InputGroup>
+            <FormControl
+              value={
+                stateResponse || stateResponse == "" ? stateResponse : response
+              }
+              name="response"
+              type="text"
+              placeholder="Response..."
+              onChange={e =>
+                this.onChange(
+                  e,
+                  User,
+                  id,
+                  response,
+                  payload,
+                  PostResponse,
+                  EditResponse
+                )
+              }
+            />
+            <InputGroup.Addon>
+              <Button
+                bsSize="small"
+                onClick={() =>
+                  !response
+                    ? PostResponse(User.token, payload)
+                    : EditResponse(User.token, id, payload)
+                }
+              >
+                Submit
+              </Button>
+            </InputGroup.Addon>
+          </InputGroup>
+        );
       case "Image":
       default:
-        return (
-          <Radio
-            name="radioGroup"
-            key={choiceId}
-            checked={checked}
-            onClick={() =>
-              !response
-                ? PostResponse(User.token, payload)
-                : EditResponse(User.token, id, payload)
-            }
-          >
-            <span className="checkBoxText">{title}</span>
-          </Radio>
-        );
+        return null;
     }
+  };
+
+  onChange = e => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value });
   };
 
   render() {
