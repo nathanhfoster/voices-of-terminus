@@ -21,7 +21,7 @@ import {
   EditResponse
 } from "../../../actions/Polls";
 import Moment from "react-moment";
-import { switchPollTypeIcon } from "../../../helpers";
+import { isSubset, switchPollTypeIcon } from "../../../helpers";
 
 const mapStateToProps = ({ User, Polls }) => ({ User, Polls });
 
@@ -161,15 +161,16 @@ class PollSystem extends Component {
                   const { id, title, question_id } = c;
                   return (
                     <Col xs={12}>
-                      {this.switchQuestionChoices(
-                        id,
-                        question_type,
-                        title,
-                        User,
-                        Questions,
-                        Choices,
-                        Responses
-                      )}
+                      <FormGroup key={i}>
+                        {this.switchQuestionChoices(
+                          question_type,
+                          id,
+                          title,
+                          User,
+                          Choices[i],
+                          Responses
+                        )}
+                      </FormGroup>
                     </Col>
                   );
                 })
@@ -183,29 +184,33 @@ class PollSystem extends Component {
   };
 
   switchQuestionChoices = (
-    choiceId,
     question_type,
+    choiceId,
     title,
     User,
-    Questions,
     Choices,
     Responses
   ) => {
     const { PostResponse, EditResponse } = this.props;
-    const usersResponses = Responses.flat(2).filter(r => r.author == User.id);
+    const usersResponses = Responses.flat(2).filter(
+      r => r.author === User.id && Choices.some(e => e.id === r.choice_id)
+    );
+
     const responseIndex = usersResponses.findIndex(
       response => response.choice_id == choiceId
     );
-    console.log(Responses);
+
     const usersResponse =
       responseIndex != -1 ? usersResponses[responseIndex] : {};
     const { id, response } = usersResponse;
     const checked = response === "true";
+
     const payload = {
       author: User.id,
       response: !checked,
       choice_id: choiceId
     };
+
     switch (question_type) {
       case "Multiple":
         return (
@@ -223,7 +228,11 @@ class PollSystem extends Component {
         );
       case "Select":
         return (
-          <Checkbox
+          <Radio
+            disabled={
+              !checked && usersResponses.some(e => e.response === "true")
+            }
+            name="radioGroup"
             key={choiceId}
             checked={checked}
             onClick={() =>
@@ -233,13 +242,14 @@ class PollSystem extends Component {
             }
           >
             <span className="checkBoxText">{title}</span>
-          </Checkbox>
+          </Radio>
         );
       case "Text":
       case "Image":
       default:
         return (
           <Radio
+            name="radioGroup"
             key={choiceId}
             checked={checked}
             onClick={() =>
