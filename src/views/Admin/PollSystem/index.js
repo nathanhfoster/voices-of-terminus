@@ -26,11 +26,13 @@ import {
   PostResponse,
   clearResponses,
   EditResponse,
+  DeletePoll,
   clearPollsApi
 } from "../../../actions/Polls";
 import Moment from "react-moment";
 import { withAlert } from "react-alert";
 import { Redirect, withRouter } from "react-router-dom";
+import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Polls }) => ({ User, Polls });
 
@@ -42,6 +44,7 @@ const mapDispatchToProps = {
   PostResponse,
   clearResponses,
   EditResponse,
+  DeletePoll,
   clearPollsApi
 };
 
@@ -129,8 +132,9 @@ class PollSystem extends Component {
     clearResponses();
   }
 
-  renderPolls = Polls =>
-    Polls.map(p => {
+  renderPolls = Polls => {
+    const { User, DeletePoll } = this.props;
+    return Polls.map(p => {
       const { id, title, author_username, date_created, last_modified } = p;
       return (
         <Row
@@ -138,31 +142,45 @@ class PollSystem extends Component {
           key={id}
           onClick={() => this.props.history.push(`/polls/${id}`)}
         >
-          <Col>
-            <h1>
-              <i className="fas fa-heading" /> {title}
-            </h1>
-          </Col>
-          <Col>
+          <Col xs={10}>
             <h3>
-              <i className="fas fa-user" /> {author_username}
+              <i className="fas fa-heading" /> {title}
             </h3>
           </Col>
-          <Col>
-            <h3>
+          <Col xs={2}>
+            <ConfirmAction
+              Action={e => {
+                e.stopPropagation();
+                DeletePoll(User.token, id);
+              }}
+              Disabled={(User.is_admin && User.is_leader)}
+              Icon={<i className="fa fa-trash-alt" />}
+              hasPermission={true}
+              Class="pull-right"
+              Title={title}
+            />
+          </Col>
+          <Col xs={12}>
+            <h4>
+              <i className="fas fa-user" /> {author_username}
+            </h4>
+          </Col>
+          <Col xs={12}>
+            <h4>
               <i className="far fa-clock" />{" "}
               <Moment fromNow>{date_created}</Moment>
-            </h3>
+            </h4>
           </Col>
-          <Col>
-            <h3>
+          <Col xs={12}>
+            <h4>
               <i className="fa fa-pencil-alt" />{" "}
               <Moment fromNow>{last_modified}</Moment>
-            </h3>
+            </h4>
           </Col>
         </Row>
       );
     });
+  };
 
   renderQuestions = (User, Questions, Choices, Responses, Recipients) => {
     const { eventKey, pollId, history } = this.state;
@@ -188,9 +206,9 @@ class PollSystem extends Component {
             {Questions.map((q, i) => {
               const { question, question_type } = q;
               return [
-                <h3>
+                <h4>
                   <i className="far fa-question-circle" /> {question}
-                </h3>,
+                </h4>,
                 Choices.length > 0 && Choices[i]
                   ? Choices[i].map(c => {
                       const { id, title, question_id } = c;
@@ -214,17 +232,17 @@ class PollSystem extends Component {
             })}
           </Tab>
           <Tab
-            eventKey={`/polls/${pollId}/stats`}
-            title={"Stats"}
+            eventKey={`/polls/${pollId}/results`}
+            title={"Results"}
             className="fadeIn"
             unmountOnExit={true}
           >
             {Questions.map((q, i) => {
               const { question, question_type } = q;
               return [
-                <h3>
+                <h4>
                   <i className="far fa-question-circle" /> {question}
-                </h3>,
+                </h4>,
                 Choices.length > 0 && Choices[i]
                   ? Choices[i].map(c => {
                       const { id, title, question_id } = c;

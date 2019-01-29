@@ -184,7 +184,7 @@ class TextEditor extends Component {
     const { setEditorState, clearHtmlDocument, clearArticlesApi } = this.props;
     const { editorState } = this.state;
     clearArticlesApi();
-   // setEditorState(draftToHtml(convertToRaw(editorState.getCurrentContent())));
+    // setEditorState(draftToHtml(convertToRaw(editorState.getCurrentContent())));
     clearHtmlDocument();
   }
 
@@ -257,7 +257,11 @@ class TextEditor extends Component {
     return !User.token ? (
       <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_article) ? (
-      <Redirect to={this.props.history.goBack()} />
+      this.props.history.length > 2 ? (
+        <Redirect to={this.props.history.goBack()} />
+      ) : (
+        <Redirect to="/" />
+      )
     ) : (
       <Grid className="TextEditor Container fadeIn">
         <Row className="ActionToolbarRow">

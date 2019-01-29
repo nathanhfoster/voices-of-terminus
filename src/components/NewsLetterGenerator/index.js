@@ -263,7 +263,11 @@ class NewsLetterGenerator extends PureComponent {
     return !User.token ? (
       <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_newsletter) ? (
-      <Redirect to={this.props.history.goBack()} />
+      this.props.history.length > 2 ? (
+        <Redirect to={this.props.history.goBack()} />
+      ) : (
+        <Redirect to="/" />
+      )
     ) : (
       <Grid className="NewsLetterGenerator Container fadeIn">
         <Row className="ActionToolbarRow">

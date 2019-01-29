@@ -193,6 +193,7 @@ class Login extends PureComponent {
     ));
 
   render() {
+    console.log(this.props.history);
     const canSubmit = !this.cantSubmit();
     const { User } = this.props;
     const {
@@ -206,7 +207,11 @@ class Login extends PureComponent {
     } = this.state;
 
     return User.token ? (
-      <Redirect to={this.props.history.goBack()} />
+      this.props.history.length > 2 ? (
+        <Redirect to={this.props.history.goBack()} />
+      ) : (
+        <Redirect to="/" />
+      )
     ) : (
       <Grid className="Login Container fadeIn">
         <Row>

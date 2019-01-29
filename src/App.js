@@ -113,7 +113,7 @@ class App extends PureComponent {
       { path: "/polls", component: PollSystem },
       { path: "/polls/:id", component: PollSystem },
       { path: "/polls/:id/respond", component: PollSystem },
-      { path: "/polls/:id/stats", component: PollSystem },
+      { path: "/polls/:id/results", component: PollSystem },
       { path: "/polls/new/poll", component: PollGenerator },
       { path: "/polls/edit/poll/:id", component: PollGenerator },
       { path: "/admin/user/profile/:id", component: UserProfile },

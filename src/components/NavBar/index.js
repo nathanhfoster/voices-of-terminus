@@ -289,7 +289,7 @@ class NavBar extends PureComponent {
                 {User.is_superuser || User.is_staff ? (
                   <LinkContainer to="/polls">
                     <NavItem eventKey={10.9}>
-                      <i className="fas fa-eye" /> POLL
+                      <i className="fas fa-eye" /> POLLS
                     </NavItem>
                   </LinkContainer>
                 ) : null}

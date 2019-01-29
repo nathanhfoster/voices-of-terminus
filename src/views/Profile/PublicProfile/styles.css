@@ -1,7 +1,7 @@
 .PublicProfile {
   padding: 20px;
   border-radius: 6px;
-  background-color: var(--grey);
+  background-color: var(--slate_grey);
   opacity: var(--mainOpacity);
 }
 
@@ -17,7 +17,7 @@
 
 .userBio {
   border: 1px solid var(--light_grey);
-  background-color: var(--slate_grey);
+  background-color: var(--grey);
   word-break: break-all;
   vertical-align: middle;
   overflow-y: auto;

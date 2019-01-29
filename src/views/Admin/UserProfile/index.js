@@ -346,9 +346,7 @@ class UserProfile extends PureComponent {
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt(User);
-    const currentUserStatus = Admin.User
-      ? statusLevelInt(Admin.User)
-      : null;
+    const currentUserStatus = Admin.User ? statusLevelInt(Admin.User) : null;
     const canEdit =
       User.username === "admin" ||
       loggedInUserId === currentUserId ||
@@ -1367,8 +1365,10 @@ class UserProfile extends PureComponent {
           </Row>
         </Grid>
       ) : null
-    ) : (
+    ) : this.props.history.length > 2 ? (
       <Redirect to={this.props.history.goBack()} />
+    ) : (
+      <Redirect to="/" />
     );
   }
 }

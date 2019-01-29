@@ -302,10 +302,7 @@ class PollGenerator extends Component {
   };
 
   selectGuildRecipients = (User, Users) =>
-    Users.filter(
-      user =>
-        statusLevelInt(user) != 0
-    )
+    Users.filter(user => statusLevelInt(user) != 0)
       .map(
         i =>
           (i = {
@@ -451,7 +448,11 @@ class PollGenerator extends Component {
         {this.renderQuestions(Questions)}
       </Grid>
     ) : User.token ? (
-      <Redirect to={this.props.history.goBack()} />
+      this.props.history.length > 2 ? (
+        <Redirect to={this.props.history.goBack()} />
+      ) : (
+        <Redirect to="/" />
+      )
     ) : (
       <Redirect to="/login" />
     );

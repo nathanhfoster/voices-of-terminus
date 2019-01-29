@@ -284,6 +284,21 @@ export const EditResponse = (token, id, payload, question_type) => {
   };
 };
 
+export const DeletePoll = (token, id) => {
+  return (dispatch, getState) => {
+    const { Polls } = getState();
+    let payload = { ...Polls };
+    dispatch({ type: C.GET_POLLS_LOADING });
+    Axios(token)
+      .delete(`/polls/${id}/`)
+      .then(res => {
+        payload.results = payload.results.filter(r => r.id != id);
+        dispatch({ type: C.GET_POLLS_SUCCESS, payload: payload });
+      })
+      .catch(e => console.log(e));
+  };
+};
+
 export const clearPollsApi = () => dispatch =>
   dispatch({ type: C.CLEAR_POLLS_API });
 
