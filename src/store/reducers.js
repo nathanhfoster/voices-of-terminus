@@ -177,12 +177,17 @@ export const HtmlDocument = (state = null, action) =>
     ? null
     : state;
 
-export const User = (state = {}, action) =>
-  action.type === C.SET_LOGIN_TOKEN
-    ? action.payload
-    : action.type === C.SET_LOGOUT
-    ? {}
-    : state;
+export const User = (state = {}, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case C.SET_LOGIN_TOKEN:
+      return { ...state, ...payload };
+    case C.SET_LOGOUT:
+      return {};
+    default:
+      return { ...state };
+  }
+};
 
 export const Messages = (
   state = {

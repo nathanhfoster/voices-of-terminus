@@ -175,12 +175,6 @@ export const refreshUser = (id, token) => {
     Axios(token)
       .get(`users/${id}/refresh/`)
       .then(res => {
-        const { User } = getState();
-        res.data.token = Cookies.get("User_LoginToken");
-        // Add all the attributes the response doesn't have
-        Object.keys(User).forEach(k => {
-          if (res.data[k] === undefined) res.data[k] = User[k];
-        });
         dispatch({
           type: C.SET_LOGIN_TOKEN,
           payload: res.data
