@@ -148,7 +148,7 @@ class PollGenerator extends Component {
         return this.setState({ Questions });
 
       case "select-option":
-        if (value == "Text") {
+        if (value == "Text" || value == "Image") {
           Questions[i].Choices.length = 0;
           Questions[i].Choices.push({ postion: 0, title: "" });
         }
@@ -231,7 +231,7 @@ class PollGenerator extends Component {
             <FormControl
               disabled
               style={{ margin: "auto" }}
-              question_type="file"
+              type="file"
               label="File"
             />
           </FormGroup>

@@ -108,7 +108,7 @@ export const PostPoll = (
         PostQuestions(author, id, token, Questions, dispatch, getState);
         PostRecipients(id, token, Recipients, getState);
 
-        const uri = `/polls/${id}`;
+        const uri = `/polls/${id}/respond`;
         const recipients = Recipients.map(r => r.recipient);
 
         createMessageGroup(

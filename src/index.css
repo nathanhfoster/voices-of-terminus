@@ -195,7 +195,7 @@ html input[type="button"],
 input[type="reset"],
 input[type="submit"],
 .Clickable {
-  cursor: url("./images/Cursor.png"), auto !important;
+  cursor: var(--cursor) !important;
 }
 body {
   height: 100%;

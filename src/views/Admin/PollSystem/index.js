@@ -10,7 +10,10 @@ import {
   FormControl,
   Button,
   Checkbox,
-  Radio
+  Radio,
+  Image,
+  Tabs,
+  Tab
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
@@ -26,7 +29,8 @@ import {
   clearPollsApi
 } from "../../../actions/Polls";
 import Moment from "react-moment";
-import { isSubset, switchPollTypeIcon } from "../../../helpers";
+import { withAlert } from "react-alert";
+import { Redirect, withRouter } from "react-router-dom";
 
 const mapStateToProps = ({ User, Polls }) => ({ User, Polls });
 
@@ -88,9 +92,10 @@ class PollSystem extends Component {
   }
 
   getState = props => {
-    const { User, Polls, match } = props;
+    const { User, Polls, match, history } = props;
     const pollId = match.params.id;
     const { Poll, Questions, Choices, Responses, Recipients } = Polls;
+    const { pathname } = history.location;
     this.setState({
       User,
       Polls,
@@ -99,7 +104,9 @@ class PollSystem extends Component {
       Choices,
       Responses,
       Recipients,
-      pollId
+      pollId,
+      eventKey: pathname,
+      history
     });
   };
 
@@ -158,43 +165,88 @@ class PollSystem extends Component {
     });
 
   renderQuestions = (User, Questions, Choices, Responses, Recipients) => {
-    console.log("Questions: ", Questions);
-    console.log("Choices: ", Choices);
+    const { eventKey, pollId, history } = this.state;
     const isRecipient = Recipients.findIndex(e => User.id == e.recipient) != -1;
-    // console.log("Questions: ", Questions);
-    // console.log("Choices: ", Choices);
-    // console.log("Responses: ", Choices);
-    // console.log("Recipients: ", Recipients);
     return isRecipient ? (
-      Questions.map((q, i) => {
-        const { question, question_type } = q;
-        return (
-          <Row>
-            <h3>
-              <i className="far fa-question-circle" /> {question}
-            </h3>
-            {Choices.length > 0 && Choices[i]
-              ? Choices[i].map(c => {
-                  const { id, title, question_id } = c;
-                  return (
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoices(
-                          question_type,
-                          id,
-                          title,
-                          User,
-                          Choices[i],
-                          Responses
-                        )}
-                      </FormGroup>
-                    </Col>
-                  );
-                })
-              : null}
-          </Row>
-        );
-      })
+      <Row>
+        <Tabs
+          defaultActiveKey={eventKey}
+          activeKey={eventKey}
+          className="Tabs"
+          onSelect={eventKey => {
+            this.setState({ eventKey });
+            history.push(eventKey);
+          }}
+          animation={false}
+        >
+          <Tab
+            eventKey={`/polls/${pollId}/respond`}
+            title={"Respond"}
+            className="fadeIn"
+            unmountOnExit={true}
+          >
+            {Questions.map((q, i) => {
+              const { question, question_type } = q;
+              return [
+                <h3>
+                  <i className="far fa-question-circle" /> {question}
+                </h3>,
+                Choices.length > 0 && Choices[i]
+                  ? Choices[i].map(c => {
+                      const { id, title, question_id } = c;
+                      return (
+                        <Col xs={12}>
+                          <FormGroup key={i}>
+                            {this.switchQuestionChoices(
+                              question_type,
+                              id,
+                              title,
+                              User,
+                              Choices[i],
+                              Responses
+                            )}
+                          </FormGroup>
+                        </Col>
+                      );
+                    })
+                  : null
+              ];
+            })}
+          </Tab>
+          <Tab
+            eventKey={`/polls/${pollId}/stats`}
+            title={"Respond"}
+            className="fadeIn"
+            unmountOnExit={true}
+          >
+            {Questions.map((q, i) => {
+              const { question, question_type } = q;
+              return [
+                <h3>
+                  <i className="far fa-question-circle" /> {question}
+                </h3>,
+                Choices.length > 0 && Choices[i]
+                  ? Choices[i].map(c => {
+                      const { id, title, question_id } = c;
+                      return (
+                        <Col xs={12}>
+                          <FormGroup key={i}>
+                            {this.switchQuestionChoicesResponses(
+                              question_type,
+                              id,
+                              title,
+                              Responses
+                            )}
+                          </FormGroup>
+                        </Col>
+                      );
+                    })
+                  : null
+              ];
+            })}
+          </Tab>
+        </Tabs>
+      </Row>
     ) : (
       <h1>Sorry you are not a recipient to this poll</h1>
     );
@@ -209,9 +261,11 @@ class PollSystem extends Component {
     Responses
   ) => {
     const { PostResponse, EditResponse } = this.props;
-    const usersResponses = Responses.results.flat(2).filter(
-      r => r.author === User.id && Choices.some(c => c.id === r.choice_id)
-    );
+    const usersResponses = Responses.results
+      .flat(2)
+      .filter(
+        r => r.author === User.id && Choices.some(c => c.id === r.choice_id)
+      );
 
     const responseIndex = usersResponses.findIndex(
       response => response.choice_id == choiceId
@@ -270,7 +324,7 @@ class PollSystem extends Component {
           updated,
           error
         } = Responses;
-        console.log(response);
+
         const stateResponse = this.state.response;
         payload.response = stateResponse;
         return (
@@ -279,24 +333,15 @@ class PollSystem extends Component {
               value={
                 stateResponse || stateResponse == "" ? stateResponse : response
               }
+              componentClass="textarea"
               name="response"
-              type="text"
+              wrap="hard"
+              type="textarea"
               placeholder="Response..."
-              onChange={e =>
-                this.onChange(
-                  e,
-                  User,
-                  id,
-                  response,
-                  payload,
-                  PostResponse,
-                  EditResponse
-                )
-              }
+              onChange={e => this.onChange(e)}
             />
             <InputGroup.Addon>
               <Button
-                bsSize="small"
                 onClick={() =>
                   !response
                     ? PostResponse(User.token, payload)
@@ -327,6 +372,115 @@ class PollSystem extends Component {
           </InputGroup>
         );
       case "Image":
+        return [
+          <Image src={response} className="ProfileImages" responsive rounded />,
+          <FormControl
+            style={{ margin: "auto" }}
+            type="file"
+            label="File"
+            onChange={e =>
+              this.setImage(
+                e,
+                User.token,
+                id,
+                payload,
+                response,
+                PostResponse,
+                EditResponse
+              )
+            }
+          />
+        ];
+      default:
+        return null;
+    }
+  };
+
+  showStats = (userBoolResponsesStats, userResponses) => (
+    <div className="responseStats">
+      <span>
+        {this.responsePercentage(userBoolResponsesStats, userResponses.length)}%
+      </span>
+      <span>
+        {userBoolResponsesStats} / {userResponses.length}
+      </span>
+    </div>
+  );
+
+  responsePercentage = (numerator, denominator) => {
+    if (numerator == 0 || denominator == 0) return 0;
+    return (numerator / parseInt(denominator)) * 100;
+  };
+
+  switchQuestionChoicesResponses = (
+    question_type,
+    choiceId,
+    title,
+    Responses
+  ) => {
+    const userResponses = Responses.results
+      .flat(2)
+      .filter(r => r.choice_id == choiceId);
+
+    const userBoolResponsesStats = userResponses.reduce(
+      (total, r) => (r.response == "true" ? total + 1 : total),
+      0
+    );
+
+    const userStringResponsesStats = userResponses.reduce(
+      (total, r) =>
+        r.response && r.response != "true" && r.response != "false"
+          ? total + 1
+          : total,
+      0
+    );
+
+    switch (question_type) {
+      case "Multiple":
+        return (
+          <Checkbox disabled={true} key={choiceId}>
+            <span className="checkBoxText">{title}</span>
+            {this.showStats(userBoolResponsesStats, userResponses)}
+          </Checkbox>
+        );
+      case "Select":
+        return (
+          <Radio disabled={true} name="radioGroup" key={choiceId}>
+            <span className="checkBoxText">{title}</span>
+            {this.showStats(userBoolResponsesStats, userResponses)}
+          </Radio>
+        );
+      case "Text":
+        return (
+          <InputGroup>
+            <FormControl
+              disabled={true}
+              value={null}
+              componentClass="textarea"
+              name="response"
+              wrap="hard"
+              type="textarea"
+              placeholder="Response..."
+            />
+            {this.showStats(userStringResponsesStats, userResponses)}
+          </InputGroup>
+        );
+      case "Image":
+        return [
+          <Image
+            src="https://www.bbsocal.com/wp-content/uploads/2018/05/image-placeholder.png"
+            className="ProfileImages"
+            responsive
+            rounded
+          />,
+          <FormControl
+            disabled={true}
+            style={{ margin: "auto" }}
+            type="file"
+            label="File"
+          />,
+          this.showStats(userStringResponsesStats, userResponses)
+        ];
       default:
         return null;
     }
@@ -335,6 +489,23 @@ class PollSystem extends Component {
   onChange = e => {
     const { name, value } = e.target;
     this.setState({ [name]: value });
+  };
+
+  setImage = (e, token, id, payload, response, PostResponse, EditResponse) => {
+    const { alert } = this.props;
+    var file = e.target.files[0];
+    if (file.size > 3145728) {
+      alert.error(<div>Please use an image less then 3MB</div>);
+    } else {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        payload.response = reader.result;
+        !response
+          ? PostResponse(token, payload)
+          : EditResponse(token, id, payload);
+      };
+    }
   };
 
   render() {
@@ -346,9 +517,13 @@ class PollSystem extends Component {
       Choices,
       Responses,
       Recipients,
-      pollId
+      pollId,
+      eventKey
     } = this.state;
-    return (
+    return pollId &&
+      !(eventKey.includes("respond") || eventKey.includes("stats")) ? (
+      <Redirect to={`/polls/${pollId}/respond`} />
+    ) : (
       <Grid className="PollSystem Container">
         <Row>
           <PageHeader className="pageHeader">
@@ -368,4 +543,6 @@ class PollSystem extends Component {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(PollSystem);
+export default withAlert(
+  withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(PollSystem))
+);

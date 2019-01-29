@@ -50,7 +50,6 @@ import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 
-
 const mapStateToProps = ({
   ApiResponse,
   Window,
@@ -113,6 +112,8 @@ class App extends PureComponent {
       { path: "/admin", component: Admin },
       { path: "/polls", component: PollSystem },
       { path: "/polls/:id", component: PollSystem },
+      { path: "/polls/:id/respond", component: PollSystem },
+      { path: "/polls/:id/stats", component: PollSystem },
       { path: "/polls/new/poll", component: PollGenerator },
       { path: "/polls/edit/poll/:id", component: PollGenerator },
       { path: "/admin/user/profile/:id", component: UserProfile },
