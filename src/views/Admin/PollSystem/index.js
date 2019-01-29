@@ -215,7 +215,7 @@ class PollSystem extends Component {
           </Tab>
           <Tab
             eventKey={`/polls/${pollId}/stats`}
-            title={"Respond"}
+            title={"Stats"}
             className="fadeIn"
             unmountOnExit={true}
           >
