@@ -54,15 +54,28 @@ export const checkNestedProps = (obj, level1) => {
   return true;
 };
 
-export const statusLevelInt = status => {
-  if (status.is_leader) return 8;
-  if (status.is_advisor) return 7;
-  if (status.is_council) return 6;
-  if (status.is_general_officer) return 5;
-  if (status.is_officer) return 4;
-  if (status.is_senior_member) return 3;
-  if (status.is_junior_member) return 2;
-  if (status.is_recruit) return 1;
+export const statusLevelInt = User => {
+  const {
+    id,
+    is_leader,
+    is_advisor,
+    is_council,
+    is_general_officer,
+    is_officer,
+    is_senior_member,
+    is_junior_member,
+    is_recruit
+  } = User;
+
+  if (id === 1) return 9;
+  if (is_leader) return 8;
+  if (is_advisor) return 7;
+  if (is_council) return 6;
+  if (is_general_officer) return 5;
+  if (is_officer) return 4;
+  if (is_senior_member) return 3;
+  if (is_junior_member) return 2;
+  if (is_recruit) return 1;
   return 0;
 };
 

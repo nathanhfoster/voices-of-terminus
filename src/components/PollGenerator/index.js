@@ -304,16 +304,7 @@ class PollGenerator extends Component {
   selectGuildRecipients = (User, Users) =>
     Users.filter(
       user =>
-        statusLevelInt({
-          is_leader: user.is_leader,
-          is_advisor: user.is_advisor,
-          is_council: user.is_council,
-          is_general_officer: user.is_general_officer,
-          is_officer: user.is_officer,
-          is_senior_member: user.is_senior_member,
-          is_junior_member: user.is_junior_member,
-          is_recruit: user.is_recruit
-        }) != 0
+        statusLevelInt(user) != 0
     )
       .map(
         i =>

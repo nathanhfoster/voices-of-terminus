@@ -65,21 +65,24 @@ class PublicProfile extends PureComponent {
     this.setState({ User });
   };
 
-  renderRoles = roles =>
-    Object.keys(roles).map(k => {
-      if (roles[k]) {
-        if (k === "is_raid_leader")
-          return [<span>Raid Leader</span>, <span>|</span>];
-        if (k === "is_banker") return [<span>Banker</span>, <span>|</span>];
-        if (k === "is_recruiter")
-          return [<span>Recruiter</span>, <span>|</span>];
-        if (k === "is_class_lead")
-          return [<span>Class Lead</span>, <span>|</span>];
-        if (k === "is_crafter_lead")
-          return [<span>Crafter Lead</span>, <span>|</span>];
-      }
-      return null;
-    });
+  renderRoles = User => {
+    let Roles = [];
+    const {
+      is_raid_leader,
+      is_banker,
+      is_recruiter,
+      is_class_lead,
+      is_crafter_lead
+    } = User;
+
+    if (is_raid_leader) Roles.push("Raid Leader | ");
+    if (is_banker) Roles.push("Banker | ");
+    if (is_recruiter) Roles.push("Recruiter | ");
+    if (is_class_lead) Roles.push("Class Lead | ");
+    if (is_crafter_lead) Roles.push("Crafter Lead | ");
+
+    return Roles.map(r => <span>{r}</span>);
+  };
 
   renderDividedText = text =>
     text.map((txt, i) =>
@@ -92,30 +95,13 @@ class PublicProfile extends PureComponent {
     const { User } = this.state;
     const { id } = this.props.match.params;
     const {
-      is_leader,
-      is_advisor,
-      is_council,
-      is_general_officer,
-      is_officer,
-      is_senior_member,
-      is_junior_member,
-      is_recruit,
       is_raid_leader,
       is_banker,
       is_recruiter,
       is_class_lead,
       is_crafter_lead
     } = User ? User : {};
-    const UserStatus = {
-      is_leader,
-      is_advisor,
-      is_council,
-      is_general_officer,
-      is_officer,
-      is_senior_member,
-      is_junior_member,
-      is_recruit
-    };
+
     const UserRoles = {
       is_raid_leader,
       is_banker,
@@ -162,12 +148,10 @@ class PublicProfile extends PureComponent {
             <span title="First and Last Name" className="help">
               {User.first_name} {User.last_name}
             </span>
-            <h2 title="Status">
-              {statusLevelString(statusLevelInt(UserStatus))}
-            </h2>
+            <h2 title="Status">{statusLevelString(statusLevelInt(User))}</h2>
             <div title="Roles" className="userRoles help">
               <span> |</span>
-              {this.renderRoles(UserRoles)}
+              {this.renderRoles(User)}
             </div>
             <h4 title="Primary Class Icon">
               <Image

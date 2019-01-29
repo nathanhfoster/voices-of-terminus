@@ -345,44 +345,14 @@ class UserProfile extends PureComponent {
     const { Admin, User } = this.state;
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
-    const loggedInUserStatus = statusLevelInt({
-      is_leader: User.is_leader,
-      is_advisor: User.is_advisor,
-      is_council: User.is_council,
-      is_general_officer: User.is_general_officer,
-      is_officer: User.is_officer,
-      is_senior_member: User.is_senior_member,
-      is_junior_member: User.is_junior_member,
-      is_recruit: User.is_recruit
-    });
+    const loggedInUserStatus = statusLevelInt(User);
     const currentUserStatus = Admin.User
-      ? statusLevelInt({
-          is_leader: Admin.User.is_leader,
-          is_advisor: Admin.User.is_advisor,
-          is_council: Admin.User.is_council,
-          is_general_officer: Admin.User.is_general_officer,
-          is_officer: Admin.User.is_officer,
-          is_senior_member: Admin.User.is_senior_member,
-          is_junior_member: Admin.User.is_junior_member,
-          is_recruit: Admin.User.is_recruit
-        })
+      ? statusLevelInt(Admin.User)
       : null;
     const canEdit =
       User.username === "admin" ||
       loggedInUserId === currentUserId ||
       loggedInUserStatus > currentUserStatus;
-    const UserStatus = Admin.User
-      ? {
-          is_leader: Admin.User.is_leader,
-          is_advisor: Admin.User.is_advisor,
-          is_council: Admin.User.is_council,
-          is_general_officer: Admin.User.is_general_officer,
-          is_officer: Admin.User.is_officer,
-          is_senior_member: Admin.User.is_senior_member,
-          is_junior_member: Admin.User.is_junior_member,
-          is_recruit: Admin.User.is_recruit
-        }
-      : {};
     const UserRoles = Admin.User
       ? {
           is_raid_leader: Admin.User.is_raid_leader,
@@ -432,7 +402,7 @@ class UserProfile extends PureComponent {
                 {Admin.User.first_name} {Admin.User.last_name}
               </span>
               <h2 title="Status">
-                {statusLevelString(statusLevelInt(UserStatus))}
+                {statusLevelString(statusLevelInt(Admin.User))}
               </h2>
               <div title="Roles" className="userRoles help">
                 {this.renderRoles(UserRoles)}

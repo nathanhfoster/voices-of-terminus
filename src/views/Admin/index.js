@@ -385,16 +385,7 @@ class Admin extends PureComponent {
                     Header: "Status",
                     id: "status",
                     accessor: User =>
-                      statusLevelInt({
-                        is_leader: User.is_leader,
-                        is_advisor: User.is_advisor,
-                        is_council: User.is_council,
-                        is_general_officer: User.is_general_officer,
-                        is_officer: User.is_officer,
-                        is_senior_member: User.is_senior_member,
-                        is_junior_member: User.is_junior_member,
-                        is_recruit: User.is_recruit
-                      }),
+                      statusLevelInt(User),
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value[1], { keys: [filter.id] }),
                     filterAll: true,
