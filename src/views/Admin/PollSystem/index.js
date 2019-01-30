@@ -195,8 +195,9 @@ class PollSystem extends Component {
 
   renderQuestions = (User, Questions, Choices, Responses, Recipients) => {
     const { eventKey, pollId, history } = this.state;
-    const isRecipient = Recipients.findIndex(e => User.id == e.recipient) != -1;
-    return isRecipient ? (
+    const isRecipient =
+      Recipients.findIndex(e => User.id === e.recipient) != -1;
+    return User.is_superuser || isRecipient ? (
       <Row>
         <Tabs
           defaultActiveKey={eventKey}
