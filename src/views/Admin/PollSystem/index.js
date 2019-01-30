@@ -552,7 +552,7 @@ class PollSystem extends Component {
     return pollId &&
       !(
         eventKey.includes("respond") ||
-        eventKey.includes("stats") ||
+        eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
       <Redirect to={`/polls/${pollId}/respond`} />
