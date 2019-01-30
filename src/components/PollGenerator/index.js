@@ -444,7 +444,17 @@ class PollGenerator extends Component {
                 )
               }
             >
-              UPDATE
+              {updating && !updated
+                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                : !updating && updated && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " UPDATE"
+                  ]
+                : "UPDATE"}
             </Button>
           </Col>
           <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>

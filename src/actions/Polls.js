@@ -311,7 +311,7 @@ export const UpdatePoll = (
 ) => {
   const pollPayload = { author, title, last_modified_by: author };
   return (dispatch, getState) => {
-    dispatch({ type: C.POST_POLLS_LOADING });
+    dispatch({ type: C.UPDATE_POLLS_LOADING });
     const { Polls } = getState();
     let payload = { ...Polls };
     Axios(token)
@@ -322,9 +322,9 @@ export const UpdatePoll = (
         payload.results[indexToUpdate] = poll.data;
 
         UpdateQuestions(author, id, token, Questions, dispatch, getState);
-        UpdateRecipients(id, token, Recipients, getState);
+        UpdateRecipients(id, token, Recipients, dispatch, getState);
 
-        dispatch({ type: C.GET_POLLS_SUCCESS, payload: payload });
+        dispatch({ type: C.UPDATE_POLLS_SUCCESS, payload: payload });
       })
       .catch(e => console.log(e));
   };
@@ -340,7 +340,7 @@ const UpdateQuestions = (
 ) => {
   let payload = getState().Polls.Questions;
   for (let i = 0; i < Questions.length; i++) {
-    const { question, question_type, Choices } = Questions[i];
+    const { id, question, question_type, Choices } = Questions[i];
     const pollQuestionPayload = {
       author,
       question,
@@ -350,44 +350,80 @@ const UpdateQuestions = (
     };
 
     Axios(token)
-      .post("poll/questions/", qs.stringify(pollQuestionPayload))
+      .patch(`poll/questions/${id}/`, qs.stringify(pollQuestionPayload))
       .then(question => {
         const question_id = question.data.id;
-        payload.push(question.data);
-
-        UpdateChoices(author, question_id, token, Choices);
+        const updateIndex = payload.findIndex(q => q.id == question.id);
+        payload[updateIndex] = question.data;
+        dispatch({ type: C.GET_QUESTIONS, payload: payload });
+        UpdateChoices(author, question_id, token, Choices, dispatch, getState);
       })
       .catch(e => console.log(e, "pollQuestionPayload: ", pollQuestionPayload));
   }
 };
 
-const UpdateChoices = (author, question_id, token, Choices) => {
-  let payload = [];
+const UpdateChoices = (
+  author,
+  question_id,
+  token,
+  Choices,
+  dispatch,
+  getState
+) => {
+  let payload = [...getState().Polls.Choices];
   for (let i = 0; i < Choices.length; i++) {
-    const { title } = Choices[i];
-    const responsePayload = { author, title, question_id, last_modified_by: author };
+    const { id, title } = Choices[i];
+    const responsePayload = {
+      author,
+      title,
+      question_id,
+      last_modified_by: author
+    };
     Axios(token)
-      .post("poll/choices/", qs.stringify(responsePayload))
-      .then(response => {
-        payload.push(response.data);
+      .patch(`poll/choices/${id}/`, qs.stringify(responsePayload))
+      .then(choice => {
+        const updateIndex = payload.findIndex(c => c.id == choice.id);
+        payload[updateIndex] = choice.data;
+        dispatch({ type: C.GET_CHOICES, payload: payload });
       })
       .catch(e => console.log(e, "responsePayload: ", responsePayload));
   }
-  //dispatch({ type: C.GET_CHOICES, payload: payload });
 };
-const UpdateRecipients = (recipient_poll_id, token, Recipients, getState) => {
+const UpdateRecipients = (
+  recipient_poll_id,
+  token,
+  Recipients,
+  dispatch,
+  getState
+) => {
   const payload = getState().Polls.Recipients;
-  for (let i = 0; i < Recipients.length; i++) {
-    const { recipient } = Recipients[i];
+  const newRecipients = payload.filter(r => !Recipients.some(r.id));
+  const removedRecipients = Recipients.filter(
+    r => !payload.some(e => e.id == r)
+  );
+
+  console.log(newRecipients);
+  console.log(removedRecipients);
+
+  for (let i = 0; i < newRecipients.length; i++) {
+    const { id, recipient } = newRecipients[i];
     const recipientPayload = { recipient, recipient_poll_id };
     Axios(token)
-      .post("poll/recipients/", qs.stringify(recipientPayload))
+      .post(`poll/recipients/`, qs.stringify(recipientPayload))
       .then(res => {
         payload.push(res.data);
+        dispatch({ type: C.GET_RECIPIENTS, payload: payload });
       })
       .catch(e => console.log(e, "recipientPayload: ", recipientPayload));
   }
-  //dispatch({ type: C.GET_RECIPIENTS, payload: payload });
+  for (let i = 0; i < removedRecipients.length; i++) {
+    const { id, recipient } = removedRecipients[i];
+    const recipientPayload = { recipient, recipient_poll_id };
+    Axios(token)
+      .delete(`poll/recipients/${id}/`, qs.stringify(recipientPayload))
+      .then(res => {})
+      .catch(e => console.log(e, "recipientPayload: ", recipientPayload));
+  }
 };
 
 export const clearPollsApi = () => dispatch =>

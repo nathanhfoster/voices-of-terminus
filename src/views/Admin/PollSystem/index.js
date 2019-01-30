@@ -154,14 +154,14 @@ class PollSystem extends Component {
                 e.stopPropagation();
                 DeletePoll(User.token, id);
               }}
-              Disabled={!(User.is_superuser && User.is_leader)}
+              Disabled={!(User.is_superuser || User.is_leader)}
               Icon={<i className="fa fa-trash-alt" />}
               hasPermission={true}
               Class="pull-right"
               Title={title}
             />
             <Button
-              disabled={!(User.is_superuser && User.is_leader)}
+              disabled={!(User.is_superuser || User.is_leader)}
               onClick={e => {
                 e.stopPropagation();
                 this.props.history.push(`/poll/edit/${id}`);

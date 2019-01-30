@@ -290,6 +290,19 @@ export const Polls = (
         posted: true,
         error: true
       };
+    case C.UPDATE_POLLS_LOADING:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      };
+    case C.UPDATE_POLLS_SUCCESS:
+      return {
+        ...state,
+        updating: false,
+        updated: true,
+        error: null
+      };
     case C.GET_QUESTIONS:
       return {
         ...state,
