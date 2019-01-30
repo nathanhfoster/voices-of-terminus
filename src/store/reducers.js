@@ -299,6 +299,7 @@ export const Polls = (
     case C.UPDATE_POLLS_SUCCESS:
       return {
         ...state,
+        ...payload,
         updating: false,
         updated: true,
         error: null

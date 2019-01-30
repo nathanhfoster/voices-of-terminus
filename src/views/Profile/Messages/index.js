@@ -297,7 +297,6 @@ class Messages extends PureComponent {
       messageDetails,
       Messages
     } = this.state;
-    console.log("MESSAGES: ", Messages);
     let messages = Messages.results;
     const { messageRecipients } = Messages;
     messages = search

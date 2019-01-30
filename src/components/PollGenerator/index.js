@@ -46,6 +46,7 @@ class PollGenerator extends Component {
 
     this.state = {
       NewChoice: "",
+      Polls: [],
       Questions: [
         {
           postion: 0,
@@ -108,7 +109,6 @@ class PollGenerator extends Component {
       GetPoll(token, pollId);
       GetPollQuestions(token, pollId);
       GetPollRecipients(token, pollId);
-      this.pollPropToState(Polls, User.id);
     } else {
       Recipients = Users
         ? Users.filter(i => i.id === User.id).map(
@@ -132,10 +132,11 @@ class PollGenerator extends Component {
           (a, b) => a.label.localeCompare(b.label)
         )
       : [];
-    if (!pollId) {
+    if (pollId) {
+      this.pollPropToState(Polls, User.id, selectOptions);
+    } else {
       this.setState({ Questions, selectOptions, title, Polls });
     }
-    this.setState({ selectOptions });
   };
 
   componentDidUpdate(prevProps, prevState) {}
@@ -145,7 +146,7 @@ class PollGenerator extends Component {
     clearPollsApi();
   }
 
-  pollPropToState = (Polls, userId) => {
+  pollPropToState = (Polls, userId, selectOptions) => {
     let { Poll, Questions, Choices, Recipients } = Polls;
     const { title } = Poll;
     Questions = Questions.map(
@@ -155,9 +156,11 @@ class PollGenerator extends Component {
           postion: i,
           question: q.question,
           question_type: q.question_type,
-          Choices: Choices[i].map(
-            (c, i) => (c = { id: c.id, postion: i, title: c.title })
-          )
+          Choices: Choices[i]
+            ? Choices[i].map(
+                (c, i) => (c = { id: c.id, postion: i, title: c.title })
+              )
+            : []
         })
     );
 
@@ -170,7 +173,7 @@ class PollGenerator extends Component {
           isFixed: r.recipient == userId
         })
     );
-    this.setState({ title, Questions, Recipients });
+    this.setState({ Polls, title, Questions, Recipients, selectOptions });
   };
 
   onQuestionChange = e => {
@@ -233,11 +236,23 @@ class PollGenerator extends Component {
   renderQuestions = Questions =>
     Questions.map((q, i) => {
       const { NewChoice } = this.state;
-      const { question_type, Question, Choices } = q;
+      const { question_type, question, Choices } = q;
       return (
         <Row className="Questions Center borderedRow" key={i}>
           <Col xs={12}>
-            <ControlLabel>Question</ControlLabel>
+            <ControlLabel style={{ marginLeft: 32 }}>Question</ControlLabel>
+            <ConfirmAction
+              Action={e => {
+                e.stopPropagation();
+                this.deleteQuestion(i);
+              }}
+              Disabled={false}
+              Icon={<i className="fa fa-trash-alt" />}
+              hasPermission={true}
+              Size="small"
+              Class="pull-right"
+              Title={question}
+            />
           </Col>
           <Col md={9} xs={12}>
             <InputGroup>
@@ -247,7 +262,7 @@ class PollGenerator extends Component {
               <FormControl
                 id={`${i}`}
                 key={i}
-                value={Question}
+                value={question}
                 question_type="text"
                 placeholder="Enter question..."
                 onChange={this.onQuestionChange}
@@ -367,10 +382,15 @@ class PollGenerator extends Component {
       );
     });
 
+  deleteQuestion = index => {
+    let { Questions } = this.state;
+    delete Questions[index];
+    this.setState({ Questions });
+  };
+
   deleteChoice = (pollIndex, i) => {
     let { Choices } = this.state.Questions[pollIndex];
     delete Choices[i];
-    Choices.length -= 1;
     this.setState({ Choices });
   };
 
@@ -389,9 +409,16 @@ class PollGenerator extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { User, Admin, Polls, PostPoll, UpdatePoll, match } = this.props;
+    const { User, Admin, PostPoll, UpdatePoll, match } = this.props;
     const pollId = match.params.id;
-    const { Questions, Recipients, selectOptions, title, body } = this.state;
+    const {
+      Polls,
+      Questions,
+      Recipients,
+      selectOptions,
+      title,
+      body
+    } = this.state;
     const {
       loading,
       loaded,

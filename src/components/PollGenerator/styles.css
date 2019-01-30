@@ -1,22 +1,6 @@
-.Polls {
-  margin-bottom: 8px;
+.PollGenerator .control-label {
+  padding: 4px 0 4px 0;
 }
-.Polls .input-group {
-  margin-bottom: 24px;
-}
-.Polls:focus-within {
-  border-color: var(--primaryColor);
-}
-.Polls i {
-  width: 32x;
-  font-size: 1.4em;
-}
-
-.Polls label {
-  margin-top: 8px;
-  margin-bottom: 16px;
-}
-
 .AddChoice {
   opacity: var(--disabledOpacity);
 }

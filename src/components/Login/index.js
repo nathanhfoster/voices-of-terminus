@@ -193,7 +193,6 @@ class Login extends PureComponent {
     ));
 
   render() {
-    console.log(this.props.history);
     const canSubmit = !this.cantSubmit();
     const { User } = this.props;
     const {
