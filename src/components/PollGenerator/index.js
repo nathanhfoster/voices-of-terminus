@@ -20,6 +20,7 @@ import Select from "react-select";
 import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import { withRouter, Redirect } from "react-router-dom";
+import { getUsers } from "../../actions/Admin";
 import {
   PostPoll,
   clearPollsApi,
@@ -32,6 +33,7 @@ import {
 const mapStateToProps = ({ User, Polls, Admin }) => ({ User, Polls, Admin });
 
 const mapDispatchToProps = {
+  getUsers,
   PostPoll,
   clearPollsApi,
   GetPoll,
@@ -92,6 +94,7 @@ class PollGenerator extends Component {
 
   componentDidMount() {
     const {
+      getUsers,
       User,
       GetPoll,
       GetPollQuestions,
@@ -104,6 +107,7 @@ class PollGenerator extends Component {
     const pollId = match.params.id;
     const { Users } = this.props.Admin;
     let Recipients = [];
+    getUsers();
     clearPollsApi();
     if (pollId) {
       GetPoll(token, pollId);
