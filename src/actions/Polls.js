@@ -203,8 +203,15 @@ const PostQuestions = (
       .then(question => {
         const question_id = question.data.id;
         payload.push(question.data);
-
-        PostChoices(author, question_id, token, Choices);
+        PostChoices(
+          author,
+          question_id,
+          token,
+          Choices,
+          Questions,
+          dispatch,
+          getState
+        );
       })
       .catch(e => console.log(e, "pollQuestionPayload: ", pollQuestionPayload));
   }
@@ -214,7 +221,15 @@ const PostQuestions = (
   // });
 };
 
-const PostChoices = (author, question_id, token, Choices) => {
+const PostChoices = (
+  author,
+  question_id,
+  token,
+  Choices,
+  Questions,
+  dispatch,
+  getState
+) => {
   let payload = [];
   for (let i = 0; i < Choices.length; i++) {
     const { title } = Choices[i];
@@ -222,11 +237,12 @@ const PostChoices = (author, question_id, token, Choices) => {
     Axios(token)
       .post("poll/choices/", qs.stringify(responsePayload))
       .then(response => {
-        payload.push(response.data);
+        // payload.push(response.data);
+        // dispatch({ type: C.GET_CHOICES, payload: payload });
       })
       .catch(e => console.log(e, "responsePayload: ", responsePayload));
   }
-  //dispatch({ type: C.GET_CHOICES, payload: payload });
+  GetQuestionChoices(token, Questions, dispatch, getState);
 };
 const PostRecipients = (recipient_poll_id, token, Recipients, getState) => {
   const payload = getState().Polls.Recipients;
@@ -395,7 +411,15 @@ const UpdateQuestions = (
         const updateIndex = payload.findIndex(q => q.id === question.id);
         payload[updateIndex] = question.data;
         dispatch({ type: C.GET_QUESTIONS, payload: payload });
-        UpdateChoices(author, question_id, token, Choices, dispatch, getState);
+        UpdateChoices(
+          author,
+          question_id,
+          token,
+          Choices,
+          Questions,
+          dispatch,
+          getState
+        );
       })
       .catch(e => console.log(e, "UpdateQuestions: ", pollQuestionPayload));
   }
@@ -420,6 +444,7 @@ const UpdateChoices = (
   question_id,
   token,
   Choices,
+  Questions,
   dispatch,
   getState
 ) => {
@@ -436,7 +461,15 @@ const UpdateChoices = (
   // console.log("choicesToPost: ", choicesToPost);
   // console.log("choicesToUpdate: ", choicesToUpdate);
   // console.log("choicesToDelete: ", choicesToDelete);
-  PostChoices(author, question_id, token, choicesToPost);
+  PostChoices(
+    author,
+    question_id,
+    token,
+    choicesToPost,
+    Questions,
+    dispatch,
+    getState
+  );
   DeleteChoices(token, choicesToDelete, dispatch, getState);
   let payload = [...getState().Polls.Choices];
 
@@ -451,14 +484,13 @@ const UpdateChoices = (
     Axios(token)
       .patch(`poll/choices/${id}/`, qs.stringify(responsePayload))
       .then(choice => {
-        const updateIndex = payload[i]
-          ? payload[i].findIndex(c => c.id === choice.data.id)
-          : -1;
-        if (updateIndex != -1) payload[i][updateIndex] = choice.data;
-        dispatch({ type: C.GET_CHOICES, payload: payload });
+        // const updateIndex = payload.findIndex(c => c[0].id === choice.data.id);
+        // if (updateIndex != -1) payload[updateIndex] = choice.data;
+        // dispatch({ type: C.GET_CHOICES, payload: payload });
       })
       .catch(e => console.log(e, "responsePayload: ", responsePayload));
   }
+  GetQuestionChoices(token, Questions, dispatch, getState);
 };
 
 const DeleteChoices = (token, Choices, dispatch, getState) => {
