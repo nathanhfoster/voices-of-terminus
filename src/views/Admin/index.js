@@ -216,29 +216,25 @@ class Admin extends PureComponent {
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => this.props.history.push("/articles/new/article")}
+              onClick={() => this.props.history.push("/article/new/")}
             >
               <i className="fas fa-plus" /> Article
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_newsletter)}
-              onClick={() =>
-                this.props.history.push("/articles/new/newsletter")
-              }
+              onClick={() => this.props.history.push("/newsletter/new")}
             >
               <i className="fas fa-plus" /> Newsletter
             </Button>
             <Button
-              onClick={() =>
-                this.props.history.push("/articles/new/newsletter")
-              }
+              onClick={() => this.props.history.push("/newsletter/new")}
               disabled
             >
               <i className="fas fa-plus" /> Event
             </Button>
             <Button
               disabled={!User.is_superuser}
-              onClick={() => this.props.history.push("/polls/new/poll")}
+              onClick={() => this.props.history.push("/poll/new/")}
             >
               <i className="fas fa-plus" /> Poll
             </Button>
@@ -324,7 +320,7 @@ class Admin extends PureComponent {
                       </span>
                     ),
                     Cell: props => (
-                      <Link to={"admin/user/profile/" + props.original.id}>
+                      <Link to={`admin/edit/user/${props.original.id}`}>
                         {props.value}
                       </Link>
                     )
@@ -384,8 +380,7 @@ class Admin extends PureComponent {
                   {
                     Header: "Status",
                     id: "status",
-                    accessor: User =>
-                      statusLevelInt(User),
+                    accessor: User => statusLevelInt(User),
                     filterMethod: (filter, rows) =>
                       matchSorter(rows, filter.value[1], { keys: [filter.id] }),
                     filterAll: true,

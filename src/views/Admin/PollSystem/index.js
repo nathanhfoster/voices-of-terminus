@@ -9,6 +9,7 @@ import {
   InputGroup,
   FormControl,
   Button,
+  ButtonToolbar,
   Checkbox,
   Radio,
   Image,
@@ -142,12 +143,12 @@ class PollSystem extends Component {
           key={id}
           onClick={() => this.props.history.push(`/polls/${id}`)}
         >
-          <Col xs={10}>
+          <Col xs={8}>
             <h3>
               <i className="fas fa-heading" /> {title}
             </h3>
           </Col>
-          <Col xs={2}>
+          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <ConfirmAction
               Action={e => {
                 e.stopPropagation();
@@ -159,6 +160,16 @@ class PollSystem extends Component {
               Class="pull-right"
               Title={title}
             />
+            <Button
+              disabled={!(User.is_superuser && User.is_leader)}
+              onClick={e => {
+                e.stopPropagation();
+                this.props.history.push(`/poll/edit/${id}`);
+              }}
+              className="pull-right"
+            >
+              <i className="fa fa-pencil-alt" />
+            </Button>
           </Col>
           <Col xs={12}>
             <h4>
@@ -539,7 +550,11 @@ class PollSystem extends Component {
       eventKey
     } = this.state;
     return pollId &&
-      !(eventKey.includes("respond") || eventKey.includes("stats")) ? (
+      !(
+        eventKey.includes("respond") ||
+        eventKey.includes("stats") ||
+        eventKey.includes("edit")
+      ) ? (
       <Redirect to={`/polls/${pollId}/respond`} />
     ) : (
       <Grid className="PollSystem Container">

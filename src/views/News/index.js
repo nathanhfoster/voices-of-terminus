@@ -249,18 +249,18 @@ class News extends Component {
         let deleteCard = null;
         let className = "CardContainer ";
         if (card.tags.includes("Article")) {
-          click = () => history.push("/articles/" + card.id);
+          click = () => history.push(`/articles/${card.id}`);
           editCard = () => {
-            history.push("/articles/edit/article/" + card.id);
+            history.push(`/article/edit/${card.id}`);
             this.props.getArticle(card.id);
           };
           deleteCard = this.props.deleteArticle;
           className += "CardContainerArticle";
         }
         if (card.tags.includes("Newsletter")) {
-          click = () => history.push("/newsletters/" + card.id);
+          click = () => history.push(`/newsletters/${card.id}`);
           editCard = () => {
-            history.push("/articles/edit/newsletter/" + card.id);
+            history.push(`/newsletter/edit/${card.id}`);
             this.props.getNewsletter(card.id);
           };
           deleteCard = this.props.deleteNewsLetter;
@@ -341,15 +341,13 @@ class News extends Component {
           >
             <Button
               disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => this.props.history.push("/articles/new/article")}
+              onClick={() => this.props.history.push("/article/new/")}
             >
               <i className="fas fa-plus" /> Article
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_newsletter)}
-              onClick={() =>
-                this.props.history.push("/articles/new/newsletter")
-              }
+              onClick={() => this.props.history.push("/newsletter/new")}
             >
               <i className="fas fa-plus" /> Newsletter
             </Button>

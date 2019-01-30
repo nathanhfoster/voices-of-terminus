@@ -1,10 +1,16 @@
 .PollSystem .row {
   margin-bottom: 16px;
 }
+
+.PollSystem .borderedRow {
+  background-color: var(--slate_grey);
+}
+
 .PollSystem .row:hover {
   border-color: var(--primaryColor);
   transition: border-color 0.4s;
 }
+
 .PollSystem .form-group span {
   margin-right: 8px;
 }

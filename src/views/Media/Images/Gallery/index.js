@@ -271,7 +271,7 @@ class Gallery extends PureComponent {
                 >
                   <i className="fas fa-user" />
                   <Link
-                    to={"/profile/" + image.author}
+                    to={`/profile/${image.author}`}
                     onClick={e => e.stopPropagation()}
                   >
                     {image.author_username}
@@ -282,7 +282,7 @@ class Gallery extends PureComponent {
                 <div className="inlineNoWrap">
                   <i className="fas fa-pencil-alt" />
                   <Link
-                    to={"/profile/" + image.last_modified_by}
+                    to={`/profile/${image.last_modified_by}`}
                     onClick={e => e.stopPropagation()}
                   >
                     {image.last_modified_by_username}

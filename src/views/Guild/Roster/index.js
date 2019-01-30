@@ -118,7 +118,7 @@ class Roster extends PureComponent {
     routeItems.map(k => {
       return (
         <Col md={3} xs={4}>
-          <Link to={"/profile/" + k.id} className="userContainer">
+          <Link to={`/profile/${k.id}`} className="userContainer">
             <Image
               src={classIcon(k.primary_class)}
               style={{ height: "25px" }}

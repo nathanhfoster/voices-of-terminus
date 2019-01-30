@@ -116,7 +116,7 @@ class PublicProfile extends PureComponent {
             {is_superuser || is_staff ? (
               <Button
                 onClick={() =>
-                  this.props.history.push(`/admin/user/profile/${id}/`)
+                  this.props.history.push(`/admin/edit/user/${id}/`)
                 }
                 className="pull-right"
               >

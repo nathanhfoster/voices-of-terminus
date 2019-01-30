@@ -106,7 +106,7 @@ class Card extends PureComponent {
               >
                 <i className="fas fa-user" />
                 <Link
-                  to={"/profile/" + author}
+                  to={`/profile/${author}`}
                   onClick={e => e.stopPropagation()}
                 >
                   {author_username}
@@ -117,7 +117,7 @@ class Card extends PureComponent {
               <div>
                 <i className="fas fa-pencil-alt" />
                 <Link
-                  to={"/profile/" + last_modified_by}
+                  to={`/profile/${last_modified_by}`}
                   onClick={e => e.stopPropagation()}
                 >
                   {last_modified_by_username}

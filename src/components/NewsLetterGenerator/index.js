@@ -208,7 +208,7 @@ class NewsLetterGenerator extends PureComponent {
   handleHide = id => {
     if (id) {
       this.props.getNewsletter(id);
-      this.props.history.push("/articles/edit/newsletter/" + id);
+      this.props.history.push("/newsletter/edit/" + id);
     }
     this.setState({ show: false });
   };

@@ -177,7 +177,7 @@ class ViewHtmlDocument extends PureComponent {
               src={com.author_profile_image}
               rounded
             />{" "}
-            <Link to={"/profile/" + com.author}>{com.author_username}</Link>
+            <Link to={`/profile/${com.author}`}>{com.author_username}</Link>
           </Col>
           <Col xs={2} className="pull-right">
             <ConfirmAction
@@ -241,7 +241,7 @@ class ViewHtmlDocument extends PureComponent {
         <Row className="ViewHtmlDocument">
           <Col xs={12} className="Center">
             <h2>
-              <Link to={"/profile/" + HtmlDocument.author}>
+              <Link to={`/profile/${HtmlDocument.author}`}>
                 {HtmlDocument.author_username}
               </Link>
             </h2>

@@ -265,21 +265,21 @@ class NavBar extends PureComponent {
                   <MenuItem divider />
                 ) : null}
                 {User.is_superuser || User.can_create_article ? (
-                  <LinkContainer to="/articles/new/article">
+                  <LinkContainer to="/article/new/">
                     <NavItem eventKey={10.6}>
                       <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
                 ) : null}
                 {User.is_superuser || User.can_create_newsletter ? (
-                  <LinkContainer to="/articles/new/newsletter">
+                  <LinkContainer to="/newsletter/new">
                     <NavItem eventKey={10.7}>
                       <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
                   </LinkContainer>
                 ) : null}
                 {User.is_superuser || User.is_staff ? (
-                  <LinkContainer to="/polls/new/poll">
+                  <LinkContainer to="/poll/new/">
                     <NavItem eventKey={10.8}>
                       <i className="fas fa-plus" /> POLL
                     </NavItem>
@@ -321,11 +321,7 @@ class NavBar extends PureComponent {
           </Nav>
           <Nav className="Center pull-right">
             {User.is_superuser || User.is_staff ? (
-              <LinkContainer
-                to="/admin"
-                // componentClass={Button}
-                className="AdminButton"
-              >
+              <LinkContainer to="/admin" className="AdminButton">
                 <NavItem eventKey={11}>
                   <i className="fas fa-database" /> ADMIN
                 </NavItem>

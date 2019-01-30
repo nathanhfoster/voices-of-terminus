@@ -20,11 +20,25 @@ import Select from "react-select";
 import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import { withRouter, Redirect } from "react-router-dom";
-import { PostPoll, clearPollsApi } from "../../actions/Polls";
+import {
+  PostPoll,
+  clearPollsApi,
+  GetPoll,
+  GetPollQuestions,
+  GetPollRecipients,
+  UpdatePoll
+} from "../../actions/Polls";
 
 const mapStateToProps = ({ User, Polls, Admin }) => ({ User, Polls, Admin });
 
-const mapDispatchToProps = { PostPoll, clearPollsApi };
+const mapDispatchToProps = {
+  PostPoll,
+  clearPollsApi,
+  GetPoll,
+  GetPollQuestions,
+  GetPollRecipients,
+  UpdatePoll
+};
 
 class PollGenerator extends Component {
   constructor(props) {
@@ -32,6 +46,14 @@ class PollGenerator extends Component {
 
     this.state = {
       NewChoice: "",
+      Questions: [
+        {
+          postion: 0,
+          question: "",
+          question_type: PollChoices[0].value,
+          Choices: []
+        }
+      ],
       Recipients: [],
       selectOptions: []
     };
@@ -68,15 +90,33 @@ class PollGenerator extends Component {
   componentWillUpdate() {}
 
   componentDidMount() {
-    const { User, clearPollsApi } = this.props;
+    const {
+      User,
+      GetPoll,
+      GetPollQuestions,
+      GetPollRecipients,
+      clearPollsApi,
+      Polls,
+      match
+    } = this.props;
+    const { token } = User;
+    const pollId = match.params.id;
     const { Users } = this.props.Admin;
+    let Recipients = [];
     clearPollsApi();
-    const Recipients = Users
-      ? Users.filter(i => i.id === User.id).map(
-          e => (e = { value: e.id, label: e.username, isFixed: true })
-        )
-      : [];
-    this.setState({ Recipients });
+    if (pollId) {
+      GetPoll(token, pollId);
+      GetPollQuestions(token, pollId);
+      GetPollRecipients(token, pollId);
+      this.pollPropToState(Polls, User.id);
+    } else {
+      Recipients = Users
+        ? Users.filter(i => i.id === User.id).map(
+            e => (e = { value: e.id, label: e.username, isFixed: true })
+          )
+        : [];
+      this.setState({ Recipients });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -84,13 +124,18 @@ class PollGenerator extends Component {
   }
 
   getState = props => {
-    const { Questions, User, Admin, title } = props;
+    const { Questions, User, Admin, title, match, Polls } = props;
+    const { Recipients } = Polls;
+    const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
           (a, b) => a.label.localeCompare(b.label)
         )
       : [];
-    this.setState({ Questions, selectOptions, title });
+    if (!pollId) {
+      this.setState({ Questions, selectOptions, title, Polls });
+    }
+    this.setState({ selectOptions });
   };
 
   componentDidUpdate(prevProps, prevState) {}
@@ -99,6 +144,34 @@ class PollGenerator extends Component {
     const { clearPollsApi } = this.props;
     clearPollsApi();
   }
+
+  pollPropToState = (Polls, userId) => {
+    let { Poll, Questions, Choices, Recipients } = Polls;
+    const { title } = Poll;
+    Questions = Questions.map(
+      (q, i) =>
+        (q = {
+          id: q.id,
+          postion: i,
+          question: q.question,
+          question_type: q.question_type,
+          Choices: Choices[i].map(
+            (c, i) => (c = { id: c.id, postion: i, title: c.title })
+          )
+        })
+    );
+
+    Recipients = Recipients.map(
+      r =>
+        (r = {
+          id: r.id,
+          value: r.recipient,
+          label: r.recipient_username,
+          isFixed: r.recipient == userId
+        })
+    );
+    this.setState({ title, Questions, Recipients });
+  };
 
   onQuestionChange = e => {
     const { id, value } = e.target;
@@ -316,7 +389,8 @@ class PollGenerator extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { User, Admin, Polls, PostPoll } = this.props;
+    const { User, Admin, Polls, PostPoll, UpdatePoll, match } = this.props;
+    const pollId = match.params.id;
     const { Questions, Recipients, selectOptions, title, body } = this.state;
     const {
       loading,
@@ -327,7 +401,6 @@ class PollGenerator extends Component {
       updated,
       error
     } = Polls;
-
     return User.is_superuser || User.is_staff ? (
       <Grid className="PollGenerator Container">
         <Row className="ActionToolbarRow">
@@ -356,6 +429,22 @@ class PollGenerator extends Component {
                     " POST"
                   ]
                 : "POST"}
+            </Button>
+            <Button
+              onClick={e =>
+                UpdatePoll(
+                  pollId,
+                  User.token,
+                  User.id,
+                  User.username,
+                  title,
+                  body,
+                  Questions,
+                  Recipients.map(r => (r = { recipient: r.value }))
+                )
+              }
+            >
+              UPDATE
             </Button>
           </Col>
           <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
@@ -414,7 +503,7 @@ class PollGenerator extends Component {
                   <FormControl
                     value={body}
                     type="text"
-                    placeholder="Body"
+                    placeholder="Message body"
                     name="body"
                     onChange={e => this.onChange(e)}
                   />
@@ -458,4 +547,6 @@ class PollGenerator extends Component {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator);
+export default withRouter(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator)
+);
