@@ -1,6 +1,10 @@
 .Messages {
 }
 
+.Messages .borderedRow {
+  background-color: var(--slate_grey);
+}
+
 .Message {
   padding: 8px;
   margin-bottom: 8px;

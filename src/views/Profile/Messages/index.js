@@ -191,13 +191,13 @@ class Messages extends PureComponent {
               : null
           }
         >
-          <Col md={8}>
+          <Col md={9}>
             <i className="fas fa-heading" />{" "}
             <span className="MessageTitle">{title}</span>
           </Col>
-          <Col md={4}>
-            <i class="fas fa-keyboard" style={{ margin: "2px 4px 0 0" }} />{" "}
-            <Moment fromNow>{message_last_modified}</Moment>
+          <Col md={3}>
+            <Moment fromNow className="pull-right">{message_last_modified}</Moment>
+            <i class="fas fa-keyboard pull-right" style={{ margin: "2px 4px 0 0" }} />{" "}
           </Col>
           <Col md={6}>
             <i className="far fa-user" /> {author_username}
