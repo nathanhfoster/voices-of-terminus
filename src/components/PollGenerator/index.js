@@ -435,7 +435,12 @@ class PollGenerator extends Component {
     return User.is_superuser || User.is_staff ? (
       <Grid className="PollGenerator Container">
         <Row className="ActionToolbarRow">
-          <Col md={4}>
+          <Col
+            md={4}
+            xs={12}
+            className="ActionToolbar"
+            componentClass={ButtonToolbar}
+          >
             <Button
               onClick={e =>
                 PostPoll(
@@ -488,7 +493,12 @@ class PollGenerator extends Component {
                 : "UPDATE"}
             </Button>
           </Col>
-          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            md={4}
+            xs={6}
+            className="ActionToolbar"
+            componentClass={ButtonToolbar}
+          >
             <Button
               onClick={e =>
                 this.setState({
@@ -507,7 +517,7 @@ class PollGenerator extends Component {
               <i className="fas fa-plus" /> Question
             </Button>
           </Col>
-          <Col md={4}>
+          <Col md={4} xs={6}>
             <Button
               onClick={e =>
                 this.setState({
