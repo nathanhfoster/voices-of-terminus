@@ -11,6 +11,7 @@
 }
 
 .ProfileImages {
+  border: 1px solid var(--slate_grey);
   max-height: 200px;
   margin: 4px;
   margin: auto;
@@ -21,3 +22,11 @@
   transition: box-shadow 200ms;
 }
 */
+.defaultImageContainer {
+  display: inline;
+  overflow-x: auto;
+}
+
+.defaultImageContainer img:hover {
+  border-color: var(--primaryColor);
+}

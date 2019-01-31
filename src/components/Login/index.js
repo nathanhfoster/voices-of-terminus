@@ -181,7 +181,7 @@ class Login extends PureComponent {
 
   renderDefaultImages = images =>
     images.map((v, i) => (
-      <Col xs={4}>
+      <div className="defaultImageContainer">
         <Image
           src={v}
           className="ProfileImages"
@@ -189,7 +189,7 @@ class Login extends PureComponent {
             this.setState({ profile_image: defaultProfileImages[i] })
           }
         />
-      </Col>
+      </div>
     ));
 
   render() {
