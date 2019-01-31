@@ -6,6 +6,10 @@
   background-color: var(--slate_grey);
 }
 
+.noHover:hover {
+  border: 1px solid var(--grey) !important;
+}
+
 .PollSystem .row:hover {
   border-color: var(--primaryColor);
   transition: border-color 0.4s;

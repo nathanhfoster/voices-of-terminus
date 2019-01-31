@@ -198,33 +198,33 @@ class PollSystem extends Component {
     const isRecipient =
       Recipients.findIndex(e => User.id === e.recipient) != -1;
     return User.is_superuser || isRecipient ? (
-      <Row>
-        <Tabs
-          defaultActiveKey={eventKey}
-          activeKey={eventKey}
-          className="Tabs"
-          onSelect={eventKey => {
-            this.setState({ eventKey });
-            history.push(eventKey);
-          }}
-          animation={false}
+      <Tabs
+        defaultActiveKey={eventKey}
+        activeKey={eventKey}
+        className="Tabs"
+        onSelect={eventKey => {
+          this.setState({ eventKey });
+          history.push(eventKey);
+        }}
+        animation={false}
+      >
+        <Tab
+          eventKey={`/polls/${pollId}/respond`}
+          title={"Respond"}
+          className="fadeIn"
+          unmountOnExit={true}
         >
-          <Tab
-            eventKey={`/polls/${pollId}/respond`}
-            title={"Respond"}
-            className="fadeIn"
-            unmountOnExit={true}
-          >
-            {Questions.map((q, i) => {
-              const { question, question_type } = q;
-              return [
-                <h4>
-                  <i className="far fa-question-circle" /> {question}
-                </h4>,
-                Choices.length > 0 && Choices[i]
-                  ? Choices[i].map(c => {
-                      const { id, title, question_id } = c;
-                      return (
+          {Questions.map((q, i) => {
+            const { question, question_type } = q;
+            return [
+              <h4>
+                <i className="far fa-question-circle" /> {question}
+              </h4>,
+              Choices.length > 0 && Choices[i]
+                ? Choices[i].map(c => {
+                    const { id, title, question_id } = c;
+                    return (
+                      <Row className="borderedRow noHover">
                         <Col xs={12}>
                           <FormGroup key={i}>
                             {this.switchQuestionChoices(
@@ -237,28 +237,30 @@ class PollSystem extends Component {
                             )}
                           </FormGroup>
                         </Col>
-                      );
-                    })
-                  : null
-              ];
-            })}
-          </Tab>
-          <Tab
-            eventKey={`/polls/${pollId}/results`}
-            title={"Results"}
-            className="fadeIn"
-            unmountOnExit={true}
-          >
-            {Questions.map((q, i) => {
-              const { question, question_type } = q;
-              return [
-                <h4>
-                  <i className="far fa-question-circle" /> {question}
-                </h4>,
-                Choices.length > 0 && Choices[i]
-                  ? Choices[i].map(c => {
-                      const { id, title, question_id } = c;
-                      return (
+                      </Row>
+                    );
+                  })
+                : null
+            ];
+          })}
+        </Tab>
+        <Tab
+          eventKey={`/polls/${pollId}/results`}
+          title={"Results"}
+          className="fadeIn"
+          unmountOnExit={true}
+        >
+          {Questions.map((q, i) => {
+            const { question, question_type } = q;
+            return [
+              <h4>
+                <i className="far fa-question-circle" /> {question}
+              </h4>,
+              Choices.length > 0 && Choices[i]
+                ? Choices[i].map(c => {
+                    const { id, title, question_id } = c;
+                    return (
+                      <Row className="borderedRow noHover">
                         <Col xs={12}>
                           <FormGroup key={i}>
                             {this.switchQuestionChoicesResponses(
@@ -269,14 +271,14 @@ class PollSystem extends Component {
                             )}
                           </FormGroup>
                         </Col>
-                      );
-                    })
-                  : null
-              ];
-            })}
-          </Tab>
-        </Tabs>
-      </Row>
+                      </Row>
+                    );
+                  })
+                : null
+            ];
+          })}
+        </Tab>
+      </Tabs>
     ) : (
       <h1>Sorry you are not a recipient to this poll</h1>
     );
@@ -563,6 +565,20 @@ class PollSystem extends Component {
           <PageHeader className="pageHeader">
             {Poll && pollId ? `${Poll.title}` : `POLLS`}
           </PageHeader>
+          <Row className="ActionToolbarRow">
+            <Col
+              md={4}
+              className="ActionToolbar"
+              componentClass={ButtonToolbar}
+            >
+              <Button
+                disabled={!User.is_superuser}
+                onClick={() => this.props.history.push("/poll/new/")}
+              >
+                <i className="fas fa-plus" /> Poll
+              </Button>
+            </Col>
+          </Row>
         </Row>
         {pollId
           ? this.renderQuestions(
