@@ -11,7 +11,6 @@
 }
 
 .ProfileImages {
-  border: 1px solid var(--slate_grey);
   max-height: 200px;
   margin: 4px;
   margin: auto;
@@ -28,5 +27,6 @@
 }
 
 .defaultImageContainer img:hover {
-  border-color: var(--primaryColor);
+  box-shadow: 0 0 4px var(--primaryColor);
+  transition: box-shadow 200ms;
 }

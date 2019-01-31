@@ -529,7 +529,7 @@ const PermissionsTable = (Admin, User, updateUserProfile) => {
       showPageSizeOptions
       showPaginationBottom
       showPageJump
-      defaultSorted={[{ id: "date_joined", desc: true }]}
+      defaultSorted={[{ id: "id", desc: true }]}
       defaultPageSize={Window.isMobile ? 10 : 15}
       pageSizeOptions={[5, 10, 15, 20, 50, 100]}
       multiSort={true}
