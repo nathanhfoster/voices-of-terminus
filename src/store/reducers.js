@@ -437,6 +437,12 @@ export const Galleries = (state = { results: [], Gallery: {} }, action) => {
         loaded: true,
         error: action.payload
       };
+
+      case C.CLEAR_GALLERY:
+      return {
+        ...state,
+        Gallery: { ...state.Gallery, results: [] }
+      };
     default:
       return state;
   }

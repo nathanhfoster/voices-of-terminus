@@ -26,7 +26,8 @@ import {
   viewGalleryImage,
   postGalleryImage,
   updateGalleryImage,
-  deleteGalleryImage
+  deleteGalleryImage,
+  clearGalleryImages
 } from "../../../../actions/Media";
 import Moment from "react-moment";
 import matchSorter from "match-sorter";
@@ -47,7 +48,8 @@ const mapDispatchToProps = {
   viewGalleryImage,
   postGalleryImage,
   updateGalleryImage,
-  deleteGalleryImage
+  deleteGalleryImage,
+  clearGalleryImages
 };
 
 class Gallery extends PureComponent {
@@ -79,8 +81,9 @@ class Gallery extends PureComponent {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    this.props.viewGalleryImages(id);
+    const { viewGalleryImages, match } = this.props;
+    const { id } = match.params;
+    viewGalleryImages(id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -101,6 +104,11 @@ class Gallery extends PureComponent {
     this.getGalleryImage(Gallery);
     this.setState({ User, id, GalleryTitle, Gallery });
   };
+
+  componentWillUnmount() {
+    const { clearGalleryImages } = this.props;
+    clearGalleryImages();
+  }
 
   getGalleryImage = Gallery => {
     const { loading, results } = Gallery;

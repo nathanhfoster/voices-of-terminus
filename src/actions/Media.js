@@ -234,3 +234,6 @@ export const deleteGalleryImage = (id, token) => {
       })
       .catch(e => console.log(e));
 };
+
+export const clearGalleryImages = () => dispatch =>
+  dispatch({ type: C.CLEAR_GALLERY });
