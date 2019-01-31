@@ -145,7 +145,8 @@ class Images extends PureComponent {
     }
   };
 
-  createGallery = e => {
+  postGallery = e => {
+    const { postGallery } = this.props;
     e.preventDefault();
     const { User, title, description, gallery_image } = this.state;
     let { tags } = this.state;
@@ -159,7 +160,7 @@ class Images extends PureComponent {
       tags,
       last_modified_by: User.id
     };
-    this.props.postGallery(User.token, payload);
+    postGallery(User.token, payload);
     this.setState({ show: false });
   };
 
@@ -450,7 +451,7 @@ class Images extends PureComponent {
               {editing ? (
                 <Button onClick={this.updateGallery}>Update</Button>
               ) : (
-                <Button onClick={this.createGallery}>Create</Button>
+                <Button onClick={this.postGallery}>Create</Button>
               )}
             </Modal.Footer>
           </Modal>
