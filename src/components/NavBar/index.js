@@ -321,7 +321,7 @@ class NavBar extends PureComponent {
           </Nav>
           <Nav className="Center pull-right">
             {User.is_superuser || User.is_staff ? (
-              <LinkContainer to="/admin" className="AdminButton">
+              <LinkContainer to="/admin/overview" className="AdminButton">
                 <NavItem eventKey={11}>
                   <i className="fas fa-database" /> ADMIN
                 </NavItem>

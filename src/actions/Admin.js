@@ -31,23 +31,29 @@ export const getUsers = () => {
 export const clearUser = () => {
   return dispatch =>
     dispatch({
-      type: C.GET_USER,
-      payload: null
+      type: C.CLEAR_USER
     });
 };
 
 export const updateUserProfile = (id, token, payload) => {
-  return dispatch =>
+  return (dispatch, getState) => {
+    dispatch({ type: C.UPDATE_USERS_LOADING });
+    const { Users } = getState().Admin;
+    let usersPayload = [...Users];
     Axios(token)
       .patch(`users/${id}/`, qs.stringify(payload))
       .then(res => {
+        const userIndex = usersPayload.findIndex(
+          user => user.id === res.data.id
+        );
+        usersPayload[userIndex] = res.data;
+        dispatch({
+          type: C.UPDATE_USERS_SUCCESS,
+          payload: usersPayload
+        });
         dispatch({
           type: C.GET_USER,
           payload: res.data
-        });
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: res
         });
       })
       .catch(e =>
@@ -56,6 +62,7 @@ export const updateUserProfile = (id, token, payload) => {
           payload: e.response
         })
       );
+  };
 };
 
 export const createUser = payload => {

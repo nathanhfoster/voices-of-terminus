@@ -17,7 +17,7 @@ import {
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Moment from "react-moment";
-import { updateProfile } from "../../actions/User";
+import { updateProfile, clearUserApi } from "../../actions/User";
 import Select from "react-select";
 import "./styles.css";
 import "./stylesM.css";
@@ -39,7 +39,8 @@ const mapStateToProps = ({ User }) => ({
 });
 
 const mapDispatchToProps = {
-  updateProfile
+  updateProfile,
+  clearUserApi
 };
 
 class Profile extends PureComponent {
@@ -99,13 +100,25 @@ class Profile extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { clearUserApi } = this.props;
+    clearUserApi();
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
+    const {
+      loading,
+      loaded,
+      posting,
+      posted,
+      updating,
+      updated,
+      error
+    } = props.User;
     const {
       token,
       id,
@@ -137,6 +150,13 @@ class Profile extends PureComponent {
     } = this.state.token ? this.state : props.User;
     const { password } = this.state;
     this.setState({
+      loading,
+      loaded,
+      posting,
+      posted,
+      updating,
+      updated,
+      error,
       token,
       id,
       username,
@@ -168,6 +188,11 @@ class Profile extends PureComponent {
       guild_points
     });
   };
+
+  componentWillUnmount() {
+    const { clearUserApi } = this.props;
+    clearUserApi();
+  }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -343,6 +368,13 @@ class Profile extends PureComponent {
   render() {
     const canSubmit = !this.cantSubmit();
     const {
+      loading,
+      loaded,
+      posting,
+      posted,
+      updating,
+      updated,
+      error,
       token,
       id,
       username,
@@ -765,7 +797,17 @@ class Profile extends PureComponent {
         <Row>
           <Col md={12} style={{ textAlign: "center", margin: "20px" }}>
             <Button onClick={this.updateProfile} disabled={canSubmit}>
-              Update
+              {updating && !updated
+                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                : !updating && updated && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " UPDATE"
+                  ]
+                : "UPDATE"}
             </Button>
           </Col>
         </Row>

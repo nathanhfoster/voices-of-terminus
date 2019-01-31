@@ -1,0 +1,3 @@
+.OverviewTable .rt-tr-group .rt-td:nth-child(3):hover {
+  background: var(--grey);
+}

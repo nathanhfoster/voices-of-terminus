@@ -182,6 +182,29 @@ export const User = (state = {}, action) => {
   switch (type) {
     case C.SET_LOGIN_TOKEN:
       return { ...state, ...payload };
+    case C.UPDATE_USER_LOADING:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      };
+    case C.UPDATE_USER_SUCCESS:
+      return {
+        ...state,
+        ...payload,
+        updating: false,
+        updated: true,
+        error: null
+      };
+    case C.CLEAR_USER_API:
+      return {
+        ...state,
+        posting: false,
+        posted: false,
+        updating: false,
+        updated: false,
+        error: null
+      };
     case C.SET_LOGOUT:
       return {};
     default:
@@ -369,11 +392,36 @@ export const Polls = (
 };
 
 export const Admin = (state = {}, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case C.GET_USERS:
-      return { ...state, Users: action.payload };
+      return { ...state, Users: payload };
+    case C.UPDATE_USERS_LOADING:
+      return {
+        ...state,
+        updating: true,
+        updated: false
+      };
+    case C.UPDATE_USERS_SUCCESS:
+      return {
+        ...state,
+        Users: payload,
+        updating: false,
+        updated: true,
+        error: null
+      };
     case C.GET_USER:
-      return { ...state, User: action.payload };
+      return { ...state, User: payload };
+    case C.CLEAR_USER:
+      return {
+        ...state,
+        User: null,
+        posting: false,
+        posted: false,
+        updating: false,
+        updated: false,
+        error: null
+      };
     case C.SET_LOGOUT:
       return {};
     default:
@@ -438,7 +486,7 @@ export const Galleries = (state = { results: [], Gallery: {} }, action) => {
         error: action.payload
       };
 
-      case C.CLEAR_GALLERY:
+    case C.CLEAR_GALLERY:
       return {
         ...state,
         Gallery: { ...state.Gallery, results: [] }

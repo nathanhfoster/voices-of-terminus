@@ -1,0 +1,3 @@
+.PermissionsTable .rt-tr-group .rt-td:first-child:hover {
+  background: var(--grey);
+}

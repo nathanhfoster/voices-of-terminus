@@ -96,8 +96,10 @@ class UserProfile extends PureComponent {
   }
 
   componentDidMount() {
-    const { id } = this.props.match.params;
-    const { token } = this.props.User;
+    const { clearUser, User, match } = this.props;
+    clearUser();
+    const { id } = match.params;
+    const { token } = User;
     this.props.getUser(id, token);
   }
 
@@ -106,18 +108,15 @@ class UserProfile extends PureComponent {
   }
 
   getState = props => {
-    const { User } = props;
-    const { Admin } =
-      this.state.Admin.User && this.state.Admin.User.hasOwnProperty("id")
-        ? this.state
-        : props;
+    const { Admin, User } = props;
     const { id } = props.match.params;
 
     this.setState({ Admin, User, id });
   };
 
   componentWillUnmount() {
-    this.props.clearUser();
+    const { clearUser } = this.props;
+    clearUser();
   }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -343,6 +342,7 @@ class UserProfile extends PureComponent {
 
   render() {
     const { Admin, User } = this.state;
+    const { updating, updated, error } = Admin;
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt(User);
@@ -1360,7 +1360,19 @@ class UserProfile extends PureComponent {
           </Row>
           <Row>
             <Col style={{ textAlign: "center", margin: "20px" }}>
-              <Button onClick={this.updateUserProfile}>Update</Button>
+              <Button onClick={this.updateUserProfile}>
+                {updating && !updated
+                  ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                  : !updating && updated && !error
+                  ? [
+                      <i
+                        className="fas fa-check"
+                        style={{ color: "var(--color_emerald)" }}
+                      />,
+                      " UPDATE"
+                    ]
+                  : "UPDATE"}
+              </Button>
             </Col>
           </Row>
         </Grid>

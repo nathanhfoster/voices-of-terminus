@@ -68,9 +68,7 @@ div.-sort-desc::after {
   background: var(--grey);
 }
 
-.ReactTable .rt-tr-group .rt-td:nth-child(3):hover {
-  background: var(--grey);
-}
+
 
 /* Links fill table height and width */
 .rt-td {
