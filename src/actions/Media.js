@@ -54,7 +54,6 @@ export const getGalleryImage = id => {
 };
 
 export const updateGallery = (id, token, payload) => {
-  delete payload.image;
   return (dispatch, getState) =>
     Axios(token)
       .patch(`galleries/${id}/`, qs.stringify(payload))

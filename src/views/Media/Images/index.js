@@ -164,6 +164,7 @@ class Images extends PureComponent {
   };
 
   updateGallery = e => {
+    const { updateGallery } = this.props;
     e.preventDefault();
     const { User, title, description, gallery_image, gallery_id } = this.state;
     let { tags } = this.state;
@@ -177,7 +178,7 @@ class Images extends PureComponent {
       tags,
       last_modified_by: User.id
     };
-    this.props.updateGallery(gallery_id, User.token, payload);
+    updateGallery(gallery_id, User.token, payload);
     this.setState({ show: false, editing: false });
   };
 
