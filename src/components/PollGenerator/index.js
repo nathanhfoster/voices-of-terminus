@@ -51,7 +51,7 @@ class PollGenerator extends Component {
       Polls: [],
       Questions: [
         {
-          postion: 0,
+          position: 0,
           question: "",
           question_type: PollChoices[0].value,
           Choices: []
@@ -68,7 +68,7 @@ class PollGenerator extends Component {
     title: "",
     Questions: [
       {
-        postion: 0,
+        position: 0,
         question: "",
         question_type: PollChoices[0].value,
         Choices: []
@@ -157,12 +157,12 @@ class PollGenerator extends Component {
       (q, i) =>
         (q = {
           id: q.id,
-          postion: i,
+          position: i,
           question: q.question,
           question_type: q.question_type,
           Choices: Choices[i]
             ? Choices[i].map(
-                (c, i) => (c = { id: c.id, postion: i, title: c.title })
+                (c, i) => (c = { id: c.id, position: i, title: c.title })
               )
             : []
         })
@@ -199,7 +199,7 @@ class PollGenerator extends Component {
     const { id, value } = e.target;
     let { Questions } = this.state;
     const { length } = Questions[id].Choices;
-    Questions[id].Choices.push({ postion: length, title: value });
+    Questions[id].Choices.push({ position: length, title: value });
     this.setState({ Questions });
   };
 
@@ -230,7 +230,7 @@ class PollGenerator extends Component {
       case "select-option":
         if (value == "Text" || value == "Image") {
           Questions[i].Choices.length = 0;
-          Questions[i].Choices.push({ postion: 0, title: "" });
+          Questions[i].Choices.push({ position: 0, title: "" });
         }
         Questions[i].question_type = value;
         return this.setState({ Questions });
@@ -354,7 +354,7 @@ class PollGenerator extends Component {
 
   renderChoices = (Choices, pollIndex, question_type) =>
     Choices.map((c, i) => {
-      const { postion, title } = c;
+      const { position, title } = c;
       return (
         <InputGroup key={i}>
           <InputGroup.Addon>
@@ -366,7 +366,7 @@ class PollGenerator extends Component {
             question_type="text"
             placeholder={title}
             onChange={e => this.onChoiceChange(i, e)}
-            autoFocus={postion == i}
+            autoFocus={position == i}
           />
           <InputGroup.Addon>
             <ConfirmAction
@@ -505,7 +505,7 @@ class PollGenerator extends Component {
                   Questions: [
                     ...Questions,
                     {
-                      postion: Questions.length,
+                      position: Questions.length,
                       question: "",
                       question_type: PollChoices[0].value,
                       Choices: []

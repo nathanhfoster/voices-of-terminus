@@ -37,7 +37,7 @@ const GetQuestionChoices = (token, Questions, dispatch, getState) => {
           payload: payload.sort((a, b) => a[0].question_id - b[0].question_id)
         });
       })
-      .catch(e => console.log(e));
+      .catch(e => console.log(e, "GetQuestionChoices: ", Questions));
   }
   GetChoiceResponses(token, dispatch, getState);
 };
@@ -53,7 +53,7 @@ const GetChoiceResponses = (token, dispatch, getState) => {
         payload.results.push(responses.data);
         dispatch({ type: C.GET_RESPONSES, payload: payload });
       })
-      .catch(e => console.log(e));
+      .catch(e => console.log(e, "GetChoiceResponses: ", Choices));
   }
 };
 
@@ -190,12 +190,13 @@ const PostQuestions = (
 ) => {
   let payload = getState().Polls.Questions;
   for (let i = 0; i < Questions.length; i++) {
-    const { question, question_type, Choices } = Questions[i];
+    const { question, question_type, Choices, position } = Questions[i];
     const pollQuestionPayload = {
       author,
       question,
       question_type,
-      poll_id
+      poll_id,
+      position
     };
 
     Axios(token)
@@ -203,15 +204,7 @@ const PostQuestions = (
       .then(question => {
         const question_id = question.data.id;
         payload.push(question.data);
-        PostChoices(
-          author,
-          question_id,
-          token,
-          Choices,
-          Questions,
-          dispatch,
-          getState
-        );
+        PostChoices(author, question_id, token, Choices);
       })
       .catch(e => console.log(e, "pollQuestionPayload: ", pollQuestionPayload));
   }
@@ -221,28 +214,19 @@ const PostQuestions = (
   // });
 };
 
-const PostChoices = (
-  author,
-  question_id,
-  token,
-  Choices,
-  Questions,
-  dispatch,
-  getState
-) => {
+const PostChoices = (author, question_id, token, Choices) => {
   let payload = [];
   for (let i = 0; i < Choices.length; i++) {
-    const { title } = Choices[i];
-    const responsePayload = { author, title, question_id };
+    const { title, position } = Choices[i];
+    const choicePayload = { author, title, question_id, position };
     Axios(token)
-      .post("poll/choices/", qs.stringify(responsePayload))
+      .post("poll/choices/", qs.stringify(choicePayload))
       .then(response => {
         // payload.push(response.data);
         // dispatch({ type: C.GET_CHOICES, payload: payload });
       })
-      .catch(e => console.log(e, "responsePayload: ", responsePayload));
+      .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
-  GetQuestionChoices(token, Questions, dispatch, getState);
 };
 const PostRecipients = (recipient_poll_id, token, Recipients, getState) => {
   const payload = getState().Polls.Recipients;
@@ -395,13 +379,14 @@ const UpdateQuestions = (
   const currentChoices = Polls.Choices;
   let payload = Polls.Questions;
   for (let i = 0; i < Questions.length; i++) {
-    const { id, question, question_type, Choices } = Questions[i];
+    const { id, question, question_type, Choices, position } = Questions[i];
     const pollQuestionPayload = {
       author,
       question,
       question_type,
       poll_id,
-      last_modified_by: author
+      last_modified_by: author,
+      position
     };
 
     Axios(token)
@@ -461,34 +446,27 @@ const UpdateChoices = (
   // console.log("choicesToPost: ", choicesToPost);
   // console.log("choicesToUpdate: ", choicesToUpdate);
   // console.log("choicesToDelete: ", choicesToDelete);
-  PostChoices(
-    author,
-    question_id,
-    token,
-    choicesToPost,
-    Questions,
-    dispatch,
-    getState
-  );
+  PostChoices(author, question_id, token, choicesToPost);
   DeleteChoices(token, choicesToDelete, dispatch, getState);
   let payload = [...getState().Polls.Choices];
 
   for (let i = 0; i < choicesToUpdate.length; i++) {
-    const { id, title } = choicesToUpdate[i];
-    const responsePayload = {
+    const { id, title, position } = choicesToUpdate[i];
+    const choicePayload = {
       author,
       title,
       question_id,
-      last_modified_by: author
+      last_modified_by: author,
+      position
     };
     Axios(token)
-      .patch(`poll/choices/${id}/`, qs.stringify(responsePayload))
+      .patch(`poll/choices/${id}/`, qs.stringify(choicePayload))
       .then(choice => {
         // const updateIndex = payload.findIndex(c => c[0].id === choice.data.id);
         // if (updateIndex != -1) payload[updateIndex] = choice.data;
         // dispatch({ type: C.GET_CHOICES, payload: payload });
       })
-      .catch(e => console.log(e, "responsePayload: ", responsePayload));
+      .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
   GetQuestionChoices(token, Questions, dispatch, getState);
 };
@@ -504,7 +482,7 @@ const DeleteChoices = (token, Choices, dispatch, getState) => {
         payload = payload.filter(c => c.id != choice.data.id);
         dispatch({ type: C.GET_CHOICES, payload: payload });
       })
-      .catch(e => console.log("responsePayload: ", e));
+      .catch(e => console.log("choicePayload: ", e));
   }
 };
 
