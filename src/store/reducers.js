@@ -424,7 +424,7 @@ export const Admin = (state = {}, action) => {
         error: null
       };
     case C.SET_LOGOUT:
-      return {};
+      return { ...state };
     default:
       return state;
   }
