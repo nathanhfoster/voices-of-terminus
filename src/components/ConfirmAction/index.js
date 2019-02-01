@@ -1,20 +1,6 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
-import {
-  Form,
-  FormGroup,
-  Grid,
-  Row,
-  Col,
-  FormControl,
-  ControlLabel,
-  Checkbox,
-  Button,
-  PageHeader,
-  ButtonGroup,
-  Modal,
-  Image
-} from "react-bootstrap";
+import { Row, Col, Button, ButtonGroup, Modal } from "react-bootstrap";
 import "./styles.css";
 
 class ConfirmAction extends PureComponent {
@@ -26,7 +12,7 @@ class ConfirmAction extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = { show: false };
 
   componentWillMount() {
     this.getState(this.props);
@@ -37,6 +23,8 @@ class ConfirmAction extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    const { CloseOnReceiveProps } = nextProps;
+    if (CloseOnReceiveProps) this.setState({ show: false });
     this.getState(nextProps);
   }
 
@@ -49,8 +37,7 @@ class ConfirmAction extends PureComponent {
       hasPermission,
       Size,
       Class,
-      Title,
-      show: false
+      Title
     });
   };
 

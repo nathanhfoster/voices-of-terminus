@@ -252,7 +252,6 @@ class PollGenerator extends Component {
 
   renderQuestions = Questions =>
     Questions.map((q, i) => {
-      console.log(i);
       const { NewChoice } = this.state;
       const { question_type, question, Choices } = q;
       return (
@@ -270,6 +269,7 @@ class PollGenerator extends Component {
               Size="small"
               Class="pull-right"
               Title={question}
+              CloseOnReceiveProps={true}
             />
           </Col>
           <Col md={9} xs={12}>
