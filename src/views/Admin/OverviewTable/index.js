@@ -103,6 +103,26 @@ const OverviewTable = (Admin, User) => {
           Header: <i className="fas fa-id-badge"> RANKS</i>,
           columns: [
             {
+              Header: "Status",
+              id: "status",
+              accessor: User => statusLevelInt(User),
+              filterMethod: (filter, rows) =>
+                matchSorter(rows, filter.value[1], {
+                  keys: [filter.id]
+                }),
+              filterAll: true,
+              maxWidth: 125,
+              Footer: Users => (
+                <span>
+                  <i className="fas fa-gopuram" />{" "}
+                  <strong style={{ color: "var(--primaryColor)" }}>
+                    {Users.data.filter(user => user.status > 0).length}
+                  </strong>
+                </span>
+              ),
+              Cell: props => statusLevelString(props.value)
+            },
+            {
               Header: "Admin?",
               accessor: "is_superuser",
               filterMethod: (filter, rows) =>
@@ -142,18 +162,6 @@ const OverviewTable = (Admin, User) => {
                 </span>
               ),
               Cell: props => String(props.value)
-            },
-            {
-              Header: "Status",
-              id: "status",
-              accessor: User => statusLevelInt(User),
-              filterMethod: (filter, rows) =>
-                matchSorter(rows, filter.value[1], {
-                  keys: [filter.id]
-                }),
-              filterAll: true,
-              maxWidth: 125,
-              Cell: props => statusLevelString(props.value)
             }
           ]
         },
