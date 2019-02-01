@@ -85,10 +85,12 @@ export const PostPoll = (
   username,
   title,
   body,
+  expiration_date,
   Questions,
   Recipients
 ) => {
-  const pollPayload = { author, title };
+  const pollPayload = { author, title, expiration_date };
+  console.log(pollPayload)
   return (dispatch, getState) => {
     dispatch({ type: C.POST_POLLS_LOADING });
     const { Polls } = getState();
@@ -306,10 +308,16 @@ export const UpdatePoll = (
   username,
   title,
   body,
+  expiration_date,
   Questions,
   Recipients
 ) => {
-  const pollPayload = { author, title, last_modified_by: author };
+  const pollPayload = {
+    author,
+    title,
+    last_modified_by: author,
+    expiration_date
+  };
   return (dispatch, getState) => {
     dispatch({ type: C.UPDATE_POLLS_LOADING });
     const { Polls } = getState();

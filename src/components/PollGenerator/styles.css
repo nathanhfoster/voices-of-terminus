@@ -8,3 +8,103 @@
 .AddChoice:focus-within {
   opacity: 1;
 }
+.expirationDate .react-datepicker-wrapper,
+.expirationDate .react-datepicker__input-container,
+.expirationDate input,
+.expirationDate select,
+.expirationDate textarea {
+  width: 100% !important;
+}
+
+.expirationDate * {
+  z-index: 3;
+}
+.expirationDate div {
+  font-size: 13px;
+  color: var(--tertiarycolor);
+}
+
+.expirationDate li:hover,
+.expirationDate .react-datepicker__day:hover {
+  color: var(--tertiarycolor);
+  background-color: var(--grey) !important;
+}
+
+.calendarPopper {
+  background-color: var(--slate_grey);
+}
+
+.expirationDate .react-datepicker__day--selected,
+.expirationDate li.react-datepicker__time-list-item--selected {
+  background-color: var(--primaryColor) !important;
+}
+
+.expirationDate .react-datepicker__day--keyboard-selected {
+  background-color: var(--secondaryColor) !important;
+}
+
+.expirationDate .react-datepicker__navigation--previous {
+  z-index: 4;
+  border-right-color: var(--tertiarycolor) !important;
+  left: -14.25em !important;
+  right: 0 !important;
+}
+.expirationDate .react-datepicker__navigation--next {
+  z-index: 4;
+  border-left-color: var(--tertiarycolor) !important;
+  left: -4em !important;
+  right: 0 !important;
+}
+
+.expirationDate .react-datepicker__navigation--previous:hover {
+  border-right-color: var(--primaryColor) !important;
+}
+.expirationDate .react-datepicker__navigation--next:hover {
+  border-left-color: var(--primaryColor) !important;
+}
+
+/* More Styles */
+.expirationDate .react-datepicker {
+  display: inline !important;
+  font-size: 1em !important;
+}
+.expirationDate .react-datepicker__header {
+  background-color: var(--slate_grey);
+  padding-top: 0.8em !important;
+}
+.expirationDate .react-datepicker__month {
+  margin: 0.4em 1em !important;
+}
+.expirationDate .react-datepicker__day-name,
+.expirationDate .react-datepicker__day {
+  width: 1.9em !important;
+  line-height: 1.9em !important;
+  margin: 0.166em !important;
+}
+.expirationDate .react-datepicker__current-month {
+  font-size: 1em !important;
+}
+.expirationDate .react-datepicker__navigation {
+  top: 1em !important;
+  line-height: 1.7em !important;
+  /* border: 0.45em solid transparent !important; */
+}
+.expirationDate .react-datepicker__time-container {
+  width: 6em !important;
+}
+.expirationDate .react-datepicker-time__header {
+  font-size: 1em !important;
+}
+.expirationDate .react-datepicker-time__header--time {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+.expirationDate .react-datepicker__time-box {
+  background-color: var(--slate_grey) !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  width: 100% !important;
+}
+.expirationDate .react-datepicker__time-list {
+  padding: 0 !important;
+}

@@ -136,7 +136,14 @@ class PollSystem extends Component {
   renderPolls = Polls => {
     const { User, DeletePoll } = this.props;
     return Polls.map(p => {
-      const { id, title, author_username, date_created, last_modified } = p;
+      const {
+        id,
+        title,
+        author_username,
+        date_created,
+        last_modified,
+        expiration_date
+      } = p;
       return (
         <Row
           className="borderedRow"
@@ -186,6 +193,12 @@ class PollSystem extends Component {
             <h4>
               <i className="fa fa-pencil-alt" />{" "}
               <Moment fromNow>{last_modified}</Moment>
+            </h4>
+          </Col>
+          <Col xs={12}>
+            <h4>
+              <i className="fas fa-lock" />{" "}
+              <Moment fromNow>{expiration_date}</Moment>
             </h4>
           </Col>
         </Row>
@@ -552,6 +565,8 @@ class PollSystem extends Component {
       pollId,
       eventKey
     } = this.state;
+    const { title, expiration_date } = Poll;
+    const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
     return pollId &&
       !(
         eventKey.includes("respond") ||
@@ -559,26 +574,30 @@ class PollSystem extends Component {
         eventKey.includes("edit")
       ) ? (
       <Redirect to={`/polls/${pollId}/respond`} />
-    ) : (
+    ) : !expired ? (
       <Grid className="PollSystem Container">
         <Row>
-          <PageHeader className="pageHeader">
-            {Poll && pollId ? `${Poll.title}` : `POLLS`}
-          </PageHeader>
-          <Row className="ActionToolbarRow">
-            <Col
-              md={4}
-              className="ActionToolbar"
-              componentClass={ButtonToolbar}
-            >
-              <Button
-                disabled={!User.is_superuser}
-                onClick={() => this.props.history.push("/poll/new/")}
-              >
-                <i className="fas fa-plus" /> Poll
-              </Button>
-            </Col>
+          <PageHeader className="pageHeader">POLLS</PageHeader>
+        </Row>
+        <Row>
+          <h1 className="Center">{title}</h1>
+        </Row>
+        {pollId ? (
+          <Row>
+            <h3 className="Center">
+              Expires <Moment fromNow>{expiration_date}</Moment>
+            </h3>
           </Row>
+        ) : null}
+        <Row className="ActionToolbarRow">
+          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+            <Button
+              disabled={!User.is_superuser}
+              onClick={() => this.props.history.push("/poll/new/")}
+            >
+              <i className="fas fa-plus" /> Poll
+            </Button>
+          </Col>
         </Row>
         {pollId
           ? this.renderQuestions(
@@ -589,6 +608,15 @@ class PollSystem extends Component {
               Recipients
             )
           : this.renderPolls(Polls.results)}
+      </Grid>
+    ) : (
+      <Grid className="PollSystem Container">
+        <Row>
+          <PageHeader className="pageHeader">POLLS</PageHeader>
+        </Row>
+        <Row>
+          <h1 className="Center">{title} has expired</h1>
+        </Row>
       </Grid>
     );
   }

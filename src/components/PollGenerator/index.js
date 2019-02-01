@@ -29,6 +29,8 @@ import {
   GetPollRecipients,
   UpdatePoll
 } from "../../actions/Polls";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const mapStateToProps = ({ User, Polls, Admin }) => ({ User, Polls, Admin });
 
@@ -47,6 +49,7 @@ class PollGenerator extends Component {
     super(props);
 
     this.state = {
+      expiration_date: null,
       NewChoice: "",
       Polls: [],
       Questions: [
@@ -75,6 +78,9 @@ class PollGenerator extends Component {
       }
     ]
   };
+
+  setExpirationDate = expiration_date =>
+    this.setState({ expiration_date: new Date(expiration_date).toISOString() });
 
   focusInput = component => {
     if (component) {
@@ -152,7 +158,7 @@ class PollGenerator extends Component {
 
   pollPropToState = (Polls, userId, selectOptions) => {
     let { Poll, Questions, Choices, Recipients } = Polls;
-    const { title } = Poll;
+    const { title, expiration_date } = Poll;
     Questions = Questions.map(
       (q, i) =>
         (q = {
@@ -177,7 +183,14 @@ class PollGenerator extends Component {
           isFixed: r.recipient == userId
         })
     );
-    this.setState({ Polls, title, Questions, Recipients, selectOptions });
+    this.setState({
+      Polls,
+      title,
+      Questions,
+      Recipients,
+      selectOptions,
+      expiration_date
+    });
   };
 
   onQuestionChange = e => {
@@ -309,6 +322,7 @@ class PollGenerator extends Component {
           <FormGroup>
             <ControlLabel>Choice</ControlLabel>
             <FormControl
+              componentClass="textarea"
               question_type="text"
               placeholder="Text..."
               value={Choices[0].title}
@@ -421,7 +435,8 @@ class PollGenerator extends Component {
       Recipients,
       selectOptions,
       title,
-      body
+      body,
+      expiration_date
     } = this.state;
     const {
       loading,
@@ -449,6 +464,7 @@ class PollGenerator extends Component {
                   User.username,
                   title,
                   body,
+                  expiration_date,
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))
                 )
@@ -467,6 +483,7 @@ class PollGenerator extends Component {
                 : "POST"}
             </Button>
             <Button
+              disabled={!pollId}
               onClick={e =>
                 UpdatePoll(
                   pollId,
@@ -475,6 +492,7 @@ class PollGenerator extends Component {
                   User.username,
                   title,
                   body,
+                  expiration_date,
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))
                 )
@@ -579,6 +597,30 @@ class PollGenerator extends Component {
                     classNamePrefix="select"
                     onChange={this.onSelectFilterChange}
                     options={selectOptions}
+                  />
+                </InputGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs={12} className="expirationDate">
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-lock" />
+                  </InputGroup.Addon>
+                  <DatePicker
+                    //calendarClassName="Calendar"
+                    popperClassName="calendarPopper"
+                    fixedHeight={true}
+                    //startDate={expiration_date}
+                    //value={expiration_date.toString()}
+                    selected={expiration_date}
+                    onChange={date => this.setExpirationDate(date)}
+                    showTimeSelect
+                    //timeFormat="hh:mm"
+                    timeIntervals={30}
+                    dateFormat="MMMM d, yyyy h:mm aa"
+                    timeCaption="time"
+                    placeholderText="Expiration date"
                   />
                 </InputGroup>
               </Col>

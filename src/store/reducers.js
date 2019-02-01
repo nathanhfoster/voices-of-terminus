@@ -384,7 +384,8 @@ export const Polls = (
         posted: false,
         updating: false,
         updated: false,
-        error: null
+        error: null,
+        Poll: {}
       };
     default:
       return { ...state };
