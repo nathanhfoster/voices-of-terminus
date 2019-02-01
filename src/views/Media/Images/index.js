@@ -292,7 +292,8 @@ class Images extends PureComponent {
       title,
       description,
       gallery_image,
-      editing
+      editing,
+      show
     } = this.state;
     const { Galleries } = this.state;
     let galleries = Galleries.results ? Galleries.results : [];
@@ -362,99 +363,101 @@ class Images extends PureComponent {
           </Col>
         </Row>
         <Row>{this.renderGalleries(galleries, filter, dontFilter)}</Row>
-        <Row>
-          <Modal
-            backdrop={false}
-            {...this.props}
-            show={this.state.show}
-            onHide={() => this.setState({ show: false, editing: false })}
-            dialogClassName="loginModal"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-lg">
-                Gallery Creation
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form className="Container fadeIn">
-                <Row>
-                  <Col md={12}>
-                    <FormGroup>
-                      <ControlLabel>Title</ControlLabel>
+        {show ? (
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={show}
+              onHide={() => this.setState({ show: false, editing: false })}
+              dialogClassName="loginModal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Gallery Creation
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form className="Container fadeIn">
+                  <Row>
+                    <Col md={12}>
+                      <FormGroup>
+                        <ControlLabel>Title</ControlLabel>
+                        <FormControl
+                          value={title}
+                          type="text"
+                          name="title"
+                          placeholder="Title"
+                          onChange={this.onChange}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup>
+                        <ControlLabel>Description</ControlLabel>
+                        <FormControl
+                          value={description}
+                          type="text"
+                          name="description"
+                          placeholder="Description"
+                          onChange={this.onChange}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col xs={12}>
+                      <InputGroup>
+                        <InputGroup.Addon>
+                          <i className="fas fa-tags" />
+                        </InputGroup.Addon>
+                        <Select
+                          //https://react-select.com/props
+                          value={this.state.tags}
+                          isMulti
+                          styles={selectStyles}
+                          onBlur={e => e.preventDefault()}
+                          blurInputOnSelect={false}
+                          //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                          isSearchable={false}
+                          name="colors"
+                          placeholder="Tags..."
+                          classNamePrefix="select"
+                          onChange={this.onSelectTagChange}
+                          options={this.props.selectOptions}
+                        />
+                      </InputGroup>
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      <Image
+                        src={gallery_image}
+                        className="ProfileImages"
+                        responsive
+                        rounded
+                      />
+                      <ControlLabel>Gallery Picture</ControlLabel>
                       <FormControl
-                        value={title}
-                        type="text"
-                        name="title"
-                        placeholder="Title"
-                        onChange={this.onChange}
+                        style={{ margin: "auto" }}
+                        type="file"
+                        label="File"
+                        name="gallery_image"
+                        onChange={this.setImage}
                       />
-                    </FormGroup>
-                  </Col>
-                  <Col md={12}>
-                    <FormGroup>
-                      <ControlLabel>Description</ControlLabel>
-                      <FormControl
-                        value={description}
-                        type="text"
-                        name="description"
-                        placeholder="Description"
-                        onChange={this.onChange}
-                      />
-                      <FormControl.Feedback />
-                    </FormGroup>
-                  </Col>
-                  <Col xs={12}>
-                    <InputGroup>
-                      <InputGroup.Addon>
-                        <i className="fas fa-tags" />
-                      </InputGroup.Addon>
-                      <Select
-                        //https://react-select.com/props
-                        value={this.state.tags}
-                        isMulti
-                        styles={selectStyles}
-                        onBlur={e => e.preventDefault()}
-                        blurInputOnSelect={false}
-                        //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                        isSearchable={false}
-                        name="colors"
-                        placeholder="Tags..."
-                        classNamePrefix="select"
-                        onChange={this.onSelectTagChange}
-                        options={this.props.selectOptions}
-                      />
-                    </InputGroup>
-                  </Col>
-                </Row>
-                <Row className="Center">
-                  <Col md={12}>
-                    <Image
-                      src={gallery_image}
-                      className="ProfileImages"
-                      responsive
-                      rounded
-                    />
-                    <ControlLabel>Gallery Picture</ControlLabel>
-                    <FormControl
-                      style={{ margin: "auto" }}
-                      type="file"
-                      label="File"
-                      name="gallery_image"
-                      onChange={this.setImage}
-                    />
-                  </Col>
-                </Row>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              {editing ? (
-                <Button onClick={this.updateGallery}>Update</Button>
-              ) : (
-                <Button onClick={this.postGallery}>Create</Button>
-              )}
-            </Modal.Footer>
-          </Modal>
-        </Row>
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                {editing ? (
+                  <Button onClick={this.updateGallery}>Update</Button>
+                ) : (
+                  <Button onClick={this.postGallery}>Create</Button>
+                )}
+              </Modal.Footer>
+            </Modal>
+          </Row>
+        ) : null}
       </Grid>
     );
   }

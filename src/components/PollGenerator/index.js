@@ -252,10 +252,11 @@ class PollGenerator extends Component {
 
   renderQuestions = Questions =>
     Questions.map((q, i) => {
+      console.log(i);
       const { NewChoice } = this.state;
       const { question_type, question, Choices } = q;
       return (
-        <Row className="Questions Center borderedRow" key={i}>
+        <Row className="Questions Center borderedRow">
           <Col xs={12}>
             <ControlLabel style={{ marginLeft: 32 }}>Question</ControlLabel>
             <ConfirmAction
@@ -278,7 +279,6 @@ class PollGenerator extends Component {
               </InputGroup.Addon>
               <FormControl
                 id={`${i}`}
-                key={i}
                 value={question}
                 question_type="text"
                 placeholder="Enter question..."
@@ -402,13 +402,17 @@ class PollGenerator extends Component {
 
   deleteQuestion = index => {
     let { Questions } = this.state;
-    Questions = Questions.filter((e, i) => i != index);
+    delete Questions[index];
+    Questions = Questions.filter(q => q).map(
+      (q, i) => (q = { ...q, position: i })
+    );
     this.setState({ Questions });
   };
 
   deleteChoice = (pollIndex, index) => {
     let { Choices } = this.state.Questions[pollIndex];
-    Choices = Choices.filter((e, i) => i != index);
+    delete Choices[index];
+    Choices = Choices.filter(c => c).map((c, i) => (c = { ...c, position: i }));
     this.setState({ Choices });
   };
 

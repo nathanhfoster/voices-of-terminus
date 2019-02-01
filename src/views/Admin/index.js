@@ -215,7 +215,8 @@ class Admin extends PureComponent {
       profile_image,
       opt_in,
       history,
-      eventKey
+      eventKey,
+      show
     } = this.state;
     const { Users } = Admin;
 
@@ -299,114 +300,118 @@ class Admin extends PureComponent {
             </Tab>
           </Tabs>
         </Row>
-        <Row>
-          <Modal
-            backdrop={false}
-            {...this.props}
-            show={this.state.show}
-            onHide={this.handleHide}
-            dialogClassName="loginModal"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-lg">
-                Account Creation
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form className="Container fadeIn">
-                <Row>
-                  <Col md={12}>
-                    <FormGroup validationState={this.validateUsername()}>
-                      <ControlLabel>Username</ControlLabel>
-                      <FormControl
-                        value={username}
-                        type="text"
-                        name="username"
-                        placeholder="Username"
-                        onChange={this.onChange}
+        {show ? (
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={show}
+              onHide={this.handleHide}
+              dialogClassName="loginModal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Account Creation
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form className="Container fadeIn">
+                  <Row>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateUsername()}>
+                        <ControlLabel>Username</ControlLabel>
+                        <FormControl
+                          value={username}
+                          type="text"
+                          name="username"
+                          placeholder="Username"
+                          onChange={this.onChange}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validatePassword()}>
+                        <ControlLabel>Password</ControlLabel>
+                        <FormControl
+                          value={password}
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={this.onChange}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup
+                        validationState={this.validateReEnterPassword()}
+                      >
+                        <ControlLabel>Re-Enter Password</ControlLabel>
+                        <FormControl
+                          value={reEnterPassword}
+                          type="password"
+                          name="reEnterPassword"
+                          placeholder="Re-Enter Password"
+                          onChange={this.onChange}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateEmail()}>
+                        <ControlLabel>Email</ControlLabel>
+                        <FormControl
+                          value={email}
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                          onChange={this.onChange}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <Checkbox
+                        checked={opt_in}
+                        onClick={() => this.setState({ opt_in: !opt_in })}
+                      >
+                        <span className="checkBoxText">Opt In</span>
+                        <span className="help">
+                          Check if you would like to recieve emails.
+                        </span>
+                      </Checkbox>
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      <Image
+                        src={profile_image}
+                        className="ProfileImages"
+                        responsive
+                        rounded
                       />
-                    </FormGroup>
-                  </Col>
-                  <Col md={12}>
-                    <FormGroup validationState={this.validatePassword()}>
-                      <ControlLabel>Password</ControlLabel>
+                      <ControlLabel>Profile Picture</ControlLabel>
                       <FormControl
-                        value={password}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                        onChange={this.onChange}
+                        style={{ margin: "auto" }}
+                        type="file"
+                        label="File"
+                        name="profile_image"
+                        onChange={this.setImage}
                       />
-                      <FormControl.Feedback />
-                    </FormGroup>
-                  </Col>
-                  <Col md={12}>
-                    <FormGroup validationState={this.validateReEnterPassword()}>
-                      <ControlLabel>Re-Enter Password</ControlLabel>
-                      <FormControl
-                        value={reEnterPassword}
-                        type="password"
-                        name="reEnterPassword"
-                        placeholder="Re-Enter Password"
-                        onChange={this.onChange}
-                      />
-                      <FormControl.Feedback />
-                    </FormGroup>
-                  </Col>
-                  <Col md={12}>
-                    <FormGroup validationState={this.validateEmail()}>
-                      <ControlLabel>Email</ControlLabel>
-                      <FormControl
-                        value={email}
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                        onChange={this.onChange}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={12}>
-                    <Checkbox
-                      checked={opt_in}
-                      onClick={() => this.setState({ opt_in: !opt_in })}
-                    >
-                      <span className="checkBoxText">Opt In</span>
-                      <span className="help">
-                        Check if you would like to recieve emails.
-                      </span>
-                    </Checkbox>
-                  </Col>
-                </Row>
-                <Row className="Center">
-                  <Col md={12}>
-                    <Image
-                      src={profile_image}
-                      className="ProfileImages"
-                      responsive
-                      rounded
-                    />
-                    <ControlLabel>Profile Picture</ControlLabel>
-                    <FormControl
-                      style={{ margin: "auto" }}
-                      type="file"
-                      label="File"
-                      name="profile_image"
-                      onChange={this.setImage}
-                    />
-                  </Col>
-                </Row>
-                <Row className="Center">
-                  <Col md={12}>
-                    {this.renderDefaultImages(defaultProfileImages)}
-                  </Col>
-                </Row>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button onClick={this.createUserAccount}>Create</Button>
-            </Modal.Footer>
-          </Modal>
-        </Row>
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      {this.renderDefaultImages(defaultProfileImages)}
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.createUserAccount}>Create</Button>
+              </Modal.Footer>
+            </Modal>
+          </Row>
+        ) : null}
       </Grid>
     ) : User.token ? (
       <Redirect to={this.props.history.goBack()} />

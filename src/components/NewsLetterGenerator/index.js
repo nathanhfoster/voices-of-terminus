@@ -247,7 +247,8 @@ class NewsLetterGenerator extends PureComponent {
       title,
       id,
       selectValue,
-      newsletterLoaded
+      newsletterLoaded,
+      show
     } = this.state;
     const { posting, posted, updating, updated, error } = Newsletters;
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
@@ -430,27 +431,29 @@ class NewsLetterGenerator extends PureComponent {
             }}
           />
         </Row>
-        <Row>
-          <Modal
-            backdrop={false}
-            {...this.props}
-            show={this.state.show}
-            onHide={() => this.handleHide(id)}
-            dialogClassName="newsletterModal"
-            bsSize="lg"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-lg">
-                Load Design
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Row>{this.renderDesigns(Newsletters.results)}</Row>
-              </Form>
-            </Modal.Body>
-          </Modal>
-        </Row>
+        {show ? (
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={show}
+              onHide={() => this.handleHide(id)}
+              dialogClassName="newsletterModal"
+              bsSize="lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Load Design
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Form>
+                  <Row>{this.renderDesigns(Newsletters.results)}</Row>
+                </Form>
+              </Modal.Body>
+            </Modal>
+          </Row>
+        ) : null}
       </Grid>
     );
   }

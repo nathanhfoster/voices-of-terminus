@@ -351,157 +351,159 @@ class Messages extends PureComponent {
           </Col>
         </Row>
         {this.renderGroupMessages(messages)}
-        <Row>
-          <Modal
-            backdrop={false}
-            {...this.props}
-            show={show}
-            onHide={() =>
-              this.setState({
-                show: false,
-                modalTitle: this.props.modalTitle,
-                creatingMessage: false
-              })
-            }
-            dialogClassName="loginModal"
-            bsSize="lg"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-lg">
-                <i className="fas fa-comments" /> {modalTitle}
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              {creatingMessage ? (
-                <Form className="Container fadeIn">
+        {show ? (
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={show}
+              onHide={() =>
+                this.setState({
+                  show: false,
+                  modalTitle: this.props.modalTitle,
+                  creatingMessage: false
+                })
+              }
+              dialogClassName="loginModal"
+              bsSize="lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  <i className="fas fa-comments" /> {modalTitle}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                {creatingMessage ? (
+                  <Form className="Container fadeIn">
+                    <Row>
+                      <Col xs={12}>
+                        <InputGroup>
+                          <InputGroup.Addon>
+                            <i className="fas fa-user-plus" />
+                          </InputGroup.Addon>
+                          <Select
+                            //https://react-select.com/props
+                            value={recipients}
+                            isMulti
+                            styles={selectStyles}
+                            onBlur={e => e.preventDefault()}
+                            blurInputOnSelect={false}
+                            //isClearable={this.state.recipients.some(v => !v.isFixed)}
+                            isSearchable={true}
+                            name="colors"
+                            placeholder="Username..."
+                            classNamePrefix="select"
+                            onChange={this.onSelectFilterChange}
+                            options={selectOptions}
+                          />
+                        </InputGroup>
+                      </Col>
+                      <Col xs={12}>
+                        <FormGroup>
+                          <InputGroup>
+                            <InputGroup.Addon>
+                              <i className="fas fa-heading" />
+                            </InputGroup.Addon>
+                            <FormControl
+                              value={title}
+                              type="text"
+                              placeholder="Title..."
+                              name="title"
+                              onChange={this.onChange}
+                            />
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                      <Col xs={12}>
+                        <FormGroup>
+                          <InputGroup>
+                            <InputGroup.Addon>
+                              <i className="fas fa-comment" />
+                            </InputGroup.Addon>
+                            <FormControl
+                              value={body}
+                              componentClass="textarea"
+                              placeholder="Body..."
+                              name="body"
+                              onChange={this.onChange.bind(this)}
+                            />
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  </Form>
+                ) : (
+                  this.renderMessageDetails(
+                    messageDetails.results ? messageDetails.results : []
+                  )
+                )}
+              </Modal.Body>
+              <Modal.Footer>
+                {creatingMessage ? (
+                  <Button
+                    disabled={recipients.length < 1}
+                    onClick={() => this.createMessage(recipients, title, body)}
+                  >
+                    <i className="fas fa-plus" /> Create
+                  </Button>
+                ) : (
                   <Row>
-                    <Col xs={12}>
-                      <InputGroup>
-                        <InputGroup.Addon>
-                          <i className="fas fa-user-plus" />
-                        </InputGroup.Addon>
-                        <Select
-                          //https://react-select.com/props
-                          value={recipients}
-                          isMulti
-                          styles={selectStyles}
-                          onBlur={e => e.preventDefault()}
-                          blurInputOnSelect={false}
-                          //isClearable={this.state.recipients.some(v => !v.isFixed)}
-                          isSearchable={true}
-                          name="colors"
-                          placeholder="Username..."
-                          classNamePrefix="select"
-                          onChange={this.onSelectFilterChange}
-                          options={selectOptions}
+                    {!this.state.uri ? (
+                      <Col xs={12}>
+                        <FormGroup>
+                          <InputGroup>
+                            <InputGroup.Addon>
+                              <i className="fas fa-comment" />
+                            </InputGroup.Addon>
+                            <FormControl
+                              value={body}
+                              componentClass="textarea"
+                              placeholder="Body..."
+                              name="body"
+                              onChange={this.onChange.bind(this)}
+                            />
+                          </InputGroup>
+                        </FormGroup>
+                      </Col>
+                    ) : null}
+                    <Col xs={12} className="Center">
+                      <ButtonGroup>
+                        {this.state.uri ? (
+                          <Button onClick={() => history.push(uri)}>
+                            <i className="fas fa-link" /> Poll
+                          </Button>
+                        ) : (
+                          <Button onClick={() => this.replyToGroup(body)}>
+                            <i className="fas fa-reply-all" /> Reply
+                          </Button>
+                        )}
+                        <ConfirmAction
+                          Action={e => {
+                            const { id, message_id } = messageRecipients.filter(
+                              r => r.recipient_id === User.id
+                            )[0];
+                            e.stopPropagation();
+                            this.props.deleteMessageRecipient(
+                              User.token,
+                              User.id,
+                              id,
+                              message_id
+                            );
+                            this.setState({ show: false });
+                          }}
+                          Disabled={false}
+                          Icon={<i className="fa fa-trash-alt" />}
+                          hasPermission={true}
+                          Title={this.state.modalTitle}
                         />
-                      </InputGroup>
-                    </Col>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <InputGroup>
-                          <InputGroup.Addon>
-                            <i className="fas fa-heading" />
-                          </InputGroup.Addon>
-                          <FormControl
-                            value={title}
-                            type="text"
-                            placeholder="Title..."
-                            name="title"
-                            onChange={this.onChange}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                    <Col xs={12}>
-                      <FormGroup>
-                        <InputGroup>
-                          <InputGroup.Addon>
-                            <i className="fas fa-comment" />
-                          </InputGroup.Addon>
-                          <FormControl
-                            value={body}
-                            componentClass="textarea"
-                            placeholder="Body..."
-                            name="body"
-                            onChange={this.onChange.bind(this)}
-                          />
-                        </InputGroup>
-                      </FormGroup>
+                      </ButtonGroup>
                     </Col>
                   </Row>
-                </Form>
-              ) : (
-                this.renderMessageDetails(
-                  messageDetails.results ? messageDetails.results : []
-                )
-              )}
-            </Modal.Body>
-            <Modal.Footer>
-              {creatingMessage ? (
-                <Button
-                  disabled={recipients.length < 1}
-                  onClick={() => this.createMessage(recipients, title, body)}
-                >
-                  <i className="fas fa-plus" /> Create
-                </Button>
-              ) : (
-                <Row>
-                  {!this.state.uri ? (
-                    <Col xs={12}>
-                      <FormGroup>
-                        <InputGroup>
-                          <InputGroup.Addon>
-                            <i className="fas fa-comment" />
-                          </InputGroup.Addon>
-                          <FormControl
-                            value={body}
-                            componentClass="textarea"
-                            placeholder="Body..."
-                            name="body"
-                            onChange={this.onChange.bind(this)}
-                          />
-                        </InputGroup>
-                      </FormGroup>
-                    </Col>
-                  ) : null}
-                  <Col xs={12} className="Center">
-                    <ButtonGroup>
-                      {this.state.uri ? (
-                        <Button onClick={() => history.push(uri)}>
-                          <i className="fas fa-link" /> Poll
-                        </Button>
-                      ) : (
-                        <Button onClick={() => this.replyToGroup(body)}>
-                          <i className="fas fa-reply-all" /> Reply
-                        </Button>
-                      )}
-                      <ConfirmAction
-                        Action={e => {
-                          const { id, message_id } = messageRecipients.filter(
-                            r => r.recipient_id === User.id
-                          )[0];
-                          e.stopPropagation();
-                          this.props.deleteMessageRecipient(
-                            User.token,
-                            User.id,
-                            id,
-                            message_id
-                          );
-                          this.setState({ show: false });
-                        }}
-                        Disabled={false}
-                        Icon={<i className="fa fa-trash-alt" />}
-                        hasPermission={true}
-                        Title={this.state.modalTitle}
-                      />
-                    </ButtonGroup>
-                  </Col>
-                </Row>
-              )}
-            </Modal.Footer>
-          </Modal>
-        </Row>
+                )}
+              </Modal.Footer>
+            </Modal>
+          </Row>
+        ) : null}
       </Grid>
     );
   }

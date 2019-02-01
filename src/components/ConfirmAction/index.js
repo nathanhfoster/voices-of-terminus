@@ -28,6 +28,36 @@ class ConfirmAction extends PureComponent {
 
   static defaultProps = {};
 
+  componentWillMount() {
+    this.getState(this.props);
+  }
+
+  componentDidMount() {
+    this.setState({ show: false });
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.getState(nextProps);
+  }
+
+  getState = props => {
+    const { Action, Disabled, Icon, hasPermission, Size, Class, Title } = props;
+    this.setState({
+      Action,
+      Disabled,
+      Icon,
+      hasPermission,
+      Size,
+      Class,
+      Title,
+      show: false
+    });
+  };
+
+  componentWillUnmount() {
+    this.setState({ show: false });
+  }
+
   handleHide = e => {
     e ? e.stopPropagation() : null;
     this.setState({ show: false });
@@ -42,8 +72,8 @@ class ConfirmAction extends PureComponent {
   };
 
   render() {
-    const { show } = this.state;
     const {
+      show,
       Action,
       Disabled,
       Icon,
@@ -51,7 +81,7 @@ class ConfirmAction extends PureComponent {
       Size,
       Class,
       Title
-    } = this.props;
+    } = this.state;
     return hasPermission
       ? [
           <Button
@@ -66,40 +96,42 @@ class ConfirmAction extends PureComponent {
           >
             {Icon}
           </Button>,
-          <Modal
-            bsSize="small"
-            onClickCapture={this.handleClickCapture}
-            backdrop="static"
-            //keyboard={false}
-            show={show}
-            onHide={this.handleHide}
-            dialogClassName="confirmModal"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-lg">DELETE</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Row>
-                <Col xs={12}>
-                  <h4 className="Center">
-                    Are you sure you want to delete "{Title}"?
-                  </h4>
-                </Col>
-              </Row>
-            </Modal.Body>
-            <Modal.Footer>
-              <Row>
-                <Col md={12} className="Center">
-                  <ButtonGroup>
-                    <Button onClick={Action} className="ConfirmActionButton">
-                      Yes
-                    </Button>
-                    <Button onClick={this.handleHide}>No</Button>
-                  </ButtonGroup>
-                </Col>
-              </Row>
-            </Modal.Footer>
-          </Modal>
+          show ? (
+            <Modal
+              bsSize="small"
+              onClickCapture={this.handleClickCapture}
+              backdrop="static"
+              //keyboard={false}
+              show={show}
+              onHide={this.handleHide}
+              dialogClassName="confirmModal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">DELETE</Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <Row>
+                  <Col xs={12}>
+                    <h4 className="Center">
+                      Are you sure you want to delete "{Title}"?
+                    </h4>
+                  </Col>
+                </Row>
+              </Modal.Body>
+              <Modal.Footer>
+                <Row>
+                  <Col md={12} className="Center">
+                    <ButtonGroup>
+                      <Button onClick={Action} className="ConfirmActionButton">
+                        Yes
+                      </Button>
+                      <Button onClick={this.handleHide}>No</Button>
+                    </ButtonGroup>
+                  </Col>
+                </Row>
+              </Modal.Footer>
+            </Modal>
+          ) : null
         ]
       : null;
   }
