@@ -7,6 +7,7 @@ import { getVotTwitchStreams } from "../../../actions/App";
 import { Grid, Row, Col, Image, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Moment from "react-moment";
+import BrandImage from "../../../images/brand.png";
 
 const mapStateToProps = ({ VotTwitchStreams }) => ({
   VotTwitchStreams
@@ -78,7 +79,13 @@ _id: "v333774978"
           <NavItem eventKey={id}>
             <Row className="youTubeContainer">
               <Col md={3} className="videoImageContainer Center">
-                <Image src={stream.thumbnails[0].url} />
+                <Image
+                  src={
+                    stream.thumbnails.length > 0
+                      ? stream.thumbnails[0].url
+                      : BrandImage
+                  }
+                />
               </Col>
               <Col md={9} className="videoTitleContainer">
                 <h3>{stream.title}</h3>
