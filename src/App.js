@@ -45,10 +45,11 @@ import {
 } from "./actions/App";
 import { getUsers } from "./actions/Admin";
 import { getMessages } from "./actions/Messages";
-import { refreshUser } from "./actions/App";
+import { refreshPatchUser } from "./actions/App";
 import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
+import { userRefreshDelay } from "./helpers/variables";
 
 const mapStateToProps = ({
   ApiResponse,
@@ -74,7 +75,7 @@ const mapDispatchToProps = {
   getAllVotYouTube,
   getVRYouTubeChannelData,
   Logout,
-  refreshUser,
+  refreshPatchUser,
   getMessages,
   getUsers
 };
@@ -198,7 +199,7 @@ class App extends PureComponent {
     )
       this.interval = setInterval(
         () => this.fetchProfileUpdates(id, token, Settings),
-        5500
+        userRefreshDelay
       );
     this.setState({ ApiResponse, Window, User, Settings });
   };
@@ -209,8 +210,9 @@ class App extends PureComponent {
   }
 
   fetchProfileUpdates = (id, token, Settings) => {
+    const { refreshPatchUser } = this.props;
     const { pushMessages } = Settings;
-    this.props.refreshUser(id, token);
+    refreshPatchUser(id, token, { last_login: new Date() });
     if (pushMessages) this.props.getMessages(id, token);
   };
 
