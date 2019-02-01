@@ -100,6 +100,8 @@ class PollSystem extends Component {
     const pollId = match.params.id;
     const { Poll, Questions, Choices, Responses, Recipients } = Polls;
     const { pathname } = history.location;
+    const { expiration_date } = Poll;
+    const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
     this.setState({
       User,
       Polls,
@@ -110,7 +112,8 @@ class PollSystem extends Component {
       Recipients,
       pollId,
       eventKey: pathname,
-      history
+      history,
+      expired
     });
   };
 
@@ -208,7 +211,7 @@ class PollSystem extends Component {
   };
 
   renderQuestions = (User, Questions, Choices, Responses, Recipients) => {
-    const { eventKey, pollId, history } = this.state;
+    const { eventKey, pollId, history, expired } = this.state;
     const isRecipient =
       Recipients.findIndex(e => User.id === e.recipient) != -1;
     return User.is_superuser || isRecipient ? (
@@ -247,7 +250,8 @@ class PollSystem extends Component {
                               title,
                               User,
                               Choices[i],
-                              Responses
+                              Responses,
+                              expired
                             )}
                           </FormGroup>
                         </Col>
@@ -304,7 +308,8 @@ class PollSystem extends Component {
     title,
     User,
     Choices,
-    Responses
+    Responses,
+    expired
   ) => {
     const { PostResponse, EditResponse } = this.props;
     const usersResponses = Responses.results
@@ -331,6 +336,7 @@ class PollSystem extends Component {
       case "Multiple":
         return (
           <Checkbox
+            disabled={expired}
             key={choiceId}
             checked={checked}
             onClick={() =>
@@ -346,7 +352,8 @@ class PollSystem extends Component {
         return (
           <Radio
             disabled={
-              !checked && usersResponses.some(e => e.response === "true")
+              (!checked && usersResponses.some(e => e.response === "true")) ||
+              expired
             }
             name="radioGroup"
             key={choiceId}
@@ -376,6 +383,7 @@ class PollSystem extends Component {
         return (
           <InputGroup>
             <FormControl
+              disabled={expired}
               value={
                 stateResponse || stateResponse == "" ? stateResponse : response
               }
@@ -388,6 +396,7 @@ class PollSystem extends Component {
             />
             <InputGroup.Addon>
               <Button
+                disabled={expired}
                 onClick={() =>
                   !response
                     ? PostResponse(User.token, payload)
@@ -421,6 +430,7 @@ class PollSystem extends Component {
         return [
           <Image src={response} className="ProfileImages" responsive rounded />,
           <FormControl
+            disabled={expired}
             style={{ margin: "auto" }}
             type="file"
             label="File"
@@ -568,7 +578,7 @@ class PollSystem extends Component {
       history
     } = this.state;
     const { title, expiration_date } = Poll;
-    const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
+
     return pollId &&
       !(
         eventKey.includes("respond") ||
@@ -576,7 +586,7 @@ class PollSystem extends Component {
         eventKey.includes("edit")
       ) ? (
       <Redirect to={`/polls/${pollId}/respond`} />
-    ) : !expired ? (
+    ) : (
       <Grid className="PollSystem Container">
         <Row>
           <PageHeader className="pageHeader">POLLS</PageHeader>
@@ -599,6 +609,12 @@ class PollSystem extends Component {
             >
               <i className="fas fa-plus" /> Poll
             </Button>
+            <Button
+              disabled={!User.is_superuser}
+              onClick={() => history.push(`/poll/edit/${pollId}`)}
+            >
+              <i className="fa fa-pencil-alt" /> Poll
+            </Button>
           </Col>
         </Row>
         {pollId
@@ -610,15 +626,6 @@ class PollSystem extends Component {
               Recipients
             )
           : this.renderPolls(Polls.results)}
-      </Grid>
-    ) : (
-      <Grid className="PollSystem Container">
-        <Row>
-          <PageHeader className="pageHeader">POLLS</PageHeader>
-        </Row>
-        <Row>
-          <h1 className="Center">{title} has expired</h1>
-        </Row>
       </Grid>
     );
   }

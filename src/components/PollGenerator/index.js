@@ -325,7 +325,7 @@ class PollGenerator extends Component {
               componentClass="textarea"
               question_type="text"
               placeholder="Text..."
-              value={Choices[0].title}
+              value={Choices.length > 0 ? Choices[0].title : ""}
               disabled
             />
           </FormGroup>
