@@ -259,6 +259,7 @@ class PollGenerator extends Component {
           <Col xs={12}>
             <ControlLabel style={{ marginLeft: 32 }}>Question</ControlLabel>
             <ConfirmAction
+              key={i}
               Action={e => {
                 e.stopPropagation();
                 this.deleteQuestion(i);
