@@ -402,13 +402,13 @@ class PollGenerator extends Component {
 
   deleteQuestion = index => {
     let { Questions } = this.state;
-    delete Questions[index];
+    Questions = Questions.filter((e, i) => i != index);
     this.setState({ Questions });
   };
 
-  deleteChoice = (pollIndex, i) => {
+  deleteChoice = (pollIndex, index) => {
     let { Choices } = this.state.Questions[pollIndex];
-    delete Choices[i];
+    Choices = Choices.filter((e, i) => i != index);
     this.setState({ Choices });
   };
 
