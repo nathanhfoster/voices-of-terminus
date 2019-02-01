@@ -61,8 +61,9 @@ class PublicProfile extends PureComponent {
   }
 
   getState = props => {
+    const { history } = props;
     const { User } = props.Admin;
-    this.setState({ User });
+    this.setState({ User, history });
   };
 
   renderRoles = User => {
@@ -92,7 +93,7 @@ class PublicProfile extends PureComponent {
   render() {
     const CurrentUser = this.props.User;
     const { is_superuser, is_staff } = CurrentUser;
-    const { User } = this.state;
+    const { User, history } = this.state;
     const { id } = this.props.match.params;
     const {
       is_raid_leader,
@@ -115,9 +116,7 @@ class PublicProfile extends PureComponent {
           <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             {is_superuser || is_staff ? (
               <Button
-                onClick={() =>
-                  this.props.history.push(`/admin/edit/user/${id}/`)
-                }
+                onClick={() => history.push(`/admin/edit/user/${id}/`)}
                 className="pull-right"
               >
                 <i className="fas fa-database" />
@@ -125,7 +124,7 @@ class PublicProfile extends PureComponent {
             ) : null}
             {CurrentUser.id == id ? (
               <Button
-                onClick={() => this.props.history.push("/profile/")}
+                onClick={() => history.push("/profile/")}
                 className="pull-right"
               >
                 <i className="fa fa-pencil-alt" />

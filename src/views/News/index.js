@@ -224,10 +224,7 @@ class News extends Component {
     if (emptyArticleHtml != -1 && !Articles.loading) {
       return this.props.getArticleHtml(Articles.results[emptyArticleHtml].id);
     }
-    if (
-      emptyNewsletterHtml != -1 &&
-      !Newsletters.loading) 
-     {
+    if (emptyNewsletterHtml != -1 && !Newsletters.loading) {
       return this.props.getNewsletterHtml(
         Newsletters.results[emptyNewsletterHtml].id
       );
@@ -340,13 +337,13 @@ class News extends Component {
           >
             <Button
               disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => this.props.history.push("/article/new/")}
+              onClick={() => history.push("/article/new/")}
             >
               <i className="fas fa-plus" /> Article
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_newsletter)}
-              onClick={() => this.props.history.push("/newsletter/new")}
+              onClick={() => history.push("/newsletter/new")}
             >
               <i className="fas fa-plus" /> Newsletter
             </Button>

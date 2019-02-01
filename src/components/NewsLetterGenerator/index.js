@@ -206,9 +206,10 @@ class NewsLetterGenerator extends PureComponent {
 
   // Call back function passed into <Card> as a prop
   handleHide = id => {
+    const { getNewsletter, history } = this.props;
     if (id) {
-      this.props.getNewsletter(id);
-      this.props.history.push("/newsletter/edit/" + id);
+      getNewsletter(id);
+      history.push(`/newsletter/edit/${id}`);
     }
     this.setState({ show: false });
   };

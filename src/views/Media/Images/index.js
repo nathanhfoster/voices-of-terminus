@@ -185,6 +185,7 @@ class Images extends PureComponent {
 
   renderGalleries = (galleries, filter, dontFilter) => {
     const { User } = this.state;
+    const { history } = this.props;
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
     return galleries
@@ -194,9 +195,7 @@ class Images extends PureComponent {
           <div
             key={gallery.id}
             className="Clickable galleryCard Hover"
-            onClick={() =>
-              this.props.history.push(`/media/images/gallery/${gallery.id}`)
-            }
+            onClick={() => history.push(`/media/images/gallery/${gallery.id}`)}
           >
             {gallery.image ? (
               <Image src={gallery.image} />

@@ -98,14 +98,14 @@ class Messages extends PureComponent {
   }
 
   getState = props => {
-    const { Admin, User, Messages } = props;
+    const { Admin, User, Messages, history } = props;
     const { messageDetails } = Messages;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
           (a, b) => a.label.localeCompare(b.label)
         )
       : [];
-    this.setState({ User, Messages, selectOptions, messageDetails });
+    this.setState({ User, Messages, selectOptions, messageDetails, history });
   };
 
   readMessage = messages => {
@@ -156,7 +156,8 @@ class Messages extends PureComponent {
         messages
       } = group;
       const is_read = this.hasUnreadMessage(messages);
-      const recentMessage = messages.length > 0 ? messages[messages.length - 1] : {};
+      const recentMessage =
+        messages.length > 0 ? messages[messages.length - 1] : {};
       const {
         //id: 4
         //is_read: false
@@ -196,8 +197,13 @@ class Messages extends PureComponent {
             <span className="MessageTitle">{title}</span>
           </Col>
           <Col md={3}>
-            <Moment fromNow className="pull-right">{message_last_modified}</Moment>
-            <i class="fas fa-keyboard pull-right" style={{ margin: "2px 4px 0 0" }} />{" "}
+            <Moment fromNow className="pull-right">
+              {message_last_modified}
+            </Moment>
+            <i
+              class="fas fa-keyboard pull-right"
+              style={{ margin: "2px 4px 0 0" }}
+            />{" "}
           </Col>
           <Col md={6}>
             <i className="far fa-user" /> {author_username}
@@ -295,7 +301,9 @@ class Messages extends PureComponent {
       modalTitle,
       creatingMessage,
       messageDetails,
-      Messages
+      Messages,
+      history,
+      uri
     } = this.state;
     let messages = Messages.results;
     const { messageRecipients } = Messages;
@@ -460,11 +468,7 @@ class Messages extends PureComponent {
                   <Col xs={12} className="Center">
                     <ButtonGroup>
                       {this.state.uri ? (
-                        <Button
-                          onClick={() =>
-                            this.props.history.push(this.state.uri)
-                          }
-                        >
+                        <Button onClick={() => history.push(uri)}>
                           <i className="fas fa-link" /> Poll
                         </Button>
                       ) : (

@@ -241,25 +241,22 @@ class Admin extends PureComponent {
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => this.props.history.push("/article/new/")}
+              onClick={() => history.push("/article/new/")}
             >
               <i className="fas fa-plus" /> Article
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_newsletter)}
-              onClick={() => this.props.history.push("/newsletter/new")}
+              onClick={() => history.push("/newsletter/new")}
             >
               <i className="fas fa-plus" /> Newsletter
             </Button>
-            <Button
-              onClick={() => this.props.history.push("/newsletter/new")}
-              disabled
-            >
+            <Button onClick={() => history.push("/newsletter/new")} disabled>
               <i className="fas fa-plus" /> Event
             </Button>
             <Button
-              disabled={!User.is_superuser}
-              onClick={() => this.props.history.push("/poll/new/")}
+              disabled={!(User.is_superuser || User.can_create_calendar_event)}
+              onClick={() => history.push("/poll/new/")}
             >
               <i className="fas fa-plus" /> Poll
             </Button>
@@ -267,7 +264,7 @@ class Admin extends PureComponent {
           <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               disabled={!User.is_superuser}
-              onClick={() => this.props.history.push("/polls/")}
+              onClick={() => history.push("/polls/")}
             >
               <i className="fas fa-eye" /> Poll
             </Button>

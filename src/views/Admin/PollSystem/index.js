@@ -135,6 +135,7 @@ class PollSystem extends Component {
 
   renderPolls = Polls => {
     const { User, DeletePoll } = this.props;
+    const { history } = this.state;
     return Polls.map(p => {
       const {
         id,
@@ -148,7 +149,7 @@ class PollSystem extends Component {
         <Row
           className="borderedRow"
           key={id}
-          onClick={() => this.props.history.push(`/polls/${id}`)}
+          onClick={() => history.push(`/polls/${id}`)}
         >
           <Col xs={8}>
             <h3>
@@ -171,7 +172,7 @@ class PollSystem extends Component {
               disabled={!(User.is_superuser || User.is_leader)}
               onClick={e => {
                 e.stopPropagation();
-                this.props.history.push(`/poll/edit/${id}`);
+                history.push(`/poll/edit/${id}`);
               }}
               className="pull-right"
             >
@@ -563,7 +564,8 @@ class PollSystem extends Component {
       Responses,
       Recipients,
       pollId,
-      eventKey
+      eventKey,
+      history
     } = this.state;
     const { title, expiration_date } = Poll;
     const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
@@ -593,7 +595,7 @@ class PollSystem extends Component {
           <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               disabled={!User.is_superuser}
-              onClick={() => this.props.history.push("/poll/new/")}
+              onClick={() => history.push("/poll/new/")}
             >
               <i className="fas fa-plus" /> Poll
             </Button>

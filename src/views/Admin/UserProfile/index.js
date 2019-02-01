@@ -342,6 +342,7 @@ class UserProfile extends PureComponent {
 
   render() {
     const { Admin, User } = this.state;
+    const { history } = this.props;
     const { updating, updated, error } = Admin;
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
@@ -373,9 +374,7 @@ class UserProfile extends PureComponent {
               componentClass={ButtonToolbar}
             >
               <Button
-                onClick={() =>
-                  this.props.history.push("/profile/" + Admin.User.id)
-                }
+                onClick={() => history.push(`/profile/${Admin.User.id}`)}
                 className="pull-right"
               >
                 Public Profile

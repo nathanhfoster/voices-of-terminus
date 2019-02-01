@@ -366,6 +366,7 @@ class Profile extends PureComponent {
   };
 
   render() {
+    const { history } = this.props;
     const canSubmit = !this.cantSubmit();
     const {
       loading,
@@ -414,7 +415,7 @@ class Profile extends PureComponent {
         <Row className="ActionToolbarRow">
           <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
-              onClick={() => this.props.history.push(`profile/${id}`)}
+              onClick={() => history.push(`/profile/${id}`)}
               className="pull-right"
             >
               Public Profile
