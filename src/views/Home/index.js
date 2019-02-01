@@ -8,7 +8,12 @@ import { Grid, Row, Col } from "react-bootstrap";
 import ReactPlayer from "react-player";
 import HomeCarousel from "../../components/HomeCarousel";
 
-const mapStateToProps = ({ VoTYouTubeChannelData, VRYouTubeChannelData }) => ({
+const mapStateToProps = ({
+  User,
+  VoTYouTubeChannelData,
+  VRYouTubeChannelData
+}) => ({
+  User,
   VoTYouTubeChannelData,
   VRYouTubeChannelData
 });
@@ -44,9 +49,10 @@ class Home extends Component {
   }
 
   getState = props => {
+    const { User } = props;
     const votLatestVideo = props.VoTYouTubeChannelData[0];
     const vrLatestVideo = props.VRYouTubeChannelData[0];
-    this.setState({ votLatestVideo, vrLatestVideo });
+    this.setState({ User, votLatestVideo, vrLatestVideo });
   };
 
   _onReady(event) {
@@ -55,7 +61,7 @@ class Home extends Component {
   }
 
   render() {
-    const { votLatestVideo, vrLatestVideo } = this.state;
+    const { User, votLatestVideo, vrLatestVideo } = this.state;
     const youTubeOpts = {
       height: "329px",
       width: "100%",
@@ -69,7 +75,7 @@ class Home extends Component {
       <Grid className="Home Container fadeIn ">
         <Row>
           <Col xs={12}>
-            <HomeCarousel />
+            <HomeCarousel User={User} />
           </Col>
         </Row>
         <Row>

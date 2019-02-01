@@ -12,58 +12,58 @@ import img11 from "../images/backgrounds/bg12.jpg";
 
 export const carouselImages = [
   {
-    src: img1,
-    label: "Concept Art",
+    image: img1,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img2,
-    label: "Concept Art",
+    image: img2,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img3,
-    label: "Concept Art",
+    image: img3,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img4,
-    label: "Concept Art",
+    image: img4,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img5,
-    label: "Concept Art",
+    image: img5,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img6,
-    label: "Concept Art",
+    image: img6,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img7,
-    label: "Concept Art",
+    image: img7,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img8,
-    label: "Concept Art",
+    image: img8,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img9,
-    label: "Concept Art",
+    image: img9,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img10,
-    label: "Concept Art",
+    image: img10,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   },
   {
-    src: img11,
-    label: "Concept Art",
+    image: img11,
+    title: "Concept Art",
     description: "Property of Visionary Realms."
   }
 ];
