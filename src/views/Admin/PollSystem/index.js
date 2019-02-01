@@ -77,10 +77,11 @@ class PollSystem extends Component {
       GetPollQuestions,
       GetPollRecipients,
       GetPolls,
-      clearPollsApi
+      clearPollsApi,
+      match
     } = this.props;
     const { token } = User;
-    const { pollId } = this.state;
+    const pollId = match.params.id;
     clearPollsApi();
     if (pollId) {
       GetPoll(token, pollId);
@@ -609,12 +610,14 @@ class PollSystem extends Component {
             >
               <i className="fas fa-plus" /> Poll
             </Button>
-            <Button
-              disabled={!User.is_superuser}
-              onClick={() => history.push(`/poll/edit/${pollId}`)}
-            >
-              <i className="fa fa-pencil-alt" /> Poll
-            </Button>
+            {pollId ? (
+              <Button
+                disabled={!User.is_superuser}
+                onClick={() => history.push(`/poll/edit/${pollId}`)}
+              >
+                <i className="fa fa-pencil-alt" /> Poll
+              </Button>
+            ) : null}
           </Col>
         </Row>
         {pollId
