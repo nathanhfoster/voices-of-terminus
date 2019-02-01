@@ -170,10 +170,10 @@ export const getUser = id => {
       .catch(e => console.log(e));
 };
 
-export const refreshPatchUser = (id, token, payload) => {
+export const refreshPatchUser = (id, token) => {
   return (dispatch, getState) =>
     Axios(token)
-      .patch(`users/${id}/refresh/`, qs.stringify(payload))
+      .get(`users/${id}/refresh/`)
       .then(res => {
         dispatch({
           type: C.SET_LOGIN_TOKEN,

@@ -212,7 +212,7 @@ class App extends PureComponent {
   fetchProfileUpdates = (id, token, Settings) => {
     const { refreshPatchUser } = this.props;
     const { pushMessages } = Settings;
-    refreshPatchUser(id, token, { last_login: new Date() });
+    refreshPatchUser(id, token);
     if (pushMessages) this.props.getMessages(id, token);
   };
 
