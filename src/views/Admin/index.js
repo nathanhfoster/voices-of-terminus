@@ -262,7 +262,7 @@ class Admin extends PureComponent {
               <i className="fas fa-plus" /> Poll
             </Button>
           </Col>
-          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
             <Button
               disabled={!User.is_superuser}
               onClick={() => history.push("/polls/")}
