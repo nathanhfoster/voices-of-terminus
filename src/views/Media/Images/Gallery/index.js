@@ -121,6 +121,7 @@ class Gallery extends PureComponent {
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
+    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -129,7 +130,7 @@ class Gallery extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = this.props.selectOptions.filter(v => v.isFixed);
+        selectValue = selectOptions.filter(v => v.isFixed);
         break;
     }
 
@@ -137,6 +138,7 @@ class Gallery extends PureComponent {
   };
 
   onSelectFilterChange = (selectValue, { action, removedValue }) => {
+    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -145,7 +147,7 @@ class Gallery extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = this.props.selectOptions.filter(v => v.isFixed);
+        selectValue = selectOptions.filter(v => v.isFixed);
         break;
     }
 
@@ -310,6 +312,7 @@ class Gallery extends PureComponent {
   };
 
   render() {
+    const { selectOptions } = this.props;
     const {
       GalleryTitle,
       Gallery,
@@ -334,9 +337,9 @@ class Gallery extends PureComponent {
     const selectValue =
       this.state.selectValue.length > 0
         ? this.state.selectValue
-        : this.props.selectOptions;
+        : selectOptions;
     const filter = selectValue.map(i => i.value);
-    const maxlength = this.props.selectOptions.length;
+    const maxlength = selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
       <Grid className="Gallery Container">
@@ -394,7 +397,7 @@ class Gallery extends PureComponent {
                 placeholder="Filter by tags..."
                 classNamePrefix="select"
                 onChange={this.onSelectFilterChange}
-                options={this.props.selectOptions}
+                options={selectOptions}
               />
             </InputGroup>
           </Col>
@@ -538,7 +541,7 @@ class Gallery extends PureComponent {
                           placeholder="Tags..."
                           classNamePrefix="select"
                           onChange={this.onSelectTagChange}
-                          options={this.props.selectOptions}
+                          options={selectOptions}
                         />
                       </InputGroup>
                     </Col>

@@ -1,4 +1,5 @@
 import React from "react";
+import { Redirect } from "react-router-dom";
 
 import Bard from "../images/classIcons/bard.png";
 import Cleric from "../images/classIcons/cleric.png";
@@ -779,4 +780,12 @@ export const switchPollTypeIcon = type => {
     case "Image":
       return <i className="fas fa-cloud-upload-alt" />;
   }
+};
+
+export const Redirection = (history, userToken, noPermission) => {
+  if (!userToken) return <Redirect exact to="/login" />;
+  else if (noPermission && history.length > 2)
+    return <Redirect exact to={history.goBack()} />;
+  else if (noPermission) return <Redirect exact to="/" />;
+  return false;
 };

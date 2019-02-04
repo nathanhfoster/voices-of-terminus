@@ -194,7 +194,7 @@ class Login extends PureComponent {
 
   render() {
     const canSubmit = !this.cantSubmit();
-    const { User } = this.props;
+    const { User, history } = this.props;
     const {
       username,
       password,
@@ -206,8 +206,8 @@ class Login extends PureComponent {
     } = this.state;
 
     return User.token ? (
-      this.props.history.length > 2 ? (
-        <Redirect to={this.props.history.goBack()} />
+      history.length > 2 ? (
+        <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/" />
       )

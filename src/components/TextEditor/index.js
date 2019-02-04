@@ -241,6 +241,7 @@ class TextEditor extends Component {
   }
 
   render() {
+    const { history } = this.props;
     const {
       User,
       id,
@@ -257,8 +258,8 @@ class TextEditor extends Component {
     return !User.token ? (
       <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_article) ? (
-      this.props.history.length > 2 ? (
-        <Redirect to={this.props.history.goBack()} />
+      history.length > 2 ? (
+        <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/" />
       )

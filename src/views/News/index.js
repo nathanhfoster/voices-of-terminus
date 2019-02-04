@@ -185,6 +185,7 @@ class News extends Component {
 
   getState = props => {
     const { User, history, ApiResponse } = props;
+    let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
       ? Articles.results
@@ -196,12 +197,12 @@ class News extends Component {
     const { pathname } = history.location;
     const Documents = Articles.results.concat(Newsletters.results);
 
-    const selectOptions =
+    selectOptions =
       Documents.length > 1
         ? Documents.map(i => i.tags)[0]
             .split("|")
             .map(i => (i = { value: i, label: i }))
-        : this.props.selectOptions;
+        : selectOptions;
     this.setState({
       User,
       Articles,
@@ -280,6 +281,7 @@ class News extends Component {
       });
 
   onSelectChange = (selectValue, { action, removedValue }) => {
+    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -288,7 +290,7 @@ class News extends Component {
         }
         break;
       case "clear":
-        selectValue = this.props.selectOptions.filter(v => v.isFixed);
+        selectValue = selectOptions.filter(v => v.isFixed);
         break;
     }
 
@@ -307,13 +309,10 @@ class News extends Component {
 
   render() {
     //console.log("NEWS");
-    const { Articles, Newsletters } = this.props;
-    const { eventKey, history } = this.state;
-    const selectValue =
-      this.state.selectValue.length > 0
-        ? this.state.selectValue
-        : this.props.selectOptions;
-    const { User, search } = this.state;
+    const { Articles, Newsletters, selectOptions } = this.props;
+    const { User, search, eventKey, history } = this.state;
+    let { selectValue } = this.state;
+    selectValue = selectValue.length > 0 ? selectValue : selectOptions;
     let { Documents } = this.state;
     Documents = search
       ? matchSorter(Documents, search, {
@@ -321,7 +320,7 @@ class News extends Component {
         })
       : Documents;
     const filter = selectValue.map(i => i.value);
-    const maxlength = this.props.selectOptions.length;
+    const maxlength = selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return Documents ? (
       <Grid className="News Container fadeIn">
@@ -380,7 +379,7 @@ class News extends Component {
                 placeholder="Filter by tags..."
                 classNamePrefix="select"
                 onChange={this.onSelectChange}
-                options={this.props.selectOptions}
+                options={selectOptions}
               />
             </InputGroup>
           </Col>

@@ -237,6 +237,7 @@ class NewsLetterGenerator extends PureComponent {
   }
 
   render() {
+    const { history } = this.props;
     const {
       design,
       User,
@@ -265,8 +266,8 @@ class NewsLetterGenerator extends PureComponent {
     return !User.token ? (
       <Redirect to="/login" />
     ) : !(User.is_superuser || User.can_create_newsletter) ? (
-      this.props.history.length > 2 ? (
-        <Redirect to={this.props.history.goBack()} />
+      history.length > 2 ? (
+        <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/" />
       )

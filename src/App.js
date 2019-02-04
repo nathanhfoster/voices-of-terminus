@@ -20,6 +20,7 @@ import Home from "./views/Home";
 import TextEditor from "./components/TextEditor";
 import NewsLetterGenerator from "./components/NewsLetterGenerator";
 import GuildCalendar from "./views/GuildCalendar";
+import Event from "./views/GuildCalendar/Event";
 import News from "./views/News";
 import ViewHtmlDocument from "./components/ViewHtmlDocument";
 import Forums from "./views/Forums";
@@ -89,7 +90,53 @@ class App extends PureComponent {
       width: null,
       height: null,
       isMobile: false,
-      User: {}
+      User: {},
+      routeItems: [
+        { path: "/home", component: Home },
+        { path: "/admin", component: Admin },
+        { path: "/admin/overview", component: Admin },
+        { path: "/admin/permissions", component: Admin },
+        { path: "/admin/edit/user/:id", component: UserProfile },
+        { path: "/polls", component: PollSystem },
+        { path: "/polls/:id", component: PollSystem },
+        { path: "/polls/:id/respond", component: PollSystem },
+        { path: "/polls/:id/results", component: PollSystem },
+        { path: "/poll/new/", component: PollGenerator },
+        { path: "/poll/edit/:id", component: PollGenerator },
+        { path: "/articles/:id", component: ViewHtmlDocument },
+        { path: "/article/new", component: TextEditor },
+        { path: "/article/edit/:id", component: TextEditor },
+        { path: "/calendar", component: GuildCalendar },
+        { path: "/calendar/new/event", component: Event },
+        { path: "/news/latest", component: News },
+        { path: "/news/suggested", component: News },
+        { path: "/news/popular", component: News },
+        { path: "/news/my-docs", component: News },
+        { path: "/newsletters/:id", component: ViewHtmlDocument },
+        { path: "/newsletter/new", component: NewsLetterGenerator },
+        { path: "/newsletter/edit/:id", component: NewsLetterGenerator },
+        { path: "/forums", component: Forums },
+        { path: "/guild/about", component: Guild },
+        { path: "/guild/donate", component: Guild },
+        { path: "/guild/roster", component: Guild },
+        { path: "/guild/charters", component: Guild },
+        { path: "/guild/lore", component: Guild },
+        { path: "/guild/contests", component: Guild },
+        { path: "/guild/team", component: Guild },
+        { path: "/guild/join", component: Guild },
+        { path: "/media/images", component: Media },
+        { path: "/media/images/gallery/:id", component: Gallery },
+        { path: "/media/videos", component: Media },
+        { path: "/media/videos/:id/:type", component: VideoPlayer },
+        { path: "/media/streams", component: Media },
+        { path: "/media/podcasts", component: Media },
+        { path: "/media/podcasts/:id/:type", component: VideoPlayer },
+        { path: "/profile", component: Profile },
+        { path: "/profile/:id/", component: PublicProfile },
+        { path: "/messages", component: Messages },
+        { path: "/login", component: Login },
+        { path: "/privacy-policy", component: PrivacyPolicy }
+      ]
     };
   }
 
@@ -107,53 +154,7 @@ class App extends PureComponent {
     imagesMobile: PropTypes.array
   };
 
-  static defaultProps = {
-    routeItems: [
-      { path: "/home", component: Home },
-      { path: "/admin", component: Admin },
-      { path: "/admin/overview", component: Admin },
-      { path: "/admin/permissions", component: Admin },
-      { path: "/admin/edit/user/:id", component: UserProfile },
-      { path: "/polls", component: PollSystem },
-      { path: "/polls/:id", component: PollSystem },
-      { path: "/polls/:id/respond", component: PollSystem },
-      { path: "/polls/:id/results", component: PollSystem },
-      { path: "/poll/new/", component: PollGenerator },
-      { path: "/poll/edit/:id", component: PollGenerator },
-      { path: "/articles/:id", component: ViewHtmlDocument },
-      { path: "/article/new/", component: TextEditor },
-      { path: "/article/edit/:id", component: TextEditor },
-      { path: "/calendar", component: GuildCalendar },
-      { path: "/news/latest", component: News },
-      { path: "/news/suggested", component: News },
-      { path: "/news/popular", component: News },
-      { path: "/news/my-docs", component: News },
-      { path: "/newsletters/:id", component: ViewHtmlDocument },
-      { path: "/newsletter/new", component: NewsLetterGenerator },
-      { path: "/newsletter/edit/:id", component: NewsLetterGenerator },
-      { path: "/forums", component: Forums },
-      { path: "/guild/about", component: Guild },
-      { path: "/guild/donate", component: Guild },
-      { path: "/guild/roster", component: Guild },
-      { path: "/guild/charters", component: Guild },
-      { path: "/guild/lore", component: Guild },
-      { path: "/guild/contests", component: Guild },
-      { path: "/guild/team", component: Guild },
-      { path: "/guild/join", component: Guild },
-      { path: "/media/images", component: Media },
-      { path: "/media/images/gallery/:id", component: Gallery },
-      { path: "/media/videos", component: Media },
-      { path: "/media/videos/:id/:type", component: VideoPlayer },
-      { path: "/media/streams", component: Media },
-      { path: "/media/podcasts", component: Media },
-      { path: "/media/podcasts/:id/:type", component: VideoPlayer },
-      { path: "/profile", component: Profile },
-      { path: "/profile/:id/", component: PublicProfile },
-      { path: "/messages", component: Messages },
-      { path: "/login", component: Login },
-      { path: "/privacy-policy", component: PrivacyPolicy }
-    ]
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     this.getState(this.props);
@@ -255,9 +256,9 @@ class App extends PureComponent {
     ));
 
   render() {
-    const { Settings } = this.state;
+    const { Settings, routeItems } = this.state;
     const { showFooter } = Settings;
-    const { routeItems, location } = this.props;
+    const { location } = this.props;
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (

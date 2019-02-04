@@ -1376,8 +1376,8 @@ class UserProfile extends PureComponent {
           </Row>
         </Grid>
       ) : null
-    ) : this.props.history.length > 2 ? (
-      <Redirect to={this.props.history.goBack()} />
+    ) : history.length > 2 ? (
+      <Redirect to={history.goBack()} />
     ) : (
       <Redirect to="/" />
     );

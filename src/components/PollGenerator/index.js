@@ -432,7 +432,7 @@ class PollGenerator extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { User, Admin, PostPoll, UpdatePoll, match } = this.props;
+    const { User, Admin, PostPoll, UpdatePoll, match, history } = this.props;
     const pollId = match.params.id;
     const {
       Polls,
@@ -635,8 +635,8 @@ class PollGenerator extends Component {
         {this.renderQuestions(Questions)}
       </Grid>
     ) : User.token ? (
-      this.props.history.length > 2 ? (
-        <Redirect to={this.props.history.goBack()} />
+      history.length > 2 ? (
+        <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/" />
       )

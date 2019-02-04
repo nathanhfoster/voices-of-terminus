@@ -414,7 +414,7 @@ class Admin extends PureComponent {
         ) : null}
       </Grid>
     ) : User.token ? (
-      <Redirect to={this.props.history.goBack()} />
+      <Redirect to={history.goBack()} />
     ) : (
       <Redirect to="/login" />
     );

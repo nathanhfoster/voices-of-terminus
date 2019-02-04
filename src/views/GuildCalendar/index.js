@@ -11,14 +11,16 @@ import {
   ButtonToolbar,
   Button,
   InputGroup,
-  FormControl
+  Modal
 } from "react-bootstrap";
 import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
+import { withRouter } from "react-router-dom";
 
-const mapStateToProps = ({ Window }) => ({
+const mapStateToProps = ({ User, Window }) => ({
+  User,
   Window
 });
 
@@ -31,7 +33,9 @@ class GuildCalendar extends Component {
     this.state = {
       activeDate: null,
       events: PropTypes.array,
-      isMobile: false
+      isMobile: false,
+      show: false,
+      editing: false
     };
   }
 
@@ -148,9 +152,9 @@ class GuildCalendar extends Component {
   }
 
   getState = props => {
-    const { events, Window } = props;
+    const { User, events, Window } = props;
     const { activeDate } = this.state.activeDate ? this.state : props;
-    this.setState({ activeDate, events, Window });
+    this.setState({ User, activeDate, events, Window });
   };
 
   onChange = activeDate => this.setState({ activeDate });
@@ -195,7 +199,8 @@ class GuildCalendar extends Component {
     this.setState({ activeDate: activeStartDate });
 
   render() {
-    const { events, activeDate } = this.state;
+    const { history } = this.props;
+    const { User, events, activeDate, show, editing } = this.state;
     return (
       <Grid className="GuildCalendar Container fadeIn">
         <Row>
@@ -207,7 +212,15 @@ class GuildCalendar extends Component {
             xs={12}
             className="ActionToolbar"
             componentClass={ButtonToolbar}
-          />
+          >
+            <Button
+              disabled={!(User.is_superuser || User.can_create_calendar_event)}
+              onClick={e => history.push("/calendar/new/event")}
+              className="todayButton"
+            >
+              <i className="fas fa-plus" /> Event
+            </Button>
+          </Col>
           <Col
             md={8}
             xs={12}
@@ -215,7 +228,7 @@ class GuildCalendar extends Component {
             componentClass={InputGroup}
           >
             <Button onClick={this.Today} className="todayButton pull-right">
-              Today
+              <i className="fas fa-calendar-day" /> Today
             </Button>
           </Col>
         </Row>
@@ -246,4 +259,6 @@ class GuildCalendar extends Component {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(GuildCalendar);
+export default withRouter(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(GuildCalendar)
+);
