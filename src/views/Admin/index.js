@@ -252,7 +252,7 @@ class Admin extends PureComponent {
             >
               <i className="fas fa-plus" /> Newsletter
             </Button>
-            <Button onClick={() => history.push("/newsletter/new")} disabled>
+            <Button onClick={() => history.push("/calendar/new/event")}>
               <i className="fas fa-plus" /> Event
             </Button>
             <Button
