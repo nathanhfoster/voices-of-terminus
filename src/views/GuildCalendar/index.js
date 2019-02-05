@@ -17,7 +17,6 @@ import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
-import { withRouter } from "react-router-dom";
 
 const mapStateToProps = ({ User, Window }) => ({
   User,
@@ -259,6 +258,4 @@ class GuildCalendar extends Component {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(GuildCalendar)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(GuildCalendar);

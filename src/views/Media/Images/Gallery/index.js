@@ -21,7 +21,6 @@ import CreatableSelect from "react-select/lib/Creatable";
 import { galleryImageTags } from "../../../../helpers/select";
 import { selectStyles } from "../../../../helpers/styles";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import {
   viewGalleryImages,
   viewGalleryImage,
@@ -581,6 +580,6 @@ class Gallery extends PureComponent {
     );
   }
 }
-export default withRouter(
-  withAlert(reduxConnect(mapStateToProps, mapDispatchToProps)(Gallery))
+export default withAlert(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(Gallery)
 );

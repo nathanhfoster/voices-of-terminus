@@ -25,7 +25,7 @@ import {
   clearNewsletterApi
 } from "../../actions/NewsLetters";
 import { clearHtmlDocument } from "../../actions/App";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import formDesign from "./formDesign.json";
 import defaultDesign from "./defaultDesign.json";
 import Card from "../Card";
@@ -75,8 +75,7 @@ class NewsLetterGenerator extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     this.getState(this.props);
@@ -93,7 +92,9 @@ class NewsLetterGenerator extends PureComponent {
 
   getState = props => {
     const { User, Newsletters, HtmlDocument } = props;
-    newsletterSelectOptions[1].isDisabled = !(User.is_leader || User.is_council);
+    newsletterSelectOptions[1].isDisabled = !(
+      User.is_leader || User.is_council
+    );
     const { author, title } = HtmlDocument ? HtmlDocument : "";
     const { id } = props.match.params;
     const tags = HtmlDocument
@@ -261,13 +262,11 @@ class NewsLetterGenerator extends PureComponent {
       boxShadow: "0 2px 5px 0 rgba(0, 0, 0, 0.25)",
       width: "100%"
     };
-    return !User.token ? (
-      <Redirect to="/login" />
-    ) : !(User.is_superuser || User.can_create_newsletter) ? (
+    return !(User.is_superuser || User.can_create_newsletter) ? (
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
-        <Redirect to="/" />
+        <Redirect to="/login" />
       )
     ) : (
       <Grid className="NewsLetterGenerator Container fadeIn">
@@ -457,6 +456,6 @@ class NewsLetterGenerator extends PureComponent {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(NewsLetterGenerator)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(
+  NewsLetterGenerator
 );

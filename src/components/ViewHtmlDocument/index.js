@@ -34,7 +34,7 @@ import {
   deleteArticleComment
 } from "../../actions/Articles";
 import { setHtmlDocument } from "../../actions/App";
-import { withRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import ConfirmAction from "../ConfirmAction";
 
@@ -313,6 +313,6 @@ class ViewHtmlDocument extends PureComponent {
     ) : null;
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(ViewHtmlDocument)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(
+  ViewHtmlDocument
 );

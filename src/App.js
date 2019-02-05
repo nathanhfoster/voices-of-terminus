@@ -247,9 +247,21 @@ class App extends PureComponent {
   }
 
   renderRouteItems = routeItems =>
-    routeItems.map((k, i) => (
-      <Route exact key={i} path={k.path} component={k.component} />
-    ));
+    routeItems.map((k, i) => {
+      const { path, component } = k;
+      const { history, location, match } = this.props;
+      return (
+        <Route
+          exact
+          key={i}
+          path={path}
+          component={component}
+          history={history}
+          location={location}
+          match={match}
+        />
+      );
+    });
 
   renderBackgroundImages = (images, shouldRespond) =>
     images.map(k => (
@@ -259,13 +271,13 @@ class App extends PureComponent {
   render() {
     const { Settings, routeItems } = this.state;
     const { showFooter } = Settings;
-    const { location } = this.props;
+    const { history, location, match } = this.props;
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (
       <div className="App">
-        <NavBar />
-        <BackgroundImage />
+        <NavBar history={history} location={location} match={match} />
+        <BackgroundImage history={history} location={location} match={match} />
         <div
           className="routeOverlay"
           style={{ bottom: showFooter ? "var(--navBarHeight" : 0 }}
@@ -275,7 +287,7 @@ class App extends PureComponent {
             <Route component={PageNotFound} />
           </Switch>
         </div>
-        <Footer />
+        <Footer history={history} location={location} match={match} />
       </div>
     );
   }

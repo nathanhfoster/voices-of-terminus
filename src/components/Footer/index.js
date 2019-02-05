@@ -10,7 +10,6 @@ import femaleHalfling from "../../images/backgrounds/halfling_female.png";
 import maleHalfling from "../../images/backgrounds/halfling_male.png";
 import femaleHuman from "../../images/backgrounds/human_female.png";
 import maleHuman from "../../images/backgrounds/human_male.png";
-import { withRouter } from "react-router-dom";
 import { Collapse } from "react-collapse";
 import { Link } from "react-router-dom";
 
@@ -146,6 +145,4 @@ class Footer extends PureComponent {
     ) : null;
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Footer)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Footer);

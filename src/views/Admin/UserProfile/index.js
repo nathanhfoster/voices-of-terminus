@@ -14,7 +14,7 @@ import {
   FormGroup
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { clearUser, updateUserProfile } from "../../../actions/Admin";
 import { getUser } from "../../../actions/App";
 import Select from "react-select";
@@ -1379,10 +1379,8 @@ class UserProfile extends PureComponent {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-      <Redirect to="/" />
+      <Redirect to="/login" />
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(UserProfile)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(UserProfile);

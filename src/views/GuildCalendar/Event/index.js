@@ -20,7 +20,7 @@ import { selectStyles } from "../../../helpers/styles";
 import Select from "react-select";
 import { eventTags } from "../../../helpers/select";
 import { roleOptions, classOptions, removeDuplicates } from "../../../helpers";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Tooltip from "rc-tooltip";
 import "rc-slider/assets/index.css";
@@ -330,6 +330,4 @@ class Event extends Component {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Event)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Event);

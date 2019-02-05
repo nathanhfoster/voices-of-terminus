@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import "react-table/react-table.css";
 import {
   Grid,
@@ -262,7 +262,12 @@ class Admin extends PureComponent {
               <i className="fas fa-plus" /> Poll
             </Button>
           </Col>
-          <Col md={4} xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            md={4}
+            xs={12}
+            className="ActionToolbar"
+            componentClass={ButtonToolbar}
+          >
             <Button
               disabled={!User.is_superuser}
               onClick={() => history.push("/polls/")}
@@ -420,6 +425,4 @@ class Admin extends PureComponent {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Admin)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Admin);

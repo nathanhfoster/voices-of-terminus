@@ -26,7 +26,7 @@ import {
   clearArticlesApi
 } from "../../actions/Articles";
 import { getUsers } from "../../actions/Admin";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Select from "react-select";
 import { selectStyles } from "../../helpers/styles";
 import { isEquivalent } from "../../helpers";
@@ -253,13 +253,11 @@ class TextEditor extends Component {
       Articles
     } = this.state;
     const { posting, posted, updating, updated, error } = Articles;
-    return !User.token ? (
-      <Redirect to="/login" />
-    ) : !(User.is_superuser || User.can_create_article) ? (
+    return !(User.is_superuser || User.can_create_article) ? (
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
-        <Redirect to="/" />
+        <Redirect to="/login" />
       )
     ) : (
       <Grid className="TextEditor Container fadeIn">
@@ -413,6 +411,4 @@ class TextEditor extends Component {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(TextEditor)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(TextEditor);

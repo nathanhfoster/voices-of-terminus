@@ -19,7 +19,7 @@ import ConfirmAction from "../ConfirmAction";
 import Select from "react-select";
 import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { getUsers } from "../../actions/Admin";
 import {
   PostPoll,
@@ -634,17 +634,11 @@ class PollGenerator extends Component {
         </Row>
         {this.renderQuestions(Questions)}
       </Grid>
-    ) : User.token ? (
-      history.length > 2 ? (
-        <Redirect to={history.goBack()} />
-      ) : (
-        <Redirect to="/" />
-      )
+    ) : history.length > 2 ? (
+      <Redirect to={history.goBack()} />
     ) : (
       <Redirect to="/login" />
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator);

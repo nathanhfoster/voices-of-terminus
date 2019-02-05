@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect as reduxConnect } from "react-redux";
 import PropTypes from "prop-types";
-import { withRouter } from "react-router-dom";
 import {
   Grid,
   Row,
@@ -130,6 +129,4 @@ class Media extends Component {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Media)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Media);

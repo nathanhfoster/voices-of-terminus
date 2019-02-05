@@ -25,7 +25,7 @@ import {
   deleteMessageRecipient
 } from "../../../actions/Messages";
 import { getUsers } from "../../../actions/Admin";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Moment from "react-moment";
 import "./styles.css";
 import "./stylesM.css";
@@ -508,6 +508,4 @@ class Messages extends PureComponent {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Messages)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Messages);

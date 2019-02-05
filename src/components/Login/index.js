@@ -20,7 +20,7 @@ import {
 import { login } from "../../actions/App";
 import { createUser } from "../../actions/User";
 import FormData from "form-data";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { withAlert } from "react-alert";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
 
@@ -206,7 +206,7 @@ class Login extends PureComponent {
     } = this.state;
 
     return User.token ? (
-      history.length > 2 ? (
+      history.length > 1 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/" />
@@ -393,5 +393,5 @@ class Login extends PureComponent {
 }
 
 export default withAlert(
-  withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(Login))
+  reduxConnect(mapStateToProps, mapDispatchToProps)(Login)
 );

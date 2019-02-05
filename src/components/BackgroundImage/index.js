@@ -2,7 +2,6 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Image } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import "./styles.css";
 import "./stylesM.css";
 import bg1 from "../../images/backgrounds/bg1.jpg";
@@ -162,6 +161,6 @@ class BackgroundImage extends PureComponent {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(BackgroundImage)
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(
+  BackgroundImage
 );

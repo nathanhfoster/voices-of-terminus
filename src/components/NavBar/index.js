@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import { withAlert } from "react-alert";
-import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import "./styles.css";
 import "./stylesM.css";
@@ -332,5 +331,5 @@ class NavBar extends PureComponent {
   }
 }
 export default withAlert(
-  withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar))
+  reduxConnect(mapStateToProps, mapDispatchToProps)(NavBar)
 );

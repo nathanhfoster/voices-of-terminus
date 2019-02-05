@@ -34,7 +34,7 @@ import {
 } from "../../actions/NewsLetters";
 import Card from "../../components/Card";
 import Cards from "../../components/Cards";
-import { withRouter, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Select from "react-select";
 import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
@@ -308,6 +308,7 @@ class News extends Component {
   };
 
   render() {
+    console.log(this.props);
     //console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
     const { User, search, eventKey, history } = this.state;
@@ -476,6 +477,4 @@ class News extends Component {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(News)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(News);

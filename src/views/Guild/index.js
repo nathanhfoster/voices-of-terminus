@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
-import { withRouter } from "react-router-dom";
 import "./styles.css";
 import { Grid, Row, Tabs, Tab, PageHeader } from "react-bootstrap";
 
@@ -112,6 +111,4 @@ class Guild extends Component {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Guild)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Guild);

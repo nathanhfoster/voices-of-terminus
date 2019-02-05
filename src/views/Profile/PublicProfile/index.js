@@ -13,7 +13,6 @@ import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
 import { getUser, setUser } from "../../../actions/App";
-import { withRouter } from "react-router-dom";
 import {
   statusLevelInt,
   statusLevelString,
@@ -309,6 +308,4 @@ class PublicProfile extends PureComponent {
     ) : null;
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(PublicProfile)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(PublicProfile);

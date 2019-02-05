@@ -32,7 +32,7 @@ import {
 } from "../../../actions/Polls";
 import Moment from "react-moment";
 import { withAlert } from "react-alert";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Polls }) => ({ User, Polls });
@@ -634,5 +634,5 @@ class PollSystem extends Component {
   }
 }
 export default withAlert(
-  withRouter(reduxConnect(mapStateToProps, mapDispatchToProps)(PollSystem))
+  reduxConnect(mapStateToProps, mapDispatchToProps)(PollSystem)
 );

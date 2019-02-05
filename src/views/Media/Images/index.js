@@ -28,7 +28,6 @@ import {
   updateGallery,
   deleteGallery
 } from "../../../actions/Media";
-import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import matchSorter from "match-sorter";
@@ -464,6 +463,4 @@ class Images extends PureComponent {
     );
   }
 }
-export default withRouter(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Images)
-);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Images);
