@@ -185,7 +185,7 @@ class Event extends Component {
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
-        <Redirect to="/" />
+        <Redirect to="/login" />
       )
     ) : (
       <Grid className="Event Container">
