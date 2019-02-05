@@ -87,7 +87,7 @@ class Event extends Component {
         prefixCls="slider-tooltip"
         overlay={value}
         visible={dragging}
-        placement="bottom"
+        placement="top"
         key={index}
       >
         <Slider.Handle value={value} {...restProps} />
