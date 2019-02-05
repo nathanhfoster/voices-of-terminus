@@ -308,7 +308,6 @@ class News extends Component {
   };
 
   render() {
-    console.log(this.props);
     //console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
     const { User, search, eventKey, history } = this.state;
@@ -332,7 +331,7 @@ class News extends Component {
           <Col
             md={3}
             xs={12}
-            className="ActionToolbar"
+              className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button

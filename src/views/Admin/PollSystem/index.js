@@ -160,7 +160,11 @@ class PollSystem extends Component {
               <i className="fas fa-heading" /> {title}
             </h3>
           </Col>
-          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            xs={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <ConfirmAction
               Action={e => {
                 e.stopPropagation();
@@ -579,7 +583,7 @@ class PollSystem extends Component {
       history
     } = this.state;
     const { title, expiration_date } = Poll;
-
+    const expired = new Date(expiration_date) - new Date() < 0;
     return pollId &&
       !(
         eventKey.includes("respond") ||
@@ -598,12 +602,18 @@ class PollSystem extends Component {
         {pollId ? (
           <Row>
             <h3 className="Center">
-              Expires <Moment fromNow>{expiration_date}</Moment>
+              {expired
+                ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
+                : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
             </h3>
           </Row>
         ) : null}
         <Row className="ActionToolbarRow">
-          <Col md={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            md={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <Button
               disabled={!User.is_superuser}
               onClick={() => history.push("/poll/new/")}

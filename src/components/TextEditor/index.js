@@ -74,7 +74,6 @@ class TextEditor extends Component {
       tags: "",
       title: "",
       suggestions: [],
-      articleLoaded: false,
 
       editorState: null,
       show: false,
@@ -118,7 +117,6 @@ class TextEditor extends Component {
   }
 
   getState = props => {
-    const { articleLoaded } = this.state;
     let { Articles, editorState, Admin } = props;
     const { Users } = Admin;
     const suggestions = Users.map(
@@ -144,11 +142,11 @@ class TextEditor extends Component {
     const { path } = match ? match : null;
 
     // If HTML Document has been loaded from Redux and editing a Article
-    if (HtmlDocument && path.includes("edit") && !articleLoaded) {
+    if (HtmlDocument && path.includes("edit")) {
       const { html } = HtmlDocument;
       editorState = this.htmlToEditorState(html);
-      this.setState({ articleLoaded: true });
     }
+
     // Set the editorState from Redux if it exists else create an empty state
     else if (editorState) {
       editorState = this.htmlToEditorState(editorState);
@@ -254,7 +252,7 @@ class TextEditor extends Component {
     } = this.state;
     const { posting, posted, updating, updated, error } = Articles;
     return !(User.is_superuser || User.can_create_article) ? (
-      history.length > 2 ? (
+      history.length > 1 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/login" />
@@ -265,7 +263,7 @@ class TextEditor extends Component {
           <Col
             md={6}
             xs={6}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button
@@ -306,7 +304,7 @@ class TextEditor extends Component {
           <Col
             md={6}
             xs={6}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Link } from "react-router-dom";
-import { Button } from "react-bootstrap";
+import { Button, ButtonToolbar } from "react-bootstrap";
 import Moment from "react-moment";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
@@ -110,7 +110,10 @@ const Cards = props => {
               <i className="fas fa-heading" /> {title}
             </h4>
           </div>
-          <div className="cardActions">
+          <div
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <ConfirmAction
               Action={e => {
                 e.stopPropagation();

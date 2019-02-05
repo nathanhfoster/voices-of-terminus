@@ -207,9 +207,8 @@ class GuildCalendar extends Component {
         </Row>
         <Row className="ActionToolbarRow">
           <Col
-            md={4}
             xs={12}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button
@@ -217,15 +216,8 @@ class GuildCalendar extends Component {
               onClick={e => history.push("/calendar/new/event")}
               className="todayButton"
             >
-              <i className="fas fa-plus" /> Event
+              <i className="far fa-calendar-plus" /> Event
             </Button>
-          </Col>
-          <Col
-            md={8}
-            xs={12}
-            className="ActionToolbar"
-            componentClass={InputGroup}
-          >
             <Button onClick={this.Today} className="todayButton pull-right">
               <i className="fas fa-calendar-day" /> Today
             </Button>

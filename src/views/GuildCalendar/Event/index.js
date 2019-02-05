@@ -24,6 +24,8 @@ import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Tooltip from "rc-tooltip";
 import "rc-slider/assets/index.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const mapStateToProps = ({ User }) => ({ User });
 
@@ -34,9 +36,17 @@ class Event extends Component {
     super(props);
 
     this.state = {
+      start_date: new Date(),
+      end_date: new Date(),
+      tags: eventTags.filter(e => e.isFixed),
       min_level: 1,
       max_level: 60,
-      role_preferences: [],
+      role_preferences: [
+        { value: "Healer", label: "Healer" },
+        { value: "Melee Dps", label: "Melee Dps" },
+        { value: "Ranged Dps", label: "Ranged Dps" },
+        { value: "Tank", label: "Tank" }
+      ],
       class_preferences: []
     };
   }
@@ -121,6 +131,7 @@ class Event extends Component {
         break;
       case "clear":
         selectValue = roleOptions.filter(v => v.isFixed);
+        this.setState({ class_preferences: [] });
         break;
     }
 
@@ -136,7 +147,7 @@ class Event extends Component {
         }
         break;
       case "clear":
-        selectValue = classOptions.filter(v => v.isFixed);
+        selectValue = roleOptions.filter(v => v.isFixed);
         break;
     }
 
@@ -151,7 +162,8 @@ class Event extends Component {
       min_level,
       max_level,
       role_preferences,
-      class_preferences
+      class_preferences,
+      location
     } = this.state;
     const payload = {
       title,
@@ -160,7 +172,8 @@ class Event extends Component {
       min_level,
       max_level,
       role_preferences: role_preferences.map(i => i.value).join("|"),
-      class_preferences: class_preferences.map(i => i.value).join("|")
+      class_preferences: class_preferences.map(i => i.value).join("|"),
+      location
     };
     console.log(payload);
   };
@@ -171,18 +184,39 @@ class Event extends Component {
       "value"
     );
 
+  setStartDate = startDate => {
+    const { end_date } = this.state;
+    const newDate = new Date(startDate).toISOString();
+    if (new Date(end_date) - new Date(startDate) <= 0)
+      return this.setState({ start_date: newDate, end_date: newDate });
+    else return this.setState({ start_date: newDate });
+  };
+
+  setEndDate = endDate => {
+    const { start_date } = this.state;
+    const newDate = new Date(endDate).toISOString();
+    if (new Date(start_date) - new Date(endDate) >= 0)
+      return this.setState({ start_date: newDate, end_date: newDate });
+    else return this.setState({ end_date: newDate });
+  };
+
   render() {
-    const { history, min_level, max_level } = this.props;
+    const { history } = this.props;
     const {
       User,
       title,
       description,
       tags,
+      min_level,
+      max_level,
       role_preferences,
-      class_preferences
+      class_preferences,
+      location,
+      start_date,
+      end_date
     } = this.state;
     return !(User.is_superuser || User.can_create_calendar_event) ? (
-      history.length > 2 ? (
+      history.length > 1 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/login" />
@@ -193,19 +227,67 @@ class Event extends Component {
           <PageHeader className="pageHeader">EVENT</PageHeader>
         </Row>
         <Row className="ActionToolbarRow">
-          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            xs={12}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <Button
               disabled={!(User.is_superuser || User.can_create_calendar_event)}
               onClick={this.postEvent}
               className="todayButton"
             >
-              Post
+              <i className="fas fa-cloud-upload-alt" /> POST
             </Button>
           </Col>
         </Row>
         <Form className="Container fadeIn">
           <Row>
-            <Col md={12}>
+            <Col md={6} xs={12} className="expirationDate">
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="far fa-calendar-check" />
+                </InputGroup.Addon>
+                <DatePicker
+                  //calendarClassName="Calendar"
+                  popperClassName="calendarPopper"
+                  fixedHeight={true}
+                  //startDate={expiration_date}
+                  //value={expiration_date.toString()}
+                  selected={start_date}
+                  onChange={date => this.setStartDate(date)}
+                  showTimeSelect
+                  //timeFormat="hh:mm"
+                  timeIntervals={30}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  timeCaption="time"
+                  placeholderText="Start date"
+                />
+              </InputGroup>
+            </Col>
+            <Col md={6} xs={12} className="expirationDate">
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="far fa-calendar-times" />
+                </InputGroup.Addon>
+                <DatePicker
+                  //calendarClassName="Calendar"
+                  popperClassName="calendarPopper"
+                  fixedHeight={true}
+                  //startDate={expiration_date}
+                  //value={expiration_date.toString()}
+                  selected={end_date}
+                  onChange={date => this.setEndDate(date)}
+                  showTimeSelect
+                  //timeFormat="hh:mm"
+                  timeIntervals={30}
+                  dateFormat="MMMM d, yyyy h:mm aa"
+                  timeCaption="time"
+                  placeholderText="End date"
+                />
+              </InputGroup>
+            </Col>
+            <Col md={12} style={{ marginTop: 16 }}>
               <FormGroup>
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
@@ -255,12 +337,12 @@ class Event extends Component {
             </Col>
             <Col xs={12} style={{ marginTop: 16 }}>
               <FormGroup>
-                <ControlLabel>Level range</ControlLabel>
+                <ControlLabel>{`Level range (${min_level} - ${max_level})`}</ControlLabel>
                 <Range
                   allowCross={false}
-                  min={min_level}
-                  max={max_level}
-                  defaultValue={[min_level, max_level]}
+                  min={this.props.min_level}
+                  max={this.props.max_level}
+                  defaultValue={[this.props.min_level, this.props.max_level]}
                   tipFormatter={value => `${value}%`}
                   onChange={props => this.onSliderChange(props)}
                   handle={props => this.onSliderHandle(props)}
@@ -268,11 +350,11 @@ class Event extends Component {
                   handleStyle={[
                     {
                       backgroundColor: "var(--primaryColor)",
-                      borderColor: "var(--primaryColor)"
+                      border: "2px solid var(--primaryColor)"
                     },
                     {
                       backgroundColor: "var(--primaryColor)",
-                      borderColor: "var(--primaryColor)"
+                      border: "2px solid var(--primaryColor)"
                     }
                   ]}
                   railStyle={{ backgroundColor: "var(--slate_grey)" }}
@@ -316,12 +398,25 @@ class Event extends Component {
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                   isSearchable={false}
                   name="colors"
-                  placeholder="Role preferences..."
+                  placeholder="Class preferences..."
                   classNamePrefix="select"
                   onChange={this.onSelectClassPreferenceChange}
                   options={this.roleClassOptions(role_preferences)}
                 />
                 <FormControl.Feedback />
+              </FormGroup>
+            </Col>
+            <Col md={12}>
+              <FormGroup>
+                <ControlLabel>Location</ControlLabel>
+                <span className="help">(Zone, Dungeon)</span>
+                <FormControl
+                  value={location}
+                  type="text"
+                  name="location"
+                  placeholder="Zone interest..."
+                  onChange={this.onChange}
+                />
               </FormGroup>
             </Col>
           </Row>

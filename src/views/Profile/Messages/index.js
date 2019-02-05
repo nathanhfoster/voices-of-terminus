@@ -323,7 +323,7 @@ class Messages extends PureComponent {
           <Col
             md={2}
             xs={3}
-            className="ActionToolbar"
+              className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button

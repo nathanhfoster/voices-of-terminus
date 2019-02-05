@@ -45,7 +45,7 @@
 }
 
 ::-webkit-scrollbar {
-  display: block;
+  display: none;
   height: 6px;
   width: 6px;
   background-color: transparent;

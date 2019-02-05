@@ -64,6 +64,7 @@
 .cardActions button {
   background-color: var(--primaryColor);
   color: var(--tertiarycolor);
+  font-size: 100%;
   margin-left: 4px;
 }
 

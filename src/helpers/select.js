@@ -26,6 +26,8 @@ export const newsletterSelectOptions = [
 ];
 
 export const eventTags = [
+  { value: "Dungeon", label: "Dungeon" },
+  { value: "Event", label: "Event", isFixed: true },
   { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
   { value: "Raid", label: "Raid" },
@@ -33,6 +35,7 @@ export const eventTags = [
 ];
 
 export const galleryImageTags = [
+  { value: "Dungeon", label: "Dungeon" },
   { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
   { value: "Raid", label: "Raid" },

@@ -112,7 +112,7 @@ class PublicProfile extends PureComponent {
     return User ? (
       <Grid className="PublicProfile Container fadeIn">
         <Row className="ActionToolbarRow">
-          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col xs={12}   className="ActionToolbar cardActions" componentClass={ButtonToolbar}>
             {is_superuser || is_staff ? (
               <Button
                 onClick={() => history.push(`/admin/edit/user/${id}/`)}

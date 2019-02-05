@@ -234,7 +234,7 @@ class Admin extends PureComponent {
           <Col
             md={8}
             xs={12}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button onClick={this.handleShow}>
@@ -253,7 +253,7 @@ class Admin extends PureComponent {
               <i className="fas fa-plus" /> Newsletter
             </Button>
             <Button onClick={() => history.push("/calendar/new/event")}>
-              <i className="fas fa-plus" /> Event
+              <i className="far fa-calendar-plus" /> Event
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_calendar_event)}
@@ -265,7 +265,7 @@ class Admin extends PureComponent {
           <Col
             md={4}
             xs={12}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button

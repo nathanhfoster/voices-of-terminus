@@ -47,7 +47,8 @@ export const selectStyles = {
   }),
   clearIndicator: (base, state) => ({
     ...base,
-    color: "var(--tertiarycolor)"
+    color: "var(--tertiarycolor)",
+    ":hover": { color: "var(--primaryColor)" }
   }),
   dropdownIndicator: (base, state) => ({
     ...base,

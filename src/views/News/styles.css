@@ -13,6 +13,10 @@
   height: var(--inputButtonHeight);
   min-width: 43px;
 }
+.input-group-addon i,
+button i {
+  font-size: 100%;
+}
 .form-control[disabled] {
   opacity: var(--disabledOpacity);
   background-color: var(--slate_grey);

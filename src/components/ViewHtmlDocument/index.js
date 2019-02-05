@@ -296,14 +296,14 @@ class ViewHtmlDocument extends PureComponent {
                   onChange={this.onChange}
                 />
               </FormGroup>
-              <div className="Center">
+              <div className="Center cardActions">
                 <Button
                   className="commentPostButton"
                   disabled={text.length === 0}
                   type="submit"
                   onClick={this.postComment}
                 >
-                  Post
+                  <i className="fas fa-cloud-upload-alt" /> POST
                 </Button>
               </div>
             </Col>

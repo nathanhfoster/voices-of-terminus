@@ -73,18 +73,19 @@ class Guild extends Component {
 
   renderTabs = TabItems =>
     TabItems.map(k => {
+      const { eventKey, Title, Component } = k;
+      const { history, location, match } = this.props;
       return (
         <Tab
-          eventKey={k.eventKey}
-          title={k.Title}
+          eventKey={eventKey}
+          title={Title}
           className="fadeIn"
           unmountOnExit={true}
         >
-          {<k.Component />}
+          {<Component history={history} location={location} match={match} />}
         </Tab>
       );
     });
-
   render() {
     const { eventKey, history } = this.state;
     const { TabItems } = this.props;

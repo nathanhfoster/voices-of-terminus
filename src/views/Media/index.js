@@ -90,16 +90,20 @@ class Media extends Component {
   };
 
   renderTabs = TabItems =>
-    TabItems.map(k => (
-      <Tab
-        eventKey={k.eventKey}
-        title={k.Title}
-        className="fadeIn"
-        unmountOnExit={true}
-      >
-        {<k.Component />}
-      </Tab>
-    ));
+    TabItems.map(k => {
+      const { eventKey, Title, Component } = k;
+      const { history, location, match } = this.props;
+      return (
+        <Tab
+          eventKey={eventKey}
+          title={Title}
+          className="fadeIn"
+          unmountOnExit={true}
+        >
+          {<Component history={history} location={location} match={match} />}
+        </Tab>
+      );
+    });
 
   render() {
     const { eventKey, history } = this.state;

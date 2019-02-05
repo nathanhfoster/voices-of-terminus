@@ -370,7 +370,7 @@ class UserProfile extends PureComponent {
           <Row className="ActionToolbarRow">
             <Col
               xs={12}
-              className="ActionToolbar"
+                className="ActionToolbar cardActions"
               componentClass={ButtonToolbar}
             >
               <Button
@@ -1376,7 +1376,7 @@ class UserProfile extends PureComponent {
           </Row>
         </Grid>
       ) : null
-    ) : history.length > 2 ? (
+    ) : history.length > 1 ? (
       <Redirect to={history.goBack()} />
     ) : (
       <Redirect to="/login" />

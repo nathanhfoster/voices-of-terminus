@@ -90,7 +90,6 @@ export const PostPoll = (
   Recipients
 ) => {
   const pollPayload = { author, title, expiration_date };
-  console.log(pollPayload)
   return (dispatch, getState) => {
     dispatch({ type: C.POST_POLLS_LOADING });
     const { Polls } = getState();
@@ -325,7 +324,6 @@ export const UpdatePoll = (
     const currentQuestions = Polls.Questions;
     const questionsToPost = Questions.filter(q => !q.id);
     const questionsToUpdate = Questions.filter(q => q.id);
-    console.log(questionsToPost)
     // currentQuestions
     //   .filter(q => Questions.some(e => e.id === q.id))
     //   .map(q => {

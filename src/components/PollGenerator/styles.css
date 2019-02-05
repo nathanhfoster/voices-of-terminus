@@ -13,6 +13,7 @@
 .expirationDate input,
 .expirationDate select,
 .expirationDate textarea {
+  height: var(--inputButtonHeight) !important;
   width: 100% !important;
 }
 
@@ -22,6 +23,10 @@
 .expirationDate div {
   font-size: 13px;
   color: var(--tertiarycolor);
+}
+
+.expirationDate .react-datepicker-popper .calendarPopper {
+  
 }
 
 .expirationDate li:hover,
@@ -90,7 +95,7 @@
   /* border: 0.45em solid transparent !important; */
 }
 .expirationDate .react-datepicker__time-container {
-  width: 6em !important;
+  width: 6.5em !important;
 }
 .expirationDate .react-datepicker-time__header {
   font-size: 1em !important;

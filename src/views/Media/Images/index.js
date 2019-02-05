@@ -317,7 +317,7 @@ class Images extends PureComponent {
           <Col
             md={3}
             xs={12}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button
@@ -451,9 +451,11 @@ class Images extends PureComponent {
               </Modal.Body>
               <Modal.Footer>
                 {editing ? (
-                  <Button onClick={this.updateGallery}>Update</Button>
+                  <Button onClick={this.updateGallery}>UPDATE</Button>
                 ) : (
-                  <Button onClick={this.postGallery}>Create</Button>
+                  <Button onClick={this.postGallery}>
+                    <i className="fas fa-cloud-upload-alt" /> POST
+                  </Button>
                 )}
               </Modal.Footer>
             </Modal>

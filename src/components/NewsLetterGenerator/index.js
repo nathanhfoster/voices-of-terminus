@@ -263,7 +263,7 @@ class NewsLetterGenerator extends PureComponent {
       width: "100%"
     };
     return !(User.is_superuser || User.can_create_newsletter) ? (
-      history.length > 2 ? (
+      history.length > 1 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/login" />
@@ -271,7 +271,11 @@ class NewsLetterGenerator extends PureComponent {
     ) : (
       <Grid className="NewsLetterGenerator Container fadeIn">
         <Row className="ActionToolbarRow">
-          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            xs={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <Button
               disabled={!selectValue[0].value}
               onClick={this.postNewsletter}
@@ -302,7 +306,11 @@ class NewsLetterGenerator extends PureComponent {
                 : "UPDATE"}
             </Button>
           </Col>
-          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            xs={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <Button onClick={this.loadFormDesign}>
               <i className="fab fa-wpforms" />
             </Button>
@@ -316,7 +324,11 @@ class NewsLetterGenerator extends PureComponent {
               <i className="fas fa-paste" />
             </Button>
           </Col>
-          <Col xs={4} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col
+            xs={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <Button onClick={this.handleShow} className="pull-right">
               LOAD
             </Button>
@@ -388,7 +400,7 @@ class NewsLetterGenerator extends PureComponent {
             onDesignLoad={this.onDesignLoad}
             onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
             options={{
-              templateId: 4447,
+              templateId: !id ? 4447 : null,
               appearance: {
                 theme: "dark",
                 panels: {

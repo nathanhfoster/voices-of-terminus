@@ -413,7 +413,24 @@ class Profile extends PureComponent {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row className="ActionToolbarRow">
-          <Col xs={12} className="ActionToolbar" componentClass={ButtonToolbar}>
+          <Col xs={12}   className="ActionToolbar cardActions" componentClass={ButtonToolbar}>
+            <Button
+              onClick={this.updateProfile}
+              disabled={canSubmit}
+              className="pull-left"
+            >
+              {updating && !updated
+                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                : !updating && updated && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " UPDATE"
+                  ]
+                : "UPDATE"}
+            </Button>
             <Button
               onClick={() => history.push(`/profile/${id}`)}
               className="pull-right"

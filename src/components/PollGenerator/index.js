@@ -458,7 +458,7 @@ class PollGenerator extends Component {
           <Col
             md={4}
             xs={12}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button
@@ -519,7 +519,7 @@ class PollGenerator extends Component {
           <Col
             md={4}
             xs={6}
-            className="ActionToolbar"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button
@@ -634,7 +634,7 @@ class PollGenerator extends Component {
         </Row>
         {this.renderQuestions(Questions)}
       </Grid>
-    ) : history.length > 2 ? (
+    ) : history.length > 1 ? (
       <Redirect to={history.goBack()} />
     ) : (
       <Redirect to="/login" />
