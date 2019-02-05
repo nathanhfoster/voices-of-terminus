@@ -114,7 +114,7 @@ const OverviewTable = (Admin, User) => {
               maxWidth: 125,
               Footer: Users => (
                 <span>
-                  <i className="fas fa-gopuram" />{" "}
+                  <i className="fab fa-fort-awesome" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Users.data.filter(user => user.status > 0).length}
                   </strong>
