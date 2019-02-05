@@ -45,10 +45,10 @@
 }
 
 ::-webkit-scrollbar {
-  display: none;
-  height: 8px;
-  width: 8px;
-  background-color: rgba(189, 189, 189, 0.4);
+  display: block;
+  height: 6px;
+  width: 6px;
+  background-color: transparent;
   -webkit-border-radius: 100px;
   transition: 200ms linear;
 }
@@ -64,13 +64,17 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--grey);
-  border-radius: 10px;
+  background: rgba(245, 245, 245, 0.5);
+  border-radius: 6px;
 }
 
 textarea {
-  min-height: calc(var(--inputHeight) * 4);
+  min-height: calc(var(--inputButtonHeight) * 3);
   resize: none;
+}
+
+textarea::-webkit-scrollbar {
+  display: block;
 }
 
 input[type="checkbox"],

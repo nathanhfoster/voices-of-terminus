@@ -235,7 +235,6 @@ body {
 .Container input,
 .Container select,
 .Container textarea {
-  min-height: var(--inputButtonHeight);
   background-color: var(--slate_grey);
 }
 .Hover:hover {

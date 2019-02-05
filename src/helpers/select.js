@@ -25,4 +25,16 @@ export const newsletterSelectOptions = [
   ...documentBase
 ];
 
-export const eventTags = [{ value: "Group", label: "Group" }];
+export const eventTags = [
+  { value: "Explore", label: "Explore" },
+  { value: "Group", label: "Group" },
+  { value: "Raid", label: "Raid" },
+  { value: "Quest", label: "Quest" }
+];
+
+export const galleryImageTags = [
+  { value: "Explore", label: "Explore" },
+  { value: "Group", label: "Group" },
+  { value: "Raid", label: "Raid" },
+  { value: "Quest", label: "Quest" }
+];

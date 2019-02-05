@@ -1,6 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
+import CreatableSelect from "react-select/lib/Creatable";
 import Select from "react-select";
 import {
   Grid,
@@ -18,7 +19,7 @@ import {
 } from "react-bootstrap";
 import "./styles.css";
 import "./stylesM.css";
-import { newsSelectOptions } from "../../../helpers/select";
+import { galleryImageTags } from "../../../helpers/select";
 import { selectStyles } from "../../../helpers/styles";
 import {
   getGalleries,
@@ -65,9 +66,7 @@ class Images extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {
-    selectOptions: newsSelectOptions
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     this.getState(this.props);
@@ -82,8 +81,11 @@ class Images extends PureComponent {
 
   getState = props => {
     const { User, Galleries } = props;
+    const currentTags = Galleries.results
+      .map(e => e.tags.split("|").map(i => (i = { value: i, label: i })))
+      .flat(1);
     this.getGalleryImage(Galleries);
-    this.setState({ User, Galleries });
+    this.setState({ User, Galleries, currentTags });
   };
 
   getGalleryImage = Galleries => {
@@ -97,7 +99,6 @@ class Images extends PureComponent {
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
-    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -106,7 +107,7 @@ class Images extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = selectOptions.filter(v => v.isFixed);
+        selectValue = galleryImageTags.filter(v => v.isFixed);
         break;
     }
 
@@ -114,16 +115,15 @@ class Images extends PureComponent {
   };
 
   onSelectFilterChange = (selectValue, { action, removedValue }) => {
-    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
-        if (removedValue.isFixed) {
+        if (removedValue && removedValue.isFixed) {
           return;
         }
         break;
       case "clear":
-        selectValue = selectOptions.filter(v => v.isFixed);
+        selectValue = galleryImageTags.filter(v => v.isFixed);
         break;
     }
 
@@ -288,7 +288,6 @@ class Images extends PureComponent {
   };
 
   render() {
-    const { selectOptions } = this.props;
     const {
       User,
       search,
@@ -296,7 +295,8 @@ class Images extends PureComponent {
       description,
       gallery_image,
       editing,
-      show
+      show,
+      currentTags
     } = this.state;
     const { Galleries } = this.state;
     let galleries = Galleries.results ? Galleries.results : [];
@@ -308,9 +308,9 @@ class Images extends PureComponent {
     const selectValue =
       this.state.selectValue.length > 0
         ? this.state.selectValue
-        : selectOptions;
+        : galleryImageTags;
     const filter = selectValue.map(i => i.value);
-    const maxlength = selectOptions.length;
+    const maxlength = galleryImageTags.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
       <Grid className="Images Container">
@@ -355,12 +355,12 @@ class Images extends PureComponent {
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                isSearchable={false}
+                isSearchable
                 name="colors"
                 placeholder="Filter by tags..."
                 classNamePrefix="select"
                 onChange={this.onSelectFilterChange}
-                options={selectOptions}
+                options={currentTags}
               />
             </InputGroup>
           </Col>
@@ -413,20 +413,19 @@ class Images extends PureComponent {
                         <InputGroup.Addon>
                           <i className="fas fa-tags" />
                         </InputGroup.Addon>
-                        <Select
+                        <CreatableSelect
                           //https://react-select.com/props
                           value={this.state.tags}
                           isMulti
                           styles={selectStyles}
                           onBlur={e => e.preventDefault()}
                           blurInputOnSelect={false}
-                          //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                          isSearchable={false}
+                          isClearable
                           name="colors"
-                          placeholder="Tags..."
+                          placeholder="Add tags..."
                           classNamePrefix="select"
                           onChange={this.onSelectTagChange}
-                          options={selectOptions}
+                          options={currentTags}
                         />
                       </InputGroup>
                     </Col>

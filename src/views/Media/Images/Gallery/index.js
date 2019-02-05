@@ -17,7 +17,8 @@ import {
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Select from "react-select";
-import { newsSelectOptions } from "../../../../helpers/select";
+import CreatableSelect from "react-select/lib/Creatable";
+import { galleryImageTags } from "../../../../helpers/select";
 import { selectStyles } from "../../../../helpers/styles";
 import { connect as reduxConnect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -72,9 +73,7 @@ class Gallery extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {
-    selectOptions: newsSelectOptions
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     this.getState(this.props);
@@ -101,8 +100,11 @@ class Gallery extends PureComponent {
         ? Galleries.results[GalleryTitleIndex].title
         : null;
     const { Gallery } = Galleries;
+    const currentTags = Gallery.results
+      .map(e => e.tags.split("|").map(i => (i = { value: i, label: i })))
+      .flat(1);
     this.getGalleryImage(Gallery);
-    this.setState({ User, id, GalleryTitle, Gallery });
+    this.setState({ User, id, GalleryTitle, Gallery, currentTags });
   };
 
   componentWillUnmount() {
@@ -121,7 +123,6 @@ class Gallery extends PureComponent {
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
-    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -130,7 +131,7 @@ class Gallery extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = selectOptions.filter(v => v.isFixed);
+        selectValue = galleryImageTags.filter(v => v.isFixed);
         break;
     }
 
@@ -138,7 +139,6 @@ class Gallery extends PureComponent {
   };
 
   onSelectFilterChange = (selectValue, { action, removedValue }) => {
-    const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -147,7 +147,7 @@ class Gallery extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = selectOptions.filter(v => v.isFixed);
+        selectValue = galleryImageTags.filter(v => v.isFixed);
         break;
     }
 
@@ -312,7 +312,6 @@ class Gallery extends PureComponent {
   };
 
   render() {
-    const { selectOptions } = this.props;
     const {
       GalleryTitle,
       Gallery,
@@ -324,7 +323,9 @@ class Gallery extends PureComponent {
       photoIndex,
       isOpen,
       User,
-      show
+      show,
+      tags,
+      currentTags
     } = this.state;
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
@@ -337,9 +338,9 @@ class Gallery extends PureComponent {
     const selectValue =
       this.state.selectValue.length > 0
         ? this.state.selectValue
-        : selectOptions;
+        : galleryImageTags;
     const filter = selectValue.map(i => i.value);
-    const maxlength = selectOptions.length;
+    const maxlength = galleryImageTags.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
       <Grid className="Gallery Container">
@@ -397,7 +398,7 @@ class Gallery extends PureComponent {
                 placeholder="Filter by tags..."
                 classNamePrefix="select"
                 onChange={this.onSelectFilterChange}
-                options={selectOptions}
+                options={galleryImageTags}
               />
             </InputGroup>
           </Col>
@@ -528,20 +529,20 @@ class Gallery extends PureComponent {
                         <InputGroup.Addon>
                           <i className="fas fa-tags" />
                         </InputGroup.Addon>
-                        <Select
+                        <CreatableSelect
                           //https://react-select.com/props
-                          value={this.state.tags}
+                          value={tags}
                           isMulti
                           styles={selectStyles}
                           onBlur={e => e.preventDefault()}
                           blurInputOnSelect={false}
                           //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                          isSearchable={false}
+                          isSearchable
                           name="colors"
-                          placeholder="Tags..."
+                          placeholder="Add tags..."
                           classNamePrefix="select"
                           onChange={this.onSelectTagChange}
-                          options={selectOptions}
+                          options={currentTags}
                         />
                       </InputGroup>
                     </Col>

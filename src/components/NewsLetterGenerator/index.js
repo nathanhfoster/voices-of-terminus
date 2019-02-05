@@ -76,7 +76,6 @@ class NewsLetterGenerator extends PureComponent {
   static propTypes = {};
 
   static defaultProps = {
-    selectOptions: newsletterSelectOptions
   };
 
   componentWillMount() {
@@ -93,9 +92,8 @@ class NewsLetterGenerator extends PureComponent {
   }
 
   getState = props => {
-    let { selectOptions } = props;
     const { User, Newsletters, HtmlDocument } = props;
-    selectOptions[1].isDisabled = !(User.is_leader || User.is_council);
+    newsletterSelectOptions[1].isDisabled = !(User.is_leader || User.is_council);
     const { author, title } = HtmlDocument ? HtmlDocument : "";
     const { id } = props.match.params;
     const tags = HtmlDocument
@@ -104,7 +102,7 @@ class NewsLetterGenerator extends PureComponent {
           .filter(i => i != "Newsletter")
           .map(i => (i = { value: i, label: i }))
       : [];
-    const selectValue = [selectOptions[0], ...tags];
+    const selectValue = [newsletterSelectOptions[0], ...tags];
     let design = null;
     if (HtmlDocument && HtmlDocument.design)
       design = JSON.parse(HtmlDocument.design);
@@ -228,7 +226,7 @@ class NewsLetterGenerator extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = this.props.selectOptions.filter(v => v.isFixed);
+        selectValue = newsletterSelectOptions.filter(v => v.isFixed);
         break;
     }
     selectValue = this.orderOptions(selectValue);
@@ -373,7 +371,7 @@ class NewsLetterGenerator extends PureComponent {
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.onSelectChange}
-                  options={this.props.selectOptions}
+                  options={newsletterSelectOptions}
                 />
               </InputGroup>
             </FormGroup>

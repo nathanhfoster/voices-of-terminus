@@ -684,6 +684,7 @@ export const classOptions = {
     { value: "Wizard", label: "Wizard" }
   ]
 };
+
 // {value: 'Cleric', label: 'Cleric'},
 // {value: 'Dire Lord', label: 'Dire Lord'},
 // {value: 'Druid', label: 'Druid'},
@@ -788,4 +789,14 @@ export const Redirection = (history, userToken, noPermission) => {
     return <Redirect exact to={history.goBack()} />;
   else if (noPermission) return <Redirect exact to="/" />;
   return false;
+};
+
+export const removeDuplicates = (array, objAttr) => {
+  let map = new Map();
+
+  for (let i = 0; i < array.length; i++) {
+    map.set(array[i][objAttr], array[i]);
+  }
+
+  return [...map.values()];
 };

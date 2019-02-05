@@ -6,6 +6,7 @@ import { withAlert } from "react-alert";
 import Cookies from "js-cookie";
 import "./App.css";
 import "./AppM.css";
+
 import "regenerator-runtime/runtime";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Image } from "react-bootstrap";

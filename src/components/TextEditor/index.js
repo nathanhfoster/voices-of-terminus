@@ -86,9 +86,7 @@ class TextEditor extends Component {
     editorState: PropTypes.func.isRequired
   };
 
-  static defaultProps = {
-    selectOptions: articleSlectOptions
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     this.getState(this.props);
@@ -121,7 +119,7 @@ class TextEditor extends Component {
 
   getState = props => {
     const { articleLoaded } = this.state;
-    let { Articles, selectOptions, editorState, Admin } = props;
+    let { Articles, editorState, Admin } = props;
     const { Users } = Admin;
     const suggestions = Users.map(
       user =>
@@ -133,7 +131,7 @@ class TextEditor extends Component {
     );
     const { User, HtmlDocument, match } = props;
     const Leader = User.is_leader || User.is_council;
-    selectOptions[1].isDisabled = !(User.is_leader || User.is_council);
+    articleSlectOptions[1].isDisabled = !(User.is_leader || User.is_council);
     const { author, title } = HtmlDocument ? HtmlDocument : "";
     const tags = HtmlDocument
       ? HtmlDocument.tags
@@ -141,7 +139,7 @@ class TextEditor extends Component {
           .filter(i => i != "Article")
           .map(i => (i = { value: i, label: i }))
       : [];
-    const selectValue = [selectOptions[0], ...tags];
+    const selectValue = [articleSlectOptions[0], ...tags];
     const { id } = match ? match.params : null;
     const { path } = match ? match : null;
 
@@ -232,7 +230,7 @@ class TextEditor extends Component {
         }
         break;
       case "clear":
-        selectValue = this.props.selectOptions.filter(v => v.isFixed);
+        selectValue = articleSlectOptions.filter(v => v.isFixed);
         break;
     }
     selectValue = this.orderOptions(selectValue);
@@ -362,7 +360,7 @@ class TextEditor extends Component {
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.onSelectChange}
-                  options={this.props.selectOptions}
+                  options={articleSlectOptions}
                   onBlur={e => e.preventDefault()}
                   onTab={e => e.preventDefault()}
                   blurInputOnSelect={false}
