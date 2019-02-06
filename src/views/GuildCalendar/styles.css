@@ -25,6 +25,7 @@
   font-weight: bold;
 }
 .TileContent {
+  z-index: 4;
   overflow-y: auto;
   position: relative;
   line-height: 86px;

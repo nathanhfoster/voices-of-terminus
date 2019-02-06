@@ -9,16 +9,15 @@ import {
   Col,
   PageHeader,
   ButtonToolbar,
-  Button,
-  InputGroup,
-  Modal
+  Button
 } from "react-bootstrap";
 import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
 import { getYearMonthEvents } from "../../actions/Events";
-
+import ReactTooltip from "react-tooltip";
+import Tooltip from "./Tooltip/index";
 const mapStateToProps = ({ User, Window, Events }) => ({
   User,
   Window,
@@ -30,7 +29,6 @@ const mapDispatchToProps = { getYearMonthEvents };
 class GuildCalendar extends PureComponent {
   constructor(props) {
     super(props);
-    this.tileHandler = this.handleDayColors.bind(this); // this is the hack to make it work
 
     this.state = {
       activeDate: null,
@@ -81,29 +79,34 @@ class GuildCalendar extends PureComponent {
     const { getYearMonthEvents } = this.props;
     const payload = { date: activeStartDate };
     getYearMonthEvents(payload);
-    return this.setState(
-      { activeDate: activeStartDate },
-      () => (this.tileHandler = this.handleDayColors.bind(this))
-    );
+    return this.setState({ activeDate: activeStartDate });
   };
-
-  handleDayColors({ activeStartDate }) {
-    const { Events } = this.props;
-    console.log("handleDayColors: ", Events.results);
-    this.setState({ Events });
-    // your own implementation
-  }
 
   render() {
     const { history } = this.props;
     const { User, Events, Window, activeDate, show, editing } = this.state;
     const { isMobile } = Window;
+    const renderTooltip = props => (
+      <div
+        {...props}
+        style={{
+          backgroundColor: "rgba(0, 0, 0, 0.85)",
+          padding: "2px 10px",
+          color: "white",
+          borderRadius: 3,
+          ...props.style
+        }}
+      >
+        Simple tooltip
+      </div>
+    );
     const tileContent = ({ date, view }) => {
+      const { hovering, hoverIndex } = this.state;
       //console.log("HERE: ", Events);
       let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
       return (
         <div class="TileContent">
-          {Events.results.map(k => {
+          {Events.results.map((k, i) => {
             const calendarDay = MomentJS(date);
             const eventStartTime = MomentJS(k.start_date);
             const eventFound = eventStartTime.isSame(calendarDay, "day");
@@ -111,13 +114,29 @@ class GuildCalendar extends PureComponent {
             //console.log("calendarDay: ", calendarDay);
             mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
             return view === "month" && eventFound && !isMobile ? (
-              <div className="hasEventsContainer">
+              <div
+                className="hasEventsContainer"
+                // onMouseEnter={e => this.setState({ hoverIndex: i })}
+                // onMouseOver={e => this.setState({ hovering: true })}
+                // onMouseOut={e => this.setState({ hovering: false })}
+              >
                 <span className="eventLabelColor" />
-                <span className="eventStartTime">
-                  <Moment format="hh:mma" className="eventStartTime">
-                    {k.start_date}
-                  </Moment>
+
+                <span data-for={`${k.id}`} data-tip={i}>
+                  <Moment format="hh:mma">{k.start_date}</Moment>
                 </span>
+                <ReactTooltip
+                  id={`${k.id}`}
+                  key={i}
+                  className="toolTipWrapper"
+                  place="top"
+                  type="dark"
+                  effect="solid"
+                  offset={{ right: 36 }}
+                >
+                  {Tooltip({ ...k })}
+                </ReactTooltip>
+
                 <h6 className="eventTitle">{k.name}</h6>
               </div>
             ) : view === "month" &&
