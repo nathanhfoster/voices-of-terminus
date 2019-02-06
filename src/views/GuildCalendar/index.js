@@ -113,6 +113,7 @@ class GuildCalendar extends Component {
   render() {
     const { history } = this.props;
     const { User, Events, activeDate, show, editing } = this.state;
+    console.log(activeDate);
     return (
       <Grid className="GuildCalendar Container fadeIn">
         <Row>
