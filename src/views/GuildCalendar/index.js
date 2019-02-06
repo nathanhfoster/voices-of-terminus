@@ -32,7 +32,7 @@ class GuildCalendar extends Component {
     super(props);
 
     this.state = {
-      activeDate: new Date(),
+      activeDate: null,
       Events: PropTypes.array,
       isMobile: false,
       show: false,
@@ -47,6 +47,7 @@ class GuildCalendar extends Component {
   };
 
   static defaultProps = {
+    activeDate: new Date(),
     Events: [
       {
         key: 1,
@@ -156,8 +157,7 @@ class GuildCalendar extends Component {
   }
 
   getState = props => {
-    const { User, Events, Window } = props;
-    const { activeDate } = this.state;
+    const { User, Events, Window, activeDate } = props;
     this.setState({ User, activeDate, Events, Window });
   };
 
@@ -234,7 +234,7 @@ class GuildCalendar extends Component {
             <Calendar
               onChange={this.onChange}
               value={activeDate}
-              activeStartDate={activeDate} // fallback if value not set
+              activeStartDate={new Date()} // fallback if value not set
               tileContent={this.hasEvents}
               minDetail={"month"}
               onActiveDateChange={this.onActiveDateChange}
