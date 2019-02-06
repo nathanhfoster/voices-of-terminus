@@ -1,6 +1,7 @@
 .GuildCalendar {
 }
-abbr[title] {
+.react-calendar__month-view__weekdays abbr[title],
+.react-calendar__month-view__weekdays__weekday abbr[title] {
   border-bottom: none !important;
   cursor: inherit !important;
   text-decoration: none !important;
