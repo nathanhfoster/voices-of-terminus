@@ -29,9 +29,8 @@ class ConfirmAction extends PureComponent {
   }
 
   getState = props => {
-    const { Action, Disabled, Icon, hasPermission, Size, Class, Title } = props;
+    const { Disabled, Icon, hasPermission, Size, Class, Title } = props;
     this.setState({
-      Action,
       Disabled,
       Icon,
       hasPermission,
@@ -46,7 +45,7 @@ class ConfirmAction extends PureComponent {
   }
 
   handleHide = e => {
-    e ? e.stopPropagation() : null;
+    if (e) e.stopPropagation();
     this.setState({ show: false });
   };
 
@@ -58,10 +57,15 @@ class ConfirmAction extends PureComponent {
     }
   };
 
+  handleDelete = e => {
+    e.stopPropagation();
+    const { Action } = this.props;
+    return Action();
+  };
+
   render() {
     const {
       show,
-      Action,
       Disabled,
       Icon,
       hasPermission,
@@ -75,7 +79,6 @@ class ConfirmAction extends PureComponent {
             disabled={Disabled}
             onClick={e => {
               e.stopPropagation();
-              Action;
               this.setState({ show: true });
             }}
             bsSize={Size}
@@ -109,7 +112,10 @@ class ConfirmAction extends PureComponent {
                 <Row>
                   <Col md={12} className="Center">
                     <ButtonGroup>
-                      <Button onClick={Action} className="ConfirmActionButton">
+                      <Button
+                        onClick={this.handleDelete}
+                        className="ConfirmActionButton"
+                      >
                         Yes
                       </Button>
                       <Button onClick={this.handleHide}>No</Button>

@@ -24,7 +24,7 @@
     min-height: 7vh;
     max-height: 15vh;
   }
-  .react-calendar__month-view time {
+  .react-calendar__tile abbr {
     position: relative;
     top: 0;
     left: 0;

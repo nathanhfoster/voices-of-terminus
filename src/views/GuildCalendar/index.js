@@ -73,7 +73,9 @@ class GuildCalendar extends Component {
 
   hasEvents = ({ date, view }) => {
     const { Events } = this.state;
-    const { isMobile } = this.state.Window;
+    const { Window } = this.props;
+    const { isMobile } = Window;
+    console.log(Window);
     let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
     return (
       <div class="TileContent">
@@ -104,7 +106,6 @@ class GuildCalendar extends Component {
   Today = () => this.setState({ activeDate: new Date() });
 
   onActiveDateChange = ({ activeStartDate, view }) => {
-    console.log("onActiveDateChange");
     const { getYearMonthEvents } = this.props;
     const payload = { date: activeStartDate };
     getYearMonthEvents(payload);

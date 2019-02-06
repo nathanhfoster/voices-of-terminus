@@ -303,8 +303,8 @@ class News extends Component {
   };
 
   paginate = (nextArticles, nextNewsletters) => {
-    nextArticles ? this.props.nextArticles(nextArticles) : null;
-    nextNewsletters ? this.props.nextNewsletters(nextNewsletters) : null;
+    if (nextArticles) this.props.nextArticles(nextArticles);
+    if (nextNewsletters) this.props.nextNewsletters(nextNewsletters);
   };
 
   render() {
@@ -331,7 +331,7 @@ class News extends Component {
           <Col
             md={3}
             xs={12}
-              className="ActionToolbar cardActions"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button

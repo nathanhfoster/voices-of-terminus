@@ -115,10 +115,7 @@ const Cards = props => {
             componentClass={ButtonToolbar}
           >
             <ConfirmAction
-              Action={e => {
-                e.stopPropagation();
-                deleteCard(id, User.token);
-              }}
+              Action={e => deleteCard(id, User.token)}
               Disabled={false}
               Icon={<i className="fa fa-trash-alt" />}
               hasPermission={canDelete}
