@@ -32,7 +32,7 @@ class GuildCalendar extends Component {
     super(props);
 
     this.state = {
-      activeDate: null,
+      activeDate: new Date(),
       Events: PropTypes.array,
       isMobile: false,
       show: false,
@@ -47,7 +47,6 @@ class GuildCalendar extends Component {
   };
 
   static defaultProps = {
-    activeDate: new Date(),
     Events: [
       {
         key: 1,
@@ -158,7 +157,7 @@ class GuildCalendar extends Component {
 
   getState = props => {
     const { User, Events, Window } = props;
-    const { activeDate } = this.state.activeDate ? this.state : props;
+    const { activeDate } = this.state;
     this.setState({ User, activeDate, Events, Window });
   };
 
