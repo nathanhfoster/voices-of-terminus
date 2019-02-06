@@ -107,26 +107,39 @@ class GuildCalendar extends PureComponent {
       return (
         <div class="TileContent">
           {Events.results.map((k, i) => {
-            const calendarDay = MomentJS(date);
-            const eventStartTime = MomentJS(k.start_date);
+            const {
+              id,
+              start_date,
+              end_date,
+              title,
+              description,
+              author,
+              author_username,
+              last_modified_by,
+              tags,
+              min_level,
+              max_level,
+              role_preferences,
+              class_preferences,
+              location,
+              congregation_size
+            } = k;
+            const calendarDay = MomentJS.utc(date);
+            const eventStartTime = MomentJS.utc(start_date);
             const eventFound = eventStartTime.isSame(calendarDay, "day");
+
             const dayOfTheYear = eventStartTime.dayOfYear();
             //console.log("calendarDay: ", calendarDay);
             mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
-            return view === "month" && eventFound && !isMobile ? (
-              <div
-                className="hasEventsContainer"
-                // onMouseEnter={e => this.setState({ hoverIndex: i })}
-                // onMouseOver={e => this.setState({ hovering: true })}
-                // onMouseOut={e => this.setState({ hovering: false })}
-              >
-                <span className="eventLabelColor" />
 
-                <span data-for={`${k.id}`} data-tip={i}>
-                  <Moment format="hh:mma">{k.start_date}</Moment>
+            return view === "month" && eventFound && !isMobile ? (
+              <div className="hasEventsContainer">
+                <span className="eventLabelColor" />
+                <span data-for={`${id}`} data-tip={i}>
+                  <Moment format="hh:mma">{start_date}</Moment>
                 </span>
                 <ReactTooltip
-                  id={`${k.id}`}
+                  id={`${id}`}
                   key={i}
                   className="toolTipWrapper"
                   place="top"
@@ -137,7 +150,7 @@ class GuildCalendar extends PureComponent {
                   {Tooltip({ ...k })}
                 </ReactTooltip>
 
-                <h6 className="eventTitle">{k.name}</h6>
+                <h6 className="eventTitle">{title}</h6>
               </div>
             ) : view === "month" &&
               eventFound &&
@@ -176,7 +189,7 @@ class GuildCalendar extends PureComponent {
         <Row>
           <Col>
             <Calendar
-              calendarType="ISO 8601"
+              //calendarType="ISO 8601"
               onChange={this.onChange}
               value={activeDate}
               ativeStartDate={new Date()} // fallback if value not set
