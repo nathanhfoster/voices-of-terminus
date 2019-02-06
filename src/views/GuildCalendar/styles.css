@@ -58,9 +58,6 @@
   border-radius: 100%;
   background-color: var(--primaryColor);
 }
-.eventStartTime {
-  margin-right: 4px;
-}
 .eventTitle {
   flex: 1 0 0;
   margin-left: 4px;
@@ -78,7 +75,9 @@
   );
 }
 .react-calendar__tile--active .hasEventsContainer time,
-.react-calendar__month-view .hasEventsContainer time {
+.react-calendar__tile--active .hasEventsContainer abbr,
+.react-calendar__month-view .hasEventsContainer time,
+.react-calendar__month-view .hasEventsContainer abbr {
   position: inherit;
   border: 0;
   border-radius: 0;
@@ -118,7 +117,8 @@
   top: 8px;
   font-size: 1em;
 }
-.react-calendar__tile--now time {
+.react-calendar__tile--now time,
+.react-calendar__tile--now abbr {
   line-height: 25px;
   width: 25px;
   font-weight: 600;
@@ -126,7 +126,8 @@
   background-color: var(--primaryColor);
   color: var(--slate_grey);
 }
-.react-calendar__tile--active time {
+.react-calendar__tile--active time,
+.react-calendar__tile--active abbr  {
   line-height: 25px;
   width: 25px;
   font-weight: 600;
