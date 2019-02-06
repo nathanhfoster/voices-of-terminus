@@ -1,5 +1,10 @@
 .GuildCalendar {
 }
+abbr[title] {
+  border-bottom: none !important;
+  cursor: inherit !important;
+  text-decoration: none !important;
+}
 .react-calendar__navigation button {
   border: 0;
   height: 2em;
