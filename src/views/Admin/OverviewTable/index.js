@@ -27,10 +27,7 @@ const OverviewTable = (Admin, User) => {
               maxWidth: 48,
               Cell: props => (
                 <ConfirmAction
-                  Action={e => {
-                    e.stopPropagation();
-                    this.deleteThisUser(token, props.value);
-                  }}
+                  Action={e => this.deleteThisUser(token, props.value)}
                   Disabled={!(User.is_superuser && User.is_leader)}
                   Icon={<i className="fa fa-trash-alt" />}
                   hasPermission={true}

@@ -105,7 +105,6 @@ class HomeCarousel extends PureComponent {
             ) : null,
             <ConfirmAction
               Action={e => {
-                e.stopPropagation();
                 this.props.deleteGalleryImage(
                   images[photoIndex].id,
                   User.token

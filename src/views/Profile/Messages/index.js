@@ -323,7 +323,7 @@ class Messages extends PureComponent {
           <Col
             md={2}
             xs={3}
-              className="ActionToolbar cardActions"
+            className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
             <Button
@@ -482,7 +482,6 @@ class Messages extends PureComponent {
                             const { id, message_id } = messageRecipients.filter(
                               r => r.recipient_id === User.id
                             )[0];
-                            e.stopPropagation();
                             this.props.deleteMessageRecipient(
                               User.token,
                               User.id,

@@ -238,10 +238,9 @@ class Gallery extends PureComponent {
               </p>
               <div className="cardActions">
                 <ConfirmAction
-                  Action={e => {
-                    e.stopPropagation();
-                    this.props.deleteGalleryImage(image.id, User.token);
-                  }}
+                  Action={e =>
+                    this.props.deleteGalleryImage(image.id, User.token)
+                  }
                   Disabled={false}
                   Icon={<i className="fa fa-trash-alt" />}
                   hasPermission={canDelete}
@@ -430,7 +429,6 @@ class Gallery extends PureComponent {
                 ) : null,
                 <ConfirmAction
                   Action={e => {
-                    e.stopPropagation();
                     this.props.deleteGalleryImage(
                       images[photoIndex].id,
                       User.token

@@ -260,10 +260,7 @@ class PollGenerator extends Component {
             <ControlLabel style={{ marginLeft: 32 }}>Question</ControlLabel>
             <ConfirmAction
               key={i}
-              Action={e => {
-                e.stopPropagation();
-                this.deleteQuestion(i);
-              }}
+              Action={e => this.deleteQuestion(i)}
               Disabled={false}
               Icon={<i className="fa fa-trash-alt" />}
               hasPermission={true}
@@ -385,10 +382,7 @@ class PollGenerator extends Component {
           />
           <InputGroup.Addon>
             <ConfirmAction
-              Action={e => {
-                e.stopPropagation();
-                this.deleteChoice(pollIndex, i);
-              }}
+              Action={e => this.deleteChoice(pollIndex, i)}
               Disabled={false}
               Icon={<i className="fa fa-trash-alt" />}
               hasPermission={true}

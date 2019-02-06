@@ -181,9 +181,7 @@ class ViewHtmlDocument extends PureComponent {
           </Col>
           <Col xs={2} className="pull-right">
             <ConfirmAction
-              Action={e => {
-                this.deleteComment(com.id, this.props.User.token);
-              }}
+              Action={e => this.deleteComment(com.id, User.token)}
               Disabled={false}
               Icon={<i className="fa fa-trash-alt" />}
               hasPermission={User.is_superuser || User.id === com.author}

@@ -166,10 +166,7 @@ class PollSystem extends Component {
             componentClass={ButtonToolbar}
           >
             <ConfirmAction
-              Action={e => {
-                e.stopPropagation();
-                DeletePoll(User.token, id);
-              }}
+              Action={e => DeletePoll(User.token, id)}
               Disabled={!(User.is_superuser || User.is_leader)}
               Icon={<i className="fa fa-trash-alt" />}
               hasPermission={true}
