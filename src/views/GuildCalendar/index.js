@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import Calendar from "react-calendar/dist/entry.nostyle";
@@ -27,9 +27,10 @@ const mapStateToProps = ({ User, Window, Events }) => ({
 
 const mapDispatchToProps = { getYearMonthEvents };
 
-class GuildCalendar extends Component {
+class GuildCalendar extends PureComponent {
   constructor(props) {
     super(props);
+    this.tileHandler = this.handleDayColors.bind(this); // this is the hack to make it work
 
     this.state = {
       activeDate: null,
@@ -41,13 +42,10 @@ class GuildCalendar extends Component {
 
   static propTypes = {
     activeDate: PropTypes.Date,
-    Events: PropTypes.array,
     isMobile: PropTypes.bool
   };
 
-  static defaultProps = {
-    activeDate: new Date()
-  };
+  static defaultProps = { activeDate: new Date() };
 
   componentWillMount() {
     this.getState(this.props);
@@ -57,6 +55,7 @@ class GuildCalendar extends Component {
     const { getYearMonthEvents, activeDate } = this.props;
     const payload = { date: activeDate };
     getYearMonthEvents(payload);
+    this.setState({ activeDate });
   }
 
   componentWillReceiveProps(nextProps) {
@@ -65,56 +64,73 @@ class GuildCalendar extends Component {
 
   getState = props => {
     const { User, Events, Window } = props;
-    const { activeDate } = this.state.activeDate ? this.state : props;
-    this.setState({ User, activeDate, Events, Window });
+    this.setState({ User, Events, Window });
   };
 
   onChange = activeDate => this.setState({ activeDate });
 
-  hasEvents = ({ date, view }) => {
-    const { Events } = this.state;
-    const { Window } = this.props;
-    const { isMobile } = Window;
-    console.log(Window);
-    let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
-    return (
-      <div class="TileContent">
-        {Events.results.map(k => {
-          const calendarDay = MomentJS(date);
-          const start_date = MomentJS(k.start_date);
-          const eventFound = start_date.isSame(calendarDay, "day");
-          const dayOfTheYear = start_date.dayOfYear();
-          mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
-          return view === "month" && eventFound && !isMobile ? (
-            <div className="hasEventsContainer">
-              <span className="eventLabelColor" />
-              <span>
-                <Moment format="hh:mma">{k.start_date}</Moment>
-              </span>
-              <h6 className="eventTitle">{k.title}</h6>
-            </div>
-          ) : view === "month" && eventFound && mapCounter[dayOfTheYear] < 2 ? (
-            <div class="hasEventsContainerMobile">
-              <span className="eventLabelColor" />
-            </div>
-          ) : null;
-        })}
-      </div>
-    );
-  };
-
-  Today = () => this.setState({ activeDate: new Date() });
-
-  onActiveDateChange = ({ activeStartDate, view }) => {
+  Today = () => {
     const { getYearMonthEvents } = this.props;
+    const activeStartDate = new Date();
     const payload = { date: activeStartDate };
     getYearMonthEvents(payload);
     this.setState({ activeDate: activeStartDate });
   };
 
+  onActiveDateChange = ({ activeStartDate, view }) => {
+    const { getYearMonthEvents } = this.props;
+    const payload = { date: activeStartDate };
+    getYearMonthEvents(payload);
+    return this.setState(
+      { activeDate: activeStartDate },
+      () => (this.tileHandler = this.handleDayColors.bind(this))
+    );
+  };
+
+  handleDayColors({ activeStartDate }) {
+    const { Events } = this.props;
+    console.log("handleDayColors: ", Events.results);
+    this.setState({ Events });
+    // your own implementation
+  }
+
   render() {
     const { history } = this.props;
-    const { User, Events, activeDate, show, editing } = this.state;
+    const { User, Events, Window, activeDate, show, editing } = this.state;
+    const { isMobile } = Window;
+    const tileContent = ({ date, view }) => {
+      //console.log("HERE: ", Events);
+      let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
+      return (
+        <div class="TileContent">
+          {Events.results.map(k => {
+            const calendarDay = MomentJS(date);
+            const eventStartTime = MomentJS(k.start_date);
+            const eventFound = eventStartTime.isSame(calendarDay, "day");
+            const dayOfTheYear = eventStartTime.dayOfYear();
+            //console.log("calendarDay: ", calendarDay);
+            mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
+            return view === "month" && eventFound && !isMobile ? (
+              <div className="hasEventsContainer">
+                <span className="eventLabelColor" />
+                <span className="eventStartTime">
+                  <Moment format="hh:mma" className="eventStartTime">
+                    {k.start_date}
+                  </Moment>
+                </span>
+                <h6 className="eventTitle">{k.name}</h6>
+              </div>
+            ) : view === "month" &&
+              eventFound &&
+              mapCounter[dayOfTheYear] < 2 ? (
+              <div class="hasEventsContainerMobile">
+                <span className="eventLabelColor" />
+              </div>
+            ) : null;
+          })}
+        </div>
+      );
+    };
     return (
       <Grid className="GuildCalendar Container fadeIn">
         <Row>
@@ -141,10 +157,12 @@ class GuildCalendar extends Component {
         <Row>
           <Col>
             <Calendar
+              calendarType="ISO 8601"
               onChange={this.onChange}
               value={activeDate}
-              activeStartDate={activeDate} // fallback if value not set
-              tileContent={this.hasEvents}
+              ativeStartDate={new Date()} // fallback if value not set
+              tileContent={tileContent}
+              //tileClassName={this.tileHandler}
               minDetail={"month"}
               onActiveDateChange={this.onActiveDateChange}
               showFixedNumberOfWeeks={true}
@@ -152,6 +170,7 @@ class GuildCalendar extends Component {
               prev2Label={null}
               nextLabel={<i className="fa fa-chevron-circle-right" />}
               prevLabel={<i className="fa fa-chevron-circle-left" />}
+              onClickDay={null}
             />
           </Col>
           <Col className="EventList" lgHidden mdHidden sm={12}>

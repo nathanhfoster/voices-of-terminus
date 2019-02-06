@@ -66,7 +66,7 @@ class EventList extends PureComponent {
             <ListGroupItem className="Clickable listItem" header={k.title}>
               <span className="EventColorLabelContainer" />
               <Moment format="hh:mm a - ">{k.start_time}</Moment>
-              <Moment format="hh:mm a">{k.end_time}</Moment>
+              <Moment format="hh:mm a">{k.end_date}</Moment>
             </ListGroupItem>
           ) : null}
         </div>
