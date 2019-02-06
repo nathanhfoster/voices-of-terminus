@@ -111,7 +111,8 @@
 .react-calendar__month-view button ::-webkit-scrollbar {
   width: 4px;
 }
-.react-calendar__month-view time {
+.react-calendar__month-view time,
+.react-calendar__month-view abbr {
   position: absolute;
   left: 8px;
   top: 8px;
