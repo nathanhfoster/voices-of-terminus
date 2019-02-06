@@ -206,7 +206,7 @@ class Login extends PureComponent {
     } = this.state;
 
     return User.token ? (
-      history.length > 1 ? (
+      history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/" />

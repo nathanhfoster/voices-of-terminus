@@ -263,7 +263,7 @@ class NewsLetterGenerator extends PureComponent {
       width: "100%"
     };
     return !(User.is_superuser || User.can_create_newsletter) ? (
-      history.length > 1 ? (
+      history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/login" />

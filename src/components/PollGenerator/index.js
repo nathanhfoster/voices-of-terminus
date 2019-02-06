@@ -634,7 +634,7 @@ class PollGenerator extends Component {
         </Row>
         {this.renderQuestions(Questions)}
       </Grid>
-    ) : history.length > 1 ? (
+    ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
       <Redirect to="/login" />

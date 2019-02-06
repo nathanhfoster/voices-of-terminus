@@ -229,7 +229,7 @@ class Event extends Component {
       congregation_size
     } = this.state;
     return !(User.is_superuser || User.can_create_calendar_event) ? (
-      history.length > 1 ? (
+      history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/login" />

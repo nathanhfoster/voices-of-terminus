@@ -252,7 +252,7 @@ class TextEditor extends Component {
     } = this.state;
     const { posting, posted, updating, updated, error } = Articles;
     return !(User.is_superuser || User.can_create_article) ? (
-      history.length > 1 ? (
+      history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
         <Redirect to="/login" />

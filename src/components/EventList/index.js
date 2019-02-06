@@ -57,16 +57,16 @@ class EventList extends PureComponent {
   renderItems = data =>
     data.map(k => {
       const activeDate = MomentJS(this.state.activeDate);
-      const startTime = MomentJS(k.startTime);
-      const sameDayEvent = startTime.isSame(activeDate, "day");
+      const start_time = MomentJS(k.start_time);
+      const sameDayEvent = start_time.isSame(activeDate, "day");
 
       return (
         <div>
           {sameDayEvent ? (
-            <ListGroupItem className="Clickable listItem" header={k.name}>
+            <ListGroupItem className="Clickable listItem" header={k.title}>
               <span className="EventColorLabelContainer" />
-              <Moment format="HH:mm a - ">{k.startTime}</Moment>
-              <Moment format="HH:mm a">{k.endTime}</Moment>
+              <Moment format="HH:mm a - ">{k.start_time}</Moment>
+              <Moment format="HH:mm a">{k.end_time}</Moment>
             </ListGroupItem>
           ) : null}
         </div>
@@ -75,7 +75,7 @@ class EventList extends PureComponent {
 
   render() {
     const { data } = this.state;
-    return <ListGroup className="List"> {this.renderItems(data)} </ListGroup>;
+    return <ListGroup className="List">{this.renderItems(data)}</ListGroup>;
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(EventList);

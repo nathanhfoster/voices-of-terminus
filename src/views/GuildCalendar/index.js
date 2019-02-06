@@ -33,7 +33,6 @@ class GuildCalendar extends Component {
 
     this.state = {
       activeDate: null,
-      Events: PropTypes.array,
       isMobile: false,
       show: false,
       editing: false
@@ -47,99 +46,7 @@ class GuildCalendar extends Component {
   };
 
   static defaultProps = {
-    activeDate: new Date(),
-    Events: [
-      {
-        key: 1,
-        title: "Event 1",
-        start_date: new Date(2018, 11, 3, 10, 30),
-        end_date: new Date(2018, 11, 3, 12, 30)
-      },
-      {
-        key: 2,
-        title: "Event 2",
-        start_date: new Date(2018, 11, 3, 10, 30),
-        end_date: new Date(2018, 11, 3, 12, 30)
-      },
-      {
-        key: 3,
-        title: "Event 3",
-        start_date: new Date(2018, 11, 4, 10, 30),
-        end_date: new Date(2018, 11, 4, 12, 30)
-      },
-      {
-        key: 4,
-        title: "Event 4",
-        start_date: new Date(2018, 11, 4, 10, 30),
-        end_date: new Date(2018, 11, 4, 12, 30)
-      },
-      {
-        key: 5,
-        title: "Event 5",
-        start_date: new Date(2018, 11, 24, 10, 30),
-        end_date: new Date(2018, 11, 4, 12, 30)
-      },
-      {
-        key: 6,
-        title: "Event 6",
-        start_date: new Date(2018, 11, 5, 10, 30),
-        end_date: new Date(2018, 11, 4, 12, 30)
-      },
-      {
-        key: 7,
-        title: "Event 7",
-        start_date: new Date(2018, 11, 5, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 8,
-        title: "Event 8",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 9,
-        title: "Event 9",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 10,
-        title: "Event 10",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 11,
-        title: "Event 11",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 12,
-        title: "Event 12",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 13,
-        title: "Event 13",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 14,
-        title: "Event 14",
-        start_date: new Date(2018, 11, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      },
-      {
-        key: 15,
-        title: "Event 14",
-        start_date: new Date(2018, 8, 25, 10, 30),
-        end_date: new Date(2018, 11, 5, 12, 30)
-      }
-    ]
+    activeDate: new Date()
   };
 
   componentWillMount() {
@@ -174,18 +81,17 @@ class GuildCalendar extends Component {
           const calendarDay = MomentJS(date);
           const start_date = MomentJS(k.start_date);
           const eventFound = start_date.isSame(calendarDay, "day");
-          mapCounter[start_date._d] = mapCounter[start_date._d] + 1 || 1;
+          const dayOfTheYear = start_date.dayOfYear();
+          mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
           return view === "month" && eventFound && !isMobile ? (
             <div className="hasEventsContainer">
               <span className="eventLabelColor" />
-              <span className="startDate">
+              <span>
                 <Moment format="hh:mma">{k.start_date}</Moment>
               </span>
               <h6 className="eventTitle">{k.title}</h6>
             </div>
-          ) : view === "month" &&
-            eventFound &&
-            mapCounter[start_date._d] < 2 ? (
+          ) : view === "month" && eventFound && mapCounter[dayOfTheYear] < 2 ? (
             <div class="hasEventsContainerMobile">
               <span className="eventLabelColor" />
             </div>

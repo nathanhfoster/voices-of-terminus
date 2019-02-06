@@ -785,7 +785,7 @@ export const switchPollTypeIcon = type => {
 
 export const Redirection = (history, userToken, noPermission) => {
   if (!userToken) return <Redirect exact to="/login" />;
-  else if (noPermission && history.length > 1)
+  else if (noPermission && history.length > 2)
     return <Redirect exact to={history.goBack()} />;
   else if (noPermission) return <Redirect exact to="/" />;
   return false;
