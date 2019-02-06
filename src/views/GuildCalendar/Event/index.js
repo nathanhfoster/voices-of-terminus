@@ -26,10 +26,11 @@ import Tooltip from "rc-tooltip";
 import "rc-slider/assets/index.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { postEvent } from "../../../actions/Events";
 
 const mapStateToProps = ({ User }) => ({ User });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { postEvent };
 
 class Event extends Component {
   constructor(props) {
@@ -47,7 +48,8 @@ class Event extends Component {
         { value: "Ranged Dps", label: "Ranged Dps" },
         { value: "Tank", label: "Tank" }
       ],
-      class_preferences: []
+      class_preferences: [],
+      congregation_size: 6
     };
   }
 
@@ -155,27 +157,37 @@ class Event extends Component {
   };
 
   postEvent = () => {
+    const { postEvent } = this.props;
     const {
+      start_date,
+      end_date,
       title,
       description,
+      User,
       tags,
       min_level,
       max_level,
       role_preferences,
       class_preferences,
-      location
+      location,
+      congregation_size
     } = this.state;
     const payload = {
+      start_date,
+      end_date,
       title,
       description,
+      author: User.id,
+      last_modified_by: User.id,
       tags: tags.map(i => i.value).join("|"),
       min_level,
       max_level,
       role_preferences: role_preferences.map(i => i.value).join("|"),
       class_preferences: class_preferences.map(i => i.value).join("|"),
-      location
+      location,
+      congregation_size
     };
-    console.log(payload);
+    postEvent(User.token, payload);
   };
 
   roleClassOptions = role_preferences =>
@@ -213,7 +225,8 @@ class Event extends Component {
       class_preferences,
       location,
       start_date,
-      end_date
+      end_date,
+      congregation_size
     } = this.state;
     return !(User.is_superuser || User.can_create_calendar_event) ? (
       history.length > 1 ? (
@@ -415,6 +428,19 @@ class Event extends Component {
                   type="text"
                   name="location"
                   placeholder="Zone interest..."
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={12}>
+              <FormGroup>
+                <ControlLabel>Congregation size</ControlLabel>
+                <span className="help">(Group, Raid)</span>
+                <FormControl
+                  value={congregation_size}
+                  type="number"
+                  name="congregation_size"
+                  placeholder="Group size..."
                   onChange={this.onChange}
                 />
               </FormGroup>

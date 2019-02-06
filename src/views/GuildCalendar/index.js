@@ -17,13 +17,15 @@ import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
+import { getYearMonthEvents } from "../../actions/Events";
 
-const mapStateToProps = ({ User, Window }) => ({
+const mapStateToProps = ({ User, Window, Events }) => ({
   User,
-  Window
+  Window,
+  Events
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { getYearMonthEvents };
 
 class GuildCalendar extends Component {
   constructor(props) {
@@ -31,7 +33,7 @@ class GuildCalendar extends Component {
 
     this.state = {
       activeDate: null,
-      events: PropTypes.array,
+      Events: PropTypes.array,
       isMobile: false,
       show: false,
       editing: false
@@ -40,102 +42,102 @@ class GuildCalendar extends Component {
 
   static propTypes = {
     activeDate: PropTypes.Date,
-    events: PropTypes.array,
+    Events: PropTypes.array,
     isMobile: PropTypes.bool
   };
 
   static defaultProps = {
     activeDate: new Date(),
-    events: [
+    Events: [
       {
         key: 1,
-        name: "Event 1",
-        startTime: new Date(2018, 11, 3, 10, 30),
-        endTime: new Date(2018, 11, 3, 12, 30)
+        title: "Event 1",
+        start_date: new Date(2018, 11, 3, 10, 30),
+        end_date: new Date(2018, 11, 3, 12, 30)
       },
       {
         key: 2,
-        name: "Event 2",
-        startTime: new Date(2018, 11, 3, 10, 30),
-        endTime: new Date(2018, 11, 3, 12, 30)
+        title: "Event 2",
+        start_date: new Date(2018, 11, 3, 10, 30),
+        end_date: new Date(2018, 11, 3, 12, 30)
       },
       {
         key: 3,
-        name: "Event 3",
-        startTime: new Date(2018, 11, 4, 10, 30),
-        endTime: new Date(2018, 11, 4, 12, 30)
+        title: "Event 3",
+        start_date: new Date(2018, 11, 4, 10, 30),
+        end_date: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 4,
-        name: "Event 4",
-        startTime: new Date(2018, 11, 4, 10, 30),
-        endTime: new Date(2018, 11, 4, 12, 30)
+        title: "Event 4",
+        start_date: new Date(2018, 11, 4, 10, 30),
+        end_date: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 5,
-        name: "Event 5",
-        startTime: new Date(2018, 11, 24, 10, 30),
-        endTime: new Date(2018, 11, 4, 12, 30)
+        title: "Event 5",
+        start_date: new Date(2018, 11, 24, 10, 30),
+        end_date: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 6,
-        name: "Event 6",
-        startTime: new Date(2018, 11, 5, 10, 30),
-        endTime: new Date(2018, 11, 4, 12, 30)
+        title: "Event 6",
+        start_date: new Date(2018, 11, 5, 10, 30),
+        end_date: new Date(2018, 11, 4, 12, 30)
       },
       {
         key: 7,
-        name: "Event 7",
-        startTime: new Date(2018, 11, 5, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 7",
+        start_date: new Date(2018, 11, 5, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 8,
-        name: "Event 8",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 8",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 9,
-        name: "Event 9",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 9",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 10,
-        name: "Event 10",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 10",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 11,
-        name: "Event 11",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 11",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 12,
-        name: "Event 12",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 12",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 13,
-        name: "Event 13",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 13",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 14,
-        name: "Event 14",
-        startTime: new Date(2018, 11, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 14",
+        start_date: new Date(2018, 11, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       },
       {
         key: 15,
-        name: "Event 14",
-        startTime: new Date(2018, 8, 25, 10, 30),
-        endTime: new Date(2018, 11, 5, 12, 30)
+        title: "Event 14",
+        start_date: new Date(2018, 8, 25, 10, 30),
+        end_date: new Date(2018, 11, 5, 12, 30)
       }
     ]
   };
@@ -144,45 +146,46 @@ class GuildCalendar extends Component {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { getYearMonthEvents, activeDate } = this.props;
+    const payload = { date: activeDate };
+    getYearMonthEvents(payload);
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    const { User, events, Window } = props;
+    const { User, Events, Window } = props;
     const { activeDate } = this.state.activeDate ? this.state : props;
-    this.setState({ User, activeDate, events, Window });
+    this.setState({ User, activeDate, Events, Window });
   };
 
   onChange = activeDate => this.setState({ activeDate });
 
   hasEvents = ({ date, view }) => {
-    const { events } = this.state;
+    const { Events } = this.state;
     const { isMobile } = this.state.Window;
     let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
     return (
       <div class="TileContent">
-        {events.map(k => {
+        {Events.results.map(k => {
           const calendarDay = MomentJS(date);
-          const eventStartTime = MomentJS(k.startTime);
-          const eventFound = eventStartTime.isSame(calendarDay, "day");
-          mapCounter[eventStartTime._d] =
-            mapCounter[eventStartTime._d] + 1 || 1;
+          const start_date = MomentJS(k.start_date);
+          const eventFound = start_date.isSame(calendarDay, "day");
+          mapCounter[start_date._d] = mapCounter[start_date._d] + 1 || 1;
           return view === "month" && eventFound && !isMobile ? (
             <div className="hasEventsContainer">
               <span className="eventLabelColor" />
-              <span className="eventStartTime">
-                <Moment format="HH:mma" className="eventStartTime">
-                  {k.startTime}
-                </Moment>
+              <span className="startDate">
+                <Moment format="hh:mma">{k.start_date}</Moment>
               </span>
-              <h6 className="eventTitle">{k.name}</h6>
+              <h6 className="eventTitle">{k.title}</h6>
             </div>
           ) : view === "month" &&
             eventFound &&
-            mapCounter[eventStartTime._d] < 2 ? (
+            mapCounter[start_date._d] < 2 ? (
             <div class="hasEventsContainerMobile">
               <span className="eventLabelColor" />
             </div>
@@ -194,12 +197,16 @@ class GuildCalendar extends Component {
 
   Today = () => this.setState({ activeDate: new Date() });
 
-  onActiveDateChange = ({ activeStartDate, view }) =>
+  onActiveDateChange = ({ activeStartDate, view }) => {
+    const { getYearMonthEvents } = this.props;
+    const payload = { date: activeStartDate };
+    getYearMonthEvents(payload);
     this.setState({ activeDate: activeStartDate });
+  };
 
   render() {
     const { history } = this.props;
-    const { User, events, activeDate, show, editing } = this.state;
+    const { User, Events, activeDate, show, editing } = this.state;
     return (
       <Grid className="GuildCalendar Container fadeIn">
         <Row>
@@ -243,7 +250,7 @@ class GuildCalendar extends Component {
             <h2>
               <Moment format="MMM D">{activeDate}</Moment>
             </h2>
-            <EventList data={events} activeDate={activeDate} />
+            <EventList data={Events.results} activeDate={activeDate} />
           </Col>
         </Row>
       </Grid>

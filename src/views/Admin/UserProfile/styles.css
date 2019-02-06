@@ -50,10 +50,11 @@
 }
 
 .help {
-  display: block;
-  font-weight: 600;
-  font-size: 12px;
-  color: #999;
+  display: flex;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--grey);
+  margin-bottom: 8px;
 }
 
 meter::-webkit-meter-optimum-value {
