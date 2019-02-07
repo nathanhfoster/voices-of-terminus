@@ -431,14 +431,13 @@ export const Admin = (state = {}, action) => {
 };
 
 export const Settings = (
-  state = { showFooter: true, pushMessages: false },
+  state = { showFooter: true, pushMessages: false, fullHtml: false },
   action
 ) => {
-  switch (action.type) {
-    case C.SHOW_FOOTER:
-      return { ...state, showFooter: action.payload };
-    case C.PUSH_MESSAGES:
-      return { ...state, pushMessages: action.payload };
+  const { type, payload } = action;
+  switch (type) {
+    case C.SET_SETTINGS:
+      return { ...state, ...payload };
     default:
       return state;
   }

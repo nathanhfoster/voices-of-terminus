@@ -77,6 +77,7 @@ const Cards = props => {
   //console.log("CARD");
   const {
     User,
+    Settings,
     canDelete,
     canUpdate,
     click,
@@ -98,10 +99,20 @@ const Cards = props => {
     likeCount,
     commentCount
   } = props;
+  const { fullHtml } = Settings;
+  //
   return (
     <div className="Clickable Card Hover" onClick={click} key={id}>
       <div className="Preview">
-        <div className="previewItem">{ReactHtmlParser(Html(html, title))}</div>
+        <div className="previewItem">
+          {ReactHtmlParser(
+            !html
+              ? "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
+              : fullHtml && html
+              ? html
+              : Html(html, title)
+          )}
+        </div>
       </div>
       {summary ? (
         <div className="Summary inlineNoWrap">

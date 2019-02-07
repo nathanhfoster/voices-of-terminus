@@ -46,8 +46,9 @@ import {
 } from "../../helpers";
 import matchSorter from "match-sorter";
 
-const mapStateToProps = ({ User, Articles, Newsletters }) => ({
+const mapStateToProps = ({ User, Settings, Articles, Newsletters }) => ({
   User,
+  Settings,
   Articles,
   Newsletters
 });
@@ -184,7 +185,7 @@ class News extends Component {
   }
 
   getState = props => {
-    const { User, history, ApiResponse } = props;
+    const { User, Settings, history, ApiResponse } = props;
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -205,6 +206,7 @@ class News extends Component {
         : selectOptions;
     this.setState({
       User,
+      Settings,
       Articles,
       Newsletters,
       Documents,
@@ -233,7 +235,7 @@ class News extends Component {
   };
 
   //Filter the Documents if the documents tags array contains the filter array
-  renderCards = (Documents, filter, dontFilter, sort, tabFilter) =>
+  renderCards = (Settings, Documents, filter, dontFilter, sort, tabFilter) =>
     Documents.filter(doc =>
       dontFilter ? doc : isSubset(doc.tags.split("|"), filter)
     )
@@ -267,6 +269,7 @@ class News extends Component {
           <Col className={className} md={3} sm={6} xs={12}>
             {Cards({
               ...card,
+              Settings: Settings,
               key: card.id,
               User,
               canDelete: hasDeletePermission(User, card.author, card.tags),
@@ -310,7 +313,7 @@ class News extends Component {
   render() {
     //console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
-    const { User, search, eventKey, history } = this.state;
+    const { User, Settings, search, eventKey, history } = this.state;
     let { selectValue } = this.state;
     selectValue = selectValue.length > 0 ? selectValue : selectOptions;
     let { Documents } = this.state;
@@ -401,6 +404,7 @@ class News extends Component {
               <Row>
                 {Documents.length
                   ? this.renderCards(
+                      Settings,
                       Documents,
                       filter,
                       dontFilter,
@@ -419,6 +423,7 @@ class News extends Component {
               <Row>
                 {Documents.length
                   ? this.renderCards(
+                      Settings,
                       Documents,
                       filter,
                       dontFilter,
@@ -432,6 +437,7 @@ class News extends Component {
               <Row>
                 {Documents.length
                   ? this.renderCards(
+                      Settings,
                       Documents,
                       filter,
                       dontFilter,
@@ -447,6 +453,7 @@ class News extends Component {
                   <Redirect to="/login" />
                 ) : Documents.length ? (
                   this.renderCards(
+                    Settings,
                     Documents,
                     filter,
                     dontFilter,

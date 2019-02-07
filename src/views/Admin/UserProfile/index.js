@@ -370,7 +370,7 @@ class UserProfile extends PureComponent {
           <Row className="ActionToolbarRow">
             <Col
               xs={12}
-                className="ActionToolbar cardActions"
+              className="ActionToolbar cardActions"
               componentClass={ButtonToolbar}
             >
               <Button

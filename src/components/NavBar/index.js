@@ -21,7 +21,6 @@ import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
 import { classIcon } from "../../helpers";
 import { isEquivalent } from "../../helpers";
-import { toggleFooter, togglerPushMessages } from "../../actions/App";
 
 const mapStateToProps = ({ User, Settings, Messages }) => ({
   User,
@@ -30,9 +29,7 @@ const mapStateToProps = ({ User, Settings, Messages }) => ({
 });
 
 const mapDispatchToProps = {
-  Logout,
-  toggleFooter,
-  togglerPushMessages
+  Logout
 };
 
 class NavBar extends PureComponent {
@@ -64,8 +61,9 @@ class NavBar extends PureComponent {
   };
 
   Logout = () => {
-    this.props.Logout();
-    this.props.alert.show([<div>GOODBYE</div>]);
+    const { Logout, alert } = this.props;
+    Logout();
+    alert.show([<div>GOODBYE</div>]);
   };
 
   unreadMessages = groups => {
@@ -82,7 +80,13 @@ class NavBar extends PureComponent {
   };
 
   render() {
-    const { pathname } = this.props.location;
+    const {
+      Settings,
+      history,
+      location
+    } = this.props;
+    const { showFooter, pushMessages } = Settings;
+    const { pathname } = location;
     const { User, Messages } = this.state;
     const unreadMessages = this.unreadMessages(Messages.results);
     const {
@@ -94,7 +98,7 @@ class NavBar extends PureComponent {
       primary_role,
       primary_class
     } = User;
-    const { showFooter, pushMessages } = this.props.Settings;
+
     return (
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
@@ -292,26 +296,10 @@ class NavBar extends PureComponent {
                 </LinkContainer>
                 <MenuItem divider />
                 <MenuItem
-                  onClick={() => this.props.toggleFooter(!showFooter)}
+                  onClick={() => history.push("/settings")}
                   className="Center"
                 >
-                  {showFooter ? (
-                    <i className="far fa-eye-slash" />
-                  ) : (
-                    <i className="far fa-eye" />
-                  )}{" "}
-                  Footer
-                </MenuItem>
-                <MenuItem
-                  onClick={() => this.props.togglerPushMessages(!pushMessages)}
-                  className="Center"
-                >
-                  {pushMessages ? (
-                    <i className="fas fa-toggle-on" />
-                  ) : (
-                    <i className="fas fa-toggle-off" />
-                  )}{" "}
-                  Push Messages
+                  <i className="fas fa-cog" /> Settings
                 </MenuItem>
               </NavDropdown>
             )}

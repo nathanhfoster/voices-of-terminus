@@ -36,6 +36,7 @@ import Login from "./components/Login";
 import PageNotFound from "./views/PageNotFound";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
+import Settings from "./views/Settings";
 import {
   clearApiResponse,
   setWindow,
@@ -136,7 +137,8 @@ class App extends PureComponent {
         { path: "/profile/:id/", component: PublicProfile },
         { path: "/messages", component: Messages },
         { path: "/login", component: Login },
-        { path: "/privacy-policy", component: PrivacyPolicy }
+        { path: "/privacy-policy", component: PrivacyPolicy },
+        { path: "/settings", component: Settings }
       ]
     };
   }
