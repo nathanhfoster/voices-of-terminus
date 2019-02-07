@@ -26,11 +26,11 @@ import Tooltip from "rc-tooltip";
 import "rc-slider/assets/index.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { postEvent } from "../../../actions/Events";
+import { postEvent, clearEventssApi } from "../../../actions/Events";
 
-const mapStateToProps = ({ User }) => ({ User });
+const mapStateToProps = ({ User, Events }) => ({ User, Events });
 
-const mapDispatchToProps = { postEvent };
+const mapDispatchToProps = { postEvent, clearEventssApi };
 
 class Event extends Component {
   constructor(props) {
@@ -72,20 +72,26 @@ class Event extends Component {
 
   /* render() */
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { clearEventssApi } = this.props;
+    clearEventssApi();
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    const { User } = props;
-    this.setState({ User });
+    const { User, Events } = props;
+    this.setState({ User, Events });
   };
 
   componentDidUpdate(prevProps, prevState) {}
 
-  componentWillUnmount() {}
+  componentWillUnmount() {
+    const { clearEventssApi } = this.props;
+    clearEventssApi();
+  }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -216,6 +222,7 @@ class Event extends Component {
     const { history } = this.props;
     const {
       User,
+      Events,
       title,
       description,
       tags,
@@ -228,6 +235,15 @@ class Event extends Component {
       end_date,
       congregation_size
     } = this.state;
+    const {
+      loading,
+      loaded,
+      posting,
+      posted,
+      updating,
+      updated,
+      error
+    } = Events;
     return !(User.is_superuser || User.can_create_calendar_event) ? (
       history.length > 1 ? (
         <Redirect to={history.goBack()} />
@@ -250,7 +266,17 @@ class Event extends Component {
               onClick={this.postEvent}
               className="todayButton"
             >
-              <i className="fas fa-cloud-upload-alt" /> POST
+              {posting && !posted
+                ? [<i className="fa fa-spinner fa-spin" />, " POST"]
+                : !posting && posted && !error
+                ? [
+                    <i
+                      className="fas fa-check"
+                      style={{ color: "var(--color_emerald)" }}
+                    />,
+                    " POST"
+                  ]
+                : [<i className="fas fa-cloud-upload-alt" />, " POST"]}
             </Button>
           </Col>
         </Row>

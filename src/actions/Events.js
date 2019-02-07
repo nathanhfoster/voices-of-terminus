@@ -39,3 +39,6 @@ export const postEvent = (token, payload) => {
       );
   };
 };
+
+export const clearEventssApi = () => dispatch =>
+  dispatch({ type: C.CLEAR_EVENTS_API });

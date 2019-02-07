@@ -73,8 +73,8 @@ class EventList extends PureComponent {
         location,
         congregation_size
       } = k;
-      const activeDate = MomentJS.utc(date);
-      const startDate = MomentJS.utc(start_date);
+      const activeDate = MomentJS(date);
+      const startDate = MomentJS(start_date);
       const sameDayEvent = startDate.isSame(activeDate, "day");
       return (
         <div key={i}>

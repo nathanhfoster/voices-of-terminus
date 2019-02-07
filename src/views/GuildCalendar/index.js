@@ -86,20 +86,6 @@ class GuildCalendar extends PureComponent {
     const { history } = this.props;
     const { User, Events, Window, activeDate, show, editing } = this.state;
     const { isMobile } = Window;
-    const renderTooltip = props => (
-      <div
-        {...props}
-        style={{
-          backgroundColor: "rgba(0, 0, 0, 0.85)",
-          padding: "2px 10px",
-          color: "white",
-          borderRadius: 3,
-          ...props.style
-        }}
-      >
-        Simple tooltip
-      </div>
-    );
     const tileContent = ({ date, view }) => {
       const { hovering, hoverIndex } = this.state;
       //console.log("HERE: ", Events);
@@ -124,8 +110,8 @@ class GuildCalendar extends PureComponent {
               location,
               congregation_size
             } = k;
-            const calendarDay = MomentJS.utc(date);
-            const eventStartTime = MomentJS.utc(start_date);
+            const calendarDay = MomentJS(date);
+            const eventStartTime = MomentJS(start_date);
             const eventFound = eventStartTime.isSame(calendarDay, "day");
 
             const dayOfTheYear = eventStartTime.dayOfYear();
