@@ -78,7 +78,7 @@ class Settings extends Component {
               <span className="checkBoxText">Full html</span>
               <span className="help">
                 Toggles rendering the full html pages or just the title in each
-                card in the News section.
+                card in the News section. Turning it off with improve performance.
               </span>
             </Checkbox>
           </Col>
