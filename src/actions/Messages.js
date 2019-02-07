@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios, AxiosForm } from "./Axios";
+import { Axios } from "./Axios";
 import qs from "qs";
 
 export const getMessages = (userId, token) => {
@@ -24,7 +24,7 @@ export const getMessages = (userId, token) => {
                 title,
                 uri
               } = group.data;
-
+              //mapCounter[dayOfTheYear] + 1 || 1
               if (!groupMap.hasOwnProperty(recipient_group_id)) {
                 groupMap[recipient_group_id] = {
                   author,
@@ -47,7 +47,7 @@ export const getMessages = (userId, token) => {
                 (a, b) => new Date(b.date_created) - new Date(a.date_created)
               );
               const payload = { ...res.data };
-              dispatch({
+              return dispatch({
                 type: C.GET_MESSAGES,
                 payload: payload
               });

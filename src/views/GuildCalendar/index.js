@@ -119,9 +119,13 @@ class GuildCalendar extends PureComponent {
             mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
 
             return view === "month" && eventFound && !isMobile ? (
-              <div className="hasEventsContainer">
+              <div
+                className="hasEventsContainer"
+                data-for={`${id}`}
+                data-tip={i}
+              >
                 <span className="eventLabelColor" />
-                <span data-for={`${id}`} data-tip={i}>
+                <span>
                   <Moment format="hh:mma">{start_date}</Moment>
                 </span>
                 <ReactTooltip
