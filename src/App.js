@@ -22,6 +22,7 @@ import TextEditor from "./components/TextEditor";
 import NewsLetterGenerator from "./components/NewsLetterGenerator";
 import GuildCalendar from "./views/GuildCalendar";
 import Event from "./views/GuildCalendar/Event";
+import EventDetails from "./views/GuildCalendar/EventDetails";
 import News from "./views/News";
 import ViewHtmlDocument from "./components/ViewHtmlDocument";
 import Forums from "./views/Forums";
@@ -110,6 +111,7 @@ class App extends PureComponent {
         { path: "/article/edit/:id", component: TextEditor },
         { path: "/calendar", component: GuildCalendar },
         { path: "/calendar/new/event", component: Event },
+        { path: "/calendar/event/:id", component: EventDetails },
         { path: "/news/latest", component: News },
         { path: "/news/suggested", component: News },
         { path: "/news/popular", component: News },

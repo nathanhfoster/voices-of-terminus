@@ -64,3 +64,7 @@
   border-color: var(--primaryColor) !important;
   box-shadow: 0 0 0 var(--tooltipRation_8) var(--primaryColor) !important;
 }
+
+.memberRow {
+  border: 1px solid red;
+}

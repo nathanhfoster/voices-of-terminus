@@ -390,7 +390,6 @@ class Messages extends PureComponent {
                             blurInputOnSelect={false}
                             //isClearable={this.state.recipients.some(v => !v.isFixed)}
                             isSearchable={true}
-                            name="colors"
                             placeholder="Username..."
                             classNamePrefix="select"
                             onChange={this.onSelectFilterChange}

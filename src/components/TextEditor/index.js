@@ -352,7 +352,6 @@ class TextEditor extends Component {
                   styles={selectStyles}
                   isSearchable={false}
                   isClearable={selectValue.some(v => !v.isFixed)}
-                  name="colors"
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.onSelectChange}

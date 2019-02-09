@@ -17,7 +17,7 @@ const Tooltip = props => {
     role_preferences,
     class_preferences,
     location,
-    congregation_size
+    group_size
   } = props;
   return (
     <Row className="toolTipWrapper">

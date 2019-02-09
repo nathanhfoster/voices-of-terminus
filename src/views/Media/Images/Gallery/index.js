@@ -392,7 +392,6 @@ class Gallery extends PureComponent {
                 blurInputOnSelect={false}
                 //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                 isSearchable={false}
-                name="colors"
                 placeholder="Filter by tags..."
                 classNamePrefix="select"
                 onChange={this.onSelectFilterChange}
@@ -535,7 +534,6 @@ class Gallery extends PureComponent {
                           blurInputOnSelect={false}
                           //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                           isSearchable
-                          name="colors"
                           placeholder="Add tags..."
                           classNamePrefix="select"
                           onChange={this.onSelectTagChange}

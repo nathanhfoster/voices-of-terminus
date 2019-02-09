@@ -378,7 +378,6 @@ class NewsLetterGenerator extends PureComponent {
                   isClearable={selectValue.some(v => !v.isFixed)}
                   onBlur={e => e.preventDefault()}
                   blurInputOnSelect={false}
-                  name="colors"
                   className="basic-multi-select"
                   classNamePrefix="select"
                   onChange={this.onSelectChange}

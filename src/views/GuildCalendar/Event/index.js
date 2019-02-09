@@ -19,18 +19,23 @@ import "./stylesM.css";
 import { selectStyles } from "../../../helpers/styles";
 import Select from "react-select";
 import { eventTags } from "../../../helpers/select";
-import { roleOptions, classOptions, removeDuplicates } from "../../../helpers";
+import {
+  deepCopy,
+  roleOptions,
+  classOptions,
+  removeDuplicates
+} from "../../../helpers";
 import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Tooltip from "rc-tooltip";
 import "rc-slider/assets/index.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { postEvent, clearEventssApi } from "../../../actions/Events";
+import { postEvent, clearEventsApi } from "../../../actions/Events";
 
 const mapStateToProps = ({ User, Events }) => ({ User, Events });
 
-const mapDispatchToProps = { postEvent, clearEventssApi };
+const mapDispatchToProps = { postEvent, clearEventsApi };
 
 class Event extends Component {
   constructor(props) {
@@ -49,7 +54,7 @@ class Event extends Component {
         { value: "Tank", label: "Tank" }
       ],
       class_preferences: [],
-      congregation_size: 6
+      group_size: 1
     };
   }
 
@@ -57,7 +62,38 @@ class Event extends Component {
 
   static defaultProps = {
     min_level: 1,
-    max_level: 60
+    max_level: 60,
+    groups: [],
+    party: [
+      {
+        role_preferences: [{ value: "Tank", label: "Tank" }],
+        class_preferences: []
+      },
+      {
+        role_preferences: [{ value: "Healer", label: "Healer" }],
+        class_preferences: []
+      },
+      {
+        role_preferences: [
+          { value: "Melee Dps", label: "Melee Dps" },
+          { value: "Off Tank", label: "Off Tank" },
+          { value: "Ranged Dps", label: "Ranged Dps" }
+        ],
+        class_preferences: []
+      },
+      {
+        role_preferences: [{ value: "Crowd Control", label: "Crowd Control" }],
+        class_preferences: []
+      },
+      {
+        role_preferences: [{ value: "Support", label: "Support" }],
+        class_preferences: []
+      },
+      {
+        role_preferences: [{ value: "Utility", label: "Utility" }],
+        class_preferences: []
+      }
+    ]
   };
 
   componentWillMount() {
@@ -73,8 +109,8 @@ class Event extends Component {
   /* render() */
 
   componentDidMount() {
-    const { clearEventssApi } = this.props;
-    clearEventssApi();
+    const { clearEventsApi } = this.props;
+    clearEventsApi();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,18 +118,32 @@ class Event extends Component {
   }
 
   getState = props => {
-    const { User, Events } = props;
-    this.setState({ User, Events });
+    const { User, Events, party } = props;
+    let { groups } = this.state;
+    if (!groups) {
+      groups = [party];
+    }
+    this.setState({ User, Events, groups });
   };
 
   componentDidUpdate(prevProps, prevState) {}
 
   componentWillUnmount() {
-    const { clearEventssApi } = this.props;
-    clearEventssApi();
+    const { clearEventsApi } = this.props;
+    clearEventsApi();
   }
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = e => {
+    let { groups, group_size } = this.state;
+    const { party } = this.props;
+    const { name, value } = e.target;
+    if (name === "group_size") {
+      if (group_size > value) groups.length -= 1;
+      else groups = [...groups, [...party]];
+      this.setState({ groups });
+    }
+    this.setState({ [name]: value });
+  };
 
   onSliderChange = props =>
     this.setState({ min_level: props[0], max_level: props[1] });
@@ -114,6 +164,18 @@ class Event extends Component {
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
+    const { party } = this.props;
+    let { groups, group_size } = this.state;
+    const raidSelected = selectValue.map(e => e.value).includes("Raid");
+    if (raidSelected) {
+      group_size = 4;
+      for (let i = groups.length; i < group_size; i++) {
+        groups = [...groups, [...party]];
+      }
+    } else {
+      group_size = 1;
+      groups.length = group_size;
+    }
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -126,12 +188,21 @@ class Event extends Component {
         break;
     }
 
-    this.setState({ tags: selectValue });
+    this.setState({ tags: selectValue, group_size, groups });
   };
 
-  onSelectRollPreferenceChange = (selectValue, { action, removedValue }) => {
+  onSelectRollPreferenceChange = (
+    selectValue,
+    { action, removedValue },
+    groups,
+    groupIndex,
+    partyIndex
+  ) => {
+    groups = deepCopy(groups);
+    groups[groupIndex][partyIndex].role_preferences = selectValue;
     switch (action) {
       case "remove-value":
+        break;
       case "pop-value":
         if (removedValue.isFixed) {
           return;
@@ -139,16 +210,24 @@ class Event extends Component {
         break;
       case "clear":
         selectValue = roleOptions.filter(v => v.isFixed);
-        this.setState({ class_preferences: [] });
+        groups[groupIndex][partyIndex].class_preferences = [];
         break;
     }
-
-    this.setState({ role_preferences: selectValue });
+    this.setState({ groups });
   };
 
-  onSelectClassPreferenceChange = (selectValue, { action, removedValue }) => {
+  onSelectClassPreferenceChange = (
+    selectValue,
+    { action, removedValue },
+    groups,
+    groupIndex,
+    partyIndex
+  ) => {
+    groups = deepCopy(groups);
+    groups[groupIndex][partyIndex].class_preferences = selectValue;
     switch (action) {
       case "remove-value":
+        break;
       case "pop-value":
         if (removedValue.isFixed) {
           return;
@@ -158,8 +237,7 @@ class Event extends Component {
         selectValue = roleOptions.filter(v => v.isFixed);
         break;
     }
-
-    this.setState({ class_preferences: selectValue });
+    this.setState({ groups });
   };
 
   postEvent = () => {
@@ -176,7 +254,8 @@ class Event extends Component {
       role_preferences,
       class_preferences,
       location,
-      congregation_size
+      group_size,
+      groups
     } = this.state;
     const payload = {
       start_date,
@@ -188,12 +267,10 @@ class Event extends Component {
       tags: tags.map(i => i.value).join("|"),
       min_level,
       max_level,
-      role_preferences: role_preferences.map(i => i.value).join("|"),
-      class_preferences: class_preferences.map(i => i.value).join("|"),
       location,
-      congregation_size
+      group_size
     };
-    postEvent(User.token, payload);
+    postEvent(User.token, payload, groups);
   };
 
   roleClassOptions = role_preferences =>
@@ -218,6 +295,83 @@ class Event extends Component {
     else return this.setState({ end_date: newDate });
   };
 
+  renderGroupClass = groups =>
+    groups.map((group, i) => {
+      return (
+        <div>
+          <h2
+            className="headerBanner"
+            style={{ marginRight: -15, marginLeft: -15 }}
+          >
+            Group {i + 1}
+          </h2>
+          {group.map((member, k) => {
+            const { role_preferences, class_preferences } = member;
+            return (
+              <Row className="borderedRow" key={k}>
+                <h3>Member {k + 1}</h3>
+                <Col md={6} xs={12}>
+                  <FormGroup>
+                    <ControlLabel>Role preferences</ControlLabel>
+                    <Select
+                      //https://react-select.com/props
+                      value={role_preferences}
+                      isMulti
+                      styles={selectStyles}
+                      onBlur={e => e.preventDefault()}
+                      blurInputOnSelect={false}
+                      //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                      isSearchable={false}
+                      placeholder="Role preferences..."
+                      classNamePrefix="select"
+                      onChange={(selectValue, { action, removedValue }) =>
+                        this.onSelectRollPreferenceChange(
+                          selectValue,
+                          { action, removedValue },
+                          groups,
+                          i,
+                          k
+                        )
+                      }
+                      options={roleOptions}
+                    />
+                    <FormControl.Feedback />
+                  </FormGroup>
+                </Col>
+                <Col md={6} xs={12}>
+                  <FormGroup>
+                    <ControlLabel>Class preferences</ControlLabel>
+                    <Select
+                      //https://react-select.com/props
+                      value={class_preferences}
+                      isMulti
+                      styles={selectStyles}
+                      onBlur={e => e.preventDefault()}
+                      blurInputOnSelect={false}
+                      //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                      placeholder="Class preferences..."
+                      classNamePrefix="select"
+                      onChange={(selectValue, { action, removedValue }) =>
+                        this.onSelectClassPreferenceChange(
+                          selectValue,
+                          { action, removedValue },
+                          groups,
+                          i,
+                          k
+                        )
+                      }
+                      options={this.roleClassOptions(role_preferences)}
+                    />
+                    <FormControl.Feedback />
+                  </FormGroup>
+                </Col>
+              </Row>
+            );
+          })}
+        </div>
+      );
+    });
+
   render() {
     const { history } = this.props;
     const {
@@ -233,7 +387,8 @@ class Event extends Component {
       location,
       start_date,
       end_date,
-      congregation_size
+      group_size,
+      groups
     } = this.state;
     const {
       loading,
@@ -244,6 +399,7 @@ class Event extends Component {
       updated,
       error
     } = Events;
+    const raidSelected = tags.map(e => e.value).includes("Raid");
     return !(User.is_superuser || User.can_create_calendar_event) ? (
       history.length > 1 ? (
         <Redirect to={history.goBack()} />
@@ -366,7 +522,6 @@ class Event extends Component {
                   blurInputOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                   isSearchable={false}
-                  name="colors"
                   placeholder="Tags..."
                   classNamePrefix="select"
                   onChange={this.onSelectTagChange}
@@ -403,48 +558,7 @@ class Event extends Component {
                 <FormControl.Feedback />
               </FormGroup>
             </Col>
-            <Col xs={12}>
-              <FormGroup>
-                <ControlLabel>Role preferences</ControlLabel>
-                <Select
-                  //https://react-select.com/props
-                  value={role_preferences}
-                  isMulti
-                  styles={selectStyles}
-                  onBlur={e => e.preventDefault()}
-                  blurInputOnSelect={false}
-                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                  isSearchable={false}
-                  name="colors"
-                  placeholder="Role preferences..."
-                  classNamePrefix="select"
-                  onChange={this.onSelectRollPreferenceChange}
-                  options={roleOptions}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
-            <Col xs={12}>
-              <FormGroup>
-                <ControlLabel>Class preferences</ControlLabel>
-                <Select
-                  //https://react-select.com/props
-                  value={class_preferences}
-                  isMulti
-                  styles={selectStyles}
-                  onBlur={e => e.preventDefault()}
-                  blurInputOnSelect={false}
-                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                  isSearchable={false}
-                  name="colors"
-                  placeholder="Class preferences..."
-                  classNamePrefix="select"
-                  onChange={this.onSelectClassPreferenceChange}
-                  options={this.roleClassOptions(role_preferences)}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
+
             <Col md={12}>
               <FormGroup>
                 <ControlLabel>Location</ControlLabel>
@@ -458,20 +572,25 @@ class Event extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col md={12}>
-              <FormGroup>
-                <ControlLabel>Congregation size</ControlLabel>
-                <span className="help">(Group, Raid)</span>
-                <FormControl
-                  value={congregation_size}
-                  type="number"
-                  name="congregation_size"
-                  placeholder="Group size..."
-                  onChange={this.onChange}
-                />
-              </FormGroup>
-            </Col>
+            {raidSelected && (
+              <Col md={12}>
+                <FormGroup>
+                  <ControlLabel>Group size</ControlLabel>
+                  <span className="help">(Number of groups.)</span>
+                  <FormControl
+                    value={group_size}
+                    min={1}
+                    max={4}
+                    type="number"
+                    name="group_size"
+                    placeholder="Group size..."
+                    onChange={this.onChange}
+                  />
+                </FormGroup>
+              </Col>
+            )}
           </Row>
+          {this.renderGroupClass(groups)}
         </Form>
       </Grid>
     );

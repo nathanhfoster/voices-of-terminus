@@ -71,7 +71,7 @@ class EventList extends PureComponent {
         role_preferences,
         class_preferences,
         location,
-        congregation_size
+        group_size
       } = k;
       const activeDate = MomentJS(date);
       const startDate = MomentJS(start_date);

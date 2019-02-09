@@ -591,7 +591,6 @@ class PollGenerator extends Component {
                     blurInputOnSelect={false}
                     //isClearable={this.state.Recipients.some(v => !v.isFixed)}
                     isSearchable={true}
-                    name="colors"
                     placeholder="Username..."
                     classNamePrefix="select"
                     onChange={this.onSelectFilterChange}

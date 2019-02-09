@@ -499,7 +499,9 @@ export const Galleries = (state = { results: [], Gallery: {} }, action) => {
 export const Events = (
   state = {
     results: [],
-    Event: {}
+    Event: {},
+    Groups: [],
+    GroupMembers: []
   },
   action
 ) => {
@@ -526,6 +528,10 @@ export const Events = (
       };
     case C.GET_EVENT:
       return { ...state, Event: payload };
+    case C.GET_EVENT_GROUPS:
+      return { ...state, Groups: payload };
+    case C.GET_EVENT_GROUP_MEMBERS:
+      return { ...state, GroupMembers: payload };
     case C.POST_EVENTS_LOADING:
       return {
         ...state,
@@ -535,7 +541,6 @@ export const Events = (
     case C.POST_EVENTS_SUCCESS:
       return {
         ...state,
-        ...payload,
         posting: false,
         posted: true,
         error: null
@@ -561,7 +566,6 @@ export const Events = (
         updated: true,
         error: null
       };
-
     case C.CLEAR_EVENTS_API:
       return {
         ...state,
@@ -570,7 +574,9 @@ export const Events = (
         updating: false,
         updated: false,
         error: null,
-        Event: {}
+        Event: {},
+        Groups: [],
+        GroupMembers: []
       };
     default:
       return { ...state };

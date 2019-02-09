@@ -108,7 +108,7 @@ class GuildCalendar extends PureComponent {
               role_preferences,
               class_preferences,
               location,
-              congregation_size
+              group_size
             } = k;
             const calendarDay = MomentJS(date);
             const eventStartTime = MomentJS(start_date);
@@ -120,6 +120,7 @@ class GuildCalendar extends PureComponent {
 
             return view === "month" && eventFound && !isMobile ? (
               <div
+                onClick={e => history.push(`/calendar/event/${id}`)}
                 className="hasEventsContainer"
                 data-for={`${id}`}
                 data-tip={i}

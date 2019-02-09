@@ -378,7 +378,6 @@ class News extends Component {
                 blurInputOnSelect={false}
                 //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                 isSearchable={false}
-                name="colors"
                 placeholder="Filter by tags..."
                 classNamePrefix="select"
                 onChange={this.onSelectChange}
