@@ -243,6 +243,7 @@ body {
   transition: border-color 0.4s;
 }
 .btn-toolbar {
+  margin-left: -2px;
   margin-bottom: 5px;
 }
 .ActionToolbarRow {

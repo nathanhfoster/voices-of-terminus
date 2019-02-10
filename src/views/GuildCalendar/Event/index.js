@@ -393,7 +393,7 @@ class Event extends Component {
         <Redirect to="/login" />
       )
     ) : (
-      <Grid className="Event Container">
+      <Grid className="Event Container fadeIn">
         <Row>
           <PageHeader className="pageHeader">EVENT</PageHeader>
         </Row>
@@ -404,9 +404,9 @@ class Event extends Component {
             componentClass={ButtonToolbar}
           >
             <Button
+              style={{ marginLeft: 16 }}
               disabled={!(User.is_superuser || User.can_create_calendar_event)}
               onClick={this.postEvent}
-              className="todayButton"
             >
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " POST"]
