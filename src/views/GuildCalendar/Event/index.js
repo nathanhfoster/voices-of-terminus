@@ -468,7 +468,7 @@ class Event extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col md={12} style={{ marginTop: 16 }}>
+            <Col xs={12} style={{ marginTop: 16 }}>
               <FormGroup>
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
@@ -480,7 +480,7 @@ class Event extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col md={12}>
+            <Col xs={12}>
               <FormGroup>
                 <ControlLabel>Description</ControlLabel>
                 <FormControl
@@ -545,7 +545,7 @@ class Event extends Component {
               </FormGroup>
             </Col>
 
-            <Col md={12}>
+            <Col xs={12}>
               <FormGroup>
                 <ControlLabel>Location</ControlLabel>
                 <span className="help">(Zone, Dungeon)</span>
@@ -559,7 +559,7 @@ class Event extends Component {
               </FormGroup>
             </Col>
             {raidSelected && (
-              <Col md={12}>
+              <Col xs={12}>
                 <FormGroup>
                   <ControlLabel>Group size</ControlLabel>
                   <span className="help">(Number of groups.)</span>
