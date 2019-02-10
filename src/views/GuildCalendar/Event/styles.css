@@ -16,15 +16,13 @@
 }
 
 .Event .memberCol {
-  margin: 0;
-  padding: 0;
+  padding: 4px;
 }
 
-.Event .control-label,
-.Event .form-group {
-  padding: 0;
+/* .Event .form-group {
+  padding: 4px 0;
   margin: 0;
-}
+} */
 
 .slider-tooltip {
   position: absolute;
