@@ -60,11 +60,9 @@ export const selectStyles = {
     minHeight: "var(--inputButtonHeight)",
     margin: "0 auto",
     backgroundColor: "var(--slate_grey)",
-    borderColor: state.isFocused ? "var(--primaryColor)" : "lightgray",
-    borderTopLeftRadius: 0,
-    borderBottomLeftRadius: 0,
+    borderColor: state.isFocused ? "var(--primaryColor)" : "var(--light_grey)",
     ":hover": { borderColor: "var(--primaryColor)" }, // border style on hover
-    //border: '1px solid lightgray', // default border color
+    border: "1px solid var(--light_grey)", // default border color
     boxShadow: "var(--primaryColor)" // no box-shadow
   }),
   option: (base, state) => ({
@@ -90,7 +88,11 @@ export const selectStyles = {
   }),
   valueContainer: (base, state) => ({
     ...base,
-    backgroundColor: "var(--slate_grey)"
+    backgroundColor: "var(--slate_grey)",
+    maxHeight: "var(--inputButtonHeight)",
+    // flexWrap: "nowrap",
+    overflowY: "scroll",
+    "::-webkit-scrollbar": { display: "initial", height: 2, width: 2 }
   }),
   multiValue: (base, state) => ({
     ...base,
@@ -99,8 +101,16 @@ export const selectStyles = {
   }),
   multiValueLabel: (base, state) =>
     state.data.isFixed
-      ? { ...base, fontWeight: "bold", color: "white", paddingRight: 6 }
-      : { ...base, color: "var(--tertiarycolor)" },
+      ? {
+          ...base,
+          fontWeight: "bold",
+          color: "var(--tertiarycolor)",
+          paddingRight: 6
+        }
+      : {
+          ...base,
+          color: "var(--tertiarycolor)"
+        },
   multiValueRemove: (base, state) =>
     state.data.isFixed
       ? { ...base, display: "none" }

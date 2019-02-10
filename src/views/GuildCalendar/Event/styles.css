@@ -10,6 +10,24 @@
 }
 
 .Event {
+  width: 80%;
+}
+
+.Event .memberRow {
+  border-radius: 6px;
+  padding: 2px;
+  margin: 4px 0;
+}
+
+.Event .memberCol {
+  margin: 0;
+  padding: 0;
+}
+
+.Event .control-label,
+.Event .form-group {
+  padding: 0;
+  margin: 0;
 }
 
 .slider-tooltip {
@@ -63,8 +81,4 @@
 .rc-slider-handle:focus {
   border-color: var(--primaryColor) !important;
   box-shadow: 0 0 0 var(--tooltipRation_8) var(--primaryColor) !important;
-}
-
-.memberRow {
-  border: 1px solid red;
 }

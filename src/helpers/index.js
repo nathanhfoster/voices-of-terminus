@@ -627,6 +627,7 @@ export const raceOptions = [
 ];
 
 export const roleOptions = [
+  { value: "Random", label: "Random" },
   { value: "Crowd Control", label: "Crowd Control" },
   { value: "Healer", label: "Healer" },
   { value: "Melee Dps", label: "Melee Dps" },
@@ -638,6 +639,7 @@ export const roleOptions = [
 ];
 
 export const classOptions = {
+  Random: [{ value: "Random", label: "Random" }],
   "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
   "Melee Dps": [
     { value: "Monk", label: "Monk" },

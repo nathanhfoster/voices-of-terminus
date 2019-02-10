@@ -295,80 +295,66 @@ class Event extends Component {
     else return this.setState({ end_date: newDate });
   };
 
-  renderGroupClass = groups =>
+  renderGroupClass = (groups, group_size) =>
     groups.map((group, i) => {
       return (
-        <div>
-          <h2
-            className="headerBanner"
-            style={{ marginRight: -15, marginLeft: -15 }}
-          >
-            Group {i + 1}
-          </h2>
+        <Row className="borderedRow memberRow" key={i}>
+          <h2 className="headerBanner">Group {i + 1}</h2>
           {group.map((member, k) => {
             const { role_preferences, class_preferences } = member;
             return (
-              <Row className="borderedRow" key={k}>
-                <h3>Member {k + 1}</h3>
-                <Col md={6} xs={12}>
-                  <FormGroup>
-                    <ControlLabel>Role preferences</ControlLabel>
-                    <Select
-                      //https://react-select.com/props
-                      value={role_preferences}
-                      isMulti
-                      styles={selectStyles}
-                      onBlur={e => e.preventDefault()}
-                      blurInputOnSelect={false}
-                      //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                      isSearchable={false}
-                      placeholder="Role preferences..."
-                      classNamePrefix="select"
-                      onChange={(selectValue, { action, removedValue }) =>
-                        this.onSelectRollPreferenceChange(
-                          selectValue,
-                          { action, removedValue },
-                          groups,
-                          i,
-                          k
-                        )
-                      }
-                      options={roleOptions}
-                    />
-                    <FormControl.Feedback />
-                  </FormGroup>
-                </Col>
-                <Col md={6} xs={12}>
-                  <FormGroup>
-                    <ControlLabel>Class preferences</ControlLabel>
-                    <Select
-                      //https://react-select.com/props
-                      value={class_preferences}
-                      isMulti
-                      styles={selectStyles}
-                      onBlur={e => e.preventDefault()}
-                      blurInputOnSelect={false}
-                      //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                      placeholder="Class preferences..."
-                      classNamePrefix="select"
-                      onChange={(selectValue, { action, removedValue }) =>
-                        this.onSelectClassPreferenceChange(
-                          selectValue,
-                          { action, removedValue },
-                          groups,
-                          i,
-                          k
-                        )
-                      }
-                      options={this.roleClassOptions(role_preferences)}
-                    />
-                    <FormControl.Feedback />
-                  </FormGroup>
-                </Col>
-              </Row>
+              <Col md={2} xs={12} className="memberCol">
+                <FormGroup>
+                  <ControlLabel>Role preferences ({k + 1})</ControlLabel>
+                  <Select
+                    //https://react-select.com/props
+                    value={role_preferences}
+                    isMulti
+                    styles={selectStyles}
+                    onBlur={e => e.preventDefault()}
+                    blurInputOnSelect={false}
+                    //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                    isSearchable={false}
+                    placeholder="Role preferences..."
+                    classNamePrefix="select"
+                    onChange={(selectValue, { action, removedValue }) =>
+                      this.onSelectRollPreferenceChange(
+                        selectValue,
+                        { action, removedValue },
+                        groups,
+                        i,
+                        k
+                      )
+                    }
+                    options={roleOptions}
+                  />
+                  <ControlLabel>Class preferences ({k + 1})</ControlLabel>
+                  <Select
+                    //https://react-select.com/props
+                    value={class_preferences}
+                    isMulti
+                    styles={selectStyles}
+                    onBlur={e => e.preventDefault()}
+                    blurInputOnSelect={false}
+                    //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                    placeholder="Class preferences..."
+                    classNamePrefix="select"
+                    onChange={(selectValue, { action, removedValue }) =>
+                      this.onSelectClassPreferenceChange(
+                        selectValue,
+                        { action, removedValue },
+                        groups,
+                        i,
+                        k
+                      )
+                    }
+                    options={this.roleClassOptions(role_preferences)}
+                  />
+                </FormGroup>
+              </Col>
             );
           })}
-        </div>
+        </Row>
       );
     });
 
@@ -590,7 +576,7 @@ class Event extends Component {
               </Col>
             )}
           </Row>
-          {this.renderGroupClass(groups)}
+          {this.renderGroupClass(groups, group_size)}
         </Form>
       </Grid>
     );

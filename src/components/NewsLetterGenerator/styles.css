@@ -1,8 +1,5 @@
 .NewsLetterGenerator {
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  width: 75%;
+  width: 80%;
 }
 
 .NewsLetterGenerator .select__option--is-disabled {

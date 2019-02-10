@@ -2,7 +2,6 @@
   display: flex;
   position: fixed;
   bottom: 0;
-  z-index: 3;
   max-height: 400px;
 }
 
