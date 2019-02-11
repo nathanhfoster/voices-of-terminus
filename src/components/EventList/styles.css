@@ -3,6 +3,12 @@
   max-height: 720px;
 }
 
+a.list-group-item .list-group-item-heading,
+button.list-group-item .list-group-item-heading,
+.list-group-item-text {
+  color: var(--tertiarycolor);
+}
+
 .listItem {
   background-color: var(--slate_grey);
   border: 1px solid var(--dark_border);

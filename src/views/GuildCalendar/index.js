@@ -200,7 +200,11 @@ class GuildCalendar extends PureComponent {
             <h2>
               <Moment format="MMM D">{activeDate}</Moment>
             </h2>
-            <EventList data={Events.results} activeDate={activeDate} />
+            <EventList
+              data={Events.results}
+              activeDate={activeDate}
+              history={history}
+            />
           </Col>
         </Row>
       </Grid>
