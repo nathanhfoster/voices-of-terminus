@@ -178,7 +178,7 @@ class GuildCalendar extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col>
+          <Col md={10} xs={12} style={{ margin: 0, padding: 0 }}>
             <Calendar
               //calendarType="ISO 8601"
               onChange={this.onChange}
@@ -196,7 +196,7 @@ class GuildCalendar extends PureComponent {
               onClickDay={null}
             />
           </Col>
-          <Col className="EventList" lgHidden mdHidden sm={12}>
+          <Col className="EventList" md={2} xs={12}>
             <h2>
               <Moment format="MMM D">{activeDate}</Moment>
             </h2>

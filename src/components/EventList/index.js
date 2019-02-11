@@ -77,7 +77,7 @@ class EventList extends PureComponent {
       const startDate = MomentJS(start_date);
       const sameDayEvent = startDate.isSame(activeDate, "day");
       return (
-        <div key={i}>
+        <div key={i} style={{borderRadius: 0}}>
           {sameDayEvent ? (
             <ListGroupItem
               key={id}
