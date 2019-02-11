@@ -17,7 +17,8 @@ import {
   statusLevelInt,
   statusLevelString,
   classIcon,
-  professionIcon
+  professionIcon,
+  renderRoles
 } from "../../../helpers";
 import Moment from "react-moment";
 import { ExperienceBar } from "../../../components/ExperienceBar";
@@ -65,28 +66,13 @@ class PublicProfile extends PureComponent {
     this.setState({ User, history });
   };
 
-  renderRoles = User => {
-    let Roles = [];
-    const {
-      is_raid_leader,
-      is_banker,
-      is_recruiter,
-      is_class_lead,
-      is_crafter_lead
-    } = User;
-
-    if (is_raid_leader) Roles.push("Raid Leader | ");
-    if (is_banker) Roles.push("Banker | ");
-    if (is_recruiter) Roles.push("Recruiter | ");
-    if (is_class_lead) Roles.push("Class Lead | ");
-    if (is_crafter_lead) Roles.push("Crafter Lead | ");
-
-    return Roles.map(r => <span>{r}</span>);
-  };
-
   renderDividedText = text =>
     text.map((txt, i) =>
-      txt ? txt + " | " : i === 0 ? <i className="fas fa-ban" /> : null
+      txt ? (
+        <span>{`${txt} | `}</span>
+      ) : i === 0 ? (
+        <i className="fas fa-ban" />
+      ) : null
     );
 
   render() {
@@ -151,9 +137,9 @@ class PublicProfile extends PureComponent {
               {User.first_name} {User.last_name}
             </span>
             <h2 title="Status">{statusLevelString(statusLevelInt(User))}</h2>
-            <div title="Roles" className="userRoles help">
+            <div title="Roles" className="userRoles">
               <span> |</span>
-              {this.renderRoles(User)}
+              {renderRoles(User)}
             </div>
             <h4 title="Primary Class Icon">
               <Image
@@ -207,7 +193,8 @@ class PublicProfile extends PureComponent {
               <i className="fas fa-coins" /> {User.guild_points}
             </h3>
             <h3 title="Lfg">
-              <i className="fas fa-users" />{" Lfg "}
+              <i className="fas fa-users" />
+              {" Lfg "}
               {User.lfg ? (
                 <i className="fas fa-check" />
               ) : (

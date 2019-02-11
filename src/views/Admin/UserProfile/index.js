@@ -27,7 +27,8 @@ import {
   roleOptions,
   classOptions,
   professionOptions,
-  professionSpecializationOptions
+  professionSpecializationOptions,
+  renderRoles
 } from "../../../helpers";
 import { selectStyles } from "../../../helpers/styles";
 import {
@@ -319,22 +320,6 @@ class UserProfile extends PureComponent {
     this.props.updateUserProfile(id, User.token, payload);
   };
 
-  renderRoles = roles =>
-    Object.keys(roles).map((k, i) => {
-      if (roles[k]) {
-        if (k === "is_raid_leader")
-          return [<span>Raid Leader</span>, <span>|</span>];
-        if (k === "is_banker") return [<span>Banker</span>, <span>|</span>];
-        if (k === "is_recruiter")
-          return [<span>Recruiter</span>, <span>|</span>];
-        if (k === "is_class_lead")
-          return [<span>Class Lead</span>, <span>|</span>];
-        if (k === "is_crafter_lead")
-          return [<span>Crafter Lead</span>, <span>|</span>];
-      }
-      return null;
-    });
-
   renderDividedText = text =>
     text.map((txt, i) =>
       txt ? txt + " | " : i === 0 ? <i className="fas fa-ban" /> : null
@@ -352,15 +337,6 @@ class UserProfile extends PureComponent {
       User.username === "admin" ||
       loggedInUserId === currentUserId ||
       loggedInUserStatus > currentUserStatus;
-    const UserRoles = Admin.User
-      ? {
-          is_raid_leader: Admin.User.is_raid_leader,
-          is_banker: Admin.User.is_banker,
-          is_recruiter: Admin.User.is_recruiter,
-          is_class_lead: Admin.User.is_class_lead,
-          is_crafter_lead: Admin.User.is_crafter_lead
-        }
-      : {};
     return User.is_superuser || User.is_staff ? (
       Admin.User ? (
         <Grid className="UserProfile Container">
@@ -401,8 +377,9 @@ class UserProfile extends PureComponent {
               <h2 title="Status">
                 {statusLevelString(statusLevelInt(Admin.User))}
               </h2>
-              <div title="Roles" className="userRoles help">
-                {this.renderRoles(UserRoles)}
+              <div title="Roles" className="userRoles">
+                <span> |</span>
+                {renderRoles(Admin.User)}
               </div>
               <h4 title="Primary Class Icon">
                 <Image

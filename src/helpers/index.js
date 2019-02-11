@@ -194,6 +194,25 @@ export const professionIcon = (profession, professionSpecialization) => {
   }
 };
 
+export const renderRoles = User => {
+  let Roles = [];
+  const {
+    is_raid_leader,
+    is_banker,
+    is_recruiter,
+    is_class_lead,
+    is_crafter_lead
+  } = User;
+
+  if (is_raid_leader) Roles.push("Raid Leader | ");
+  if (is_banker) Roles.push("Banker | ");
+  if (is_recruiter) Roles.push("Recruiter | ");
+  if (is_class_lead) Roles.push("Class Lead | ");
+  if (is_crafter_lead) Roles.push("Crafter Lead | ");
+
+  return Roles.map(r => <span>{r}</span>);
+};
+
 export const hasDeletePermission = (User, author, tags) => {
   if (User.is_superuser) return true;
 
