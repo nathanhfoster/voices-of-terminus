@@ -378,7 +378,6 @@ class UserProfile extends PureComponent {
                 {statusLevelString(statusLevelInt(Admin.User))}
               </h2>
               <div title="Roles" className="userRoles">
-                <span> |</span>
                 {renderRoles(Admin.User)}
               </div>
               <h4 title="Primary Class Icon">

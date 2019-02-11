@@ -203,12 +203,19 @@ export const renderRoles = User => {
     is_class_lead,
     is_crafter_lead
   } = User;
-
+  const hasRole =
+    is_raid_leader ||
+    is_banker ||
+    is_recruiter ||
+    is_class_lead ||
+    is_crafter_lead;
+  if (hasRole) Roles.push(" |");
   if (is_raid_leader) Roles.push("Raid Leader | ");
   if (is_banker) Roles.push("Banker | ");
   if (is_recruiter) Roles.push("Recruiter | ");
   if (is_class_lead) Roles.push("Class Lead | ");
   if (is_crafter_lead) Roles.push("Crafter Lead | ");
+  if (!hasRole) Roles.push("| No roles |");
 
   return Roles.map(r => <span>{r}</span>);
 };

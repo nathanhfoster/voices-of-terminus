@@ -138,7 +138,6 @@ class PublicProfile extends PureComponent {
             </span>
             <h2 title="Status">{statusLevelString(statusLevelInt(User))}</h2>
             <div title="Roles" className="userRoles">
-              <span> |</span>
               {renderRoles(User)}
             </div>
             <h4 title="Primary Class Icon">
