@@ -56,6 +56,7 @@ class EventList extends PureComponent {
 
   renderItems = (date, data) =>
     data.map((k, i) => {
+    const { history } = this.props
       const {
         id,
         start_date,
@@ -81,6 +82,7 @@ class EventList extends PureComponent {
           {sameDayEvent ? (
             <ListGroupItem
               key={id}
+              onClick={ e => history.push(`/calendar/event/${id}`
               className="Clickable listItem"
               header={title}
             >
