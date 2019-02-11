@@ -82,7 +82,7 @@ class EventList extends PureComponent {
           {sameDayEvent ? (
             <ListGroupItem
               key={id}
-              onClick={ e => history.push(`/calendar/event/${id}`
+              onClick={ e => history.push(`/calendar/event/${id}`)} 
               className="Clickable listItem"
               header={title}
             >
