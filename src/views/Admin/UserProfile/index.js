@@ -466,6 +466,14 @@ class UserProfile extends PureComponent {
                   <i className="fas fa-times" />
                 )}
               </h3>
+              <h3 title="Lfg">
+                <i className="fas fa-users" />{" "}
+                {Admin.User.lfg ? (
+                  <i className="fas fa-check" />
+                ) : (
+                  <i className="fas fa-times" />
+                )}
+              </h3>
             </Col>
           </Row>
           <Row className="centerOnMobile borderedRow">

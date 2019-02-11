@@ -97,6 +97,10 @@
   display: none;
 }
 
+.blockLineBreak {
+  white-space: pre-line;
+}
+
 .blockNoWrap {
   white-space: pre-wrap;
   overflow: hidden;

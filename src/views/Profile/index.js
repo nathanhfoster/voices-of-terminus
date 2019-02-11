@@ -128,6 +128,7 @@ class Profile extends PureComponent {
       first_name,
       last_name,
       opt_in,
+      lfg,
       is_superuser,
       is_staff,
       date_joined,
@@ -165,6 +166,7 @@ class Profile extends PureComponent {
       first_name,
       last_name,
       opt_in,
+      lfg,
       profile_image,
       is_superuser,
       is_staff,
@@ -323,6 +325,7 @@ class Profile extends PureComponent {
       first_name,
       last_name,
       opt_in,
+      lfg,
       profile_image,
       bio,
       primary_race,
@@ -348,6 +351,7 @@ class Profile extends PureComponent {
     payload.append("first_name", first_name);
     payload.append("last_name", last_name);
     payload.append("opt_in", opt_in);
+    payload.append("lfg", lfg);
     payload.append("bio", bio);
     payload.append("primary_race", primary_race);
     payload.append("primary_role", primary_role);
@@ -385,6 +389,7 @@ class Profile extends PureComponent {
       last_name,
       profile_image,
       opt_in,
+      lfg,
       is_superuser,
       is_staff,
       date_joined,
@@ -413,7 +418,11 @@ class Profile extends PureComponent {
           <PageHeader className="pageHeader">PROFILE</PageHeader>
         </Row>
         <Row className="ActionToolbarRow">
-          <Col xs={12}   className="ActionToolbar cardActions" componentClass={ButtonToolbar}>
+          <Col
+            xs={12}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
             <Button
               onClick={this.updateProfile}
               disabled={canSubmit}
@@ -548,6 +557,18 @@ class Profile extends PureComponent {
               <span className="checkBoxText">Opt In</span>
               <span className="help">
                 Check if you would like to recieve emails.
+              </span>
+            </Checkbox>
+          </Col>
+          <Col md={12}>
+            <Checkbox
+              checked={lfg}
+              onClick={() => this.setState({ lfg: !lfg })}
+            >
+              <span className="checkBoxText">Lfg</span>
+              <span className="help">
+                Check if you would like to recieve messages for events that
+                match your characters level, role, and class.
               </span>
             </Checkbox>
           </Col>

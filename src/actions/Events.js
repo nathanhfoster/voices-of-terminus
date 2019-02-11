@@ -75,14 +75,30 @@ const getEventGroupMembers = (Groups, dispatch) => {
   }
 };
 
-export const postEvent = (token, payload, groups) => {
-  return dispatch => {
+export const postEvent = (userId, token, payload, groups) => {
+  return (dispatch, getState) => {
     dispatch({ type: C.POST_EVENTS_LOADING });
     Axios(token)
       .post(`calendar/events/`, qs.stringify(payload))
       .then(res => {
+        const { Users } = getState().Admin;
         const { id } = res.data;
         postEventGroups(token, id, groups, dispatch);
+        const uri = `/calendar/event/${id}`;
+        const recipients = Users.filter(u => u.lfg).map(u => u.id);
+        const title = "New Event";
+        const body =
+          "We found an event match for you! Click the link button to view it.";
+        createMessageGroup(
+          token,
+          userId,
+          uri,
+          recipients,
+          title,
+          body,
+          dispatch,
+          getState
+        );
         dispatch({ type: C.POST_EVENTS_SUCCESS });
       })
       .catch(e =>
@@ -136,3 +152,57 @@ const postEventGroupMembers = (
 
 export const clearEventsApi = () => dispatch =>
   dispatch({ type: C.CLEAR_EVENTS_API });
+
+const createMessageGroup = (
+  token,
+  author,
+  uri,
+  recipients,
+  title,
+  body,
+  dispatch,
+  getState
+) => {
+  const groupPayload = { title, author, is_active: true, uri };
+  console.log(groupPayload);
+  const { Messages } = getState();
+  let payload = { ...Messages };
+  Axios(token)
+    .post("/user/groups/", qs.stringify(groupPayload))
+    .then(group => {
+      const recipient_group_id = group.data.id;
+      const messagePayload = {
+        author,
+        body,
+        group_message_id: recipient_group_id
+      };
+      payload.results.unshift(group.data);
+      payload.results[0].messages = new Array();
+
+      Axios(token)
+        .post("/messages/", qs.stringify(messagePayload))
+        .then(message => {
+          const message_id = message.data.id;
+
+          for (let i = 0; i < recipients.length; i++) {
+            const recipient = recipients[i];
+            const messagePayload = {
+              recipient,
+              recipient_group_id,
+              message_id
+            };
+            Axios(token)
+              .post("/message/recipients/", qs.stringify(messagePayload))
+              .then(messageGroup => {
+                payload.results[0].messages.unshift(messageGroup.data);
+                dispatch({
+                  type: C.GET_MESSAGES,
+                  payload: payload
+                });
+              });
+          }
+        })
+        .catch(e => console.log(e, "messagePayload: ", messagePayload));
+    })
+    .catch(e => console.log(e, "groupPayload: ", groupPayload));
+};

@@ -166,20 +166,27 @@ class App extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getUsers();
-    const { User, VoTYouTubeChannelData, VRYouTubeChannelData } = this.props;
-    if (this.shouldUpdate(VoTYouTubeChannelData[0]))
-      this.props.getVoTYouTubeChannelData();
-    if (this.shouldUpdate(VRYouTubeChannelData[0]))
-      this.props.getAllVotYouTube();
-    this.props.getVRYouTubeChannelData();
-    this.props.getVotChannelsPlayLists();
+    const {
+      User,
+      VoTYouTubeChannelData,
+      VRYouTubeChannelData,
+      getUsers,
+      getVoTYouTubeChannelData,
+      getAllVotYouTube,
+      getVRYouTubeChannelData,
+      getVotChannelsPlayLists,
+      Logout
+    } = this.props;
+    getUsers();
+    if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
+    if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
+    getVRYouTubeChannelData();
+    getVotChannelsPlayLists();
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);
 
     // if cookie is expired and redux has User data remove it by logging out
-    if (!Cookies.get("User_LoginToken") && this.props.User.token)
-      this.props.Logout();
+    if (!Cookies.get("User_LoginToken") && User.token) Logout();
   }
 
   /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */

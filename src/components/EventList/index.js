@@ -97,7 +97,6 @@ class EventList extends PureComponent {
   render() {
     const { history } = this.props;
     const { data, activeDate } = this.state;
-    console.log(this.props);
     return (
       <ListGroup className="List">
         {this.renderItems(activeDate, data, history)}

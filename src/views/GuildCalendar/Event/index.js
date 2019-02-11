@@ -233,13 +233,13 @@ class Event extends Component {
   };
 
   postEvent = () => {
-    const { postEvent } = this.props;
+    const { postEvent, createMessageGroup } = this.props;
     const {
+      User,
       start_date,
       end_date,
       title,
       description,
-      User,
       tags,
       min_level,
       max_level,
@@ -260,7 +260,7 @@ class Event extends Component {
       location,
       group_size
     };
-    //postEvent(User.token, payload, groups);
+    postEvent(User.id, User.token, payload, groups);
   };
 
   roleClassOptions = role_class_preferences =>
@@ -360,7 +360,6 @@ class Event extends Component {
       updated,
       error
     } = Events;
-    console.log(group_size);
     const raidSelected = tags.map(e => e.value).includes("Raid");
     return !(User.is_superuser || User.can_create_calendar_event) ? (
       history.length > 1 ? (

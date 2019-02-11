@@ -1,2 +1,11 @@
-.Template {
+.EventDetails {
+  font-size: 24px;
+}
+
+.EventDetails a {
+  color: var(--primaryColor);
+}
+
+.EventDetails a:hover {
+  opacity: 0.7;
 }
