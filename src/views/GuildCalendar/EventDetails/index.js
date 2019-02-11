@@ -21,7 +21,13 @@ class EventDetails extends Component {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = {
+    Events: {
+      Event: {},
+      Groups: [],
+      GroupMembers: []
+    }
+  };
 
   componentWillMount() {
     const { clearEventsApi } = this.props;
