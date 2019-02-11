@@ -22,6 +22,7 @@ import { eventTags } from "../../../helpers/select";
 import {
   deepCopy,
   roleOptions,
+  IconOption,
   classOptions,
   removeDuplicates
 } from "../../../helpers";
@@ -47,14 +48,13 @@ class Event extends Component {
       tags: eventTags.filter(e => e.isFixed),
       min_level: 1,
       max_level: 60,
-      role_preferences: [
+      role_class_preferences: [
         { value: "Healer", label: "Healer" },
         { value: "Melee Dps", label: "Melee Dps" },
         { value: "Ranged Dps", label: "Ranged Dps" },
         { value: "Tank", label: "Tank" }
       ],
-      class_preferences: [],
-      group_size: 1
+      group_size: null
     };
   }
 
@@ -66,33 +66,28 @@ class Event extends Component {
     groups: [],
     party: [
       {
-        role_preferences: [{ value: "Tank", label: "Tank" }],
-        class_preferences: []
+        role_class_preferences: [
+          { value: "Tank", label: "Tank" },
+          { value: "Dire Lord", label: "Dire Lord" },
+          { value: "Paladin", label: "Paladin" },
+          { value: "Warrior", label: "Warrior" }
+        ]
       },
+      { role_class_preferences: [{ value: "Healer", label: "Healer" }] },
       {
-        role_preferences: [{ value: "Healer", label: "Healer" }],
-        class_preferences: []
-      },
-      {
-        role_preferences: [
+        role_class_preferences: [
           { value: "Melee Dps", label: "Melee Dps" },
           { value: "Off Tank", label: "Off Tank" },
           { value: "Ranged Dps", label: "Ranged Dps" }
-        ],
-        class_preferences: []
+        ]
       },
       {
-        role_preferences: [{ value: "Crowd Control", label: "Crowd Control" }],
-        class_preferences: []
+        role_class_preferences: [
+          { value: "Crowd Control", label: "Crowd Control" }
+        ]
       },
-      {
-        role_preferences: [{ value: "Support", label: "Support" }],
-        class_preferences: []
-      },
-      {
-        role_preferences: [{ value: "Utility", label: "Utility" }],
-        class_preferences: []
-      }
+      { role_class_preferences: [{ value: "Support", label: "Support" }] },
+      { role_class_preferences: [{ value: "Utility", label: "Utility" }] }
     ]
   };
 
@@ -118,15 +113,9 @@ class Event extends Component {
   }
 
   getState = props => {
-    const { User, Events, party } = props;
-    let { groups } = this.state;
-    if (!groups) {
-      groups = [party];
-    }
-    this.setState({ User, Events, groups });
+    const { User, Events, groups } = props;
+    this.setState({ User, Events, groups, group_size: groups.length });
   };
-
-  componentDidUpdate(prevProps, prevState) {}
 
   componentWillUnmount() {
     const { clearEventsApi } = this.props;
@@ -134,13 +123,15 @@ class Event extends Component {
   }
 
   onChange = e => {
-    let { groups, group_size } = this.state;
+    let { groups } = this.state;
     const { party } = this.props;
-    const { name, value } = e.target;
+    let { name, value } = e.target;
     if (name === "group_size") {
-      if (group_size > value) groups.length -= 1;
-      else groups = [...groups, [...party]];
-      this.setState({ groups });
+      groups.length = value || 0;
+      for (let i = 0; i < groups.length; i++) {
+        if (!groups[i]) groups[i] = party;
+      }
+      this.setState({ groups, group_size: groups.length });
     }
     this.setState({ [name]: value });
   };
@@ -165,16 +156,17 @@ class Event extends Component {
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
     const { party } = this.props;
-    let { groups, group_size } = this.state;
+    let { groups } = this.state;
     const raidSelected = selectValue.map(e => e.value).includes("Raid");
+    const oneGroup = this.showGroups(selectValue);
     if (raidSelected) {
-      group_size = 4;
-      for (let i = groups.length; i < group_size; i++) {
-        groups = [...groups, [...party]];
+      groups.length = 4;
+      for (let i = 0; i < groups.length; i++) {
+        if (!groups[i]) groups[i] = party;
       }
-    } else {
-      group_size = 1;
-      groups.length = group_size;
+    } else if (!raidSelected && oneGroup) {
+      groups.length = 1;
+      groups[0] = party;
     }
     switch (action) {
       case "remove-value":
@@ -188,7 +180,7 @@ class Event extends Component {
         break;
     }
 
-    this.setState({ tags: selectValue, group_size, groups });
+    this.setState({ tags: selectValue, groups, group_size: groups.length });
   };
 
   onSelectRollPreferenceChange = (
@@ -199,7 +191,7 @@ class Event extends Component {
     partyIndex
   ) => {
     groups = deepCopy(groups);
-    groups[groupIndex][partyIndex].role_preferences = selectValue;
+    groups[groupIndex][partyIndex].role_class_preferences = selectValue;
     switch (action) {
       case "remove-value":
         break;
@@ -251,8 +243,6 @@ class Event extends Component {
       tags,
       min_level,
       max_level,
-      role_preferences,
-      class_preferences,
       location,
       group_size,
       groups
@@ -270,12 +260,12 @@ class Event extends Component {
       location,
       group_size
     };
-    postEvent(User.token, payload, groups);
+    //postEvent(User.token, payload, groups);
   };
 
-  roleClassOptions = role_preferences =>
+  roleClassOptions = role_class_preferences =>
     removeDuplicates(
-      role_preferences.map(e => classOptions[e.value]).flat(1),
+      role_class_preferences.map(e => classOptions[e.value]).flat(1),
       "value"
     );
 
@@ -299,20 +289,20 @@ class Event extends Component {
     groups.map((group, i) => {
       return (
         <Col md={12 / group_size} xs={12} className="memberCol">
-          <h2 style={{ margin: "0 8px" }}>Group {i + 1}</h2>
+          <h3>Group {i + 1}</h3>
           {group.map((member, k) => {
-            const { role_preferences, class_preferences } = member;
+            const { role_class_preferences } = member;
             return (
               <FormGroup>
                 <Select
                   //https://react-select.com/props
-                  value={role_preferences}
+                  value={role_class_preferences}
                   isMulti
                   styles={selectStyles}
                   onBlur={e => e.preventDefault()}
                   blurInputOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                  isSearchable={false}
+                  isSearchable={true}
                   placeholder={`Role preferences (${k + 1})`}
                   classNamePrefix="select"
                   onChange={(selectValue, { action, removedValue }) =>
@@ -324,28 +314,11 @@ class Event extends Component {
                       k
                     )
                   }
-                  options={roleOptions}
-                />
-                <Select
-                  //https://react-select.com/props
-                  value={class_preferences}
-                  isMulti
-                  styles={selectStyles}
-                  onBlur={e => e.preventDefault()}
-                  blurInputOnSelect={false}
-                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                  placeholder={`Class preferences (${k + 1})`}
-                  classNamePrefix="select"
-                  onChange={(selectValue, { action, removedValue }) =>
-                    this.onSelectClassPreferenceChange(
-                      selectValue,
-                      { action, removedValue },
-                      groups,
-                      i,
-                      k
-                    )
-                  }
-                  options={this.roleClassOptions(role_preferences)}
+                  options={[
+                    ...roleOptions,
+                    ...this.roleClassOptions(role_class_preferences)
+                  ]}
+                  components={{ Option: IconOption }}
                 />
               </FormGroup>
             );
@@ -353,6 +326,12 @@ class Event extends Component {
         </Col>
       );
     });
+
+  showGroups = tags => {
+    const conditions = ["Dungeon", "Explore", "Group", "Raid", "Quest"];
+    tags = tags.map(e => e.value);
+    return conditions.some(e => tags.includes(e));
+  };
 
   render() {
     const { history } = this.props;
@@ -364,7 +343,7 @@ class Event extends Component {
       tags,
       min_level,
       max_level,
-      role_preferences,
+      role_class_preferences,
       class_preferences,
       location,
       start_date,
@@ -381,6 +360,7 @@ class Event extends Component {
       updated,
       error
     } = Events;
+    console.log(group_size);
     const raidSelected = tags.map(e => e.value).includes("Raid");
     return !(User.is_superuser || User.can_create_calendar_event) ? (
       history.length > 1 ? (
@@ -572,7 +552,9 @@ class Event extends Component {
               </Col>
             )}
           </Row>
-          <Row>{this.renderGroupClass(groups, group_size)}</Row>
+          <Row>
+            {this.showGroups(tags) && this.renderGroupClass(groups, group_size)}
+          </Row>
         </Form>
       </Grid>
     );

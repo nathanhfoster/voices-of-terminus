@@ -1,19 +1,22 @@
 import React from "react";
 import { Redirect } from "react-router-dom";
+import { components } from "react-select";
+import { Image } from "react-bootstrap";
 
 import Bard from "../images/classIcons/bard.png";
 import Cleric from "../images/classIcons/cleric.png";
-import Paladin from "../images/classIcons/paladin.png";
-import Warrior from "../images/classIcons/warrior.png";
 import DireLord from "../images/classIcons/dire-lord.png";
+import Druid from "../images/classIcons/druid.png";
+import Enchanter from "../images/classIcons/enchanter.png";
+import Monk from "../images/classIcons/monk.png";
+import Necromancer from "../images/classIcons/necromancer.png";
+import Paladin from "../images/classIcons/paladin.png";
 import Ranger from "../images/classIcons/ranger.png";
 import Rogue from "../images/classIcons/rogue.png";
-import Monk from "../images/classIcons/monk.png";
-import Summoner from "../images/classIcons/summoner.png";
-import Enchanter from "../images/classIcons/enchanter.png";
-import Wizard from "../images/classIcons/wizard.png";
-import Druid from "../images/classIcons/druid.png";
 import Shaman from "../images/classIcons/shaman.png";
+import Summoner from "../images/classIcons/summoner.png";
+import Warrior from "../images/classIcons/warrior.png";
+import Wizard from "../images/classIcons/wizard.png";
 import Default from "../images/classIcons/default.png";
 import QuestionMark from "../images/question.png";
 
@@ -109,28 +112,31 @@ export const classIcon = primaryClass => {
       return Bard;
     case "Cleric":
       return Cleric;
-    case "Paladin":
-      return Paladin;
-    case "Warrior":
-      return Warrior;
     case "Dire Lord":
       return DireLord;
+    case "Druid":
+      return Druid;
+    case "Enchanter":
+      return Enchanter;
+    case "Monk":
+      return Monk;
+    case "Necromancer":
+      return Necromancer;
+    case "Paladin":
+      return Paladin;
     case "Ranger":
       return Ranger;
     case "Rogue":
       return Rogue;
-    case "Monk":
-      return Monk;
-    case "Summoner":
-      return Summoner;
-    case "Enchanter":
-      return Enchanter;
-    case "Wizard":
-      return Wizard;
-    case "Druid":
-      return Druid;
     case "Shaman":
       return Shaman;
+    case "Summoner":
+      return Summoner;
+    case "Warrior":
+      return Warrior;
+    case "Wizard":
+      return Wizard;
+
     default:
       return null;
   }
@@ -323,7 +329,7 @@ export const raceRoleClassOptions = {
       ],
       "Off Tank": [{ value: "Monk", label: "Monk" }],
       "Ranged Dps": [
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Summoner", label: "Summoner" },
         { value: "Wizard", label: "Wizard" }
       ],
@@ -343,7 +349,7 @@ export const raceRoleClassOptions = {
         { value: "Druid", label: "Druid" },
         { value: "Enchanter", label: "Enchanter" },
         { value: "Monk", label: "Monk" },
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Rogue", label: "Rogue" },
         { value: "Summoner", label: "Summoner" },
         { value: "Warrior", label: "Warrior" },
@@ -489,7 +495,7 @@ export const raceRoleClassOptions = {
       "Off Tank": [{ value: "Monk", label: "Monk" }],
       "Ranged Dps": [
         { value: "Ranger", label: "Ranger" },
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Summoner", label: "Summoner" },
         { value: "Wizard", label: "Wizard" }
       ],
@@ -511,7 +517,7 @@ export const raceRoleClassOptions = {
         { value: "Druid", label: "Druid" },
         { value: "Enchanter", label: "Enchanter" },
         { value: "Monk", label: "Monk" },
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Paladin", label: "Paladin" },
         { value: "Ranger", label: "Ranger" },
         { value: "Rogue", label: "Rogue" },
@@ -534,13 +540,13 @@ export const raceRoleClassOptions = {
       "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
       "Melee Dps": [{ value: "Rogue", label: "Rogue" }],
       "Ranged Dps": [
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Summoner", label: "Summoner" },
         { value: "Wizard", label: "Wizard" }
       ],
       Utility: [
         { value: "Enchanter", label: "Enchanter" },
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Rogue", label: "Rogue" },
         { value: "Summoner", label: "Summoner" },
         { value: "Wizard", label: "Wizard" }
@@ -596,7 +602,7 @@ export const raceRoleClassOptions = {
         { value: "Rogue", label: "Rogue" }
       ],
       "Off Tank": [{ value: "Monk", label: "Monk" }],
-      "Ranged Dps": [{ value: "Necormancer", label: "Necromancer" }],
+      "Ranged Dps": [{ value: "Necromancer", label: "Necromancer" }],
       Support: [{ value: "Shaman", label: "Shaman" }],
       Tank: [
         { value: "Dire Lord", label: "Dire Lord" },
@@ -605,7 +611,7 @@ export const raceRoleClassOptions = {
       Utility: [
         { value: "Dire Lord", label: "Dire Lord" },
         { value: "Monk", label: "Monk" },
-        { value: "Necormancer", label: "Necromancer" },
+        { value: "Necromancer", label: "Necromancer" },
         { value: "Rogue", label: "Rogue" },
         { value: "Shaman", label: "Shaman" },
         { value: "Warrior", label: "Warrior" }
@@ -638,9 +644,39 @@ export const roleOptions = [
   { value: "Utility", label: "Utility" }
 ];
 
+const { Option } = components;
+export const IconOption = props => {
+  const { value, label } = props.data;
+  return (
+    <Option {...props}>
+      <Image src={classIcon(value)} height={20} /> {value}
+    </Option>
+  );
+};
+
 export const classOptions = {
-  Random: [{ value: "Random", label: "Random" }],
+  Random: [
+    { value: "Bard", label: "Bard" },
+    { value: "Cleric", label: "Cleric" },
+    { value: "Dire Lord", label: "Dire Lord" },
+    { value: "Druid", label: "Druid" },
+    { value: "Enchanter", label: "Enchanter" },
+    { value: "Monk", label: "Monk" },
+    { value: "Necromancer", label: "Necromancer" },
+    { value: "Paladin", label: "Paladin" },
+    { value: "Ranger", label: "Ranger" },
+    { value: "Rogue", label: "Rogue" },
+    { value: "Shaman", label: "Shaman" },
+    { value: "Summoner", label: "Summoner" },
+    { value: "Warrior", label: "Warrior" },
+    { value: "Wizard", label: "Wizard" }
+  ],
   "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+  Healer: [
+    { value: "Cleric", label: "Cleric" },
+    { value: "Druid", label: "Druid" },
+    { value: "Shaman", label: "Shaman" }
+  ],
   "Melee Dps": [
     { value: "Monk", label: "Monk" },
     { value: "Ranger", label: "Ranger" },
@@ -649,11 +685,12 @@ export const classOptions = {
   "Off Tank": [{ value: "Monk", label: "Monk" }],
   "Ranged Dps": [
     { value: "Ranger", label: "Ranger" },
-    { value: "Necormancer", label: "Necromancer" },
+    { value: "Necromancer", label: "Necromancer" },
     { value: "Summoner", label: "Summoner" },
     { value: "Wizard", label: "Wizard" }
   ],
-  Healer: [
+  Support: [
+    { value: "Bard", label: "Bard" },
     { value: "Cleric", label: "Cleric" },
     { value: "Druid", label: "Druid" },
     { value: "Shaman", label: "Shaman" }
@@ -663,12 +700,6 @@ export const classOptions = {
     { value: "Paladin", label: "Paladin" },
     { value: "Warrior", label: "Warrior" }
   ],
-  Support: [
-    { value: "Bard", label: "Bard" },
-    { value: "Cleric", label: "Cleric" },
-    { value: "Druid", label: "Druid" },
-    { value: "Shaman", label: "Shaman" }
-  ],
   Utility: [
     { value: "Bard", label: "Bard" },
     { value: "Cleric", label: "Cleric" },
@@ -676,7 +707,7 @@ export const classOptions = {
     { value: "Druid", label: "Druid" },
     { value: "Enchanter", label: "Enchanter" },
     { value: "Monk", label: "Monk" },
-    { value: "Necormancer", label: "Necromancer" },
+    { value: "Necromancer", label: "Necromancer" },
     { value: "Paladin", label: "Paladin" },
     { value: "Ranger", label: "Ranger" },
     { value: "Rogue", label: "Rogue" },
@@ -687,18 +718,6 @@ export const classOptions = {
   ]
 };
 
-// {value: 'Cleric', label: 'Cleric'},
-// {value: 'Dire Lord', label: 'Dire Lord'},
-// {value: 'Druid', label: 'Druid'},
-// {value: 'Enchanter', label: 'Enchanter'},
-// {value: 'Monk', label: 'Monk'},
-// {value: 'Paladin', label: 'Paladin'},
-// {value: 'Ranger', label: 'Ranger'},
-// {value: 'Rogue', label: 'Rogue'},
-// {value: 'Shaman', label: 'Shaman'},
-// {value: 'Summoner', label: 'Summoner'},
-// {value: 'Warrior', label: 'Warrior'},
-// {value: 'Wizard', label: 'Wizard'}
 export const professionOptions = [
   { value: "Alchemist", label: "Alchemist" },
   { value: "Blacksmith", label: "Blacksmith" },
@@ -797,7 +816,9 @@ export const removeDuplicates = (array, objAttr) => {
   let map = new Map();
 
   for (let i = 0; i < array.length; i++) {
-    map.set(array[i][objAttr], array[i]);
+    try {
+      map.set(array[i][objAttr], array[i]);
+    } catch (e) {}
   }
 
   return [...map.values()];

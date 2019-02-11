@@ -29,7 +29,7 @@ export const selectStyles = {
   */
   menu: (base, state) => ({
     ...base,
-    backgroundColor: "transparent",
+    backgroundColor: "inherit",
     zIndex: "9999"
   }),
   menuList: (base, state) => ({
@@ -70,7 +70,7 @@ export const selectStyles = {
     borderBottom: "1px solid var(--primaryColor)",
     backgroundColor: state.isFocused
       ? "var(--primaryColor)"
-      : "var(--slate_grey)",
+      : switchRoleColor(state.value),
     color: "white",
     ":active": {
       backgroundColor: !state.isSelected
@@ -88,19 +88,23 @@ export const selectStyles = {
   }),
   valueContainer: (base, state) => ({
     ...base,
-    backgroundColor: "var(--slate_grey)",
+    backgroundColor: "inherit",
     maxHeight: "var(--inputButtonHeight)",
     // flexWrap: "nowrap",
     overflowY: "scroll",
     "::-webkit-scrollbar": { display: "initial", height: 2, width: 2 }
   }),
-  multiValue: (base, state) => ({
-    ...base,
-    fontSize: 20,
-    backgroundColor: state.data.isFixed ? "var(--grey)" : "var(--primaryColor)"
-  }),
-  multiValueLabel: (base, state) =>
-    state.data.isFixed
+  multiValue: (base, state) => {
+    const { isFixed } = state.data;
+    return {
+      ...base,
+      fontSize: 20,
+      backgroundColor: isFixed ? "var(--grey)" : "var(--primaryColor)"
+    };
+  },
+  multiValueLabel: (base, state) => {
+    const { isFixed } = state.data;
+    return isFixed
       ? {
           ...base,
           fontWeight: "bold",
@@ -110,7 +114,8 @@ export const selectStyles = {
       : {
           ...base,
           color: "var(--tertiarycolor)"
-        },
+        };
+  },
   multiValueRemove: (base, state) =>
     state.data.isFixed
       ? { ...base, display: "none" }
@@ -121,4 +126,30 @@ export const selectStyles = {
             color: "var(--tertiarycolor)"
           }
         }
+};
+
+const switchRoleColor = role => {
+  //console.log(role);
+  switch (role) {
+    // case "Random":
+    //   return "var(--slate_grey)";
+    // case "Crowd Control":
+    //   return "var(--slate_grey)";
+    // case "Healer":
+    //   return "var(--slate_grey)";
+    // case "Melee Dps":
+    //   return "var(--slate_grey)";
+    // case "Off Tank":
+    //   return "var(--slate_grey)";
+    // case "Ranged Dps":
+    //   return "var(--slate_grey)";
+    // case "Support":
+    //   return "var(--slate_grey)";
+    // case "Tank":
+    //   return "var(--slate_grey)";
+    // case "Utility":
+    //   return "var(--slate_grey)";
+    default:
+      return "var(--slate_grey)";
+  }
 };

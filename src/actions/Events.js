@@ -61,7 +61,7 @@ const getEventGroupMembers = (Groups, dispatch) => {
 
   for (let i = 0; i < Groups.length; i++) {
     const eventGroupId = Groups[i];
-    
+
     Axios()
       .get(`calendar/event/group/members/${eventGroupId}/view/`)
       .then(res => {
@@ -115,12 +115,11 @@ const postEventGroupMembers = (
   dispatch
 ) => {
   for (let i = 0; i < groupMembers.length; i++) {
-    const { role_preferences, class_preferences } = groupMembers[i];
+    const { role_class_preferences } = groupMembers[i];
     const payload = {
       event_group_id,
       position: i,
-      role_preferences: role_preferences.map(i => i.value).join("|"),
-      class_preferences: class_preferences.map(i => i.value).join("|")
+      role_class_preferences: role_class_preferences.map(i => i.value).join("|")
     };
     Axios(token)
       .post(`calendar/event/group/members/`, qs.stringify(payload))
