@@ -21,13 +21,7 @@ class EventDetails extends Component {
 
   static propTypes = {};
 
-  static defaultProps = {
-    Events: {
-      Event: {},
-      Groups: [],
-      GroupMembers: []
-    }
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     const { clearEventsApi } = this.props;
@@ -82,7 +76,6 @@ class EventDetails extends Component {
 
   render() {
     const { Event, Groups, GroupMembers } = this.state;
-
     const {
       id,
       author,
@@ -153,7 +146,7 @@ class EventDetails extends Component {
           </Col>
         </Row>
         <hr />
-        <Row>{this.renderGroups(Groups, GroupMembers)}</Row>
+        <Row>{Groups && this.renderGroups(Groups, GroupMembers)}</Row>
       </Grid>
     );
   }
