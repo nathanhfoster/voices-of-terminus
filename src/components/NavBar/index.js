@@ -172,7 +172,7 @@ class NavBar extends PureComponent {
             </NavDropdown>
             <NavDropdown
               eventKey={8}
-              title={[<i key={8} className="fas fa-gopuram" />, " VR"]}
+              title="VR"
               id="connect-nav-dropdown"
             >
               <Image src={vrLogo} className="vrLogo" />
