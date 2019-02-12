@@ -227,6 +227,8 @@ class News extends Component {
   };
 
   getHtml = (Articles, Newsletters) => {
+    const { getArticleHtml, getNewsletterHtml } = this.props;
+    
     const emptyArticleHtml = Articles.results.findIndex(
       article => !article.hasOwnProperty("html")
     );
@@ -234,12 +236,10 @@ class News extends Component {
       newsletter => !newsletter.hasOwnProperty("html")
     );
     if (emptyArticleHtml != -1 && !Articles.loading) {
-      return this.props.getArticleHtml(Articles.results[emptyArticleHtml].id);
+      return getArticleHtml(Articles.results[emptyArticleHtml].id);
     }
     if (emptyNewsletterHtml != -1 && !Newsletters.loading) {
-      return this.props.getNewsletterHtml(
-        Newsletters.results[emptyNewsletterHtml].id
-      );
+      return getNewsletterHtml(Newsletters.results[emptyNewsletterHtml].id);
     }
   };
 
