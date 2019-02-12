@@ -17,7 +17,13 @@ import {
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Moment from "react-moment";
-import { updateProfile, getCharacters, clearUserApi } from "../../actions/User";
+import {
+  updateProfile,
+  getCharacters,
+  postCharacter,
+  editCharacter,
+  clearUserApi
+} from "../../actions/User";
 import Select from "react-select";
 import "./styles.css";
 import "./stylesM.css";
@@ -41,6 +47,8 @@ const mapStateToProps = ({ User }) => ({
 const mapDispatchToProps = {
   updateProfile,
   getCharacters,
+  postCharacter,
+  editCharacter,
   clearUserApi
 };
 
@@ -120,7 +128,8 @@ class Profile extends PureComponent {
       posted,
       updating,
       updated,
-      error
+      error,
+      Characters
     } = props.User;
     const {
       token,
@@ -190,7 +199,8 @@ class Profile extends PureComponent {
       twitch_url,
       youtube_url,
       experience_points,
-      guild_points
+      guild_points,
+      Characters
     });
   };
 
@@ -372,6 +382,12 @@ class Profile extends PureComponent {
     this.props.updateProfile(id, token, payload);
   };
 
+  renderCharacters = Characters =>
+    Characters.map(c => {
+      const { id, name, level, race, role, character_class } = c;
+      return <Col>{character_class}</Col>;
+    });
+
   render() {
     const { history } = this.props;
     const canSubmit = !this.cantSubmit();
@@ -411,7 +427,8 @@ class Profile extends PureComponent {
       twitch_url,
       youtube_url,
       experience_points,
-      guild_points
+      guild_points,
+      Characters
     } = this.state;
     return !token ? (
       <Redirect to="/login" />
@@ -836,6 +853,10 @@ class Profile extends PureComponent {
             </FormGroup>
           </Col>
         </Row>
+        <Row>
+          <h2 className="headerBanner">CHARACTERS</h2>
+        </Row>
+        <Row className="borderedRow">{this.renderCharacters(Characters)}</Row>
         <Row>
           <Col md={12} style={{ textAlign: "center", margin: "20px" }}>
             <Button onClick={this.updateProfile} disabled={canSubmit}>

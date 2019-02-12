@@ -65,6 +65,53 @@ export const getCharacters = (userId, token) => {
   };
 };
 
+export const postCharacter = (token, payload) => {
+  return (dispatch, getState) => {
+    const { Characters } = getState().User;
+    let characterPayload = { ...Characters };
+    Axios(token)
+      .post(`characters/`, payload)
+      .then(res => {
+        characterPayload = [...characterPayload, ...res.data];
+        dispatch({
+          type: C.GET_CHARACTERS,
+          payload: characterPayload
+        });
+      })
+      .catch(e =>
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+        })
+      );
+  };
+};
+
+export const editCharacter = (id, token, payload) => {
+  return (dispatch, getState) => {
+    const { Characters } = getState().User;
+    let characterPayload = { ...Characters };
+    Axios(token)
+      .patch(`characters/${id}`, payload)
+      .then(res => {
+        const updateIndex = characterPayload.findIndex(
+          e => e.id === res.data.id
+        );
+        characterPayload[updateIndex] = res.data;
+        dispatch({
+          type: C.GET_CHARACTERS,
+          payload: characterPayload
+        });
+      })
+      .catch(e =>
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+        })
+      );
+  };
+};
+
 export const clearUserApi = () => {
   return dispatch =>
     dispatch({
