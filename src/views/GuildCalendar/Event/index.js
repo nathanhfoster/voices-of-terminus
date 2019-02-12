@@ -18,13 +18,12 @@ import "./styles.css";
 import "./stylesM.css";
 import { selectStyles } from "../../../helpers/styles";
 import Select from "react-select";
-import { eventTags } from "../../../helpers/select";
+import { eventTags, locationTags } from "../../../helpers/select";
 import {
   deepCopy,
   roleOptions,
   IconOption,
-  classOptions,
-  removeDuplicates
+  classOptions
 } from "../../../helpers";
 import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
@@ -45,6 +44,7 @@ class Event extends Component {
     this.state = {
       start_date: new Date(),
       end_date: new Date(),
+      locations: locationTags.filter(e => e.isFixed),
       tags: eventTags.filter(e => e.isFixed),
       min_level: 1,
       max_level: 60,
@@ -67,27 +67,39 @@ class Event extends Component {
     party: [
       {
         role_class_preferences: [
-          { value: "Tank", label: "Tank" },
-          { value: "Dire Lord", label: "Dire Lord" },
-          { value: "Paladin", label: "Paladin" },
-          { value: "Warrior", label: "Warrior" }
-        ]
-      },
-      { role_class_preferences: [{ value: "Healer", label: "Healer" }] },
-      {
-        role_class_preferences: [
-          { value: "Melee Dps", label: "Melee Dps" },
-          { value: "Off Tank", label: "Off Tank" },
-          { value: "Ranged Dps", label: "Ranged Dps" }
+          // { value: "Tank", label: "Tank" },
+          // { value: "Dire Lord", label: "Dire Lord" },
+          // { value: "Paladin", label: "Paladin" },
+          // { value: "Warrior", label: "Warrior" }
         ]
       },
       {
         role_class_preferences: [
-          { value: "Crowd Control", label: "Crowd Control" }
+          // { value: "Healer", label: "Healer" }
         ]
       },
-      { role_class_preferences: [{ value: "Support", label: "Support" }] },
-      { role_class_preferences: [{ value: "Utility", label: "Utility" }] }
+      {
+        role_class_preferences: [
+          // { value: "Melee Dps", label: "Melee Dps" },
+          // { value: "Off Tank", label: "Off Tank" },
+          // { value: "Ranged Dps", label: "Ranged Dps" }
+        ]
+      },
+      {
+        role_class_preferences: [
+          // { value: "Crowd Control", label: "Crowd Control" }
+        ]
+      },
+      {
+        role_class_preferences: [
+          // { value: "Support", label: "Support" }
+        ]
+      },
+      {
+        role_class_preferences: [
+          // { value: "Utility", label: "Utility" }
+        ]
+      }
     ]
   };
 
@@ -114,7 +126,12 @@ class Event extends Component {
 
   getState = props => {
     const { User, Events, groups } = props;
-    this.setState({ User, Events, groups, group_size: groups.length });
+    this.setState({
+      User,
+      Events,
+      groups,
+      group_size: groups.length
+    });
   };
 
   componentWillUnmount() {
@@ -152,6 +169,22 @@ class Event extends Component {
         <Slider.Handle value={value} {...restProps} />
       </Tooltip>
     );
+  };
+
+  onSelectLocationChange = (selectValue, { action, removedValue }) => {
+    switch (action) {
+      case "remove-value":
+      case "pop-value":
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case "clear":
+        selectValue = locationTags.filter(v => v.isFixed);
+        break;
+    }
+
+    this.setState({ locations: selectValue });
   };
 
   onSelectTagChange = (selectValue, { action, removedValue }) => {
@@ -243,7 +276,7 @@ class Event extends Component {
       tags,
       min_level,
       max_level,
-      location,
+      locations,
       group_size,
       groups
     } = this.state;
@@ -254,20 +287,14 @@ class Event extends Component {
       description,
       author: User.id,
       last_modified_by: User.id,
-      tags: tags.map(i => i.value).join("|"),
+      tags: tags.map(e => e.value).join("|"),
       min_level,
       max_level,
-      location,
+      locations: locations.map(e => e.value).join("|"),
       group_size
     };
     postEvent(User.id, User.token, payload, groups);
   };
-
-  roleClassOptions = role_class_preferences =>
-    removeDuplicates(
-      role_class_preferences.map(e => classOptions[e.value]).flat(1),
-      "value"
-    );
 
   setStartDate = startDate => {
     const { end_date } = this.state;
@@ -314,10 +341,11 @@ class Event extends Component {
                       k
                     )
                   }
-                  options={[
-                    ...roleOptions,
-                    ...this.roleClassOptions(role_class_preferences)
-                  ]}
+                  options={
+                    role_class_preferences.length === 0
+                      ? roleOptions
+                      : classOptions[role_class_preferences[0].value]
+                  }
                   components={{ Option: IconOption }}
                 />
               </FormGroup>
@@ -345,7 +373,7 @@ class Event extends Component {
       max_level,
       role_class_preferences,
       class_preferences,
-      location,
+      locations,
       start_date,
       end_date,
       group_size,
@@ -400,6 +428,8 @@ class Event extends Component {
         <Form className="Container fadeIn">
           <Row>
             <Col md={6} xs={12} className="expirationDate">
+              <ControlLabel>Start date</ControlLabel>
+              <span className="help">(In your local timezone.)</span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-check" />
@@ -422,6 +452,8 @@ class Event extends Component {
               </InputGroup>
             </Col>
             <Col md={6} xs={12} className="expirationDate">
+              <ControlLabel>End date</ControlLabel>
+              <span className="help">(In your local timezone.)</span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-times" />
@@ -456,20 +488,6 @@ class Event extends Component {
               </FormGroup>
             </Col>
             <Col xs={12}>
-              <FormGroup>
-                <ControlLabel>Description</ControlLabel>
-                <FormControl
-                  componentClass="textarea"
-                  value={description}
-                  type="textarea"
-                  name="description"
-                  placeholder="Description"
-                  onChange={this.onChange}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
-            <Col xs={12}>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="fas fa-tags" />
@@ -487,6 +505,27 @@ class Event extends Component {
                   classNamePrefix="select"
                   onChange={this.onSelectTagChange}
                   options={eventTags}
+                />
+              </InputGroup>
+            </Col>
+            <Col xs={12}>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-globe-americas" />
+                </InputGroup.Addon>
+                <Select
+                  //https://react-select.com/props
+                  value={locations}
+                  styles={selectStyles}
+                  onBlur={e => e.preventDefault()}
+                  blurInputOnSelect={false}
+                  isMulti
+                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                  isSearchable={true}
+                  placeholder="Zone interest..."
+                  classNamePrefix="select"
+                  onChange={this.onSelectLocationChange}
+                  options={locationTags}
                 />
               </InputGroup>
             </Col>
@@ -519,18 +558,18 @@ class Event extends Component {
                 <FormControl.Feedback />
               </FormGroup>
             </Col>
-
             <Col xs={12}>
               <FormGroup>
-                <ControlLabel>Location</ControlLabel>
-                <span className="help">(Zone, Dungeon)</span>
+                <ControlLabel>Description</ControlLabel>
                 <FormControl
-                  value={location}
-                  type="text"
-                  name="location"
-                  placeholder="Zone interest..."
+                  componentClass="textarea"
+                  value={description}
+                  type="textarea"
+                  name="description"
+                  placeholder="Description"
                   onChange={this.onChange}
                 />
+                <FormControl.Feedback />
               </FormGroup>
             </Col>
             {raidSelected && (

@@ -9,6 +9,11 @@
   --tooltipRatio_12: calc(var(--tooltipSize) / 12);
 }
 
+.Event {
+  min-height: 160vh;
+  max-width: 75%;
+}
+
 .Event .memberRow {
   border-radius: 6px;
   padding: 2px;

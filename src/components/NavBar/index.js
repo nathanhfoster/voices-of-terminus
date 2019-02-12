@@ -80,11 +80,7 @@ class NavBar extends PureComponent {
   };
 
   render() {
-    const {
-      Settings,
-      history,
-      location
-    } = this.props;
+    const { Settings, history, location } = this.props;
     const { showFooter, pushMessages } = Settings;
     const { pathname } = location;
     const { User, Messages } = this.state;
@@ -104,9 +100,7 @@ class NavBar extends PureComponent {
         <Navbar.Header>
           <Navbar.Brand>
             <LinkContainer to="/home">
-              <NavItem eventKey={1}>
-                <i className="fas fa-home" /> HOME
-              </NavItem>
+              <NavItem eventKey={1}>HOME</NavItem>
             </LinkContainer>
             {/*<LinkContainer to="/">
                 <NavItem eventKey={1}><Image src={votLogo} onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
@@ -117,25 +111,18 @@ class NavBar extends PureComponent {
         <Navbar.Collapse>
           <Nav>
             <LinkContainer to="/calendar">
-              <NavItem eventKey={3}>
-                <i className="far fa-calendar-alt" /> CALENDAR
-              </NavItem>
+              <NavItem eventKey={3}>CALENDAR</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/articles/latest">
+              <NavItem eventKey={4}>Articles</NavItem>
             </LinkContainer>
             <LinkContainer to="/news/latest">
-              <NavItem eventKey={4}>
-                <i className="fas fa-newspaper" /> NEWS
-              </NavItem>
+              <NavItem eventKey={4}>NEWS</NavItem>
             </LinkContainer>
             <LinkContainer to="/forums">
-              <NavItem eventKey={5}>
-                <i className="fab fa-stack-exchange" /> FORUMS
-              </NavItem>
+              <NavItem eventKey={5}>FORUMS</NavItem>
             </LinkContainer>
-            <NavDropdown
-              eventKey={6}
-              title={[<i key={6} className="fab fa-fort-awesome" />, " GUILD"]}
-              id="basic-nav-dropdown"
-            >
+            <NavDropdown eventKey={6} title="GUILD" id="basic-nav-dropdown">
               <LinkContainer to="/guild/about">
                 <NavItem eventKey={6.1}>ABOUT</NavItem>
               </LinkContainer>
@@ -163,19 +150,13 @@ class NavBar extends PureComponent {
                 target="_blank"
                 eventKey={6.8}
               >
-                <i className="fas fa-store" /> STORE
+                STORE
               </NavItem>
               <LinkContainer to="/guild/donate">
-                <NavItem eventKey={6.9}>
-                  <i className="fas fa-donate" /> DONATE
-                </NavItem>
+                <NavItem eventKey={6.9}>DONATE</NavItem>
               </LinkContainer>
             </NavDropdown>
-            <NavDropdown
-              eventKey={7}
-              title={[<i key={7} className="fas fa-compact-disc" />, " MEDIA"]}
-              id="basic-nav-dropdown"
-            >
+            <NavDropdown eventKey={7} title="MEDIA" id="basic-nav-dropdown">
               <LinkContainer to="/media/images">
                 <NavItem eventKey={7.1}>IMAGES</NavItem>
               </LinkContainer>
@@ -223,13 +204,18 @@ class NavBar extends PureComponent {
               >
                 NEWSLETTERS
               </NavItem>
+              <NavItem
+                eventKey={8.1}
+                href="https://pantheonriseofthefallen.gamepedia.com/Pantheon:_Rise_of_the_Fallen_Wiki"
+                target="_blank"
+              >
+                WIKI
+              </NavItem>
             </NavDropdown>
 
             {!User.token ? (
               <LinkContainer to="/login">
-                <NavItem eventKey={9}>
-                  <i className="fas fa-sign-in-alt" /> LOGIN
-                </NavItem>
+                <NavItem eventKey={9}>LOGIN</NavItem>
               </LinkContainer>
             ) : (
               <NavDropdown
@@ -249,19 +235,14 @@ class NavBar extends PureComponent {
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/profile">
-                  <NavItem eventKey={10.4}>
-                    <i className="fas fa-user-circle" /> PROFILE
-                  </NavItem>
+                  <NavItem eventKey={10.4}>PROFILE</NavItem>
                 </LinkContainer>
                 <LinkContainer to="/messages">
                   <NavItem eventKey={10.5}>
-                    <i className="fas fa-bell" /> MESSAGES{" "}
-                    <Badge>{unreadMessages}</Badge>
+                    MESSAGES <Badge>{unreadMessages}</Badge>
                   </NavItem>
                 </LinkContainer>
-                <NavItem onClick={this.Logout}>
-                  <i className="fas fa-sign-out-alt" /> LOGOUT
-                </NavItem>
+                <NavItem onClick={this.Logout}>LOGOUT</NavItem>
                 {User.is_superuser ||
                 User.can_create_article ||
                 User.can_create_newsletter ? (
@@ -304,7 +285,7 @@ class NavBar extends PureComponent {
               </NavDropdown>
             )}
           </Nav>
-          <Nav className="Center pull-right">
+          <Nav className="Center">
             {User.is_superuser || User.is_staff ? (
               <LinkContainer to="/admin/overview" className="AdminButton">
                 <NavItem eventKey={11}>

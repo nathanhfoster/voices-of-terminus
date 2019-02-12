@@ -659,7 +659,7 @@ export const raceOptions = [
 ];
 
 export const roleOptions = [
-  { value: "Random", label: "Random" },
+  { value: "Any", label: "Any" },
   { value: "Crowd Control", label: "Crowd Control" },
   { value: "Healer", label: "Healer" },
   { value: "Melee Dps", label: "Melee Dps" },
@@ -681,21 +681,21 @@ export const IconOption = props => {
 };
 
 export const classOptions = {
-  Random: [
-    { value: "Bard", label: "Bard" },
-    { value: "Cleric", label: "Cleric" },
-    { value: "Dire Lord", label: "Dire Lord" },
-    { value: "Druid", label: "Druid" },
-    { value: "Enchanter", label: "Enchanter" },
-    { value: "Monk", label: "Monk" },
-    { value: "Necromancer", label: "Necromancer" },
-    { value: "Paladin", label: "Paladin" },
-    { value: "Ranger", label: "Ranger" },
-    { value: "Rogue", label: "Rogue" },
-    { value: "Shaman", label: "Shaman" },
-    { value: "Summoner", label: "Summoner" },
-    { value: "Warrior", label: "Warrior" },
-    { value: "Wizard", label: "Wizard" }
+  Any: [
+    // { value: "Bard", label: "Bard" },
+    // { value: "Cleric", label: "Cleric" },
+    // { value: "Dire Lord", label: "Dire Lord" },
+    // { value: "Druid", label: "Druid" },
+    // { value: "Enchanter", label: "Enchanter" },
+    // { value: "Monk", label: "Monk" },
+    // { value: "Necromancer", label: "Necromancer" },
+    // { value: "Paladin", label: "Paladin" },
+    // { value: "Ranger", label: "Ranger" },
+    // { value: "Rogue", label: "Rogue" },
+    // { value: "Shaman", label: "Shaman" },
+    // { value: "Summoner", label: "Summoner" },
+    // { value: "Warrior", label: "Warrior" },
+    // { value: "Wizard", label: "Wizard" }
   ],
   "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
   Healer: [

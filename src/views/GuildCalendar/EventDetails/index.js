@@ -88,7 +88,7 @@ class EventDetails extends Component {
       last_modified,
       last_modified_by,
       last_modified_by_username,
-      location,
+      locations,
       max_level,
       min_level,
       tags,
@@ -138,7 +138,7 @@ class EventDetails extends Component {
           </Col>
           <Col xs={12}>
             <i className="fas fa-globe-americas" />{" "}
-            {location ? location : "No location provided."}
+            {locations ? `[${locations}]` : "No locations provided."}
           </Col>
           <Col xs={12}>
             <i class="fas fa-exchange-alt" />{" "}

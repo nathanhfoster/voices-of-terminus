@@ -16,8 +16,6 @@ import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
 import { getYearMonthEvents } from "../../actions/Events";
-import ReactTooltip from "react-tooltip";
-import Tooltip from "./Tooltip/index";
 const mapStateToProps = ({ User, Window, Events }) => ({
   User,
   Window,
@@ -129,18 +127,6 @@ class GuildCalendar extends PureComponent {
                 <span>
                   <Moment format="hh:mma">{start_date}</Moment>
                 </span>
-                <ReactTooltip
-                  id={`${id}`}
-                  key={i}
-                  className="toolTipWrapper"
-                  place="top"
-                  type="dark"
-                  effect="solid"
-                  offset={{ right: 36 }}
-                >
-                  {Tooltip({ ...k })}
-                </ReactTooltip>
-
                 <h6 className="eventTitle">{title}</h6>
               </div>
             ) : view === "month" &&

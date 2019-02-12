@@ -26,18 +26,23 @@ export const newsletterSelectOptions = [
 ];
 
 export const eventTags = [
-  { value: "Dungeon", label: "Dungeon" },
   { value: "Event", label: "Event", isFixed: true },
+  { value: "Dungeon", label: "Dungeon" },
   { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
-  { value: "Raid", label: "Raid" },
-  { value: "Quest", label: "Quest" }
+  { value: "Quest", label: "Quest" },
+  { value: "Raid", label: "Raid" }
+];
+
+export const locationTags = [
+  { value: "Locations", label: "Locations", isFixed: true },
+  { value: "Thronefast", label: "Thronefast" }
 ];
 
 export const galleryImageTags = [
   { value: "Dungeon", label: "Dungeon" },
   { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
-  { value: "Raid", label: "Raid" },
-  { value: "Quest", label: "Quest" }
+  { value: "Quest", label: "Quest" },
+  { value: "Raid", label: "Raid" }
 ];

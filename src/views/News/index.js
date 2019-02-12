@@ -72,8 +72,15 @@ const mapDispatchToProps = {
 class News extends Component {
   constructor(props) {
     super(props);
+    const { match } = this.props;
+    const { path } = match;
+    console.log(props);
     this.state = {
-      selectValue: [],
+      selectValue: [
+        path.includes("article")
+          ? { value: "Article", label: "Article" }
+          : { value: "Newsletter", label: "Newsletter" }
+      ],
       Documents: { results: [] },
       search: ""
     };
@@ -164,9 +171,9 @@ class News extends Component {
   componentDidMount() {
     const {
       getArticles,
-      getNewsletters,
-      getArticlesAllHtml,
-      getNewslettersAllHtml
+      getNewsletters
+      // getArticlesAllHtml,
+      // getNewslettersAllHtml
     } = this.props;
     getArticles();
     getNewsletters();
@@ -185,7 +192,7 @@ class News extends Component {
   }
 
   getState = props => {
-    const { User, Settings, history, ApiResponse } = props;
+    const { User, Settings, history, match, ApiResponse } = props;
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -196,7 +203,8 @@ class News extends Component {
       : [];
     this.getHtml(Articles, Newsletters);
     const { pathname } = history.location;
-    const Documents = Articles.results.concat(Newsletters.results);
+
+    let Documents = Articles.results.concat(Newsletters.results);
 
     selectOptions =
       Documents.length > 1
@@ -213,6 +221,7 @@ class News extends Component {
       selectOptions,
       eventKey: pathname,
       history,
+      match,
       ApiResponse
     });
   };
@@ -248,7 +257,7 @@ class News extends Component {
         let deleteCard = null;
         let className = "CardContainer ";
         if (card.tags.includes("Article")) {
-          click = () => history.push(`/articles/${card.id}`);
+          click = () => history.push(`/view/article/${card.id}`);
           editCard = () => {
             history.push(`/article/edit/${card.id}`);
             this.props.getArticle(card.id);
@@ -257,7 +266,7 @@ class News extends Component {
           className += "CardContainerArticle";
         }
         if (card.tags.includes("Newsletter")) {
-          click = () => history.push(`/newsletters/${card.id}`);
+          click = () => history.push(`/view/newsletter/${card.id}`);
           editCard = () => {
             history.push(`/newsletter/edit/${card.id}`);
             this.props.getNewsletter(card.id);
@@ -313,7 +322,7 @@ class News extends Component {
   render() {
     //console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
-    const { User, Settings, search, eventKey, history } = this.state;
+    const { User, Settings, search, eventKey, history, match } = this.state;
     let { selectValue } = this.state;
     selectValue = selectValue.length > 0 ? selectValue : selectOptions;
     let { Documents } = this.state;
@@ -322,6 +331,18 @@ class News extends Component {
           keys: ["title", "author_username", "last_modified_by_username"]
         })
       : Documents;
+    const latest = match.path.includes("article")
+      ? "/articles/latest"
+      : "/news/latest";
+    const suggested = match.path.includes("article")
+      ? "/articles/suggested"
+      : "/news/suggested";
+    const popular = match.path.includes("article")
+      ? "/articles/popular"
+      : "/news/popular";
+    const myDocs = match.path.includes("article")
+      ? "/articles/my-docs"
+      : "/news/my-docs";
     const filter = selectValue.map(i => i.value);
     const maxlength = selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
@@ -399,7 +420,7 @@ class News extends Component {
             mountOnEnter={false}
             unmountOnExit={true}
           >
-            <Tab eventKey="/news/latest" title="LATEST" className="fadeIn">
+            <Tab eventKey={latest} title="LATEST" className="fadeIn">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -414,11 +435,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab
-              eventKey="/news/suggested"
-              title="SUGGESTED"
-              className="fadeIn"
-            >
+            <Tab eventKey={suggested} title="SUGGESTED" className="fadeIn">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -432,7 +449,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab eventKey="/news/popular" title="POPULAR" className="fadeIn">
+            <Tab eventKey={popular} title="POPULAR" className="fadeIn">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -446,7 +463,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab eventKey="/news/my-docs" title="MY DOCS" className="fadeIn">
+            <Tab eventKey={myDocs} title="MY DOCS" className="fadeIn">
               <Row>
                 {!User.token ? (
                   <Redirect to="/login" />

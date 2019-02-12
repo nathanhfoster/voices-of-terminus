@@ -28,8 +28,8 @@
   z-index: 4;
   overflow-y: auto;
   position: relative;
-  line-height: 86px;
-  max-height: 86px;
+  line-height: 76px;
+  max-height: 76px;
   font-size: 13px;
   min-width: 0;
   align-items: center;
@@ -151,7 +151,7 @@
 .EventList h2 {
   opacity: var(--mainOpacity);
   background-color: var(--primaryColor);
-  height: 60px;
+  height: 64px;
   line-height: 60px;
   border-bottom: 1px solid var(--dark_border);
   text-align: center;
