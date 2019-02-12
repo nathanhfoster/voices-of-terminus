@@ -46,6 +46,25 @@ export const updateProfile = (id, token, payload) => {
   };
 };
 
+export const getCharacters = (userId, token) => {
+  return dispatch => {
+    Axios(token)
+      .get(`characters/${userId}/view/`)
+      .then(res => {
+        dispatch({
+          type: C.GET_CHARACTERS,
+          payload: res.data
+        });
+      })
+      .catch(e =>
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+        })
+      );
+  };
+};
+
 export const clearUserApi = () => {
   return dispatch =>
     dispatch({

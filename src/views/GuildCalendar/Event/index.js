@@ -323,6 +323,7 @@ class Event extends Component {
               <FormGroup>
                 <Select
                   //https://react-select.com/props
+                  closeMenuOnSelect={false}
                   value={role_class_preferences}
                   isMulti
                   styles={selectStyles}

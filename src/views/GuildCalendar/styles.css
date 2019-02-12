@@ -1,3 +1,6 @@
+:root {
+  --calendarTileHeight: 140px;
+}
 .GuildCalendar {
 }
 .react-calendar__month-view__weekdays abbr[title],
@@ -99,7 +102,7 @@
   flex: 1 0 0;
   position: relative;
   opacity: var(--mainOpacity);
-  min-height: 140px;
+  height: var(--calendarTileHeight);
   background-color: var(--slate_grey);
   border: 1px solid var(--dark_border);
 }
@@ -141,6 +144,10 @@
   transition: -webkit-transform 0.425s cubic-bezier(0.485, 1.65, 0.545, 1.235);
 }
 .EventList {
+  min-height: calc(var(--calendarTileHeight) * 6 + 86px);
+  max-height: 100vh;
+  box-shadow: 0 0 5px var(--grey);
+  background-color: var(--dark_border);
   margin: 0;
   padding: 0;
   overflow-y: auto;
@@ -153,7 +160,6 @@
   background-color: var(--primaryColor);
   height: 64px;
   line-height: 60px;
-  border-bottom: 1px solid var(--dark_border);
   text-align: center;
   margin: 0;
   padding: 0;

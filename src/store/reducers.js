@@ -177,7 +177,7 @@ export const HtmlDocument = (state = null, action) =>
     ? null
     : state;
 
-export const User = (state = {}, action) => {
+export const User = (state = { Characters: [] }, action) => {
   const { type, payload } = action;
   switch (type) {
     case C.SET_LOGIN_TOKEN:
@@ -204,6 +204,11 @@ export const User = (state = {}, action) => {
         updating: false,
         updated: false,
         error: null
+      };
+    case C.GET_CHARACTERS:
+      return {
+        ...state,
+        Characters: payload
       };
     case C.SET_LOGOUT:
       return {};

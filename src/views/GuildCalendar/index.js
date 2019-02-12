@@ -37,7 +37,7 @@ class GuildCalendar extends PureComponent {
   }
 
   static propTypes = {
-    activeDate: PropTypes.Date,
+    activeDate: PropTypes.string,
     isMobile: PropTypes.bool
   };
 

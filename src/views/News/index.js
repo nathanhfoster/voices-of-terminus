@@ -32,7 +32,6 @@ import {
   deleteNewsLetter,
   nextNewsletters
 } from "../../actions/NewsLetters";
-import Card from "../../components/Card";
 import Cards from "../../components/Cards";
 import { Redirect } from "react-router-dom";
 import Select from "react-select";
@@ -228,7 +227,7 @@ class News extends Component {
 
   getHtml = (Articles, Newsletters) => {
     const { getArticleHtml, getNewsletterHtml } = this.props;
-    
+
     const emptyArticleHtml = Articles.results.findIndex(
       article => !article.hasOwnProperty("html")
     );
@@ -278,7 +277,7 @@ class News extends Component {
           <Col className={className} md={3} sm={6} xs={12}>
             {Cards({
               ...card,
-              Settings: Settings,
+              Settings,
               key: card.id,
               User,
               canDelete: hasDeletePermission(User, card.author, card.tags),

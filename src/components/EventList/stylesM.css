@@ -10,6 +10,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 @media (max-width: 767px) {
   .List {
     margin: 0;
+    height: calc(var(--calendarMobileTileHeight) * 6);
   }
 }
 

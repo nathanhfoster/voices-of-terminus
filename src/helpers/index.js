@@ -26,9 +26,8 @@ export const deepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!
  */
-export const getRandomInt = (min, max) => {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
+export const getRandomInt = (min, max) =>
+  Math.floor(Math.random() * (max - min + 1)) + min;
 
 export const getImageBase64 = image => {
   return new Promise((resolve, reject) => {
@@ -312,7 +311,12 @@ export const raceRoleClassOptions = {
         { value: "Shaman", label: "Shaman" }
       ],
       "Melee Dps": [{ value: "Monk", label: "Monk" }],
-      "Off Tank": [{ value: "Monk", label: "Monk" }],
+      "Off Tank": [
+        { value: "Dire Lord", label: "Dire Lord" },
+        { value: "Monk", label: "Monk" },
+        { value: "Paladin", label: "Paladin" },
+        { value: "Warrior", label: "Warrior" }
+      ],
       "Ranged Dps": [{ value: "Wizard", label: "Wizard" }],
       Support: [
         { value: "Bard", label: "Bard" },
@@ -344,7 +348,10 @@ export const raceRoleClassOptions = {
       { value: "Utility", label: "Utility" }
     ],
     classOptions: {
-      "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+      "Crowd Control": [
+        { value: "Bard", label: "Bard" },
+        { value: "Enchanter", label: "Enchanter" }
+      ],
       Healer: [
         { value: "Cleric", label: "Cleric" },
         { value: "Druid", label: "Druid" }
@@ -353,7 +360,12 @@ export const raceRoleClassOptions = {
         { value: "Monk", label: "Monk" },
         { value: "Rogue", label: "Rogue" }
       ],
-      "Off Tank": [{ value: "Monk", label: "Monk" }],
+      "Off Tank": [
+        { value: "Dire Lord", label: "Dire Lord" },
+        { value: "Monk", label: "Monk" },
+        { value: "Paladin", label: "Paladin" },
+        { value: "Warrior", label: "Warrior" }
+      ],
       "Ranged Dps": [
         { value: "Necromancer", label: "Necromancer" },
         { value: "Summoner", label: "Summoner" },
@@ -394,7 +406,10 @@ export const raceRoleClassOptions = {
       { value: "Utility", label: "Utility" }
     ],
     classOptions: {
-      "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+      "Crowd Control": [
+        { value: "Bard", label: "Bard" },
+        { value: "Enchanter", label: "Enchanter" }
+      ],
       Healer: [{ value: "Cleric", label: "Cleric" }],
       "Melee Dps": [{ value: "Rogue", label: "Rogue" }],
       Support: [
@@ -427,7 +442,10 @@ export const raceRoleClassOptions = {
       { value: "Utility", label: "Utility" }
     ],
     classOptions: {
-      "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+      "Crowd Control": [
+        { value: "Bard", label: "Bard" },
+        { value: "Enchanter", label: "Enchanter" }
+      ],
       Healer: [
         { value: "Druid", label: "Druid" },
         { value: "Shaman", label: "Shaman" }
@@ -507,7 +525,10 @@ export const raceRoleClassOptions = {
       { value: "Utility", label: "Utility" }
     ],
     classOptions: {
-      "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+      "Crowd Control": [
+        { value: "Bard", label: "Bard" },
+        { value: "Enchanter", label: "Enchanter" }
+      ],
       Healer: [
         { value: "Cleric", label: "Cleric" },
         { value: "Druid", label: "Druid" },
@@ -518,7 +539,12 @@ export const raceRoleClassOptions = {
         { value: "Ranger", label: "Ranger" },
         { value: "Rogue", label: "Rogue" }
       ],
-      "Off Tank": [{ value: "Monk", label: "Monk" }],
+      "Off Tank": [
+        { value: "Dire Lord", label: "Dire Lord" },
+        { value: "Monk", label: "Monk" },
+        { value: "Paladin", label: "Paladin" },
+        { value: "Warrior", label: "Warrior" }
+      ],
       "Ranged Dps": [
         { value: "Ranger", label: "Ranger" },
         { value: "Necromancer", label: "Necromancer" },
@@ -563,7 +589,10 @@ export const raceRoleClassOptions = {
       { value: "Utility", label: "Utility" }
     ],
     classOptions: {
-      "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+      "Crowd Control": [
+        { value: "Bard", label: "Bard" },
+        { value: "Enchanter", label: "Enchanter" }
+      ],
       "Melee Dps": [{ value: "Rogue", label: "Rogue" }],
       "Ranged Dps": [
         { value: "Necromancer", label: "Necromancer" },
@@ -627,7 +656,12 @@ export const raceRoleClassOptions = {
         { value: "Monk", label: "Monk" },
         { value: "Rogue", label: "Rogue" }
       ],
-      "Off Tank": [{ value: "Monk", label: "Monk" }],
+      "Off Tank": [
+        { value: "Dire Lord", label: "Dire Lord" },
+        { value: "Monk", label: "Monk" },
+        { value: "Paladin", label: "Paladin" },
+        { value: "Warrior", label: "Warrior" }
+      ],
       "Ranged Dps": [{ value: "Necromancer", label: "Necromancer" }],
       Support: [{ value: "Shaman", label: "Shaman" }],
       Tank: [
@@ -697,7 +731,10 @@ export const classOptions = {
     // { value: "Warrior", label: "Warrior" },
     // { value: "Wizard", label: "Wizard" }
   ],
-  "Crowd Control": [{ value: "Enchanter", label: "Enchanter" }],
+  "Crowd Control": [
+    { value: "Bard", label: "Bard" },
+    { value: "Enchanter", label: "Enchanter" }
+  ],
   Healer: [
     { value: "Cleric", label: "Cleric" },
     { value: "Druid", label: "Druid" },
@@ -708,7 +745,12 @@ export const classOptions = {
     { value: "Ranger", label: "Ranger" },
     { value: "Rogue", label: "Rogue" }
   ],
-  "Off Tank": [{ value: "Monk", label: "Monk" }],
+  "Off Tank": [
+    { value: "Dire Lord", label: "Dire Lord" },
+    { value: "Monk", label: "Monk" },
+    { value: "Paladin", label: "Paladin" },
+    { value: "Warrior", label: "Warrior" }
+  ],
   "Ranged Dps": [
     { value: "Ranger", label: "Ranger" },
     { value: "Necromancer", label: "Necromancer" },

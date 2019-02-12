@@ -28,17 +28,22 @@ import { clearHtmlDocument } from "../../actions/App";
 import { Redirect } from "react-router-dom";
 import formDesign from "./formDesign.json";
 import defaultDesign from "./defaultDesign.json";
-import Card from "../Card";
+import Cards from "../Cards";
 import Select from "react-select";
-import { getImageBase64 } from "../../helpers/";
+import {
+  getImageBase64,
+  hasUpdatePermission,
+  hasDeletePermission
+} from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/select";
 import { getFavorites, postStatus } from "../../actions/Twitter";
 
-const mapStateToProps = ({ Newsletters, HtmlDocument, User }) => ({
+const mapStateToProps = ({ Newsletters, HtmlDocument, User, Settings }) => ({
   Newsletters,
   HtmlDocument,
-  User
+  User,
+  Settings
 });
 
 const mapDispatchToProps = {
@@ -185,15 +190,21 @@ class NewsLetterGenerator extends PureComponent {
     Newsletters.sort(
       (a, b) => new Date(b.date_created) - new Date(a.date_created)
     ).map(card => {
+      const { deleteNewsLetter, getNewsletter, User, Settings } = this.props;
       return (
         <Col className="NewsletterCardContainer" md={6}>
-          <Card
-            {...card}
-            summary={false}
-            deleteCard={this.props.deleteNewsLetter}
-            editCard={this.props.getNewsletter}
-            click={() => this.handleHide(card.id)}
-          />
+          {Cards({
+            ...card,
+            Settings,
+            key: card.id,
+            User,
+            canDelete: hasDeletePermission(User, card.author, card.tags),
+            canUpdate: hasUpdatePermission(User, card.author, card.tags),
+            click: () => this.handleHide(card.id),
+            editCard: getNewsletter,
+            deleteCard: deleteNewsLetter,
+            summary: false
+          })}
         </Col>
       );
     });

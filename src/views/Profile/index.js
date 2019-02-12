@@ -17,7 +17,7 @@ import {
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import Moment from "react-moment";
-import { updateProfile, clearUserApi } from "../../actions/User";
+import { updateProfile, getCharacters, clearUserApi } from "../../actions/User";
 import Select from "react-select";
 import "./styles.css";
 import "./stylesM.css";
@@ -40,6 +40,7 @@ const mapStateToProps = ({ User }) => ({
 
 const mapDispatchToProps = {
   updateProfile,
+  getCharacters,
   clearUserApi
 };
 
@@ -87,7 +88,7 @@ class Profile extends PureComponent {
     primary_class: PropTypes.string,
     secondary_role: PropTypes.string,
     secondary_class: PropTypes.string,
-    date_joined: PropTypes.date,
+    date_joined: PropTypes.string,
     discord_url: PropTypes.string,
     twitter_url: PropTypes.string,
     twitch_url: PropTypes.string,
@@ -101,7 +102,9 @@ class Profile extends PureComponent {
   }
 
   componentDidMount() {
-    const { clearUserApi } = this.props;
+    const { User, getCharacters, clearUserApi } = this.props;
+    const { id, token } = User;
+    getCharacters(id, token);
     clearUserApi();
   }
 

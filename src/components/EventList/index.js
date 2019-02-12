@@ -22,7 +22,7 @@ class EventList extends PureComponent {
   }
 
   static propTypes = {
-    activeDate: PropTypes.Date,
+    activeDate: PropTypes.string,
     data: PropTypes.array
   };
 
@@ -77,7 +77,7 @@ class EventList extends PureComponent {
       const startDate = MomentJS(start_date);
       const sameDayEvent = startDate.isSame(activeDate, "day");
       return (
-        <div key={i} style={{borderRadius: 0}}>
+        <div key={i} style={{ borderRadius: 0 }}>
           {sameDayEvent ? (
             <ListGroupItem
               key={id}
@@ -97,11 +97,12 @@ class EventList extends PureComponent {
   render() {
     const { history } = this.props;
     const { data, activeDate } = this.state;
-    return (
+    return [
+      <div className="ListHeader Center">Events</div>,
       <ListGroup className="List">
         {this.renderItems(activeDate, data, history)}
       </ListGroup>
-    );
+    ];
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(EventList);
