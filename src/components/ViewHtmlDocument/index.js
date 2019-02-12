@@ -108,7 +108,16 @@ class ViewHtmlDocument extends PureComponent {
   };
 
   likeDocument = () => {
-    const { User, HtmlDocument, match } = this.props;
+    const {
+      User,
+      HtmlDocument,
+      match,
+      updateNewsletterLike,
+      postNewsletterLike,
+      updateArticleLike,
+      postArticleLike
+    } = this.props;
+    const { path } = match;
     const { id } = HtmlDocument;
     const document_id = id;
     const alreadyLiked = HtmlDocument.likes.results.findIndex(
@@ -119,28 +128,35 @@ class ViewHtmlDocument extends PureComponent {
       : 1;
     const payload = { document_id, author: User.id, count };
 
-    if (match.path.includes("newsletters")) {
+    if (path.includes("newsletter")) {
       alreadyLiked !== -1
-        ? this.props.updateNewsletterLike(
+        ? updateNewsletterLike(
             HtmlDocument.likes.results[alreadyLiked].id,
             User.token,
             payload
           )
-        : this.props.postNewsletterLike(User.token, payload);
+        : postNewsletterLike(User.token, payload);
     }
-    if (match.path.includes("articles")) {
+    if (path.includes("article")) {
       alreadyLiked !== -1
-        ? this.props.updateArticleLike(
+        ? updateArticleLike(
             HtmlDocument.likes.results[alreadyLiked].id,
             User.token,
             payload
           )
-        : this.props.postArticleLike(User.token, payload);
+        : postArticleLike(User.token, payload);
     }
   };
 
   postComment = () => {
-    const { User, HtmlDocument, match } = this.props;
+    const {
+      User,
+      HtmlDocument,
+      match,
+      postNewsletterComment,
+      postArticleComment
+    } = this.props;
+    const { path } = match;
     const { text, likes } = this.state;
     const { id } = HtmlDocument;
     const document_id = id;
@@ -153,17 +169,16 @@ class ViewHtmlDocument extends PureComponent {
       likes
     };
 
-    if (match.path.includes("newsletters"))
-      this.props.postNewsletterComment(User.token, payload);
-    if (match.path.includes("articles"))
-      this.props.postArticleComment(User.token, payload);
+    if (path.includes("newsletters"))
+      postNewsletterComment(User.token, payload);
+    if (path.includes("articles")) postArticleComment(User.token, payload);
   };
 
   deleteComment = (id, token) => {
-    const { path } = this.props.match;
-    if (path.includes("newsletters"))
-      this.props.deleteNewsletterComment(id, token);
-    if (path.includes("articles")) this.props.deleteArticleComment(id, token);
+    const { match, deleteNewsletterComment, deleteArticleComment } = this.props;
+    const { path } = match;
+    if (path.includes("newsletters")) deleteNewsletterComment(id, token);
+    if (path.includes("articles")) deleteArticleComment(id, token);
   };
 
   renderComments = comments =>
