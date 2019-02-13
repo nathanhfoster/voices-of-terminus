@@ -5,7 +5,7 @@ import {
   Row,
   Col,
   PageHeader,
-  Form,
+  InputGroup,
   FormGroup,
   FormControl,
   ControlLabel,
@@ -22,6 +22,7 @@ import {
   getCharacters,
   postCharacter,
   editCharacter,
+  deleteCharacter,
   clearUserApi
 } from "../../actions/User";
 import Select from "react-select";
@@ -39,6 +40,7 @@ import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
 import { withAlert } from "react-alert";
 import { ExperienceBar } from "../../components/ExperienceBar";
+import ConfirmAction from "../../components/ConfirmAction";
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -49,6 +51,7 @@ const mapDispatchToProps = {
   getCharacters,
   postCharacter,
   editCharacter,
+  deleteCharacter,
   clearUserApi
 };
 
@@ -211,7 +214,9 @@ class Profile extends PureComponent {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  selectOnChange = (e, a, name) => {
+  selectOnChange = (e, a, name, id) => {
+    const { editCharacter, User } = this.props;
+    let payload;
     switch (a.action) {
       case "clear":
         if (name.includes("primary"))
@@ -228,6 +233,16 @@ class Profile extends PureComponent {
           });
         else if (name.includes("profession"))
           this.setState({ profession: "", profession_specialization: "" });
+        else if (name === "race") {
+          payload = { [name]: null, role: null, character_class: null };
+          editCharacter(id, User.token, payload);
+        } else if (name === "role") {
+          payload = { [name]: null, character_class: null };
+          editCharacter(id, User.token, payload);
+        } else if (name === "character_class") {
+          payload = { [name]: null };
+          editCharacter(id, User.token, payload);
+        }
         break;
       case "select-option":
         switch (name) {
@@ -263,6 +278,12 @@ class Profile extends PureComponent {
           case "profession_specialization":
             this.setState({ [name]: e.value });
             break;
+          default:
+            if (name === "race")
+              payload = { [name]: e.value, role: null, class: null };
+            if (name === "role") payload = { [name]: e.value, class: null };
+            if (name === "character_class") payload = { [name]: e.value };
+            editCharacter(id, User.token, payload);
         }
     }
   };
@@ -382,14 +403,118 @@ class Profile extends PureComponent {
     this.props.updateProfile(id, token, payload);
   };
 
+  onCharacterChange = e => {
+    const { User, editCharacter } = this.props;
+    const { id, name, value } = e.target;
+    const payload = { [name]: value };
+    editCharacter(id, User.token, payload);
+  };
+
   renderCharacters = Characters =>
     Characters.map(c => {
-      const { id, name, level, race, role, character_class } = c;
-      return <Col>{character_class}</Col>;
+      const { User, deleteCharacter } = this.props;
+      let { id, name, level, race, role, character_class } = c;
+      return (
+        <Row key={id} className="borderedRow CharacterContainer">
+          <Col md={3}>
+            <FormGroup>
+              <ControlLabel>NAME</ControlLabel>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <ConfirmAction
+                    Action={e => deleteCharacter(User.token, id)}
+                    Disabled={false}
+                    Icon={<i className="fa fa-trash-alt" />}
+                    hasPermission={true}
+                    Size="small"
+                    Class="pull-right"
+                    Title={name}
+                  />
+                </InputGroup.Addon>
+                <FormControl
+                  id={id}
+                  value={name}
+                  name="name"
+                  type="text"
+                  onChange={this.onCharacterChange}
+                />
+              </InputGroup>
+            </FormGroup>
+          </Col>
+          <Col md={1}>
+            <FormGroup>
+              <ControlLabel>Level</ControlLabel>
+              <FormControl
+                id={id}
+                value={level}
+                min={1}
+                max={60}
+                type="number"
+                name="level"
+                onChange={this.onCharacterChange}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <ControlLabel>RACE</ControlLabel>
+            <FormGroup>
+              <Select
+                name="race"
+                value={{ value: race, label: race }}
+                onChange={(e, a) => this.selectOnChange(e, a, "race", id)}
+                options={raceOptions}
+                isClearable={true}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={3}>
+            <ControlLabel>ROLE</ControlLabel>
+            <FormGroup>
+              <Select
+                name="role"
+                value={{ value: role, label: role }}
+                onChange={(e, a) => this.selectOnChange(e, a, "role", id)}
+                options={race ? raceRoleClassOptions[race].roleOptions : []}
+                isClearable={true}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                isDisabled={!race}
+                styles={selectStyles}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={2}>
+            <ControlLabel>CLASS</ControlLabel>
+            <FormGroup>
+              <Select
+                name="character_class"
+                value={{ value: character_class, label: character_class }}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "character_class", id)
+                }
+                options={
+                  race ? raceRoleClassOptions[race].classOptions[role] : []
+                }
+                isClearable={true}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                isDisabled={!role}
+                styles={selectStyles}
+              />
+            </FormGroup>
+          </Col>
+        </Row>
+      );
     });
 
   render() {
-    const { history } = this.props;
+    const { postCharacter, history } = this.props;
     const canSubmit = !this.cantSubmit();
     const {
       loading,
@@ -669,7 +794,9 @@ class Profile extends PureComponent {
                     ? { value: primary_race, label: primary_race }
                     : null
                 }
-                onChange={(e, a) => this.selectOnChange(e, a, "primary_race")}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "primary_race", id)
+                }
                 options={raceOptions}
                 isClearable={true}
                 isSearchable={true}
@@ -688,7 +815,9 @@ class Profile extends PureComponent {
                     ? { value: primary_role, label: primary_role }
                     : null
                 }
-                onChange={(e, a) => this.selectOnChange(e, a, "primary_role")}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "primary_role", id)
+                }
                 options={
                   primary_race
                     ? raceRoleClassOptions[primary_race].roleOptions
@@ -712,7 +841,9 @@ class Profile extends PureComponent {
                     ? { value: primary_class, label: primary_class }
                     : null
                 }
-                onChange={(e, a) => this.selectOnChange(e, a, "primary_class")}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "primary_class", id)
+                }
                 options={
                   primary_race
                     ? raceRoleClassOptions[primary_race].classOptions[
@@ -743,7 +874,9 @@ class Profile extends PureComponent {
                     ? { value: secondary_race, label: secondary_race }
                     : null
                 }
-                onChange={(e, a) => this.selectOnChange(e, a, "secondary_race")}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "secondary_race", id)
+                }
                 options={raceOptions}
                 isClearable={true}
                 isSearchable={true}
@@ -762,7 +895,9 @@ class Profile extends PureComponent {
                     ? { value: secondary_role, label: secondary_role }
                     : null
                 }
-                onChange={(e, a) => this.selectOnChange(e, a, "secondary_role")}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "secondary_role", id)
+                }
                 options={
                   secondary_race
                     ? raceRoleClassOptions[secondary_race].roleOptions
@@ -787,7 +922,7 @@ class Profile extends PureComponent {
                     : null
                 }
                 onChange={(e, a) =>
-                  this.selectOnChange(e, a, "secondary_class")
+                  this.selectOnChange(e, a, "secondary_class", id)
                 }
                 options={
                   secondary_race
@@ -817,7 +952,7 @@ class Profile extends PureComponent {
                 value={
                   profession ? { value: profession, label: profession } : null
                 }
-                onChange={(e, a) => this.selectOnChange(e, a, "profession")}
+                onChange={(e, a) => this.selectOnChange(e, a, "profession", id)}
                 options={professionOptions}
                 isClearable={true}
                 isSearchable={true}
@@ -840,7 +975,7 @@ class Profile extends PureComponent {
                     : null
                 }
                 onChange={(e, a) =>
-                  this.selectOnChange(e, a, "profession_specialization")
+                  this.selectOnChange(e, a, "profession_specialization", id)
                 }
                 options={professionSpecializationOptions[profession]}
                 isClearable={true}
@@ -854,9 +989,19 @@ class Profile extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <h2 className="headerBanner">CHARACTERS</h2>
+          <Col xs={11} style={{ padding: 0 }}>
+            <h2 className="headerBanner">CHARACTERS</h2>
+          </Col>
+          <Col
+            xs={1}
+            className="AddCharacter"
+            componentClass={Button}
+            onClick={e => postCharacter(token, { author: id })}
+          >
+            <i className="fas fa-plus fa-2x" />
+          </Col>
         </Row>
-        <Row className="borderedRow">{this.renderCharacters(Characters)}</Row>
+        {this.renderCharacters(Characters)}
         <Row>
           <Col md={12} style={{ textAlign: "center", margin: "20px" }}>
             <Button onClick={this.updateProfile} disabled={canSubmit}>

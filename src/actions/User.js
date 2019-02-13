@@ -2,6 +2,7 @@ import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import Cookies from "js-cookie";
 import qs from "qs";
+import { DeepCopy } from "../helpers";
 
 export const createUser = payload => {
   const eightHours = 1 / 3;
@@ -67,33 +68,27 @@ export const getCharacters = (userId, token) => {
 
 export const postCharacter = (token, payload) => {
   return (dispatch, getState) => {
-    const { Characters } = getState().User;
-    let characterPayload = { ...Characters };
     Axios(token)
-      .post(`characters/`, payload)
+      .post(`characters/`, qs.stringify(payload))
       .then(res => {
-        characterPayload = [...characterPayload, ...res.data];
+        const { Characters } = getState().User;
+        const characterPayload = [...DeepCopy(Characters), ...[res.data]];
         dispatch({
           type: C.GET_CHARACTERS,
           payload: characterPayload
         });
       })
-      .catch(e =>
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: e.response
-        })
-      );
+      .catch(e => console.log(e, "postCharacter: ", payload));
   };
 };
 
 export const editCharacter = (id, token, payload) => {
   return (dispatch, getState) => {
-    const { Characters } = getState().User;
-    let characterPayload = { ...Characters };
     Axios(token)
-      .patch(`characters/${id}`, payload)
+      .patch(`characters/${id}/`, qs.stringify(payload))
       .then(res => {
+        const { Characters } = getState().User;
+        let characterPayload = DeepCopy(Characters);
         const updateIndex = characterPayload.findIndex(
           e => e.id === res.data.id
         );
@@ -110,6 +105,21 @@ export const editCharacter = (id, token, payload) => {
         })
       );
   };
+};
+
+export const deleteCharacter = (token, id) => {
+  return (dispatch, getState) =>
+    Axios(token)
+      .delete(`characters/${id}/`)
+      .then(res => {
+        const { Characters } = getState().User;
+        const payload = DeepCopy(Characters).filter(c => c.id !== id);
+        dispatch({
+          type: C.GET_CHARACTERS,
+          payload: payload
+        });
+      })
+      .catch(e => console.log(e));
 };
 
 export const clearUserApi = () => {

@@ -20,7 +20,7 @@ import { selectStyles } from "../../../helpers/styles";
 import Select from "react-select";
 import { eventTags, locationTags } from "../../../helpers/select";
 import {
-  deepCopy,
+  DeepCopy,
   roleOptions,
   IconOption,
   classOptions
@@ -223,7 +223,7 @@ class Event extends Component {
     groupIndex,
     partyIndex
   ) => {
-    groups = deepCopy(groups);
+    groups = DeepCopy(groups);
     groups[groupIndex][partyIndex].role_class_preferences = selectValue;
     switch (action) {
       case "remove-value":
@@ -248,7 +248,7 @@ class Event extends Component {
     groupIndex,
     partyIndex
   ) => {
-    groups = deepCopy(groups);
+    groups = DeepCopy(groups);
     groups[groupIndex][partyIndex].class_preferences = selectValue;
     switch (action) {
       case "remove-value":

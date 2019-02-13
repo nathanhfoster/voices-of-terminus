@@ -21,7 +21,7 @@ import Default from "../images/classIcons/default.png";
 import QuestionMark from "../images/question.png";
 
 export const objectToArray = obj => Object.keys(obj).map(key => obj[key]);
-export const deepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
+export const DeepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!

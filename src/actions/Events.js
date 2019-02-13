@@ -1,7 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
-import { deepCopy } from "../helpers";
+import { DeepCopy } from "../helpers";
 
 export const getYearMonthEvents = payload => {
   return dispatch => {

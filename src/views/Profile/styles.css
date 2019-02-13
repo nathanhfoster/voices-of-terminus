@@ -1,5 +1,16 @@
+.Profile {
+  min-height: 275vh;
+}
 .Profile svg:hover {
   color: var(--primaryColor);
+}
+.CharacterContainer [class*="col-"] {
+  margin: 0;
+  padding: 0 2px;
+}
+
+.AddCharacter {
+  min-height: 49px;
 }
 
 /* .css-10nd86i *{
