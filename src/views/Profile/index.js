@@ -989,11 +989,12 @@ class Profile extends PureComponent {
           </Col>
         </Row>
         <Row>
-          <Col xs={11} style={{ padding: 0 }}>
+          <Col md={11} xs={10} style={{ padding: 0 }}>
             <h2 className="headerBanner">CHARACTERS</h2>
           </Col>
           <Col
-            xs={1}
+            md={1}
+            xs={2}
             className="AddCharacter"
             componentClass={Button}
             onClick={e => postCharacter(token, { author: id })}
