@@ -169,16 +169,16 @@ class ViewHtmlDocument extends PureComponent {
       likes
     };
 
-    if (path.includes("newsletters"))
+    if (path.includes("newsletter"))
       postNewsletterComment(User.token, payload);
-    if (path.includes("articles")) postArticleComment(User.token, payload);
+    if (path.includes("article")) postArticleComment(User.token, payload);
   };
 
   deleteComment = (id, token) => {
     const { match, deleteNewsletterComment, deleteArticleComment } = this.props;
     const { path } = match;
-    if (path.includes("newsletters")) deleteNewsletterComment(id, token);
-    if (path.includes("articles")) deleteArticleComment(id, token);
+    if (path.includes("newsletter")) deleteNewsletterComment(id, token);
+    if (path.includes("article")) deleteArticleComment(id, token);
   };
 
   renderComments = comments =>
