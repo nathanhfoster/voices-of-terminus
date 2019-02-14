@@ -19,8 +19,8 @@ export const getYearMonthEvents = payload => {
 };
 
 export const getEvent = eventId => {
-  return (dispatch, getState) => {
-    Axios()
+  return async (dispatch, getState) => {
+    await Axios()
       .get(`calendar/events/${eventId}/`)
       .then(res => {
         const { id } = res.data;
@@ -36,9 +36,9 @@ export const getEvent = eventId => {
   };
 };
 
-const getEventGroups = (eventId, dispatch) => {
+const getEventGroups = async (eventId, dispatch) => {
   let Groups = [];
-  Axios()
+  await Axios()
     .get(`calendar/event/groups/${eventId}/view/`)
     .then(res => {
       dispatch({ type: C.GET_EVENT_GROUPS, payload: res.data });
@@ -56,23 +56,76 @@ const getEventGroups = (eventId, dispatch) => {
     );
 };
 
-const getEventGroupMembers = (Groups, dispatch) => {
+const getEventGroupMembers = async (Groups, dispatch) => {
   let payload = [];
-
   for (let i = 0; i < Groups.length; i++) {
     const eventGroupId = Groups[i];
-
-    Axios()
+    await Axios()
       .get(`calendar/event/group/members/${eventGroupId}/view/`)
       .then(res => {
         payload = [...payload, ...res.data];
-        dispatch({
-          type: C.GET_EVENT_GROUP_MEMBERS,
-          payload: payload
-        });
+        getEventGroupMembersCharacters(payload, dispatch);
       })
       .catch(e => console.log(e));
   }
+};
+
+const getEventGroupMembersCharacters = async (GroupMembers, dispatch) => {
+  let payload = DeepCopy(GroupMembers);
+  const filledGroupMembers = GroupMembers.filter(m => m.filled);
+  const filledMembers = filledGroupMembers.length > 0;
+  if (filledMembers)
+    for (let i = 0; i < filledGroupMembers.length; i++) {
+      const { filled } = filledGroupMembers[i];
+      await Axios()
+        .get(`characters/${filled}/`)
+        .then(res => {
+          const updateIndex = GroupMembers.findIndex(
+            m => m.filled === res.data.id
+          );
+          payload[updateIndex].Response = res.data;
+          dispatch({
+            type: C.GET_EVENT_GROUP_MEMBERS,
+            payload: payload
+          });
+        })
+        .catch(e => console.log(e, "getEventGroupMembersCharacters: ", filled));
+    }
+  else
+    dispatch({
+      type: C.GET_EVENT_GROUP_MEMBERS,
+      payload: payload
+    });
+};
+
+export const editEventGroupMember = (id, token, payload) => {
+  return async (dispatch, getState) => {
+    await Axios(token)
+      .patch(`calendar/event/group/members/${id}/`, qs.stringify(payload))
+      .then(res => {
+        const {
+          event_group_id,
+          filled,
+          id,
+          position,
+          role_class_preferences
+        } = res.data;
+        Axios()
+          .get(`calendar/event/groups/${event_group_id}/`)
+          .then(res => {
+            const { event_id } = res.data;
+            getEventGroups(event_id, dispatch);
+          })
+          .catch(e => console.log(e));
+        // const { GroupMembers } = getState().Events;
+        // let groupMembersPayload = DeepCopy(GroupMembers);
+        // const updateIndex = groupMembersPayload.findIndex(
+        //   e => e.id === res.data.id
+        // );
+        // groupMembersPayload[updateIndex] = res.data;
+      })
+      .catch(e => console.log(e));
+  };
 };
 
 export const postEvent = (userId, token, payload, groups) => {
@@ -164,7 +217,6 @@ const createMessageGroup = (
   getState
 ) => {
   const groupPayload = { title, author, is_active: true, uri };
-  console.log(groupPayload);
   const { Messages } = getState();
   let payload = { ...Messages };
   Axios(token)

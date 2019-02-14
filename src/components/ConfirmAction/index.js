@@ -103,7 +103,7 @@ class ConfirmAction extends PureComponent {
                 <Row>
                   <Col xs={12}>
                     <h4 className="Center">
-                      Are you sure you want to delete "{Title}"?
+                      {`Are you sure you want to delete "${Title}"?`}
                     </h4>
                   </Col>
                 </Row>

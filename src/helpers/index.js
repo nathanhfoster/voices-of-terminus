@@ -116,24 +116,6 @@ export const statusLevelString = status => {
 
 export const roleClassIcon = roleOrClass => {
   switch (roleOrClass) {
-    case "Any":
-      return Random;
-    case "Crowd Control":
-      return CrowdControl;
-    case "Healer":
-      return Healer;
-    case "Melee Dps":
-      return MeleeDps;
-    case "Off Tank":
-      return OffTank;
-    case "Ranged Dps":
-      return RangedDps;
-    case "Support":
-      return Support;
-    case "Tank":
-      return Tank;
-    case "Utility":
-      return Utility;
     case "Bard":
       return Bard;
     case "Cleric":
@@ -162,9 +144,26 @@ export const roleClassIcon = roleOrClass => {
       return Warrior;
     case "Wizard":
       return Wizard;
-
-    default:
+    case "Any":
       return Random;
+    case "Crowd Control":
+      return CrowdControl;
+    case "Healer":
+      return Healer;
+    case "Melee Dps":
+      return MeleeDps;
+    case "Off Tank":
+      return OffTank;
+    case "Ranged Dps":
+      return RangedDps;
+    case "Support":
+      return Support;
+    case "Tank":
+      return Tank;
+    case "Utility":
+      return Utility;
+    default:
+      return null;
   }
 };
 

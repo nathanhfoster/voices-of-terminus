@@ -1,10 +1,14 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Row, Col, PageHeader, Image, Button } from "react-bootstrap";
+import { Grid, Row, Col, PageHeader, Image, Modal } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { getEvent, clearEventsApi } from "../../../actions/Events";
+import {
+  getEvent,
+  editEventGroupMember,
+  clearEventsApi
+} from "../../../actions/Events";
 import { getCharacters } from "../../../actions/User";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
@@ -12,13 +16,18 @@ import { roleClassIcon, classOptions } from "../../../helpers";
 
 const mapStateToProps = ({ User, Events }) => ({ User, Events });
 
-const mapDispatchToProps = { getEvent, getCharacters, clearEventsApi };
+const mapDispatchToProps = {
+  getEvent,
+  getCharacters,
+  editEventGroupMember,
+  clearEventsApi
+};
 
 class EventDetails extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { show: false };
   }
 
   static propTypes = {};
@@ -42,7 +51,7 @@ class EventDetails extends Component {
   componentDidMount() {
     const { User, getEvent, getCharacters, match } = this.props;
     const { id } = match.params;
-    if (User) getCharacters(User.id, User.token);
+    if (User.id) getCharacters(User.id, User.token);
     getEvent(id);
   }
 
@@ -76,7 +85,14 @@ class EventDetails extends Component {
     const { User } = this.state;
     const { Characters } = User;
     return GroupMembers.map(m => {
-      const { id, event_group_id, position, role_class_preferences } = m;
+      const {
+        id,
+        event_group_id,
+        position,
+        role_class_preferences,
+        filled,
+        Response
+      } = m;
       const roleClassPreferences = role_class_preferences.split("|");
       const rolePreference = roleClassPreferences[0];
       let classPreferences = roleClassPreferences.slice(1);
@@ -94,9 +110,12 @@ class EventDetails extends Component {
           <div className="Member">
             {this.renderCharacterMatch(
               Characters,
+              id,
               rolePreference,
               noClassPreferences,
-              classPreferences
+              classPreferences,
+              filled,
+              Response
             )}
           </div>
         </div>
@@ -106,24 +125,69 @@ class EventDetails extends Component {
 
   renderCharacterMatch = (
     Characters,
+    memberId,
     rolePreference,
     noClassPreferences,
-    classPreferences
+    classPreferences,
+    filled,
+    Response
   ) => {
+    let MatchedCharacters = Characters;
+    // console.log(filled, Response);
+    const { User, editEventGroupMember } = this.props;
+    const {
+      id,
+      author,
+      author_username,
+      name,
+      level,
+      race,
+      role,
+      character_class
+    } = Response ? Response : {};
+    let payload = { filled: User.id };
+    //editEventGroupMember(memberId, User.token, payload)
     let Preferences = [];
     const imageDimensions = 20;
 
-    if (rolePreference === "Any")
-      return <span className="Preferences Match help">Any</span>;
+    if (!filled && rolePreference === "Any")
+      return (
+        <span
+          key={memberId}
+          onClick={e =>
+            this.setState({
+              show: true,
+              memberId,
+              MatchedCharacters: Characters,
+              rolePreference
+            })
+          }
+          className="Preferences Match Clickable help"
+        >
+          Any
+        </span>
+      );
+    if (filled)
+      return (
+        <span key={memberId} className="Preferences help">
+          {name}
+        </span>
+      );
 
     for (let i = 0; i < classPreferences.length; i++) {
       const classPreference = classPreferences[i];
-      //console.log(classPreference);
-      if (
-        (noClassPreferences &&
-          Characters.some(c => c.role === rolePreference)) ||
-        Characters.some(c => c.character_class === classPreference)
-      )
+      // const classIndex = Characters.map(c =>
+      //   classPreferences.findIndex(e => e == c.character_class)
+      // ).filter(e => !e)[0];
+
+      MatchedCharacters = Characters.filter(
+        c =>
+          c.role == rolePreference ||
+          classPreferences.some(e => e == c.character_class)
+      );
+      //console.log(MatchedCharacters);
+      const matched = MatchedCharacters.length > 0;
+      if (!filled && matched)
         Preferences.push(
           <div className="Preferences">
             <Image
@@ -131,9 +195,35 @@ class EventDetails extends Component {
               width={imageDimensions}
               src={roleClassIcon(classPreference)}
             />
-            <span className="Preferences Match help">{classPreference}</span>
+            <span
+              key={memberId}
+              onClick={e =>
+                this.setState({
+                  show: true,
+                  memberId,
+                  MatchedCharacters,
+                  rolePreference
+                })
+              }
+              className="Preferences Match Clickable help"
+            >
+              {classPreference}
+            </span>
           </div>
         );
+      // else if (filled)
+      //   Preferences.push(
+      //     <div className="Preferences">
+      //       <Image
+      //         height={imageDimensions}
+      //         width={imageDimensions}
+      //         src={roleClassIcon(classPreference)}
+      //       />
+      //       <span key={memberId} className="Preferences help">
+      //         {name}
+      //       </span>
+      //     </div>
+      //   );
       else
         Preferences.push(
           <div className="Preferences">
@@ -142,20 +232,62 @@ class EventDetails extends Component {
               width={imageDimensions}
               src={roleClassIcon(classPreference)}
             />
-            <span className="Preferences help">{classPreference}</span>
+            <span key={memberId} className="Preferences help">
+              {classPreference}
+            </span>
           </div>
         );
     }
-
     return Preferences;
   };
 
+  renderCharacters = (memberId, MatchedCharacters) => {
+    const { User, editEventGroupMember } = this.props;
+    return MatchedCharacters.map(c => {
+      const {
+        id,
+        author,
+        author_username,
+        name,
+        level,
+        race,
+        role,
+        character_class
+      } = c;
+      const payload = { filled: id };
+      return (
+        <Row
+          key={id}
+          onClick={e => {
+            editEventGroupMember(memberId, User.token, payload);
+            this.setState({ show: false });
+          }}
+          className="MatchedCharactersContainer Clickable Hover"
+        >
+          <Col>{`(${level}) ${name}`}</Col>
+          <Col>{race}</Col>
+          <Col>{role}</Col>
+          <Col>{character_class}</Col>
+        </Row>
+      );
+    });
+  };
+
   render() {
-    const { Event, Groups, GroupMembers } = this.state;
+    const {
+      Event,
+      Groups,
+      GroupMembers,
+      show,
+      memberId,
+      MatchedCharacters,
+      rolePreference
+    } = this.state;
     const GroupsWithMembers = Groups.map(g => {
       g.GroupMembers = GroupMembers.filter(m => m.event_group_id === g.id);
       return g;
     });
+    //console.log(GroupsWithMembers)
     const {
       id,
       author,
@@ -228,7 +360,50 @@ class EventDetails extends Component {
         <Row>
           <PageHeader className="Center">Group Composition</PageHeader>
         </Row>
-        <Row>{GroupsWithMembers && this.renderGroups(GroupsWithMembers)}</Row>
+        <Row>{this.renderGroups(GroupsWithMembers)}</Row>
+        {show ? (
+          <Modal
+            bsSize="large"
+            onClickCapture={this.handleClickCapture}
+            backdrop="static"
+            //keyboard={false}
+            show={show}
+            onHide={() => this.setState({ show: false })}
+            dialogClassName="eventModal"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-lg">
+                {`Sign up for "${rolePreference}" role`}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <PageHeader className="pageHeader">CHARACTERS</PageHeader>
+              {this.renderCharacters(
+                memberId,
+                MatchedCharacters,
+                rolePreference
+              )}
+              <Row>
+                <Col xs={12} />
+              </Row>
+            </Modal.Body>
+            <Modal.Footer>
+              <Row>
+                <Col md={12} className="Center">
+                  {/*<ButtonGroup>
+                    <Button
+                      onClick={this.handleDelete}
+                      className="ConfirmActionButton"
+                    >
+                      Yes
+                    </Button>
+                    <Button onClick={this.handleHide}>No</Button>
+                  </ButtonGroup>*/}
+                </Col>
+              </Row>
+            </Modal.Footer>
+          </Modal>
+        ) : null}
       </Grid>
     );
   }

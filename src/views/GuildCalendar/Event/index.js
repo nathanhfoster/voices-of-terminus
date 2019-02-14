@@ -319,8 +319,12 @@ class Event extends Component {
           <h3>Group {i + 1}</h3>
           {group.map((member, k) => {
             const { role_class_preferences } = member;
+            const Options =
+              role_class_preferences.length === 0
+                ? roleOptions
+                : classOptions[role_class_preferences[0].value];
             return (
-              <FormGroup>
+              <FormGroup key={k}>
                 <Select
                   //https://react-select.com/props
                   closeMenuOnSelect={false}
@@ -342,11 +346,7 @@ class Event extends Component {
                       k
                     )
                   }
-                  options={
-                    role_class_preferences.length === 0
-                      ? roleOptions
-                      : classOptions[role_class_preferences[0].value]
-                  }
+                  options={Options}
                   components={{ Option: IconOption }}
                 />
               </FormGroup>

@@ -28,11 +28,9 @@
 }
 
 .Member {
-  
 }
 
 .RSVP {
-  
 }
 
 .Preferences {
@@ -41,5 +39,41 @@
 }
 
 .Match {
-  color: var(--primaryColor);
+  font-weight: 600;
+  background-color: var(--primaryColor);
+  color: var(--tertiarycolor);
+  padding: 3px;
+  border-radius: 6px;
+}
+
+.Match:hover {
+  background-color: var(--tertiarycolor);
+  color: var(--secondaryColor);
+}
+
+.MatchedCharactersContainer {
+  margin: 4px;
+  padding: 4px;
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  background-color: var(--slate_grey);
+}
+
+.MatchedCharactersContainer div {
+  display: inline-flex;
+  padding: 4px;
+  margin: 8px;
+  width: calc((100% - 70px) / 4);
+}
+
+.eventModal {
+  margin-top: 0;
+  position: absolute;
+  top: calc(50% - var(--navBarHeight));
+  left: 0;
+  right: 0;
+}
+
+.eventModal .modal-content {
+  background-color: var(--secondaryColor);
 }
