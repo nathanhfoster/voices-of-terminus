@@ -72,7 +72,7 @@ export const postCharacter = (token, payload) => {
       .post(`characters/`, qs.stringify(payload))
       .then(res => {
         const { Characters } = getState().User;
-        const characterPayload = [...DeepCopy(Characters), ...[res.data]];
+        const characterPayload = [...[res.data], ...DeepCopy(Characters)];
         dispatch({
           type: C.GET_CHARACTERS,
           payload: characterPayload

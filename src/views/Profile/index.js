@@ -41,6 +41,7 @@ import FormData from "form-data";
 import { withAlert } from "react-alert";
 import { ExperienceBar } from "../../components/ExperienceBar";
 import ConfirmAction from "../../components/ConfirmAction";
+const $ = window.$;
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -113,8 +114,9 @@ class Profile extends PureComponent {
   }
 
   componentDidMount() {
-    const { User, getCharacters, clearUserApi } = this.props;
+    const { User, getCharacters, clearUserApi, location } = this.props;
     const { id, token } = User;
+    const { hash } = location;
     getCharacters(id, token);
     clearUserApi();
   }
@@ -988,7 +990,7 @@ class Profile extends PureComponent {
             </FormGroup>
           </Col>
         </Row>
-        <Row>
+        <Row name="characters">
           <Col md={11} xs={10} style={{ padding: 0 }}>
             <h2 className="headerBanner">CHARACTERS</h2>
           </Col>

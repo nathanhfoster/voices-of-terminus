@@ -132,7 +132,6 @@ class EventDetails extends Component {
     filled,
     Response
   ) => {
-    let MatchedCharacters = Characters;
     // console.log(filled, Response);
     const { User, editEventGroupMember } = this.props;
     const {
@@ -145,8 +144,6 @@ class EventDetails extends Component {
       role,
       character_class
     } = Response ? Response : {};
-    let payload = { filled: User.id };
-    //editEventGroupMember(memberId, User.token, payload)
     let Preferences = [];
     const imageDimensions = 20;
 
@@ -167,12 +164,12 @@ class EventDetails extends Component {
           Any
         </span>
       );
-    if (filled)
-      return (
-        <span key={memberId} className="Preferences help">
-          {name}
-        </span>
-      );
+    // if (filled)
+    //   return (
+    //     <span key={memberId} className="Preferences help">
+    //       {name}
+    //     </span>
+    //   );
 
     for (let i = 0; i < classPreferences.length; i++) {
       const classPreference = classPreferences[i];
@@ -180,12 +177,12 @@ class EventDetails extends Component {
       //   classPreferences.findIndex(e => e == c.character_class)
       // ).filter(e => !e)[0];
 
-      MatchedCharacters = Characters.filter(
+      const MatchedCharacters = Characters.filter(
         c =>
-          c.role == rolePreference ||
-          classPreferences.some(e => e == c.character_class)
+          (noClassPreferences && c.role == rolePreference.includes(c.role)) ||
+          c.character_class == classPreference
       );
-      //console.log(MatchedCharacters);
+
       const matched = MatchedCharacters.length > 0;
       if (!filled && matched)
         Preferences.push(
@@ -364,9 +361,6 @@ class EventDetails extends Component {
         {show ? (
           <Modal
             bsSize="large"
-            onClickCapture={this.handleClickCapture}
-            backdrop="static"
-            //keyboard={false}
             show={show}
             onHide={() => this.setState({ show: false })}
             dialogClassName="eventModal"
