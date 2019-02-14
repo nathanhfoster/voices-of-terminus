@@ -17,6 +17,15 @@ import Shaman from "../images/classIcons/shaman.png";
 import Summoner from "../images/classIcons/summoner.png";
 import Warrior from "../images/classIcons/warrior.png";
 import Wizard from "../images/classIcons/wizard.png";
+import Random from "../images/classIcons/random.png";
+import Tank from "../images/classIcons/tank.png";
+import OffTank from "../images/classIcons/off_tank.png";
+import Healer from "../images/classIcons/healer.png";
+import MeleeDps from "../images/classIcons/melee_dps.png";
+import RangedDps from "../images/classIcons/ranged_dps.png";
+import Support from "../images/classIcons/support.png";
+import Utility from "../images/classIcons/utility.png";
+import CrowdControl from "../images/classIcons/crowd_control.png";
 import Default from "../images/classIcons/default.png";
 import QuestionMark from "../images/question.png";
 
@@ -105,8 +114,26 @@ export const statusLevelString = status => {
   }
 };
 
-export const classIcon = primaryClass => {
-  switch (primaryClass) {
+export const roleClassIcon = roleOrClass => {
+  switch (roleOrClass) {
+    case "Any":
+      return Random;
+    case "Crowd Control":
+      return CrowdControl;
+    case "Healer":
+      return Healer;
+    case "Melee Dps":
+      return MeleeDps;
+    case "Off Tank":
+      return OffTank;
+    case "Ranged Dps":
+      return RangedDps;
+    case "Support":
+      return Support;
+    case "Tank":
+      return Tank;
+    case "Utility":
+      return Utility;
     case "Bard":
       return Bard;
     case "Cleric":
@@ -137,7 +164,7 @@ export const classIcon = primaryClass => {
       return Wizard;
 
     default:
-      return null;
+      return Random;
   }
 };
 
@@ -709,7 +736,7 @@ export const IconOption = props => {
   const { value, label } = props.data;
   return (
     <Option {...props}>
-      <Image src={classIcon(value)} height={20} /> {value}
+      <Image src={roleClassIcon(value)} height={20} /> {value}
     </Option>
   );
 };

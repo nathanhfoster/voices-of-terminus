@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import "./styles.css";
 import EventList from "../../../components/EventList";
 import { getUsers } from "../../../actions/Admin";
-import { classIcon } from "../../../helpers";
+import { roleClassIcon } from "../../../helpers";
 
 const mapStateToProps = ({ Admin, DiscordData }) => ({
   Admin,
@@ -120,7 +120,7 @@ class Roster extends PureComponent {
         <Col md={3} xs={4}>
           <Link to={`/profile/${k.id}`} className="userContainer">
             <Image
-              src={classIcon(k.primary_class)}
+              src={roleClassIcon(k.primary_class)}
               style={{ height: "25px" }}
             />{" "}
             <p style={{ color: color }}>{k.username}</p>

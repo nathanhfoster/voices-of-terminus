@@ -10,6 +10,9 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
 @media (max-width: 767px) {
 }
 @media (min-width: 768px) {
+  .EventDetails {
+    width: 75%;
+  }
 }
 @media (min-width: 992px) {
 }

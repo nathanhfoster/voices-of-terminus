@@ -19,7 +19,7 @@ import vrLogo from "../../images/VR_Logo.png";
 import votLogo from "../../images/VoT-Logo-White.png";
 import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
-import { classIcon } from "../../helpers";
+import { roleClassIcon } from "../../helpers";
 import { isEquivalent } from "../../helpers";
 
 const mapStateToProps = ({ User, Settings, Messages }) => ({
@@ -170,11 +170,7 @@ class NavBar extends PureComponent {
                 <NavItem eventKey={7.4}>PODCASTS</NavItem>
               </LinkContainer>
             </NavDropdown>
-            <NavDropdown
-              eventKey={8}
-              title="VR"
-              id="connect-nav-dropdown"
-            >
+            <NavDropdown eventKey={8} title="VR" id="connect-nav-dropdown">
               <Image src={vrLogo} className="vrLogo" />
               <NavItem
                 eventKey={8.1}
@@ -223,7 +219,7 @@ class NavBar extends PureComponent {
                 title={[
                   primary_class ? (
                     <Image
-                      src={classIcon(primary_class)}
+                      src={roleClassIcon(primary_class)}
                       style={{ height: "25px" }}
                     />
                   ) : (

@@ -9,3 +9,37 @@
 .EventDetails a:hover {
   opacity: 0.7;
 }
+
+.Group {
+  padding: 0;
+  border: 1px solid var(--grey);
+  border-radius: 6px;
+}
+
+.GroupHeader {
+  font-size: 28px;
+}
+
+.MembersContainer {
+  height: 100px;
+  margin: 8px;
+  padding: 8px;
+  border: 1px solid var(--grey);
+}
+
+.Member {
+  
+}
+
+.RSVP {
+  
+}
+
+.Preferences {
+  padding: 2px;
+  display: inline-flex;
+}
+
+.Match {
+  color: var(--primaryColor);
+}

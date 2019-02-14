@@ -16,7 +16,7 @@ import { getUser, setUser } from "../../../actions/App";
 import {
   statusLevelInt,
   statusLevelString,
-  classIcon,
+  roleClassIcon,
   professionIcon,
   renderRoles
 } from "../../../helpers";
@@ -142,7 +142,7 @@ class PublicProfile extends PureComponent {
             </div>
             <h4 title="Primary Class Icon">
               <Image
-                src={classIcon(User.primary_class)}
+                src={roleClassIcon(User.primary_class)}
                 style={{ height: "24px" }}
               />
               <strong title="Primary | Race | Role | Class |"> Primary</strong>
@@ -155,7 +155,7 @@ class PublicProfile extends PureComponent {
             </h4>
             <h4 title="Seconday Class Icon">
               <Image
-                src={classIcon(User.secondary_class)}
+                src={roleClassIcon(User.secondary_class)}
                 style={{ height: "26px" }}
               />
               <strong title="Secondary | Race | Role | Class |">
