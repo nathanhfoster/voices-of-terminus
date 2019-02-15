@@ -143,7 +143,7 @@ class EventDetails extends Component {
     let UserAlreadySignedUp = GroupMembers.some(m =>
       Characters.some(c => c.id == m.filled)
     );
-    let CharacterSignedUpWith = { author: null };
+    let CharacterSignedUpWith;
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
@@ -165,7 +165,9 @@ class EventDetails extends Component {
     if (Characters && Response) {
       CharacterSignedUpWith = UserAlreadySignedUp
         ? Characters.filter(c => c.id == Response.id)[0]
-        : Response;
+        : Response
+        ? Response
+        : { author: null };
 
       return this.renderCharacterInfo(CharacterSignedUpWith, memberId);
     }
