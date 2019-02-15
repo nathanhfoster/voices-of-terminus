@@ -11,9 +11,23 @@
   font-size: 12px;
 }
 
+.firstLastName {
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--grey);
+}
+
 .userRoles span {
   margin: 2px;
   color: var(--light_grey);
+}
+
+.userRoles span::before {
+  content: "| ";
+}
+
+.userRoles span:last-child::after {
+  content: " |";
 }
 
 .userBio {

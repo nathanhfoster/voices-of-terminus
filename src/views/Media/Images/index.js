@@ -216,7 +216,7 @@ class Images extends PureComponent {
                 <ConfirmAction
                   Action={e => this.props.deleteGallery(gallery.id, User.token)}
                   Disabled={false}
-                  Icon={<i className="fa fa-trash-alt" />}
+                  Icon={<i className="fas fa-trash" />}
                   hasPermission={canDelete}
                   Size="small"
                   Class="pull-right"

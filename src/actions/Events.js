@@ -99,7 +99,7 @@ const getEventGroupMembersCharacters = async (GroupMembers, dispatch) => {
 };
 
 export const editEventGroupMember = (id, token, payload) => {
-  return async (dispatch, getState) => {
+  return async dispatch => {
     await Axios(token)
       .patch(`calendar/event/group/members/${id}/`, qs.stringify(payload))
       .then(res => {

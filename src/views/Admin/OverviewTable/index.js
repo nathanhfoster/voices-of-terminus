@@ -21,7 +21,7 @@ const OverviewTable = (Admin, User) => {
           Header: <i className="fas fa-gavel" />,
           columns: [
             {
-              Header: <i className="fa fa-trash-alt" />,
+              Header: <i className="fas fa-trash" />,
               accessor: "id",
               filterable: false,
               maxWidth: 48,
@@ -29,7 +29,7 @@ const OverviewTable = (Admin, User) => {
                 <ConfirmAction
                   Action={e => this.deleteThisUser(token, props.value)}
                   Disabled={!(User.is_superuser && User.is_leader)}
-                  Icon={<i className="fa fa-trash-alt" />}
+                  Icon={<i className="fas fa-trash" />}
                   hasPermission={true}
                   Size="small"
                   Class=""

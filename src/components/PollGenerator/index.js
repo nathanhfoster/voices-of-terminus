@@ -262,7 +262,7 @@ class PollGenerator extends Component {
               key={i}
               Action={e => this.deleteQuestion(i)}
               Disabled={false}
-              Icon={<i className="fa fa-trash-alt" />}
+              Icon={<i className="fa fa-trash" />}
               hasPermission={true}
               Size="small"
               Class="pull-right"
@@ -384,7 +384,7 @@ class PollGenerator extends Component {
             <ConfirmAction
               Action={e => this.deleteChoice(pollIndex, i)}
               Disabled={false}
-              Icon={<i className="fa fa-trash-alt" />}
+              Icon={<i className="fas fa-trash" />}
               hasPermission={true}
               Size="small"
               Class="pull-right"

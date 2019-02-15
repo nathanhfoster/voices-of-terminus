@@ -426,7 +426,7 @@ class Profile extends PureComponent {
                   <ConfirmAction
                     Action={e => deleteCharacter(User.token, id)}
                     Disabled={false}
-                    Icon={<i className="fa fa-trash-alt" />}
+                    Icon={<i className="fas fa-trash" />}
                     hasPermission={true}
                     Size="small"
                     Class="pull-right"

@@ -168,7 +168,7 @@ class PollSystem extends Component {
             <ConfirmAction
               Action={e => DeletePoll(User.token, id)}
               Disabled={!(User.is_superuser || User.is_leader)}
-              Icon={<i className="fa fa-trash-alt" />}
+              Icon={<i className="fas fa-trash" />}
               hasPermission={true}
               Class="pull-right"
               Title={title}

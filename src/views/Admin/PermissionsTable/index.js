@@ -413,7 +413,7 @@ const PermissionsTable = (Admin, User, updateUserProfile) => {
           ]
         },
         {
-          Header: <i className="fa fa-trash-alt"> DELETE</i>,
+          Header: <i className="fas fa-trash"> DELETE</i>,
           columns: [
             {
               Header: "Articles",
@@ -426,7 +426,7 @@ const PermissionsTable = (Admin, User, updateUserProfile) => {
               maxWidth: 75,
               Footer: Users => (
                 <span>
-                  <i className="fa fa-trash-alt" />{" "}
+                  <i className="fas fa-trash" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Users.data.reduce(
                       (acc, curr) => acc + curr.can_delete_article,
@@ -461,7 +461,7 @@ const PermissionsTable = (Admin, User, updateUserProfile) => {
               maxWidth: 100,
               Footer: Users => (
                 <span>
-                  <i className="fa fa-trash-alt" />{" "}
+                  <i className="fas fa-trash" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Users.data.reduce(
                       (acc, curr) => acc + curr.can_delete_newsletter,
@@ -496,7 +496,7 @@ const PermissionsTable = (Admin, User, updateUserProfile) => {
               maxWidth: 75,
               Footer: Users => (
                 <span>
-                  <i className="fa fa-trash-alt" />{" "}
+                  <i className="fas fa-trash" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Users.data.reduce(
                       (acc, curr) => acc + curr.can_delete_calendar_event,

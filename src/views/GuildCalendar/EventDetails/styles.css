@@ -34,8 +34,8 @@
 }
 
 .Preferences {
-  padding: 2px;
-  display: inline-flex;
+  display: inline-block;
+  margin: 3px;
 }
 
 .Match {
@@ -49,6 +49,14 @@
 .Match:hover {
   background-color: var(--tertiarycolor);
   color: var(--secondaryColor);
+}
+
+.CharacterSignedUpWith {
+  padding-left: 8px;
+}
+
+.editResponseContainer {
+  display: inline-block;
 }
 
 .MatchedCharactersContainer {

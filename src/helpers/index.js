@@ -168,54 +168,49 @@ export const roleClassIcon = roleOrClass => {
 };
 
 export const professionIcon = (profession, professionSpecialization) => {
-  if (professionSpecialization) {
-    switch (profession) {
-      case "Alchemist":
-        return <i className="fas fa-vial" />;
-      case "Blacksmith":
-        return <i className="fas fa-hammer" />;
-      case "Outfitter":
-        return <i className="fas fa-tshirt" />;
-      case "Provisioner":
-        return <i className="fas fa-lemon" />;
-      case "Scribe":
-        return <i className="fas fa-scroll" />;
-      case "Stonemason":
-        return <i className="fas fa-hand-rock" />;
-      case "Woodworker":
-        return <i className="fas fa-tree" />;
-      default:
-        return null;
-    }
-  } else {
-    switch (profession) {
-      case "Armorsmith":
-        return <i className="fab fa-css3" />;
-      case "Weaponsmith":
-        return <i className="fab fa-ethereum" />;
-      case "Leatherworker":
-        return <i className="fab fa-pied-piper-hat" />;
-      case "Tailor":
-        return <i className="fab fa-opencart" />;
-      case "Brewer":
-        return <i className="fas fa-beer" />;
-      case "Chef":
-        return <i className="fas fa-utensils" />;
-      case "Engraver":
-        return <i className="fas fa-pen-fancy" />;
-      case "Researcher":
-        return <i className="fas fa-hat-wizard" />;
-      case "Jeweller":
-        return <i className="fas fa-ring" />;
-      case "Sculptor":
-        return <i className="fas fa-monument" />;
-      case "Bowyer":
-        return <i className="fab fa-schlix" />;
-      case "Carver":
-        return <i className="fas fa-hands" />;
-      default:
-        return null;
-    }
+  switch (professionSpecialization || profession) {
+    case "Alchemist":
+      return <i className="fas fa-vial" />;
+    case "Blacksmith":
+      return <i className="fas fa-hammer" />;
+    case "Outfitter":
+      return <i className="fas fa-tshirt" />;
+    case "Provisioner":
+      return <i className="fas fa-lemon" />;
+    case "Scribe":
+      return <i className="fas fa-scroll" />;
+    case "Stonemason":
+      return <i className="fas fa-hand-rock" />;
+    case "Woodworker":
+      return <i className="fas fa-tree" />;
+
+    case "Armorsmith":
+      return <i className="fab fa-css3" />;
+    case "Weaponsmith":
+      return <i className="fab fa-ethereum" />;
+    case "Leatherworker":
+      return <i className="fab fa-pied-piper-hat" />;
+    case "Tailor":
+      return <i className="fab fa-opencart" />;
+    case "Brewer":
+      return <i className="fas fa-beer" />;
+    case "Chef":
+      return <i className="fas fa-utensils" />;
+    case "Engraver":
+      return <i className="fas fa-pen-fancy" />;
+    case "Researcher":
+      return <i className="fas fa-hat-wizard" />;
+    case "Jeweller":
+      return <i className="fas fa-ring" />;
+    case "Sculptor":
+      return <i className="fas fa-monument" />;
+    case "Bowyer":
+      return <i className="fab fa-schlix" />;
+    case "Carver":
+      return <i className="fas fa-hands" />;
+    default:
+      return null;
+    // <i className="fas fa-ban" />
   }
 };
 
@@ -234,12 +229,11 @@ export const renderRoles = User => {
     is_recruiter ||
     is_class_lead ||
     is_crafter_lead;
-  if (hasRole) Roles.push(" |");
-  if (is_raid_leader) Roles.push("Raid Leader | ");
-  if (is_banker) Roles.push("Banker | ");
-  if (is_recruiter) Roles.push("Recruiter | ");
-  if (is_class_lead) Roles.push("Class Lead | ");
-  if (is_crafter_lead) Roles.push("Crafter Lead | ");
+  if (is_raid_leader) Roles.push("Raid Leader");
+  if (is_banker) Roles.push("Banker");
+  if (is_recruiter) Roles.push("Recruiter");
+  if (is_class_lead) Roles.push("Class Lead");
+  if (is_crafter_lead) Roles.push("Crafter Lead");
   if (!hasRole) Roles.push("| No roles |");
 
   return Roles.map(r => <span>{r}</span>);

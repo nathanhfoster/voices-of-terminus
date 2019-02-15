@@ -128,7 +128,7 @@ const Cards = props => {
             <ConfirmAction
               Action={e => deleteCard(id, User.token)}
               Disabled={false}
-              Icon={<i className="fa fa-trash-alt" />}
+              Icon={<i className="fas fa-trash" />}
               hasPermission={canDelete}
               Size="small"
               Class="pull-right"

@@ -13,6 +13,7 @@ import { getCharacters } from "../../../actions/User";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { roleClassIcon, classOptions } from "../../../helpers";
+import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Events }) => ({ User, Events });
 
@@ -84,7 +85,7 @@ class EventDetails extends Component {
   renderGroupMembers = GroupMembers => {
     const { User } = this.state;
     const { Characters } = User;
-    return GroupMembers.map(m => {
+    return GroupMembers.map(member => {
       const {
         id,
         event_group_id,
@@ -92,30 +93,32 @@ class EventDetails extends Component {
         role_class_preferences,
         filled,
         Response
-      } = m;
+      } = member;
       const roleClassPreferences = role_class_preferences.split("|");
+
       const rolePreference = roleClassPreferences[0];
       let classPreferences = roleClassPreferences.slice(1);
-      const noClassPreferences = classPreferences.length === 0;
-      if (noClassPreferences)
+      const hasClassPreferences = classPreferences.length > 0;
+      if (!hasClassPreferences)
         classPreferences = classOptions[rolePreference].map(e => e.value);
-
-      // const p = preferences.map(p => this.renderCharacterMatch(p));
-      // console.log(p);
-
       return (
-        <div key={id} className="MembersContainer">
-          <Image height={30} width={30} src={roleClassIcon(rolePreference)} />{" "}
+        <div
+          key={id}
+          className="MembersContainer"
+          style={{ backgroundColor: filled ? "var(--slate_grey" : "inherit" }}
+        >
+          <Image height={26} width={26} src={roleClassIcon(rolePreference)} />{" "}
           {rolePreference}
           <div className="Member">
             {this.renderCharacterMatch(
-              Characters,
+              GroupMembers,
               id,
+              User,
+              Characters,
+              Response,
               rolePreference,
-              noClassPreferences,
-              classPreferences,
-              filled,
-              Response
+              hasClassPreferences,
+              classPreferences
             )}
           </div>
         </div>
@@ -124,16 +127,135 @@ class EventDetails extends Component {
   };
 
   renderCharacterMatch = (
-    Characters,
+    GroupMembers,
     memberId,
+    User,
+    Characters,
+    Response,
     rolePreference,
-    noClassPreferences,
-    classPreferences,
-    filled,
-    Response
+    hasClassPreferences,
+    classPreferences
   ) => {
-    // console.log(filled, Response);
+    let Elements = [];
+    let UserAlreadySignedUp = GroupMembers.some(m =>
+      Characters.some(c => c.id == m.filled)
+    );
+    let CharacterSignedUpWith = {};
+    const imageDimensions = 20;
+    const canSignUpForAnyClass =
+      rolePreference == "Any" && !hasClassPreferences;
+
+    // for (let i = 0; i < classPreferences.length; i++) {
+    //   const classPreference = classPreferences[i];
+    //   Elements.push(<span>{classPreference}</span>);
+    // }
+    // return Elements;
+    // console.log("GroupMembers: ", GroupMembers);
+    // console.log("memberId: ", memberId);
+    // console.log("Characters: ", Characters);
+    // console.log("Response: ", Response);
+    // console.log("UserAlreadySignedUp: ", UserAlreadySignedUp);
+    // console.log("rolePreference: ", rolePreference);
+    // console.log("hasClassPreferences: ", hasClassPreferences);
+    // console.log("classPreferences: ", classPreferences);
+    // console.log("-------------------------------------------");
+    if (Response) {
+      CharacterSignedUpWith = UserAlreadySignedUp
+        ? Characters.filter(c => c.id == Response.id)[0]
+        : Response;
+
+      return this.renderCharacterInfo(CharacterSignedUpWith, memberId);
+    }
+    if (!Response && canSignUpForAnyClass) {
+      return (
+        <div>
+          <span
+            key={memberId}
+            onClick={e =>
+              !UserAlreadySignedUp
+                ? this.setState({
+                    show: true,
+                    memberId,
+                    MatchedCharacters: Characters,
+                    rolePreference
+                  })
+                : editEventGroupMember(memberId, User.token, { filled: null })
+            }
+            className={
+              !UserAlreadySignedUp
+                ? "Preferences Match Clickable help"
+                : "Preferences help"
+            }
+          >
+            <div className="editResponseContainer">
+              {!UserAlreadySignedUp && <i className="fas fa-plus" />} Any
+            </div>
+          </span>
+        </div>
+      );
+    } else if (!Response) {
+      for (let i = 0; i < classPreferences.length; i++) {
+        const classPreference = classPreferences[i];
+        const UserCharacterCandidates = Characters.filter(
+          c => c.role == rolePreference && c.character_class == classPreference
+        );
+        const roleMatch = UserCharacterCandidates.length > 0;
+        if (roleMatch) {
+          Elements.push(
+            <div className="Preferences">
+              <Image
+                height={imageDimensions}
+                width={imageDimensions}
+                src={roleClassIcon(classPreference)}
+              />
+              <span
+                key={memberId}
+                onClick={e =>
+                  !UserAlreadySignedUp
+                    ? this.setState({
+                        show: true,
+                        memberId,
+                        MatchedCharacters: UserCharacterCandidates,
+                        rolePreference
+                      })
+                    : editEventGroupMember(memberId, User.token, {
+                        filled: null
+                      })
+                }
+                className={
+                  !UserAlreadySignedUp
+                    ? "Preferences Match Clickable help"
+                    : "Preferences help"
+                }
+              >
+                <div className="editResponseContainer">
+                  {!UserAlreadySignedUp && <i className="fas fa-plus" />}
+                  {classPreference}
+                </div>
+              </span>
+            </div>
+          );
+        } else
+          Elements.push(
+            <div className="Preferences">
+              <Image
+                height={imageDimensions}
+                width={imageDimensions}
+                src={roleClassIcon(classPreference)}
+              />
+              <span key={memberId} className="Preferences help">
+                {classPreference}
+              </span>
+            </div>
+          );
+      }
+    }
+    return Elements;
+  };
+
+  renderCharacterInfo = (CharacterSignedUpWith, memberId) => {
     const { User, editEventGroupMember } = this.props;
+    const isUsersCharacter = User.id == CharacterSignedUpWith.author;
     const {
       id,
       author,
@@ -143,99 +265,37 @@ class EventDetails extends Component {
       race,
       role,
       character_class
-    } = Response ? Response : {};
-    let Preferences = [];
-    const imageDimensions = 20;
-
-    if (!filled && rolePreference === "Any")
-      return (
-        <span
-          key={memberId}
-          onClick={e =>
-            this.setState({
-              show: true,
-              memberId,
-              MatchedCharacters: Characters,
-              rolePreference
-            })
-          }
-          className="Preferences Match Clickable help"
-        >
-          Any
-        </span>
-      );
-    // if (filled)
-    //   return (
-    //     <span key={memberId} className="Preferences help">
-    //       {name}
-    //     </span>
-    //   );
-
-    for (let i = 0; i < classPreferences.length; i++) {
-      const classPreference = classPreferences[i];
-      // const classIndex = Characters.map(c =>
-      //   classPreferences.findIndex(e => e == c.character_class)
-      // ).filter(e => !e)[0];
-
-      const MatchedCharacters = Characters.filter(
-        c =>
-          (noClassPreferences && c.role == rolePreference.includes(c.role)) ||
-          c.character_class == classPreference
-      );
-
-      const matched = MatchedCharacters.length > 0;
-      if (!filled && matched)
-        Preferences.push(
-          <div className="Preferences">
-            <Image
-              height={imageDimensions}
-              width={imageDimensions}
-              src={roleClassIcon(classPreference)}
-            />
-            <span
-              key={memberId}
-              onClick={e =>
-                this.setState({
-                  show: true,
-                  memberId,
-                  MatchedCharacters,
-                  rolePreference
-                })
-              }
-              className="Preferences Match Clickable help"
-            >
-              {classPreference}
-            </span>
-          </div>
-        );
-      // else if (filled)
-      //   Preferences.push(
-      //     <div className="Preferences">
-      //       <Image
-      //         height={imageDimensions}
-      //         width={imageDimensions}
-      //         src={roleClassIcon(classPreference)}
-      //       />
-      //       <span key={memberId} className="Preferences help">
-      //         {name}
-      //       </span>
-      //     </div>
-      //   );
-      else
-        Preferences.push(
-          <div className="Preferences">
-            <Image
-              height={imageDimensions}
-              width={imageDimensions}
-              src={roleClassIcon(classPreference)}
-            />
-            <span key={memberId} className="Preferences help">
-              {classPreference}
-            </span>
-          </div>
-        );
-    }
-    return Preferences;
+    } = CharacterSignedUpWith;
+    const iconDimensions = 24;
+    return (
+      <Row className="CharacterSignedUpWith">
+        <Col xs={3}>
+          {`(${level}) `}
+          <Image
+            height={iconDimensions}
+            width={iconDimensions}
+            src={roleClassIcon(character_class)}
+          />
+          {` ${name}`}
+        </Col>
+        <Col xs={2}>{race}</Col>
+        <Col xs={3}>{role}</Col>
+        <Col xs={3}>{character_class}</Col>
+        <Col xs={1}>
+          <ConfirmAction
+            Action={e =>
+              editEventGroupMember(memberId, User.token, { filled: null })
+            }
+            Disabled={false}
+            Icon={<i className="fas fa-trash" />}
+            hasPermission={isUsersCharacter}
+            Size="small"
+            Class="pull-right"
+            Title={name}
+          />
+        </Col>
+      </Row>
+    );
   };
 
   renderCharacters = (memberId, MatchedCharacters) => {

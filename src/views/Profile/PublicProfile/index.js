@@ -133,7 +133,7 @@ class PublicProfile extends PureComponent {
           </Col>
           <Col md={5} xs={12}>
             <h1 title="User Name">{User.username.toUpperCase()}</h1>
-            <span title="First and Last Name" className="help">
+            <span title="First and Last Name" className="firstLastName">
               {User.first_name} {User.last_name}
             </span>
             <h2 title="Status">{statusLevelString(statusLevelInt(User))}</h2>
@@ -157,9 +157,8 @@ class PublicProfile extends PureComponent {
               <Image
                 src={roleClassIcon(User.secondary_class)}
                 style={{ height: "26px" }}
-              />
+              />{" "}
               <strong title="Secondary | Race | Role | Class |">
-                {" "}
                 Secondary
               </strong>
               <span> | </span>

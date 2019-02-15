@@ -115,7 +115,7 @@ class HomeCarousel extends PureComponent {
                 });
               }}
               Disabled={false}
-              Icon={<i className="fa fa-trash-alt" />}
+              Icon={<i className="fas fa-trash" />}
               hasPermission={canDelete}
               Size=""
               Class="LightboxButton"

@@ -490,7 +490,7 @@ class Messages extends PureComponent {
                             this.setState({ show: false });
                           }}
                           Disabled={false}
-                          Icon={<i className="fa fa-trash-alt" />}
+                          Icon={<i className="fas fa-trash" />}
                           hasPermission={true}
                           Title={this.state.modalTitle}
                         />

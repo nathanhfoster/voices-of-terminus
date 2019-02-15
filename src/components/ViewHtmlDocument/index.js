@@ -169,8 +169,7 @@ class ViewHtmlDocument extends PureComponent {
       likes
     };
 
-    if (path.includes("newsletter"))
-      postNewsletterComment(User.token, payload);
+    if (path.includes("newsletter")) postNewsletterComment(User.token, payload);
     if (path.includes("article")) postArticleComment(User.token, payload);
   };
 
@@ -198,7 +197,7 @@ class ViewHtmlDocument extends PureComponent {
             <ConfirmAction
               Action={e => this.deleteComment(com.id, User.token)}
               Disabled={false}
-              Icon={<i className="fa fa-trash-alt" />}
+              Icon={<i className="fas fa-trash" />}
               hasPermission={User.is_superuser || User.id === com.author}
               Size=""
               Class="pull-right"

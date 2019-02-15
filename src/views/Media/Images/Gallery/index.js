@@ -242,7 +242,7 @@ class Gallery extends PureComponent {
                     this.props.deleteGalleryImage(image.id, User.token)
                   }
                   Disabled={false}
-                  Icon={<i className="fa fa-trash-alt" />}
+                  Icon={<i className="fas fa-trash" />}
                   hasPermission={canDelete}
                   Size="small"
                   Class="pull-right"
@@ -440,7 +440,7 @@ class Gallery extends PureComponent {
                     });
                   }}
                   Disabled={false}
-                  Icon={<i className="fa fa-trash-alt" />}
+                  Icon={<i className="fas fa-trash" />}
                   hasPermission={canDelete}
                   Size=""
                   Class="LightboxButton"
