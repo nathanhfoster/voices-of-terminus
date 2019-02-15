@@ -57,6 +57,14 @@
   margin-bottom: 8px;
 }
 
+.help-inline {
+  display: flex;
+  font-weight: bold;
+  font-size: 14px;
+  color: var(--grey);
+  margin-bottom: 8px;
+}
+
 meter::-webkit-meter-optimum-value {
   box-shadow: 0 5px 5px -5px #999 inset;
   /* background-image: linear-gradient(

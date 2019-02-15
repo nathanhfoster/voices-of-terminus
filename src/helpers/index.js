@@ -234,7 +234,7 @@ export const renderRoles = User => {
   if (is_recruiter) Roles.push("Recruiter");
   if (is_class_lead) Roles.push("Class Lead");
   if (is_crafter_lead) Roles.push("Crafter Lead");
-  if (!hasRole) Roles.push("No roles");
+  if (!hasRole) Roles.push("No roles"); 
 
   return Roles.map(r => <span>{r}</span>);
 };

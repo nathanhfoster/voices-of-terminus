@@ -252,6 +252,7 @@ class Event extends Component {
       start_date,
       end_date,
       title,
+      url,
       description,
       tags,
       min_level,
@@ -264,6 +265,7 @@ class Event extends Component {
       start_date,
       end_date,
       title,
+      url,
       description,
       author: User.id,
       last_modified_by: User.id,
@@ -349,6 +351,7 @@ class Event extends Component {
       User,
       Events,
       title,
+      url,
       description,
       tags,
       min_level,
@@ -410,7 +413,7 @@ class Event extends Component {
           <Row>
             <Col md={6} xs={12} className="expirationDate">
               <ControlLabel>Start date</ControlLabel>
-              <span className="help">(In your local timezone.)</span>
+              <span className="help-inline">(In your local timezone.)</span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-check" />
@@ -434,7 +437,7 @@ class Event extends Component {
             </Col>
             <Col md={6} xs={12} className="expirationDate">
               <ControlLabel>End date</ControlLabel>
-              <span className="help">(In your local timezone.)</span>
+              <span className="help-inline">(In your local timezone.)</span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-times" />
@@ -467,6 +470,20 @@ class Event extends Component {
                   onChange={this.onChange}
                 />
               </FormGroup>
+            </Col>
+            <Col xs={12}>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-link" />
+                </InputGroup.Addon>
+                <FormControl
+                  value={url}
+                  type="text"
+                  name="url"
+                  placeholder="Url"
+                  onChange={this.onChange}
+                />
+              </InputGroup>
             </Col>
             <Col xs={12}>
               <InputGroup>

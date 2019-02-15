@@ -110,8 +110,10 @@ class EventDetails extends Component {
           className="MembersContainer"
           style={{ backgroundColor: filled ? "var(--slate_grey" : "inherit" }}
         >
-          <Image height={26} width={26} src={roleClassIcon(rolePreference)} />{" "}
-          {rolePreference}
+          {!filled && (
+            <Image height={26} width={26} src={roleClassIcon(rolePreference)} />
+          )}
+          {!filled && ` ${rolePreference}`}
           <div className="Member">
             {this.renderCharacterMatch(
               GroupMembers,
@@ -365,32 +367,31 @@ class EventDetails extends Component {
       max_level,
       min_level,
       tags,
-      title
+      title,
+      url
     } = Event;
     return (
       <Grid className="EventDetails Container">
         <Row>
           <PageHeader className="pageHeader">{title}</PageHeader>
         </Row>
-        <Row>
+        <Row className="Details">
           <Col xs={12}>
             <i className="fas fa-user" />{" "}
-            <Link to={`/profile/${author}`} onClick={e => e.stopPropagation()}>
-              {author_username}
-            </Link>{" "}
+            <Link to={`/profile/${author}`}>{author_username}</Link>{" "}
             <i className="far fa-clock" />{" "}
             <Moment fromNow>{date_created}</Moment>
           </Col>
           <Col xs={12}>
             <i className="fas fa-pencil-alt" />{" "}
-            <Link
-              to={`/profile/${last_modified_by}`}
-              onClick={e => e.stopPropagation()}
-            >
+            <Link to={`/profile/${last_modified_by}`}>
               {last_modified_by_username}
             </Link>{" "}
             <i className="far fa-clock" />{" "}
             <Moment fromNow>{last_modified}</Moment>
+          </Col>
+          <Col xs={12}>
+            <i className="fas fa-link" /> <Link to={`${url}`}>{url}</Link>
           </Col>
           <Col xs={12}>
             <i className="far fa-calendar-check" />{" "}
