@@ -166,8 +166,7 @@ class EventDetails extends Component {
       CharacterSignedUpWith = UserAlreadySignedUp
         ? Characters.filter(c => c.id == Response.id)[0]
         : Response;
-      if (CharacterSignedUpWith.hasOwnProperty("author"))
-        return this.renderCharacterInfo(CharacterSignedUpWith, memberId);
+       return this.renderCharacterInfo(CharacterSignedUpWith || {}, memberId);
     }
     if (!Response && canSignUpForAnyClass) {
       return (
