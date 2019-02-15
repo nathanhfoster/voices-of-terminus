@@ -167,7 +167,7 @@ const Cards = props => {
             <div>
               <i className="fas fa-pencil-alt" />
               <Link
-                to={`/profile{last_modified_by}`}
+                to={`/profile/${last_modified_by}`}
                 onClick={e => e.stopPropagation()}
               >
                 {last_modified_by_username}
