@@ -33,7 +33,11 @@ class EventDetails extends Component {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = {
+    User: {
+      Characters: []
+    }
+  };
 
   componentWillMount() {
     const { clearEventsApi } = this.props;
@@ -70,20 +74,19 @@ class EventDetails extends Component {
 
   componentWillUnmount() {}
 
-  renderGroups = Groups =>
+  renderGroups = (User, Groups) =>
     Groups.map((g, i) => {
       const { id, event_id, position, GroupMembers } = g;
       const header = Groups.length > 1 ? `Group: ${position + 1}` : `Group`;
       return (
         <Col className="Group" md={12 / Groups.length} xs={12}>
           <h2 className="headerBanner">{header}</h2>
-          {this.renderGroupMembers(GroupMembers)}
+          {this.renderGroupMembers(User, GroupMembers)}
         </Col>
       );
     });
 
-  renderGroupMembers = GroupMembers => {
-    const { User } = this.state;
+  renderGroupMembers = (User, GroupMembers) => {
     const { Characters } = User;
     return GroupMembers.map(member => {
       const {
@@ -140,7 +143,7 @@ class EventDetails extends Component {
     let UserAlreadySignedUp = GroupMembers.some(m =>
       Characters.some(c => c.id == m.filled)
     );
-    let CharacterSignedUpWith = {author: null};
+    let CharacterSignedUpWith = { author: null };
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
@@ -172,7 +175,7 @@ class EventDetails extends Component {
           <span
             key={memberId}
             onClick={e =>
-              !UserAlreadySignedUp
+              !UserAlreadySignedUp && User.id
                 ? this.setState({
                     show: true,
                     memberId,
@@ -182,13 +185,14 @@ class EventDetails extends Component {
                 : editEventGroupMember(memberId, User.token, { filled: null })
             }
             className={
-              !UserAlreadySignedUp
+              !UserAlreadySignedUp && User.id
                 ? "Preferences Match Clickable help"
                 : "Preferences help"
             }
           >
             <div className="editResponseContainer">
-              {!UserAlreadySignedUp && <i className="fas fa-plus" />} Any
+              {!UserAlreadySignedUp && User.id && <i className="fas fa-plus" />}{" "}
+              Any
             </div>
           </span>
         </div>
@@ -229,7 +233,7 @@ class EventDetails extends Component {
                 }
               >
                 <div className="editResponseContainer">
-                  {!UserAlreadySignedUp && <i className="fas fa-plus" />}
+                  {!UserAlreadySignedUp && <i className="fas fa-plus" />}{" "}
                   {classPreference}
                 </div>
               </span>
@@ -332,6 +336,7 @@ class EventDetails extends Component {
 
   render() {
     const {
+      User,
       Event,
       Groups,
       GroupMembers,
@@ -344,7 +349,6 @@ class EventDetails extends Component {
       g.GroupMembers = GroupMembers.filter(m => m.event_group_id === g.id);
       return g;
     });
-    //console.log(GroupsWithMembers)
     const {
       id,
       author,
@@ -364,91 +368,87 @@ class EventDetails extends Component {
       title
     } = Event;
     return (
-      GroupsWithMembers && (
-        <Grid className="EventDetails Container">
-          <Row>
-            <PageHeader className="pageHeader">{title}</PageHeader>
-          </Row>
-          <Row>
-            <Col xs={12}>
-              <i className="fas fa-user" />{" "}
-              <Link
-                to={`/profile/${author}`}
-                onClick={e => e.stopPropagation()}
-              >
-                {author_username}
-              </Link>{" "}
-              <i className="far fa-clock" />{" "}
-              <Moment fromNow>{date_created}</Moment>
-            </Col>
-            <Col xs={12}>
-              <i className="fas fa-pencil-alt" />{" "}
-              <Link
-                to={`/profile/${last_modified_by}`}
-                onClick={e => e.stopPropagation()}
-              >
-                {last_modified_by_username}
-              </Link>{" "}
-              <i className="far fa-clock" />{" "}
-              <Moment fromNow>{last_modified}</Moment>
-            </Col>
-            <Col xs={12}>
-              <i className="far fa-calendar-check" />{" "}
-              <Moment fromNow>{start_date}</Moment>
-            </Col>
-            <Col xs={12}>
-              <i className="far fa-calendar-times" />{" "}
-              <Moment fromNow>{end_date}</Moment>
-            </Col>
-            <Col xs={12}>
-              <i className="fas fa-users" /> {group_size}
-            </Col>
-            <Col xs={12}>
-              <i className="fas fa-tags" /> [{tags}]
-            </Col>
-            <Col xs={12} className="blockLineBreak">
-              <i className="fas fa-clipboard" /> {description}
-            </Col>
-            <Col xs={12}>
-              <i className="fas fa-globe-americas" />{" "}
-              {locations ? `[${locations}]` : "No locations provided."}
-            </Col>
-            <Col xs={12}>
-              <i class="fas fa-exchange-alt" />{" "}
-              {`Level range: (${min_level} - ${max_level})`}
-            </Col>
-          </Row>
-          <Row>
-            <PageHeader className="Center">Group Composition</PageHeader>
-          </Row>
-          <Row>{this.renderGroups(GroupsWithMembers)}</Row>
-          {show ? (
-            <Modal
-              bsSize="large"
-              show={show}
-              onHide={() => this.setState({ show: false })}
-              dialogClassName="eventModal"
+      <Grid className="EventDetails Container">
+        <Row>
+          <PageHeader className="pageHeader">{title}</PageHeader>
+        </Row>
+        <Row>
+          <Col xs={12}>
+            <i className="fas fa-user" />{" "}
+            <Link to={`/profile/${author}`} onClick={e => e.stopPropagation()}>
+              {author_username}
+            </Link>{" "}
+            <i className="far fa-clock" />{" "}
+            <Moment fromNow>{date_created}</Moment>
+          </Col>
+          <Col xs={12}>
+            <i className="fas fa-pencil-alt" />{" "}
+            <Link
+              to={`/profile/${last_modified_by}`}
+              onClick={e => e.stopPropagation()}
             >
-              <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-lg">
-                  {`Sign up for "${rolePreference}" role`}
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <PageHeader className="pageHeader">CHARACTERS</PageHeader>
-                {this.renderCharacters(
-                  memberId,
-                  MatchedCharacters,
-                  rolePreference
-                )}
-                <Row>
-                  <Col xs={12} />
-                </Row>
-              </Modal.Body>
-              <Modal.Footer>
-                <Row>
-                  <Col md={12} className="Center">
-                    {/*<ButtonGroup>
+              {last_modified_by_username}
+            </Link>{" "}
+            <i className="far fa-clock" />{" "}
+            <Moment fromNow>{last_modified}</Moment>
+          </Col>
+          <Col xs={12}>
+            <i className="far fa-calendar-check" />{" "}
+            <Moment fromNow>{start_date}</Moment>
+          </Col>
+          <Col xs={12}>
+            <i className="far fa-calendar-times" />{" "}
+            <Moment fromNow>{end_date}</Moment>
+          </Col>
+          <Col xs={12}>
+            <i className="fas fa-users" /> {group_size}
+          </Col>
+          <Col xs={12}>
+            <i className="fas fa-tags" /> [{tags}]
+          </Col>
+          <Col xs={12} className="blockLineBreak">
+            <i className="fas fa-clipboard" /> {description}
+          </Col>
+          <Col xs={12}>
+            <i className="fas fa-globe-americas" />{" "}
+            {locations ? `[${locations}]` : "No locations provided."}
+          </Col>
+          <Col xs={12}>
+            <i class="fas fa-exchange-alt" />{" "}
+            {`Level range: (${min_level} - ${max_level})`}
+          </Col>
+        </Row>
+        <Row>
+          <PageHeader className="Center">Group Composition</PageHeader>
+        </Row>
+        <Row>{this.renderGroups(User, GroupsWithMembers)}</Row>
+        {show ? (
+          <Modal
+            bsSize="large"
+            show={show}
+            onHide={() => this.setState({ show: false })}
+            dialogClassName="eventModal"
+          >
+            <Modal.Header closeButton>
+              <Modal.Title id="contained-modal-title-lg">
+                {`Sign up for "${rolePreference}" role`}
+              </Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <PageHeader className="pageHeader">CHARACTERS</PageHeader>
+              {this.renderCharacters(
+                memberId,
+                MatchedCharacters,
+                rolePreference
+              )}
+              <Row>
+                <Col xs={12} />
+              </Row>
+            </Modal.Body>
+            <Modal.Footer>
+              <Row>
+                <Col md={12} className="Center">
+                  {/*<ButtonGroup>
                     <Button
                       onClick={this.handleDelete}
                       className="ConfirmActionButton"
@@ -457,13 +457,12 @@ class EventDetails extends Component {
                     </Button>
                     <Button onClick={this.handleHide}>No</Button>
                   </ButtonGroup>*/}
-                  </Col>
-                </Row>
-              </Modal.Footer>
-            </Modal>
-          ) : null}
-        </Grid>
-      )
+                </Col>
+              </Row>
+            </Modal.Footer>
+          </Modal>
+        ) : null}
+      </Grid>
     );
   }
 }

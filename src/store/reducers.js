@@ -211,7 +211,7 @@ export const User = (state = { Characters: [] }, action) => {
         Characters: payload
       };
     case C.SET_LOGOUT:
-      return {};
+      return { Characters: [] };
     default:
       return { ...state };
   }
