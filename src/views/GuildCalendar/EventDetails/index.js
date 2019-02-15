@@ -159,7 +159,7 @@ class EventDetails extends Component {
     // console.log("hasClassPreferences: ", hasClassPreferences);
     // console.log("classPreferences: ", classPreferences);
     // console.log("-------------------------------------------");
-    if (Response) {
+    if (Characters && Response) {
       CharacterSignedUpWith = UserAlreadySignedUp
         ? Characters.filter(c => c.id == Response.id)[0]
         : Response;
