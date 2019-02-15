@@ -143,7 +143,7 @@ class EventDetails extends Component {
     let UserAlreadySignedUp = GroupMembers.some(m =>
       Characters.some(c => c.id == m.filled)
     );
-    let CharacterSignedUpWith;
+    let CharacterSignedUpWith = { author: null };
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
@@ -166,7 +166,8 @@ class EventDetails extends Component {
       CharacterSignedUpWith = UserAlreadySignedUp
         ? Characters.filter(c => c.id == Response.id)[0]
         : Response;
-       return this.renderCharacterInfo(CharacterSignedUpWith, memberId);
+
+      return this.renderCharacterInfo(User, CharacterSignedUpWith, memberId);
     }
     if (!Response && canSignUpForAnyClass) {
       return (
@@ -256,9 +257,9 @@ class EventDetails extends Component {
     return Elements;
   };
 
-  renderCharacterInfo = (CharacterSignedUpWith, memberId) => {
-    const { User, editEventGroupMember } = this.props;
-    const isUsersCharacter = CharacterSignedUpWith && (User.id == CharacterSignedUpWith.author);
+  renderCharacterInfo = (User, CharacterSignedUpWith, memberId) => {
+    const { editEventGroupMember } = this.props;
+    const isUsersCharacter = User.id == CharacterSignedUpWith.author;
     const {
       id,
       author,
@@ -301,8 +302,8 @@ class EventDetails extends Component {
     );
   };
 
-  renderCharacters = (memberId, MatchedCharacters) => {
-    const { User, editEventGroupMember } = this.props;
+  renderCharacters = (User, memberId, MatchedCharacters) => {
+    const { editEventGroupMember } = this.props;
     return MatchedCharacters.map(c => {
       const {
         id,
@@ -436,6 +437,7 @@ class EventDetails extends Component {
             <Modal.Body>
               <PageHeader className="pageHeader">CHARACTERS</PageHeader>
               {this.renderCharacters(
+                User,
                 memberId,
                 MatchedCharacters,
                 rolePreference

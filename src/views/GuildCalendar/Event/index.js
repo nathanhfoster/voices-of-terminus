@@ -227,6 +227,10 @@ class Event extends Component {
     groups[groupIndex][partyIndex].role_class_preferences = selectValue;
     switch (action) {
       case "remove-value":
+        if (roleOptions.some(e => e.value == removedValue.value)) {
+          selectValue = roleOptions.filter(v => v.isFixed);
+          groups[groupIndex][partyIndex].role_class_preferences = [];
+        }
         break;
       case "pop-value":
         if (removedValue.isFixed) {
@@ -235,34 +239,10 @@ class Event extends Component {
         break;
       case "clear":
         selectValue = roleOptions.filter(v => v.isFixed);
-        groups[groupIndex][partyIndex].class_preferences = [];
+        groups[groupIndex][partyIndex].role_class_preferences = [];
         break;
     }
-    this.setState({ groups });
-  };
-
-  onSelectClassPreferenceChange = (
-    selectValue,
-    { action, removedValue },
-    groups,
-    groupIndex,
-    partyIndex
-  ) => {
-    groups = DeepCopy(groups);
-    groups[groupIndex][partyIndex].class_preferences = selectValue;
-    switch (action) {
-      case "remove-value":
-        break;
-      case "pop-value":
-        if (removedValue.isFixed) {
-          return;
-        }
-        break;
-      case "clear":
-        selectValue = roleOptions.filter(v => v.isFixed);
-        break;
-    }
-    this.setState({ groups });
+    this.setState({ selectValue, groups });
   };
 
   postEvent = () => {
@@ -314,9 +294,10 @@ class Event extends Component {
 
   renderGroupClass = (groups, group_size) =>
     groups.map((group, i) => {
+      console.log(groups);
       return (
         <Col md={12 / group_size} xs={12} className="memberCol">
-          <h3>Group {i + 1}</h3>
+          {group_size > 1 ? <h3>{`Group ${i + 1}`}</h3> : <h3>Group</h3>}
           {group.map((member, k) => {
             const { role_class_preferences } = member;
             const Options =
@@ -373,7 +354,6 @@ class Event extends Component {
       min_level,
       max_level,
       role_class_preferences,
-      class_preferences,
       locations,
       start_date,
       end_date,
