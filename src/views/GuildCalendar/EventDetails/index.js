@@ -140,7 +140,7 @@ class EventDetails extends Component {
     let UserAlreadySignedUp = GroupMembers.some(m =>
       Characters.some(c => c.id == m.filled)
     );
-    let CharacterSignedUpWith = {};
+    let CharacterSignedUpWith = {author: null};
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
