@@ -166,7 +166,7 @@ class EventDetails extends Component {
       CharacterSignedUpWith = UserAlreadySignedUp
         ? Characters.filter(c => c.id == Response.id)[0]
         : Response;
-       return this.renderCharacterInfo(CharacterSignedUpWith || {}, memberId);
+       return this.renderCharacterInfo(CharacterSignedUpWith, memberId);
     }
     if (!Response && canSignUpForAnyClass) {
       return (
@@ -258,7 +258,7 @@ class EventDetails extends Component {
 
   renderCharacterInfo = (CharacterSignedUpWith, memberId) => {
     const { User, editEventGroupMember } = this.props;
-    const isUsersCharacter = User.id == CharacterSignedUpWith.author;
+    const isUsersCharacter = CharacterSignedUpWith && (User.id == CharacterSignedUpWith.author);
     const {
       id,
       author,
