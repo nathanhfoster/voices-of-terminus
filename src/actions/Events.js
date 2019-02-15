@@ -19,8 +19,8 @@ export const getYearMonthEvents = payload => {
 };
 
 export const getEvent = eventId => {
-  return async (dispatch, getState) => {
-    await Axios()
+  return (dispatch, getState) => {
+    Axios()
       .get(`calendar/events/${eventId}/`)
       .then(res => {
         const { id } = res.data;
@@ -36,9 +36,9 @@ export const getEvent = eventId => {
   };
 };
 
-const getEventGroups = async (eventId, dispatch) => {
+const getEventGroups = (eventId, dispatch) => {
   let Groups = [];
-  await Axios()
+  Axios()
     .get(`calendar/event/groups/${eventId}/view/`)
     .then(res => {
       dispatch({ type: C.GET_EVENT_GROUPS, payload: res.data });
@@ -56,11 +56,11 @@ const getEventGroups = async (eventId, dispatch) => {
     );
 };
 
-const getEventGroupMembers = async (Groups, dispatch) => {
+const getEventGroupMembers = (Groups, dispatch) => {
   let payload = [];
   for (let i = 0; i < Groups.length; i++) {
     const eventGroupId = Groups[i];
-    await Axios()
+    Axios()
       .get(`calendar/event/group/members/${eventGroupId}/view/`)
       .then(res => {
         payload = [...payload, ...res.data];
@@ -70,14 +70,14 @@ const getEventGroupMembers = async (Groups, dispatch) => {
   }
 };
 
-const getEventGroupMembersCharacters = async (GroupMembers, dispatch) => {
+const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
   let payload = DeepCopy(GroupMembers);
   const filledGroupMembers = GroupMembers.filter(m => m.filled);
   const filledMembers = filledGroupMembers.length > 0;
   if (filledMembers)
     for (let i = 0; i < filledGroupMembers.length; i++) {
       const { filled } = filledGroupMembers[i];
-      await Axios()
+      Axios()
         .get(`characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
@@ -99,8 +99,8 @@ const getEventGroupMembersCharacters = async (GroupMembers, dispatch) => {
 };
 
 export const editEventGroupMember = (id, token, payload) => {
-  return async dispatch => {
-    await Axios(token)
+  return dispatch => {
+    Axios(token)
       .patch(`calendar/event/group/members/${id}/`, qs.stringify(payload))
       .then(res => {
         const {
