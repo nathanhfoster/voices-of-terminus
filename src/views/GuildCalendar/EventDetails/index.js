@@ -364,87 +364,91 @@ class EventDetails extends Component {
       title
     } = Event;
     return (
-      <Grid className="EventDetails Container">
-        <Row>
-          <PageHeader className="pageHeader">{title}</PageHeader>
-        </Row>
-        <Row>
-          <Col xs={12}>
-            <i className="fas fa-user" />{" "}
-            <Link to={`/profile/${author}`} onClick={e => e.stopPropagation()}>
-              {author_username}
-            </Link>{" "}
-            <i className="far fa-clock" />{" "}
-            <Moment fromNow>{date_created}</Moment>
-          </Col>
-          <Col xs={12}>
-            <i className="fas fa-pencil-alt" />{" "}
-            <Link
-              to={`/profile/${last_modified_by}`}
-              onClick={e => e.stopPropagation()}
+      GroupsWithMembers && (
+        <Grid className="EventDetails Container">
+          <Row>
+            <PageHeader className="pageHeader">{title}</PageHeader>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <i className="fas fa-user" />{" "}
+              <Link
+                to={`/profile/${author}`}
+                onClick={e => e.stopPropagation()}
+              >
+                {author_username}
+              </Link>{" "}
+              <i className="far fa-clock" />{" "}
+              <Moment fromNow>{date_created}</Moment>
+            </Col>
+            <Col xs={12}>
+              <i className="fas fa-pencil-alt" />{" "}
+              <Link
+                to={`/profile/${last_modified_by}`}
+                onClick={e => e.stopPropagation()}
+              >
+                {last_modified_by_username}
+              </Link>{" "}
+              <i className="far fa-clock" />{" "}
+              <Moment fromNow>{last_modified}</Moment>
+            </Col>
+            <Col xs={12}>
+              <i className="far fa-calendar-check" />{" "}
+              <Moment fromNow>{start_date}</Moment>
+            </Col>
+            <Col xs={12}>
+              <i className="far fa-calendar-times" />{" "}
+              <Moment fromNow>{end_date}</Moment>
+            </Col>
+            <Col xs={12}>
+              <i className="fas fa-users" /> {group_size}
+            </Col>
+            <Col xs={12}>
+              <i className="fas fa-tags" /> [{tags}]
+            </Col>
+            <Col xs={12} className="blockLineBreak">
+              <i className="fas fa-clipboard" /> {description}
+            </Col>
+            <Col xs={12}>
+              <i className="fas fa-globe-americas" />{" "}
+              {locations ? `[${locations}]` : "No locations provided."}
+            </Col>
+            <Col xs={12}>
+              <i class="fas fa-exchange-alt" />{" "}
+              {`Level range: (${min_level} - ${max_level})`}
+            </Col>
+          </Row>
+          <Row>
+            <PageHeader className="Center">Group Composition</PageHeader>
+          </Row>
+          <Row>{this.renderGroups(GroupsWithMembers)}</Row>
+          {show ? (
+            <Modal
+              bsSize="large"
+              show={show}
+              onHide={() => this.setState({ show: false })}
+              dialogClassName="eventModal"
             >
-              {last_modified_by_username}
-            </Link>{" "}
-            <i className="far fa-clock" />{" "}
-            <Moment fromNow>{last_modified}</Moment>
-          </Col>
-          <Col xs={12}>
-            <i className="far fa-calendar-check" />{" "}
-            <Moment fromNow>{start_date}</Moment>
-          </Col>
-          <Col xs={12}>
-            <i className="far fa-calendar-times" />{" "}
-            <Moment fromNow>{end_date}</Moment>
-          </Col>
-          <Col xs={12}>
-            <i className="fas fa-users" /> {group_size}
-          </Col>
-          <Col xs={12}>
-            <i className="fas fa-tags" /> [{tags}]
-          </Col>
-          <Col xs={12} className="blockLineBreak">
-            <i className="fas fa-clipboard" /> {description}
-          </Col>
-          <Col xs={12}>
-            <i className="fas fa-globe-americas" />{" "}
-            {locations ? `[${locations}]` : "No locations provided."}
-          </Col>
-          <Col xs={12}>
-            <i class="fas fa-exchange-alt" />{" "}
-            {`Level range: (${min_level} - ${max_level})`}
-          </Col>
-        </Row>
-        <Row>
-          <PageHeader className="Center">Group Composition</PageHeader>
-        </Row>
-        <Row>{this.renderGroups(GroupsWithMembers)}</Row>
-        {show ? (
-          <Modal
-            bsSize="large"
-            show={show}
-            onHide={() => this.setState({ show: false })}
-            dialogClassName="eventModal"
-          >
-            <Modal.Header closeButton>
-              <Modal.Title id="contained-modal-title-lg">
-                {`Sign up for "${rolePreference}" role`}
-              </Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <PageHeader className="pageHeader">CHARACTERS</PageHeader>
-              {this.renderCharacters(
-                memberId,
-                MatchedCharacters,
-                rolePreference
-              )}
-              <Row>
-                <Col xs={12} />
-              </Row>
-            </Modal.Body>
-            <Modal.Footer>
-              <Row>
-                <Col md={12} className="Center">
-                  {/*<ButtonGroup>
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  {`Sign up for "${rolePreference}" role`}
+                </Modal.Title>
+              </Modal.Header>
+              <Modal.Body>
+                <PageHeader className="pageHeader">CHARACTERS</PageHeader>
+                {this.renderCharacters(
+                  memberId,
+                  MatchedCharacters,
+                  rolePreference
+                )}
+                <Row>
+                  <Col xs={12} />
+                </Row>
+              </Modal.Body>
+              <Modal.Footer>
+                <Row>
+                  <Col md={12} className="Center">
+                    {/*<ButtonGroup>
                     <Button
                       onClick={this.handleDelete}
                       className="ConfirmActionButton"
@@ -453,12 +457,13 @@ class EventDetails extends Component {
                     </Button>
                     <Button onClick={this.handleHide}>No</Button>
                   </ButtonGroup>*/}
-                </Col>
-              </Row>
-            </Modal.Footer>
-          </Modal>
-        ) : null}
-      </Grid>
+                  </Col>
+                </Row>
+              </Modal.Footer>
+            </Modal>
+          ) : null}
+        </Grid>
+      )
     );
   }
 }
