@@ -108,6 +108,9 @@
 .react-calendar__month-view button:hover {
   background-color: var(--grey);
 }
+.react-calendar__month-view button:hover ::-webkit-scrollbar-thumb {
+  background: var(--slate_grey);
+}
 .react-calendar__month-view button ::-webkit-scrollbar {
   width: 4px;
 }
@@ -152,7 +155,8 @@
   overflow-y: auto;
 }
 .EventList::-webkit-scrollbar {
-  width: 1px;
+  display: block;
+  width: 4px;
 }
 .EventList h2 {
   opacity: var(--mainOpacity);

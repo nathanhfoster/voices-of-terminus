@@ -239,32 +239,37 @@ class NavBar extends PureComponent {
                   </NavItem>
                 </LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
-                {User.is_superuser ||
-                User.can_create_article ||
-                User.can_create_newsletter ? (
-                  <MenuItem divider />
-                ) : null}
-                {User.is_superuser || User.can_create_article ? (
+                {(User.is_superuser ||
+                  User.can_create_article ||
+                  User.can_create_newsletter) && <MenuItem divider />}
+                {(User.is_superuser || User.can_create_article) && (
                   <LinkContainer to="/article/new/">
                     <NavItem eventKey={10.6}>
                       <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
-                ) : null}
-                {User.is_superuser || User.can_create_newsletter ? (
+                )}
+                {(User.is_superuser || User.can_create_newsletter) && (
                   <LinkContainer to="/newsletter/new">
                     <NavItem eventKey={10.7}>
                       <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
                   </LinkContainer>
-                ) : null}
-                {User.is_superuser || User.is_staff ? (
+                )}
+                {(User.is_superuser || User.is_staff) && (
                   <LinkContainer to="/poll/new/">
                     <NavItem eventKey={10.8}>
                       <i className="fas fa-plus" /> POLL
                     </NavItem>
                   </LinkContainer>
-                ) : null}
+                )}
+                {(User.is_superuser || User.can_create_calendar_event) && (
+                  <LinkContainer to="/calendar/new/event">
+                    <NavItem eventKey={10.1}>
+                      <i className="fas fa-plus" /> EVENT
+                    </NavItem>
+                  </LinkContainer>
+                )}
                 <MenuItem divider />
                 <LinkContainer to="/polls">
                   <NavItem eventKey={10.9}>
@@ -282,13 +287,13 @@ class NavBar extends PureComponent {
             )}
           </Nav>
           <Nav className="Center">
-            {User.is_superuser || User.is_staff ? (
+            {(User.is_superuser || User.is_staff) && (
               <LinkContainer to="/admin/overview" className="AdminButton">
                 <NavItem eventKey={11}>
                   <i className="fas fa-database" /> ADMIN
                 </NavItem>
               </LinkContainer>
-            ) : null}
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
