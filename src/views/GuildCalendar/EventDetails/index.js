@@ -145,7 +145,6 @@ class EventDetails extends Component {
     let UserAlreadySignedUp = GroupMembers.some(m =>
       Characters.some(c => c.id == m.filled)
     );
-    let CharacterSignedUpWith = { author: null };
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
@@ -165,11 +164,13 @@ class EventDetails extends Component {
     // console.log("classPreferences: ", classPreferences);
     // console.log("-------------------------------------------");
     if (Characters && Response) {
-      CharacterSignedUpWith = UserAlreadySignedUp
-        ? Characters.filter(c => c.id == Response.id)[0]
-        : Response;
+      const UsersCharacter = Characters.filter(c => c.id == Response.id)[0];
 
-      return this.renderCharacterInfo(User, CharacterSignedUpWith, memberId);
+      return this.renderCharacterInfo(
+        User,
+        UsersCharacter || Response,
+        memberId
+      );
     }
     if (!Response && canSignUpForAnyClass) {
       return (
@@ -193,8 +194,10 @@ class EventDetails extends Component {
             }
           >
             <div className="editResponseContainer">
-              {!UserAlreadySignedUp && User.id && <i className="fas fa-plus" />}{" "}
-              Any
+              Any{" "}
+              {!UserAlreadySignedUp && User.id && (
+                <i className="fas fa-user-plus" />
+              )}
             </div>
           </span>
         </div>
@@ -235,8 +238,8 @@ class EventDetails extends Component {
                 }
               >
                 <div className="editResponseContainer">
-                  {!UserAlreadySignedUp && <i className="fas fa-plus" />}{" "}
-                  {classPreference}
+                  {classPreference}{" "}
+                  {!UserAlreadySignedUp && <i className="fas fa-user-plus" />}
                 </div>
               </span>
             </div>
@@ -293,7 +296,7 @@ class EventDetails extends Component {
               editEventGroupMember(memberId, User.token, { filled: null })
             }
             Disabled={false}
-            Icon={<i className="fas fa-trash" />}
+            Icon={<i className="fas fa-user-minus" />}
             hasPermission={isUsersCharacter}
             Size="small"
             Class="pull-right"

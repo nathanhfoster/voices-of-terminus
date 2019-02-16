@@ -63,6 +63,16 @@ class ConfirmAction extends PureComponent {
     return Action();
   };
 
+  actionText = Icon => {
+    if (!Icon) return "delete";
+    else {
+      const { className } = Icon.props;
+      if (className.includes("minus")) return "remove";
+      if (className.includes("trash")) return "delete";
+    }
+    return "delete";
+  };
+
   render() {
     const {
       show,
@@ -73,6 +83,7 @@ class ConfirmAction extends PureComponent {
       Class,
       Title
     } = this.state;
+    const actionText = this.actionText(Icon);
     return hasPermission
       ? [
           <Button
@@ -103,7 +114,7 @@ class ConfirmAction extends PureComponent {
                 <Row>
                   <Col xs={12}>
                     <h4 className="Center">
-                      {`Are you sure you want to delete "${Title}"?`}
+                      {`Are you sure you want to ${actionText} "${Title}"?`}
                     </h4>
                   </Col>
                 </Row>
