@@ -73,7 +73,6 @@ class News extends Component {
     super(props);
     const { match } = this.props;
     const { path } = match;
-    console.log(props);
     this.state = {
       selectValue: [
         path.includes("article")

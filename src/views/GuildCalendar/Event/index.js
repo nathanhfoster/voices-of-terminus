@@ -296,7 +296,6 @@ class Event extends Component {
 
   renderGroupClass = (groups, group_size) =>
     groups.map((group, i) => {
-      console.log(groups);
       return (
         <Col md={12 / group_size} xs={12} className="memberCol">
           {group_size > 1 ? <h3>{`Group ${i + 1}`}</h3> : <h3>Group</h3>}
