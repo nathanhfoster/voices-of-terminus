@@ -28,9 +28,23 @@ import Utility from "../images/classIcons/utility.png";
 import CrowdControl from "../images/classIcons/crowd_control.png";
 import Default from "../images/classIcons/default.png";
 import QuestionMark from "../images/question.png";
+import { userRefreshDelay } from "./variables";
 
 export const objectToArray = obj => Object.keys(obj).map(key => obj[key]);
 export const DeepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
+export const isOnline = last_login =>
+  new Date() - new Date(last_login) <= 1000 * 60 * 5;
+export const eventLabelColor = tags => {
+  const type = tags.split("|")[1];
+  if (type == "Dungeon") return "var(--color_emerald)";
+  if (type == "Explore") return "var(--color_sunflower)";
+  if (type == "Group") return "var(--color_peterRiver)";
+  if (type == "Quest") return "var(--color_amethyst)";
+  if (type == "Raid") return "var(--color_alizarin)";
+
+  return "var(--primaryColor)";
+};
+
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!
@@ -234,7 +248,7 @@ export const renderRoles = User => {
   if (is_recruiter) Roles.push("Recruiter");
   if (is_class_lead) Roles.push("Class Lead");
   if (is_crafter_lead) Roles.push("Crafter Lead");
-  if (!hasRole) Roles.push("No roles"); 
+  if (!hasRole) Roles.push("No roles");
 
   return Roles.map(r => <span>{r}</span>);
 };

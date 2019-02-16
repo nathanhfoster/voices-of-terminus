@@ -41,7 +41,8 @@ import FormData from "form-data";
 import { withAlert } from "react-alert";
 import { ExperienceBar } from "../../components/ExperienceBar";
 import ConfirmAction from "../../components/ConfirmAction";
-const $ = window.$;
+import Tooltip from "rc-tooltip";
+import Slider, { Range } from "rc-slider";
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -107,7 +108,10 @@ class Profile extends PureComponent {
     youtube_url: PropTypes.string
   };
 
-  static defaultProps = {};
+  static defaultProps = {
+    min_level: 1,
+    max_level: 60
+  };
 
   componentWillMount() {
     this.getState(this.props);
@@ -412,6 +416,27 @@ class Profile extends PureComponent {
     editCharacter(id, User.token, payload);
   };
 
+  onSliderChange = (id, level) => {
+    const { User, editCharacter } = this.props;
+    const payload = { level };
+    editCharacter(id, User.token, payload);
+  };
+
+  onSliderHandle = props => {
+    const { value, dragging, index, ...restProps } = props;
+    return (
+      <Tooltip
+        prefixCls="slider-tooltip"
+        overlay={value}
+        visible={dragging}
+        placement="bottom"
+        key={index}
+      >
+        <Slider.Handle value={value} {...restProps} />
+      </Tooltip>
+    );
+  };
+
   renderCharacters = Characters =>
     Characters.map(c => {
       const { User, deleteCharacter } = this.props;
@@ -454,6 +479,27 @@ class Profile extends PureComponent {
                 type="number"
                 name="level"
                 onChange={this.onCharacterChange}
+              />
+              <Slider
+                value={level}
+                min={this.props.min_level}
+                max={this.props.max_level}
+                defaultValue={[this.props.min_level, this.props.max_level]}
+                tipFormatter={value => `${value}%`}
+                onChange={props => this.onSliderChange(id, props)}
+                handle={props => this.onSliderHandle(props)}
+                trackStyle={[{ backgroundColor: "var(--grey)" }]}
+                handleStyle={[
+                  {
+                    backgroundColor: "var(--primaryColor)",
+                    border: "2px solid var(--primaryColor)"
+                  },
+                  {
+                    backgroundColor: "var(--primaryColor)",
+                    border: "2px solid var(--primaryColor)"
+                  }
+                ]}
+                railStyle={{ backgroundColor: "var(--slate_grey)" }}
               />
             </FormGroup>
           </Col>

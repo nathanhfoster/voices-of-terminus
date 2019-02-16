@@ -58,10 +58,11 @@
 }
 
 .help-inline {
-  display: flex;
+  display: inline-flex;
   font-weight: bold;
   font-size: 14px;
   color: var(--grey);
+  margin-left: 4px;
   margin-bottom: 8px;
 }
 

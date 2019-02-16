@@ -189,6 +189,24 @@
     /* Modern Browsers */ url("./fonts/omnia.woff") format("truetype"),
     /* Safari, Android, iOS */ url("./fonts/omnia.woff") format("svg"); /* Legacy iOS */
 }
+
+.dot {
+  height: 20px;
+  width: 20px;
+  border-radius: 100%;
+  display: inline-block;
+}
+.dot-text {
+  font-size: 20px;
+  display: inline-block;
+  margin-left: 4px;
+}
+.green {
+  background-color: var(--color_emerald);
+}
+.red {
+  background-color: var(--color_alizarin);
+}
 a:-webkit-any-link,
 button,
 html input[type="button"],

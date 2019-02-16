@@ -39,5 +39,4 @@ button.list-group-item .list-group-item-heading,
   display: inline-block;
   margin-right: 6px;
   border-radius: 100%;
-  background-color: var(--primaryColor);
 }

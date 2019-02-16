@@ -14,6 +14,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { getUser, setUser } from "../../../actions/App";
 import {
+  isOnline,
   statusLevelInt,
   statusLevelString,
   roleClassIcon,
@@ -81,6 +82,7 @@ class PublicProfile extends PureComponent {
     const { User, history } = this.state;
     const { id } = this.props.match.params;
     const {
+      last_login,
       is_raid_leader,
       is_banker,
       is_recruiter,
@@ -130,6 +132,18 @@ class PublicProfile extends PureComponent {
               responsive
               rounded
             />
+
+            {isOnline(last_login) ? (
+              <div>
+                <span class="dot green" />
+                <span class="dot-text">Online</span>
+              </div>
+            ) : (
+              <div>
+                <span class="dot red" />
+                <span class="dot-text">Offline</span>
+              </div>
+            )}
           </Col>
           <Col md={5} xs={12}>
             <h1 title="User Name">{User.username.toUpperCase()}</h1>

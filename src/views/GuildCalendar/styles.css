@@ -58,9 +58,8 @@
   height: 8px;
   flex-shrink: 0;
   display: inline-block;
-  margin-right: 6px;
+  margin-right: 4px;
   border-radius: 100%;
-  background-color: var(--primaryColor);
 }
 .eventTitle {
   flex: 1 0 0;

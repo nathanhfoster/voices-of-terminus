@@ -6,6 +6,7 @@ import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
+import { eventLabelColor } from "../../helpers";
 
 const mapStateToProps = ({}) => ({});
 
@@ -85,7 +86,10 @@ class EventList extends PureComponent {
               className="Clickable listItem"
               header={title}
             >
-              <span className="EventColorLabelContainer" />
+              <span
+                className="EventColorLabelContainer"
+                style={{ backgroundColor: eventLabelColor(tags) }}
+              />
               <Moment format="hh:mm a - ">{start_date}</Moment>
               <Moment format="hh:mm a">{end_date}</Moment>
             </ListGroupItem>

@@ -411,9 +411,9 @@ class Event extends Component {
         </Row>
         <Form className="Container fadeIn">
           <Row>
-            <Col md={6} xs={12} className="expirationDate">
-              <ControlLabel>Start date</ControlLabel>
-              <span className="help-inline">(In your local timezone.)</span>
+            <Col xs={12} className="expirationDate">
+              <ControlLabel>| Start date | End date | Url |</ControlLabel>
+              <span className="help">Dates are in your local timezone.</span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-check" />
@@ -435,9 +435,7 @@ class Event extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col md={6} xs={12} className="expirationDate">
-              <ControlLabel>End date</ControlLabel>
-              <span className="help-inline">(In your local timezone.)</span>
+            <Col xs={12} className="expirationDate">
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-times" />
@@ -459,18 +457,6 @@ class Event extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col xs={12} style={{ marginTop: 16 }}>
-              <FormGroup>
-                <ControlLabel>Title</ControlLabel>
-                <FormControl
-                  value={title}
-                  type="text"
-                  name="title"
-                  placeholder="Title"
-                  onChange={this.onChange}
-                />
-              </FormGroup>
-            </Col>
             <Col xs={12}>
               <InputGroup>
                 <InputGroup.Addon>
@@ -485,7 +471,24 @@ class Event extends Component {
                 />
               </InputGroup>
             </Col>
+            <Col xs={12} style={{ marginTop: 16 }}>
+              <FormGroup>
+                <ControlLabel>Title</ControlLabel>
+                <FormControl
+                  value={title}
+                  type="text"
+                  name="title"
+                  placeholder="Title"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
             <Col xs={12}>
+              <ControlLabel>| Tag(s) | Location(s) |</ControlLabel>
+              <span className="help">
+                Order matters. First option determines label color. Select the
+                options from greatest to least importance.
+              </span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="fas fa-tags" />
@@ -550,8 +553,6 @@ class Event extends Component {
                     }
                   ]}
                   railStyle={{ backgroundColor: "var(--slate_grey)" }}
-                  // dotStyle={{backgroundColor: 'red'}}
-                  // activeDotStyle={{backgroundColor: 'green'}}
                 />
                 <FormControl.Feedback />
               </FormGroup>

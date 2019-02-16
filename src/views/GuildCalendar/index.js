@@ -16,6 +16,8 @@ import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
 import { getYearMonthEvents } from "../../actions/Events";
+import { eventLabelColor } from "../../helpers";
+
 const mapStateToProps = ({ User, Window, Events }) => ({
   User,
   Window,
@@ -123,7 +125,10 @@ class GuildCalendar extends PureComponent {
                 data-for={`${id}`}
                 data-tip={i}
               >
-                <span className="eventLabelColor" />
+                <span
+                  className="eventLabelColor"
+                  style={{ backgroundColor: eventLabelColor(tags) }}
+                />
                 <span>
                   <Moment format="hh:mma">{start_date}</Moment>
                 </span>
@@ -133,7 +138,10 @@ class GuildCalendar extends PureComponent {
               eventFound &&
               mapCounter[dayOfTheYear] < 2 ? (
               <div class="hasEventsContainerMobile">
-                <span className="eventLabelColor" />
+                <span
+                  className="eventLabelColor"
+                  style={{ backgroundColor: eventLabelColor(tags) }}
+                />
               </div>
             ) : null;
           })}
