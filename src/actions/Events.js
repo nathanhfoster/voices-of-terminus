@@ -106,7 +106,7 @@ export const editEventGroupMember = (id, User, payload) => {
     Axios(token)
       .get(endpoint)
       .then(res => {
-        const { filled } = res.data;
+        const { event_group_id, filled } = res.data;
         const UsersCharacter = Characters.some(c => c.id == filled);
         if (UsersCharacter || !filled) {
           Axios(token)
@@ -144,18 +144,17 @@ export const editEventGroupMember = (id, User, payload) => {
             payload: { statusText: "Position has been filled" }
           });
           Axios(token)
-                .get(`calendar/event/groups/${event_group_id}/`)
-                .then(res => {
-                  const { event_id } = res.data;
-                  getEventGroups(event_id, dispatch);
-                })
-                .catch(e =>
-                  dispatch({
-                    type: C.SET_API_RESPONSE,
-                    payload: e.response
-                  })
-                );
+            .get(`calendar/event/groups/${event_group_id}/`)
+            .then(res => {
+              const { event_id } = res.data;
+              getEventGroups(event_id, dispatch);
             })
+            .catch(e =>
+              dispatch({
+                type: C.SET_API_RESPONSE,
+                payload: e.response
+              })
+            );
         }
       });
   };
