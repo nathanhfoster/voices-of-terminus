@@ -22,6 +22,7 @@ import Moment from "react-moment";
 import "./styles.css";
 import "./stylesM.css";
 import {
+  isOnline,
   raceRoleClassOptions,
   raceOptions,
   roleOptions,
@@ -423,6 +424,17 @@ class UserProfile extends PureComponent {
               </h4>
             </Col>
             <Col md={3} xs={12} className="Center">
+              {isOnline(Admin.User.last_login) ? (
+                <div>
+                  <span class="dot green" />
+                  <span class="dot-text">Online</span>
+                </div>
+              ) : (
+                <div>
+                  <span class="dot red" />
+                  <span class="dot-text">Offline</span>
+                </div>
+              )}
               <h3 title="Date Joined">
                 <i className="fas fa-birthday-cake" />{" "}
                 <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment>

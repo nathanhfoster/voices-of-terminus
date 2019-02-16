@@ -47,7 +47,13 @@ class Template extends Component {
   componentWillUnmount() {}
 
   render() {
-    return <Grid className="Template Container">Template</Grid>;
+    return (
+      <Grid className="Template Container">
+        <Row>
+          <Col xs={12}>Template</Col>
+        </Row>
+      </Grid>
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Template);

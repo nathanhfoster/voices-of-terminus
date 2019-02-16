@@ -291,17 +291,21 @@ class EventDetails extends Component {
         <Col xs={3}>{role}</Col>
         <Col xs={3}>{character_class}</Col>
         <Col xs={1}>
-          <ConfirmAction
-            Action={e =>
-              editEventGroupMember(memberId, User.token, { filled: null })
-            }
-            Disabled={false}
-            Icon={<i className="fas fa-user-minus" />}
-            hasPermission={isUsersCharacter}
-            Size="small"
-            Class="pull-right"
-            Title={name}
-          />
+          {isUsersCharacter ? (
+            <ConfirmAction
+              Action={e =>
+                editEventGroupMember(memberId, User.token, { filled: null })
+              }
+              Disabled={false}
+              Icon={<i className="fas fa-user-minus" />}
+              hasPermission={isUsersCharacter}
+              Size="small"
+              Class="pull-right"
+              Title={name}
+            />
+          ) : (
+            <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
+          )}
         </Col>
       </Row>
     );

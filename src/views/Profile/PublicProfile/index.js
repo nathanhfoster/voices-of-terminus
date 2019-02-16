@@ -132,18 +132,6 @@ class PublicProfile extends PureComponent {
               responsive
               rounded
             />
-
-            {isOnline(last_login) ? (
-              <div>
-                <span class="dot green" />
-                <span class="dot-text">Online</span>
-              </div>
-            ) : (
-              <div>
-                <span class="dot red" />
-                <span class="dot-text">Offline</span>
-              </div>
-            )}
           </Col>
           <Col md={5} xs={12}>
             <h1 title="User Name">{User.username.toUpperCase()}</h1>
@@ -193,6 +181,17 @@ class PublicProfile extends PureComponent {
             </h4>
           </Col>
           <Col md={3} xs={12} className="Center">
+            {isOnline(last_login) ? (
+              <div>
+                <span class="dot green" />
+                <span class="dot-text">Online</span>
+              </div>
+            ) : (
+              <div>
+                <span class="dot red" />
+                <span class="dot-text">Offline</span>
+              </div>
+            )}
             <h3 title="Date Joined">
               <i className="fas fa-birthday-cake" />{" "}
               <Moment format="MMM DD, YYYY">{User.date_joined}</Moment>
