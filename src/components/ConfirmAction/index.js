@@ -108,7 +108,9 @@ class ConfirmAction extends PureComponent {
               dialogClassName="confirmModal"
             >
               <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-lg">DELETE</Modal.Title>
+                <Modal.Title id="contained-modal-title-lg">
+                  {actionText.toUpperCase()}
+                </Modal.Title>
               </Modal.Header>
               <Modal.Body>
                 <Row>
