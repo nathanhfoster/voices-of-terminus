@@ -119,7 +119,7 @@ export const editEventGroupMember = (id, User, payload) => {
                 position,
                 role_class_preferences
               } = res.data;
-              Axios()
+              Axios(token)
                 .get(`calendar/event/groups/${event_group_id}/`)
                 .then(res => {
                   const { event_id } = res.data;
@@ -138,11 +138,25 @@ export const editEventGroupMember = (id, User, payload) => {
                 payload: e.response
               })
             );
-        } else
+        } else {
           dispatch({
             type: C.SET_API_RESPONSE,
             payload: { statusText: "Position has been filled" }
           });
+          Axios(token)
+                .get(`calendar/event/groups/${event_group_id}/`)
+                .then(res => {
+                  const { event_id } = res.data;
+                  getEventGroups(event_id, dispatch);
+                })
+                .catch(e =>
+                  dispatch({
+                    type: C.SET_API_RESPONSE,
+                    payload: e.response
+                  })
+                );
+            })
+        }
       });
   };
 };
