@@ -329,6 +329,7 @@ class News extends Component {
           keys: ["title", "author_username", "last_modified_by_username"]
         })
       : Documents;
+    const Title = match.path.includes("article") ? "ARTICLES" : "NEWS";
     const latest = match.path.includes("article")
       ? "/articles/latest"
       : "/news/latest";
@@ -347,7 +348,7 @@ class News extends Component {
     return Documents ? (
       <Grid className="News Container fadeIn">
         <Row>
-          <PageHeader className="pageHeader">NEWS</PageHeader>
+          <PageHeader className="pageHeader">{Title}</PageHeader>
         </Row>
         <Row className="ActionToolbarRow">
           <Col
