@@ -116,7 +116,12 @@ export const editEventGroupMember = (id, token, payload) => {
             const { event_id } = res.data;
             getEventGroups(event_id, dispatch);
           })
-          .catch(e => console.log(e));
+          .catch(e =>
+            dispatch({
+              type: C.SET_API_RESPONSE,
+              payload: e.response
+            })
+          );
         // const { GroupMembers } = getState().Events;
         // let groupMembersPayload = DeepCopy(GroupMembers);
         // const updateIndex = groupMembersPayload.findIndex(
@@ -124,7 +129,12 @@ export const editEventGroupMember = (id, token, payload) => {
         // );
         // groupMembersPayload[updateIndex] = res.data;
       })
-      .catch(e => console.log(e));
+      .catch(e =>
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+        })
+      );
   };
 };
 
