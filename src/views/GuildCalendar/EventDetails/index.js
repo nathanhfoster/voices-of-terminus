@@ -185,7 +185,7 @@ class EventDetails extends Component {
                     MatchedCharacters: Characters,
                     rolePreference
                   })
-                : editEventGroupMember(memberId, User.token, { filled: null })
+                : editEventGroupMember(memberId, User, { filled: null })
             }
             className={
               !UserAlreadySignedUp && User.id
@@ -227,7 +227,7 @@ class EventDetails extends Component {
                         MatchedCharacters: UserCharacterCandidates,
                         rolePreference
                       })
-                    : editEventGroupMember(memberId, User.token, {
+                    : editEventGroupMember(memberId, User, {
                         filled: null
                       })
                 }
@@ -294,7 +294,7 @@ class EventDetails extends Component {
           {isUsersCharacter ? (
             <ConfirmAction
               Action={e =>
-                editEventGroupMember(memberId, User.token, { filled: null })
+                editEventGroupMember(memberId, User, { filled: null })
               }
               Disabled={false}
               Icon={<i className="fas fa-user-minus" />}
@@ -329,7 +329,7 @@ class EventDetails extends Component {
         <Row
           key={id}
           onClick={e => {
-            editEventGroupMember(memberId, User.token, payload);
+            editEventGroupMember(memberId, User, payload);
             this.setState({ show: false });
           }}
           className="MatchedCharactersContainer Clickable Hover"

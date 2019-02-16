@@ -54,6 +54,7 @@ import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
+import { stat } from "fs";
 
 const mapStateToProps = ({
   ApiResponse,
@@ -250,6 +251,10 @@ class App extends PureComponent {
         </div>,
         <div>{JSON.stringify(data)}</div>
       ]);
+
+    if (!status) {
+      alert.error([<div>{statusText}</div>]);
+    }
 
     this.props.clearApiResponse();
   };

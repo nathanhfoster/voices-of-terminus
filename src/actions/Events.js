@@ -2,6 +2,7 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 import { DeepCopy } from "../helpers";
+import Charters from "../views/Guild/Charters";
 
 export const getYearMonthEvents = payload => {
   return dispatch => {
@@ -98,43 +99,51 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
     });
 };
 
-export const editEventGroupMember = (id, token, payload) => {
+export const editEventGroupMember = (id, User, payload) => {
+  const { Characters, token } = User;
+  const endpoint = `calendar/event/group/members/${id}/`;
   return dispatch => {
     Axios(token)
-      .patch(`calendar/event/group/members/${id}/`, qs.stringify(payload))
+      .get(endpoint)
       .then(res => {
-        const {
-          event_group_id,
-          filled,
-          id,
-          position,
-          role_class_preferences
-        } = res.data;
-        Axios()
-          .get(`calendar/event/groups/${event_group_id}/`)
-          .then(res => {
-            const { event_id } = res.data;
-            getEventGroups(event_id, dispatch);
-          })
-          .catch(e =>
-            dispatch({
-              type: C.SET_API_RESPONSE,
-              payload: e.response
+        const { filled } = res.data;
+        const UsersCharacter = Characters.some(c => c.id == filled);
+        if (UsersCharacter || !filled) {
+          Axios(token)
+            .patch(endpoint, qs.stringify(payload))
+            .then(res => {
+              const {
+                event_group_id,
+                filled,
+                id,
+                position,
+                role_class_preferences
+              } = res.data;
+              Axios()
+                .get(`calendar/event/groups/${event_group_id}/`)
+                .then(res => {
+                  const { event_id } = res.data;
+                  getEventGroups(event_id, dispatch);
+                })
+                .catch(e =>
+                  dispatch({
+                    type: C.SET_API_RESPONSE,
+                    payload: e.response
+                  })
+                );
             })
-          );
-        // const { GroupMembers } = getState().Events;
-        // let groupMembersPayload = DeepCopy(GroupMembers);
-        // const updateIndex = groupMembersPayload.findIndex(
-        //   e => e.id === res.data.id
-        // );
-        // groupMembersPayload[updateIndex] = res.data;
-      })
-      .catch(e =>
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: e.response
-        })
-      );
+            .catch(e =>
+              dispatch({
+                type: C.SET_API_RESPONSE,
+                payload: e.response
+              })
+            );
+        } else
+          dispatch({
+            type: C.SET_API_RESPONSE,
+            payload: { statusText: "Position has been filled" }
+          });
+      });
   };
 };
 
