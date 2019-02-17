@@ -12,17 +12,20 @@
 .AddCharacter {
   min-height: 49px;
 }
-
-.MainAlt .checkbox {
-  margin: 0;
-  padding: 10px;
+.MainAlt {
   border: 1px solid var(--light_grey);
   border-radius: 4px;
   background-color: var(--slate_grey);
 }
-
-.MainAlt .checkbox input[type=checkbox] {
-    margin-left: -16px;
+.MainAlt .checkbox {
+  margin-left: 4px;
+  padding: 0;
+  display: inline-flex;
+}
+.MainAlt .checkBoxText {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--grey);
 }
 /* .css-10nd86i *{
     color: white;

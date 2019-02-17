@@ -31,14 +31,12 @@ import "./stylesM.css";
 import {
   raceRoleClassOptions,
   raceOptions,
-  roleOptions,
-  classOptions,
   professionOptions,
   professionSpecializationOptions,
   DeepCopy,
   hasCharAfterSpace,
-  isSubset,
-  isEquivalent
+  isEquivalent,
+  roleClassIcon
 } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
@@ -476,37 +474,34 @@ class Profile extends PureComponent {
       } = c;
       return (
         <Row key={id} className="borderedRow CharacterContainer">
-          <Col md={1} xs={12} className="MainAlt">
-            <Col xs={6}>
-              <ControlLabel>Main</ControlLabel>
+          <Col md={2} xs={12}>
+            <ControlLabel>
+              <i className="far fa-clock" />{" "}
+              <Moment fromNow>{date_created}</Moment>
+            </ControlLabel>
+            <FormGroup className="MainAlt">
+              <Image src={roleClassIcon(character_class || role)} height={46} />
               <Checkbox
                 disabled={Characters.some(c => c.main && c.id != id)}
                 key={id}
                 checked={main}
                 onClick={() => editCharacter(id, User.token, { main: !main })}
-              />
-            </Col>
-            <Col xs={6}>
-              <ControlLabel>Alt</ControlLabel>
+              >
+                <span className="checkBoxText">Main</span>
+              </Checkbox>
               <Checkbox
                 disabled={Characters.some(c => c.alt && c.id != id)}
                 key={id}
                 checked={alt}
                 onClick={() => editCharacter(id, User.token, { alt: !alt })}
-              />
-            </Col>
+              >
+                <span className="checkBoxText">Alt</span>
+              </Checkbox>
+            </FormGroup>
           </Col>
-          <Col md={3} xs={12} >
+          <Col md={3} xs={12}>
             <FormGroup>
-              <ControlLabel>
-                NAME{" "}
-                <span className="help-inline">
-                  <i className="far fa-clock" />
-                  <Moment fromNow className="help-inline">
-                    {date_created}
-                  </Moment>
-                </span>
-              </ControlLabel>
+              <ControlLabel>NAME</ControlLabel>
               <InputGroup>
                 <InputGroup.Addon>
                   <ConfirmAction
@@ -529,7 +524,7 @@ class Profile extends PureComponent {
               </InputGroup>
             </FormGroup>
           </Col>
-          <Col md={2} xs={12} >
+          <Col md={2} xs={12}>
             <ControlLabel>RACE</ControlLabel>
             <FormGroup>
               <Select
@@ -545,7 +540,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={2} xs={12} >
+          <Col md={2} xs={12}>
             <ControlLabel>ROLE</ControlLabel>
             <FormGroup>
               <Select
@@ -562,7 +557,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={2} xs={12} >
+          <Col md={2} xs={12}>
             <ControlLabel>CLASS</ControlLabel>
             <FormGroup>
               <Select
@@ -583,7 +578,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={2} xs={12} >
+          <Col md={1} xs={12}>
             <FormGroup>
               <ControlLabel>Level</ControlLabel>
               <FormControl
@@ -618,7 +613,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={6} xs={12} >
+          <Col md={6} xs={12}>
             <ControlLabel>Profession</ControlLabel>
             <FormGroup>
               <Select
@@ -636,7 +631,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={6} xs={12} >
+          <Col md={6} xs={12}>
             <ControlLabel>Specialization</ControlLabel>
             <FormGroup>
               <Select
