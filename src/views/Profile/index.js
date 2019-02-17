@@ -431,9 +431,12 @@ class Profile extends PureComponent {
     }
   };
 
-  onSliderChange = (id, level) => {
+  onSliderChange = (id, level, i) => {
     const { User, editCharacter } = this.props;
     const payload = { level };
+    let updateCharacters = DeepCopy(User);
+    updateCharacters.Characters[i].level = level;
+    this.setState({ User: updateCharacters });
     editCharacter(id, User.token, payload);
   };
 
@@ -501,7 +504,7 @@ class Profile extends PureComponent {
                 max={this.props.max_level}
                 defaultValue={[this.props.min_level, this.props.max_level]}
                 tipFormatter={value => `${value}%`}
-                onChange={props => this.onSliderChange(id, props)}
+                onChange={props => this.onSliderChange(id, props, i)}
                 handle={props => this.onSliderHandle(props)}
                 trackStyle={[{ backgroundColor: "var(--grey)" }]}
                 handleStyle={[
