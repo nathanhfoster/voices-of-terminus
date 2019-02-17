@@ -35,7 +35,10 @@ import {
   classOptions,
   professionOptions,
   professionSpecializationOptions,
-  DeepCopy
+  DeepCopy,
+  hasCharAfterSpace,
+  isSubset,
+  isEquivalent
 } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
@@ -113,6 +116,16 @@ class Profile extends PureComponent {
     min_level: 1,
     max_level: 60
   };
+
+  shouldComponentUpdate(nextProps, nextState) {
+    let shouldUpdate = true;
+    const { User } = nextProps;
+    const currentUser = nextState.User;
+
+    if (isEquivalent(currentUser, User)) shouldUpdate = false;
+
+    return shouldUpdate;
+  }
 
   componentWillMount() {
     this.getState(this.props);
@@ -403,20 +416,18 @@ class Profile extends PureComponent {
   };
 
   onCharacterChange = (e, i) => {
-    const { User, editCharacter } = this.props;
+    const { User } = this.state;
+    const { editCharacter } = this.props;
     const { id, name } = e.target;
-    let value = e.target;
-    console.log(value);
+    let { value } = e.target;
     const payload = { [name]: value };
+    value.indexOf(e => console.log(e));
     if (name != "name") editCharacter(id, User.token, payload);
     else {
-      let updateUser = DeepCopy(User);
-      updateUser.Characters[i].name = value;
-      this.setState({ User: updateUser });
-      editCharacter(id, User.token, payload);
-      // setTimeout(() => {
-      //   editCharacter(id, User.token, payload);
-      // }, 2000);
+      let updateCharacters = DeepCopy(User);
+      updateCharacters.Characters[i].name = value;
+      this.setState({ User: updateCharacters });
+      hasCharAfterSpace(value) && editCharacter(id, User.token, payload);
     }
   };
 
@@ -448,31 +459,29 @@ class Profile extends PureComponent {
       return (
         <Row key={id} className="borderedRow CharacterContainer">
           <Col md={3}>
-            <form>
-              <FormGroup>
-                <ControlLabel>NAME</ControlLabel>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <ConfirmAction
-                      Action={e => deleteCharacter(User.token, id)}
-                      Disabled={false}
-                      Icon={<i className="fas fa-trash" />}
-                      hasPermission={true}
-                      Size="small"
-                      Class="pull-right"
-                      Title={name}
-                    />
-                  </InputGroup.Addon>
-                  <FormControl
-                    id={id}
-                    value={name}
-                    name="name"
-                    type="text"
-                    onChange={e => this.onCharacterChange(e, i)}
+            <FormGroup>
+              <ControlLabel>NAME</ControlLabel>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <ConfirmAction
+                    Action={e => deleteCharacter(User.token, id)}
+                    Disabled={false}
+                    Icon={<i className="fas fa-trash" />}
+                    hasPermission={true}
+                    Size="small"
+                    Class="pull-right"
+                    Title={name}
                   />
-                </InputGroup>
-              </FormGroup>
-            </form>
+                </InputGroup.Addon>
+                <FormControl
+                  id={id}
+                  value={name}
+                  name="name"
+                  type="text"
+                  onChange={e => this.onCharacterChange(e, i)}
+                />
+              </InputGroup>
+            </FormGroup>
           </Col>
           <Col md={1}>
             <FormGroup>

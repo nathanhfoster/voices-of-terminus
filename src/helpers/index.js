@@ -45,6 +45,15 @@ export const eventLabelColor = tags => {
   return "var(--primaryColor)";
 };
 
+export const hasCharAfterSpace = string => {
+  const charArray = string.split(" ").slice(-2);
+  const SecondToLastChar = charArray[0];
+  const LastChar = charArray[1];
+  if (SecondToLastChar != "" && LastChar == "") return false;
+
+  return true;
+};
+
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!
@@ -301,6 +310,23 @@ export const isSubset = (arr1, arr2) => {
   return true;
 };
 
+const issubset = (arr1, arr2) => {
+  if (typeof arr1 != "Array" || typeof arr2 != "Array") return false;
+  const hset = new Map();
+
+  // hset stores all the values of arr1
+  for (let i = 0; i < arr1.length; i++) {
+    if (!hset.has(arr1[i])) hset.set(arr1[i]);
+  }
+
+  // loop to check if all elements of arr2 also
+  // lies in arr1
+  for (let i = 0; i < arr2.length; i++) {
+    if (!hset.has(arr2[i])) return false;
+  }
+  return true;
+};
+
 export const isEquivalent = (obj1, obj2) => {
   // Create arrays of property names
   const obj1Props = Object.getOwnPropertyNames(obj1);
@@ -312,8 +338,10 @@ export const isEquivalent = (obj1, obj2) => {
     return false;
   }
 
-  for (var i = 0; i < obj1Props.length; i++) {
-    var propName = obj1Props[i];
+  for (let i = 0; i < obj1Props.length; i++) {
+    let propName = obj1Props[i];
+
+    if (!issubset(obj1[propName], obj2[propName])) return false;
 
     // If values of same property are not equal,
     // objects are not equivalent

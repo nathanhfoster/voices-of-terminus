@@ -180,12 +180,10 @@ class News extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    clearInterval(this.interval);
     this.getState(nextProps);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
     this.props.clearHtmlDocument();
   }
 
