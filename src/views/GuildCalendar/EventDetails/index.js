@@ -397,9 +397,11 @@ class EventDetails extends Component {
             <i className="far fa-clock" />{" "}
             <Moment fromNow>{last_modified}</Moment>
           </Col>
-          <Col xs={12}>
-            <i className="fas fa-link" /> <Link to={`${url}`}>{url}</Link>
-          </Col>
+          {url && (
+            <Col xs={12}>
+              <i className="fas fa-link" /> <Link to={`${url}`}>{url}</Link>
+            </Col>
+          )}
           <Col xs={12}>
             <i className="far fa-calendar-check" />{" "}
             <Moment fromNow>{start_date}</Moment>
@@ -408,23 +410,29 @@ class EventDetails extends Component {
             <i className="far fa-calendar-times" />{" "}
             <Moment fromNow>{end_date}</Moment>
           </Col>
-          <Col xs={12}>
-            <i className="fas fa-users" /> {group_size}
-          </Col>
+          {group_size && (
+            <Col xs={12}>
+              <i className="fas fa-users" /> {group_size}
+            </Col>
+          )}
           <Col xs={12}>
             <i className="fas fa-tags" /> [{tags}]
           </Col>
           <Col xs={12} className="blockLineBreak">
             <i className="fas fa-clipboard" /> {description}
           </Col>
-          <Col xs={12}>
-            <i className="fas fa-globe-americas" />{" "}
-            {locations ? `[${locations}]` : "No locations provided."}
-          </Col>
-          <Col xs={12}>
-            <i class="fas fa-exchange-alt" />{" "}
-            {`Level range: (${min_level} - ${max_level})`}
-          </Col>
+          {locations && (
+            <Col xs={12}>
+              <i className="fas fa-globe-americas" />{" "}
+              {locations ? `[${locations}]` : "No locations provided."}
+            </Col>
+          )}
+          {min_level && (
+            <Col xs={12}>
+              <i class="fas fa-exchange-alt" />{" "}
+              {`Level range: (${min_level} - ${max_level})`}
+            </Col>
+          )}
         </Row>
         <Row>
           <PageHeader className="Center">Group Composition</PageHeader>

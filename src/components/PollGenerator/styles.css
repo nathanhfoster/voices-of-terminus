@@ -8,6 +8,12 @@
 .AddChoice:focus-within {
   opacity: 1;
 }
+
+.react-datepicker-wrapper input{
+  border: 1px solid var(--light_grey);
+  border-radius: 6px;
+}
+
 .expirationDate .react-datepicker-wrapper,
 .expirationDate .react-datepicker__input-container,
 .expirationDate input,
@@ -26,7 +32,6 @@
 }
 
 .expirationDate .react-datepicker-popper .calendarPopper {
-  
 }
 
 .expirationDate li:hover,

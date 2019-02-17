@@ -296,9 +296,15 @@ class Event extends Component {
 
   renderGroupClass = (groups, group_size) =>
     groups.map((group, i) => {
+      const isRaid = group_size > 1;
+      const GroupHeader = isRaid ? `Group ${i + 1}` : "Group";
+      const GroupHelper = isRaid
+        ? `Select group ${i + 1} members.`
+        : `Select group members.`;
       return (
         <Col md={12 / group_size} xs={12} className="memberCol">
-          {group_size > 1 ? <h3>{`Group ${i + 1}`}</h3> : <h3>Group</h3>}
+          <h3>{GroupHeader}</h3>
+          <span className="help">{GroupHelper}</span>
           {group.map((member, k) => {
             const { role_class_preferences } = member;
             const Options =
@@ -317,7 +323,7 @@ class Event extends Component {
                   blurInputOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                   isSearchable={true}
-                  placeholder={`Role preferences (${k + 1})`}
+                  placeholder={`Role preference (${k + 1})`}
                   classNamePrefix="select"
                   onChange={(selectValue, { action, removedValue }) =>
                     this.onSelectRollPreferenceChange(
@@ -411,7 +417,7 @@ class Event extends Component {
         <Form className="Container fadeIn">
           <Row>
             <Col xs={12} className="expirationDate">
-              <ControlLabel>| Start date | End date | Url |</ControlLabel>
+              <ControlLabel>Start date</ControlLabel>
               <span className="help">Dates are in your local timezone.</span>
               <InputGroup>
                 <InputGroup.Addon>
@@ -435,6 +441,7 @@ class Event extends Component {
               </InputGroup>
             </Col>
             <Col xs={12} className="expirationDate">
+              <ControlLabel>End date</ControlLabel>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-times" />
@@ -457,6 +464,7 @@ class Event extends Component {
               </InputGroup>
             </Col>
             <Col xs={12}>
+              <ControlLabel>Url</ControlLabel>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="fas fa-link" />
@@ -483,7 +491,7 @@ class Event extends Component {
               </FormGroup>
             </Col>
             <Col xs={12}>
-              <ControlLabel>| Tag(s) | Location(s) |</ControlLabel>
+              <ControlLabel>Tag(s)</ControlLabel>
               <span className="help">
                 Order matters. First option determines label color. Select the
                 options from greatest to least importance.
@@ -508,27 +516,30 @@ class Event extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col xs={12}>
-              <InputGroup>
-                <InputGroup.Addon>
-                  <i className="fas fa-globe-americas" />
-                </InputGroup.Addon>
-                <Select
-                  //https://react-select.com/props
-                  value={locations}
-                  styles={selectStyles}
-                  onBlur={e => e.preventDefault()}
-                  blurInputOnSelect={false}
-                  isMulti
-                  //isClearable={this.state.selectValue.some(v => !v.isFixed)}
-                  isSearchable={true}
-                  placeholder="Zone interest..."
-                  classNamePrefix="select"
-                  onChange={this.onSelectLocationChange}
-                  options={locationTags}
-                />
-              </InputGroup>
-            </Col>
+            {this.showGroups(tags) && (
+              <Col xs={12}>
+                <ControlLabel>Location(s)</ControlLabel>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-globe-americas" />
+                  </InputGroup.Addon>
+                  <Select
+                    //https://react-select.com/props
+                    value={locations}
+                    styles={selectStyles}
+                    onBlur={e => e.preventDefault()}
+                    blurInputOnSelect={false}
+                    isMulti
+                    //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                    isSearchable={true}
+                    placeholder="Zone interest..."
+                    classNamePrefix="select"
+                    onChange={this.onSelectLocationChange}
+                    options={locationTags}
+                  />
+                </InputGroup>
+              </Col>
+            )}
             <Col xs={12} style={{ marginTop: 16 }}>
               <FormGroup>
                 <ControlLabel>{`Level range (${min_level} - ${max_level})`}</ControlLabel>
@@ -574,7 +585,7 @@ class Event extends Component {
               <Col xs={12}>
                 <FormGroup>
                   <ControlLabel>Group size</ControlLabel>
-                  <span className="help">(Number of groups.)</span>
+                  <span className="help">Number of groups.</span>
                   <FormControl
                     value={group_size}
                     min={1}

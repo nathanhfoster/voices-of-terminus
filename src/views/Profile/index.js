@@ -34,7 +34,8 @@ import {
   roleOptions,
   classOptions,
   professionOptions,
-  professionSpecializationOptions
+  professionSpecializationOptions,
+  DeepCopy
 } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
@@ -130,16 +131,8 @@ class Profile extends PureComponent {
   }
 
   getState = props => {
-    const {
-      loading,
-      loaded,
-      posting,
-      posted,
-      updating,
-      updated,
-      error,
-      Characters
-    } = props.User;
+    const { User } = props;
+    const { loading, loaded, posting, posted, updating, updated, error } = User;
     const {
       token,
       id,
@@ -169,9 +162,10 @@ class Profile extends PureComponent {
       youtube_url,
       experience_points,
       guild_points
-    } = this.state.token ? this.state : props.User;
+    } = this.state.token ? this.state : User;
     const { password } = this.state;
     this.setState({
+      User,
       loading,
       loaded,
       posting,
@@ -208,8 +202,7 @@ class Profile extends PureComponent {
       twitch_url,
       youtube_url,
       experience_points,
-      guild_points,
-      Characters
+      guild_points
     });
   };
 
@@ -409,11 +402,22 @@ class Profile extends PureComponent {
     this.props.updateProfile(id, token, payload);
   };
 
-  onCharacterChange = e => {
+  onCharacterChange = (e, i) => {
     const { User, editCharacter } = this.props;
-    const { id, name, value } = e.target;
+    const { id, name } = e.target;
+    let value = e.target;
+    console.log(value);
     const payload = { [name]: value };
-    editCharacter(id, User.token, payload);
+    if (name != "name") editCharacter(id, User.token, payload);
+    else {
+      let updateUser = DeepCopy(User);
+      updateUser.Characters[i].name = value;
+      this.setState({ User: updateUser });
+      editCharacter(id, User.token, payload);
+      // setTimeout(() => {
+      //   editCharacter(id, User.token, payload);
+      // }, 2000);
+    }
   };
 
   onSliderChange = (id, level) => {
@@ -438,35 +442,37 @@ class Profile extends PureComponent {
   };
 
   renderCharacters = Characters =>
-    Characters.map(c => {
+    Characters.map((c, i) => {
       const { User, deleteCharacter } = this.props;
       let { id, name, level, race, role, character_class } = c;
       return (
         <Row key={id} className="borderedRow CharacterContainer">
           <Col md={3}>
-            <FormGroup>
-              <ControlLabel>NAME</ControlLabel>
-              <InputGroup>
-                <InputGroup.Addon>
-                  <ConfirmAction
-                    Action={e => deleteCharacter(User.token, id)}
-                    Disabled={false}
-                    Icon={<i className="fas fa-trash" />}
-                    hasPermission={true}
-                    Size="small"
-                    Class="pull-right"
-                    Title={name}
+            <form>
+              <FormGroup>
+                <ControlLabel>NAME</ControlLabel>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <ConfirmAction
+                      Action={e => deleteCharacter(User.token, id)}
+                      Disabled={false}
+                      Icon={<i className="fas fa-trash" />}
+                      hasPermission={true}
+                      Size="small"
+                      Class="pull-right"
+                      Title={name}
+                    />
+                  </InputGroup.Addon>
+                  <FormControl
+                    id={id}
+                    value={name}
+                    name="name"
+                    type="text"
+                    onChange={e => this.onCharacterChange(e, i)}
                   />
-                </InputGroup.Addon>
-                <FormControl
-                  id={id}
-                  value={name}
-                  name="name"
-                  type="text"
-                  onChange={this.onCharacterChange}
-                />
-              </InputGroup>
-            </FormGroup>
+                </InputGroup>
+              </FormGroup>
+            </form>
           </Col>
           <Col md={1}>
             <FormGroup>
@@ -601,8 +607,9 @@ class Profile extends PureComponent {
       youtube_url,
       experience_points,
       guild_points,
-      Characters
+      User
     } = this.state;
+    const { Characters } = User;
     return !token ? (
       <Redirect to="/login" />
     ) : (

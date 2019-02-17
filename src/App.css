@@ -110,6 +110,8 @@ input[type="color"]:focus,
 
 input[type="text"],
 textarea {
+  border: 1px solid var(--light_grey);
+  border-radius: 6px;
   padding-left: 8px;
   -webkit-transition: all 0.3s ease-in-out;
   -moz-transition: all 0.3s ease-in-out;
