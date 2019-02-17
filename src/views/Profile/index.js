@@ -476,7 +476,7 @@ class Profile extends PureComponent {
       } = c;
       return (
         <Row key={id} className="borderedRow CharacterContainer">
-          <Col md={1} className="MainAlt">
+          <Col md={1} xs={12} className="MainAlt">
             <Col xs={6}>
               <ControlLabel>Main</ControlLabel>
               <Checkbox
@@ -496,7 +496,7 @@ class Profile extends PureComponent {
               />
             </Col>
           </Col>
-          <Col md={3}>
+          <Col md={3} xs={12} >
             <FormGroup>
               <ControlLabel>
                 NAME{" "}
@@ -529,7 +529,7 @@ class Profile extends PureComponent {
               </InputGroup>
             </FormGroup>
           </Col>
-          <Col md={2}>
+          <Col md={2} xs={12} >
             <ControlLabel>RACE</ControlLabel>
             <FormGroup>
               <Select
@@ -545,7 +545,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={2}>
+          <Col md={2} xs={12} >
             <ControlLabel>ROLE</ControlLabel>
             <FormGroup>
               <Select
@@ -562,7 +562,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={2}>
+          <Col md={2} xs={12} >
             <ControlLabel>CLASS</ControlLabel>
             <FormGroup>
               <Select
@@ -583,7 +583,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={2}>
+          <Col md={2} xs={12} >
             <FormGroup>
               <ControlLabel>Level</ControlLabel>
               <FormControl
@@ -618,7 +618,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={12} >
             <ControlLabel>Profession</ControlLabel>
             <FormGroup>
               <Select
@@ -636,7 +636,7 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={6}>
+          <Col md={6} xs={12} >
             <ControlLabel>Specialization</ControlLabel>
             <FormGroup>
               <Select
