@@ -30,6 +30,8 @@ import Default from "../images/classIcons/default.png";
 import QuestionMark from "../images/question.png";
 import { userRefreshDelay } from "./variables";
 
+export const arrayToObject = (arr, keyField) =>
+  Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
 export const objectToArray = obj => Object.keys(obj).map(key => obj[key]);
 export const DeepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
 export const isOnline = last_login =>

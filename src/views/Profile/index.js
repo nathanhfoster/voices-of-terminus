@@ -243,8 +243,6 @@ class Profile extends PureComponent {
             secondary_role: "",
             secondary_class: ""
           });
-        else if (name.includes("profession"))
-          this.setState({ profession: "", profession_specialization: "" });
         else if (name === "race") {
           payload = { [name]: null, role: null, character_class: null };
           editCharacter(id, User.token, payload);
@@ -252,6 +250,12 @@ class Profile extends PureComponent {
           payload = { [name]: null, character_class: null };
           editCharacter(id, User.token, payload);
         } else if (name === "character_class") {
+          payload = { [name]: null };
+          editCharacter(id, User.token, payload);
+        } else if (name === "profession") {
+          payload = { [name]: null, profession_specialization: null };
+          editCharacter(id, User.token, payload);
+        } else if (name === "profession_specialization") {
           payload = { [name]: null };
           editCharacter(id, User.token, payload);
         }
@@ -284,17 +288,15 @@ class Profile extends PureComponent {
           case "secondary_class":
             this.setState({ [name]: e.value });
             break;
-          case "profession":
-            this.setState({ [name]: e.value, profession_specialization: "" });
-            break;
-          case "profession_specialization":
-            this.setState({ [name]: e.value });
-            break;
           default:
             if (name === "race")
               payload = { [name]: e.value, role: null, class: null };
             if (name === "role") payload = { [name]: e.value, class: null };
             if (name === "character_class") payload = { [name]: e.value };
+            if (name === "profession")
+              payload = { [name]: e.value, profession_specialization: "" };
+            if (name === "profession_specialization")
+              payload = { [name]: e.value };
             editCharacter(id, User.token, payload);
         }
     }
@@ -457,13 +459,54 @@ class Profile extends PureComponent {
 
   renderCharacters = Characters =>
     Characters.map((c, i) => {
-      const { User, deleteCharacter } = this.props;
-      let { id, name, level, race, role, character_class } = c;
+      const { User, editCharacter, deleteCharacter } = this.props;
+      let {
+        id,
+        name,
+        level,
+        race,
+        role,
+        character_class,
+        profession,
+        profession_specialization,
+        main,
+        alt,
+        date_created,
+        last_modified
+      } = c;
       return (
         <Row key={id} className="borderedRow CharacterContainer">
+          <Col md={1} className="MainAlt">
+            <Col xs={6}>
+              <ControlLabel>Main</ControlLabel>
+              <Checkbox
+                disabled={Characters.some(c => c.main && c.id != id)}
+                key={id}
+                checked={main}
+                onClick={() => editCharacter(id, User.token, { main: !main })}
+              />
+            </Col>
+            <Col xs={6}>
+              <ControlLabel>Alt</ControlLabel>
+              <Checkbox
+                disabled={Characters.some(c => c.alt && c.id != id)}
+                key={id}
+                checked={alt}
+                onClick={() => editCharacter(id, User.token, { alt: !alt })}
+              />
+            </Col>
+          </Col>
           <Col md={3}>
             <FormGroup>
-              <ControlLabel>NAME</ControlLabel>
+              <ControlLabel>
+                NAME{" "}
+                <span className="help-inline">
+                  <i className="far fa-clock" />
+                  <Moment fromNow className="help-inline">
+                    {date_created}
+                  </Moment>
+                </span>
+              </ControlLabel>
               <InputGroup>
                 <InputGroup.Addon>
                   <ConfirmAction
@@ -486,7 +529,61 @@ class Profile extends PureComponent {
               </InputGroup>
             </FormGroup>
           </Col>
-          <Col md={1}>
+          <Col md={2}>
+            <ControlLabel>RACE</ControlLabel>
+            <FormGroup>
+              <Select
+                name="race"
+                value={{ value: race, label: race }}
+                onChange={(e, a) => this.selectOnChange(e, a, "race", id)}
+                options={raceOptions}
+                isClearable={true}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={2}>
+            <ControlLabel>ROLE</ControlLabel>
+            <FormGroup>
+              <Select
+                name="role"
+                value={{ value: role, label: role }}
+                onChange={(e, a) => this.selectOnChange(e, a, "role", id)}
+                options={race ? raceRoleClassOptions[race].roleOptions : []}
+                isClearable={true}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                isDisabled={!race}
+                styles={selectStyles}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={2}>
+            <ControlLabel>CLASS</ControlLabel>
+            <FormGroup>
+              <Select
+                name="character_class"
+                value={{ value: character_class, label: character_class }}
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "character_class", id)
+                }
+                options={
+                  race ? raceRoleClassOptions[race].classOptions[role] : []
+                }
+                isClearable={true}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                isDisabled={!role}
+                styles={selectStyles}
+              />
+            </FormGroup>
+          </Col>
+          <Col md={2}>
             <FormGroup>
               <ControlLabel>Level</ControlLabel>
               <FormControl
@@ -521,14 +618,16 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={3}>
-            <ControlLabel>RACE</ControlLabel>
+          <Col md={6}>
+            <ControlLabel>Profession</ControlLabel>
             <FormGroup>
               <Select
-                name="race"
-                value={{ value: race, label: race }}
-                onChange={(e, a) => this.selectOnChange(e, a, "race", id)}
-                options={raceOptions}
+                name="profession"
+                value={
+                  profession ? { value: profession, label: profession } : null
+                }
+                onChange={(e, a) => this.selectOnChange(e, a, "profession", id)}
+                options={professionOptions}
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
@@ -537,40 +636,27 @@ class Profile extends PureComponent {
               />
             </FormGroup>
           </Col>
-          <Col md={3}>
-            <ControlLabel>ROLE</ControlLabel>
+          <Col md={6}>
+            <ControlLabel>Specialization</ControlLabel>
             <FormGroup>
               <Select
-                name="role"
-                value={{ value: role, label: role }}
-                onChange={(e, a) => this.selectOnChange(e, a, "role", id)}
-                options={race ? raceRoleClassOptions[race].roleOptions : []}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!race}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <ControlLabel>CLASS</ControlLabel>
-            <FormGroup>
-              <Select
-                name="character_class"
-                value={{ value: character_class, label: character_class }}
+                value={
+                  profession_specialization
+                    ? {
+                        value: profession_specialization,
+                        label: profession_specialization
+                      }
+                    : null
+                }
                 onChange={(e, a) =>
-                  this.selectOnChange(e, a, "character_class", id)
+                  this.selectOnChange(e, a, "profession_specialization", id)
                 }
-                options={
-                  race ? raceRoleClassOptions[race].classOptions[role] : []
-                }
+                options={professionSpecializationOptions[profession]}
                 isClearable={true}
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                isDisabled={!role}
+                isDisabled={!profession}
                 styles={selectStyles}
               />
             </FormGroup>
@@ -844,213 +930,6 @@ class Profile extends PureComponent {
                 name="youtube_url"
                 type="text"
                 onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">PRIMARY</h2>
-        </Row>
-        <Row className="borderedRow">
-          <Col md={4}>
-            <ControlLabel>RACE</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  primary_race
-                    ? { value: primary_race, label: primary_race }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "primary_race", id)
-                }
-                options={raceOptions}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={4}>
-            <ControlLabel>ROLE</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  primary_role
-                    ? { value: primary_role, label: primary_role }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "primary_role", id)
-                }
-                options={
-                  primary_race
-                    ? raceRoleClassOptions[primary_race].roleOptions
-                    : []
-                }
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!primary_race}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={4}>
-            <ControlLabel>CLASS</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  primary_class
-                    ? { value: primary_class, label: primary_class }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "primary_class", id)
-                }
-                options={
-                  primary_race
-                    ? raceRoleClassOptions[primary_race].classOptions[
-                        primary_role
-                      ]
-                    : []
-                }
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!primary_role}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">SECONDARY</h2>
-        </Row>
-        <Row className="borderedRow">
-          <Col md={4}>
-            <ControlLabel>RACE</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  secondary_race
-                    ? { value: secondary_race, label: secondary_race }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "secondary_race", id)
-                }
-                options={raceOptions}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={4}>
-            <ControlLabel>ROLE</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  secondary_role
-                    ? { value: secondary_role, label: secondary_role }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "secondary_role", id)
-                }
-                options={
-                  secondary_race
-                    ? raceRoleClassOptions[secondary_race].roleOptions
-                    : []
-                }
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!secondary_race}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={4}>
-            <ControlLabel>CLASS</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  secondary_class
-                    ? { value: secondary_class, label: secondary_class }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "secondary_class", id)
-                }
-                options={
-                  secondary_race
-                    ? raceRoleClassOptions[secondary_race].classOptions[
-                        secondary_role
-                      ]
-                    : []
-                }
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!secondary_role}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">CRAFTING</h2>
-        </Row>
-        <Row className="borderedRow">
-          <Col md={6}>
-            <ControlLabel>Profession</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  profession ? { value: profession, label: profession } : null
-                }
-                onChange={(e, a) => this.selectOnChange(e, a, "profession", id)}
-                options={professionOptions}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={6}>
-            <ControlLabel>Specialization</ControlLabel>
-            <FormGroup>
-              <Select
-                value={
-                  profession_specialization
-                    ? {
-                        value: profession_specialization,
-                        label: profession_specialization
-                      }
-                    : null
-                }
-                onChange={(e, a) =>
-                  this.selectOnChange(e, a, "profession_specialization", id)
-                }
-                options={professionSpecializationOptions[profession]}
-                isClearable={true}
-                isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                isDisabled={!profession}
-                styles={selectStyles}
               />
             </FormGroup>
           </Col>

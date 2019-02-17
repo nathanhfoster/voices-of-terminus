@@ -13,6 +13,17 @@
   min-height: 49px;
 }
 
+.MainAlt .checkbox {
+  margin: 0;
+  padding: 10px;
+  border: 1px solid var(--light_grey);
+  border-radius: 4px;
+  background-color: var(--slate_grey);
+}
+
+.MainAlt .checkbox input[type=checkbox] {
+    margin-left: -16px;
+}
 /* .css-10nd86i *{
     color: white;
     background: var(--grey);

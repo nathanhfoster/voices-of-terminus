@@ -252,7 +252,7 @@ class App extends PureComponent {
         <div>{JSON.stringify(data)}</div>
       ]);
 
-    if (!status) {
+    if (!status && statusText) {
       alert.error([<div>{statusText}</div>]);
     }
 

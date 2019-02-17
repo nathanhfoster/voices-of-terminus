@@ -4,7 +4,11 @@ import ConfirmAction from "../../../components/ConfirmAction";
 import matchSorter from "match-sorter";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-import { statusLevelInt, statusLevelString } from "../../../helpers";
+import {
+  arrayToObject,
+  statusLevelInt,
+  statusLevelString
+} from "../../../helpers";
 import "./styles.css";
 
 const OverviewTable = (Admin, User) => {
@@ -167,7 +171,10 @@ const OverviewTable = (Admin, User) => {
           columns: [
             {
               Header: "Role",
-              accessor: "primary_role",
+              id: "role",
+              accessor: a =>
+                a.Characters.filter(c => c.main)[0] &&
+                a.Characters.filter(c => c.main)[0].role,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -177,7 +184,10 @@ const OverviewTable = (Admin, User) => {
             },
             {
               Header: "Class",
-              accessor: "primary_class",
+              id: "character_class",
+              accessor: a =>
+                a.Characters.filter(c => c.main)[0] &&
+                a.Characters.filter(c => c.main)[0].character_class,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -187,7 +197,10 @@ const OverviewTable = (Admin, User) => {
             },
             {
               Header: "Profession",
-              accessor: "profession",
+              id: "profession",
+              accessor: a =>
+                a.Characters.filter(c => c.main)[0] &&
+                a.Characters.filter(c => c.main)[0].profession,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -197,7 +210,10 @@ const OverviewTable = (Admin, User) => {
             },
             {
               Header: "Specialization",
-              accessor: "profession_specialization",
+              id: "profession_specialization",
+              accessor: a =>
+                a.Characters.filter(c => c.main)[0] &&
+                a.Characters.filter(c => c.main)[0].profession_specialization,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]

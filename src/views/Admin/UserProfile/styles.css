@@ -58,12 +58,12 @@
 }
 
 .help-inline {
-  display: inline-flex;
+  display: inline-block;
   font-weight: bold;
   font-size: 14px;
   color: var(--grey);
   margin-left: 4px;
-  margin-bottom: 8px;
+
 }
 
 meter::-webkit-meter-optimum-value {

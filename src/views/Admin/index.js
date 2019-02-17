@@ -232,7 +232,6 @@ class Admin extends PureComponent {
         <PageHeader className="pageHeader">ADMIN</PageHeader>
         <Row className="ActionToolbarRow">
           <Col
-            md={8}
             xs={12}
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
@@ -261,13 +260,6 @@ class Admin extends PureComponent {
             >
               <i className="fas fa-plus" /> Poll
             </Button>
-          </Col>
-          <Col
-            md={4}
-            xs={12}
-            className="ActionToolbar cardActions"
-            componentClass={ButtonToolbar}
-          >
             <Button
               disabled={!User.is_superuser}
               onClick={() => history.push("/polls/")}
