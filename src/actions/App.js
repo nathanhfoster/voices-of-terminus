@@ -162,12 +162,22 @@ export const getUser = id => {
     Axios()
       .get(`users/${id}/`)
       .then(res => {
-        dispatch({
-          type: C.GET_USER,
-          payload: res.data
-        });
+        getUserCharacters(res.data, dispatch);
       })
       .catch(e => console.log(e));
+};
+
+const getUserCharacters = (User, dispatch) => {
+  Axios()
+    .get(`characters/${User.id}`)
+    .then(res => {
+      User.Characters = res.data;
+      dispatch({
+        type: C.GET_USER,
+        payload: User
+      });
+    })
+    .catch(e => console.log(e));
 };
 
 export const refreshPatchUser = (id, token) => {

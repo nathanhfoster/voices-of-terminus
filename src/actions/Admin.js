@@ -1,6 +1,7 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
+import { User } from "../store/reducers";
 
 export const getUsersWithProfileImages = () => {
   return dispatch =>
@@ -19,13 +20,25 @@ export const getUsers = () => {
   return dispatch =>
     Axios()
       .get("users/all/")
-      .then(res => {
-        dispatch({
-          type: C.GET_USERS,
-          payload: res.data
-        });
-      })
+      .then(res => getUsersCharacters(res.data, dispatch))
       .catch(e => console.log(e));
+};
+
+const getUsersCharacters = (Users, dispatch) => {
+  Axios()
+    .get(`characters/`)
+    .then(res => {
+      const Characters = res.data;
+      let payload = Users.map(u => {
+        u.Characters = Characters.filter(c => c.author === u.id);
+        return u;
+      });
+      dispatch({
+        type: C.GET_USERS,
+        payload: payload
+      });
+    })
+    .catch(e => console.log(e));
 };
 
 export const clearUser = () => {
