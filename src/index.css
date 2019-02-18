@@ -344,6 +344,7 @@ a:visited {
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:focus,
 .nav-tabs > li.active > a:hover {
+  z-index: 999;
   color: var(--primaryColor);
   background-color: var(--slate_grey);
   border-color: var(--primaryColor);
