@@ -98,11 +98,11 @@ class UserProfile extends PureComponent {
   }
 
   componentDidMount() {
-    const { clearUser, User, match } = this.props;
+    const { getUser, clearUser, User, match } = this.props;
     clearUser();
     const { id } = match.params;
     const { token } = User;
-    this.props.getUser(id, token);
+    getUser(id, token);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -372,7 +372,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col md={5} xs={12}>
               <h1 title="User Name">{Admin.User.username.toUpperCase()}</h1>
-              <span title="First and Last Name" className="help">
+              <span title="First and Last Name" className="firstLastName">
                 {Admin.User.first_name} {Admin.User.last_name}
               </span>
               <h2 title="Status">

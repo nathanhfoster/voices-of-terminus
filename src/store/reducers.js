@@ -397,7 +397,10 @@ export const Polls = (
   }
 };
 
-export const Admin = (state = { Users: [], User: {} }, action) => {
+export const Admin = (
+  state = { Users: [], User: { Characters: [] } },
+  action
+) => {
   const { type, payload } = action;
   switch (type) {
     case C.GET_USERS:

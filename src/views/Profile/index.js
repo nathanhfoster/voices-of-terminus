@@ -475,7 +475,7 @@ class Profile extends PureComponent {
       return (
         <Row key={id} className="borderedRow CharacterContainer">
           <Col md={2} xs={12}>
-            <ControlLabel>
+            <ControlLabel className="help-inline">
               <i className="far fa-clock" />{" "}
               <Moment fromNow>{date_created}</Moment>
             </ControlLabel>

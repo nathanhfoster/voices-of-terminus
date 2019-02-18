@@ -15,6 +15,7 @@ import "./stylesM.css";
 import { getUser, setUser } from "../../../actions/App";
 import {
   isOnline,
+  isEmpty,
   statusLevelInt,
   statusLevelString,
   roleClassIcon,
@@ -43,7 +44,13 @@ class PublicProfile extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = {
+    Admin: {
+      User: {
+        Characters: []
+      }
+    }
+  };
 
   componentWillMount() {
     this.getState(this.props);
@@ -76,10 +83,55 @@ class PublicProfile extends PureComponent {
       ) : null
     );
 
+  renderCharacters = Characters =>
+    Characters.map((c, i) => {
+      let {
+        id,
+        name,
+        level,
+        race,
+        role,
+        character_class,
+        profession,
+        profession_specialization,
+        main,
+        alt,
+        date_created,
+        last_modified
+      } = c;
+      return (
+        <Row className="CharacterCards">
+          <Col xs={3}>
+            <Image src={roleClassIcon(character_class || role)} />
+            <span>{` (${level})`}</span>
+          </Col>
+          <Col xs={3}>
+            <span>{name}</span>
+          </Col>
+          <Col xs={3}>
+            <span>{profession}</span>
+          </Col>
+          <Col xs={3}>
+            <span>{profession_specialization}</span>
+          </Col>
+          <Col xs={4}>
+            <span>{race}</span>
+          </Col>
+          <Col xs={4}>
+            <span>{role}</span>
+          </Col>
+          <Col xs={4}>
+            <span>{character_class}</span>
+          </Col>
+        </Row>
+      );
+    });
+
   render() {
     const CurrentUser = this.props.User;
     const { is_superuser, is_staff } = CurrentUser;
     const { User, history } = this.state;
+    const { Characters } = User;
     const { id } = this.props.match.params;
     const {
       last_login,
@@ -97,7 +149,7 @@ class PublicProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead
     };
-    return User ? (
+    return !isEmpty(User) ? (
       <Grid className="PublicProfile Container fadeIn">
         <Row className="ActionToolbarRow">
           <Col
@@ -134,7 +186,9 @@ class PublicProfile extends PureComponent {
             />
           </Col>
           <Col md={5} xs={12}>
-            <h1 title="User Name">{User.username.toUpperCase()}</h1>
+            {User.username && (
+              <h1 title="User Name">{User.username.toUpperCase()}</h1>
+            )}
             <span title="First and Last Name" className="firstLastName">
               {User.first_name} {User.last_name}
             </span>
@@ -284,6 +338,7 @@ class PublicProfile extends PureComponent {
             </Well>
           </Col>
         </Row>
+        {this.renderCharacters(Characters)}
         <Row className="userConnections">
           <Col md={3} xs={3}>
             <a

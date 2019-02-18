@@ -418,9 +418,11 @@ class EventDetails extends Component {
           <Col xs={12}>
             <i className="fas fa-tags" /> [{tags}]
           </Col>
-          <Col xs={12} className="blockLineBreak">
-            <i className="fas fa-clipboard" /> {description}
-          </Col>
+          {description && (
+            <Col xs={12} className="blockLineBreak">
+              <i className="fas fa-clipboard" /> {description}
+            </Col>
+          )}
           {locations && (
             <Col xs={12}>
               <i className="fas fa-globe-americas" />{" "}
