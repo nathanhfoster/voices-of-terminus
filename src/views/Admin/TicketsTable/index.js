@@ -3,16 +3,9 @@ import ReactTable from "react-table";
 import matchSorter from "match-sorter";
 import { Button, Image } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import Moment from "react-moment";
-import {
-  arrayToObject,
-  statusLevelInt,
-  statusLevelString
-} from "../../../helpers";
 import "./styles.css";
 
 const TicketTable = (Tickets, history) => {
-
   return (
     <ReactTable
       className="TicketTable"
@@ -72,7 +65,7 @@ const TicketTable = (Tickets, history) => {
                   <i className="fas fa-check" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Tickets.data.reduce(
-                      (acc, curr) => (acc + curr.offender ? 1 : 0),
+                      (acc, curr) => acc + (curr.offender_username ? 1 : 0),
                       0
                     )}
                   </strong>
@@ -129,7 +122,7 @@ const TicketTable = (Tickets, history) => {
                   <i className="fas fa-unlock" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Tickets.data.reduce(
-                      (acc, curr) => acc + curr.priority > 2,
+                      (acc, curr) => (acc + curr.priority > 2 ? 1 : 0),
                       0
                     )}
                   </strong>
@@ -149,7 +142,7 @@ const TicketTable = (Tickets, history) => {
                   <i className="fas fa-unlock" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
                     {Tickets.data.reduce(
-                      (acc, curr) => acc + curr.status == "Open",
+                      (acc, curr) => acc + (curr.status == "Open" ? 1 : 0),
                       0
                     )}
                   </strong>

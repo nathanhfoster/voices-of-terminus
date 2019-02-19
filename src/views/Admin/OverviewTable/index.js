@@ -5,24 +5,12 @@ import matchSorter from "match-sorter";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {
+  MainAltCharacter,
   arrayToObject,
   statusLevelInt,
   statusLevelString
 } from "../../../helpers";
 import "./styles.css";
-
-const checkForMainCharacter = (a, prop) => {
-  const { Characters } = a;
-  if (Characters === undefined || Characters.length == 0) {
-    return null;
-  }
-
-  for (let i = 0; i < Characters.length; i++) {
-    const Character = Characters[i];
-    if (Character.main) return Character[prop];
-  }
-  return null;
-};
 
 const OverviewTable = (Users, User) => {
   const { token } = User;
@@ -184,7 +172,7 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Role",
               id: "role",
-              accessor: a => checkForMainCharacter(a, "role"),
+              accessor: c => MainAltCharacter(c, "main").role,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -195,7 +183,7 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Class",
               id: "character_class",
-              accessor: a => checkForMainCharacter(a, "character_class"),
+              accessor: c => MainAltCharacter(c, "main").character_class,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -206,7 +194,7 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Profession",
               id: "profession",
-              accessor: a => checkForMainCharacter(a, "profession"),
+              accessor: c => MainAltCharacter(c, "main").profession,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -217,8 +205,8 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Specialization",
               id: "profession_specialization",
-              accessor: a =>
-                checkForMainCharacter(a, "profession_specialization"),
+              accessor: c =>
+                MainAltCharacter(c, "main").profession_specialization,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]

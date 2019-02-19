@@ -30,7 +30,7 @@ import {
   clearUser
 } from "../../actions/Admin";
 import { getTickets } from "../../actions/Tickets";
-import { isEquivalent } from "../../helpers";
+import { isSubset, isEquivalent } from "../../helpers";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
 import PermissionsTable from "./PermissionsTable";
 import OverviewTable from "./OverviewTable";
@@ -78,7 +78,16 @@ class Admin extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return false;
+    let shouldUpdate = true;
+    const { Admin } = this.state;
+    const { Tickets } = nextProps.Admin;
+    const currentTickets = Admin.Tickets;
+    const sameTickets = isSubset(
+      Tickets.map(t => t.id),
+      currentTickets.map(t => t.id)
+    );
+    if (sameTickets) shouldUpdate = false;
+    return shouldUpdate;
   }
 
   componentDidMount() {

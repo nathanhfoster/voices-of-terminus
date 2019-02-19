@@ -9,29 +9,16 @@ import {
   Button,
   ButtonToolbar,
   Checkbox,
-  Well,
-  ControlLabel,
-  FormGroup
+  Well
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { clearUser, updateUserProfile } from "../../../actions/Admin";
 import { getUser } from "../../../actions/App";
-import Select from "react-select";
 import Moment from "react-moment";
 import "./styles.css";
 import "./stylesM.css";
-import {
-  isOnline,
-  raceRoleClassOptions,
-  raceOptions,
-  roleOptions,
-  classOptions,
-  professionOptions,
-  professionSpecializationOptions,
-  renderRoles
-} from "../../../helpers";
-import { selectStyles } from "../../../helpers/styles";
+import { isOnline, MainAltCharacter, renderRoles } from "../../../helpers";
 import {
   statusLevelInt,
   statusLevelString,
@@ -338,6 +325,8 @@ class UserProfile extends PureComponent {
       User.username === "admin" ||
       loggedInUserId === currentUserId ||
       loggedInUserStatus > currentUserStatus;
+    const MainCharacter = MainAltCharacter(Admin.User, "main");
+    const AltCharacter = MainAltCharacter(Admin.User, "alt");
     return User.is_superuser || User.is_staff ? (
       Admin.User ? (
         <Grid className="UserProfile Container">
@@ -383,7 +372,7 @@ class UserProfile extends PureComponent {
               </div>
               <h4 title="Primary Class Icon">
                 <Image
-                  src={roleClassIcon(Admin.User.primary_class)}
+                  src={roleClassIcon(MainCharacter.character_class)}
                   style={{ height: "24px" }}
                 />
                 <strong title="Primary | Race | Role | Class |">
@@ -391,14 +380,25 @@ class UserProfile extends PureComponent {
                   Primary:{" "}
                 </strong>
                 {this.renderDividedText([
-                  Admin.User.primary_race,
-                  Admin.User.primary_role,
-                  Admin.User.primary_class
+                  MainCharacter.race,
+                  MainCharacter.role,
+                  MainCharacter.character_class
+                ])}
+              </h4>
+              <h4 title="Profession | Profession | Profession Specialization | ">
+                {professionIcon(
+                  MainCharacter.profession,
+                  MainCharacter.profession_specialization
+                )}
+                <strong> Profession: </strong>
+                {this.renderDividedText([
+                  MainCharacter.profession,
+                  MainCharacter.profession_specialization
                 ])}
               </h4>
               <h4 title="Seconday Class Icon">
                 <Image
-                  src={roleClassIcon(Admin.User.secondary_class)}
+                  src={roleClassIcon(AltCharacter.character_class)}
                   style={{ height: "26px" }}
                 />
                 <strong title="Secondary | Race | Role | Class |">
@@ -406,20 +406,20 @@ class UserProfile extends PureComponent {
                   Secondary:{" "}
                 </strong>
                 {this.renderDividedText([
-                  Admin.User.secondary_race,
-                  Admin.User.secondary_role,
-                  Admin.User.secondary_class
+                  AltCharacter.race,
+                  AltCharacter.role,
+                  AltCharacter.character_class
                 ])}
               </h4>
               <h4 title="Profession | Profession | Profession Specialization | ">
                 {professionIcon(
-                  Admin.User.profession,
-                  Admin.User.profession_specialization
+                  AltCharacter.profession,
+                  AltCharacter.profession_specialization
                 )}
                 <strong> Profession: </strong>
                 {this.renderDividedText([
-                  Admin.User.profession,
-                  Admin.User.profession_specialization
+                  AltCharacter.profession,
+                  AltCharacter.profession_specialization
                 ])}
               </h4>
             </Col>

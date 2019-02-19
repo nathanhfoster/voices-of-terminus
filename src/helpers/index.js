@@ -70,6 +70,25 @@ export const circleColor = status => {
   }
 };
 
+export const MainAltCharacter = (User, MainOrAlt) => {
+  const DEFAULT = {
+    race: null,
+    role: null,
+    character_class: null,
+    profession: null,
+    profession_specialization: null
+  };
+
+  if (!User) return DEFAULT;
+  const { Characters } = User;
+
+  if (Characters === undefined || Characters.length == 0) {
+    return DEFAULT;
+  }
+
+  return Characters.reduce((a, c) => (a = c[MainOrAlt] ? c : DEFAULT), DEFAULT);
+};
+
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!

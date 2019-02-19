@@ -14,6 +14,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { getUser, setUser } from "../../../actions/App";
 import {
+  MainAltCharacter,
   isOnline,
   isEmpty,
   statusLevelInt,
@@ -148,6 +149,9 @@ class PublicProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead
     };
+    const MainCharacter = MainAltCharacter(User, "main");
+    const AltCharacter = MainAltCharacter(User, "alt");
+
     return !isEmpty(User) ? (
       <Grid className="PublicProfile Container fadeIn">
         <Row className="ActionToolbarRow">
@@ -199,20 +203,32 @@ class PublicProfile extends PureComponent {
             </div>
             <h4 title="Primary Class Icon">
               <Image
-                src={roleClassIcon(User.primary_class)}
+                src={roleClassIcon(MainCharacter.character_class)}
                 style={{ height: "24px" }}
               />
               <strong title="Primary | Race | Role | Class |"> Primary</strong>
               <span> | </span>
               {this.renderDividedText([
-                User.primary_race,
-                User.primary_role,
-                User.primary_class
+                MainCharacter.race,
+                MainCharacter.role,
+                MainCharacter.character_class
+              ])}
+            </h4>
+            <h4 title="Profession | Profession | Profession Specialization | ">
+              {professionIcon(
+                MainCharacter.profession,
+                MainCharacter.profession_specialization
+              )}
+              <strong> Profession</strong>
+              <span> | </span>
+              {this.renderDividedText([
+                MainCharacter.profession,
+                MainCharacter.profession_specialization
               ])}
             </h4>
             <h4 title="Seconday Class Icon">
               <Image
-                src={roleClassIcon(User.secondary_class)}
+                src={roleClassIcon(AltCharacter.character_class)}
                 style={{ height: "26px" }}
               />{" "}
               <strong title="Secondary | Race | Role | Class |">
@@ -220,18 +236,21 @@ class PublicProfile extends PureComponent {
               </strong>
               <span> | </span>
               {this.renderDividedText([
-                User.secondary_race,
-                User.secondary_role,
-                User.secondary_class
+                AltCharacter.race,
+                AltCharacter.role,
+                AltCharacter.character_class
               ])}
             </h4>
             <h4 title="Profession | Profession | Profession Specialization | ">
-              {professionIcon(User.profession, User.profession_specialization)}
+              {professionIcon(
+                AltCharacter.profession,
+                AltCharacter.profession_specialization
+              )}
               <strong> Profession</strong>
               <span> | </span>
               {this.renderDividedText([
-                User.profession,
-                User.profession_specialization
+                AltCharacter.profession,
+                AltCharacter.profession_specialization
               ])}
             </h4>
           </Col>
