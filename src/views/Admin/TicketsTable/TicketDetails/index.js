@@ -80,7 +80,7 @@ class TicketDetails extends Component {
       last_modified
     } = Ticket;
     const dateChanged = new Date(last_modified) - new Date(date_created) > 0;
-    return Ticket && canViewTickets ? (
+    return !canViewTickets ? (
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
