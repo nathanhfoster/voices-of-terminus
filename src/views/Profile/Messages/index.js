@@ -469,7 +469,7 @@ class Messages extends PureComponent {
                       <ButtonGroup>
                         {this.state.uri ? (
                           <Button onClick={() => history.push(uri)}>
-                            <i className="fas fa-link" /> {title}
+                            <i className="fas fa-link" /> {modalTitle}
                           </Button>
                         ) : (
                           <Button onClick={() => this.replyToGroup(body)}>
