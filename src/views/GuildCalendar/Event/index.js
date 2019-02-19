@@ -299,8 +299,8 @@ class Event extends Component {
       const isRaid = group_size > 1;
       const GroupHeader = isRaid ? `Group ${i + 1}` : "Group";
       const GroupHelper = isRaid
-        ? `Select group ${i + 1} members.`
-        : `Select group members.`;
+        ? `Select group ${i + 1} member's ROLE / CLASS`
+        : `Select group member's ROLE / CLASS`;
       return (
         <Col md={12 / group_size} xs={12} className="memberCol">
           <h3>{GroupHeader}</h3>
@@ -315,7 +315,7 @@ class Event extends Component {
               <FormGroup key={k}>
                 <Select
                   //https://react-select.com/props
-                  closeMenuOnSelect={false}
+                  //closeMenuOnSelect={false}
                   value={role_class_preferences}
                   isMulti
                   styles={selectStyles}

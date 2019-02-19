@@ -211,7 +211,6 @@ class Admin extends Component {
 
   render() {
     const canSubmit = !this.cantSubmit();
-    const { token } = this.props.User;
     const { updateUserProfile } = this.props;
     const {
       Admin,
@@ -228,6 +227,12 @@ class Admin extends Component {
       show
     } = this.state;
     const { Users, Tickets } = Admin;
+    const canViewTickets =
+      User.is_leader ||
+      User.is_advisor ||
+      User.is_council ||
+      User.is_general_officer ||
+      User.is_officer;
 
     return eventKey.includes("admin") &&
       !(
@@ -313,14 +318,16 @@ class Admin extends Component {
             >
               {PermissionsTable(Users, User, updateUserProfile)}
             </Tab>
-            <Tab
-              eventKey={`/admin/tickets`}
-              title={"Tickets"}
-              className="fadeIn"
-              unmountOnExit={true}
-            >
-              {TicketTable(Tickets, history)}
-            </Tab>
+            {canViewTickets && (
+              <Tab
+                eventKey={`/admin/tickets`}
+                title={"Tickets"}
+                className="fadeIn"
+                unmountOnExit={true}
+              >
+                {TicketTable(Tickets, history)}
+              </Tab>
+            )}
           </Tabs>
         </Row>
         {show ? (

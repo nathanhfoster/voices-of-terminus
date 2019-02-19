@@ -11,6 +11,19 @@ import {
 } from "../../../helpers";
 import "./styles.css";
 
+const checkForMainCharacter = (a, prop) => {
+  const { Characters } = a;
+  if (Characters === undefined || Characters.length == 0) {
+    return null;
+  }
+
+  for (let i = 0; i < Characters.length; i++) {
+    const Character = Characters[i];
+    if (Character.main) return Character[prop];
+  }
+  return null;
+};
+
 const OverviewTable = (Users, User) => {
   const { token } = User;
 
@@ -171,9 +184,7 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Role",
               id: "role",
-              accessor: a =>
-                a.Characters.filter(c => c.main)[0] &&
-                a.Characters.filter(c => c.main)[0].role,
+              accessor: a => checkForMainCharacter(a, "role"),
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -184,9 +195,7 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Class",
               id: "character_class",
-              accessor: a =>
-                a.Characters.filter(c => c.main)[0] &&
-                a.Characters.filter(c => c.main)[0].character_class,
+              accessor: a => checkForMainCharacter(a, "character_class"),
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -197,9 +206,7 @@ const OverviewTable = (Users, User) => {
             {
               Header: "Profession",
               id: "profession",
-              accessor: a =>
-                a.Characters.filter(c => c.main)[0] &&
-                a.Characters.filter(c => c.main)[0].profession,
+              accessor: a => checkForMainCharacter(a, "profession"),
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -211,8 +218,7 @@ const OverviewTable = (Users, User) => {
               Header: "Specialization",
               id: "profession_specialization",
               accessor: a =>
-                a.Characters.filter(c => c.main)[0] &&
-                a.Characters.filter(c => c.main)[0].profession_specialization,
+                checkForMainCharacter(a, "profession_specialization"),
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]

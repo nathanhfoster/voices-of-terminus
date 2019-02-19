@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Grid, Row, Col, PageHeader, Well, Image } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import { getTicket } from "../../../../actions/Tickets";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import Moment from "react-moment";
 import { circleColor } from "../../../../helpers";
 import "./styles.css";
@@ -49,7 +49,7 @@ class TicketDetails extends Component {
   getState = props => {
     const { Admin, User } = props;
     const { Ticket } = Admin;
-    this.setState({ Ticket });
+    this.setState({ User, Ticket });
   };
 
   componentDidUpdate(prevProps, prevState) {}
@@ -57,7 +57,14 @@ class TicketDetails extends Component {
   componentWillUnmount() {}
 
   render() {
-    const { Ticket } = this.state;
+    const { history } = this.props;
+    const { User, Ticket } = this.state;
+    const canViewTickets =
+      User.is_leader ||
+      User.is_advisor ||
+      User.is_council ||
+      User.is_general_officer ||
+      User.is_officer;
     const {
       id,
       author,
@@ -73,7 +80,13 @@ class TicketDetails extends Component {
       last_modified
     } = Ticket;
     const dateChanged = new Date(last_modified) - new Date(date_created) > 0;
-    return (
+    return Ticket && canViewTickets ? (
+      history.length > 2 ? (
+        <Redirect to={history.goBack()} />
+      ) : (
+        <Redirect to="/" />
+      )
+    ) : (
       Ticket && (
         <Grid className="TicketDetails Container">
           <Row>

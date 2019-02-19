@@ -188,9 +188,11 @@ class PublicProfile extends PureComponent {
             {User.username && (
               <h1 title="User Name">{User.username.toUpperCase()}</h1>
             )}
-            <span title="First and Last Name" className="firstLastName">
-              {User.first_name} {User.last_name}
-            </span>
+            {statusLevelInt(CurrentUser) > 0 && (
+              <span title="First and Last Name" className="firstLastName">
+                {User.first_name} {User.last_name}
+              </span>
+            )}
             <h2 title="Status">{statusLevelString(statusLevelInt(User))}</h2>
             <div title="Roles" className="userRoles">
               {renderRoles(User)}

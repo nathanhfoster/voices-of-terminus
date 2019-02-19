@@ -132,6 +132,8 @@ export const statusLevelInt = User => {
 
 export const statusLevelString = status => {
   switch (status) {
+    case 9:
+      return "Admin";
     case 8:
       return "Leader";
     case 7:
