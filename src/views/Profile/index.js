@@ -362,6 +362,7 @@ class Profile extends PureComponent {
   hasSpecialChar = s => /[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(s);
 
   updateProfile = () => {
+    const { updateProfile } = this.props;
     const {
       token,
       id,
@@ -412,7 +413,7 @@ class Profile extends PureComponent {
     payload.append("twitch_url", twitch_url);
     payload.append("youtube_url", youtube_url);
 
-    this.props.updateProfile(id, token, payload);
+    updateProfile(id, token, payload);
   };
 
   onCharacterChange = (e, i) => {
@@ -686,14 +687,6 @@ class Profile extends PureComponent {
       date_joined,
       last_login,
       bio,
-      primary_race,
-      primary_role,
-      primary_class,
-      secondary_race,
-      secondary_role,
-      secondary_class,
-      profession,
-      profession_specialization,
       discord_url,
       twitter_url,
       twitch_url,

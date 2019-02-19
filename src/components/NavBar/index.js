@@ -263,6 +263,7 @@ class NavBar extends PureComponent {
                     </NavItem>
                   </LinkContainer>
                 )}
+
                 {(User.is_superuser || User.can_create_calendar_event) && (
                   <LinkContainer to="/calendar/new/event">
                     <NavItem eventKey={10.1}>
@@ -270,6 +271,11 @@ class NavBar extends PureComponent {
                     </NavItem>
                   </LinkContainer>
                 )}
+                <LinkContainer to="/ticket/new">
+                  <NavItem eventKey={10.1}>
+                    <i className="fas fa-plus" /> TICKET
+                  </NavItem>
+                </LinkContainer>
                 <MenuItem divider />
                 <LinkContainer to="/polls">
                   <NavItem eventKey={10.9}>

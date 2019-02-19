@@ -398,7 +398,17 @@ export const Polls = (
 };
 
 export const Admin = (
-  state = { Users: [], User: { Characters: [] } },
+  state = {
+    Users: [],
+    User: { Characters: [] },
+    Tickets: [],
+    Ticket: {},
+    posting: false,
+    posted: false,
+    updating: false,
+    updated: false,
+    error: null
+  },
   action
 ) => {
   const { type, payload } = action;
@@ -425,6 +435,39 @@ export const Admin = (
       return {
         ...state,
         User: null,
+        posting: false,
+        posted: false,
+        updating: false,
+        updated: false,
+        error: null
+      };
+    case C.GET_TICKETS:
+      return { ...state, Tickets: payload };
+    case C.GET_TICKET:
+      return { ...state, Ticket: payload };
+    case C.POST_TICKETS_LOADING:
+      return {
+        ...state,
+        posting: true,
+        posted: false
+      };
+    case C.POST_TICKETS_SUCCESS:
+      return {
+        ...state,
+        posting: false,
+        posted: true,
+        error: null
+      };
+    case C.POST_TICKETS_ERROR:
+      return {
+        ...state,
+        posting: false,
+        posted: true,
+        error: true
+      };
+    case C.CLEAR_ADMIN_API:
+      return {
+        ...state,
         posting: false,
         posted: false,
         updating: false,

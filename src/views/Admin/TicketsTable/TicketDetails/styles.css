@@ -1,0 +1,24 @@
+.TicketDetails {
+}
+
+.TicketDetails a {
+  color: var(--primaryColor);
+}
+
+.TicketDetails a:hover {
+  opacity: 0.75;
+}
+
+.TicketDescription {
+  border: 1px solid var(--light_grey);
+  background-color: var(--slate_grey);
+  word-break: break-all;
+  vertical-align: middle;
+  overflow-y: auto;
+  min-height: 250px;
+}
+
+.ImageProof {
+  max-height: 500px;
+  max-width: 100%;
+}

@@ -8,9 +8,7 @@ import Moment from "react-moment";
 import { statusLevelInt, statusLevelString } from "../../../helpers";
 import "./styles.css";
 
-const PermissionsTable = (Admin, User, updateUserProfile) => {
-  const { Users } = Admin;
-  const { loading, loaded, posting, posted, updating, updated, error } = Admin;
+const PermissionsTable = (Users, User, updateUserProfile) => {
   const { token } = User;
 
   return (

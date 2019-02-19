@@ -131,7 +131,6 @@ class PublicProfile extends PureComponent {
     const CurrentUser = this.props.User;
     const { is_superuser, is_staff } = CurrentUser;
     const { User, history } = this.state;
-    const { Characters } = User;
     const { id } = this.props.match.params;
     const {
       last_login,
@@ -338,7 +337,7 @@ class PublicProfile extends PureComponent {
             </Well>
           </Col>
         </Row>
-        {this.renderCharacters(Characters)}
+        {this.renderCharacters(User.Characters)}
         <Row className="userConnections">
           <Col md={3} xs={3}>
             <a

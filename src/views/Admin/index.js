@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -29,9 +29,12 @@ import {
   updateUserProfile,
   clearUser
 } from "../../actions/Admin";
+import { getTickets } from "../../actions/Tickets";
+import { isEquivalent } from "../../helpers";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
 import PermissionsTable from "./PermissionsTable";
 import OverviewTable from "./OverviewTable";
+import TicketTable from "./TicketsTable";
 
 const mapStateToProps = ({ Admin, User, Window }) => ({
   Admin,
@@ -44,10 +47,11 @@ const mapDispatchToProps = {
   getUsers,
   deleteUser,
   updateUserProfile,
-  clearUser
+  clearUser,
+  getTickets
 };
 
-class Admin extends PureComponent {
+class Admin extends Component {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
@@ -73,10 +77,15 @@ class Admin extends PureComponent {
     this.getState(this.props);
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return false;
+  }
+
   componentDidMount() {
-    const { getUsers, clearUser } = this.props;
+    const { getUsers, clearUser, getTickets } = this.props;
     getUsers();
     clearUser();
+    getTickets();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -218,18 +227,21 @@ class Admin extends PureComponent {
       eventKey,
       show
     } = this.state;
-    const { Users } = Admin;
+    const { Users, Tickets } = Admin;
 
     return eventKey.includes("admin") &&
       !(
         eventKey.includes("overview") ||
         eventKey.includes("permissions") ||
+        eventKey.includes("tickets") ||
         eventKey.includes("edit")
       ) ? (
       <Redirect to="/admin/overview" />
     ) : User.is_superuser || User.is_staff ? (
       <Grid className="Admin Container fadeIn">
-        <PageHeader className="pageHeader">ADMIN</PageHeader>
+        <Row>
+          <PageHeader className="pageHeader">ADMIN</PageHeader>
+        </Row>
         <Row className="ActionToolbarRow">
           <Col
             xs={12}
@@ -241,7 +253,7 @@ class Admin extends PureComponent {
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => history.push("/article/new/")}
+              onClick={() => history.push("/article/new")}
             >
               <i className="fas fa-plus" /> Article
             </Button>
@@ -256,13 +268,19 @@ class Admin extends PureComponent {
             </Button>
             <Button
               disabled={!(User.is_superuser || User.can_create_calendar_event)}
-              onClick={() => history.push("/poll/new/")}
+              onClick={() => history.push("/poll/new")}
             >
               <i className="fas fa-plus" /> Poll
             </Button>
             <Button
+              disabled={!(User.is_superuser || User.can_create_calendar_event)}
+              onClick={() => history.push("/ticket/new")}
+            >
+              <i className="fas fa-plus" /> Ticket
+            </Button>
+            <Button
               disabled={!User.is_superuser}
-              onClick={() => history.push("/polls/")}
+              onClick={() => history.push("/polls")}
             >
               <i className="fas fa-eye" /> Poll
             </Button>
@@ -285,7 +303,7 @@ class Admin extends PureComponent {
               className="fadeIn"
               unmountOnExit={true}
             >
-              {OverviewTable(Admin, User)}
+              {OverviewTable(Users, User)}
             </Tab>
             <Tab
               eventKey={`/admin/permissions`}
@@ -293,7 +311,15 @@ class Admin extends PureComponent {
               className="fadeIn"
               unmountOnExit={true}
             >
-              {PermissionsTable(Admin, User, updateUserProfile)}
+              {PermissionsTable(Users, User, updateUserProfile)}
+            </Tab>
+            <Tab
+              eventKey={`/admin/tickets`}
+              title={"Tickets"}
+              className="fadeIn"
+              unmountOnExit={true}
+            >
+              {TicketTable(Tickets, history)}
             </Tab>
           </Tabs>
         </Row>

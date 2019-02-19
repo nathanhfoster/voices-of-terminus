@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios, AxiosForm } from "./Axios";
+import { Axios } from "./Axios";
 import qs from "qs";
 
 export const GetPoll = (token, id) => {

@@ -79,7 +79,7 @@ class Messages extends PureComponent {
   }
 
   componentDidMount() {
-    const { User } = this.props;
+    const { User, getMessages, getUsers, Settings } = this.props;
     const { Users } = this.props.Admin;
     const recipients = Users
       ? Users.filter(i => i.id === User.id).map(
@@ -87,10 +87,10 @@ class Messages extends PureComponent {
         )
       : [];
     this.setState({ recipients });
-    const { pushMessages } = this.props.Settings;
+    const { pushMessages } = Settings;
     const { id, token } = this.props.User;
-    if (!pushMessages) this.props.getMessages(id, token);
-    this.props.getUsers();
+    if (!pushMessages) getMessages(id, token);
+    getUsers();
   }
 
   componentWillReceiveProps(nextProps) {

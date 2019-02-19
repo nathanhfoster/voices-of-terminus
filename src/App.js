@@ -13,6 +13,8 @@ import { Image } from "react-bootstrap";
 
 import Admin from "./views/Admin";
 import PollSystem from "./views/Admin/PollSystem";
+import TicketDetails from "./views/Admin/TicketsTable/TicketDetails";
+import Ticket from "./components/Ticket";
 import PollGenerator from "./components/PollGenerator";
 import BackgroundImage from "./components/BackgroundImage";
 import UserProfile from "./views/Admin/UserProfile";
@@ -100,6 +102,9 @@ class App extends PureComponent {
         { path: "/admin", component: Admin },
         { path: "/admin/overview", component: Admin },
         { path: "/admin/permissions", component: Admin },
+        { path: "/admin/tickets", component: Admin },
+        { path: "/admin/view/ticket/:id", component: TicketDetails },
+        { path: "/ticket/new", component: Ticket },
         { path: "/admin/edit/user/:id", component: UserProfile },
         { path: "/polls", component: PollSystem },
         { path: "/polls/:id", component: PollSystem },

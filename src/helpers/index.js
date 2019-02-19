@@ -29,6 +29,7 @@ import CrowdControl from "../images/classIcons/crowd_control.png";
 import Default from "../images/classIcons/default.png";
 import QuestionMark from "../images/question.png";
 import { userRefreshDelay } from "./variables";
+import { stat } from "fs";
 
 export const arrayToObject = (arr, keyField) =>
   Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
@@ -54,6 +55,19 @@ export const hasCharAfterSpace = string => {
   if (SecondToLastChar != "" && LastChar == "") return false;
 
   return true;
+};
+
+export const circleColor = status => {
+  switch (status) {
+    case "Open":
+      return "var(--color_emerald)";
+    case "Closed":
+      return "var(--color_alizarin)";
+    case "Pending":
+      return "var(--color_sunflower)";
+    default:
+      return "var(--color_emerald)";
+  }
 };
 
 /**

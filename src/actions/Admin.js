@@ -48,6 +48,13 @@ export const clearUser = () => {
     });
 };
 
+export const clearAdminApi = () => {
+  return dispatch =>
+    dispatch({
+      type: C.CLEAR_ADMIN_API
+    });
+};
+
 export const updateUserProfile = (id, token, payload) => {
   return (dispatch, getState) => {
     dispatch({ type: C.UPDATE_USERS_LOADING });

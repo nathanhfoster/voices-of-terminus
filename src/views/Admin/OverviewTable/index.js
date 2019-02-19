@@ -11,8 +11,7 @@ import {
 } from "../../../helpers";
 import "./styles.css";
 
-const OverviewTable = (Admin, User) => {
-  const { Users } = Admin;
+const OverviewTable = (Users, User) => {
   const { token } = User;
 
   return (

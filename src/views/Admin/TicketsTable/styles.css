@@ -1,0 +1,4 @@
+.TicketTable .rt-tr-group .rt-td:nth-child(2):hover,
+.TicketTable .rt-tr-group .rt-td:nth-child(3):hover {
+  background: var(--grey);
+}
