@@ -166,7 +166,6 @@ const AdminDetailsColumns = [
     filterAll: true,
     Cell: props => (
       <div>
-
         <i
           className="fas fa-circle"
           style={{ color: circleColor(props.value) }}
