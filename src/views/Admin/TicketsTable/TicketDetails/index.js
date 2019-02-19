@@ -78,7 +78,7 @@ class TicketDetails extends Component {
       ticket_type,
       date_created,
       last_modified
-    } = !isEmpty(Ticket) ? Ticket : {};
+    } = Ticket;
     const dateChanged = new Date(last_modified) - new Date(date_created) > 0;
     return !canViewTickets ? (
       history.length > 2 ? (
