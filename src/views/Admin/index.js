@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
@@ -51,7 +51,7 @@ const mapDispatchToProps = {
   getTickets
 };
 
-class Admin extends Component {
+class Admin extends PureComponent {
   constructor(props) {
     super(props);
     this.onChange = this.onChange.bind(this);
@@ -77,7 +77,7 @@ class Admin extends Component {
     this.getState(this.props);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
+  /*shouldComponentUpdate(nextProps, nextState) {
     let shouldUpdate = true;
     const { Admin } = this.state;
     const { Tickets } = nextProps.Admin;
@@ -88,7 +88,7 @@ class Admin extends Component {
     );
     if (sameTickets) shouldUpdate = false;
     return shouldUpdate;
-  }
+  }*/
 
   componentDidMount() {
     const { getUsers, clearUser, getTickets } = this.props;
