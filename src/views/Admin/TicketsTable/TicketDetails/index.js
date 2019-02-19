@@ -5,7 +5,7 @@ import { connect as reduxConnect } from "react-redux";
 import { getTicket } from "../../../../actions/Tickets";
 import { Link, Redirect } from "react-router-dom";
 import Moment from "react-moment";
-import { circleColor } from "../../../../helpers";
+import { circleColor, isEmpty } from "../../../../helpers";
 import "./styles.css";
 
 const mapStateToProps = ({ Admin, User }) => ({ Admin, User });
@@ -78,7 +78,7 @@ class TicketDetails extends Component {
       ticket_type,
       date_created,
       last_modified
-    } = Ticket;
+    } = !isEmpty(Ticket) ? Ticket : {};
     const dateChanged = new Date(last_modified) - new Date(date_created) > 0;
     return !canViewTickets ? (
       history.length > 2 ? (
