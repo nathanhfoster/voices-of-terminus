@@ -30,6 +30,20 @@ export const getTicket = (token, id) => {
   };
 };
 
+export const getUserTickets = (token, userId) => {
+  return dispatch => {
+    Axios(token)
+      .get(`tickets/${userId}/view/`)
+      .then(res => {
+        dispatch({
+          type: C.GET_USER_TICKETS,
+          payload: res.data
+        });
+      })
+      .catch(e => console.log(e));
+  };
+};
+
 export const postTicket = (token, payload) => {
   return dispatch => {
     dispatch({ type: C.POST_TICKETS_LOADING });

@@ -14,12 +14,12 @@ import {
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import FormData from "form-data";
-import { getUsers, clearAdminApi } from "../../actions/Admin";
-import { postTicket } from "../../actions/Tickets";
+import { getUsers, clearAdminApi } from "../../../../actions/Admin";
+import { postTicket } from "../../../../actions/Tickets";
 import { withAlert } from "react-alert";
 import Select from "react-select";
-import { selectStyles } from "../../helpers/styles";
-import { isEquivalent } from "../../helpers";
+import { selectStyles } from "../../../../helpers/styles";
+import { isEquivalent } from "../../../../helpers";
 import "./styles.css";
 
 const mapStateToProps = ({ Admin, User }) => ({ Admin, User });
@@ -31,19 +31,22 @@ class Ticket extends Component {
     super(props);
 
     this.state = {
-      ticket_type: { value: "Report", label: "Report" },
-      priority: { value: 1, label: 1 }
+      ticket_type: { value: 3, label: "Harassment" }
     };
   }
 
   static propTypes = {};
 
   static defaultProps = {
-    tagOptions: [{ value: "Report", label: "Report" }],
-    priorityOptions: [
-      { value: 1, label: 1 },
-      { value: 2, label: 2 },
-      { value: 3, label: 3 }
+    ticketTypeOptions: [
+      { value: 3, label: "Harassment" },
+      { value: 3, label: "Abuse / Griefing" },
+      { value: 3, label: "Exploit" },
+      { value: 2, label: "Guild Issue" },
+      { value: 2, label: "Website Issue" },
+      { value: 2, label: "Discord Issue" },
+      { value: 1, label: "General" },
+      { value: 1, label: "Feedback" }
     ]
   };
 
@@ -79,7 +82,7 @@ class Ticket extends Component {
   }
 
   getState = props => {
-    const { Admin, User, tagOptions, priorityOptions } = props;
+    const { Admin, User, ticketTypeOptions } = props;
     const { token, id } = User;
     const offenderOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
@@ -90,9 +93,8 @@ class Ticket extends Component {
     this.setState({
       token: token,
       author: id,
-      tagOptions,
+      ticketTypeOptions,
       offenderOptions,
-      priorityOptions,
       posting,
       posted,
       updating,
@@ -144,17 +146,16 @@ class Ticket extends Component {
       offender,
       description,
       ticket_type,
-      image,
-      priority
+      image
     } = this.state;
 
     let payload = new FormData();
     payload.append("author", author);
     payload.append("offender", offender ? offender.value : "");
     payload.append("description", description);
-    payload.append("ticket_type", ticket_type.value);
+    payload.append("ticket_type", ticket_type.label);
     payload.append("image", image);
-    payload.append("priority", priority.value);
+    payload.append("priority", ticket_type.value);
 
     postTicket(token, payload);
   };
@@ -165,10 +166,8 @@ class Ticket extends Component {
       description,
       ticket_type,
       image,
-      priority,
-      tagOptions,
+      ticketTypeOptions,
       offenderOptions,
-      priorityOptions,
       posting,
       posted,
       updating,
@@ -210,14 +209,14 @@ class Ticket extends Component {
           </Col>
         </Row>
         <Row className="borderedRow">
-          <Col xs={4}>
+          <Col xs={6}>
             <ControlLabel>Type</ControlLabel>
             <FormGroup>
               <Select
                 name="ticket_type"
                 value={ticket_type}
                 onChange={(e, a) => this.selectOnChange(e, a, "ticket_type")}
-                options={tagOptions}
+                options={ticketTypeOptions}
                 isClearable={false}
                 isSearchable={false}
                 onBlur={e => e.preventDefault()}
@@ -226,7 +225,7 @@ class Ticket extends Component {
               />
             </FormGroup>
           </Col>
-          <Col xs={4}>
+          <Col xs={6}>
             <ControlLabel>Offender</ControlLabel>
             <FormGroup>
               <Select
@@ -237,22 +236,6 @@ class Ticket extends Component {
                 options={offenderOptions}
                 isClearable={false}
                 isSearchable={true}
-                onBlur={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                styles={selectStyles}
-              />
-            </FormGroup>
-          </Col>
-          <Col xs={4}>
-            <ControlLabel>Priority</ControlLabel>
-            <FormGroup>
-              <Select
-                name="priority"
-                value={priority}
-                onChange={(e, a) => this.selectOnChange(e, a, "priority")}
-                options={priorityOptions}
-                isClearable={false}
-                isSearchable={false}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 styles={selectStyles}

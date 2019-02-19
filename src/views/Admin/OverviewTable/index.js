@@ -5,6 +5,7 @@ import matchSorter from "match-sorter";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {
+  isOnline,
   MainAltCharacter,
   arrayToObject,
   statusLevelInt,
@@ -223,7 +224,20 @@ const OverviewTable = (Users, User) => {
               Header: "Last Login",
               accessor: "last_login",
               maxWidth: 100,
-              Cell: props => <Moment fromNow>{props.value}</Moment>,
+              Cell: props => (
+                <div>
+                  <i
+                    className="fas fa-circle"
+                    style={{
+                      color: isOnline(props.value)
+                        ? "var(--color_emerald)"
+                        : "var(--color_alizarin)"
+                    }}
+                  />{" "}
+                  <Moment fromNow>{props.value}</Moment>
+                </div>
+              ),
+
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]

@@ -61,12 +61,12 @@ export const circleColor = status => {
   switch (status) {
     case "Open":
       return "var(--color_emerald)";
-    case "Closed":
+    case "Resolved":
       return "var(--color_alizarin)";
     case "Pending":
       return "var(--color_sunflower)";
     default:
-      return "var(--color_emerald)";
+      return "var(--primaryColor)";
   }
 };
 

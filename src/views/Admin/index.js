@@ -232,6 +232,7 @@ class Admin extends PureComponent {
       profile_image,
       opt_in,
       history,
+      match,
       eventKey,
       show
     } = this.state;
@@ -334,7 +335,7 @@ class Admin extends PureComponent {
                 className="fadeIn"
                 unmountOnExit={true}
               >
-                {TicketTable(Tickets, history)}
+                {TicketTable(Tickets, history, eventKey)}
               </Tab>
             )}
           </Tabs>

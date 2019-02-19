@@ -282,6 +282,11 @@ class NavBar extends PureComponent {
                     <i className="fas fa-eye" /> POLLS
                   </NavItem>
                 </LinkContainer>
+                <LinkContainer to="/tickets">
+                  <NavItem eventKey={10.10}>
+                    <i className="fas fa-eye" /> TICKETS
+                  </NavItem>
+                </LinkContainer>
                 <MenuItem divider />
                 <MenuItem
                   onClick={() => history.push("/settings")}

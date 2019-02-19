@@ -10,6 +10,10 @@
   color: var(--tertiarycolor);
 }
 
+.ReactTable .rt-thead {
+  overflow-y: scroll;
+}
+
 .ReactTable .rt-table::-webkit-scrollbar {
   display: block;
 }
@@ -67,8 +71,6 @@ div.-sort-desc::after {
 .ReactTable .-pagination select {
   background: var(--grey);
 }
-
-
 
 /* Links fill table height and width */
 .rt-td {

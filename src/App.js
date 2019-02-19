@@ -14,7 +14,8 @@ import { Image } from "react-bootstrap";
 import Admin from "./views/Admin";
 import PollSystem from "./views/Admin/PollSystem";
 import TicketDetails from "./views/Admin/TicketsTable/TicketDetails";
-import Ticket from "./components/Ticket";
+import TicketSystem from "./views/Profile/TicketSystem";
+import Ticket from "./views/Profile/TicketSystem/Ticket";
 import PollGenerator from "./components/PollGenerator";
 import BackgroundImage from "./components/BackgroundImage";
 import UserProfile from "./views/Admin/UserProfile";
@@ -104,7 +105,6 @@ class App extends PureComponent {
         { path: "/admin/permissions", component: Admin },
         { path: "/admin/tickets", component: Admin },
         { path: "/admin/view/ticket/:id", component: TicketDetails },
-        { path: "/ticket/new", component: Ticket },
         { path: "/admin/edit/user/:id", component: UserProfile },
         { path: "/polls", component: PollSystem },
         { path: "/polls/:id", component: PollSystem },
@@ -147,6 +147,8 @@ class App extends PureComponent {
         { path: "/media/podcasts/:id/:type", component: VideoPlayer },
         { path: "/profile", component: Profile },
         { path: "/profile/:id/", component: PublicProfile },
+        { path: "/tickets", component: TicketSystem },
+        { path: "/ticket/new", component: Ticket },
         { path: "/messages", component: Messages },
         { path: "/login", component: Login },
         { path: "/privacy-policy", component: PrivacyPolicy },
