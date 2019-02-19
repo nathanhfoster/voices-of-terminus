@@ -350,6 +350,27 @@ class Event extends Component {
     return conditions.some(e => tags.includes(e));
   };
 
+  validateTitle(value) {
+    if (value) {
+      const { length } = value;
+      if (length > 4) return "success";
+      else if (length > 2) return "warning";
+      else if (length > 0) return "error";
+    }
+    return "error";
+  }
+
+  canSubmit = () => {
+    const { title } = this.state;
+    if (
+      this.validateTitle(title) === "success" ||
+      this.validateTitle(title) === "warning"
+    )
+      return true;
+
+    return false;
+  };
+
   render() {
     const { history } = this.props;
     const {
@@ -397,7 +418,10 @@ class Event extends Component {
           >
             <Button
               style={{ marginLeft: 16 }}
-              disabled={!(User.is_superuser || User.can_create_calendar_event)}
+              disabled={
+                !this.canSubmit() ||
+                !(User.is_superuser || User.can_create_calendar_event)
+              }
               onClick={this.postEvent}
             >
               {posting && !posted
@@ -479,7 +503,7 @@ class Event extends Component {
               </InputGroup>
             </Col>
             <Col xs={12} style={{ marginTop: 16 }}>
-              <FormGroup>
+              <FormGroup validationState={this.validateTitle(title)}>
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
                   value={title}
