@@ -537,7 +537,7 @@ class Profile extends PureComponent {
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </FormGroup>
           </Col>
@@ -554,7 +554,7 @@ class Profile extends PureComponent {
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 isDisabled={!race}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </FormGroup>
           </Col>
@@ -575,7 +575,7 @@ class Profile extends PureComponent {
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 isDisabled={!role}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </FormGroup>
           </Col>
@@ -628,7 +628,7 @@ class Profile extends PureComponent {
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </FormGroup>
           </Col>
@@ -653,7 +653,7 @@ class Profile extends PureComponent {
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 isDisabled={!profession}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </FormGroup>
           </Col>

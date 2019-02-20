@@ -302,7 +302,7 @@ class PollGenerator extends Component {
                 isSearchable={false}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </InputGroup>
           </Col>
@@ -586,7 +586,7 @@ class PollGenerator extends Component {
                     //https://react-select.com/props
                     value={Recipients}
                     isMulti
-                    styles={selectStyles}
+                    styles={selectStyles()}
                     onBlur={e => e.preventDefault()}
                     blurInputOnSelect={false}
                     //isClearable={this.state.Recipients.some(v => !v.isFixed)}

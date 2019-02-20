@@ -18,8 +18,9 @@ import { getUsers, clearAdminApi } from "../../../../actions/Admin";
 import { postTicket } from "../../../../actions/Tickets";
 import { withAlert } from "react-alert";
 import Select from "react-select";
+import CreatableSelect from "react-select/lib/Creatable";
+import { ticketTypeOptions } from "../../../../helpers";
 import { selectStyles } from "../../../../helpers/styles";
-import { isEquivalent } from "../../../../helpers";
 import "./styles.css";
 
 const mapStateToProps = ({ Admin, User }) => ({ Admin, User });
@@ -38,16 +39,7 @@ class Ticket extends Component {
   static propTypes = {};
 
   static defaultProps = {
-    ticketTypeOptions: [
-      { value: 3, label: "Harassment" },
-      { value: 3, label: "Abuse / Griefing" },
-      { value: 3, label: "Exploit" },
-      { value: 2, label: "Guild Issue" },
-      { value: 2, label: "Website Issue" },
-      { value: 2, label: "Discord Issue" },
-      { value: 1, label: "General" },
-      { value: 1, label: "Feedback" }
-    ]
+    ticketTypeOptions: ticketTypeOptions
   };
 
   componentWillMount() {
@@ -127,6 +119,10 @@ class Ticket extends Component {
   selectOnChange = (e, a, name) => {
     switch (a.action) {
       case "clear":
+        this.setState({ [name]: null });
+        break;
+      case "create-option":
+        this.setState({ [name]: e });
         break;
       case "pop-value":
         if (e.value.isFixed) {
@@ -144,6 +140,8 @@ class Ticket extends Component {
       token,
       author,
       offender,
+      corroborator,
+      others_involved,
       description,
       ticket_type,
       image
@@ -152,6 +150,11 @@ class Ticket extends Component {
     let payload = new FormData();
     payload.append("author", author);
     payload.append("offender", offender ? offender.value : "");
+    payload.append("corroborator", corroborator ? corroborator.value : "");
+    payload.append(
+      "others_involved",
+      others_involved ? others_involved.map(o => o.label).join("|") : ""
+    );
     payload.append("description", description);
     payload.append("ticket_type", ticket_type.label);
     payload.append("image", image);
@@ -163,6 +166,8 @@ class Ticket extends Component {
   render() {
     const {
       offender,
+      corroborator,
+      others_involved,
       description,
       ticket_type,
       image,
@@ -187,7 +192,7 @@ class Ticket extends Component {
           >
             <Button onClick={e => this.postTicket()}>
               {posting && !posted
-                ? [<i className="fa fa-spinner fa-spin" />, " POST"]
+                ? [<i className="fa fa-spinner fa-spin" />, " SUBMIT"]
                 : !posting && posted && !error
                 ? [
                     <i
@@ -209,7 +214,7 @@ class Ticket extends Component {
           </Col>
         </Row>
         <Row className="borderedRow">
-          <Col xs={6}>
+          <Col xs={4}>
             <ControlLabel>Type</ControlLabel>
             <FormGroup>
               <Select
@@ -221,16 +226,17 @@ class Ticket extends Component {
                 isSearchable={false}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles}
+                styles={selectStyles()}
               />
             </FormGroup>
           </Col>
-          <Col xs={6}>
+          <Col xs={4}>
             <ControlLabel>Offender</ControlLabel>
+            <span className="help-inline">Main person involved.</span>
             <FormGroup>
               <Select
                 name="offender"
-                placeholder="Search for offender..."
+                placeholder="Search..."
                 value={offender}
                 onChange={(e, a) => this.selectOnChange(e, a, "offender")}
                 options={offenderOptions}
@@ -238,7 +244,48 @@ class Ticket extends Component {
                 isSearchable={true}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles}
+                styles={selectStyles()}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={4}>
+            <ControlLabel>Corroborator</ControlLabel>
+            <span className="help-inline">Main person who is a witness.</span>
+            <FormGroup>
+              <Select
+                name="corroborator"
+                placeholder="Search..."
+                value={corroborator}
+                onChange={(e, a) => this.selectOnChange(e, a, "corroborator")}
+                options={offenderOptions}
+                isClearable={false}
+                isSearchable={true}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                styles={selectStyles()}
+              />
+            </FormGroup>
+          </Col>
+          <Col xs={12}>
+            <ControlLabel>Others involved</ControlLabel>
+            <span className="help-inline">
+              If the person(s) are not listed, type to add them.
+            </span>
+            <FormGroup>
+              <CreatableSelect
+                //https://react-select.com/props
+                value={others_involved}
+                isMulti={true}
+                styles={selectStyles()}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                isClearable={true}
+                placeholder="Add..."
+                classNamePrefix="select"
+                onChange={(e, a) =>
+                  this.selectOnChange(e, a, "others_involved")
+                }
+                options={offenderOptions}
               />
             </FormGroup>
           </Col>

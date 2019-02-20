@@ -385,7 +385,7 @@ class Messages extends PureComponent {
                             //https://react-select.com/props
                             value={recipients}
                             isMulti
-                            styles={selectStyles}
+                            styles={selectStyles()}
                             onBlur={e => e.preventDefault()}
                             blurInputOnSelect={false}
                             //isClearable={this.state.recipients.some(v => !v.isFixed)}

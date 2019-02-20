@@ -391,7 +391,7 @@ class News extends Component {
                 //https://react-select.com/props
                 value={this.state.selectValue}
                 isMulti
-                styles={selectStyles}
+                styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 //isClearable={this.state.selectValue.some(v => !v.isFixed)}

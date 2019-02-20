@@ -48,6 +48,25 @@ export const eventLabelColor = tags => {
   return "var(--primaryColor)";
 };
 
+export const findMaxInt = (arrayOfObjs, prop) =>
+  Math.max(...arrayOfObjs.map(e => e[prop]));
+
+export const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
+  let map = new Map();
+  for (let i = 0; i < arrayOfObjs.length; i++) {
+    const s = arrayOfObjs[i][prop];
+    if (s != undefined && s.length > 0)
+      map.has(s) ? map.set(s, map.get(s) + 1) : map.set(s, 1);
+  }
+
+  const sortedMap = new Map(
+    [...map.entries()].sort().sort((a, b) => b[1] - a[1])
+  );
+  const newArray = [...sortedMap.keys()].slice(0, k);
+  if (newArray.length === 1) return newArray[0];
+  else return newArray;
+};
+
 export const hasCharAfterSpace = string => {
   const charArray = string.split(" ").slice(-2);
   const SecondToLastChar = charArray[0];
@@ -88,6 +107,23 @@ export const MainAltCharacter = (User, MainOrAlt) => {
 
   return Characters.reduce((a, c) => (a = c[MainOrAlt] ? c : DEFAULT), DEFAULT);
 };
+
+export const ticketStatusOptions = [
+  { value: "Open", label: "Open" },
+  { value: "Pending", label: "Pending" },
+  { value: "Resolved", label: "Resolved" }
+];
+
+export const ticketTypeOptions = [
+  { value: 3, label: "Harassment" },
+  { value: 3, label: "Abuse / Griefing" },
+  { value: 3, label: "Exploit" },
+  { value: 2, label: "Guild Issue" },
+  { value: 2, label: "Website Issue" },
+  { value: 2, label: "Discord Issue" },
+  { value: 1, label: "General" },
+  { value: 1, label: "Feedback" }
+];
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)

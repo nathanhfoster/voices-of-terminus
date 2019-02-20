@@ -61,3 +61,25 @@ export const postTicket = (token, payload) => {
       });
   };
 };
+
+export const editTicket = (token, id, payload) => {
+  return dispatch => {
+    dispatch({ type: C.POST_TICKETS_LOADING });
+    Axios(token)
+      .patch(`tickets/${id}/`, qs.stringify(payload))
+      .then(res => {
+        dispatch({ type: C.POST_TICKETS_SUCCESS });
+        dispatch({
+          type: C.GET_TICKET,
+          payload: res.data
+        });
+      })
+      .catch(e => {
+        dispatch({ type: C.POST_TICKETS_ERROR });
+        dispatch({
+          type: C.SET_API_RESPONSE,
+          payload: e.response
+        });
+      });
+  };
+};

@@ -387,7 +387,7 @@ class Gallery extends PureComponent {
                 //https://react-select.com/props
                 value={this.state.selectValue}
                 isMulti
-                styles={selectStyles}
+                styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 //isClearable={this.state.selectValue.some(v => !v.isFixed)}
@@ -529,7 +529,7 @@ class Gallery extends PureComponent {
                           //https://react-select.com/props
                           value={tags}
                           isMulti
-                          styles={selectStyles}
+                          styles={selectStyles()}
                           onBlur={e => e.preventDefault()}
                           blurInputOnSelect={false}
                           //isClearable={this.state.selectValue.some(v => !v.isFixed)}

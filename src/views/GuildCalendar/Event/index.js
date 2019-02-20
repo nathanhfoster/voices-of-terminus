@@ -318,7 +318,7 @@ class Event extends Component {
                   //closeMenuOnSelect={false}
                   value={role_class_preferences}
                   isMulti
-                  styles={selectStyles}
+                  styles={selectStyles()}
                   onBlur={e => e.preventDefault()}
                   blurInputOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
@@ -528,7 +528,7 @@ class Event extends Component {
                   //https://react-select.com/props
                   value={tags}
                   isMulti
-                  styles={selectStyles}
+                  styles={selectStyles()}
                   onBlur={e => e.preventDefault()}
                   blurInputOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
@@ -550,7 +550,7 @@ class Event extends Component {
                   <Select
                     //https://react-select.com/props
                     value={locations}
-                    styles={selectStyles}
+                    styles={selectStyles()}
                     onBlur={e => e.preventDefault()}
                     blurInputOnSelect={false}
                     isMulti

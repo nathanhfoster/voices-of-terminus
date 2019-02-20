@@ -384,7 +384,7 @@ class NewsLetterGenerator extends PureComponent {
                 <Select
                   value={selectValue}
                   isMulti
-                  styles={selectStyles}
+                  styles={selectStyles()}
                   isSearchable={false}
                   isClearable={selectValue.some(v => !v.isFixed)}
                   onBlur={e => e.preventDefault()}

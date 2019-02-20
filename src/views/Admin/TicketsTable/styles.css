@@ -1,4 +1,4 @@
-/* .TicketTable .rt-tr-group .rt-td:nth-child(2):hover,
-.TicketTable .rt-tr-group .rt-td:nth-child(3):hover {
+.TicketTable .rt-tr-group .rt-td:first-child:hover {
   background: var(--grey);
-} */
+  cursor: var(--cursor);
+}

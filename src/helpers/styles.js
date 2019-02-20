@@ -2,8 +2,9 @@
 group groupHeading indicatorsContainer indicatorSeparator 
 input loadingIndicator loadingMessage menu menuList multiValue 
 multiValueLabel multiValueRemove noOptionsMessage option placeholder singleValue valueContainer */
-export const selectStyles = {
-  /* 
+export const selectStyles = props => {
+  return {
+    /* 
   clearIndicator function (Object) => Object
   container function (Object) => Object
   control function (Object) => Object
@@ -27,105 +28,108 @@ export const selectStyles = {
   singleValue function (Object) => Object
   valueContainer functionrequired (Object) => Object
   */
-  menu: (base, state) => ({
-    ...base,
-    backgroundColor: "inherit",
-    zIndex: "9999"
-  }),
-  menuList: (base, state) => ({
-    ...base,
-    backgroundColor: "transparent"
-  }),
-  menuPortal: (base, state) => ({
-    ...base
-  }),
-  container: (base, state) => ({
-    ...base,
-    fontSize: "medium",
-    opacity: state.isDisabled ? ".5" : "1",
-    backgroundColor: "transparent"
-  }),
-  clearIndicator: (base, state) => ({
-    ...base,
-    color: "var(--tertiarycolor)",
-    ":hover": { color: "var(--primaryColor)" }
-  }),
-  dropdownIndicator: (base, state) => ({
-    ...base,
-    color: "var(--tertiarycolor)",
-    ":hover": { color: "var(--primaryColor)" }
-  }),
-  control: (base, state) => ({
-    ...base,
-    minHeight: "var(--inputButtonHeight)",
-    margin: "0 auto",
-    backgroundColor: "var(--slate_grey)",
-    borderColor: state.isFocused ? "var(--primaryColor)" : "var(--light_grey)",
-    ":hover": { borderColor: "var(--primaryColor)" }, // border style on hover
-    border: "1px solid var(--light_grey)", // default border color
-    boxShadow: "var(--primaryColor)" // no box-shadow
-  }),
-  option: (base, state) => ({
-    ...base,
-    borderBottom: "1px solid var(--primaryColor)",
-    backgroundColor: state.isFocused
-      ? "var(--primaryColor)"
-      : switchRoleColor(state.value),
-    color: "white",
-    ":active": {
-      backgroundColor: !state.isSelected
-        ? "var(--secondaryColor)"
-        : "var(--slate_grey)"
-    }
-  }),
-  placeholder: (base, state) => ({
-    ...base,
-    color: "var(--tertiarycolor)"
-  }),
-  singleValue: (base, state) => ({
-    ...base,
-    color: "var(--tertiarycolor)"
-  }),
-  valueContainer: (base, state) => ({
-    ...base,
-    backgroundColor: "inherit",
-    maxHeight: "var(--inputButtonHeight)",
-    // flexWrap: "nowrap",
-    overflowY: "scroll",
-    "::-webkit-scrollbar": { display: "initial", height: 2, width: 2 }
-  }),
-  multiValue: (base, state) => {
-    const { isFixed } = state.data;
-    return {
+    menu: (base, state) => ({
       ...base,
-      fontSize: 20,
-      backgroundColor: isFixed ? "var(--grey)" : "var(--primaryColor)"
-    };
-  },
-  multiValueLabel: (base, state) => {
-    const { isFixed } = state.data;
-    return isFixed
-      ? {
-          ...base,
-          fontWeight: "bold",
-          color: "var(--tertiarycolor)",
-          paddingRight: 6
-        }
-      : {
-          ...base,
-          color: "var(--tertiarycolor)"
-        };
-  },
-  multiValueRemove: (base, state) =>
-    state.data.isFixed
-      ? { ...base, display: "none" }
-      : {
-          ...base,
-          ":hover": {
-            backgroundColor: "var(--secondaryColor)",
-            color: "var(--tertiarycolor)"
+      backgroundColor: "inherit",
+      zIndex: "9999"
+    }),
+    menuList: (base, state) => ({
+      ...base,
+      backgroundColor: "transparent"
+    }),
+    menuPortal: (base, state) => ({
+      ...base
+    }),
+    container: (base, state) => ({
+      ...base,
+      fontSize: "medium",
+      opacity: state.isDisabled ? ".5" : "1",
+      backgroundColor: "transparent"
+    }),
+    clearIndicator: (base, state) => ({
+      ...base,
+      color: "var(--tertiarycolor)",
+      ":hover": { color: "var(--primaryColor)" }
+    }),
+    dropdownIndicator: (base, state) => ({
+      ...base,
+      color: "var(--tertiarycolor)",
+      ":hover": { color: "var(--primaryColor)" }
+    }),
+    control: (base, state) => ({
+      ...base,
+      minHeight: "var(--inputButtonHeight)",
+      margin: "0 auto",
+      backgroundColor: "var(--slate_grey)",
+      borderColor: state.isFocused
+        ? "var(--primaryColor)"
+        : "var(--light_grey)",
+      ":hover": { borderColor: "var(--primaryColor)" }, // border style on hover
+      border: "1px solid var(--light_grey)", // default border color
+      boxShadow: "var(--primaryColor)" // no box-shadow
+    }),
+    option: (base, state) => ({
+      ...base,
+      borderBottom: "1px solid var(--primaryColor)",
+      backgroundColor: state.isFocused
+        ? "var(--primaryColor)"
+        : switchRoleColor(state.value),
+      color: "white",
+      ":active": {
+        backgroundColor: !state.isSelected
+          ? "var(--secondaryColor)"
+          : "var(--slate_grey)"
+      }
+    }),
+    placeholder: (base, state) => ({
+      ...base,
+      color: "var(--tertiarycolor)"
+    }),
+    singleValue: (base, state) => ({
+      ...base,
+      color: "var(--tertiarycolor)"
+    }),
+    valueContainer: (base, state) => ({
+      ...base,
+      backgroundColor: "inherit",
+      maxHeight: "var(--inputButtonHeight)",
+      // flexWrap: "nowrap",
+      overflowY: "scroll",
+      "::-webkit-scrollbar": { display: "initial", height: 2, width: 2 }
+    }),
+    multiValue: (base, state) => {
+      const { isFixed } = state.data;
+      return {
+        ...base,
+        fontSize: 20,
+        backgroundColor: isFixed ? "var(--grey)" : "var(--primaryColor)"
+      };
+    },
+    multiValueLabel: (base, state) => {
+      const { isFixed } = state.data;
+      return isFixed
+        ? {
+            ...base,
+            fontWeight: "bold",
+            color: "var(--tertiarycolor)",
+            paddingRight: 6
           }
-        }
+        : {
+            ...base,
+            color: "var(--tertiarycolor)"
+          };
+    },
+    multiValueRemove: (base, state) =>
+      state.data.isFixed
+        ? { ...base, display: "none" }
+        : {
+            ...base,
+            ":hover": {
+              backgroundColor: "var(--secondaryColor)",
+              color: "var(--tertiarycolor)"
+            }
+          }
+  };
 };
 
 const switchRoleColor = role => {

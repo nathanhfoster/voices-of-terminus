@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import {
   isOnline,
+  findMaxInt,
   MainAltCharacter,
   arrayToObject,
   statusLevelInt,
@@ -268,9 +269,7 @@ const OverviewTable = (Users, User) => {
                 <span>
                   <i className="fas fa-level-up-alt" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
-                    {Math.max(
-                      ...Users.data.map(user => user.experience_points)
-                    )}
+                    {findMaxInt(Users.data, "experience_points")}
                   </strong>
                 </span>
               )

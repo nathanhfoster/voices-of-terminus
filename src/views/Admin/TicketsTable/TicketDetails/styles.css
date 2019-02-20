@@ -9,6 +9,15 @@
   opacity: 0.75;
 }
 
+.OthersInvolved {
+  display: inline-block;
+  margin-left: 8px;
+}
+
+.OthersInvolved::after {
+  content: ",";
+}
+
 .TicketDescription {
   border: 1px solid var(--light_grey);
   background-color: var(--slate_grey);
