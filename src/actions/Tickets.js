@@ -16,15 +16,22 @@ export const getTickets = () => {
   };
 };
 
-export const getTicket = (token, id) => {
+export const getTicket = (UserId, token, id) => {
   return dispatch => {
     Axios(token)
       .get(`tickets/${id}/`)
       .then(res => {
-        dispatch({
-          type: C.GET_TICKET,
-          payload: res.data
-        });
+        const ticketId = res.data.id;
+        const payload = { person_who_viewed: UserId };
+        Axios(token)
+          .patch(`tickets/${ticketId}/`, qs.stringify(payload))
+          .then(ticket => {
+            dispatch({
+              type: C.GET_TICKET,
+              payload: ticket.data
+            });
+          })
+          .catch(e => console.log(e));
       })
       .catch(e => console.log(e));
   };

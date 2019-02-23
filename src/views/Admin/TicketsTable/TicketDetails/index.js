@@ -18,7 +18,7 @@ import { getTicket, editTicket } from "../../../../actions/Tickets";
 import { clearAdminApi } from "../../../../actions/Admin";
 import { Link, Redirect } from "react-router-dom";
 import Moment from "react-moment";
-import { circleColor, ticketStatusOptions } from "../../../../helpers";
+import { isEmpty, circleColor, ticketStatusOptions } from "../../../../helpers";
 import Select from "react-select";
 import { selectStyles } from "../../../../helpers/styles";
 import "./styles.css";
@@ -58,7 +58,7 @@ class TicketDetails extends Component {
     const { id } = match.params;
     const { token } = User;
     clearAdminApi();
-    getTicket(token, id);
+    getTicket(User.id, token, id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -153,11 +153,18 @@ class TicketDetails extends Component {
       corroborator_username,
       others_involved,
       description,
+      ticket_type,
       image,
       priority,
-      ticket_type,
+      // status,
+      // notes,
       date_created,
-      last_modified
+      last_modified,
+      date_resolved,
+      judge,
+      escalated,
+      viewed,
+      person_who_viewed
     } = Ticket;
     const { status, notes } = this.state;
     const othersInvolved = others_involved ? others_involved.split("|") : [];
@@ -169,7 +176,7 @@ class TicketDetails extends Component {
         <Redirect to="/" />
       )
     ) : (
-      Ticket && (
+      !isEmpty(Ticket) && (
         <Grid className="TicketDetails Container">
           <Row>
             <PageHeader className="pageHeader">TICKET</PageHeader>
