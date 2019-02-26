@@ -257,7 +257,6 @@ class TicketDetails extends Component {
             <Col xs={12}>
               <ControlLabel>Update status</ControlLabel>
               <Select
-                height={100}
                 name="ticket_type"
                 value={status.value ? status : { value: status, label: status }}
                 onChange={(e, a) => this.selectOnChange(e, a, "status")}
@@ -283,7 +282,7 @@ class TicketDetails extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col md={12} className="Center">
+            <Col xs={12} className="Center">
               <ButtonGroup>
                 <Button onClick={() => this.editTicketStatus()}>
                   {" "}
