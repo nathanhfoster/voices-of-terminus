@@ -121,16 +121,21 @@ class Ticket extends Component {
       case "clear":
         this.setState({ [name]: null });
         break;
-      case "create-option":
-        this.setState({ [name]: e });
-        break;
+      // case "create-option":
+      //   this.setState({ [name]: e });
+      //   break;
       case "pop-value":
         if (e.value.isFixed) {
           return;
         }
-      case "select-option":
+      // case "remove-value":
+      //   this.setState({ [name]: e });
+      //   break;
+      // case "select-option":
+      //   this.setState({ [name]: e });
+      //   break;
+      default:
         this.setState({ [name]: e });
-        break;
     }
   };
 
