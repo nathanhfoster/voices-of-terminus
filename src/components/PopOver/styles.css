@@ -1,0 +1,31 @@
+.ActionDots {
+  padding: 8px;
+  -webkit-box-shadow: inset 0px 0px 5px var(--dark_border);
+  -moz-box-shadow: inset 0px 0px 5px var(--dark_border);
+  box-shadow: inset 0px 0px 5px var(--dark_border);
+  outline: none;
+  background-color: var(--dark_border);
+  border-radius: 6px;
+}
+
+.ActionDots:hover {
+  color: var(--primaryColor);
+}
+
+.popover {
+  z-index: 500;
+
+  background-color: var(--dark_border);
+}
+
+.popover-content {
+  padding: 4.5px 14px;
+}
+
+.popover.bottom > .arrow:after {
+  border-bottom-color: var(--dark_border);
+}
+
+.PopRow button {
+  margin-bottom: 4px;
+}

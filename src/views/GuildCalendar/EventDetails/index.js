@@ -1,12 +1,21 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import { Grid, Row, Col, PageHeader, Image, Modal } from "react-bootstrap";
+import {
+  Grid,
+  Row,
+  Col,
+  PageHeader,
+  Image,
+  Modal,
+  ButtonToolbar
+} from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
 import {
   getEvent,
   editEventGroupMember,
+  deleteEvent,
   clearEventsApi
 } from "../../../actions/Events";
 import { getCharacters } from "../../../actions/User";
@@ -21,6 +30,7 @@ const mapDispatchToProps = {
   getEvent,
   getCharacters,
   editEventGroupMember,
+  deleteEvent,
   clearEventsApi
 };
 
@@ -148,21 +158,6 @@ class EventDetails extends Component {
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
-
-    // for (let i = 0; i < classPreferences.length; i++) {
-    //   const classPreference = classPreferences[i];
-    //   Elements.push(<span>{classPreference}</span>);
-    // }
-    // return Elements;
-    // console.log("GroupMembers: ", GroupMembers);
-    // console.log("memberId: ", memberId);
-    // console.log("Characters: ", Characters);
-    // console.log("Response: ", Response);
-    // console.log("UserAlreadySignedUp: ", UserAlreadySignedUp);
-    // console.log("rolePreference: ", rolePreference);
-    // console.log("hasClassPreferences: ", hasClassPreferences);
-    // console.log("classPreferences: ", classPreferences);
-    // console.log("-------------------------------------------");
     if (Characters && Response) {
       const UsersCharacter = Characters.filter(c => c.id == Response.id)[0];
 
@@ -344,6 +339,7 @@ class EventDetails extends Component {
   };
 
   render() {
+    const { deleteEvent, history } = this.props;
     const {
       User,
       Event,
@@ -377,10 +373,31 @@ class EventDetails extends Component {
       title,
       url
     } = Event;
+    const canDelete = User.is_superuser || User.id == author;
     return (
       <Grid className="EventDetails Container">
         <Row>
           <PageHeader className="pageHeader">{title}</PageHeader>
+        </Row>
+        <Row className="ActionToolbarRow">
+          <Col
+            xs={12}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            <ConfirmAction
+              Action={e => {
+                deleteEvent(id, User.token);
+                history.goBack();
+              }}
+              Disabled={!canDelete}
+              Icon={<i className="fas fa-trash" />}
+              hasPermission={canDelete}
+              Size=""
+              Class="LightboxButton pull-right"
+              Title={title}
+            />
+          </Col>
         </Row>
         <Row className="Details">
           <Col xs={12}>

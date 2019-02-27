@@ -284,3 +284,19 @@ const createMessageGroup = (
     })
     .catch(e => console.log(e, "groupPayload: ", groupPayload));
 };
+
+export const deleteEvent = (eventId, token) => (dispatch, getState) =>
+  Axios(token)
+    .delete(`calendar/events/${eventId}/`)
+    .then(res => {
+      const { results } = getState().Events;
+      let payload = DeepCopy(results);
+      payload = payload.filter(e => e.id != eventId);
+      dispatch({ type: C.GET_EVENTS_SUCCESS, payload: payload });
+    })
+    .catch(e =>
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+      })
+    );

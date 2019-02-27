@@ -2,6 +2,7 @@ import { appReducer } from "./reducers";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+const ENV = process.env.NODE_ENV;
 
 const consoleMessages = store => next => action => {
   const result = next(action);
@@ -14,8 +15,10 @@ const consoleMessages = store => next => action => {
 };
 
 export default (initialState = {}) => {
-  return composeWithDevTools(applyMiddleware(thunk))(createStore)(
-    appReducer,
-    initialState
-  );
+  return ENV == "development"
+    ? composeWithDevTools(applyMiddleware(thunk))(createStore)(
+        appReducer,
+        initialState
+      )
+    : applyMiddleware(thunk)(createStore)(appReducer, initialState);
 };

@@ -5,6 +5,7 @@ import { Button, ButtonToolbar } from "react-bootstrap";
 import Moment from "react-moment";
 import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
+import PopOver from "../PopOver";
 import "./styles.css";
 
 const Html = (html, title) =>
@@ -125,27 +126,29 @@ const Cards = props => {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <ConfirmAction
-              Action={e => deleteCard(id, User.token)}
-              Disabled={false}
-              Icon={<i className="fas fa-trash" />}
-              hasPermission={canDelete}
-              Size="small"
-              Class="pull-right"
-              Title={title}
-            />
-            {canUpdate ? (
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  editCard(id);
-                }}
-                bsSize="small"
-                className="pull-right"
-              >
-                <i className="fa fa-pencil-alt" />
-              </Button>
-            ) : null}
+            <PopOver User = {User}>
+              <ConfirmAction
+                Action={e => deleteCard(id, User.token)}
+                Disabled={false}
+                Icon={<i className="fas fa-trash" />}
+                hasPermission={canDelete}
+                Size="small"
+                Class="pull-right"
+                Title={title}
+              />
+              {canUpdate ? (
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    editCard(id);
+                  }}
+                  bsSize="small"
+                  className="pull-right"
+                >
+                  <i className="fa fa-pencil-alt" />
+                </Button>
+              ) : null}
+            </PopOver>
           </div>
           <div className="cardInfo">
             <div
