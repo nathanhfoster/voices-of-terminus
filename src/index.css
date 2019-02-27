@@ -233,6 +233,7 @@ body {
 .btn-default,
 .modal-content .btn-default {
   min-height: var(--inputButtonHeight);
+  min-width: var(--inputButtonHeight);
   color: var(--tertiarycolor);
   background-color: var(--primaryColor);
   border: 0;
@@ -240,6 +241,7 @@ body {
 }
 .btn-sm {
   min-height: 28px;
+  min-width: 28px;
 }
 .btn-default:hover,
 .modal-content .btn-default:hover {

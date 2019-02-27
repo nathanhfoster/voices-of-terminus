@@ -133,7 +133,7 @@ const Cards = props => {
                     e.stopPropagation();
                     editCard(id);
                   }}
-                  bsSize="small"
+                  bsSize=""
                   className="pull-right"
                 >
                   <i className="fa fa-pencil-alt" />
@@ -144,7 +144,7 @@ const Cards = props => {
                 Disabled={false}
                 Icon={<i className="fas fa-trash" />}
                 hasPermission={canDelete}
-                Size="small"
+                Size=""
                 Class="pull-right"
                 Title={title}
               />
