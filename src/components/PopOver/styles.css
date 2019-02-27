@@ -14,18 +14,18 @@
 
 .popover {
   z-index: 500;
-
-  background-color: var(--dark_border);
+  background-color: var(--slate_grey);
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.75);
 }
 
 .popover-content {
   padding: 4.5px 14px;
 }
 
-.popover.bottom > .arrow:after {
-  border-bottom-color: var(--dark_border);
+.PopRow {
+  display: inline-flex;
 }
 
-.PopRow button {
-  margin-bottom: 4px;
+.PopRow:not(:last-child) button {
+  margin-right: 6px;
 }
