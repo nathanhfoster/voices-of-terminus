@@ -14,11 +14,10 @@ const consoleMessages = store => next => action => {
   return result;
 };
 
-export default (initialState = {}) => {
-  return ENV == "development"
+export default (initialState = {}) =>
+  ENV == "development"
     ? composeWithDevTools(applyMiddleware(thunk))(createStore)(
         appReducer,
         initialState
       )
     : applyMiddleware(thunk)(createStore)(appReducer, initialState);
-};
