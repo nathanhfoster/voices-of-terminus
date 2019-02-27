@@ -71,10 +71,12 @@ class NavBar extends PureComponent {
     if (!groups) return count;
     for (let i = 0; i < groups.length; i++) {
       const { messages } = groups[i];
-      for (let j = 0; j < messages.length; j++) {
-        const { is_read } = messages[j];
-        if (!is_read) count += 1;
-      }
+      if (!messages) return count;
+      else
+        for (let j = 0; j < messages.length; j++) {
+          const { is_read } = messages[j];
+          if (!is_read) count += 1;
+        }
     }
     return count;
   };
@@ -283,7 +285,7 @@ class NavBar extends PureComponent {
                   </NavItem>
                 </LinkContainer>
                 <LinkContainer to="/tickets">
-                  <NavItem eventKey={10.10}>
+                  <NavItem eventKey={10.1}>
                     <i className="fas fa-eye" /> TICKETS
                   </NavItem>
                 </LinkContainer>

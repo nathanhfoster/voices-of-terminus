@@ -4,42 +4,37 @@ import qs from "qs";
 import { DeepCopy } from "../helpers";
 import Charters from "../views/Guild/Charters";
 
-export const getYearMonthEvents = payload => {
-  return dispatch => {
-    dispatch({ type: C.GET_EVENTS_LOADING });
-    Axios()
-      .post(`calendar/events/view/`, qs.stringify(payload))
-      .then(res => {
-        dispatch({
-          type: C.GET_EVENTS_SUCCESS,
-          payload: res.data
-        });
-      })
-      .catch(e => console.log(e));
-  };
+export const getYearMonthEvents = payload => dispatch => {
+  dispatch({ type: C.GET_EVENTS_LOADING });
+  return Axios()
+    .post(`calendar/events/view/`, qs.stringify(payload))
+    .then(res => {
+      dispatch({
+        type: C.GET_EVENTS_SUCCESS,
+        payload: res.data
+      });
+    })
+    .catch(e => console.log(e));
 };
 
-export const getEvent = eventId => {
-  return (dispatch, getState) => {
-    Axios()
-      .get(`calendar/events/${eventId}/`)
-      .then(res => {
-        const { id } = res.data;
-        dispatch({ type: C.GET_EVENT, payload: res.data });
-        getEventGroups(id, dispatch);
+export const getEvent = eventId => dispatch =>
+  Axios()
+    .get(`calendar/events/${eventId}/`)
+    .then(res => {
+      const { id } = res.data;
+      dispatch({ type: C.GET_EVENT, payload: res.data });
+      getEventGroups(id, dispatch);
+    })
+    .catch(e =>
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
       })
-      .catch(e =>
-        dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: e.response
-        })
-      );
-  };
-};
+    );
 
 const getEventGroups = (eventId, dispatch) => {
   let Groups = [];
-  Axios()
+  return Axios()
     .get(`calendar/event/groups/${eventId}/view/`)
     .then(res => {
       dispatch({ type: C.GET_EVENT_GROUPS, payload: res.data });
@@ -61,7 +56,7 @@ const getEventGroupMembers = (Groups, dispatch) => {
   let payload = [];
   for (let i = 0; i < Groups.length; i++) {
     const eventGroupId = Groups[i];
-    Axios()
+    return Axios()
       .get(`calendar/event/group/members/${eventGroupId}/view/`)
       .then(res => {
         payload = [...payload, ...res.data];
@@ -78,7 +73,7 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
   if (filledMembers)
     for (let i = 0; i < filledGroupMembers.length; i++) {
       const { filled } = filledGroupMembers[i];
-      Axios()
+      return Axios()
         .get(`characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
@@ -93,106 +88,105 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
         .catch(e => console.log(e, "getEventGroupMembersCharacters: ", filled));
     }
   else
-    dispatch({
+    return dispatch({
       type: C.GET_EVENT_GROUP_MEMBERS,
       payload: payload
     });
 };
 
-export const editEventGroupMember = (id, User, payload) => {
+export const editEventGroupMember = (id, User, payload) => dispatch => {
   const { Characters, token } = User;
   const endpoint = `calendar/event/group/members/${id}/`;
-  return dispatch => {
-    Axios(token)
-      .get(endpoint)
-      .then(res => {
-        const { event_group_id, filled } = res.data;
-        const UsersCharacter = Characters.some(c => c.id == filled);
-        if (UsersCharacter || !filled) {
-          Axios(token)
-            .patch(endpoint, qs.stringify(payload))
-            .then(res => {
-              const {
-                event_group_id,
-                filled,
-                id,
-                position,
-                role_class_preferences
-              } = res.data;
-              Axios(token)
-                .get(`calendar/event/groups/${event_group_id}/`)
-                .then(res => {
-                  const { event_id } = res.data;
-                  getEventGroups(event_id, dispatch);
+  return Axios(token)
+    .get(endpoint)
+    .then(res => {
+      const { event_group_id, filled } = res.data;
+      const UsersCharacter = Characters.some(c => c.id == filled);
+      if (UsersCharacter || !filled) {
+        Axios(token)
+          .patch(endpoint, qs.stringify(payload))
+          .then(res => {
+            const {
+              event_group_id,
+              filled,
+              id,
+              position,
+              role_class_preferences
+            } = res.data;
+            Axios(token)
+              .get(`calendar/event/groups/${event_group_id}/`)
+              .then(res => {
+                const { event_id } = res.data;
+                getEventGroups(event_id, dispatch);
+              })
+              .catch(e =>
+                dispatch({
+                  type: C.SET_API_RESPONSE,
+                  payload: e.response
                 })
-                .catch(e =>
-                  dispatch({
-                    type: C.SET_API_RESPONSE,
-                    payload: e.response
-                  })
-                );
+              );
+          })
+          .catch(e =>
+            dispatch({
+              type: C.SET_API_RESPONSE,
+              payload: e.response
             })
-            .catch(e =>
-              dispatch({
-                type: C.SET_API_RESPONSE,
-                payload: e.response
-              })
-            );
-        } else {
-          dispatch({
-            type: C.SET_API_RESPONSE,
-            payload: { statusText: "Position has been filled" }
-          });
-          Axios(token)
-            .get(`calendar/event/groups/${event_group_id}/`)
-            .then(res => {
-              const { event_id } = res.data;
-              getEventGroups(event_id, dispatch);
-            })
-            .catch(e =>
-              dispatch({
-                type: C.SET_API_RESPONSE,
-                payload: e.response
-              })
-            );
-        }
-      });
-  };
-};
-
-export const postEvent = (userId, token, payload, groups) => {
-  return (dispatch, getState) => {
-    dispatch({ type: C.POST_EVENTS_LOADING });
-    Axios(token)
-      .post(`calendar/events/`, qs.stringify(payload))
-      .then(res => {
-        const { Users } = getState().Admin;
-        const { id } = res.data;
-        postEventGroups(token, id, groups, dispatch);
-        const uri = `/calendar/event/${id}`;
-        const recipients = Users.filter(u => u.lfg).map(u => u.id);
-        const title = "New Event";
-        const body =
-          "We found an event match for you! Click the link button to view it.";
-        createMessageGroup(
-          token,
-          userId,
-          uri,
-          recipients,
-          title,
-          body,
-          dispatch,
-          getState
-        );
-        dispatch({ type: C.POST_EVENTS_SUCCESS });
-      })
-      .catch(e =>
+          );
+      } else {
         dispatch({
           type: C.SET_API_RESPONSE,
-          payload: e.response
-        })
+          payload: { statusText: "Position has been filled" }
+        });
+        return Axios(token)
+          .get(`calendar/event/groups/${event_group_id}/`)
+          .then(res => {
+            const { event_id } = res.data;
+            getEventGroups(event_id, dispatch);
+          })
+          .catch(e =>
+            dispatch({
+              type: C.SET_API_RESPONSE,
+              payload: e.response
+            })
+          );
+      }
+    });
+};
+
+export const postEvent = (userId, token, payload, groups) => (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: C.POST_EVENTS_LOADING });
+  return Axios(token)
+    .post(`calendar/events/`, qs.stringify(payload))
+    .then(res => {
+      const { Users } = getState().Admin;
+      const { id } = res.data;
+      postEventGroups(token, id, groups, dispatch);
+      const uri = `/calendar/event/${id}`;
+      const recipients = Users.filter(u => u.lfg).map(u => u.id);
+      const title = "New Event";
+      const body =
+        "We found an event match for you! Click the link button to view it.";
+      createMessageGroup(
+        token,
+        userId,
+        uri,
+        recipients,
+        title,
+        body,
+        dispatch,
+        getState
       );
-  };
+      dispatch({ type: C.POST_EVENTS_SUCCESS });
+    })
+    .catch(e =>
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+      })
+    );
 };
 
 const postEventGroups = (token, event_id, groups, dispatch) => {
