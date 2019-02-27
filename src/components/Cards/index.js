@@ -126,16 +126,7 @@ const Cards = props => {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <PopOver User = {User}>
-              <ConfirmAction
-                Action={e => deleteCard(id, User.token)}
-                Disabled={false}
-                Icon={<i className="fas fa-trash" />}
-                hasPermission={canDelete}
-                Size="small"
-                Class="pull-right"
-                Title={title}
-              />
+            <PopOver User={User}>
               {canUpdate ? (
                 <Button
                   onClick={e => {
@@ -148,6 +139,15 @@ const Cards = props => {
                   <i className="fa fa-pencil-alt" />
                 </Button>
               ) : null}
+              <ConfirmAction
+                Action={e => deleteCard(id, User.token)}
+                Disabled={false}
+                Icon={<i className="fas fa-trash" />}
+                hasPermission={canDelete}
+                Size="small"
+                Class="pull-right"
+                Title={title}
+              />
             </PopOver>
           </div>
           <div className="cardInfo">
