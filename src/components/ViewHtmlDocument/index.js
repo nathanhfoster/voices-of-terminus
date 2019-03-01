@@ -37,6 +37,7 @@ import { setHtmlDocument } from "../../actions/App";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import ConfirmAction from "../ConfirmAction";
+import LoadinScreen from "../LoadingScreen";
 
 const mapStateToProps = ({ User, Articles, Newsletters, HtmlDocument }) => ({
   User,
@@ -248,7 +249,9 @@ class ViewHtmlDocument extends PureComponent {
         ? likes.results[userLikeIndex].count
         : 0;
     //console.log("HTMLDOCUMENT");
-    return HtmlDocument ? (
+    return !HtmlDocument.html ? (
+      <LoadinScreen />
+    ) : (
       <Grid className="HtmlParser Container fadeIn">
         <Row className="ViewHtmlDocument">
           <Col xs={12} className="Center">
@@ -264,13 +267,7 @@ class ViewHtmlDocument extends PureComponent {
           <Col xs={12}>
             <PageHeader className="Center">{HtmlDocument.title}</PageHeader>
           </Col>
-          <Col xs={12}>
-            {ReactHtmlParser(
-              HtmlDocument.html
-                ? HtmlDocument.html
-                : "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
-            )}
-          </Col>
+          <Col xs={12}>{ReactHtmlParser(HtmlDocument.html)}</Col>
           <Col xs={6} className="Center">
             <h3>
               <i className="far fa-eye" /> {HtmlDocument.views}
@@ -322,7 +319,7 @@ class ViewHtmlDocument extends PureComponent {
           ) : null}
         </Row>
       </Grid>
-    ) : null;
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(

@@ -310,12 +310,10 @@ class Admin extends PureComponent {
               this.setState({ eventKey });
               history.push(eventKey);
             }}
-            animation={false}
           >
             <Tab
               eventKey={`/admin/overview`}
               title={"Overview"}
-              className="fadeIn"
               unmountOnExit={true}
             >
               {OverviewTable(Users, User)}
@@ -323,7 +321,6 @@ class Admin extends PureComponent {
             <Tab
               eventKey={`/admin/permissions`}
               title={"Permissions"}
-              className="fadeIn"
               unmountOnExit={true}
             >
               {PermissionsTable(Users, User, updateUserProfile)}
@@ -332,7 +329,6 @@ class Admin extends PureComponent {
               <Tab
                 eventKey={`/admin/tickets`}
                 title={"Tickets"}
-                className="fadeIn"
                 unmountOnExit={true}
               >
                 {TicketTable(Tickets, history, eventKey)}

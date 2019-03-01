@@ -42,21 +42,11 @@ class Forums extends PureComponent {
         </Row>
         <Row>
           <Col>
-            <Tabs defaultActiveKey={1} className="Tabs" animation={false}>
-              <Tab
-                eventKey={1}
-                title="CATEGORIES"
-                className="fadeIn"
-                unmountOnExit={true}
-              >
+            <Tabs defaultActiveKey={1} className="Tabs">
+              <Tab eventKey={1} title="CATEGORIES" unmountOnExit={true}>
                 Categories
               </Tab>
-              <Tab
-                eventKey={2}
-                title="ALL TOPICS"
-                className="fadeIn"
-                unmountOnExit={true}
-              >
+              <Tab eventKey={2} title="ALL TOPICS" unmountOnExit={true}>
                 All topics
               </Tab>
             </Tabs>

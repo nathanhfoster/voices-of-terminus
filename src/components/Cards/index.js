@@ -1,5 +1,5 @@
-import React from "react";
-
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Button, ButtonToolbar } from "react-bootstrap";
 import Moment from "react-moment";
@@ -8,9 +8,18 @@ import ConfirmAction from "../ConfirmAction";
 import PopOver from "../PopOver";
 import "./styles.css";
 
-const Html = (html, title) =>
-  html
-    ? ` <table
+class Cards extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    this.state = { isHovered: false };
+  }
+
+  static propTypes = {};
+
+  static defaultProps = {
+    renderHtml: title =>
+      ` <table
       id="u_content_text_1"
       class="u_content_text"
       role="presentation"
@@ -38,165 +47,137 @@ const Html = (html, title) =>
         </tr>
       </tbody>
     </table>`
-    : `<div style="position: absolute; top: 25%; right: 50%;">
-      <i class="fa fa-spinner fa-spin" />
-    </div>`;
+  };
 
-const options = {
-  decodeEntities: true,
-  transform
-};
-
-function transform(node, index) {
-  // return null to block certain elements
-  // don't allow <span> elements
-  if (node.type === "tag" && node.name === "span") {
-    return null;
+  componentWillMount() {
+    this.getState(this.props);
   }
 
-  // Transform <ul> into <ol>
-  // A node can be modified and passed to the convertNodeToElement function which will continue to render it and it's children
-  if (node.type === "tag" && node.name === "ul") {
-    node.name = "ol";
-    return convertNodeToElement(node, index, transform);
+  componentWillReceiveProps(nextProps) {
+    this.getState(nextProps);
   }
 
-  // return an <i> element for every <b>
-  // a key must be included for all elements
-  if (node.type === "tag" && node.name === "b") {
-    return <i key={index}>I am now in italics, not bold</i>;
-  }
+  getState = props => {
+    this.setState({ props });
+  };
 
-  // all links must open in a new window
-  if (node.type === "tag" && node.name === "a") {
-    node.attribs.target = "_blank";
-    return convertNodeToElement(node, index, transform);
+  render() {
+    const {
+      User,
+      Settings,
+      canDelete,
+      canUpdate,
+      click,
+      editCard,
+      deleteCard,
+      summary,
+      author,
+      author_username,
+      html,
+      date_created,
+      id,
+      last_modified,
+      last_modified_by,
+      last_modified_by_username,
+      slug,
+      tags,
+      title,
+      views,
+      likeCount,
+      commentCount,
+      renderHtml
+    } = this.state.props;
+    const { fullHtml } = Settings;
+    return (
+      <div className="Clickable Card Hover" onClick={click} key={id}>
+        <div className="Preview">
+          <div className="previewItem">
+            {ReactHtmlParser(renderHtml(title))}
+          </div>
+        </div>
+        {summary ? (
+          <div className="Summary inlineNoWrap">
+            <div className="summaryTitle">
+              <h4 className="inlineNoWrap">
+                <i className="fas fa-heading" /> {title}
+              </h4>
+            </div>
+            <div
+              className="ActionToolbar cardActions"
+              componentClass={ButtonToolbar}
+            >
+              <PopOver User={User}>
+                {canUpdate ? (
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      editCard(id);
+                    }}
+                    bsSize=""
+                    className="pull-right"
+                  >
+                    <i className="fa fa-pencil-alt" />
+                  </Button>
+                ) : null}
+                <ConfirmAction
+                  Action={e => deleteCard(id, User.token)}
+                  Disabled={false}
+                  Icon={<i className="fas fa-trash" />}
+                  hasPermission={canDelete}
+                  Size=""
+                  Class="pull-right"
+                  Title={title}
+                />
+              </PopOver>
+            </div>
+            <div className="cardInfo">
+              <div
+                className="inlineNoWrap"
+                style={{
+                  width: "calc(100% - 64px)%"
+                }}
+              >
+                <i className="fas fa-user" />
+                <Link
+                  to={`/profile/${author}`}
+                  onClick={e => e.stopPropagation()}
+                >
+                  {author_username}
+                </Link>{" "}
+                <i className="far fa-clock" />
+                <Moment fromNow>{date_created}</Moment>
+              </div>
+              <div>
+                <i className="fas fa-pencil-alt" />
+                <Link
+                  to={`/profile/${last_modified_by}`}
+                  onClick={e => e.stopPropagation()}
+                >
+                  {last_modified_by_username}
+                </Link>{" "}
+                <i className="far fa-clock" />
+                <Moment fromNow>{last_modified}</Moment>
+              </div>
+              <div>
+                <i className="fas fa-tags" /> [{tags}]
+              </div>
+            </div>
+            <div className="cardStats">
+              <div>
+                <i className="far fa-eye" /> {views}
+              </div>
+              <div>
+                <i className="fas fa-thumbs-up" /> {likeCount ? likeCount : 0}
+              </div>
+              <div>
+                <i className="fas fa-comment" />{" "}
+                {commentCount ? commentCount : 0}
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </div>
+    );
   }
 }
-
-const Cards = props => {
-  //console.log("CARD");
-  const {
-    User,
-    Settings,
-    canDelete,
-    canUpdate,
-    click,
-    editCard,
-    deleteCard,
-    summary,
-    author,
-    author_username,
-    html,
-    date_created,
-    id,
-    last_modified,
-    last_modified_by,
-    last_modified_by_username,
-    slug,
-    tags,
-    title,
-    views,
-    likeCount,
-    commentCount
-  } = props;
-  const { fullHtml } = Settings;
-  //
-  return (
-    <div className="Clickable Card Hover" onClick={click} key={id}>
-      <div className="Preview">
-        <div className="previewItem">
-          {ReactHtmlParser(
-            !html
-              ? "<div style='position: absolute; top: 25%; right: 50%;'><i class='fa fa-spinner fa-spin'/></div>"
-              : fullHtml && html
-              ? html
-              : Html(html, title)
-          )}
-        </div>
-      </div>
-      {summary ? (
-        <div className="Summary inlineNoWrap">
-          <div className="summaryTitle">
-            <h4 className="inlineNoWrap">
-              <i className="fas fa-heading" /> {title}
-            </h4>
-          </div>
-          <div
-            className="ActionToolbar cardActions"
-            componentClass={ButtonToolbar}
-          >
-            <PopOver User={User}>
-              {canUpdate ? (
-                <Button
-                  onClick={e => {
-                    e.stopPropagation();
-                    editCard(id);
-                  }}
-                  bsSize=""
-                  className="pull-right"
-                >
-                  <i className="fa fa-pencil-alt" />
-                </Button>
-              ) : null}
-              <ConfirmAction
-                Action={e => deleteCard(id, User.token)}
-                Disabled={false}
-                Icon={<i className="fas fa-trash" />}
-                hasPermission={canDelete}
-                Size=""
-                Class="pull-right"
-                Title={title}
-              />
-            </PopOver>
-          </div>
-          <div className="cardInfo">
-            <div
-              className="inlineNoWrap"
-              style={{
-                width: "calc(100% - 64px)%"
-              }}
-            >
-              <i className="fas fa-user" />
-              <Link
-                to={`/profile/${author}`}
-                onClick={e => e.stopPropagation()}
-              >
-                {author_username}
-              </Link>{" "}
-              <i className="far fa-clock" />
-              <Moment fromNow>{date_created}</Moment>
-            </div>
-            <div>
-              <i className="fas fa-pencil-alt" />
-              <Link
-                to={`/profile/${last_modified_by}`}
-                onClick={e => e.stopPropagation()}
-              >
-                {last_modified_by_username}
-              </Link>{" "}
-              <i className="far fa-clock" />
-              <Moment fromNow>{last_modified}</Moment>
-            </div>
-            <div>
-              <i className="fas fa-tags" /> [{tags}]
-            </div>
-          </div>
-          <div className="cardStats">
-            <div>
-              <i className="far fa-eye" /> {views}
-            </div>
-            <div>
-              <i className="fas fa-thumbs-up" /> {likeCount ? likeCount : 0}
-            </div>
-            <div>
-              <i className="fas fa-comment" /> {commentCount ? commentCount : 0}
-            </div>
-          </div>
-        </div>
-      ) : null}
-    </div>
-  );
-};
-
 export default Cards;

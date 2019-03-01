@@ -50,7 +50,7 @@ class ScrollTextBox extends PureComponent {
     const { URL, Title } = this.state;
     return (
       <Link to={URL} className="ScrollTextBox">
-        <p className="fadeIn-10">{Title}</p>
+        <p>{Title}</p>
       </Link>
     );
   }

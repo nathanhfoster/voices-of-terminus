@@ -115,36 +115,36 @@ class NavBar extends PureComponent {
             <LinkContainer to="/calendar">
               <NavItem eventKey={3}>CALENDAR</NavItem>
             </LinkContainer>
-            <LinkContainer to="/articles/latest">
+            <LinkContainer to="/articles/">
               <NavItem eventKey={4}>Articles</NavItem>
             </LinkContainer>
-            <LinkContainer to="/news/latest">
-              <NavItem eventKey={4}>NEWS</NavItem>
+            <LinkContainer to="/news/">
+              <NavItem eventKey={5}>NEWS</NavItem>
             </LinkContainer>
             <LinkContainer to="/forums">
-              <NavItem eventKey={5}>FORUMS</NavItem>
+              <NavItem eventKey={6}>FORUMS</NavItem>
             </LinkContainer>
-            <NavDropdown eventKey={6} title="GUILD" id="basic-nav-dropdown">
+            <NavDropdown eventKey={7} title="GUILD" id="basic-nav-dropdown">
               <LinkContainer to="/guild/about">
-                <NavItem eventKey={6.1}>ABOUT</NavItem>
+                <NavItem eventKey={7.1}>ABOUT</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/roster">
-                <NavItem eventKey={6.2}>ROSTER</NavItem>
+                <NavItem eventKey={7.2}>ROSTER</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/charters">
-                <NavItem eventKey={6.3}>CHARTERS</NavItem>
+                <NavItem eventKey={7.3}>CHARTERS</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/lore">
-                <NavItem eventKey={6.4}>LORE</NavItem>
+                <NavItem eventKey={7.4}>LORE</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/contests">
-                <NavItem eventKey={6.5}>CONTESTS</NavItem>
+                <NavItem eventKey={7.5}>CONTESTS</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/team">
-                <NavItem eventKey={6.6}>TEAM</NavItem>
+                <NavItem eventKey={7.6}>TEAM</NavItem>
               </LinkContainer>
               <LinkContainer to="/guild/join">
-                <NavItem eventKey={6.7}>JOIN</NavItem>
+                <NavItem eventKey={7.7}>JOIN</NavItem>
               </LinkContainer>
               <MenuItem divider />
               <NavItem
@@ -155,55 +155,55 @@ class NavBar extends PureComponent {
                 STORE
               </NavItem>
               <LinkContainer to="/guild/donate">
-                <NavItem eventKey={6.9}>DONATE</NavItem>
+                <NavItem eventKey={7.9}>DONATE</NavItem>
               </LinkContainer>
             </NavDropdown>
-            <NavDropdown eventKey={7} title="MEDIA" id="basic-nav-dropdown">
+            <NavDropdown eventKey={8} title="MEDIA" id="basic-nav-dropdown">
               <LinkContainer to="/media/images">
-                <NavItem eventKey={7.1}>IMAGES</NavItem>
+                <NavItem eventKey={8.1}>IMAGES</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/videos">
-                <NavItem eventKey={7.2}>VIDEOS</NavItem>
+                <NavItem eventKey={8.2}>VIDEOS</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/streams">
-                <NavItem eventKey={7.3}>STREAMS</NavItem>
+                <NavItem eventKey={8.3}>STREAMS</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/podcasts">
-                <NavItem eventKey={7.4}>PODCASTS</NavItem>
+                <NavItem eventKey={8.4}>PODCASTS</NavItem>
               </LinkContainer>
             </NavDropdown>
-            <NavDropdown eventKey={8} title="VR" id="connect-nav-dropdown">
+            <NavDropdown eventKey={9} title="VR" id="connect-nav-dropdown">
               <Image src={vrLogo} className="vrLogo" />
               <NavItem
-                eventKey={8.1}
+                eventKey={9.1}
                 href="http://pantheonmmo.com/?referer=VoicesOfTerminus"
                 target="_blank"
               >
                 WEBSITE
               </NavItem>
               <NavItem
-                eventKey={8.2}
+                eventKey={9.2}
                 href="http://visionaryrealms.com/?referer=VoicesOfTerminus"
                 target="_blank"
               >
                 NEWS + EVENTS
               </NavItem>
               <NavItem
-                eventKey={8.3}
+                eventKey={9.3}
                 href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ"
                 target="_blank"
               >
                 GAMEPLAY
               </NavItem>
               <NavItem
-                eventKey={8.4}
+                eventKey={9.4}
                 href="http://www.pantheonmmo.com/news/latest_news/"
                 target="_blank"
               >
                 NEWSLETTERS
               </NavItem>
               <NavItem
-                eventKey={8.1}
+                eventKey={9.5}
                 href="https://pantheonriseofthefallen.gamepedia.com/Pantheon:_Rise_of_the_Fallen_Wiki"
                 target="_blank"
               >
@@ -268,7 +268,7 @@ class NavBar extends PureComponent {
 
                 {(User.is_superuser || User.can_create_calendar_event) && (
                   <LinkContainer to="/calendar/new/event">
-                    <NavItem eventKey={10.1}>
+                    <NavItem eventKey={10.9}>
                       <i className="fas fa-plus" /> EVENT
                     </NavItem>
                   </LinkContainer>
@@ -280,12 +280,12 @@ class NavBar extends PureComponent {
                 </LinkContainer>
                 <MenuItem divider />
                 <LinkContainer to="/polls">
-                  <NavItem eventKey={10.9}>
+                  <NavItem eventKey={10.11}>
                     <i className="fas fa-eye" /> POLLS
                   </NavItem>
                 </LinkContainer>
                 <LinkContainer to="/tickets">
-                  <NavItem eventKey={10.1}>
+                  <NavItem eventKey={10.12}>
                     <i className="fas fa-eye" /> TICKETS
                   </NavItem>
                 </LinkContainer>

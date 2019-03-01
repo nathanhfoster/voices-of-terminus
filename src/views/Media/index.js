@@ -97,7 +97,6 @@ class Media extends Component {
         <Tab
           eventKey={eventKey}
           title={Title}
-          className="fadeIn"
           unmountOnExit={true}
         >
           {<Component history={history} location={location} match={match} />}
@@ -123,7 +122,7 @@ class Media extends Component {
                 this.setState({ eventKey });
                 history.push(eventKey);
               }}
-              animation={false}
+              animation={true}
             >
               {this.renderTabs(TabItems)}
             </Tabs>

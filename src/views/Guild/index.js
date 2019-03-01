@@ -103,7 +103,6 @@ class Guild extends Component {
               this.setState({ eventKey });
               history.push(eventKey);
             }}
-            animation={false}
           >
             {this.renderTabs(TabItems)}
           </Tabs>

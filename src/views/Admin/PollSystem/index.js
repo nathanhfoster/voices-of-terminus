@@ -225,12 +225,10 @@ class PollSystem extends Component {
           this.setState({ eventKey });
           history.push(eventKey);
         }}
-        animation={false}
       >
         <Tab
           eventKey={`/polls/${pollId}/respond`}
           title={"Respond"}
-          className="fadeIn"
           unmountOnExit={true}
         >
           {Questions.map((q, i) => {
@@ -267,7 +265,6 @@ class PollSystem extends Component {
         <Tab
           eventKey={`/polls/${pollId}/results`}
           title={"Results"}
-          className="fadeIn"
           unmountOnExit={true}
         >
           {Questions.map((q, i) => {

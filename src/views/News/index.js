@@ -187,6 +187,13 @@ class News extends Component {
     this.props.clearHtmlDocument();
   }
 
+  redirect = (history, path) => {
+    if (path == "/articles/") return history.push("/articles/latest");
+    if (path == "/news/") return history.push("/news/latest");
+
+    return true;
+  };
+
   getState = props => {
     const { User, Settings, history, match, ApiResponse } = props;
     let { selectOptions } = props;
@@ -197,7 +204,7 @@ class News extends Component {
     Newsletters.results = Newsletters.hasOwnProperty("results")
       ? Newsletters.results
       : [];
-    this.getHtml(Articles, Newsletters);
+    // if (Settings.fullHtml) this.getHtml(Articles, Newsletters);
     const { pathname } = history.location;
 
     let Documents = Articles.results.concat(Newsletters.results);
@@ -272,7 +279,19 @@ class News extends Component {
         }
         return (
           <Col className={className} md={3} sm={6} xs={12}>
-            {Cards({
+            <Cards
+              {...card}
+              Settings={Settings}
+              key={card.id}
+              User={User}
+              canDelete={hasDeletePermission(User, card.author, card.tags)}
+              canUpdate={hasUpdatePermission(User, card.author, card.tags)}
+              click={click}
+              editCard={editCard}
+              deleteCard={deleteCard}
+              summary={true}
+            />
+            {/* {Cards({
               ...card,
               Settings,
               key: card.id,
@@ -283,7 +302,7 @@ class News extends Component {
               editCard,
               deleteCard,
               summary: true
-            })}
+            })} */}
           </Col>
         );
       });
@@ -343,8 +362,8 @@ class News extends Component {
     const filter = selectValue.map(i => i.value);
     const maxlength = selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
-    return Documents ? (
-      <Grid className="News Container fadeIn">
+    return this.redirect(history, eventKey) && Documents ? (
+      <Grid className="News Container">
         <Row>
           <PageHeader className="pageHeader">{Title}</PageHeader>
         </Row>
@@ -413,11 +432,10 @@ class News extends Component {
               this.setState({ eventKey });
               history.push(eventKey);
             }}
-            animation={false}
             mountOnEnter={false}
             unmountOnExit={true}
           >
-            <Tab eventKey={latest} title="LATEST" className="fadeIn">
+            <Tab eventKey={latest} title="LATEST">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -432,7 +450,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab eventKey={suggested} title="SUGGESTED" className="fadeIn">
+            <Tab eventKey={suggested} title="SUGGESTED">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -446,7 +464,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab eventKey={popular} title="POPULAR" className="fadeIn">
+            <Tab eventKey={popular} title="POPULAR">
               <Row>
                 {Documents.length
                   ? this.renderCards(
@@ -460,7 +478,7 @@ class News extends Component {
                   : null}
               </Row>
             </Tab>
-            <Tab eventKey={myDocs} title="MY DOCS" className="fadeIn">
+            <Tab eventKey={myDocs} title="MY DOCS">
               <Row>
                 {!User.token ? (
                   <Redirect to="/login" />
