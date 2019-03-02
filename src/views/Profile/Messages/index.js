@@ -34,11 +34,10 @@ import Select from "react-select";
 import { selectStyles } from "../../../helpers/styles";
 import ConfirmAction from "../../../components/ConfirmAction";
 
-const mapStateToProps = ({ Admin, User, Messages, Settings }) => ({
+const mapStateToProps = ({ Admin, User, Messages }) => ({
   Admin,
   User,
-  Messages,
-  Settings
+  Messages
 });
 
 const mapDispatchToProps = {
@@ -79,7 +78,9 @@ class Messages extends PureComponent {
   }
 
   componentDidMount() {
-    const { User, getMessages, getUsers, Settings } = this.props;
+    const { User, getMessages, getUsers } = this.props;
+    const { id, token, Settings } = User;
+    const { push_messages } = Settings;
     const { Users } = this.props.Admin;
     const recipients = Users
       ? Users.filter(i => i.id === User.id).map(
@@ -87,8 +88,7 @@ class Messages extends PureComponent {
         )
       : [];
     this.setState({ recipients });
-    const { push_messages } = Settings;
-    const { id, token } = this.props.User;
+
     if (!push_messages) getMessages(id, token);
     getUsers();
   }
