@@ -74,7 +74,7 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
     for (let i = 0; i < filledGroupMembers.length; i++) {
       const { filled } = filledGroupMembers[i];
       return Axios()
-        .get(`characters/${filled}/`)
+        .get(`user/characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
             m => m.filled === res.data.id

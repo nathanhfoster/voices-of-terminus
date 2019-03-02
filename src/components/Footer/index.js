@@ -13,9 +13,9 @@ import maleHuman from "../../images/backgrounds/human_male.png";
 import { Collapse } from "react-collapse";
 import { Link } from "react-router-dom";
 
-const mapStateToProps = ({ Window, Settings }) => ({
-  Window,
-  Settings
+const mapStateToProps = ({ User, Window }) => ({
+  User,
+  Window
 });
 
 const mapDispatchToProps = {};
@@ -46,7 +46,8 @@ class Footer extends PureComponent {
   }
 
   getState = props => {
-    const { history, location, match, Window, Settings } = props;
+    const { User, history, location, match, Window } = props;
+    const { Settings } = User;
     this.setState({
       history,
       location,
@@ -108,15 +109,15 @@ class Footer extends PureComponent {
 
   render() {
     const { history, location, match, Settings, isMobile } = this.state;
-    const { showFooter } = Settings;
+    const { show_footer } = Settings;
     const { pathname } = location;
     const { shouldShow } = this.state;
     const femaleImage = this.backgroundImageRouteMap(pathname)[0];
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
 
-    return showFooter ? (
+    return show_footer ? (
       <Collapse
-        isOpened={showFooter}
+        isOpened={show_footer}
         fixedHeight={52}
         className="MainFooter fadeIn"
       >

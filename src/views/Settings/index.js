@@ -4,11 +4,11 @@ import { Grid, Row, Col, PageHeader, Checkbox } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { setSettings } from "../../actions/Settings";
+import { getSettings, postSettings, setSettings } from "../../actions/Settings";
 
-const mapStateToProps = ({ Settings }) => ({ Settings });
+const mapStateToProps = ({ User }) => ({ User });
 
-const mapDispatchToProps = { setSettings };
+const mapDispatchToProps = { getSettings, postSettings, setSettings };
 
 class Settings extends Component {
   constructor(props) {
@@ -33,15 +33,18 @@ class Settings extends Component {
 
   /* render() */
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { User, getSettings } = this.props;
+    if (User.token) getSettings(User.token, User.id);
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    const { Settings } = props;
-    this.setState({ Settings });
+    const { User } = props;
+    this.setState({ User });
   };
 
   componentDidUpdate(prevProps, prevState) {}
@@ -49,9 +52,10 @@ class Settings extends Component {
   componentWillUnmount() {}
 
   render() {
-    const { setSettings } = this.props;
-    const { Settings } = this.state;
-    const { showFooter, pushMessages, fullHtml } = Settings;
+    const { postSettings, setSettings } = this.props;
+    const { User } = this.state;
+    const { Settings } = User;
+    const { show_footer, push_messages } = Settings;
     return (
       <Grid className="Settings Container">
         <Row>
@@ -63,23 +67,18 @@ class Settings extends Component {
         <Row className="checkBoxTable">
           <Col xs={12}>
             <Checkbox
-              checked={showFooter}
-              onClick={() => setSettings({ showFooter: !showFooter })}
+              disabled={!User.id}
+              checked={show_footer}
+              onClick={() =>
+                !Settings.id
+                  ? postSettings(User.token, { user: User.id })
+                  : setSettings(User.token, Settings.id, {
+                      show_footer: !show_footer
+                    })
+              }
             >
               <span className="checkBoxText">Show footer</span>
               <span className="help">Toggles the view of the footer.</span>
-            </Checkbox>
-          </Col>
-          <Col xs={12}>
-            <Checkbox
-              checked={fullHtml}
-              onClick={() => setSettings({ fullHtml: !fullHtml })}
-            >
-              <span className="checkBoxText">Full html</span>
-              <span className="help">
-                Toggles rendering the full html pages or just the title in each
-                card in the News section. Turning it off will improve performance.
-              </span>
             </Checkbox>
           </Col>
         </Row>
@@ -89,8 +88,15 @@ class Settings extends Component {
         <Row className="checkBoxTable">
           <Col xs={12}>
             <Checkbox
-              checked={pushMessages}
-              onClick={() => setSettings({ pushMessages: !pushMessages })}
+              disabled={!User.id}
+              checked={push_messages}
+              onClick={() =>
+                !Settings.id
+                  ? postSettings(User.token, { user: User.id })
+                  : setSettings(User.token, Settings.id, {
+                      push_messages: !push_messages
+                    })
+              }
             >
               <span className="checkBoxText">Push messages</span>
               <span className="help">

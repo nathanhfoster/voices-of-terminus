@@ -2,8 +2,44 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-export const setSettings = payload => dispatch =>
-  dispatch({
-    type: C.SET_SETTINGS,
-    payload: payload
-  });
+export const getSettings = (token, UserId) => dispatch =>
+  Axios(token)
+    .get(`user/settings/${UserId}/view/`)
+    .then(res => {
+      dispatch({
+        type: C.SET_USER_SETTINGS,
+        payload: res.data.find(e => e.id)
+      });
+    });
+
+export const postSettings = (token, payload) => dispatch =>
+  Axios(token)
+    .post(`user/settings/`, qs.stringify(payload))
+    .then(res => {
+      dispatch({
+        type: C.SET_USER_SETTINGS,
+        payload: res.data
+      });
+    })
+    .catch(e =>
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+      })
+    );
+
+export const setSettings = (token, id, payload) => dispatch =>
+  Axios(token)
+    .patch(`user/settings/${id}/`, qs.stringify(payload))
+    .then(res => {
+      dispatch({
+        type: C.SET_USER_SETTINGS,
+        payload: res.data
+      });
+    })
+    .catch(e =>
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+      })
+    );

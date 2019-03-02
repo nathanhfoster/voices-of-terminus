@@ -20,9 +20,8 @@ import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
 import { roleClassIcon } from "../../helpers";
 
-const mapStateToProps = ({ User, Settings, Messages }) => ({
+const mapStateToProps = ({ User, Messages }) => ({
   User,
-  Settings,
   Messages
 });
 
@@ -80,10 +79,11 @@ class NavBar extends PureComponent {
   };
 
   render() {
-    const { Settings, history, location } = this.props;
-    const { showFooter, pushMessages } = Settings;
+    const { history, location } = this.props;
     const { pathname } = location;
     const { User, Messages } = this.state;
+    const { Settings } = User;
+    const { show_footer, push_messages } = Settings;
     const unreadMessages = this.unreadMessages(Messages.results);
     const {
       token,

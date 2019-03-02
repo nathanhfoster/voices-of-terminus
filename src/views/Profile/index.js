@@ -37,7 +37,6 @@ import {
   hasCharAfterSpace,
   roleClassIcon
 } from "../../helpers";
-import deepEqual from "deep-equal";
 import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
 import { withAlert } from "react-alert";
@@ -114,16 +113,6 @@ class Profile extends PureComponent {
     min_level: 1,
     max_level: 60
   };
-
-  shouldComponentUpdate(nextProps, nextState) {
-    let shouldUpdate = true;
-    const { User } = nextProps;
-    const currentUser = nextState.User;
-
-    if (deepEqual(currentUser, User)) shouldUpdate = false;
-
-    return shouldUpdate;
-  }
 
   componentWillMount() {
     this.getState(this.props);

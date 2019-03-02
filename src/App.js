@@ -53,26 +53,24 @@ import {
 import { getUsers } from "./actions/Admin";
 import { getMessages } from "./actions/Messages";
 import { refreshPatchUser } from "./actions/App";
+import { getSettings } from "./actions/Settings";
 import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
-import { stat } from "fs";
 
 const mapStateToProps = ({
   ApiResponse,
   Window,
   User,
   VoTYouTubeChannelData,
-  VRYouTubeChannelData,
-  Settings
+  VRYouTubeChannelData
 }) => ({
   ApiResponse,
   Window,
   User,
   VoTYouTubeChannelData,
-  VRYouTubeChannelData,
-  Settings
+  VRYouTubeChannelData
 });
 
 const mapDispatchToProps = {
@@ -85,7 +83,8 @@ const mapDispatchToProps = {
   Logout,
   refreshPatchUser,
   getMessages,
-  getUsers
+  getUsers,
+  getSettings
 };
 
 class App extends PureComponent {
@@ -176,6 +175,7 @@ class App extends PureComponent {
       User,
       VoTYouTubeChannelData,
       VRYouTubeChannelData,
+      getSettings,
       getUsers,
       getVoTYouTubeChannelData,
       getAllVotYouTube,
@@ -183,6 +183,7 @@ class App extends PureComponent {
       getVotChannelsPlayLists,
       Logout
     } = this.props;
+    if (User.token) getSettings(User.token, User.id);
     getUsers();
     if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
@@ -207,7 +208,8 @@ class App extends PureComponent {
   }
 
   getState = props => {
-    const { ApiResponse, Window, User, location, Settings } = props;
+    const { ApiResponse, Window, User, location } = props;
+    const { Settings } = User;
     const { id, token } = User;
     if (ApiResponse) this.alertApiResponse(ApiResponse);
     /* Check if User permissions have changed every 10 seconds */
@@ -230,9 +232,9 @@ class App extends PureComponent {
 
   fetchProfileUpdates = (id, token, Settings) => {
     const { refreshPatchUser, getMessages } = this.props;
-    const { pushMessages } = Settings;
+    const { push_messages } = Settings;
     refreshPatchUser(id, token);
-    if (pushMessages) getMessages(id, token);
+    if (push_messages) getMessages(id, token);
   };
 
   alertApiResponse = ApiResponse => {
@@ -291,7 +293,7 @@ class App extends PureComponent {
 
   render() {
     const { Settings, routeItems } = this.state;
-    const { showFooter } = Settings;
+    const { show_footer } = Settings;
     const { history, location, match } = this.props;
     return location.pathname === "/" ? (
       <Redirect to="/home" />
@@ -301,7 +303,7 @@ class App extends PureComponent {
         <BackgroundImage history={history} location={location} match={match} />
         <div
           className="routeOverlay"
-          style={{ bottom: showFooter ? "var(--navBarHeight" : 0 }}
+          style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
         >
           <Switch>
             {this.renderRouteItems(routeItems)}

@@ -40,14 +40,18 @@ class Podcasts extends PureComponent {
   }
 
   getState = props => {
-    const { VotPlaylistShow } = props;
+    let { VotPlaylistShow } = props;
+    VotPlaylistShow = VotPlaylistShow.filter(p => p.thumbnail).map(p => {
+      p.videoId = p.thumbnail.split("/")[4];
+      return p;
+    });
     this.setState({ VotPlaylistShow });
   };
 
   renderPlaylistItems = playlist =>
     playlist.map(podcast => {
-      const id = podcast.thumbnail.split("/")[4];
-      const route = `podcasts/${id}/youtube`;
+      const { videoId } = podcast;
+      const route = `podcasts/${videoId}/youtube`;
       return (
         <LinkContainer to={route}>
           <NavItem eventKey={podcast.playlistItemId}>

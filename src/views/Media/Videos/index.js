@@ -41,7 +41,8 @@ class Videos extends PureComponent {
   }
 
   getState = props => {
-    const { VoTYouTubeChannelData } = props;
+    let { VoTYouTubeChannelData } = props;
+    VoTYouTubeChannelData = VoTYouTubeChannelData.filter(e => e.videoId);
     this.setState({ VoTYouTubeChannelData });
   };
 

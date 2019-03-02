@@ -177,7 +177,14 @@ export const HtmlDocument = (state = null, action) =>
     ? null
     : state;
 
-export const User = (state = { Characters: [], Tickets: [] }, action) => {
+export const User = (
+  state = {
+    Characters: [],
+    Tickets: [],
+    Settings: { show_footer: false, push_messages: false }
+  },
+  action
+) => {
   const { type, payload } = action;
   switch (type) {
     case C.SET_LOGIN_TOKEN:
@@ -215,8 +222,16 @@ export const User = (state = { Characters: [], Tickets: [] }, action) => {
         ...state,
         Tickets: payload
       };
+    case C.SET_USER_SETTINGS:
+      return {
+        ...state,
+        Settings: payload
+      };
     case C.SET_LOGOUT:
-      return { Characters: [] };
+      return {
+        Characters: [],
+        Settings: { show_footer: false, push_messages: false }
+      };
     default:
       return { ...state };
   }
@@ -486,19 +501,6 @@ export const Admin = (
   }
 };
 
-export const Settings = (
-  state = { showFooter: true, pushMessages: false, fullHtml: false },
-  action
-) => {
-  const { type, payload } = action;
-  switch (type) {
-    case C.SET_SETTINGS:
-      return { ...state, ...payload };
-    default:
-      return state;
-  }
-};
-
 export const Galleries = (state = { results: [], Gallery: {} }, action) => {
   switch (action.type) {
     case C.GET_GALLERIES_LOADING:
@@ -655,7 +657,6 @@ export const appReducer = combineReducers({
   HtmlDocument,
   User,
   Admin,
-  Settings,
   Galleries,
   Messages,
   Polls,

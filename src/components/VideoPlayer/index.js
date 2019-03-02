@@ -79,8 +79,33 @@ class VideoPlayer extends PureComponent {
     switch (type) {
       case "youtube":
         return `https://www.youtube.com/watch?v=${id}`;
+
       case "twitch":
         return `https://www.twitch.tv/videos/${id}`;
+
+      case "soundcloud":
+        return `https://soundcloud.com/${id}/accelerated`;
+
+      case "facebook":
+        return `https://www.facebook.com/facebook/videos/${id}`;
+
+      case "vimeo":
+        return `https://vimeo.com/${id}`;
+
+      case "streamable":
+        return `https://streamable.com/${id}`;
+
+      case "wistia":
+        return `https://home.wistia.com/medias/${id}`;
+
+      case "dailymotion":
+        return `https://www.dailymotion.com/video/${id}`;
+
+      case "mixcloud":
+        return `https://www.mixcloud.com/mixcloud/${id}`;
+
+      default:
+        return `${id}`;
     }
   };
 
@@ -105,6 +130,7 @@ class VideoPlayer extends PureComponent {
               pip={pip}
               onEnablePIP={this.onEnablePIP}
               onDisablePIP={this.onDisablePIP}
+              config={{ file: { attributes: { disablepictureinpicture: 'true' }}}}
             />
             {ReactPlayer.canEnablePIP(url) && (
               <Button onClick={this.pip}>

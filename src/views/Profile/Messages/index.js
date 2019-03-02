@@ -87,9 +87,9 @@ class Messages extends PureComponent {
         )
       : [];
     this.setState({ recipients });
-    const { pushMessages } = Settings;
+    const { push_messages } = Settings;
     const { id, token } = this.props.User;
-    if (!pushMessages) getMessages(id, token);
+    if (!push_messages) getMessages(id, token);
     getUsers();
   }
 

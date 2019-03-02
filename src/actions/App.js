@@ -138,7 +138,7 @@ export const getUser = id => dispatch =>
 
 const getUserCharacters = (User, dispatch) =>
   Axios()
-    .get(`characters/${User.id}/view/`)
+    .get(`user/characters/${User.id}/view/`)
     .then(res => {
       User.Characters = res.data;
       dispatch({

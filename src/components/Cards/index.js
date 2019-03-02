@@ -62,6 +62,7 @@ class Cards extends PureComponent {
   };
 
   render() {
+    const { isHovered } = this.state;
     const {
       User,
       Settings,
@@ -87,9 +88,14 @@ class Cards extends PureComponent {
       commentCount,
       renderHtml
     } = this.state.props;
-    const { fullHtml } = Settings;
     return (
-      <div className="Clickable Card Hover" onClick={click} key={id}>
+      <div
+        className="Clickable Card Hover"
+        onClick={click}
+        key={id}
+        // onMouseEnter={() => this.setState({ isHovered: true })}
+        // onMouseLeave={() => this.setState({ isHovered: false })}
+      >
         <div className="Preview">
           <div className="previewItem">
             {ReactHtmlParser(renderHtml(title))}

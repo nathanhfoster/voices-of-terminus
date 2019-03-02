@@ -23,7 +23,7 @@ export const getUsers = () => dispatch =>
 
 const getUsersCharacters = (Users, dispatch) => {
   Axios()
-    .get(`characters/`)
+    .get(`user/characters/`)
     .then(res => {
       const Characters = res.data;
       let payload = Users.map(u => {

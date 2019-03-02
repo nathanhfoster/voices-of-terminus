@@ -46,7 +46,7 @@ export const updateProfile = (id, token, payload) => dispatch => {
 
 export const getCharacters = (userId, token) => dispatch =>
   Axios(token)
-    .get(`characters/${userId}/view/`)
+    .get(`user/characters/${userId}/view/`)
     .then(res => {
       dispatch({
         type: C.GET_CHARACTERS,
@@ -62,7 +62,7 @@ export const getCharacters = (userId, token) => dispatch =>
 
 export const postCharacter = (token, payload) => (dispatch, getState) => {
   Axios(token)
-    .post(`characters/`, qs.stringify(payload))
+    .post(`user/characters/`, qs.stringify(payload))
     .then(res => {
       const { Characters } = getState().User;
       const characterPayload = [...[res.data], ...DeepCopy(Characters)];
@@ -76,7 +76,7 @@ export const postCharacter = (token, payload) => (dispatch, getState) => {
 
 export const editCharacter = (id, token, payload) => (dispatch, getState) => {
   Axios(token)
-    .patch(`characters/${id}/`, qs.stringify(payload))
+    .patch(`user/characters/${id}/`, qs.stringify(payload))
     .then(res => {
       const { Characters } = getState().User;
       let characterPayload = DeepCopy(Characters);
@@ -97,7 +97,7 @@ export const editCharacter = (id, token, payload) => (dispatch, getState) => {
 
 export const deleteCharacter = (token, id) => (dispatch, getState) =>
   Axios(token)
-    .delete(`characters/${id}/`)
+    .delete(`user/characters/${id}/`)
     .then(res => {
       const { Characters } = getState().User;
       const payload = DeepCopy(Characters).filter(c => c.id !== id);

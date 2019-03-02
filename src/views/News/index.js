@@ -142,7 +142,6 @@ class News extends Component {
     Newsletters.results = Newsletters.hasOwnProperty("results")
       ? Newsletters.results
       : [];
-    // if (Settings.fullHtml) this.getHtml(Articles, Newsletters);
     const { pathname } = history.location;
 
     let Documents = Articles.results.concat(Newsletters.results);
@@ -280,7 +279,7 @@ class News extends Component {
   };
 
   render() {
-    console.log("NEWS");
+    // console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
     const { User, Settings, search, eventKey, history, match } = this.state;
     let { selectValue } = this.state;
