@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
 import PropTypes from "prop-types";
 import "./styles.css";
@@ -20,7 +20,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = {};
 
-class Home extends Component {
+class Home extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -50,8 +50,8 @@ class Home extends Component {
 
   getState = props => {
     const { User } = props;
-    const votLatestVideo = props.VoTYouTubeChannelData[0];
-    const vrLatestVideo = props.VRYouTubeChannelData[0];
+    const votLatestVideo = props.VoTYouTubeChannelData.find(e => e.videoId);
+    const vrLatestVideo = props.VRYouTubeChannelData.find(e => e.videoId);
     this.setState({ User, votLatestVideo, vrLatestVideo });
   };
 
@@ -62,15 +62,6 @@ class Home extends Component {
 
   render() {
     const { User, votLatestVideo, vrLatestVideo } = this.state;
-    const youTubeOpts = {
-      height: "329px",
-      width: "100%",
-      playerVars: {
-        // https://developers.google.com/youtube/player_parameters
-        autoplay: false,
-        color: "white"
-      }
-    };
     return [
       <Grid className="Home Container fadeIn ">
         <Row>

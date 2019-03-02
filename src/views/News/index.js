@@ -377,7 +377,7 @@ class News extends Component {
               this.setState({ eventKey });
               history.push(eventKey);
             }}
-            mountOnEnter={false}
+            mountOnEnter={true}
             unmountOnExit={true}
           >
             <Tab eventKey={latest} title="LATEST">

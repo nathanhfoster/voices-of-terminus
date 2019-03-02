@@ -357,6 +357,7 @@ a:visited {
   -o-transition: background-color 0.5s ease-out;
   transition: background-color 0.5s ease-out;
 }
+
 .fadeIn {
   -webkit-animation: fadein 200ms; /* Safari, Chrome and Opera > 12.1 */
   -moz-animation: fadein 200ms; /* Firefox < 16 */
