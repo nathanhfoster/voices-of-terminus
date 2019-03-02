@@ -18,7 +18,6 @@ import "./stylesM.css";
 import { clearHtmlDocument } from "../../actions/App";
 import {
   getArticles,
-  getArticlesAllHtml,
   getArticle,
   getArticleHtml,
   deleteArticle,
@@ -26,7 +25,6 @@ import {
 } from "../../actions/Articles";
 import {
   getNewsletters,
-  getNewslettersAllHtml,
   getNewsletter,
   getNewsletterHtml,
   deleteNewsLetter,
@@ -37,12 +35,8 @@ import { Redirect } from "react-router-dom";
 import Select from "react-select";
 import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
-import {
-  hasUpdatePermission,
-  hasDeletePermission,
-  isSubset,
-  isEquivalent
-} from "../../helpers";
+import { hasUpdatePermission, hasDeletePermission } from "../../helpers";
+import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
 const mapStateToProps = ({ User, Settings, Articles, Newsletters }) => ({
@@ -54,13 +48,11 @@ const mapStateToProps = ({ User, Settings, Articles, Newsletters }) => ({
 
 const mapDispatchToProps = {
   getArticles,
-  getArticlesAllHtml,
   getArticle,
   getArticleHtml,
   deleteArticle,
   nextArticles,
   getNewsletters,
-  getNewslettersAllHtml,
   getNewsletter,
   getNewsletterHtml,
   deleteNewsLetter,
@@ -96,69 +88,20 @@ class News extends Component {
   shouldComponentUpdate(nextProps, nextState) {
     let { Articles, Newsletters } = nextProps;
     const { Documents } = this.state;
-    const CurrentArticles = this.state.Articles;
-    const CurrentNewsletters = this.state.Newsletters;
-    const { User, selectValue, search, history } = nextState;
+    const { selectValue, search, history } = nextState;
     const { pathname } = history.location;
 
-    Articles.results = Articles.hasOwnProperty("results")
-      ? Articles.results
-      : [];
-    Newsletters.results = Newsletters.hasOwnProperty("results")
-      ? Newsletters.results
-      : [];
-
-    const documentAddedOrDeleted =
-      Documents.length != Articles.results.concat(Newsletters.results).length;
-
     const currentPathName = this.state.eventKey;
-    const currentUser = this.state.User;
     const currentDocuments = Articles.results.concat(Newsletters.results);
 
     const currentSelectValue = this.state.selectValue;
     const currentSearch = this.state.search;
 
-    const pathChanged = pathname != currentPathName;
-    const initialLoad = Documents.length === 0;
-    const userChanged = !isEquivalent(currentUser, User);
-
-    const cardUpdated =
-      Articles.loading == CurrentArticles.loading ||
-      Newsletters.loading == CurrentNewsletters.loading ||
-      !isSubset(
-        Articles.results.map(k => k.html),
-        CurrentArticles.results.map(k => k.html)
-      ) ||
-      !isSubset(
-        Newsletters.results.map(k => k.html),
-        CurrentNewsletters.results.map(k => k.html)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.last_modified),
-        currentDocuments.map(k => k.last_modified)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.views),
-        currentDocuments.map(k => k.views)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.likeCount),
-        currentDocuments.map(k => k.likeCount)
-      ) ||
-      !isSubset(
-        Documents.map(k => k.commentCount),
-        currentDocuments.map(k => k.commentCount)
-      );
-    const isFiltering = selectValue != currentSelectValue;
-    const isSearching = search != currentSearch;
     return (
-      documentAddedOrDeleted ||
-      pathChanged ||
-      initialLoad ||
-      cardUpdated ||
-      isFiltering ||
-      isSearching ||
-      userChanged
+      !deepEqual(Documents, currentDocuments) ||
+      !deepEqual(pathname, currentPathName) ||
+      !deepEqual(selectValue, currentSelectValue) ||
+      !deepEqual(search, currentSearch)
     );
   }
 
@@ -167,16 +110,10 @@ class News extends Component {
   }
 
   componentDidMount() {
-    const {
-      getArticles,
-      getNewsletters
-      // getArticlesAllHtml,
-      // getNewslettersAllHtml
-    } = this.props;
+    const { getArticles, getNewsletters } = this.props;
+
     getArticles();
     getNewsletters();
-    //getArticlesAllHtml();
-    //getNewslettersAllHtml();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -184,7 +121,8 @@ class News extends Component {
   }
 
   componentWillUnmount() {
-    this.props.clearHtmlDocument();
+    const { clearHtmlDocument } = this.props;
+    clearHtmlDocument();
   }
 
   redirect = (history, path) => {
@@ -249,12 +187,19 @@ class News extends Component {
   //Filter the Documents if the documents tags array contains the filter array
   renderCards = (Settings, Documents, filter, dontFilter, sort, tabFilter) =>
     Documents.filter(doc =>
-      dontFilter ? doc : isSubset(doc.tags.split("|"), filter)
+      dontFilter ? doc : deepEqual(doc.tags.split("|"), filter)
     )
       .filter(tabFilter)
       .sort(sort)
       .map(card => {
-        const { User, history } = this.props;
+        const {
+          User,
+          history,
+          getArticle,
+          deleteArticle,
+          getNewsletter,
+          deleteNewsLetter
+        } = this.props;
         let click = null;
         let editCard = null;
         let deleteCard = null;
@@ -263,18 +208,18 @@ class News extends Component {
           click = () => history.push(`/view/article/${card.id}`);
           editCard = () => {
             history.push(`/article/edit/${card.id}`);
-            this.props.getArticle(card.id);
+            getArticle(card.id);
           };
-          deleteCard = this.props.deleteArticle;
+          deleteCard = deleteArticle;
           className += "CardContainerArticle";
         }
         if (card.tags.includes("Newsletter")) {
           click = () => history.push(`/view/newsletter/${card.id}`);
           editCard = () => {
             history.push(`/newsletter/edit/${card.id}`);
-            this.props.getNewsletter(card.id);
+            getNewsletter(card.id);
           };
-          deleteCard = this.props.deleteNewsLetter;
+          deleteCard = deleteNewsLetter;
           className += "CardContainerNewsletter";
         }
         return (
@@ -335,7 +280,7 @@ class News extends Component {
   };
 
   render() {
-    //console.log("NEWS");
+    console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
     const { User, Settings, search, eventKey, history, match } = this.state;
     let { selectValue } = this.state;

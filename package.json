@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "deep-equal": "^1.0.1",
     "draft-js": "^0.10.5",
     "draftjs-to-html": "^0.8.4",
     "form-data": "^2.3.3",

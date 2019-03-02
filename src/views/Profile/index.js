@@ -35,9 +35,9 @@ import {
   professionSpecializationOptions,
   DeepCopy,
   hasCharAfterSpace,
-  isEquivalent,
   roleClassIcon
 } from "../../helpers";
+import deepEqual from "deep-equal";
 import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
 import { withAlert } from "react-alert";
@@ -120,7 +120,7 @@ class Profile extends PureComponent {
     const { User } = nextProps;
     const currentUser = nextState.User;
 
-    if (isEquivalent(currentUser, User)) shouldUpdate = false;
+    if (deepEqual(currentUser, User)) shouldUpdate = false;
 
     return shouldUpdate;
   }

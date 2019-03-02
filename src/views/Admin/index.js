@@ -30,7 +30,6 @@ import {
   clearUser
 } from "../../actions/Admin";
 import { getTickets } from "../../actions/Tickets";
-import { isSubset, isEquivalent } from "../../helpers";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
 import PermissionsTable from "./PermissionsTable";
 import OverviewTable from "./OverviewTable";
@@ -82,7 +81,7 @@ class Admin extends PureComponent {
     const { Admin } = this.state;
     const { Tickets } = nextProps.Admin;
     const currentTickets = Admin.Tickets;
-    const sameTickets = isSubset(
+    const sameTickets = deepEqual(
       Tickets.map(t => t.id),
       currentTickets.map(t => t.id)
     );

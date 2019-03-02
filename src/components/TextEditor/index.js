@@ -29,7 +29,7 @@ import { getUsers } from "../../actions/Admin";
 import { Redirect } from "react-router-dom";
 import Select from "react-select";
 import { selectStyles } from "../../helpers/styles";
-import { isEquivalent } from "../../helpers";
+import deepEqual from "deep-equal";
 import { articleSlectOptions } from "../../helpers/select";
 import { options } from "./options";
 
@@ -98,9 +98,9 @@ class TextEditor extends Component {
     const currentUser = this.state.User;
     const currentSelectValue = this.state.selectValue;
 
-    const editorChanged = !isEquivalent(currentEditorState, editorState);
+    const editorChanged = !deepEqual(currentEditorState, editorState);
     const titleChanged = currentTitle != title;
-    const userChanged = !isEquivalent(currentUser, User);
+    const userChanged = !deepEqual(currentUser, User);
     const isFiltering = selectValue != currentSelectValue;
 
     return editorChanged || titleChanged || userChanged || isFiltering;

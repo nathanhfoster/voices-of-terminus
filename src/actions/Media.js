@@ -1,7 +1,7 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
-import { isSubset } from "../helpers";
+import deepEqual from "deep-equal";
 
 export const getGalleries = () => (dispatch, getState) => {
   dispatch({ type: C.GET_GALLERIES_LOADING });
@@ -12,11 +12,11 @@ export const getGalleries = () => (dispatch, getState) => {
       const hasImage = Galleries.results.every(gallery => gallery.image);
       if (
         !hasImage ||
-        !isSubset(
+        !deepEqual(
           Galleries.results.map(k => k.id),
           galleries.data.results.map(k => k.id)
         ) ||
-        !isSubset(
+        !deepEqual(
           Galleries.results.map(k => k.last_modified),
           galleries.data.results.map(k => k.last_modified)
         )
@@ -113,15 +113,15 @@ export const viewGalleryImages = id => (dispatch, getState) => {
       const hasImage = Gallery.results.every(gallery => gallery.image);
       if (
         !hasImage ||
-        !isSubset(
+        !deepEqual(
           Gallery.results.map(k => k.id),
           gallery.data.results.map(k => k.id)
         ) ||
-        !isSubset(
+        !deepEqual(
           Gallery.results.map(k => k.last_modified),
           gallery.data.results.map(k => k.last_modified)
         ) ||
-        !isSubset(
+        !deepEqual(
           Gallery.results.map(k => k.views),
           gallery.data.results.map(k => k.views)
         )

@@ -1,7 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
-import { isSubset } from "../helpers";
+import deepEqual from "deep-equal";
 
 export const getNewsletters = () => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
@@ -52,11 +52,11 @@ export const getNewsletters = () => (dispatch, getState) => {
               );
               if (
                 !hasHtml ||
-                !isSubset(
+                !deepEqual(
                   Newsletters.results.map(k => k.id),
                   newsletters.data.results.map(k => k.id)
                 ) ||
-                !isSubset(
+                !deepEqual(
                   Newsletters.results.map(k => k.last_modified),
                   newsletters.data.results.map(k => k.last_modified)
                 )

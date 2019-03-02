@@ -172,6 +172,6 @@ export const setHtmlDocument = Document => ({
 });
 
 export const clearHtmlDocument = () => ({
-  type: C.GET_HTML_DOCUMENT,
+  type: C.CLEAR_HTML_DOCUMENT,
   payload: null
 });

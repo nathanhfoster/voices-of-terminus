@@ -1,7 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
-import { isSubset } from "../helpers";
+import deepEqual from "deep-equal";
 
 export const getArticles = () => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
@@ -50,15 +50,15 @@ export const getArticles = () => (dispatch, getState) => {
               const hasHtml = Articles.results.every(article => article.html);
               if (
                 !hasHtml ||
-                !isSubset(
+                !deepEqual(
                   Articles.results.map(k => k.id),
                   articles.data.results.map(k => k.id)
                 ) ||
-                !isSubset(
+                !deepEqual(
                   Articles.results.map(k => k.last_modified),
                   articles.data.results.map(k => k.last_modified)
                 ) ||
-                !isSubset(
+                !deepEqual(
                   Articles.results.map(k => k.views),
                   articles.data.results.map(k => k.views)
                 )

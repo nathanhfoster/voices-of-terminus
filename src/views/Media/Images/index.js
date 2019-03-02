@@ -31,7 +31,7 @@ import {
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import matchSorter from "match-sorter";
-import { isSubset } from "../../../helpers";
+import deepEqual from "deep-equal";
 import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Galleries }) => ({
@@ -190,7 +190,7 @@ class Images extends PureComponent {
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
     return galleries
-      .filter(gal => (dontFilter ? gal : isSubset(gal.tags.split("|"), filter)))
+      .filter(gal => (dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)))
       .map(gallery => (
         <Col md={4} xs={12} className="galleryCardContainer">
           <div

@@ -26,10 +26,6 @@ import RangedDps from "../images/classIcons/ranged_dps.png";
 import Support from "../images/classIcons/support.png";
 import Utility from "../images/classIcons/utility.png";
 import CrowdControl from "../images/classIcons/crowd_control.png";
-import Default from "../images/classIcons/default.png";
-import QuestionMark from "../images/question.png";
-import { userRefreshDelay } from "./variables";
-import { stat } from "fs";
 
 export const arrayToObject = (arr, keyField) =>
   Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
@@ -365,67 +361,6 @@ export const hasUpdatePermission = (User, author, tags) => {
   }
 
   return false;
-};
-
-export const isSubset = (arr1, arr2) => {
-  const hset = new Map();
-
-  // hset stores all the values of arr1
-  for (let i = 0; i < arr1.length; i++) {
-    if (!hset.has(arr1[i])) hset.set(arr1[i]);
-  }
-
-  // loop to check if all elements of arr2 also
-  // lies in arr1
-  for (let i = 0; i < arr2.length; i++) {
-    if (!hset.has(arr2[i])) return false;
-  }
-  return true;
-};
-
-const issubset = (arr1, arr2) => {
-  if (typeof arr1 != "Array" || typeof arr2 != "Array") return false;
-  const hset = new Map();
-
-  // hset stores all the values of arr1
-  for (let i = 0; i < arr1.length; i++) {
-    if (!hset.has(arr1[i])) hset.set(arr1[i]);
-  }
-
-  // loop to check if all elements of arr2 also
-  // lies in arr1
-  for (let i = 0; i < arr2.length; i++) {
-    if (!hset.has(arr2[i])) return false;
-  }
-  return true;
-};
-
-export const isEquivalent = (obj1, obj2) => {
-  // Create arrays of property names
-  const obj1Props = Object.getOwnPropertyNames(obj1);
-  const obj2Props = Object.getOwnPropertyNames(obj2);
-
-  // If number of properties is different,
-  // objects are not equivalent
-  if (obj1Props.length != obj2Props.length) {
-    return false;
-  }
-
-  for (let i = 0; i < obj1Props.length; i++) {
-    let propName = obj1Props[i];
-
-    if (!issubset(obj1[propName], obj2[propName])) return false;
-
-    // If values of same property are not equal,
-    // objects are not equivalent
-    if (obj1[propName] !== obj2[propName]) {
-      return false;
-    }
-  }
-
-  // If we made it this far, objects
-  // are considered equivalent
-  return true;
 };
 
 export const raceRoleClassOptions = {

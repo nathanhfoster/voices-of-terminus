@@ -10,7 +10,6 @@ import {
   NavItem,
   NavDropdown,
   Image,
-  Button,
   Badge,
   MenuItem
 } from "react-bootstrap";
@@ -20,7 +19,6 @@ import votLogo from "../../images/VoT-Logo-White.png";
 import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
 import { roleClassIcon } from "../../helpers";
-import { isEquivalent } from "../../helpers";
 
 const mapStateToProps = ({ User, Settings, Messages }) => ({
   User,

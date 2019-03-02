@@ -427,7 +427,7 @@ class EventDetails extends Component {
             <i className="far fa-calendar-times" />{" "}
             <Moment fromNow>{end_date}</Moment>
           </Col>
-          {group_size && (
+          {group_size != 0 && (
             <Col xs={12}>
               <i className="fas fa-users" /> {group_size}
             </Col>
