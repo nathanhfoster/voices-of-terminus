@@ -10,7 +10,8 @@ export const getSettings = (token, UserId) => dispatch =>
         type: C.SET_USER_SETTINGS,
         payload: res.data
       });
-    });
+    })
+    .catch(e => console.log(e));
 
 export const postSettings = (token, payload) => dispatch =>
   Axios(token)
