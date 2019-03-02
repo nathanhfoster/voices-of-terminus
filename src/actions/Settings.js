@@ -2,7 +2,7 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-export const getSettings = (token, UserId) => dispatch =>
+export const getUserSettings = (token, UserId) => dispatch =>
   Axios(token)
     .get(`user/settings/${UserId}/view/`)
     .then(res => {

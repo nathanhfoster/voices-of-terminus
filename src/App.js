@@ -53,7 +53,7 @@ import {
 import { getUsers } from "./actions/Admin";
 import { getMessages } from "./actions/Messages";
 import { refreshPatchUser } from "./actions/App";
-import { getSettings } from "./actions/Settings";
+import { getUserSettings } from "./actions/Settings";
 import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
@@ -84,7 +84,7 @@ const mapDispatchToProps = {
   refreshPatchUser,
   getMessages,
   getUsers,
-  getSettings
+  getUserSettings
 };
 
 class App extends PureComponent {
@@ -175,7 +175,6 @@ class App extends PureComponent {
       User,
       VoTYouTubeChannelData,
       VRYouTubeChannelData,
-      getSettings,
       getUsers,
       getVoTYouTubeChannelData,
       getAllVotYouTube,
@@ -183,7 +182,6 @@ class App extends PureComponent {
       getVotChannelsPlayLists,
       Logout
     } = this.props;
-    if (User.token) getSettings(User.token, User.id);
     getUsers();
     if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
@@ -231,9 +229,10 @@ class App extends PureComponent {
   }
 
   fetchProfileUpdates = (id, token, Settings) => {
-    const { refreshPatchUser, getMessages } = this.props;
+    const { refreshPatchUser, getUserSettings, getMessages } = this.props;
     const { push_messages } = Settings;
-    refreshPatchUser(id, token);
+    refreshPatchUser(token, id);
+    getUserSettings(token, id);
     if (push_messages) getMessages(id, token);
   };
 

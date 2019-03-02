@@ -4,11 +4,15 @@ import { Grid, Row, Col, PageHeader, Checkbox } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { getSettings, postSettings, setSettings } from "../../actions/Settings";
+import {
+  getUserSettings,
+  postSettings,
+  setSettings
+} from "../../actions/Settings";
 
 const mapStateToProps = ({ User }) => ({ User });
 
-const mapDispatchToProps = { getSettings, postSettings, setSettings };
+const mapDispatchToProps = { getUserSettings, postSettings, setSettings };
 
 class Settings extends Component {
   constructor(props) {
@@ -34,8 +38,8 @@ class Settings extends Component {
   /* render() */
 
   componentDidMount() {
-    const { User, getSettings } = this.props;
-    if (User.token) getSettings(User.token, User.id);
+    const { User, getUserSettings } = this.props;
+    if (User.token) getUserSettings(User.token, User.id);
   }
 
   componentWillReceiveProps(nextProps) {

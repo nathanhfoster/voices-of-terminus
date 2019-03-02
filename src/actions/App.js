@@ -148,7 +148,7 @@ const getUserCharacters = (User, dispatch) =>
     })
     .catch(e => console.log(e));
 
-export const refreshPatchUser = (id, token) => dispatch =>
+export const refreshPatchUser = (token, id) => dispatch =>
   Axios(token)
     .get(`users/${id}/refresh/`)
     .then(res => {
@@ -156,15 +156,6 @@ export const refreshPatchUser = (id, token) => dispatch =>
         type: C.SET_LOGIN_TOKEN,
         payload: res.data
       });
-      Axios(token)
-        .get(`user/settings/${id}/view/`)
-        .then(settings => {
-          dispatch({
-            type: C.SET_USER_SETTINGS,
-            payload: settings.data
-          });
-        })
-        .catch(e => console.log(e));
     })
     .catch(e =>
       e.response && e.response.status == 401
