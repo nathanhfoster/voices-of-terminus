@@ -71,7 +71,10 @@ class Settings extends Component {
               checked={show_footer}
               onClick={() =>
                 !Settings.id
-                  ? postSettings(User.token, { user: User.id })
+                  ? postSettings(User.token, {
+                      user: User.id,
+                      show_footer: !show_footer
+                    })
                   : setSettings(User.token, Settings.id, {
                       show_footer: !show_footer
                     })
@@ -92,7 +95,10 @@ class Settings extends Component {
               checked={push_messages}
               onClick={() =>
                 !Settings.id
-                  ? postSettings(User.token, { user: User.id })
+                  ? postSettings(User.token, {
+                      user: User.id,
+                      push_messages: !push_messages
+                    })
                   : setSettings(User.token, Settings.id, {
                       push_messages: !push_messages
                     })
