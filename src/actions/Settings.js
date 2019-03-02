@@ -8,7 +8,7 @@ export const getSettings = (token, UserId) => dispatch =>
     .then(res => {
       dispatch({
         type: C.SET_USER_SETTINGS,
-        payload: res.data.find(e => e.id)
+        payload: res.data
       });
     });
 
