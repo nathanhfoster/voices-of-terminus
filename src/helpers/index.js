@@ -110,6 +110,7 @@ export const isEquivalent = (obj1, obj2) => {
       return false;
     }
   }
+};
 
 export const circleColor = status => {
   switch (status) {
