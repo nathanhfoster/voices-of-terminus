@@ -36,6 +36,7 @@ import Select from "react-select";
 import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
 import { hasUpdatePermission, hasDeletePermission } from "../../helpers";
+import { isSubset } from "../../helpers";
 import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
@@ -186,7 +187,7 @@ class News extends Component {
   //Filter the Documents if the documents tags array contains the filter array
   renderCards = (Settings, Documents, filter, dontFilter, sort, tabFilter) =>
     Documents.filter(doc =>
-      dontFilter ? doc : deepEqual(doc.tags.split("|"), filter)
+      dontFilter ? doc : isSubset(doc.tags.split("|"), filter)
     )
       .filter(tabFilter)
       .sort(sort)

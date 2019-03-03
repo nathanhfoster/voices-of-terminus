@@ -72,6 +72,45 @@ export const hasCharAfterSpace = string => {
   return true;
 };
 
+export const isSubset = (arr1, arr2) => {
+  const hset = new Map();
+
+  // hset stores all the values of arr1
+  for (let i = 0; i < arr1.length; i++) {
+    if (!hset.has(arr1[i])) hset.set(arr1[i]);
+  }
+
+  // loop to check if all elements of arr2 also
+  // lies in arr1
+  for (let i = 0; i < arr2.length; i++) {
+    if (!hset.has(arr2[i])) return false;
+  }
+  return true;
+};
+
+export const isEquivalent = (obj1, obj2) => {
+  // Create arrays of property names
+  const obj1Props = Object.getOwnPropertyNames(obj1);
+  const obj2Props = Object.getOwnPropertyNames(obj2);
+
+  // If number of properties is different,
+  // objects are not equivalent
+  if (obj1Props.length != obj2Props.length) {
+    return false;
+  }
+
+  for (let i = 0; i < obj1Props.length; i++) {
+    let propName = obj1Props[i];
+
+    if (!issubset(obj1[propName], obj2[propName])) return false;
+
+    // If values of same property are not equal,
+    // objects are not equivalent
+    if (obj1[propName] !== obj2[propName]) {
+      return false;
+    }
+  }
+
 export const circleColor = status => {
   switch (status) {
     case "Open":
