@@ -88,6 +88,23 @@ export const isSubset = (arr1, arr2) => {
   return true;
 };
 
+const issubset = (arr1, arr2) => {
+  if (typeof arr1 != "Array" || typeof arr2 != "Array") return false;
+  const hset = new Map();
+
+  // hset stores all the values of arr1
+  for (let i = 0; i < arr1.length; i++) {
+    if (!hset.has(arr1[i])) hset.set(arr1[i]);
+  }
+
+  // loop to check if all elements of arr2 also
+  // lies in arr1
+  for (let i = 0; i < arr2.length; i++) {
+    if (!hset.has(arr2[i])) return false;
+  }
+  return true;
+};
+
 export const isEquivalent = (obj1, obj2) => {
   // Create arrays of property names
   const obj1Props = Object.getOwnPropertyNames(obj1);
