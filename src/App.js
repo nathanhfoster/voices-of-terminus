@@ -51,7 +51,7 @@ import {
   Logout
 } from "./actions/App";
 import { getUsers } from "./actions/Admin";
-import { getMessages } from "./actions/Messages";
+import { getUserMessages } from "./actions/Messages";
 import { refreshPatchUser } from "./actions/App";
 import { getUserSettings } from "./actions/Settings";
 import "moment-timezone";
@@ -82,7 +82,7 @@ const mapDispatchToProps = {
   getVRYouTubeChannelData,
   Logout,
   refreshPatchUser,
-  getMessages,
+  getUserMessages,
   getUsers,
   getUserSettings
 };
@@ -229,11 +229,11 @@ class App extends PureComponent {
   }
 
   fetchProfileUpdates = (id, token, Settings) => {
-    const { refreshPatchUser, getUserSettings, getMessages } = this.props;
+    const { refreshPatchUser, getUserSettings, getUserMessages } = this.props;
     const { push_messages } = Settings;
     refreshPatchUser(token, id);
     getUserSettings(token, id);
-    if (push_messages) getMessages(id, token);
+    if (push_messages) getUserMessages(id, token);
   };
 
   alertApiResponse = ApiResponse => {

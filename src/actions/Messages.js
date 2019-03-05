@@ -3,7 +3,10 @@ import { Axios } from "./Axios";
 import { DeepCopy } from "../helpers";
 import qs from "qs";
 
-export const getMessages = (userId, token) => dispatch => {
+export const getUserMessages = (userId, token) => dispatch =>
+  getMessages(userId, token, dispatch);
+
+const getMessages = (userId, token, dispatch) => {
   let groupMap = {};
   return Axios(token)
     .get(`/message/recipients/${userId}/view/`)
@@ -201,26 +204,9 @@ export const getGroupMessageRecipients = (
     })
     .catch(e => console.log(e));
 
-export const deleteMessageRecipient = (token, userId, id, messageId) => (
-  dispatch,
-  getState
-) => {
-  const recipientPayload = DeepCopy(
-    getState().Messages.messageRecipients
-  ).filter(r => r.recipient_id != userId);
-  let messagePayload = DeepCopy(getState().Messages);
-  messagePayload.count -= 1;
-  messagePayload.results = messagePayload.results.filter(r =>
-    r.messages.includes(m => m.id != messageId)
-  );
+export const deleteMessageRecipient = (token, userId, id) => dispatch => {
   return Axios(token)
     .delete(`/message/recipients/${id}/`)
-    .then(res => {
-      // dispatch({
-      //   type: C.GET_MESSAGE_RECIPIENTS,
-      //   payload: recipientPayload
-      // });
-      dispatch({ type: C.GET_MESSAGES, payload: messagePayload });
-    })
+    .then(res => getMessages(userId, token, dispatch))
     .catch(e => console.log(e));
 };

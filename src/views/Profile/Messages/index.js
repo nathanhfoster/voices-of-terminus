@@ -16,7 +16,7 @@ import {
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import {
-  getMessages,
+  getUserMessages,
   updateMessage,
   createMessageGroup,
   getMessageDetails,
@@ -41,7 +41,7 @@ const mapStateToProps = ({ Admin, User, Messages }) => ({
 });
 
 const mapDispatchToProps = {
-  getMessages,
+  getUserMessages,
   updateMessage,
   createMessageGroup,
   getUsers,
@@ -78,7 +78,7 @@ class Messages extends PureComponent {
   }
 
   componentDidMount() {
-    const { User, getMessages, getUsers } = this.props;
+    const { User, getUserMessages, getUsers } = this.props;
     const { id, token, Settings } = User;
     const { push_messages } = Settings;
     const { Users } = this.props.Admin;
@@ -89,7 +89,7 @@ class Messages extends PureComponent {
       : [];
     this.setState({ recipients });
 
-    if (!push_messages) getMessages(id, token);
+    if (!push_messages) getUserMessages(id, token);
     getUsers();
   }
 
@@ -290,6 +290,7 @@ class Messages extends PureComponent {
   };
 
   render() {
+    const { deleteMessageRecipient } = this.props;
     const {
       User,
       show,
@@ -478,15 +479,10 @@ class Messages extends PureComponent {
                         )}
                         <ConfirmAction
                           Action={e => {
-                            const { id, message_id } = messageRecipients.filter(
+                            const { id } = messageRecipients.filter(
                               r => r.recipient_id === User.id
                             )[0];
-                            this.props.deleteMessageRecipient(
-                              User.token,
-                              User.id,
-                              id,
-                              message_id
-                            );
+                            deleteMessageRecipient(User.token, User.id, id);
                             this.setState({ show: false });
                           }}
                           Disabled={false}
