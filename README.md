@@ -1,4 +1,29 @@
-https://voices-of-terminus.herokuapp.com/
+## Production Build
+
+- [Home](https://voices-of-terminus.herokuapp.com/)
+- [Calendar](https://voices-of-terminus.herokuapp.com/)
+- [Articles](https://voices-of-terminus.herokuapp.com/articles/)
+- [News](https://voices-of-terminus.herokuapp.com/news/)
+- [Guild]
+  - [About](https://voices-of-terminus.herokuapp.com/guild/about)
+  - [Roster](https://voices-of-terminus.herokuapp.com/guild/roster)
+  - [Chraters](https://voices-of-terminus.herokuapp.com/guild/charters)
+  - [Lore](https://voices-of-terminus.herokuapp.com/guild/lore)
+  - [Contests](https://voices-of-terminus.herokuapp.com/guild/contests)
+  - [Team](https://voices-of-terminus.herokuapp.com/guild/team)
+  - [Join](https://voices-of-terminus.herokuapp.com/guild/join)
+  - [Donate](https://voices-of-terminus.herokuapp.com/guild/donate)
+- [Media]
+  - [Images](https://voices-of-terminus.herokuapp.com/media/images)
+  - [Videos](https://voices-of-terminus.herokuapp.com/media/images)
+  - [Streams](https://voices-of-terminus.herokuapp.com/media/images)
+  - [Podcasts](https://voices-of-terminus.herokuapp.com/media/images)
+- [Your]
+  - [Profile](https://voices-of-terminus.herokuapp.com/profile)
+  - [Messages](https://voices-of-terminus.herokuapp.com/messages)
+  - [Polls](https://voices-of-terminus.herokuapp.com/polls)
+  - [Tickets](https://voices-of-terminus.herokuapp.com/tickets)
+  - [Settings](https://voices-of-terminus.herokuapp.com/settings)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
