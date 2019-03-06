@@ -37,7 +37,8 @@ class NavBar extends PureComponent {
   }
 
   static propTypes = {
-    Logout: PropTypes.func.isRequired
+    Logout: PropTypes.func.isRequired,
+    Settings: PropTypes.object
   };
 
   static defaultProps = {};

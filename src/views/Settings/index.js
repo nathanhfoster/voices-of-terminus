@@ -21,7 +21,9 @@ class Settings extends Component {
     this.state = {};
   }
 
-  static propTypes = {};
+  static propTypes = {
+    Settings: PropTypes.object
+  };
 
   static defaultProps = {};
 

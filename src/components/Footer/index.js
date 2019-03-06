@@ -30,7 +30,8 @@ class Footer extends PureComponent {
   }
 
   static propTypes = {
-    shouldShow: PropTypes.bool
+    shouldShow: PropTypes.bool,
+    Settings: PropTypes.object
   };
 
   static defaultProps = {};

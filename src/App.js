@@ -161,12 +161,14 @@ class App extends PureComponent {
     getVRYouTubeChannelData: PropTypes.func.isRequired,
     routeItems: PropTypes.array,
     images: PropTypes.array,
-    imagesMobile: PropTypes.array
+    imagesMobile: PropTypes.array,
+    Settings: PropTypes.object
   };
 
   static defaultProps = {};
 
   componentWillMount() {
+    localStorage.clear(); // Clear local storage
     this.getState(this.props);
   }
 
