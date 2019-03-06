@@ -564,33 +564,35 @@ class Event extends Component {
                 </InputGroup>
               </Col>
             )}
-            <Col xs={12} style={{ marginTop: 16 }}>
-              <FormGroup>
-                <ControlLabel>{`Level range (${min_level} - ${max_level})`}</ControlLabel>
-                <Range
-                  allowCross={false}
-                  min={this.props.min_level}
-                  max={this.props.max_level}
-                  defaultValue={[this.props.min_level, this.props.max_level]}
-                  tipFormatter={value => `${value}%`}
-                  onChange={props => this.onSliderChange(props)}
-                  handle={props => this.onSliderHandle(props)}
-                  trackStyle={[{ backgroundColor: "var(--grey)" }]}
-                  handleStyle={[
-                    {
-                      backgroundColor: "var(--primaryColor)",
-                      border: "2px solid var(--primaryColor)"
-                    },
-                    {
-                      backgroundColor: "var(--primaryColor)",
-                      border: "2px solid var(--primaryColor)"
-                    }
-                  ]}
-                  railStyle={{ backgroundColor: "var(--slate_grey)" }}
-                />
-                <FormControl.Feedback />
-              </FormGroup>
-            </Col>
+            {this.showGroups(tags) && (
+              <Col xs={12} style={{ marginTop: 16 }}>
+                <FormGroup>
+                  <ControlLabel>{`Level range (${min_level} - ${max_level})`}</ControlLabel>
+                  <Range
+                    allowCross={false}
+                    min={this.props.min_level}
+                    max={this.props.max_level}
+                    defaultValue={[this.props.min_level, this.props.max_level]}
+                    tipFormatter={value => `${value}%`}
+                    onChange={props => this.onSliderChange(props)}
+                    handle={props => this.onSliderHandle(props)}
+                    trackStyle={[{ backgroundColor: "var(--grey)" }]}
+                    handleStyle={[
+                      {
+                        backgroundColor: "var(--primaryColor)",
+                        border: "2px solid var(--primaryColor)"
+                      },
+                      {
+                        backgroundColor: "var(--primaryColor)",
+                        border: "2px solid var(--primaryColor)"
+                      }
+                    ]}
+                    railStyle={{ backgroundColor: "var(--slate_grey)" }}
+                  />
+                  <FormControl.Feedback />
+                </FormGroup>
+              </Col>
+            )}
             <Col xs={12}>
               <FormGroup>
                 <ControlLabel>Description</ControlLabel>
