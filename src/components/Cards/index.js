@@ -104,15 +104,8 @@ class Cards extends PureComponent {
         {summary ? (
           <div className="Summary inlineNoWrap">
             <div className="summaryTitle">
-              <h4 className="inlineNoWrap">
-                <i className="fas fa-heading" /> {title}
-              </h4>
-            </div>
-            <div
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              <PopOver User={User}>
+              <h4 className="inlineNoWrap">{title}</h4>
+              <PopOver User={User} className="pull-right">
                 {canUpdate ? (
                   <Button
                     onClick={e => {
@@ -136,6 +129,10 @@ class Cards extends PureComponent {
                 />
               </PopOver>
             </div>
+            <div
+              className="ActionToolbar cardActions"
+              componentClass={ButtonToolbar}
+            />
             <div className="cardInfo">
               <div
                 className="inlineNoWrap"
@@ -143,7 +140,6 @@ class Cards extends PureComponent {
                   width: "calc(100% - 64px)%"
                 }}
               >
-                <i className="fas fa-user" />
                 <Link
                   to={`/profile/${author}`}
                   onClick={e => e.stopPropagation()}
@@ -153,7 +149,7 @@ class Cards extends PureComponent {
                 <i className="far fa-clock" />
                 <Moment fromNow>{date_created}</Moment>
               </div>
-              <div>
+              {/* <div>
                 <i className="fas fa-pencil-alt" />
                 <Link
                   to={`/profile/${last_modified_by}`}
@@ -163,10 +159,8 @@ class Cards extends PureComponent {
                 </Link>{" "}
                 <i className="far fa-clock" />
                 <Moment fromNow>{last_modified}</Moment>
-              </div>
-              <div>
-                <i className="fas fa-tags" /> [{tags}]
-              </div>
+             </div>*/}
+              {/* <div>[{tags}]</div> */}
             </div>
             <div className="cardStats">
               <div>

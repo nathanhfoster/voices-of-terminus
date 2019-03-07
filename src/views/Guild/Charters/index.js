@@ -80,11 +80,11 @@ class Charters extends PureComponent {
               might sometime fail. This is who we are and together... we are the
               Voices of Terminus.
             </p>
-
             <h3>Leadership Charter</h3>
             <Image src={leadershipCharter} responsive />
             <h3>Member Charter</h3>
             <Image src={rules} responsive />
+            <h3>Raid Charter</h3>
           </Col>
         </Row>
       </Grid>

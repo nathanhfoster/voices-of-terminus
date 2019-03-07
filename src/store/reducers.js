@@ -23,7 +23,7 @@ export const VotChannelsPlaylist = (state = [], action) =>
 export const VotPlaylistShow = (state = [], action) =>
   action.type === C.GET_VOT_PLAYLIST_SHOW ? action.payload : state;
 
-export const VotTwitchStreams = (state = [], action) =>
+export const VotTwitchStreams = (state = { videos: [] }, action) =>
   action.type === C.GET_VOT_TWITCH_STREAMS ? action.payload : state;
 
 export const VRYouTubeChannelData = (state = [], action) =>

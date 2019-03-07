@@ -85,8 +85,8 @@
   --mainOpacity: 0.95;
   --main-padding: 20px;
   --primaryBoxShadow: 0 -8px 16px black;
-  --cardHeight: 280px;
-  --cardSummaryHeight: 140px;
+  --cardHeight: 260px;
+  --cardSummaryHeight: 100px;
 
   /* Hamburger animation */
   --speed: 200ms;

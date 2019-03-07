@@ -59,12 +59,12 @@ const TicketTable = (Tickets, history, pathname) => {
           ]
         },
         {
-          Header: <i className="fas fa-user-shield"> USERS INFO</i>,
-          columns: onAdmin ? AdminUserInfoColumns : UserInfoColumns
-        },
-        {
           Header: <i className="fas fa-info-circle"> DETAILS</i>,
           columns: onAdmin ? AdminDetailsColumns : UserDetailsColumns
+        },
+        {
+          Header: <i className="fas fa-user-shield"> USERS INFO</i>,
+          columns: onAdmin ? AdminUserInfoColumns : UserInfoColumns
         },
         AcvtivityColumns
       ]}
@@ -74,12 +74,10 @@ const TicketTable = (Tickets, history, pathname) => {
       showPageSizeOptions
       showPaginationBottom
       showPageJump
-      defaultSorted={
-        [
-          // { id: "priority", desc: true },
-          // { id: "status", desc: false }
-        ]
-      }
+      defaultSorted={[
+        { id: "status", desc: false },
+        { id: "priority", desc: false }
+      ]}
       defaultPageSize={Window.isMobile ? 10 : 15}
       pageSizeOptions={[5, 10, 15, 20, 50, 100]}
       multiSort={true}
@@ -192,6 +190,26 @@ const UserInfoColumns = AdminUserInfoColumns.slice(1);
 
 const AdminDetailsColumns = [
   {
+    Header: "Priority",
+    accessor: "priority",
+    filterMethod: (filter, rows) =>
+      matchSorter(rows, filter.value, {
+        keys: [filter.id]
+      }),
+    filterAll: true,
+    Footer: Tickets => (
+      <div>
+        <i className="fas fa-exclamation" />{" "}
+        <strong style={{ color: "var(--primaryColor)" }}>
+          {Tickets.data.reduce(
+            (acc, curr) => (acc + curr.priority > 2 ? 1 : 0),
+            0
+          )}
+        </strong>
+      </div>
+    )
+  },
+  {
     Header: "Type",
     accessor: "ticket_type",
     filterMethod: (filter, rows) =>
@@ -218,26 +236,6 @@ const AdminDetailsColumns = [
         <i className="fas fa-images" />{" "}
         <strong style={{ color: "var(--primaryColor)" }}>
           {Tickets.data.reduce((acc, curr) => (acc + curr.image ? 1 : 0), 0)}
-        </strong>
-      </div>
-    )
-  },
-  {
-    Header: "Priority",
-    accessor: "priority",
-    filterMethod: (filter, rows) =>
-      matchSorter(rows, filter.value, {
-        keys: [filter.id]
-      }),
-    filterAll: true,
-    Footer: Tickets => (
-      <div>
-        <i className="fas fa-exclamation" />{" "}
-        <strong style={{ color: "var(--primaryColor)" }}>
-          {Tickets.data.reduce(
-            (acc, curr) => (acc + curr.priority > 2 ? 1 : 0),
-            0
-          )}
         </strong>
       </div>
     )

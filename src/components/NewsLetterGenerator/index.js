@@ -283,7 +283,7 @@ class NewsLetterGenerator extends PureComponent {
       <Grid className="NewsLetterGenerator Container fadeIn">
         <Row className="ActionToolbarRow">
           <Col
-            xs={4}
+            xs={6}
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
@@ -317,7 +317,7 @@ class NewsLetterGenerator extends PureComponent {
                 : "UPDATE"}
             </Button>
           </Col>
-          <Col
+          {/* <Col
             xs={4}
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
@@ -334,22 +334,22 @@ class NewsLetterGenerator extends PureComponent {
             >
               <i className="fas fa-paste" />
             </Button>
-          </Col>
+          </Col> */}
           <Col
-            xs={4}
+            xs={6}
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button onClick={this.handleShow} className="pull-right">
+            {/* <Button onClick={this.handleShow} className="pull-right">
               LOAD
-            </Button>
-            <Button
+            </Button> */}
+            {/* <Button
               onClick={this.updateNewsletter}
               className="pull-right"
               disabled
             >
               SAVE
-            </Button>
+            </Button> */}
             <Button
               onClick={() => this.loadNewsletterDesign(defaultDesign)}
               className="pull-right"

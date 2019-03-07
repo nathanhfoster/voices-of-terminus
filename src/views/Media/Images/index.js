@@ -33,6 +33,7 @@ import Moment from "react-moment";
 import matchSorter from "match-sorter";
 import deepEqual from "deep-equal";
 import ConfirmAction from "../../../components/ConfirmAction";
+import PopOver from "../../../components/PopOver";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -190,7 +191,9 @@ class Images extends PureComponent {
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
     return galleries
-      .filter(gal => (dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)))
+      .filter(gal =>
+        dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)
+      )
       .map(gallery => (
         <Col md={4} xs={12} className="galleryCardContainer">
           <div
@@ -206,44 +209,44 @@ class Images extends PureComponent {
               </div>
             )}
             <div className="gallerySummary">
-              <h4>
-                <i className="fas fa-heading" /> {gallery.title}
-              </h4>
-              <p>
-                <i className="fas fa-clipboard" /> {gallery.description}
-              </p>
+              <h4>{gallery.title}</h4>
+              <p>{gallery.description}</p>
               <div className="cardActions">
-                <ConfirmAction
-                  Action={e => this.props.deleteGallery(gallery.id, User.token)}
-                  Disabled={false}
-                  Icon={<i className="fas fa-trash" />}
-                  hasPermission={canDelete}
-                  Size="small"
-                  Class="pull-right"
-                  Title={gallery.title}
-                />
-                {canUpdate ? (
-                  <Button
-                    onClick={e => {
-                      e.stopPropagation();
-                      this.setState({
-                        show: true,
-                        editing: true,
-                        gallery_id: gallery.id,
-                        title: gallery.title,
-                        description: gallery.description,
-                        tags: gallery.tags
-                          .split("|")
-                          .map(i => (i = { value: i, label: i })),
-                        gallery_image: gallery.image
-                      });
-                    }}
-                    bsSize="small"
-                    className="pull-right"
-                  >
-                    <i className="fa fa-pencil-alt" />
-                  </Button>
-                ) : null}
+                <PopOver User={User}>
+                  <ConfirmAction
+                    Action={e =>
+                      this.props.deleteGallery(gallery.id, User.token)
+                    }
+                    Disabled={false}
+                    Icon={<i className="fas fa-trash" />}
+                    hasPermission={canDelete}
+                    Size="small"
+                    Class="pull-right"
+                    Title={gallery.title}
+                  />
+                  {canUpdate ? (
+                    <Button
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.setState({
+                          show: true,
+                          editing: true,
+                          gallery_id: gallery.id,
+                          title: gallery.title,
+                          description: gallery.description,
+                          tags: gallery.tags
+                            .split("|")
+                            .map(i => (i = { value: i, label: i })),
+                          gallery_image: gallery.image
+                        });
+                      }}
+                      bsSize="small"
+                      className="pull-right"
+                    >
+                      <i className="fa fa-pencil-alt" />
+                    </Button>
+                  ) : null}
+                </PopOver>
               </div>
               <div className="cardInfo">
                 <div
@@ -252,7 +255,6 @@ class Images extends PureComponent {
                     width: "calc(100% - 64px)%"
                   }}
                 >
-                  <i className="fas fa-user" />
                   <Link
                     to={`/profile/${gallery.author}`}
                     onClick={e => e.stopPropagation()}
@@ -262,7 +264,7 @@ class Images extends PureComponent {
                   <i className="far fa-clock" />
                   <Moment fromNow>{gallery.date_created}</Moment>
                 </div>
-                <div className="inlineNoWrap">
+                {/* <div className="inlineNoWrap">
                   <i className="fas fa-pencil-alt" />
                   <Link
                     to={`/profile/ ${gallery.last_modified_by}`}
@@ -272,10 +274,10 @@ class Images extends PureComponent {
                   </Link>{" "}
                   <i className="far fa-clock" />
                   <Moment fromNow>{gallery.last_modified}</Moment>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                   <i className="fas fa-tags" /> [{gallery.tags}]
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

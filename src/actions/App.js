@@ -1,6 +1,5 @@
 import C from "../constants";
 import { Axios } from "./Axios";
-import axios from "axios";
 import Cookies from "js-cookie";
 import YTube from "ytube";
 import qs from "qs";
@@ -21,7 +20,7 @@ export const getVoTYouTubeChannelData = () => dispatch =>
         payload: res.latest
       });
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log("getVoTYouTubeChannelData: ", e));
 
 export const getVotChannelsPlayLists = () => dispatch =>
   ytube
@@ -32,7 +31,7 @@ export const getVotChannelsPlayLists = () => dispatch =>
         payload: res
       });
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log("getVotChannelsPlayLists: ", e));
 
 export const getVotPlaylistShow = () => dispatch =>
   ytube
@@ -43,10 +42,10 @@ export const getVotPlaylistShow = () => dispatch =>
         payload: res
       });
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log("getVotPlaylistShow: ", e));
 
 export const getVotTwitchStreams = () => dispatch =>
-  axios
+  Axios()
     .get(
       "https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=jvqb2pnewihctq9ov3on4ajzhyqc7t"
     )
@@ -56,7 +55,7 @@ export const getVotTwitchStreams = () => dispatch =>
         payload: res.data
       });
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log("getVotTwitchStreams: ", e));
 
 export const getAllVotYouTube = () => dispatch =>
   ytube
@@ -67,7 +66,7 @@ export const getAllVotYouTube = () => dispatch =>
         payload: res
       });
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log("getAllVotYouTube: ", e));
 
 export const getVRYouTubeChannelData = () => dispatch =>
   ytube
@@ -78,7 +77,7 @@ export const getVRYouTubeChannelData = () => dispatch =>
         payload: res.latest
       });
     })
-    .catch(e => console.log(e));
+    .catch(e => console.log("getVRYouTubeChannelData: ", e));
 
 export const setWindow = Window => ({
   type: C.SET_WINDOW,

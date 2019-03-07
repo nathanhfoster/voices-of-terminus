@@ -31,7 +31,13 @@ export const eventTags = [
   { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
   { value: "Quest", label: "Quest" },
-  { value: "Raid", label: "Raid" }
+  { value: "Raid", label: "Raid" },
+
+  { value: "Epic", label: "Epic" },
+  { value: "Harvesting", label: "Harvesting" },
+  { value: "Crafting", label: "Crafting" },
+  { value: "Perception", label: "Perception" },
+  { value: "Faction", label: "Faction" }
 ];
 
 export const locationTags = [

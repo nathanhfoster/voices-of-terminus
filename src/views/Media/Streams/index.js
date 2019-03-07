@@ -25,7 +25,9 @@ class Streams extends PureComponent {
     this.state = {};
   }
 
-  static propTypes = {};
+  static propTypes = {
+    VotTwitchStreams: PropTypes.array
+  };
 
   static defaultProps = {};
 
@@ -34,7 +36,8 @@ class Streams extends PureComponent {
   }
 
   componentDidMount() {
-    this.props.getVotTwitchStreams();
+    const { getVotTwitchStreams } = this.props;
+    getVotTwitchStreams();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -103,12 +106,10 @@ class Streams extends PureComponent {
     });
 
   render() {
-    const streams = this.state.VotTwitchStreams.videos
-      ? this.state.VotTwitchStreams.videos
-      : [];
+    const { videos } = this.state.VotTwitchStreams;
     return (
       <Grid className="Streams Container fadeIn">
-        {this.renderStreams(streams)}
+        {this.renderStreams(videos)}
       </Grid>
     );
   }

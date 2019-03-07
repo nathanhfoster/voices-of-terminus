@@ -109,7 +109,7 @@ class TicketDetails extends Component {
           return;
         }
       case "select-option":
-        this.setState({ [name]: e });
+        this.setState({ [name]: e.value });
         break;
     }
   };

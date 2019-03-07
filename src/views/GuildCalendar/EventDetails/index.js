@@ -453,9 +453,11 @@ class EventDetails extends Component {
             </Col>
           )}
         </Row>
-        <Row>
-          <PageHeader className="Center">Group Composition</PageHeader>
-        </Row>
+        {GroupsWithMembers.length > 0 && (
+          <Row>
+            <PageHeader className="Center">Group Composition</PageHeader>
+          </Row>
+        )}
         <Row>{this.renderGroups(User, GroupsWithMembers)}</Row>
         {show ? (
           <Modal
