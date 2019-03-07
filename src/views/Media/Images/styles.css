@@ -27,8 +27,10 @@
 .galleryCard img {
   display: block;
   margin: 0 auto;
-  height: 50%;
-  max-width: 100%;
+  width: 100%;
+  /* height: 50%;
+  max-width: 100%; */
+  object-fit: fill;
 }
 
 .gallerySummary {

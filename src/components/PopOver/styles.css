@@ -1,15 +1,17 @@
 .ActionDots {
+  position: absolute;
+  right: 0px;
   padding: 8px;
-  -webkit-box-shadow: inset 0px 0px 5px var(--dark_border);
-  -moz-box-shadow: inset 0px 0px 5px var(--dark_border);
-  box-shadow: inset 0px 0px 5px var(--dark_border);
+  /* -webkit-box-shadow: inset 0px 0px 5px var(--slate_grey);
+  -moz-box-shadow: inset 0px 0px 5px var(--slate_grey);
+  box-shadow: inset 0px 0px 5px var(--slate_grey); */
   outline: none;
-  background-color: var(--dark_border);
-  border-radius: 6px;
+  border-radius: 4px;
 }
 
 .ActionDots:hover {
   color: var(--primaryColor);
+  background-color: var(--slate_grey);
 }
 
 .popover {

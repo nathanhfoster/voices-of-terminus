@@ -130,7 +130,7 @@ class Images extends PureComponent {
     this.setState({ selectValue });
   };
 
-  onChange = (filter, Galleries) => {
+  onChange = filter => {
     const { name, value } = filter.target;
     this.setState({ [name]: value ? value : undefined });
   };
@@ -195,12 +195,47 @@ class Images extends PureComponent {
         dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)
       )
       .map(gallery => (
-        <Col md={4} xs={12} className="galleryCardContainer">
+        <Col md={3} xs={12} className="galleryCardContainer">
           <div
             key={gallery.id}
             className="Clickable galleryCard Hover"
             onClick={() => history.push(`/media/images/gallery/${gallery.id}`)}
           >
+            <div className="cardActions">
+              <PopOver User={User}>
+                <ConfirmAction
+                  Action={e => this.props.deleteGallery(gallery.id, User.token)}
+                  Disabled={false}
+                  Icon={<i className="fas fa-trash" />}
+                  hasPermission={canDelete}
+                  Size=""
+                  Class="pull-right"
+                  Title={gallery.title}
+                />
+                {canUpdate ? (
+                  <Button
+                    onClick={e => {
+                      e.stopPropagation();
+                      this.setState({
+                        show: true,
+                        editing: true,
+                        gallery_id: gallery.id,
+                        title: gallery.title,
+                        description: gallery.description,
+                        tags: gallery.tags
+                          .split("|")
+                          .map(i => (i = { value: i, label: i })),
+                        gallery_image: gallery.image
+                      });
+                    }}
+                    bsSize=""
+                    className="pull-right"
+                  >
+                    <i className="fa fa-pencil-alt" />
+                  </Button>
+                ) : null}
+              </PopOver>
+            </div>
             {gallery.image ? (
               <Image src={gallery.image} />
             ) : (
@@ -211,43 +246,6 @@ class Images extends PureComponent {
             <div className="gallerySummary">
               <h4>{gallery.title}</h4>
               <p>{gallery.description}</p>
-              <div className="cardActions">
-                <PopOver User={User}>
-                  <ConfirmAction
-                    Action={e =>
-                      this.props.deleteGallery(gallery.id, User.token)
-                    }
-                    Disabled={false}
-                    Icon={<i className="fas fa-trash" />}
-                    hasPermission={canDelete}
-                    Size="small"
-                    Class="pull-right"
-                    Title={gallery.title}
-                  />
-                  {canUpdate ? (
-                    <Button
-                      onClick={e => {
-                        e.stopPropagation();
-                        this.setState({
-                          show: true,
-                          editing: true,
-                          gallery_id: gallery.id,
-                          title: gallery.title,
-                          description: gallery.description,
-                          tags: gallery.tags
-                            .split("|")
-                            .map(i => (i = { value: i, label: i })),
-                          gallery_image: gallery.image
-                        });
-                      }}
-                      bsSize="small"
-                      className="pull-right"
-                    >
-                      <i className="fa fa-pencil-alt" />
-                    </Button>
-                  ) : null}
-                </PopOver>
-              </div>
               <div className="cardInfo">
                 <div
                   className="inlineNoWrap"
@@ -336,7 +334,7 @@ class Images extends PureComponent {
                 name="search"
                 placeholder="Filter by Title or Author..."
                 value={search}
-                onChange={filter => this.onChange(filter, Galleries)}
+                onChange={filter => this.onChange(filter)}
               />
             </InputGroup>
           </Col>

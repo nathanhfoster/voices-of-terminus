@@ -96,6 +96,29 @@ class Cards extends PureComponent {
         // onMouseEnter={() => this.setState({ isHovered: true })}
         // onMouseLeave={() => this.setState({ isHovered: false })}
       >
+        <PopOver User={User} className="pull-right">
+          {canUpdate ? (
+            <Button
+              onClick={e => {
+                e.stopPropagation();
+                editCard(id);
+              }}
+              bsSize=""
+              className="pull-right"
+            >
+              <i className="fa fa-pencil-alt" />
+            </Button>
+          ) : null}
+          <ConfirmAction
+            Action={e => deleteCard(id, User.token)}
+            Disabled={false}
+            Icon={<i className="fas fa-trash" />}
+            hasPermission={canDelete}
+            Size=""
+            Class="pull-right"
+            Title={title}
+          />
+        </PopOver>
         <div className="Preview">
           <div className="previewItem">
             {ReactHtmlParser(renderHtml(title))}
@@ -105,29 +128,6 @@ class Cards extends PureComponent {
           <div className="Summary inlineNoWrap">
             <div className="summaryTitle">
               <h4 className="inlineNoWrap">{title}</h4>
-              <PopOver User={User} className="pull-right">
-                {canUpdate ? (
-                  <Button
-                    onClick={e => {
-                      e.stopPropagation();
-                      editCard(id);
-                    }}
-                    bsSize=""
-                    className="pull-right"
-                  >
-                    <i className="fa fa-pencil-alt" />
-                  </Button>
-                ) : null}
-                <ConfirmAction
-                  Action={e => deleteCard(id, User.token)}
-                  Disabled={false}
-                  Icon={<i className="fas fa-trash" />}
-                  hasPermission={canDelete}
-                  Size=""
-                  Class="pull-right"
-                  Title={title}
-                />
-              </PopOver>
             </div>
             <div
               className="ActionToolbar cardActions"
