@@ -120,9 +120,9 @@ class NavBar extends PureComponent {
             <LinkContainer to="/news/">
               <NavItem eventKey={5}>NEWS</NavItem>
             </LinkContainer>
-            <LinkContainer to="/forums">
+            {/*<LinkContainer to="/forums">
               <NavItem eventKey={6}>FORUMS</NavItem>
-            </LinkContainer>
+            </LinkContainer>*/}
             <NavDropdown eventKey={7} title="GUILD" id="basic-nav-dropdown">
               <LinkContainer to="/guild/about">
                 <NavItem eventKey={7.1}>ABOUT</NavItem>
