@@ -19,6 +19,14 @@
   transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
 }
 
+.Card .ActionDots {
+  display: none;
+}
+
+.Card:hover .ActionDots {
+  display: block;
+}
+
 .Card .HtmlParser {
   padding: 0;
   margin: 0;
@@ -74,7 +82,7 @@
 }
 
 .cardInfo div {
-  margin-top: 4px;
+  /* margin-top: 4px; */
 }
 
 .cardInfo * {

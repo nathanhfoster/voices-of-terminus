@@ -2,16 +2,16 @@
   position: absolute;
   right: 0px;
   padding: 8px;
-  /* -webkit-box-shadow: inset 0px 0px 5px var(--slate_grey);
-  -moz-box-shadow: inset 0px 0px 5px var(--slate_grey);
-  box-shadow: inset 0px 0px 5px var(--slate_grey); */
   outline: none;
   border-radius: 4px;
+  background-color: var(--slate_grey);
+  -webkit-box-shadow: inset 0px 0px 5px var(--slate_grey);
+  -moz-box-shadow: inset 0px 0px 5px var(--slate_grey);
+  box-shadow: inset 0px 0px 5px var(--slate_grey);
 }
 
 .ActionDots:hover {
   color: var(--primaryColor);
-  background-color: var(--slate_grey);
 }
 
 .popover {

@@ -274,9 +274,10 @@ class News extends Component {
     this.setState({ [name]: value ? value : undefined });
   };
 
-  paginate = (nextArticles, nextNewsletters) => {
-    if (nextArticles) this.props.nextArticles(nextArticles);
-    if (nextNewsletters) this.props.nextNewsletters(nextNewsletters);
+  paginate = (Articles, Newsletters) => {
+    const { nextArticles, nextNewsletters } = this.props;
+    if (Articles) nextArticles(Articles);
+    if (Newsletters) nextNewsletters(Newsletters);
   };
 
   render() {
@@ -389,7 +390,7 @@ class News extends Component {
                       filter,
                       dontFilter,
                       (a, b) =>
-                        new Date(b.last_modified) - new Date(a.last_modified),
+                        new Date(b.date_created) - new Date(a.date_created),
                       doc => doc
                     )
                   : null}
@@ -434,7 +435,7 @@ class News extends Component {
                     filter,
                     dontFilter,
                     (a, b) =>
-                      new Date(b.last_modified) - new Date(a.last_modified),
+                      new Date(b.date_created) - new Date(a.date_created),
                     doc => doc.author === this.state.User.id
                   )
                 ) : null}

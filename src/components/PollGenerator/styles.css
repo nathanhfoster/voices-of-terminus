@@ -9,7 +9,7 @@
   opacity: 1;
 }
 
-.react-datepicker-wrapper input{
+.react-datepicker-wrapper input {
   border: 1px solid var(--light_grey);
   border-radius: 6px;
 }

@@ -29,4 +29,5 @@
   height: 180px;
   border-radius: 4px;
   margin: 15px 0 15px 0;
+  object-fit: cover;
 }

@@ -59,6 +59,7 @@
 
 .CharacterCards img {
   height: 100%;
+  object-fit: cover;
 }
 
 .CharacterCards span {

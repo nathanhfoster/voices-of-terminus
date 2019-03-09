@@ -21,6 +21,7 @@
 
 .CardContainerArticle .previewItem img {
   max-width: 100%;
+  object-fit: cover;
 }
 
 .CardContainerNewsletter .previewItem {

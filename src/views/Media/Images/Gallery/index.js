@@ -37,6 +37,7 @@ import "./stylesM.css";
 import ConfirmAction from "../../../../components/ConfirmAction";
 import Lightbox from "react-image-lightbox";
 import { withAlert } from "react-alert";
+import PopOver from "../../../../components/PopOver";
 
 const mapStateToProps = ({ User, Galleries }) => ({
   User,
@@ -66,7 +67,8 @@ class Gallery extends PureComponent {
       image: null,
       image_id: null,
       photoIndex: 0,
-      isOpen: false
+      isOpen: false,
+      cardHovered: null
     };
   }
 
@@ -214,99 +216,89 @@ class Gallery extends PureComponent {
     const canDelete = User.is_superuser || User.can_create_galleries;
     const canUpdate = User.is_superuser || User.can_create_galleries;
     return images
-      .filter(img => (dontFilter ? img : deepEqual(img.tags.split("|"), filter)))
-      .map((image, index) => (
-        <Col md={4} xs={12} className="galleryCardContainer">
-          <div
-            key={image.id}
-            className="Clickable galleryCard Hover"
-            onClick={() => this.setState({ isOpen: true, photoIndex: index })}
-          >
-            {image.image ? (
-              <Image src={image.image} />
-            ) : (
-              <div style={{ position: "absolute", top: "25%", right: "50%" }}>
-                <i className="fa fa-spinner fa-spin" />
-              </div>
-            )}
-            <div className="gallerySummary">
-              <h4>
-                <i className="fas fa-heading" /> {image.title}
-              </h4>
-              <p>
-                <i className="fas fa-clipboard" /> {image.description}
-              </p>
+      .filter(img =>
+        dontFilter ? img : deepEqual(img.tags.split("|"), filter)
+      )
+      .map((image, index) => {
+        const { cardHovered } = this.state;
+        return (
+          <Col md={3} xs={6} className="galleryCardContainer">
+            <div
+              key={image.id}
+              className="Clickable galleryCard Hover"
+              onClick={() => this.setState({ isOpen: true, photoIndex: index })}
+              onMouseEnter={() => this.setState({ cardHovered: image.id })}
+              onMouseLeave={() => this.setState({ cardHovered: null })}
+            >
               <div className="cardActions">
-                <ConfirmAction
-                  Action={e =>
-                    this.props.deleteGalleryImage(image.id, User.token)
-                  }
-                  Disabled={false}
-                  Icon={<i className="fas fa-trash" />}
-                  hasPermission={canDelete}
-                  Size="small"
-                  Class="pull-right"
-                  Title={image.title}
-                />
-                {canUpdate ? (
-                  <Button
-                    onClick={e => {
-                      e.stopPropagation();
-                      this.setState({
-                        show: true,
-                        editing: true,
-                        image_id: image.id,
-                        title: image.title,
-                        description: image.description,
-                        tags: image.tags
-                          .split("|")
-                          .map(i => (i = { value: i, label: i })),
-                        image: image.image
-                      });
-                    }}
-                    bsSize="small"
-                    className="pull-right"
-                  >
-                    <i className="fa fa-pencil-alt" />
-                  </Button>
-                ) : null}
+                <PopOver User={User}>
+                  <ConfirmAction
+                    Action={e =>
+                      this.props.deleteGalleryImage(image.id, User.token)
+                    }
+                    Disabled={false}
+                    Icon={<i className="fas fa-trash" />}
+                    hasPermission={canDelete}
+                    Size="small"
+                    Class="pull-right"
+                    Title={image.title}
+                  />
+                  {canUpdate ? (
+                    <Button
+                      onClick={e => {
+                        e.stopPropagation();
+                        this.setState({
+                          show: true,
+                          editing: true,
+                          image_id: image.id,
+                          title: image.title,
+                          description: image.description,
+                          tags: image.tags
+                            .split("|")
+                            .map(i => (i = { value: i, label: i })),
+                          image: image.image
+                        });
+                      }}
+                      bsSize="small"
+                      className="pull-right"
+                    >
+                      <i className="fa fa-pencil-alt" />
+                    </Button>
+                  ) : null}
+                </PopOver>
               </div>
-              <div className="cardInfo">
-                <div
-                  className="inlineNoWrap"
-                  style={{
-                    width: "calc(100% - 64px)%"
-                  }}
-                >
-                  <i className="fas fa-user" />
-                  <Link
-                    to={`/profile/${image.author}`}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    {image.author_username}
-                  </Link>{" "}
-                  <i className="far fa-clock" />
-                  <Moment fromNow>{image.date_created}</Moment>
+              {image.image ? (
+                <Image src={image.image} />
+              ) : (
+                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                  <i className="fa fa-spinner fa-spin" />
                 </div>
-                <div className="inlineNoWrap">
-                  <i className="fas fa-pencil-alt" />
-                  <Link
-                    to={`/profile/${image.last_modified_by}`}
-                    onClick={e => e.stopPropagation()}
+              )}
+              <div className="gallerySummary">
+                <h4>{image.title}</h4>
+                <span>{image.description}</span>
+                <div className="cardInfo">
+                  <div
+                    className="inlineNoWrap"
+                    style={{
+                      width: "calc(100% - 64px)%"
+                    }}
                   >
-                    {image.last_modified_by_username}
-                  </Link>{" "}
-                  <i className="far fa-clock" />
-                  <Moment fromNow>{image.last_modified}</Moment>
-                </div>
-                <div>
-                  <i className="fas fa-tags" /> [{image.tags}]
+                    <Link
+                      to={`/profile/${image.author}`}
+                      onClick={e => e.stopPropagation()}
+                    >
+                      {image.author_username}
+                    </Link>{" "}
+                    <i className="far fa-clock" />
+                    <Moment fromNow>{image.date_created}</Moment>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Col>
-      ));
+          </Col>
+        );
+      });
   };
 
   render() {

@@ -24,13 +24,19 @@
   transition: transform 100ms ease-out, -webkit-transform 100ms ease-out;
 }
 
+.galleryCard .ActionDots {
+  display: none;
+}
+
+.galleryCard:hover .ActionDots {
+  display: block;
+}
+
 .galleryCard img {
   display: block;
-  margin: 0 auto;
   width: 100%;
-  /* height: 50%;
-  max-width: 100%; */
-  object-fit: fill;
+  max-height: 100%;
+  object-fit: cover;
 }
 
 .gallerySummary {
@@ -42,7 +48,6 @@
   padding: 6px;
   left: 0;
   bottom: 0;
-
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: flex-end;

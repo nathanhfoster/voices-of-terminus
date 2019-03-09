@@ -116,7 +116,15 @@ class ViewHtmlDocument extends Component {
             <Col xs={12}>
               <PageHeader className="Center">{HtmlDocument.title}</PageHeader>
             </Col>
-            <Col xs={12}>{ReactHtmlParser(HtmlDocument.html)}</Col>
+            <Col xs={12}>
+              {!HtmlDocument.html ? (
+                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                  <i className="fa fa-spinner fa-spin fa-2x" />
+                </div>
+              ) : (
+                ReactHtmlParser(HtmlDocument.html)
+              )}
+            </Col>
             <CommentLikes
               match={match}
               history={history}
