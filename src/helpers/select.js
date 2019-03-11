@@ -31,14 +31,23 @@ export const eventTags = [
   { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
   { value: "Quest", label: "Quest" },
-  { value: "Raid", label: "Raid" },
-
-  { value: "Epic", label: "Epic" },
-  { value: "Harvesting", label: "Harvesting" },
-  { value: "Crafting", label: "Crafting" },
-  { value: "Perception", label: "Perception" },
-  { value: "Faction", label: "Faction" }
+  { value: "Raid", label: "Raid" }
 ];
+
+export const eventTagOptions = {
+  Event: [],
+  Dungeon: [],
+  Explore: [],
+  Group: [
+    { value: "Epic", label: "Epic" },
+    { value: "Harvesting", label: "Harvesting" },
+    { value: "Crafting", label: "Crafting" },
+    { value: "Perception", label: "Perception" },
+    { value: "Faction", label: "Faction" }
+  ],
+  Quest: [],
+  Raid: []
+};
 
 export const locationTags = [
   { value: "Locations", label: "Locations", isFixed: true },

@@ -18,7 +18,11 @@ import "./styles.css";
 import "./stylesM.css";
 import { selectStyles } from "../../../helpers/styles";
 import Select from "react-select";
-import { eventTags, locationTags } from "../../../helpers/select";
+import {
+  eventTags,
+  eventTagOptions,
+  locationTags
+} from "../../../helpers/select";
 import {
   DeepCopy,
   roleOptions,
@@ -536,7 +540,9 @@ class Event extends Component {
                   placeholder="Tags..."
                   classNamePrefix="select"
                   onChange={this.onSelectTagChange}
-                  options={eventTags}
+                  options={
+                    tags.length < 2 ? eventTags : eventTagOptions[tags[1].value]
+                  }
                 />
               </InputGroup>
             </Col>

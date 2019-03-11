@@ -14,7 +14,7 @@ const PopOver = props => {
     </Popover>
   );
   return token ? (
-    <OverlayTrigger trigger="click" placement="left" overlay={popover}>
+    <OverlayTrigger placement="left" overlay={popover}>
       <div
         variant="success"
         className="ActionDots pull-right"
