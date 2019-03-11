@@ -23,6 +23,7 @@
   display: none;
 }
 
+.Card:focus .ActionDots,
 .Card:hover .ActionDots {
   display: block;
 }
