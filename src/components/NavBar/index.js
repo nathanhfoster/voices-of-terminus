@@ -224,7 +224,7 @@ class NavBar extends PureComponent {
             </NavDropdown>
 
             {!User.token ? (
-              <LinkContainer to="/login">
+              <LinkContainer to="/login" className="navbar-right" >
                 <NavItem eventKey={9}>LOGIN</NavItem>
               </LinkContainer>
             ) : (
