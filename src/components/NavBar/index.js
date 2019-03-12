@@ -100,9 +100,13 @@ class NavBar extends PureComponent {
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
           <Navbar.Brand>
-            <LinkContainer to="/home">
-              <NavItem eventKey={1}>HOME</NavItem>
-            </LinkContainer>
+            {(User.is_superuser || User.is_staff) && (
+              <LinkContainer to="/admin/overview" className="AdminButton">
+                <NavItem eventKey={11}>
+                  <i className="fas fa-database" /> ADMIN
+                </NavItem>
+              </LinkContainer>
+            )}
             {/*<LinkContainer to="/">
                 <NavItem eventKey={1}><Image src={votLogo} onMouseOver={e => e.currentTarget.src = votLogoHover} onMouseLeave={e => e.currentTarget.src = votLogo}/></NavItem>
                 </LinkContainer>*/}
@@ -111,6 +115,9 @@ class NavBar extends PureComponent {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
+            <LinkContainer to="/home">
+              <NavItem eventKey={1}>HOME</NavItem>
+            </LinkContainer>
             <LinkContainer to="/calendar">
               <NavItem eventKey={3}>CALENDAR</NavItem>
             </LinkContainer>
@@ -229,6 +236,7 @@ class NavBar extends PureComponent {
                   <span key={10.2}> {User.username} </span>,
                   <Badge key={10.3}>{unreadMessages}</Badge>
                 ]}
+                className="navbar-right"
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/profile">
@@ -296,15 +304,6 @@ class NavBar extends PureComponent {
                   <i className="fas fa-cog" /> Settings
                 </MenuItem>
               </NavDropdown>
-            )}
-          </Nav>
-          <Nav className="Center">
-            {(User.is_superuser || User.is_staff) && (
-              <LinkContainer to="/admin/overview" className="AdminButton">
-                <NavItem eventKey={11}>
-                  <i className="fas fa-database" /> ADMIN
-                </NavItem>
-              </LinkContainer>
             )}
           </Nav>
         </Navbar.Collapse>

@@ -7,6 +7,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
   background: rgba(0, 0, 0, 1);
 }
+@media (min-width: 1144px) {
+  .navbar-header {
+    position: absolute;
+    left: 40px;
+  }
+  .navbar-right {
+    position: absolute;
+    right: 0;
+  }
+}
 .navbar-brand img {
   max-height: 50px;
 }
@@ -143,7 +153,6 @@
 .AdminButton {
   background: none;
   text-align: center;
-  margin: 2px auto;
 }
 
 .AdminButton:hover {
