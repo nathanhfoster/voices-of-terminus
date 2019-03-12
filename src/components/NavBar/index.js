@@ -100,11 +100,15 @@ class NavBar extends PureComponent {
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
           <Navbar.Brand>
-            {(User.is_superuser || User.is_staff) && (
+            {User.is_superuser || User.is_staff ? (
               <LinkContainer to="/admin/overview" className="AdminButton">
                 <NavItem eventKey={11}>
                   <i className="fas fa-database" /> ADMIN
                 </NavItem>
+              </LinkContainer>
+            ) : (
+              <LinkContainer to="/home">
+                <NavItem eventKey={1}>HOME</NavItem>
               </LinkContainer>
             )}
             {/*<LinkContainer to="/">
@@ -115,9 +119,11 @@ class NavBar extends PureComponent {
         </Navbar.Header>
         <Navbar.Collapse>
           <Nav>
-            <LinkContainer to="/home">
-              <NavItem eventKey={1}>HOME</NavItem>
-            </LinkContainer>
+            {(User.is_superuser || User.is_staff) && (
+              <LinkContainer to="/home">
+                <NavItem eventKey={1}>HOME</NavItem>
+              </LinkContainer>
+            )}
             <LinkContainer to="/calendar">
               <NavItem eventKey={3}>CALENDAR</NavItem>
             </LinkContainer>
