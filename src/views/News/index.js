@@ -293,18 +293,11 @@ class News extends Component {
         })
       : Documents;
     const Title = match.path.includes("article") ? "ARTICLES" : "NEWS";
-    const latest = match.path.includes("article")
-      ? "/articles/latest"
-      : "/news/latest";
-    const suggested = match.path.includes("article")
-      ? "/articles/suggested"
-      : "/news/suggested";
-    const popular = match.path.includes("article")
-      ? "/articles/popular"
-      : "/news/popular";
-    const myDocs = match.path.includes("article")
-      ? "/articles/my-docs"
-      : "/news/my-docs";
+    const latest = Title == "ARTICLES" ? "/articles/latest" : "/news/latest";
+    const suggested =
+      Title == "ARTICLES" ? "/articles/suggested" : "/news/suggested";
+    const popular = Title == "ARTICLES" ? "/articles/popular" : "/news/popular";
+    const myDocs = Title == "ARTICLES" ? "/articles/my-docs" : "/news/my-docs";
     const filter = selectValue.map(i => i.value);
     const maxlength = selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
@@ -320,18 +313,17 @@ class News extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => history.push("/article/new/")}
-            >
-              <i className="fas fa-plus" /> Article
-            </Button>
-            <Button
-              disabled={!(User.is_superuser || User.can_create_newsletter)}
-              onClick={() => history.push("/newsletter/new")}
-            >
-              <i className="fas fa-plus" /> Newsletter
-            </Button>
+            {Title == "ARTICLES" &&
+              (User.is_superuser || User.can_create_article) && (
+                <Button onClick={() => history.push("/article/new/")}>
+                  <i className="fas fa-plus" /> Article
+                </Button>
+              )}
+            {Title == "NEWS" && (User.is_superuser || User.can_create_article) && (
+              <Button onClick={() => history.push("/newsletter/new")}>
+                <i className="fas fa-plus" /> Newsletter
+              </Button>
+            )}
           </Col>
           <Col md={5} xs={12}>
             <InputGroup>
