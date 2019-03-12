@@ -13,8 +13,8 @@
     left: 40px;
   }
   .navbar-right {
-    position: absolute;
-    right: 0;
+    position: absolute !important;
+    right: 40px !important;
   }
 }
 .navbar-brand img {
