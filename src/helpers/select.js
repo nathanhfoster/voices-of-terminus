@@ -6,6 +6,7 @@ const documentBase = [
   { value: "Community", label: "Community" },
   { value: "VoT", label: "VoT" },
   { value: "Blog", label: "Blog" },
+  { value: "FanFiction", label: "FanFiction" },
   { value: "FanMade", label: "FanMade" },
   { value: "Guide", label: "Guide" },
   { value: "Lore", label: "Lore" },
