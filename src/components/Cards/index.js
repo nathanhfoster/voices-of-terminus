@@ -121,7 +121,7 @@ class Cards extends PureComponent {
         </PopOver>
         <div className="Preview">
           <div className="previewItem">
-            <Image src={tagImage(tags)} />
+            <Image className="tagImage" src={tagImage(tags)} />
           </div>
         </div>
         {summary ? (
