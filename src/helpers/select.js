@@ -1,5 +1,10 @@
 const documentBase = [
-  { value: "Official", label: "Official" },
+  { value: "VR", label: "VR" },
+  { value: "Guild", label: "Guild" },
+  { value: "Game", label: "Game" },
+  { value: "Show", label: "Show" },
+  { value: "Community", label: "Community" },
+  { value: "VoT", label: "VoT" },
   { value: "Blog", label: "Blog" },
   { value: "FanMade", label: "FanMade" },
   { value: "Guide", label: "Guide" },

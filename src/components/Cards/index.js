@@ -1,11 +1,11 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, ButtonToolbar } from "react-bootstrap";
+import { Button, ButtonToolbar, Image } from "react-bootstrap";
 import Moment from "react-moment";
-import ReactHtmlParser, { convertNodeToElement } from "react-html-parser";
 import ConfirmAction from "../ConfirmAction";
 import PopOver from "../PopOver";
+import { tagImage } from "../../helpers/tagImages";
 import "./styles.css";
 
 class Cards extends PureComponent {
@@ -121,7 +121,7 @@ class Cards extends PureComponent {
         </PopOver>
         <div className="Preview">
           <div className="previewItem">
-            {ReactHtmlParser(renderHtml(title))}
+            <Image src={tagImage(tags)} />
           </div>
         </div>
         {summary ? (
