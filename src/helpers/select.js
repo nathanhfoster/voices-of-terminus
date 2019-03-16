@@ -11,7 +11,6 @@ const documentBase = [
   { value: "Guide", label: "Guide" },
   { value: "Lore", label: "Lore" },
   { value: "Review", label: "Review" },
-  { value: "VotShow", label: "VotShow" },
   { value: "Other", label: "Other" }
 ];
 
