@@ -303,19 +303,21 @@ class NewsLetterGenerator extends PureComponent {
                   ]
                 : "POST"}
             </Button>
-            <Button onClick={this.updateNewsletter} disabled={!isEditingDesign}>
-              {updating && !updated
-                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                : !updating && updated && !error
-                ? [
-                    <i
-                      className="fas fa-check"
-                      style={{ color: "var(--color_emerald)" }}
-                    />,
-                    " UPDATE"
-                  ]
-                : "UPDATE"}
-            </Button>
+            {id && (
+              <Button onClick={this.updateNewsletter} disabled={!design}>
+                {updating && !updated
+                  ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                  : !updating && updated && !error
+                  ? [
+                      <i
+                        className="fas fa-check"
+                        style={{ color: "var(--color_emerald)" }}
+                      />,
+                      " UPDATE"
+                    ]
+                  : "UPDATE"}
+              </Button>
+            )}
           </Col>
           {/* <Col
             xs={4}
