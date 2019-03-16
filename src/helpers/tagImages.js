@@ -6,19 +6,18 @@ import Official from "../images/News/official.png";
 import Show from "../images/News/show.png";
 
 export const tagImage = tags => {
-  const T = tags.split("|")[1];
-  if (T == "VR") return Official;
-  if (T == "Guild") return Guild;
-  if (T == "Game") return Game;
-  if (T == "Show") return Show;
-  if (T == "Community") return Community;
-  if (T == "VoT") return Default;
-  //   if (T == "Blog")
-  //   if (T == "FanMade")
-  //   if (T == "Guide")
-  //   if (T == "Lore")
-  //   if (T == "Review")
-  //   if (T == "VotShow")
-  //   if (T == "Other")
+  if (tags.includes("VR")) return Official;
+  if (tags.includes("Guild")) return Guild;
+  if (tags.includes("Game")) return Game;
+  if (tags.includes("Show")) return Show;
+  if (tags.includes("Community")) return Community;
+  if (tags.includes("VoT")) return Default;
+  //   if (tags.includes("Blog"))
+  //   if (tags.includes("FanMade"))
+  //   if (tags.includes("Guide"))
+  //   if (tags.includes("Lore"))
+  //   if (tags.includes("Review"))
+  //   if (tags.includes("VotShow"))
+  //   if (tags.includes("Other"))
   return Default;
 };
