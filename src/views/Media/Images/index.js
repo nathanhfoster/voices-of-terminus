@@ -317,12 +317,11 @@ class Images extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              disabled={!(User.is_superuser || User.can_create_galleries)}
-              onClick={() => this.setState({ show: true })}
-            >
-              <i className="fas fa-plus" /> Gallery
-            </Button>
+            {(User.is_superuser || User.can_create_galleries) && (
+              <Button onClick={() => this.setState({ show: true })}>
+                <i className="fas fa-plus" /> Gallery
+              </Button>
+            )}
           </Col>
           <Col md={5} xs={12}>
             <InputGroup>

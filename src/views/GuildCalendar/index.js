@@ -159,13 +159,14 @@ class GuildCalendar extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              disabled={!(User.is_superuser || User.can_create_calendar_event)}
-              onClick={e => history.push("/calendar/new/event")}
-              className="todayButton"
-            >
-              <i className="far fa-calendar-plus" /> Event
-            </Button>
+            {(User.is_superuser || User.can_create_calendar_event) && (
+              <Button
+                onClick={e => history.push("/calendar/new/event")}
+                className="todayButton"
+              >
+                <i className="far fa-calendar-plus" /> Event
+              </Button>
+            )}
             <Button onClick={this.Today} className="todayButton pull-right">
               <i className="fas fa-calendar-day" /> Today
             </Button>

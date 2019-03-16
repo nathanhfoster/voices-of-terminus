@@ -2,7 +2,6 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 import { DeepCopy } from "../helpers";
-import Charters from "../views/Guild/Charters";
 
 export const getYearMonthEvents = payload => dispatch => {
   dispatch({ type: C.GET_EVENTS_LOADING });
