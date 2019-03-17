@@ -10,8 +10,6 @@ import {
   Button
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
-import "./styles.css";
-import "./stylesM.css";
 import { getUser, setUser } from "../../../actions/App";
 import {
   MainAltCharacter,
@@ -25,6 +23,9 @@ import {
 } from "../../../helpers";
 import Moment from "react-moment";
 import { ExperienceBar } from "../../../components/ExperienceBar";
+import { CharacterCard } from "../../../components/CharacterCard";
+import "./styles.css";
+import "./stylesM.css";
 
 const mapStateToProps = ({ User, Admin }) => ({
   User,
@@ -85,48 +86,7 @@ class PublicProfile extends PureComponent {
     );
 
   renderCharacters = Characters =>
-    Characters.map((c, i) => {
-      let {
-        id,
-        name,
-        level,
-        race,
-        role,
-        character_class,
-        profession,
-        profession_specialization,
-        main,
-        alt,
-        date_created,
-        last_modified
-      } = c;
-      return (
-        <Row className="CharacterCards">
-          <Col xs={3}>
-            <Image src={roleClassIcon(character_class || role)} />
-            <span>{` (${level})`}</span>
-          </Col>
-          <Col xs={3}>
-            <span>{name}</span>
-          </Col>
-          <Col xs={3}>
-            <span>{profession}</span>
-          </Col>
-          <Col xs={3}>
-            <span>{profession_specialization}</span>
-          </Col>
-          <Col xs={4}>
-            <span>{race}</span>
-          </Col>
-          <Col xs={4}>
-            <span>{role}</span>
-          </Col>
-          <Col xs={4}>
-            <span>{character_class}</span>
-          </Col>
-        </Row>
-      );
-    });
+    Characters.map((c, i) => <CharacterCard {...c} />);
 
   render() {
     const CurrentUser = this.props.User;
@@ -353,6 +313,13 @@ class PublicProfile extends PureComponent {
             </Well>
           </Col>
         </Row>
+        {User.Characters.length > 0 && (
+          <Row className="Center">
+            <Col xs={12}>
+              <h3>Characters</h3>
+            </Col>
+          </Row>
+        )}
         {this.renderCharacters(User.Characters)}
         <Row className="userConnections">
           <Col md={3} xs={3}>

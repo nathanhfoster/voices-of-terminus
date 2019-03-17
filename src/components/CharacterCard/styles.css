@@ -1,0 +1,18 @@
+.CharacterCard {
+  border: 1px solid var(--light_grey);
+  border-radius: 6px;
+  padding: 4px 0;
+}
+
+.CharacterCard img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.CharacterCard span {
+  font-size: 24px;
+}
+
+.CharacterCard [class*="col-"] {
+  height: 46px;
+}

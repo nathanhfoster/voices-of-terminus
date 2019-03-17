@@ -51,25 +51,6 @@
   display: block;
 }
 
-.CharacterCards {
-  border: 1px solid var(--light_grey);
-  border-radius: 6px;
-  padding: 4px 0;
-}
-
-.CharacterCards img {
-  height: 100%;
-  object-fit: cover;
-}
-
-.CharacterCards span {
-  font-size: 24px;
-}
-
-.CharacterCards [class*="col-"] {
-  height: 46px;
-}
-
 .userConnections {
   padding: 8px;
   text-align: center;
