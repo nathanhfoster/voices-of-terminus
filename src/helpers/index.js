@@ -40,6 +40,7 @@ export const eventLabelColor = tags => {
   if (type == "Group") return "var(--color_peterRiver)";
   if (type == "Quest") return "var(--color_amethyst)";
   if (type == "Raid") return "var(--color_alizarin)";
+  if (type == "VoTShow") return "var(--color_turquoise)";
 
   return "var(--primaryColor)";
 };
