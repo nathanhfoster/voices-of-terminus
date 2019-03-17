@@ -50,8 +50,8 @@ class Event extends Component {
       end_date: new Date(),
       locations: locationTags.filter(e => e.isFixed),
       tags: eventTags.filter(e => e.isFixed),
-      min_level: 1,
-      max_level: 60,
+      min_level: null,
+      max_level: null,
       role_class_preferences: [
         { value: "Healer", label: "Healer" },
         { value: "Melee Dps", label: "Melee Dps" },
