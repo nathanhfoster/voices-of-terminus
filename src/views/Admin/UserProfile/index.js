@@ -252,6 +252,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       is_host,
+      is_lore_master,
       can_create_article,
       can_create_galleries,
       can_create_lore,
@@ -295,6 +296,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       is_host,
+      is_lore_master,
       can_create_article,
       can_create_galleries,
       can_create_lore,
@@ -1082,7 +1084,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Raid Leader</span>
-                <span className="help">Raid Leader</span>
+                <span className="help">Raid Leader.</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -1102,7 +1104,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Banker</span>
-                <span className="help">Banker</span>
+                <span className="help">Banker.</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -1122,7 +1124,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Recruiter</span>
-                <span className="help">Recruiter</span>
+                <span className="help">Recruiter.</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -1142,7 +1144,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Class Lead</span>
-                <span className="help">Class Lead</span>
+                <span className="help">Class Lead.</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -1162,7 +1164,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Crafter Lead</span>
-                <span className="help">Crafter Lead</span>
+                <span className="help">Crafter Lead.</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -1182,7 +1184,27 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Host</span>
-                <span className="help">Host of the VoT show</span>
+                <span className="help">Host of the VoT show.</span>
+              </Checkbox>
+            </Col>
+            <Col xs={12}>
+              <Checkbox
+                disabled={!canEdit}
+                checked={Admin.User.is_lore_master}
+                onClick={e =>
+                  this.setState(prevState => ({
+                    Admin: {
+                      ...prevState.Admin,
+                      User: {
+                        ...prevState.Admin.User,
+                        is_lore_master: !Admin.User.is_lore_master
+                      }
+                    }
+                  }))
+                }
+              >
+                <span className="checkBoxText">Lore Master</span>
+                <span className="help">Creates lore books.</span>
               </Checkbox>
             </Col>
           </Row>

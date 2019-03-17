@@ -140,9 +140,9 @@ class PublicProfile extends PureComponent {
       is_recruiter,
       is_class_lead,
       is_crafter_lead,
-      is_host
+      is_host,
+      is_lore_master
     } = User ? User : {};
-
 
     const MainCharacter = MainAltCharacter(User, "main");
     const AltCharacter = MainAltCharacter(User, "alt");
