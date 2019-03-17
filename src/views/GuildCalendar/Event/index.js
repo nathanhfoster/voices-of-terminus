@@ -506,7 +506,7 @@ class Event extends Component {
                 />
               </InputGroup>
             </Col>
-            <Col xs={12} style={{ marginTop: 16 }}>
+            <Col xs={12}>
               <FormGroup validationState={this.validateTitle(title)}>
                 <ControlLabel>Title</ControlLabel>
                 <FormControl
@@ -571,7 +571,7 @@ class Event extends Component {
               </Col>
             )}
             {this.showGroups(tags) && (
-              <Col xs={12} style={{ marginTop: 16 }}>
+              <Col xs={12}>
                 <FormGroup>
                   <ControlLabel>{`Level range (${min_level} - ${max_level})`}</ControlLabel>
                   <Range

@@ -251,8 +251,11 @@ class UserProfile extends PureComponent {
       is_recruiter,
       is_class_lead,
       is_crafter_lead,
+      is_host,
       can_create_article,
       can_create_galleries,
+      can_create_lore,
+      can_create_references,
       can_create_newsletter,
       can_create_calendar_event,
       can_read_article,
@@ -291,8 +294,11 @@ class UserProfile extends PureComponent {
       is_recruiter,
       is_class_lead,
       is_crafter_lead,
+      is_host,
       can_create_article,
       can_create_galleries,
+      can_create_lore,
+      can_create_references,
       can_create_newsletter,
       can_create_calendar_event,
       can_read_article,
@@ -841,6 +847,41 @@ class UserProfile extends PureComponent {
                     >
                       Galleries
                     </Checkbox>
+                    <Checkbox
+                      disabled={!canEdit}
+                      checked={Admin.User.can_create_lore}
+                      onClick={e =>
+                        this.setState(prevState => ({
+                          Admin: {
+                            ...prevState.Admin,
+                            User: {
+                              ...prevState.Admin.User,
+                              can_create_lore: !Admin.User.can_create_lore
+                            }
+                          }
+                        }))
+                      }
+                    >
+                      Lore
+                    </Checkbox>
+                    <Checkbox
+                      disabled={!canEdit}
+                      checked={Admin.User.can_create_references}
+                      onClick={e =>
+                        this.setState(prevState => ({
+                          Admin: {
+                            ...prevState.Admin,
+                            User: {
+                              ...prevState.Admin.User,
+                              can_create_references: !Admin.User
+                                .can_create_references
+                            }
+                          }
+                        }))
+                      }
+                    >
+                      References
+                    </Checkbox>
                   </Col>
                   <Col md={3} xs={12}>
                     <h3>READ</h3>
@@ -1122,6 +1163,26 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Crafter Lead</span>
                 <span className="help">Crafter Lead</span>
+              </Checkbox>
+            </Col>
+            <Col xs={12}>
+              <Checkbox
+                disabled={!canEdit}
+                checked={Admin.User.is_host}
+                onClick={e =>
+                  this.setState(prevState => ({
+                    Admin: {
+                      ...prevState.Admin,
+                      User: {
+                        ...prevState.Admin.User,
+                        is_host: !Admin.User.is_host
+                      }
+                    }
+                  }))
+                }
+              >
+                <span className="checkBoxText">Host</span>
+                <span className="help">Host of the VoT show</span>
               </Checkbox>
             </Col>
           </Row>

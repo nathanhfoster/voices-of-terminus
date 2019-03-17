@@ -13,6 +13,10 @@
   min-height: 160vh;
 }
 
+.Event [class*="col-"] {
+  margin-top: 16px;
+}
+
 .Event .memberRow {
   border-radius: 6px;
   padding: 2px;
