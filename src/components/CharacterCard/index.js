@@ -20,27 +20,24 @@ export const CharacterCard = chracter => {
   } = chracter;
   return (
     <Row className="CharacterCard">
-      <Col xs={3}>
+      <Col xs={6}>
         <Image src={roleClassIcon(character_class || role)} />
         <span>{` (${level})`}</span>
       </Col>
-      <Col xs={3}>
+      <Col xs={6}>
         <span>{name}</span>
       </Col>
-      <Col xs={3}>
-        <span>{profession}</span>
-      </Col>
-      <Col xs={3}>
-        <span>{profession_specialization}</span>
-      </Col>
-      <Col xs={4}>
+      <Col xs={6}>
         <span>{race}</span>
       </Col>
-      <Col xs={4}>
-        <span>{role}</span>
+      <Col xs={6}>
+        <span>`${role} - ${character_class}`</span>
       </Col>
-      <Col xs={4}>
-        <span>{character_class}</span>
+      <Col xs={6}>
+        <span>{profession}</span>
+      </Col>
+      <Col xs={6}>
+        <span>{profession_specialization}</span>
       </Col>
     </Row>
   );
