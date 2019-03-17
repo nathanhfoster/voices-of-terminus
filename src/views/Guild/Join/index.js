@@ -54,7 +54,7 @@ class Join extends PureComponent {
                 self-benefit.
               </p>
               <p>
-                We are also a chatty bunch of people and do <em>require</em>
+                We are also a chatty bunch of people and do <em>require </em>
                 that all members use{" "}
                 <a href="https://discordapp.com/" target="_blank">
                   Discord
