@@ -31,7 +31,7 @@ export const CharacterCard = chracter => {
         <span>{race}</span>
       </Col>
       <Col xs={6}>
-        <span>`${role} - ${character_class}`</span>
+        <span>{`${role} - ${character_class}`}</span>
       </Col>
       <Col xs={6}>
         <span>{profession}</span>
