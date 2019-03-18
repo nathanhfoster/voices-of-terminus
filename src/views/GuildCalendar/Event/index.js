@@ -50,8 +50,8 @@ class Event extends Component {
       end_date: new Date(),
       locations: locationTags.filter(e => e.isFixed),
       tags: eventTags.filter(e => e.isFixed),
-      min_level: null,
-      max_level: null,
+      min_level: 1,
+      max_level: 60,
       role_class_preferences: [
         { value: "Healer", label: "Healer" },
         { value: "Melee Dps", label: "Melee Dps" },
@@ -265,20 +265,31 @@ class Event extends Component {
       group_size,
       groups
     } = this.state;
-    const payload = {
-      start_date,
-      end_date,
-      title,
-      url,
-      description,
-      author: User.id,
-      last_modified_by: User.id,
-      tags: tags.map(e => e.value).join("|"),
-      min_level,
-      max_level,
-      locations: locations.map(e => e.value).join("|"),
-      group_size
-    };
+    const payload = !this.showGroups(tags)
+      ? {
+          start_date,
+          end_date,
+          title,
+          url,
+          description,
+          author: User.id,
+          last_modified_by: User.id,
+          tags: tags.map(e => e.value).join("|"),
+        }
+      : {
+          start_date,
+          end_date,
+          title,
+          url,
+          description,
+          author: User.id,
+          last_modified_by: User.id,
+          tags: tags.map(e => e.value).join("|"),
+          min_level,
+          max_level,
+          locations: locations.map(e => e.value).join("|"),
+          group_size
+        };
     postEvent(User.id, User.token, payload, groups);
   };
 
