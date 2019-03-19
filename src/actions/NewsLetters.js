@@ -46,26 +46,10 @@ export const getNewsletters = () => (dispatch, getState) => {
                   newsletters.data.results[i].likeCount +
                   newsletters.data.results[i].commentCount;
               }
-              const { Newsletters } = getState();
-              const hasHtml = Newsletters.results.every(
-                newsletter => newsletter.html
-              );
-              if (
-                !hasHtml ||
-                !deepEqual(
-                  Newsletters.results.map(k => k.id),
-                  newsletters.data.results.map(k => k.id)
-                ) ||
-                !deepEqual(
-                  Newsletters.results.map(k => k.last_modified),
-                  newsletters.data.results.map(k => k.last_modified)
-                )
-              ) {
-                dispatch({
-                  type: C.GET_NEWSLETTERS_SUCCESS,
-                  payload: newsletters.data
-                });
-              }
+              dispatch({
+                type: C.GET_NEWSLETTERS_SUCCESS,
+                payload: newsletters.data
+              });
             });
         });
     })

@@ -46,28 +46,10 @@ export const getArticles = () => (dispatch, getState) => {
                   articles.data.results[i].likeCount +
                   articles.data.results[i].commentCount;
               }
-              const { Articles } = getState();
-              const hasHtml = Articles.results.every(article => article.html);
-              if (
-                !hasHtml ||
-                !deepEqual(
-                  Articles.results.map(k => k.id),
-                  articles.data.results.map(k => k.id)
-                ) ||
-                !deepEqual(
-                  Articles.results.map(k => k.last_modified),
-                  articles.data.results.map(k => k.last_modified)
-                ) ||
-                !deepEqual(
-                  Articles.results.map(k => k.views),
-                  articles.data.results.map(k => k.views)
-                )
-              ) {
-                dispatch({
-                  type: C.GET_ARTICLES_SUCCESS,
-                  payload: articles.data
-                });
-              }
+              dispatch({
+                type: C.GET_ARTICLES_SUCCESS,
+                payload: articles.data
+              });
             });
         });
     })

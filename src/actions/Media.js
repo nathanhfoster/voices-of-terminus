@@ -10,22 +10,10 @@ export const getGalleries = () => (dispatch, getState) => {
     .then(galleries => {
       const { Galleries } = getState();
       const hasImage = Galleries.results.every(gallery => gallery.image);
-      if (
-        !hasImage ||
-        !deepEqual(
-          Galleries.results.map(k => k.id),
-          galleries.data.results.map(k => k.id)
-        ) ||
-        !deepEqual(
-          Galleries.results.map(k => k.last_modified),
-          galleries.data.results.map(k => k.last_modified)
-        )
-      ) {
-        dispatch({
-          type: C.GET_GALLERIES,
-          payload: galleries.data
-        });
-      }
+      dispatch({
+        type: C.GET_GALLERIES,
+        payload: galleries.data
+      });
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
 };
@@ -109,28 +97,10 @@ export const viewGalleryImages = id => (dispatch, getState) => {
   Axios()
     .get(`gallery/images/${id}/view/`)
     .then(gallery => {
-      const { Gallery } = getState().Galleries;
-      const hasImage = Gallery.results.every(gallery => gallery.image);
-      if (
-        !hasImage ||
-        !deepEqual(
-          Gallery.results.map(k => k.id),
-          gallery.data.results.map(k => k.id)
-        ) ||
-        !deepEqual(
-          Gallery.results.map(k => k.last_modified),
-          gallery.data.results.map(k => k.last_modified)
-        ) ||
-        !deepEqual(
-          Gallery.results.map(k => k.views),
-          gallery.data.results.map(k => k.views)
-        )
-      ) {
-        dispatch({
-          type: C.GET_GALLERY,
-          payload: gallery.data
-        });
-      }
+      dispatch({
+        type: C.GET_GALLERY,
+        payload: gallery.data
+      });
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
 };

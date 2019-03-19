@@ -78,7 +78,7 @@ class ViewHtmlDocument extends Component {
     const { HtmlDocument } = nextProps;
     const currentHtmlDocument = this.state.HtmlDocument;
 
-    return !deepEqual(HtmlDocument, currentHtmlDocument);
+    return deepEqual(HtmlDocument, currentHtmlDocument);
   }
 
   componentWillReceiveProps(nextProps) {
