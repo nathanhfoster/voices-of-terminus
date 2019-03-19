@@ -19,26 +19,38 @@ export const CharacterCard = chracter => {
     last_modified
   } = chracter;
   return (
-    <Row className="CharacterCard">
-      <Col xs={6}>
-        <Image src={roleClassIcon(character_class || role)} />
-        <span>{` (${level})`}</span>
-      </Col>
-      <Col xs={6}>
-        <span>{name}</span>
-      </Col>
-      <Col xs={6}>
-        <span>{race}</span>
-      </Col>
-      <Col xs={6}>
-        <span>{`${role} - ${character_class}`}</span>
-      </Col>
-      <Col xs={6}>
-        <span>{profession}</span>
-      </Col>
-      <Col xs={6}>
-        <span>{profession_specialization}</span>
-      </Col>
-    </Row>
+    name && (
+      <Row className="CharacterCard">
+        <Col xs={8}>
+          <div className="CharacterName">{name}</div>
+        </Col>
+        {character_class && (
+          <Col xs={4}>
+            <div className="CharacterClassImage pull-right">
+              <Image src={roleClassIcon(character_class || role)} />
+              <b>{` (${level})`}</b>
+            </div>
+          </Col>
+        )}
+        {race && (
+          <Col xs={12}>
+            {role && character_class ? (
+              <em>{`${race}: ${role} - ${character_class}`}</em>
+            ) : (
+              <em>{`${race}: ${role}`}</em>
+            )}
+          </Col>
+        )}
+        {profession && (
+          <Col xs={12}>
+            {profession_specialization ? (
+              <span>{`${profession} - ${profession_specialization}`}</span>
+            ) : (
+              <span>{profession}</span>
+            )}
+          </Col>
+        )}
+      </Row>
+    )
   );
 };

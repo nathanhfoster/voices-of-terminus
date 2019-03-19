@@ -4,15 +4,21 @@
   padding: 4px 0;
 }
 
+.CharacterCard .CharacterName {
+  font-size: 36px;
+}
+
+.CharacterCard .CharacterClassImage {
+  height: 51px;
+}
+
 .CharacterCard img {
   height: 100%;
   object-fit: cover;
 }
 
-.CharacterCard span {
-  font-size: 24px;
-}
-
-.CharacterCard [class*="col-"] {
-  height: 46px;
+.CharacterCard b,
+.CharacterCard span,
+.CharacterCard em {
+  font-size: 22px;
 }
