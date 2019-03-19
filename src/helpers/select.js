@@ -53,7 +53,8 @@ export const eventTagOptions = {
     { value: "Faction", label: "Faction" }
   ],
   Quest: [],
-  Raid: []
+  Raid: [],
+  VoTShow: []
 };
 
 export const locationTags = [

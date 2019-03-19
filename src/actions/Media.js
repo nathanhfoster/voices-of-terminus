@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios, AxiosForm } from "./Axios";
+import { Axios } from "./Axios";
 import qs from "qs";
 import deepEqual from "deep-equal";
 
@@ -10,10 +10,12 @@ export const getGalleries = () => (dispatch, getState) => {
     .then(galleries => {
       const { Galleries } = getState();
       const hasImage = Galleries.results.every(gallery => gallery.image);
-      dispatch({
-        type: C.GET_GALLERIES,
-        payload: galleries.data
-      });
+      if (!hasImage || !deepEqual(Galleries, galleries)) {
+        dispatch({
+          type: C.GET_GALLERIES,
+          payload: galleries.data
+        });
+      }
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
 };
@@ -97,10 +99,14 @@ export const viewGalleryImages = id => (dispatch, getState) => {
   Axios()
     .get(`gallery/images/${id}/view/`)
     .then(gallery => {
-      dispatch({
-        type: C.GET_GALLERY,
-        payload: gallery.data
-      });
+      const { Gallery } = getState().Galleries;
+      const hasImage = Gallery.results.every(gallery => gallery.image);
+      if (!hasImage || !deepEqual(Gallery, gallery)) {
+        dispatch({
+          type: C.GET_GALLERY,
+          payload: gallery.data
+        });
+      }
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
 };
