@@ -10,18 +10,15 @@ export const getGalleries = () => (dispatch, getState) => {
     .then(galleries => {
       const { Galleries } = getState();
       const hasImage = Galleries.results.every(gallery => gallery.image);
-
       if (
         !hasImage ||
         !deepEqual(
-          Galleries.results.map(k => ({
-            id: k.id,
-            last_modified: k.last_modified
-          })),
-          galleries.data.results.map(k => ({
-            id: k.id,
-            last_modified: k.last_modified
-          }))
+          Galleries.results.map(k => k.id),
+          galleries.data.results.map(k => k.id)
+        ) ||
+        !deepEqual(
+          Galleries.results.map(k => k.last_modified),
+          galleries.data.results.map(k => k.last_modified)
         )
       ) {
         dispatch({
@@ -86,7 +83,7 @@ export const deleteGallery = (id, token) => (dispatch, getState) =>
       });
     })
     .catch(e => console.log(e));
-    
+
 export const postGallery = (token, payload) => (dispatch, getState) => {
   Axios(token)
     .post("galleries/", qs.stringify(payload))
@@ -117,16 +114,16 @@ export const viewGalleryImages = id => (dispatch, getState) => {
       if (
         !hasImage ||
         !deepEqual(
-          Gallery.results.map(k => ({
-            id: k.id,
-            last_modified: k.last_modified,
-            views: k.views
-          })),
-          gallery.data.results.map(k => ({
-            id: k.id,
-            last_modified: k.last_modified,
-            views: k.views
-          }))
+          Gallery.results.map(k => k.id),
+          gallery.data.results.map(k => k.id)
+        ) ||
+        !deepEqual(
+          Gallery.results.map(k => k.last_modified),
+          gallery.data.results.map(k => k.last_modified)
+        ) ||
+        !deepEqual(
+          Gallery.results.map(k => k.views),
+          gallery.data.results.map(k => k.views)
         )
       ) {
         dispatch({
