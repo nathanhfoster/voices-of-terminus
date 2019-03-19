@@ -2,7 +2,6 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 import deepEqual from "deep-equal";
-
 export const getGalleries = () => (dispatch, getState) => {
   dispatch({ type: C.GET_GALLERIES_LOADING });
   return Axios()
@@ -10,7 +9,20 @@ export const getGalleries = () => (dispatch, getState) => {
     .then(galleries => {
       const { Galleries } = getState();
       const hasImage = Galleries.results.every(gallery => gallery.image);
-      if (!hasImage || !deepEqual(Galleries, galleries)) {
+
+      if (
+        !hasImage ||
+        !deepEqual(
+          Galleries.results.map(k => ({
+            id: k.id,
+            last_modified: k.last_modified
+          })),
+          galleries.data.results.map(k => ({
+            id: k.id,
+            last_modified: k.last_modified
+          }))
+        )
+      ) {
         dispatch({
           type: C.GET_GALLERIES,
           payload: galleries.data
@@ -19,7 +31,6 @@ export const getGalleries = () => (dispatch, getState) => {
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
 };
-
 export const getGalleryImage = id => (dispatch, getState) =>
   Axios()
     .get(`galleries/${id}/image/`)
@@ -37,7 +48,6 @@ export const getGalleryImage = id => (dispatch, getState) =>
       });
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
-
 export const updateGallery = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
     .patch(`galleries/${id}/`, qs.stringify(payload))
@@ -59,7 +69,6 @@ export const updateGallery = (id, token, payload) => (dispatch, getState) =>
         payload: e.response
       })
     );
-
 export const deleteGallery = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`galleries/${id}/`)
@@ -73,7 +82,6 @@ export const deleteGallery = (id, token) => (dispatch, getState) =>
       });
     })
     .catch(e => console.log(e));
-
 export const postGallery = (token, payload) => (dispatch, getState) => {
   Axios(token)
     .post("galleries/", qs.stringify(payload))
@@ -93,7 +101,6 @@ export const postGallery = (token, payload) => (dispatch, getState) => {
       })
     );
 };
-
 export const viewGalleryImages = id => (dispatch, getState) => {
   dispatch({ type: C.GET_GALLERY_LOADING });
   Axios()
@@ -101,7 +108,21 @@ export const viewGalleryImages = id => (dispatch, getState) => {
     .then(gallery => {
       const { Gallery } = getState().Galleries;
       const hasImage = Gallery.results.every(gallery => gallery.image);
-      if (!hasImage || !deepEqual(Gallery, gallery)) {
+      if (
+        !hasImage ||
+        !deepEqual(
+          Gallery.results.map(k => ({
+            id: k.id,
+            last_modified: k.last_modified,
+            views: k.views
+          })),
+          gallery.data.results.map(k => ({
+            id: k.id,
+            last_modified: k.last_modified,
+            views: k.views
+          }))
+        )
+      ) {
         dispatch({
           type: C.GET_GALLERY,
           payload: gallery.data
@@ -110,7 +131,6 @@ export const viewGalleryImages = id => (dispatch, getState) => {
     })
     .catch(e => dispatch({ type: C.GET_GALLERIES_ERROR, payload: e }));
 };
-
 export const viewGalleryImage = id => (dispatch, getState) => {
   Axios()
     .get(`gallery/images/${id}/image/`)
@@ -129,7 +149,6 @@ export const viewGalleryImage = id => (dispatch, getState) => {
     })
     .catch(e => console.log(e));
 };
-
 export const postGalleryImage = (token, payload) => (dispatch, getState) =>
   Axios(token)
     .post(`gallery/images/`, qs.stringify(payload))
@@ -148,7 +167,6 @@ export const postGalleryImage = (token, payload) => (dispatch, getState) =>
         payload: e.response
       })
     );
-
 export const updateGalleryImage = (id, token, payload) => (
   dispatch,
   getState
@@ -173,7 +191,6 @@ export const updateGalleryImage = (id, token, payload) => (
         payload: e.response
       })
     );
-
 export const deleteGalleryImage = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`gallery/images/${id}/`)
@@ -187,5 +204,4 @@ export const deleteGalleryImage = (id, token) => (dispatch, getState) =>
       });
     })
     .catch(e => console.log(e));
-
 export const clearGalleryImages = () => ({ type: C.CLEAR_GALLERY });
