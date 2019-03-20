@@ -26,7 +26,7 @@ const getUsersCharacters = (Users, dispatch) => {
     .get(`user/characters/`)
     .then(res => {
       const Characters = res.data;
-      let payload = Users.map(u => {
+      const payload = Users.map(u => {
         u.Characters = Characters.filter(c => c.author === u.id);
         return u;
       });

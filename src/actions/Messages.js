@@ -1,6 +1,5 @@
 import C from "../constants";
 import { Axios } from "./Axios";
-import { DeepCopy } from "../helpers";
 import qs from "qs";
 
 export const getUserMessages = (userId, token) => dispatch =>

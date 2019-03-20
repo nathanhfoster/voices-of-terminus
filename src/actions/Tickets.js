@@ -80,3 +80,53 @@ export const editTicket = (token, id, payload) => dispatch => {
       });
     });
 };
+
+export const getTicketNotes = (token, ticketId) => dispatch => {
+  Axios(token)
+    .get(`ticket/notes/${ticketId}/view/`)
+    .then(res => {
+      dispatch({
+        type: C.GET_TICKET_NOTES,
+        payload: res.data
+      });
+    })
+    .catch(e => console.log(e));
+};
+
+export const postTicketNote = (token, payload) => (dispatch, geState) =>
+  Axios(token)
+    .post(`ticket/notes/`, qs.stringify(payload))
+    .then(res => {
+      const { Notes } = geState().Admin.Ticket;
+      const payload = [...Notes, { ...res.data }];
+      dispatch({
+        type: C.GET_TICKET_NOTES,
+        payload: payload
+      });
+    })
+    .catch(e => console.log(e));
+
+export const getTicketStatusChanges = (token, ticketId) => dispatch => {
+  Axios(token)
+    .get(`ticket/statusChanges/${ticketId}/view/`)
+    .then(res => {
+      dispatch({
+        type: C.GET_TICKET_STATUS_CHANGES,
+        payload: res.data
+      });
+    })
+    .catch(e => console.log(e));
+};
+
+export const postTicketStatusChange = (token, payload) => (dispatch, geState) =>
+  Axios(token)
+    .post(`ticket/statusChanges/`, qs.stringify(payload))
+    .then(res => {
+      const { StatusChanges } = geState().Admin.Ticket;
+      const payload = [...StatusChanges, { ...res.data }];
+      dispatch({
+        type: C.GET_TICKET_STATUS_CHANGES,
+        payload: payload
+      });
+    })
+    .catch(e => console.log(e));

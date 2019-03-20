@@ -1,7 +1,6 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
-import { DeepCopy } from "../helpers";
 
 export const getYearMonthEvents = payload => dispatch => {
   dispatch({ type: C.GET_EVENTS_LOADING });
@@ -66,7 +65,7 @@ const getEventGroupMembers = (Groups, dispatch) => {
 };
 
 const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
-  let payload = DeepCopy(GroupMembers);
+  let payload = [...GroupMembers];
   const filledGroupMembers = GroupMembers.filter(m => m.filled);
   const filledMembers = filledGroupMembers.length > 0;
   if (filledMembers)
@@ -289,7 +288,7 @@ export const deleteEvent = (eventId, token) => (dispatch, getState) =>
     .delete(`calendar/events/${eventId}/`)
     .then(res => {
       const { results } = getState().Events;
-      let payload = DeepCopy(results);
+      let payload = [...results];
       payload = payload.filter(e => e.id != eventId);
       dispatch({ type: C.GET_EVENTS_SUCCESS, payload: payload });
     })

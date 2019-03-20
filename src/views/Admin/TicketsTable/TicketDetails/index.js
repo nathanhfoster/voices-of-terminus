@@ -14,7 +14,14 @@ import {
   ButtonGroup
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
-import { getTicket, editTicket } from "../../../../actions/Tickets";
+import {
+  getTicket,
+  editTicket,
+  getTicketNotes,
+  postTicketNote,
+  getTicketStatusChanges,
+  postTicketStatusChange
+} from "../../../../actions/Tickets";
 import { clearAdminApi } from "../../../../actions/Admin";
 import { Link, Redirect } from "react-router-dom";
 import Moment from "react-moment";
@@ -22,11 +29,18 @@ import { isEmpty, circleColor, ticketStatusOptions } from "../../../../helpers";
 import Select from "react-select";
 import { selectStyles } from "../../../../helpers/styles";
 import "./styles.css";
-import { stat } from "fs";
 
 const mapStateToProps = ({ Admin, User }) => ({ Admin, User });
 
-const mapDispatchToProps = { getTicket, editTicket, clearAdminApi };
+const mapDispatchToProps = {
+  getTicket,
+  editTicket,
+  getTicketNotes,
+  postTicketNote,
+  getTicketStatusChanges,
+  postTicketStatusChange,
+  clearAdminApi
+};
 
 class TicketDetails extends Component {
   constructor(props) {
@@ -54,11 +68,20 @@ class TicketDetails extends Component {
   /* render() */
 
   componentDidMount() {
-    const { User, getTicket, clearAdminApi, match } = this.props;
+    const {
+      User,
+      getTicket,
+      getTicketNotes,
+      getTicketStatusChanges,
+      clearAdminApi,
+      match
+    } = this.props;
     const { id } = match.params;
     const { token } = User;
     clearAdminApi();
     getTicket(User.id, token, id);
+    getTicketNotes(token, id);
+    getTicketStatusChanges(token, id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -68,11 +91,14 @@ class TicketDetails extends Component {
   getState = props => {
     const { Admin, User, ticketTypeOptions } = props;
     const { Ticket, posting, posted, updating, updated, error } = Admin;
+    const { StatusChanges, Notes } = Ticket;
     const { notes } = this.state.notes ? this.state : Ticket;
     const { status } = this.state.status ? this.state : Ticket;
     this.setState({
       User,
       Ticket,
+      StatusChanges,
+      Notes,
       ticketTypeOptions,
       posting,
       posted,
@@ -115,21 +141,84 @@ class TicketDetails extends Component {
   };
 
   editTicketStatus = () => {
-    const { User, editTicket, match } = this.props;
+    const {
+      User,
+      editTicket,
+      postTicketStatusChange,
+      postTicketNote,
+      match
+    } = this.props;
     const { id } = match.params;
     let { status, notes } = this.state;
     if (typeof status == "object") status = status.value;
 
-    const payload = { status, notes };
+    const ticketPayload = { status };
+    const statusChangePayload = { ticket_id: id, author: User.id, status };
+    const notesPayload = {
+      ticket_id: id,
+      author: User.id,
+      text: notes
+    };
 
-    editTicket(User.token, id, payload);
+    editTicket(User.token, id, ticketPayload);
+    postTicketStatusChange(User.token, statusChangePayload);
+    postTicketNote(User.token, notesPayload);
   };
+
+  renderStatusChangesOrNotes = array =>
+    array.length > 0 ? (
+      array.map(s => {
+        const {
+          id,
+          ticket_id,
+          author,
+          author_username,
+          date_created,
+          status,
+          text
+        } = s;
+        return (
+          <div className="StatusChangeNoteCard">
+            <div>
+              <span>
+                <i className="far fa-clock" />{" "}
+                <Moment fromNow>{date_created}</Moment>
+              </span>
+            </div>
+            <div>
+              <i className="fas fa-user" /> <span>{author_username}</span>
+            </div>
+            <div>
+              {status ? (
+                <span>
+                  <i
+                    className="fas fa-circle"
+                    style={{ color: circleColor(status) }}
+                  />
+                  {` Status: ${status}`}
+                </span>
+              ) : (
+                <span>
+                  <i className="fas fa-sticky-note" /> {text}
+                </span>
+              )}
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <div className="StatusChangeNoteCard">
+        <span>None</span>
+      </div>
+    );
 
   render() {
     const { history } = this.props;
     const {
       User,
       Ticket,
+      StatusChanges,
+      Notes,
       ticketTypeOptions,
       posting,
       posted,
@@ -245,20 +334,26 @@ class TicketDetails extends Component {
                 {description}
               </Well>
             </Col>
-            <Col xs={12}>
-              <h3>Image proof</h3>
-              <Image
-                title="Image proof"
-                className="ImageProof"
-                src={image}
-                rounded
-              />
-            </Col>
+            {image && (
+              <Col xs={12}>
+                <h3>Image proof</h3>
+                <Image
+                  title="Image proof"
+                  className="ImageProof"
+                  src={image}
+                  rounded
+                />
+              </Col>
+            )}
             <Col xs={12}>
               <ControlLabel>Update status</ControlLabel>
               <Select
                 name="ticket_type"
-                value={status.value ? status : { value: status, label: status }}
+                value={
+                  status && status.value
+                    ? status
+                    : { value: status, label: status }
+                }
                 onChange={(e, a) => this.selectOnChange(e, a, "status")}
                 options={ticketTypeOptions}
                 isClearable={false}
@@ -307,6 +402,17 @@ class TicketDetails extends Component {
                     : "SUBMIT"}
                 </Button>
               </ButtonGroup>
+            </Col>
+          </Row>
+          <Row>
+            <PageHeader>HISTORY</PageHeader>
+            <Col xs={12}>
+              <h2 className="headerBanner">Status Changes</h2>
+              {this.renderStatusChangesOrNotes(StatusChanges)}
+            </Col>
+            <Col xs={12}>
+              <h2 className="headerBanner">Notes</h2>
+              {this.renderStatusChangesOrNotes(Notes)}
             </Col>
           </Row>
         </Grid>

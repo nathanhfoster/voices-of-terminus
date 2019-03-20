@@ -8,7 +8,6 @@ import { Grid, Row, Col, Image, NavItem } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
 import Moment from "react-moment";
 import BrandImage from "../../../images/brand.png";
-import { DeepCopy } from "../../../helpers";
 
 const mapStateToProps = ({ VotTwitchStreams }) => ({
   VotTwitchStreams
@@ -45,7 +44,7 @@ class Streams extends PureComponent {
   }
 
   getState = props => {
-    let VotTwitchStreams = DeepCopy(props.VotTwitchStreams);
+    let { VotTwitchStreams } = props;
     VotTwitchStreams.videos = VotTwitchStreams.videos
       .filter(v => v._id)
       .map(v => {

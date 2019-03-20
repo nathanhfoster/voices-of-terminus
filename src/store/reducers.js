@@ -177,7 +177,6 @@ export const HtmlDocument = (state = null, action) =>
     ? null
     : state;
 
-
 export const User = (
   state = {
     Characters: [],
@@ -423,7 +422,7 @@ export const Admin = (
     Users: [],
     User: { Characters: [] },
     Tickets: [],
-    Ticket: {},
+    Ticket: { StatusChanges: [], Notes: [] },
     posting: false,
     posted: false,
     updating: false,
@@ -465,7 +464,11 @@ export const Admin = (
     case C.GET_TICKETS:
       return { ...state, Tickets: payload };
     case C.GET_TICKET:
-      return { ...state, Ticket: payload };
+      return { ...state, Ticket: { ...state.Ticket, ...payload } };
+    case C.GET_TICKET_NOTES:
+      return { ...state, Ticket: { ...state.Ticket, Notes: payload } };
+    case C.GET_TICKET_STATUS_CHANGES:
+      return { ...state, Ticket: { ...state.Ticket, StatusChanges: payload } };
     case C.POST_TICKETS_LOADING:
       return {
         ...state,

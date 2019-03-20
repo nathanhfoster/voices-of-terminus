@@ -31,3 +31,16 @@
   max-height: 500px;
   max-width: 100%;
 }
+
+.StatusChangeNoteCard {
+  width: 100%;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: var(--grey);
+  display: inline-flex;
+}
+
+.StatusChangeNoteCard div {
+  margin: auto;
+  width: calc(100% / 3);
+}

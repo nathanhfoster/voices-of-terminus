@@ -24,7 +24,6 @@ import {
   locationTags
 } from "../../../helpers/select";
 import {
-  DeepCopy,
   roleOptions,
   IconOption,
   classOptions
@@ -227,7 +226,6 @@ class Event extends Component {
     groupIndex,
     partyIndex
   ) => {
-    groups = DeepCopy(groups);
     groups[groupIndex][partyIndex].role_class_preferences = selectValue;
     switch (action) {
       case "remove-value":

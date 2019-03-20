@@ -33,7 +33,6 @@ import {
   raceOptions,
   professionOptions,
   professionSpecializationOptions,
-  DeepCopy,
   hasCharAfterSpace,
   roleClassIcon
 } from "../../helpers";
@@ -414,7 +413,7 @@ class Profile extends PureComponent {
     value.indexOf(e => console.log(e));
     if (name != "name") editCharacter(id, User.token, payload);
     else {
-      let updateCharacters = DeepCopy(User);
+      let updateCharacters = { ...User };
       updateCharacters.Characters[i].name = value;
       this.setState({ User: updateCharacters });
       hasCharAfterSpace(value) && editCharacter(id, User.token, payload);
@@ -422,9 +421,10 @@ class Profile extends PureComponent {
   };
 
   onSliderChange = (id, level, i) => {
-    const { User, editCharacter } = this.props;
+    const { User } = this.state;
+    const { editCharacter } = this.props;
     const payload = { level };
-    let updateCharacters = DeepCopy(User);
+    let updateCharacters = { ...User };
     updateCharacters.Characters[i].level = level;
     this.setState({ User: updateCharacters });
     editCharacter(id, User.token, payload);

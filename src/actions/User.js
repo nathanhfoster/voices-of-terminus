@@ -2,7 +2,6 @@ import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import Cookies from "js-cookie";
 import qs from "qs";
-import { DeepCopy } from "../helpers";
 
 export const createUser = payload => dispatch => {
   const eightHours = 1 / 3;
@@ -65,7 +64,7 @@ export const postCharacter = (token, payload) => (dispatch, getState) => {
     .post(`user/characters/`, qs.stringify(payload))
     .then(res => {
       const { Characters } = getState().User;
-      const characterPayload = [...[res.data], ...DeepCopy(Characters)];
+      const characterPayload = [...[res.data], ...Characters];
       dispatch({
         type: C.GET_CHARACTERS,
         payload: characterPayload
@@ -79,7 +78,7 @@ export const editCharacter = (id, token, payload) => (dispatch, getState) => {
     .patch(`user/characters/${id}/`, qs.stringify(payload))
     .then(res => {
       const { Characters } = getState().User;
-      let characterPayload = DeepCopy(Characters);
+      let characterPayload = [...Characters];
       const updateIndex = characterPayload.findIndex(e => e.id === res.data.id);
       characterPayload[updateIndex] = res.data;
       dispatch({
@@ -100,7 +99,7 @@ export const deleteCharacter = (token, id) => (dispatch, getState) =>
     .delete(`user/characters/${id}/`)
     .then(res => {
       const { Characters } = getState().User;
-      const payload = DeepCopy(Characters).filter(c => c.id !== id);
+      const payload = [...Characters].filter(c => c.id !== id);
       dispatch({
         type: C.GET_CHARACTERS,
         payload: payload
