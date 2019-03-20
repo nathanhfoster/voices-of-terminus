@@ -152,7 +152,7 @@ class TicketDetails extends Component {
     let { status, notes } = this.state;
     if (typeof status == "object") status = status.value;
 
-    const ticketPayload = { status };
+    const ticketPayload = { status, notes };
     const statusChangePayload = { ticket_id: id, author: User.id, status };
     const notesPayload = {
       ticket_id: id,
