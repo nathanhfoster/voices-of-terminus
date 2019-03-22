@@ -3,8 +3,8 @@ import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 import { User } from "../store/reducers";
 
-export const getUsersWithProfileImages = () => dispatch => {
-  return Axios()
+export const getUsersWithProfileImages = () => dispatch =>
+  Axios()
     .get("users/")
     .then(res => {
       dispatch({
@@ -13,7 +13,6 @@ export const getUsersWithProfileImages = () => dispatch => {
       });
     })
     .catch(e => console.log(e));
-};
 
 export const getUsers = () => dispatch =>
   Axios()

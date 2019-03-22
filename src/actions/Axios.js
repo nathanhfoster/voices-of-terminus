@@ -2,8 +2,8 @@ import axios from "axios";
 import qs from "qs";
 const { REACT_APP_API_URL } = process.env;
 
-export const Axios = (token, pagination) => {
-  return axios.create({
+export const Axios = (token, pagination) =>
+  axios.create({
     withCredentials: token ? true : false,
     baseURL: pagination ? pagination : REACT_APP_API_URL,
     timeout: 25000,
@@ -22,7 +22,6 @@ export const Axios = (token, pagination) => {
           Accept: "application/json"
         }
   });
-};
 
 export const AxiosForm = (token, payload) =>
   axios.create({

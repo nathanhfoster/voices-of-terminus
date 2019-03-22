@@ -203,9 +203,8 @@ export const getGroupMessageRecipients = (
     })
     .catch(e => console.log(e));
 
-export const deleteMessageRecipient = (token, userId, id) => dispatch => {
-  return Axios(token)
+export const deleteMessageRecipient = (token, userId, id) => dispatch =>
+  Axios(token)
     .delete(`/message/recipients/${id}/`)
     .then(res => getMessages(userId, token, dispatch))
     .catch(e => console.log(e));
-};

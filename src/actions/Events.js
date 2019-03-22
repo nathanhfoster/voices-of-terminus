@@ -1,6 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
+import { DeepCopy } from "../helpers";
 
 export const getYearMonthEvents = payload => dispatch => {
   dispatch({ type: C.GET_EVENTS_LOADING });
@@ -54,7 +55,7 @@ const getEventGroupMembers = (Groups, dispatch) => {
   let payload = [];
   for (let i = 0; i < Groups.length; i++) {
     const eventGroupId = Groups[i];
-    return Axios()
+    Axios()
       .get(`calendar/event/group/members/${eventGroupId}/view/`)
       .then(res => {
         payload = [...payload, ...res.data];
@@ -65,13 +66,13 @@ const getEventGroupMembers = (Groups, dispatch) => {
 };
 
 const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
-  let payload = [...GroupMembers];
+  let payload = DeepCopy(GroupMembers);
   const filledGroupMembers = GroupMembers.filter(m => m.filled);
   const filledMembers = filledGroupMembers.length > 0;
-  if (filledMembers)
+  if (filledMembers) {
     for (let i = 0; i < filledGroupMembers.length; i++) {
       const { filled } = filledGroupMembers[i];
-      return Axios()
+      Axios()
         .get(`user/characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
@@ -85,7 +86,7 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
         })
         .catch(e => console.log(e, "getEventGroupMembersCharacters: ", filled));
     }
-  else
+  } else
     return dispatch({
       type: C.GET_EVENT_GROUP_MEMBERS,
       payload: payload
@@ -288,7 +289,7 @@ export const deleteEvent = (eventId, token) => (dispatch, getState) =>
     .delete(`calendar/events/${eventId}/`)
     .then(res => {
       const { results } = getState().Events;
-      let payload = [...results];
+      let payload = DeepCopy(results);
       payload = payload.filter(e => e.id != eventId);
       dispatch({ type: C.GET_EVENTS_SUCCESS, payload: payload });
     })

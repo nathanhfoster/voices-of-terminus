@@ -354,6 +354,7 @@ class EventDetails extends Component {
       g.GroupMembers = GroupMembers.filter(m => m.event_group_id === g.id);
       return g;
     });
+    //console.log(Groups)
     const {
       id,
       author,

@@ -330,7 +330,7 @@ class UserProfile extends PureComponent {
     const loggedInUserStatus = statusLevelInt(User);
     const currentUserStatus = Admin.User ? statusLevelInt(Admin.User) : null;
     const canEdit =
-      User.username === "admin" ||
+      User.id === 1 ||
       loggedInUserId === currentUserId ||
       loggedInUserStatus > currentUserStatus;
     const MainCharacter = MainAltCharacter(Admin.User, "main");
