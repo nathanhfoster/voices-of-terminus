@@ -141,6 +141,7 @@ class TicketDetails extends Component {
   };
 
   editTicketStatus = () => {
+    const { Ticket} = this.props.Admin
     const {
       User,
       editTicket,
@@ -149,6 +150,8 @@ class TicketDetails extends Component {
       match
     } = this.props;
     const { id } = match.params;
+    const originalStatus = Ticket.status;
+    const originalNotes = Ticket.notes;
     let { status, notes } = this.state;
     if (typeof status == "object") status = status.value;
 
@@ -161,7 +164,9 @@ class TicketDetails extends Component {
     };
 
     editTicket(User.token, id, ticketPayload);
+    if (status != originalStatus)
     postTicketStatusChange(User.token, statusChangePayload);
+    if(notes !=  originalNotes)
     postTicketNote(User.token, notesPayload);
   };
 
