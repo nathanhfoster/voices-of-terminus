@@ -1,4 +1,4 @@
-## Production Build
+## Voices of Terminus
 
 - [Home](https://voices-of-terminus.herokuapp.com/)
 - [Calendar](https://voices-of-terminus.herokuapp.com/)
