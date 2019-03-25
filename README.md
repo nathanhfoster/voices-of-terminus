@@ -1,5 +1,7 @@
 ## Voices of Terminus
 
+## Navigation
+
 - [Home](https://voices-of-terminus.herokuapp.com/)
 - [Calendar](https://voices-of-terminus.herokuapp.com/)
 - [Articles](https://voices-of-terminus.herokuapp.com/articles/)
