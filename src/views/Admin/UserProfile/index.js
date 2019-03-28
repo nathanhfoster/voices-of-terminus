@@ -43,8 +43,6 @@ const mapDispatchToProps = {
   getUser,
   clearUser,
   updateUserProfile,
-  getUserGroups,
-  getUserPermissions,
   changeGroups,
   changePermissions
 };
@@ -59,8 +57,6 @@ class UserProfile extends PureComponent {
   }
 
   static propTypes = {
-    getUserGroups: PropTypes.func.isRequired,
-    getUserPermissions: PropTypes.func.isRequired,
     changeGroups: PropTypes.func.isRequired,
     changePermissions: PropTypes.func.isRequired,
     clearUser: PropTypes.func.isRequired,
@@ -103,26 +99,10 @@ class UserProfile extends PureComponent {
   }
 
   componentDidMount() {
-    const {
-      getUser,
-      clearUser,
-      User,
-      match,
-      getUserGroups,
-      getUserPermissions,
-      changeGroups,
-      changePermissions
-    } = this.props;
+    const { getUser, clearUser, User, match } = this.props;
     clearUser();
     const { id } = match.params;
     const { token } = User;
-    getUserGroups(token);
-    getUserPermissions(token);
-    // const { token, id } = User;
-    // const userGroupsPayload = { user_groups: JSON.stringify([1, 2]) };
-    // const payload = { user_permissions: JSON.stringify([1, 2, 3]) };
-    // changeGroups(token, id, userGroupsPayload);
-    // changePermissions(token, id, payload);
     getUser(id, token);
   }
 
@@ -258,9 +238,12 @@ class UserProfile extends PureComponent {
   };
 
   updateUserProfile = () => {
+    const { updateUserProfile, changeGroups, changePermissions } = this.props;
     const { User } = this.state;
     const {
       id,
+      groups,
+      user_permissions,
       primary_race,
       primary_role,
       primary_class,
@@ -347,7 +330,14 @@ class UserProfile extends PureComponent {
       can_delete_newsletter,
       can_delete_calendar_event
     };
-    this.props.updateUserProfile(id, User.token, payload);
+    updateUserProfile(id, User.token, payload);
+
+    const userGroupsPayload = { groups: JSON.stringify(groups) };
+    const userPermissionsPayload = {
+      user_permissions: JSON.stringify(user_permissions)
+    };
+    changeGroups(User.token, id, userGroupsPayload);
+    changePermissions(User.token, id, userPermissionsPayload);
   };
 
   renderDividedText = text =>
@@ -356,27 +346,53 @@ class UserProfile extends PureComponent {
     );
 
   renderUserPermissions = (AllUserPermissions, UserPermissions, canEdit) =>
-    AllUserPermissions.map(p => {
-      const { codename, content_type, id, name } = p;
-      const UserHasPermission = UserPermissions.some(e => e == id);
+    [
+      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "add")],
+      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "view")],
+      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "change")],
+      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "delete")]
+    ].map(columnPermissions => {
+      const Header = columnPermissions[0].codename.split("_")[0].toUpperCase();
+      const Helper = `Can ${Header} designated content.`;
       return (
-        <Checkbox
-          disabled={!canEdit}
-          checked={UserHasPermission}
-          onClick={e =>
-            this.setState(prevState => ({
-              Admin: {
-                ...prevState.Admin,
-                User: {
-                  ...prevState.Admin.User,
-                  can_create_article: !UserHasPermission
+        <Col md={3} xs={12}>
+          <h3>{Header}</h3>
+          <span className="help">{Helper}</span>
+          {columnPermissions.map(p => {
+            const { codename, content_type, id, name } = p;
+            const title = name
+              .split(" ")
+              .splice(2)
+              .map(e => e.charAt(0).toUpperCase() + e.slice(1))
+              .join(" ");
+            const UserHasPermission = UserPermissions.some(e => e == id);
+            return (
+              <Checkbox
+                disabled={!canEdit}
+                checked={UserHasPermission}
+                onClick={e =>
+                  this.setState(prevState => ({
+                    Admin: {
+                      ...prevState.Admin,
+                      User: {
+                        ...prevState.Admin.User,
+                        user_permissions: prevState.Admin.User.user_permissions.includes(
+                          id
+                        )
+                          ? prevState.Admin.User.user_permissions.filter(
+                              e => e != id
+                            )
+                          : [...prevState.Admin.User.user_permissions, ...[id]]
+                      }
+                    }
+                  }))
                 }
-              }
-            }))
-          }
-        >
-          {codename}
-        </Checkbox>
+              >
+                {title}
+              </Checkbox>
+            );
+          })}
+        </Col>
       );
     });
 
@@ -398,9 +414,6 @@ class UserProfile extends PureComponent {
       loggedInUserStatus > currentUserStatus;
     const MainCharacter = MainAltCharacter(Admin.User, "main");
     const AltCharacter = MainAltCharacter(Admin.User, "alt");
-    console.log(
-      AllUserPermissions.sort((a, b) => a.codename.localeCompare(b.codename))
-    );
     return User.is_superuser || User.is_staff ? (
       Admin.User ? (
         <Grid className="UserProfile Container">
@@ -841,13 +854,13 @@ class UserProfile extends PureComponent {
                   <h2 className="headerBanner">PERMISSIONS</h2>
                 </Row>,
                 <Row className="checkBoxTable">
-                  <Col md={3} xs={12}>
-                    {this.renderUserPermissions(
-                      AllUserPermissions,
-                      Admin.User.user_permissions,
-                      canEdit
-                    )}
-                  </Col>
+                  {this.renderUserPermissions(
+                    AllUserPermissions.sort((a, b) =>
+                      a.codename.localeCompare(b.codename)
+                    ),
+                    Admin.User.user_permissions,
+                    canEdit
+                  )}
                 </Row>,
                 <Row className="checkBoxTable">
                   <Col md={3} xs={12}>

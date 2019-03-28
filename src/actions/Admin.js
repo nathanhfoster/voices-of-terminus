@@ -3,28 +3,44 @@ import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 import axios from "axios";
 
-export const changeGroups = (token, id, payload) => dispatch => {
+export const changeGroups = (token, id, payload) => (dispatch, getState) => {
+  const { Users } = getState().Admin;
+  let usersPayload = [...Users];
   return Axios(token)
     .post(`user-groups/${id}/add/`, qs.stringify(payload))
     .then(res => {
-      // your action after success
-      console.log(res);
+      const userIndex = usersPayload.findIndex(user => user.id === id);
+      usersPayload[userIndex].groups = JSON.parse(res.data);
+      dispatch({
+        type: C.UPDATE_USERS_SUCCESS,
+        payload: usersPayload
+      });
     })
     .catch(e => console.log(e));
 };
 
-export const changePermissions = (token, id, payload) => dispatch => {
-  return Axios(token)
+export const changePermissions = (token, id, payload) => (
+  dispatch,
+  getState
+) => {
+  const { Users } = getState().Admin;
+  let usersPayload = [...Users];
+  return Axios()
     .post(`user-permissions/${id}/add/`, qs.stringify(payload))
     .then(res => {
-      // your action after success
-      console.log(res);
+      console.log(res.data);
+      const userIndex = usersPayload.findIndex(user => user.id === id);
+      usersPayload[userIndex].user_permissions = JSON.parse(res.data);
+      dispatch({
+        type: C.UPDATE_USERS_SUCCESS,
+        payload: usersPayload
+      });
     })
     .catch(e => console.log(e));
 };
 
-export const getUserGroups = token => dispatch =>
-  Axios(token)
+export const getUserGroups = () => dispatch =>
+  Axios()
     .get(`user-groups/`)
     .then(res => {
       dispatch({
@@ -34,8 +50,8 @@ export const getUserGroups = token => dispatch =>
     })
     .catch(e => console.log(e));
 
-export const getUserPermissions = token => dispatch =>
-  Axios(token)
+export const getUserPermissions = () => dispatch =>
+  Axios()
     .get(`user-permissions/`)
     .then(res => {
       dispatch({

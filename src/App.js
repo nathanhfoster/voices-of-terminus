@@ -50,7 +50,7 @@ import {
   getVRYouTubeChannelData,
   Logout
 } from "./actions/App";
-import { getUsers } from "./actions/Admin";
+import { getUsers, getUserGroups, getUserPermissions } from "./actions/Admin";
 import { getUserMessages } from "./actions/Messages";
 import { refreshPatchUser } from "./actions/App";
 import { getUserSettings } from "./actions/Settings";
@@ -58,14 +58,17 @@ import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
+import { UserHasPermissions } from "./helpers/userPermissions";
 
 const mapStateToProps = ({
+  Admin,
   ApiResponse,
   Window,
   User,
   VoTYouTubeChannelData,
   VRYouTubeChannelData
 }) => ({
+  Admin,
   ApiResponse,
   Window,
   User,
@@ -84,7 +87,9 @@ const mapDispatchToProps = {
   refreshPatchUser,
   getUserMessages,
   getUsers,
-  getUserSettings
+  getUserSettings,
+  getUserGroups,
+  getUserPermissions
 };
 
 class App extends PureComponent {
@@ -162,7 +167,9 @@ class App extends PureComponent {
     routeItems: PropTypes.array,
     images: PropTypes.array,
     imagesMobile: PropTypes.array,
-    Settings: PropTypes.object
+    Settings: PropTypes.object,
+    getUserGroups: PropTypes.func.isRequired,
+    getUserPermissions: PropTypes.func.isRequired
   };
 
   static defaultProps = {};
@@ -174,7 +181,10 @@ class App extends PureComponent {
 
   componentDidMount() {
     const {
+      Admin,
       User,
+      getUserGroups,
+      getUserPermissions,
       VoTYouTubeChannelData,
       VRYouTubeChannelData,
       getUsers,
@@ -184,6 +194,10 @@ class App extends PureComponent {
       getVotChannelsPlayLists,
       Logout
     } = this.props;
+    UserHasPermissions(Admin, User, ['add', 'article']);
+    const { token } = User;
+    getUserGroups(token);
+    getUserPermissions(token);
     getUsers();
     if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
