@@ -419,6 +419,10 @@ export const Polls = (
 
 export const Admin = (
   state = {
+    AuthenticationAndAuthorization: {
+      AllUserGroups: [],
+      AllUserPermissions: []
+    },
     Users: [],
     User: { Characters: [] },
     Tickets: [],
@@ -433,6 +437,22 @@ export const Admin = (
 ) => {
   const { type, payload } = action;
   switch (type) {
+    case C.GET_USER_GROUPS:
+      return {
+        ...state,
+        AuthenticationAndAuthorization: {
+          ...state.AuthenticationAndAuthorization,
+          AllUserGroups: payload
+        }
+      };
+    case C.GET_USER_PERMISSIONS:
+      return {
+        ...state,
+        AuthenticationAndAuthorization: {
+          ...state.AuthenticationAndAuthorization,
+          AllUserPermissions: payload
+        }
+      };
     case C.GET_USERS:
       return { ...state, Users: payload };
     case C.UPDATE_USERS_LOADING:

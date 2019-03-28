@@ -23,6 +23,10 @@ import {
 import "./styles.css";
 import "./stylesM.css";
 import {
+  changeGroups,
+  changePermissions,
+  getUserGroups,
+  getUserPermissions,
   getUsers,
   createUser,
   deleteUser,
@@ -42,8 +46,12 @@ const mapStateToProps = ({ Admin, User, Window }) => ({
 });
 
 const mapDispatchToProps = {
-  createUser,
+  changeGroups,
+  changePermissions,
+  getUserGroups,
+  getUserPermissions,
   getUsers,
+  createUser,
   deleteUser,
   updateUserProfile,
   clearUser,
@@ -90,7 +98,17 @@ class Admin extends PureComponent {
   }*/
 
   componentDidMount() {
-    const { getUsers, clearUser, getTickets } = this.props;
+    const {
+      User,
+      getUserGroups,
+      getUserPermissions,
+      getUsers,
+      clearUser,
+      getTickets
+    } = this.props;
+    const { token } = User;
+    getUserGroups(token);
+    getUserPermissions(token);
     getUsers();
     clearUser();
     getTickets();

@@ -1,7 +1,49 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
-import { User } from "../store/reducers";
+import axios from "axios";
+
+export const changeGroups = (token, id, payload) => dispatch => {
+  return Axios(token)
+    .post(`user-groups/${id}/add/`, qs.stringify(payload))
+    .then(res => {
+      // your action after success
+      console.log(res);
+    })
+    .catch(e => console.log(e));
+};
+
+export const changePermissions = (token, id, payload) => dispatch => {
+  return Axios(token)
+    .post(`user-permissions/${id}/add/`, qs.stringify(payload))
+    .then(res => {
+      // your action after success
+      console.log(res);
+    })
+    .catch(e => console.log(e));
+};
+
+export const getUserGroups = token => dispatch =>
+  Axios(token)
+    .get(`user-groups/`)
+    .then(res => {
+      dispatch({
+        type: C.GET_USER_GROUPS,
+        payload: res.data
+      });
+    })
+    .catch(e => console.log(e));
+
+export const getUserPermissions = token => dispatch =>
+  Axios(token)
+    .get(`user-permissions/`)
+    .then(res => {
+      dispatch({
+        type: C.GET_USER_PERMISSIONS,
+        payload: res.data
+      });
+    })
+    .catch(e => console.log(e));
 
 export const getUsersWithProfileImages = () => dispatch =>
   Axios()

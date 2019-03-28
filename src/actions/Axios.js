@@ -40,3 +40,26 @@ export const AxiosForm = (token, payload) =>
           "Content-Type": `multipart/form-data; boundary=${payload._boundary}`
         }
   });
+
+export const AxiosData = (token, payload) => {
+  return axios.create({
+    withCredentials: token ? true : false,
+    baseURL: REACT_APP_API_URL,
+    timeout: 25000,
+    async: true,
+    crossDomain: true,
+    headers: token
+      ? {
+          Authorization: "Token " + token,
+          "Cache-Control": "no-cache",
+          "Content-type": "application/x-www-form-urlencoded",
+          Accept: "application/json"
+        }
+      : {
+          "Cache-Control": "no-cache",
+          "Content-type": "application/x-www-form-urlencoded",
+          Accept: "application/json"
+        },
+    data: payload
+  });
+};
