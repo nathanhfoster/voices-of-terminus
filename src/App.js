@@ -87,9 +87,9 @@ const mapDispatchToProps = {
   refreshPatchUser,
   getUserMessages,
   getUsers,
-  getUserSettings,
   getUserGroups,
-  getUserPermissions
+  getUserPermissions,
+  getUserSettings
 };
 
 class App extends PureComponent {
@@ -181,10 +181,7 @@ class App extends PureComponent {
 
   componentDidMount() {
     const {
-      Admin,
       User,
-      getUserGroups,
-      getUserPermissions,
       VoTYouTubeChannelData,
       VRYouTubeChannelData,
       getUsers,
@@ -194,10 +191,7 @@ class App extends PureComponent {
       getVotChannelsPlayLists,
       Logout
     } = this.props;
-    UserHasPermissions(Admin, User, ['add', 'article']);
-    const { token } = User;
-    getUserGroups(token);
-    getUserPermissions(token);
+
     getUsers();
     if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
@@ -245,8 +239,16 @@ class App extends PureComponent {
   }
 
   fetchProfileUpdates = (id, token, Settings) => {
-    const { refreshPatchUser, getUserSettings, getUserMessages } = this.props;
+    const {
+      refreshPatchUser,
+      getUserSettings,
+      getUserGroups,
+      getUserPermissions,
+      getUserMessages
+    } = this.props;
     const { push_messages } = Settings;
+    getUserGroups();
+    getUserPermissions();
     refreshPatchUser(token, id);
     getUserSettings(token, id);
     if (push_messages) getUserMessages(id, token);

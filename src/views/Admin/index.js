@@ -25,8 +25,6 @@ import "./stylesM.css";
 import {
   changeGroups,
   changePermissions,
-  getUserGroups,
-  getUserPermissions,
   getUsers,
   createUser,
   deleteUser,
@@ -48,8 +46,6 @@ const mapStateToProps = ({ Admin, User, Window }) => ({
 const mapDispatchToProps = {
   changeGroups,
   changePermissions,
-  getUserGroups,
-  getUserPermissions,
   getUsers,
   createUser,
   deleteUser,
@@ -99,16 +95,11 @@ class Admin extends PureComponent {
 
   componentDidMount() {
     const {
-      User,
-      getUserGroups,
-      getUserPermissions,
+
       getUsers,
       clearUser,
       getTickets
     } = this.props;
-    const { token } = User;
-    getUserGroups(token);
-    getUserPermissions(token);
     getUsers();
     clearUser();
     getTickets();

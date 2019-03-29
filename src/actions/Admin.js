@@ -1,11 +1,11 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
-import axios from "axios";
+import { DeepCopy } from "../helpers";
 
 export const changeGroups = (token, id, payload) => (dispatch, getState) => {
   const { Users } = getState().Admin;
-  let usersPayload = [...Users];
+  let usersPayload = DeepCopy(Users);
   return Axios(token)
     .post(`user-groups/${id}/add/`, qs.stringify(payload))
     .then(res => {
@@ -14,6 +14,10 @@ export const changeGroups = (token, id, payload) => (dispatch, getState) => {
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
         payload: usersPayload
+      });
+      dispatch({
+        type: C.GET_USER,
+        payload: usersPayload[userIndex]
       });
     })
     .catch(e => console.log(e));
@@ -24,16 +28,19 @@ export const changePermissions = (token, id, payload) => (
   getState
 ) => {
   const { Users } = getState().Admin;
-  let usersPayload = [...Users];
-  return Axios()
+  let usersPayload = DeepCopy(Users);
+  return Axios(token)
     .post(`user-permissions/${id}/add/`, qs.stringify(payload))
     .then(res => {
-      console.log(res.data);
       const userIndex = usersPayload.findIndex(user => user.id === id);
       usersPayload[userIndex].user_permissions = JSON.parse(res.data);
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
         payload: usersPayload
+      });
+      dispatch({
+        type: C.GET_USER,
+        payload: usersPayload[userIndex]
       });
     })
     .catch(e => console.log(e));

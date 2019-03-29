@@ -17,7 +17,7 @@ import {
   Modal,
   Image
 } from "react-bootstrap";
-import { login } from "../../actions/App";
+import { login, refreshPatchUser } from "../../actions/App";
 import { createUser } from "../../actions/User";
 import FormData from "form-data";
 import { Redirect } from "react-router-dom";
@@ -30,7 +30,8 @@ const mapStateToProps = ({ User }) => ({
 
 const mapDispatchToProps = {
   login,
-  createUser
+  createUser,
+  refreshPatchUser
 };
 
 class Login extends PureComponent {
@@ -101,9 +102,10 @@ class Login extends PureComponent {
   };
 
   login = e => {
+    const { login } = this.props;
     e.preventDefault();
     const { username, password, rememberMe } = this.state;
-    this.props.login(username, password, rememberMe);
+    login(username, password, rememberMe);
   };
 
   createUserAccount = e => {
@@ -192,6 +194,12 @@ class Login extends PureComponent {
       </div>
     ));
 
+  Redirect = () => {
+    const { User, history, refreshPatchUser } = this.props;
+    refreshPatchUser(User.token, User.id);
+    return <Redirect to={history.goBack()} />;
+  };
+
   render() {
     const canSubmit = !this.cantSubmit();
     const { User, history } = this.props;
@@ -207,7 +215,7 @@ class Login extends PureComponent {
 
     return User.token ? (
       history.length > 2 ? (
-        <Redirect to={history.goBack()} />
+        this.Redirect()
       ) : (
         <Redirect to="/" />
       )

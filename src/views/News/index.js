@@ -33,14 +33,19 @@ import {
 import Cards from "../../components/Cards";
 import { Redirect } from "react-router-dom";
 import Select from "react-select";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
-import { hasUpdatePermission, hasDeletePermission } from "../../helpers";
-import { isSubset } from "../../helpers";
+import {
+  hasUpdatePermission,
+  hasDeletePermission,
+  isSubset
+} from "../../helpers";
 import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
-const mapStateToProps = ({ User, Settings, Articles, Newsletters }) => ({
+const mapStateToProps = ({ Admin, User, Settings, Articles, Newsletters }) => ({
+  Admin,
   User,
   Settings,
   Articles,
@@ -87,7 +92,10 @@ class News extends Component {
   };
 
   shouldComponentUpdate(nextProps, nextState) {
-    let { Articles, Newsletters } = nextProps;
+    let { User, Articles, Newsletters } = nextProps;
+    let { groups, user_permissions } = User;
+    const CurrentUserGroups = this.state.User.groups;
+    const CurrentUserPermissions = this.state.User.user_permissions;
     const { Documents } = this.state;
     const { selectValue, search, history } = nextState;
     const { pathname } = history.location;
@@ -99,6 +107,8 @@ class News extends Component {
     const currentSearch = this.state.search;
 
     return (
+      !deepEqual(groups, CurrentUserGroups) ||
+      !deepEqual(user_permissions, CurrentUserPermissions) ||
       !deepEqual(Documents, currentDocuments) ||
       !deepEqual(pathname, currentPathName) ||
       !deepEqual(selectValue, currentSelectValue) ||
@@ -134,7 +144,7 @@ class News extends Component {
   };
 
   getState = props => {
-    const { User, Settings, history, match, ApiResponse } = props;
+    const { Admin, User, Settings, history, match, ApiResponse } = props;
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -154,6 +164,7 @@ class News extends Component {
             .map(i => (i = { value: i, label: i }))
         : selectOptions;
     this.setState({
+      Admin,
       User,
       Settings,
       Articles,
@@ -281,9 +292,17 @@ class News extends Component {
   };
 
   render() {
-    // console.log("NEWS");
+    //console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
-    const { User, Settings, search, eventKey, history, match } = this.state;
+    const {
+      Admin,
+      User,
+      Settings,
+      search,
+      eventKey,
+      history,
+      match
+    } = this.state;
     let { selectValue } = this.state;
     selectValue = selectValue.length > 0 ? selectValue : selectOptions;
     let { Documents } = this.state;
@@ -314,16 +333,17 @@ class News extends Component {
             componentClass={ButtonToolbar}
           >
             {Title == "ARTICLES" &&
-              (User.is_superuser || User.can_create_article) && (
+              UserHasPermissions(Admin, User, ["add", "article"]) && (
                 <Button onClick={() => history.push("/article/new/")}>
                   <i className="fas fa-plus" /> Article
                 </Button>
               )}
-            {Title == "NEWS" && (User.is_superuser || User.can_create_article) && (
-              <Button onClick={() => history.push("/newsletter/new")}>
-                <i className="fas fa-plus" /> Newsletter
-              </Button>
-            )}
+            {Title == "NEWS" &&
+              UserHasPermissions(Admin, User, ["add", "newsletter"]) && (
+                <Button onClick={() => history.push("/newsletter/new")}>
+                  <i className="fas fa-plus" /> Newsletter
+                </Button>
+              )}
           </Col>
           <Col md={5} xs={12}>
             <InputGroup>

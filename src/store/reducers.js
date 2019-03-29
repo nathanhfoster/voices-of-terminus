@@ -179,6 +179,8 @@ export const HtmlDocument = (state = null, action) =>
 
 export const User = (
   state = {
+    groups: [],
+    user_permissions: [],
     Characters: [],
     Tickets: [],
     Settings: { show_footer: false, push_messages: false }
@@ -424,7 +426,7 @@ export const Admin = (
       AllUserPermissions: []
     },
     Users: [],
-    User: { Characters: [] },
+    User: { Characters: [], groups: [], user_permissions: [] },
     Tickets: [],
     Ticket: { StatusChanges: [], Notes: [] },
     posting: false,

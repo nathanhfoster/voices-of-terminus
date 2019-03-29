@@ -17,8 +17,10 @@ import "./styles.css";
 import "./stylesM.css";
 import { getYearMonthEvents } from "../../actions/Events";
 import { eventLabelColor } from "../../helpers";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Window, Events }) => ({
+const mapStateToProps = ({ Admin, User, Window, Events }) => ({
+  Admin,
   User,
   Window,
   Events
@@ -61,8 +63,8 @@ class GuildCalendar extends PureComponent {
   }
 
   getState = props => {
-    const { User, Events, Window } = props;
-    this.setState({ User, Events, Window });
+    const { Admin, User, Events, Window } = props;
+    this.setState({ Admin, User, Events, Window });
   };
 
   onChange = activeDate => this.setState({ activeDate });
@@ -84,7 +86,15 @@ class GuildCalendar extends PureComponent {
 
   render() {
     const { history } = this.props;
-    const { User, Events, Window, activeDate, show, editing } = this.state;
+    const {
+      Admin,
+      User,
+      Events,
+      Window,
+      activeDate,
+      show,
+      editing
+    } = this.state;
     const { isMobile } = Window;
     const tileContent = ({ date, view }) => {
       const { hovering, hoverIndex } = this.state;
@@ -159,7 +169,7 @@ class GuildCalendar extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {(User.is_superuser || User.can_create_calendar_event) && (
+            {UserHasPermissions(Admin, User, ["add", "event"]) && (
               <Button
                 onClick={e => history.push("/calendar/new/event")}
                 className="todayButton"

@@ -74,6 +74,7 @@ export const hasCharAfterSpace = string => {
 };
 
 export const isSubset = (arr1, arr2) => {
+  // console.log(arr1, arr2);
   const hset = new Map();
 
   // hset stores all the values of arr1

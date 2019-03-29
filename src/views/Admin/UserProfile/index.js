@@ -14,8 +14,6 @@ import {
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
 import {
-  getUserGroups,
-  getUserPermissions,
   changeGroups,
   changePermissions,
   clearUser,
@@ -25,13 +23,20 @@ import { getUser } from "../../../actions/App";
 import Moment from "react-moment";
 import "./styles.css";
 import "./stylesM.css";
-import { isOnline, MainAltCharacter, renderRoles } from "../../../helpers";
 import {
+  isOnline,
+  MainAltCharacter,
+  renderRoles,
   statusLevelInt,
   statusLevelString,
   roleClassIcon,
   professionIcon
 } from "../../../helpers";
+import {
+  CategorizedPermissions,
+  PermissionHeader,
+  PermissionTitle
+} from "../../../helpers/userPermissions";
 import { ExperienceBar } from "../../../components/ExperienceBar";
 
 const mapStateToProps = ({ Admin, User }) => ({
@@ -52,7 +57,7 @@ class UserProfile extends PureComponent {
     super(props);
 
     this.state = {
-      Admin: { User: null }
+      Admin: { User: { groups: [], user_permissions: [] } }
     };
   }
 
@@ -346,13 +351,8 @@ class UserProfile extends PureComponent {
     );
 
   renderUserPermissions = (AllUserPermissions, UserPermissions, canEdit) =>
-    [
-      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "add")],
-      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "view")],
-      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "change")],
-      [...AllUserPermissions.filter(e => e.codename.split("_")[0] == "delete")]
-    ].map(columnPermissions => {
-      const Header = columnPermissions[0].codename.split("_")[0].toUpperCase();
+    CategorizedPermissions(AllUserPermissions).map(columnPermissions => {
+      const Header = PermissionHeader(columnPermissions[0].codename);
       const Helper = `Can ${Header} designated content.`;
       return (
         <Col md={3} xs={12}>
@@ -360,11 +360,8 @@ class UserProfile extends PureComponent {
           <span className="help">{Helper}</span>
           {columnPermissions.map(p => {
             const { codename, content_type, id, name } = p;
-            const title = name
-              .split(" ")
-              .splice(2)
-              .map(e => e.charAt(0).toUpperCase() + e.slice(1))
-              .join(" ");
+            const title = PermissionTitle(name);
+            //console.log(UserPermissions);
             const UserHasPermission = UserPermissions.some(e => e == id);
             return (
               <Checkbox
@@ -857,8 +854,8 @@ class UserProfile extends PureComponent {
                   {this.renderUserPermissions(
                     AllUserPermissions.sort((a, b) =>
                       a.codename.localeCompare(b.codename)
-                    ),
-                    Admin.User.user_permissions,
+                    ) || [],
+                    Admin.User.user_permissions || [],
                     canEdit
                   )}
                 </Row>,
