@@ -25,7 +25,7 @@ export const UserHasPermissions = (Admin, User, Conditions) => {
       ].codename.split("_")
     )
     .some(permission => isSubset(permission, Conditions));
-  console.log(HasPermissionInUserGroups);
+  //console.log(HasPermissionInUserGroups);
   //.filter(permission => isSubset(permission, Conditions));
   //console.log(AllUserPermissions);
   const UserPermissions = AllUserPermissions.filter(e =>
