@@ -1015,6 +1015,8 @@ export const Redirection = (history, userToken, noPermission) => {
   return false;
 };
 
+export const RemoveArrayDuplicates = array => [...new Set(array)];
+
 export const removeDuplicates = (array, objAttr) => {
   let map = new Map();
 

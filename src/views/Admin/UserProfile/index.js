@@ -39,7 +39,8 @@ import {
 } from "../../../helpers/userPermissions";
 import { ExperienceBar } from "../../../components/ExperienceBar";
 
-const mapStateToProps = ({ Admin, User }) => ({
+const mapStateToProps = ({ AuthenticationAndAuthorization, Admin, User }) => ({
+  AuthenticationAndAuthorization,
   Admin,
   User
 });
@@ -116,10 +117,10 @@ class UserProfile extends PureComponent {
   }
 
   getState = props => {
-    const { Admin, User } = props;
+    const { AuthenticationAndAuthorization, Admin, User } = props;
     const { id } = props.match.params;
 
-    this.setState({ Admin, User, id });
+    this.setState({ AuthenticationAndAuthorization, Admin, User, id });
   };
 
   componentWillUnmount() {
@@ -394,13 +395,13 @@ class UserProfile extends PureComponent {
     });
 
   render() {
-    const { Admin, User } = this.state;
+    const { AuthenticationAndAuthorization, Admin, User } = this.state;
     const { history } = this.props;
     const { updating, updated, error } = Admin;
     const {
       AllUserGroups,
       AllUserPermissions
-    } = Admin.AuthenticationAndAuthorization;
+    } = AuthenticationAndAuthorization;
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt(User);

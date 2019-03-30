@@ -36,7 +36,11 @@ import deepEqual from "deep-equal";
 import ConfirmAction from "../../../components/ConfirmAction";
 import PopOver from "../../../components/PopOver";
 
-const mapStateToProps = ({ AuthenticationAndAuthorization, User, Galleries }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  Galleries
+}) => ({
   AuthenticationAndAuthorization,
   User,
   Galleries
@@ -87,7 +91,12 @@ class Images extends PureComponent {
       .map(e => e.tags.split("|").map(i => (i = { value: i, label: i })))
       .flat(1);
     this.getGalleryImage(Galleries);
-    this.setState({ AuthenticationAndAuthorization, User, Galleries, currentTags });
+    this.setState({
+      AuthenticationAndAuthorization,
+      User,
+      Galleries,
+      currentTags
+    });
   };
 
   getGalleryImage = Galleries => {
@@ -190,8 +199,16 @@ class Images extends PureComponent {
   renderGalleries = (galleries, filter, dontFilter) => {
     const { AuthenticationAndAuthorization, User } = this.state;
     const { history } = this.props;
-    const canDelete = UserHasPermissions(AuthenticationAndAuthorization, User, ["delete", "gallery"]);
-    const canUpdate = UserHasPermissions(AuthenticationAndAuthorization, User, ["change", "gallery"]);
+    const canDelete = UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "delete_gallery"
+    );
+    const canUpdate = UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "change_gallery"
+    );
     return galleries
       .filter(gal =>
         dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)
@@ -320,7 +337,11 @@ class Images extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "gallery"]) && (
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_gallery"
+            ) && (
               <Button onClick={() => this.setState({ show: true })}>
                 <i className="fas fa-plus" /> Gallery
               </Button>

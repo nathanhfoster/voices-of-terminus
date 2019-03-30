@@ -44,7 +44,13 @@ import {
 import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
-const mapStateToProps = ({ AuthenticationAndAuthorization, User, Settings, Articles, Newsletters }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  Settings,
+  Articles,
+  Newsletters
+}) => ({
   AuthenticationAndAuthorization,
   User,
   Settings,
@@ -144,7 +150,14 @@ class News extends Component {
   };
 
   getState = props => {
-    const { AuthenticationAndAuthorization, User, Settings, history, match, ApiResponse } = props;
+    const {
+      AuthenticationAndAuthorization,
+      User,
+      Settings,
+      history,
+      match,
+      ApiResponse
+    } = props;
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -333,13 +346,21 @@ class News extends Component {
             componentClass={ButtonToolbar}
           >
             {Title == "ARTICLES" &&
-              UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "article"]) && (
+              UserHasPermissions(
+                AuthenticationAndAuthorization,
+                User,
+                "add_article"
+              ) && (
                 <Button onClick={() => history.push("/article/new/")}>
                   <i className="fas fa-plus" /> Article
                 </Button>
               )}
             {Title == "NEWS" &&
-              UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "newsletter"]) && (
+              UserHasPermissions(
+                AuthenticationAndAuthorization,
+                User,
+                "add_newsletter"
+              ) && (
                 <Button onClick={() => history.push("/newsletter/new")}>
                   <i className="fas fa-plus" /> Newsletter
                 </Button>

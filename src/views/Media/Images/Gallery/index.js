@@ -226,14 +226,16 @@ class Gallery extends PureComponent {
 
   renderGalleryImages = (images, filter, dontFilter) => {
     const { AuthenticationAndAuthorization, User } = this.state;
-    const canDelete = UserHasPermissions(AuthenticationAndAuthorization, User, [
-      "delete",
-      "galleryimages"
-    ]);
-    const canUpdate = UserHasPermissions(AuthenticationAndAuthorization, User, [
-      "change",
-      "galleryimages"
-    ]);
+    const canDelete = UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "delete_galleryimages"
+    );
+    const canUpdate = UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "change_galleryimages"
+    );
     return images
       .filter(img =>
         dontFilter ? img : deepEqual(img.tags.split("|"), filter)
@@ -368,10 +370,11 @@ class Gallery extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(AuthenticationAndAuthorization, User, [
-              "add",
-              "galleryimages"
-            ]) && (
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_galleryimages"
+            ) && (
               <Button onClick={() => this.setState({ show: true })}>
                 <i className="fas fa-plus" /> Image
               </Button>

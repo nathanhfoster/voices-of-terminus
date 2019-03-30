@@ -1,49 +1,57 @@
-import { isSubset } from "./index";
-import { UserHasPermissionTo } from "./AuthenticationAndAuthorization";
-
 export const UserHasPermissions = (
   AuthenticationAndAuthorization,
   User,
-  Conditions
+  Codename
 ) => {
-  let { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization;
-  const H = new UserHasPermissionTo(AllUserPermissions);
-  console.log(H);
-  console.log(H.Add.getCode("Article"));
-  //console.log(AllUserPermissions);
-  AllUserPermissions = AllUserPermissions.sort((a, b) => a.id - b.id);
+  const { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization;
   const { groups, user_permissions } = User;
+
   if (
-    AllUserPermissions == null ||
+    AllUserGroups == null ||
     user_permissions == null ||
     AllUserPermissions.length < 1 ||
     user_permissions.length < 1
   )
     return false;
-  const HasPermissionInUserGroups = AllUserGroups.filter(e =>
-    groups.includes(e.id)
-  )
-    .map(e => e.permissions)
-    .flat(1)
-    .map(i =>
-      AllUserPermissions[
-        AllUserPermissions.findIndex(p => p.id == i)
-      ].codename.split("_")
-    )
-    .some(permission => isSubset(permission, Conditions));
-  //console.log(HasPermissionInUserGroups);
-  //.filter(permission => isSubset(permission, Conditions));
-  //console.log(AllUserPermissions);
-  const UserPermissions = AllUserPermissions.filter(e =>
-    user_permissions.includes(e.id)
-  )
-    .map(p => p.codename.split("_"))
-    .filter(permission => isSubset(permission, Conditions));
-  //console.log(UserPermissions, Conditions);
 
-  return (
-    User.is_superuser || HasPermissionInUserGroups || UserPermissions.length > 0
-  );
+  if (User.is_superuser) return true;
+
+  // console.log("AllUserGroups: ", AllUserGroups);
+  // console.log("groups: ", groups);
+  // console.log("AllUserPermissions: ", AllUserPermissions);
+  // console.log("user_permissions: ", user_permissions);
+
+  let GroupsMap = {};
+
+  for (let i = 0; i < AllUserGroups.length; i++) {
+    const { id, permissions } = AllUserGroups[i];
+    GroupsMap[id] = permissions;
+  }
+
+  let PermissionMap = {};
+
+  for (let i = 0; i < AllUserPermissions.length; i++) {
+    const { id, codename } = AllUserPermissions[i];
+    PermissionMap[id] = codename;
+  }
+
+  for (let i = 0; i < groups.length; i++) {
+    const group = groups[i];
+    const groupPermissions = GroupsMap[group];
+    for (let i = 0; i < groupPermissions.length; i++) {
+      const permission = groupPermissions[i];
+      if (PermissionMap[permission] == Codename) return true;
+    }
+  }
+
+  for (let i = 0; i < user_permissions.length; i++) {
+    const permission = user_permissions[i];
+    if (PermissionMap[permission] == Codename) return true;
+  }
+
+  // console.log(PermissionMap);
+  // console.log(GroupsMap);
+  return false;
 };
 
 export const CategorizedPermissions = AllUserPermissions => {
@@ -61,3 +69,130 @@ export const PermissionTitle = name =>
     .join(" ");
 
 export const PermissionHeader = name => name.split("_")[0].toUpperCase();
+
+/*
+0: "add_article"
+1: "add_articlecomment"
+2: "add_articlelikes"
+3: "add_character"
+4: "add_contenttype"
+5: "add_event"
+6: "add_eventgroup"
+7: "add_eventgroupmember"
+8: "add_gallery"
+9: "add_galleryimages"
+10: "add_group"
+11: "add_logentry"
+12: "add_message"
+13: "add_messagerecipient"
+14: "add_newsletter"
+15: "add_newslettercomment"
+16: "add_newsletterlikes"
+17: "add_note"
+18: "add_permission"
+19: "add_poll"
+20: "add_pollchoice"
+21: "add_pollquestion"
+22: "add_pollrecipient"
+23: "add_pollresponse"
+24: "add_session"
+25: "add_setting"
+26: "add_statuschange"
+27: "add_ticket"
+28: "add_token"
+29: "add_user"
+30: "add_usergroup"
+31: "change_article"
+32: "change_articlecomment"
+33: "change_articlelikes"
+34: "change_character"
+35: "change_contenttype"
+36: "change_event"
+37: "change_eventgroup"
+38: "change_eventgroupmember"
+39: "change_gallery"
+40: "change_galleryimages"
+41: "change_group"
+42: "change_logentry"
+43: "change_message"
+44: "change_messagerecipient"
+45: "change_newsletter"
+46: "change_newslettercomment"
+47: "change_newsletterlikes"
+48: "change_note"
+49: "change_permission"
+50: "change_poll"
+51: "change_pollchoice"
+52: "change_pollquestion"
+53: "change_pollrecipient"
+54: "change_pollresponse"
+55: "change_session"
+56: "change_setting"
+57: "change_statuschange"
+58: "change_ticket"
+59: "change_token"
+60: "change_user"
+61: "change_usergroup"
+62: "delete_article"
+63: "delete_articlecomment"
+64: "delete_articlelikes"
+65: "delete_character"
+66: "delete_contenttype"
+67: "delete_event"
+68: "delete_eventgroup"
+69: "delete_eventgroupmember"
+70: "delete_gallery"
+71: "delete_galleryimages"
+72: "delete_group"
+73: "delete_logentry"
+74: "delete_message"
+75: "delete_messagerecipient"
+76: "delete_newsletter"
+77: "delete_newslettercomment"
+78: "delete_newsletterlikes"
+79: "delete_note"
+80: "delete_permission"
+81: "delete_poll"
+82: "delete_pollchoice"
+83: "delete_pollquestion"
+84: "delete_pollrecipient"
+85: "delete_pollresponse"
+86: "delete_session"
+87: "delete_setting"
+88: "delete_statuschange"
+89: "delete_ticket"
+90: "delete_token"
+91: "delete_user"
+92: "delete_usergroup"
+93: "view_article"
+94: "view_articlecomment"
+95: "view_articlelikes"
+96: "view_character"
+97: "view_contenttype"
+98: "view_event"
+99: "view_eventgroup"
+100: "view_eventgroupmember"
+101: "view_gallery"
+102: "view_galleryimages"
+103: "view_group"
+104: "view_logentry"
+105: "view_message"
+106: "view_messagerecipient"
+107: "view_newsletter"
+108: "view_newslettercomment"
+109: "view_newsletterlikes"
+110: "view_note"
+111: "view_permission"
+112: "view_poll"
+113: "view_pollchoice"
+114: "view_pollquestion"
+115: "view_pollrecipient"
+116: "view_pollresponse"
+117: "view_session"
+118: "view_setting"
+119: "view_statuschange"
+120: "view_ticket"
+121: "view_token"
+122: "view_user"
+123: "view_usergroup"
+*/

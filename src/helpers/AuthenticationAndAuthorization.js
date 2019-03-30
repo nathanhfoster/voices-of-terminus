@@ -7,6 +7,10 @@ class Category {
     const p = this.Permissions.findIndex(p => p.title == name);
     return p != -1 ? this.Permissions[p].id : p;
   };
+  getName = code => {
+    const p = this.Permissions.findIndex(p => p.id == code);
+    return p != -1 ? this.Permissions[p].category : p;
+  };
 }
 
 class Permission {

@@ -19,7 +19,12 @@ import { getYearMonthEvents } from "../../actions/Events";
 import { eventLabelColor } from "../../helpers";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({ AuthenticationAndAuthorization, User, Window, Events }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  Window,
+  Events
+}) => ({
   AuthenticationAndAuthorization,
   User,
   Window,
@@ -169,7 +174,11 @@ class GuildCalendar extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "event"]) && (
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_event"
+            ) && (
               <Button
                 onClick={e => history.push("/calendar/new/event")}
                 className="todayButton"

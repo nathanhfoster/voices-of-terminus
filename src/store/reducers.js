@@ -15,7 +15,7 @@ export const AuthenticationAndAuthorization = (
     case C.GET_ALL_USER_PERMISSIONS:
       return {
         ...state,
-        UserHasPermissionTo: payload
+        AllUserPermissions: payload
       };
     default:
       return { ...state };
