@@ -38,8 +38,14 @@ import ConfirmAction from "../../../../components/ConfirmAction";
 import Lightbox from "react-image-lightbox";
 import { withAlert } from "react-alert";
 import PopOver from "../../../../components/PopOver";
+import { UserHasPermissions } from "../../../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Galleries }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  Galleries
+}) => ({
+  AuthenticationAndAuthorization,
   User,
   Galleries
 });
@@ -92,7 +98,7 @@ class Gallery extends PureComponent {
 
   getState = props => {
     const { id } = props.match.params;
-    const { User, Galleries } = props;
+    const { AuthenticationAndAuthorization, User, Galleries } = props;
     const GalleryTitleIndex = Galleries.results.findIndex(
       gallery => gallery.id == id
     );
@@ -105,7 +111,14 @@ class Gallery extends PureComponent {
       .map(e => e.tags.split("|").map(i => (i = { value: i, label: i })))
       .flat(1);
     this.getGalleryImage(Gallery);
-    this.setState({ User, id, GalleryTitle, Gallery, currentTags });
+    this.setState({
+      AuthenticationAndAuthorization,
+      User,
+      id,
+      GalleryTitle,
+      Gallery,
+      currentTags
+    });
   };
 
   componentWillUnmount() {
@@ -212,15 +225,20 @@ class Gallery extends PureComponent {
   };
 
   renderGalleryImages = (images, filter, dontFilter) => {
-    const { User } = this.state;
-    const canDelete = User.is_superuser || User.can_create_galleries;
-    const canUpdate = User.is_superuser || User.can_create_galleries;
+    const { AuthenticationAndAuthorization, User } = this.state;
+    const canDelete = UserHasPermissions(AuthenticationAndAuthorization, User, [
+      "delete",
+      "galleryimages"
+    ]);
+    const canUpdate = UserHasPermissions(AuthenticationAndAuthorization, User, [
+      "change",
+      "galleryimages"
+    ]);
     return images
       .filter(img =>
         dontFilter ? img : deepEqual(img.tags.split("|"), filter)
       )
       .map((image, index) => {
-        const { cardHovered } = this.state;
         return (
           <Col md={3} xs={6} className="galleryCardContainer">
             <div
@@ -303,6 +321,8 @@ class Gallery extends PureComponent {
 
   render() {
     const {
+      AuthenticationAndAuthorization,
+      User,
       GalleryTitle,
       Gallery,
       title,
@@ -312,7 +332,6 @@ class Gallery extends PureComponent {
       editing,
       photoIndex,
       isOpen,
-      User,
       show,
       tags,
       currentTags
@@ -349,7 +368,10 @@ class Gallery extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {(User.is_superuser || User.can_create_galleries) && (
+            {UserHasPermissions(AuthenticationAndAuthorization, User, [
+              "add",
+              "galleryimages"
+            ]) && (
               <Button onClick={() => this.setState({ show: true })}>
                 <i className="fas fa-plus" /> Image
               </Button>

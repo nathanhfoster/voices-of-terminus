@@ -50,7 +50,11 @@ import {
   getVRYouTubeChannelData,
   Logout
 } from "./actions/App";
-import { getUsers, getUserGroups, getUserPermissions } from "./actions/Admin";
+import {
+  getAllUserGroups,
+  getAllUserPermissions
+} from "./actions/AuthenticationAndAuthorization";
+import { getUsers } from "./actions/Admin";
 import { getUserMessages } from "./actions/Messages";
 import { refreshPatchUser } from "./actions/App";
 import { getUserSettings } from "./actions/Settings";
@@ -58,7 +62,6 @@ import "moment-timezone";
 import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
-import { UserHasPermissions } from "./helpers/userPermissions";
 
 const mapStateToProps = ({
   Admin,
@@ -87,8 +90,8 @@ const mapDispatchToProps = {
   refreshPatchUser,
   getUserMessages,
   getUsers,
-  getUserGroups,
-  getUserPermissions,
+  getAllUserGroups,
+  getAllUserPermissions,
   getUserSettings
 };
 
@@ -168,14 +171,14 @@ class App extends PureComponent {
     images: PropTypes.array,
     imagesMobile: PropTypes.array,
     Settings: PropTypes.object,
-    getUserGroups: PropTypes.func.isRequired,
-    getUserPermissions: PropTypes.func.isRequired
+    getAllUserGroups: PropTypes.func.isRequired,
+    getAllUserPermissions: PropTypes.func.isRequired
   };
 
   static defaultProps = {};
 
   componentWillMount() {
-    localStorage.clear(); // Clear local storage
+    //localStorage.clear(); // Clear local storage
     this.getState(this.props);
   }
 
@@ -189,10 +192,14 @@ class App extends PureComponent {
       getAllVotYouTube,
       getVRYouTubeChannelData,
       getVotChannelsPlayLists,
-      Logout
+      Logout,
+      getAllUserGroups,
+      getAllUserPermissions
     } = this.props;
 
     getUsers();
+    getAllUserGroups();
+    getAllUserPermissions();
     if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
     if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
     getVRYouTubeChannelData();
@@ -242,13 +249,13 @@ class App extends PureComponent {
     const {
       refreshPatchUser,
       getUserSettings,
-      getUserGroups,
-      getUserPermissions,
+      getAllUserGroups,
+      getAllUserPermissions,
       getUserMessages
     } = this.props;
     const { push_messages } = Settings;
-    getUserGroups();
-    getUserPermissions();
+    getAllUserGroups();
+    getAllUserPermissions();
     refreshPatchUser(token, id);
     getUserSettings(token, id);
     if (push_messages) getUserMessages(id, token);

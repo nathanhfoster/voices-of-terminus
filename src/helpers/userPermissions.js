@@ -1,10 +1,16 @@
 import { isSubset } from "./index";
+import { UserHasPermissionTo } from "./AuthenticationAndAuthorization";
 
-export const UserHasPermissions = (Admin, User, Conditions) => {
-  let {
-    AllUserGroups,
-    AllUserPermissions
-  } = Admin.AuthenticationAndAuthorization;
+export const UserHasPermissions = (
+  AuthenticationAndAuthorization,
+  User,
+  Conditions
+) => {
+  let { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization;
+  const H = new UserHasPermissionTo(AllUserPermissions);
+  console.log(H);
+  console.log(H.Add.getCode("Article"));
+  //console.log(AllUserPermissions);
   AllUserPermissions = AllUserPermissions.sort((a, b) => a.id - b.id);
   const { groups, user_permissions } = User;
   if (

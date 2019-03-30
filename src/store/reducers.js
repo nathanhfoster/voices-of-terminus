@@ -1,6 +1,26 @@
 import C from "../constants.js";
 import { combineReducers } from "redux";
-import { stat } from "fs";
+
+export const AuthenticationAndAuthorization = (
+  state = { AllUserGroups: [], AllUserPermissions: [] },
+  action
+) => {
+  const { type, payload } = action;
+  switch (type) {
+    case C.GET_ALL_USER_GROUPS:
+      return {
+        ...state,
+        AllUserGroups: payload
+      };
+    case C.GET_ALL_USER_PERMISSIONS:
+      return {
+        ...state,
+        UserHasPermissionTo: payload
+      };
+    default:
+      return { ...state };
+  }
+};
 
 export const ApiResponse = (state = {}, action) =>
   action.type === C.SET_API_RESPONSE
@@ -231,6 +251,8 @@ export const User = (
       };
     case C.SET_LOGOUT:
       return {
+        AllUserGroups: [],
+        AllUserPermissions: [],
         Characters: [],
         Settings: { show_footer: false, push_messages: false }
       };
@@ -309,14 +331,6 @@ export const Polls = (
         error: null,
         ...state,
         ...payload
-        // count: payload.count,
-        // next: payload.next,
-        // previous: payload.previous,
-        // results: payload.results,
-        // Questions: state.Questions,
-        // Choices: state.Choices,
-        // Responses: state.Responses,
-        // Recipients: state.Recipients
       };
     case C.GET_POLL:
       return { ...state, Poll: payload };
@@ -421,10 +435,6 @@ export const Polls = (
 
 export const Admin = (
   state = {
-    AuthenticationAndAuthorization: {
-      AllUserGroups: [],
-      AllUserPermissions: []
-    },
     Users: [],
     User: { Characters: [], groups: [], user_permissions: [] },
     Tickets: [],
@@ -439,22 +449,6 @@ export const Admin = (
 ) => {
   const { type, payload } = action;
   switch (type) {
-    case C.GET_USER_GROUPS:
-      return {
-        ...state,
-        AuthenticationAndAuthorization: {
-          ...state.AuthenticationAndAuthorization,
-          AllUserGroups: payload
-        }
-      };
-    case C.GET_USER_PERMISSIONS:
-      return {
-        ...state,
-        AuthenticationAndAuthorization: {
-          ...state.AuthenticationAndAuthorization,
-          AllUserPermissions: payload
-        }
-      };
     case C.GET_USERS:
       return { ...state, Users: payload };
     case C.UPDATE_USERS_LOADING:
@@ -668,6 +662,7 @@ export const Events = (
 };
 
 export const appReducer = combineReducers({
+  AuthenticationAndAuthorization,
   ApiResponse,
   VoTYouTubeChannelData,
   VotAllYouTubeChannelData,

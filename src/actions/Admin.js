@@ -46,28 +46,6 @@ export const changePermissions = (token, id, payload) => (
     .catch(e => console.log(e));
 };
 
-export const getUserGroups = () => dispatch =>
-  Axios()
-    .get(`user-groups/`)
-    .then(res => {
-      dispatch({
-        type: C.GET_USER_GROUPS,
-        payload: res.data
-      });
-    })
-    .catch(e => console.log(e));
-
-export const getUserPermissions = () => dispatch =>
-  Axios()
-    .get(`user-permissions/`)
-    .then(res => {
-      dispatch({
-        type: C.GET_USER_PERMISSIONS,
-        payload: res.data
-      });
-    })
-    .catch(e => console.log(e));
-
 export const getUsersWithProfileImages = () => dispatch =>
   Axios()
     .get("users/")

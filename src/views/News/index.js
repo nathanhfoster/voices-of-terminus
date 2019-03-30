@@ -44,8 +44,8 @@ import {
 import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
-const mapStateToProps = ({ Admin, User, Settings, Articles, Newsletters }) => ({
-  Admin,
+const mapStateToProps = ({ AuthenticationAndAuthorization, User, Settings, Articles, Newsletters }) => ({
+  AuthenticationAndAuthorization,
   User,
   Settings,
   Articles,
@@ -144,7 +144,7 @@ class News extends Component {
   };
 
   getState = props => {
-    const { Admin, User, Settings, history, match, ApiResponse } = props;
+    const { AuthenticationAndAuthorization, User, Settings, history, match, ApiResponse } = props;
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -164,7 +164,7 @@ class News extends Component {
             .map(i => (i = { value: i, label: i }))
         : selectOptions;
     this.setState({
-      Admin,
+      AuthenticationAndAuthorization,
       User,
       Settings,
       Articles,
@@ -295,7 +295,7 @@ class News extends Component {
     //console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
     const {
-      Admin,
+      AuthenticationAndAuthorization,
       User,
       Settings,
       search,
@@ -333,13 +333,13 @@ class News extends Component {
             componentClass={ButtonToolbar}
           >
             {Title == "ARTICLES" &&
-              UserHasPermissions(Admin, User, ["add", "article"]) && (
+              UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "article"]) && (
                 <Button onClick={() => history.push("/article/new/")}>
                   <i className="fas fa-plus" /> Article
                 </Button>
               )}
             {Title == "NEWS" &&
-              UserHasPermissions(Admin, User, ["add", "newsletter"]) && (
+              UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "newsletter"]) && (
                 <Button onClick={() => history.push("/newsletter/new")}>
                   <i className="fas fa-plus" /> Newsletter
                 </Button>

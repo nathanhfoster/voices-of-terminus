@@ -36,8 +36,8 @@ import deepEqual from "deep-equal";
 import ConfirmAction from "../../../components/ConfirmAction";
 import PopOver from "../../../components/PopOver";
 
-const mapStateToProps = ({ Admin, User, Galleries }) => ({
-  Admin,
+const mapStateToProps = ({ AuthenticationAndAuthorization, User, Galleries }) => ({
+  AuthenticationAndAuthorization,
   User,
   Galleries
 });
@@ -82,12 +82,12 @@ class Images extends PureComponent {
   }
 
   getState = props => {
-    const { Admin, User, Galleries } = props;
+    const { AuthenticationAndAuthorization, User, Galleries } = props;
     const currentTags = Galleries.results
       .map(e => e.tags.split("|").map(i => (i = { value: i, label: i })))
       .flat(1);
     this.getGalleryImage(Galleries);
-    this.setState({ Admin, User, Galleries, currentTags });
+    this.setState({ AuthenticationAndAuthorization, User, Galleries, currentTags });
   };
 
   getGalleryImage = Galleries => {
@@ -188,10 +188,10 @@ class Images extends PureComponent {
   };
 
   renderGalleries = (galleries, filter, dontFilter) => {
-    const { Admin, User } = this.state;
+    const { AuthenticationAndAuthorization, User } = this.state;
     const { history } = this.props;
-    const canDelete = UserHasPermissions(Admin, User, ["delete", "gallery"]);
-    const canUpdate = UserHasPermissions(Admin, User, ["change", "gallery"]);
+    const canDelete = UserHasPermissions(AuthenticationAndAuthorization, User, ["delete", "gallery"]);
+    const canUpdate = UserHasPermissions(AuthenticationAndAuthorization, User, ["change", "gallery"]);
     return galleries
       .filter(gal =>
         dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)
@@ -287,7 +287,7 @@ class Images extends PureComponent {
 
   render() {
     const {
-      Admin,
+      AuthenticationAndAuthorization,
       User,
       search,
       title,
@@ -320,7 +320,7 @@ class Images extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(Admin, User, ["add", "gallery"]) && (
+            {UserHasPermissions(AuthenticationAndAuthorization, User, ["add", "gallery"]) && (
               <Button onClick={() => this.setState({ show: true })}>
                 <i className="fas fa-plus" /> Gallery
               </Button>
