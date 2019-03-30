@@ -250,12 +250,10 @@ class App extends PureComponent {
       refreshPatchUser,
       getUserSettings,
       getAllUserGroups,
-      getAllUserPermissions,
       getUserMessages
     } = this.props;
     const { push_messages } = Settings;
     getAllUserGroups();
-    getAllUserPermissions();
     refreshPatchUser(token, id);
     getUserSettings(token, id);
     if (push_messages) getUserMessages(id, token);
