@@ -27,6 +27,7 @@ import {
 import { clearHtmlDocument } from "../../actions/App";
 import { Redirect } from "react-router-dom";
 import formDesign from "./formDesign.json";
+import votLogoBlock from "./BlockTemplates/votLogoBlock";
 import defaultDesign from "./defaultDesign.json";
 import Cards from "../Cards";
 import Select from "react-select";
@@ -421,6 +422,7 @@ class NewsLetterGenerator extends PureComponent {
                   }
                 }
               },
+              blocks: [votLogoBlock],
               // customCSS: [
               //   `
               //     body {

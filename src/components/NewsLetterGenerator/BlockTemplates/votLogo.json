@@ -1,0 +1,59 @@
+{
+  "category": "VoT Logo",
+  "tags": ["vot", "logo"],
+  "data": {
+    "cells": [1],
+    "columns": [
+      {
+        "contents": [
+          {
+            "type": "image",
+            "values": {
+              "containerPadding": "10px",
+              "_meta": {
+                "htmlID": "u_content_image_1",
+                "htmlClassNames": "u_content_image"
+              },
+              "selectable": true,
+              "draggable": true,
+              "deletable": true,
+              "src": {
+                "url": "https://unroll-images-production.s3.amazonaws.com/projects/1558/1554144884326-brand.png",
+                "width": 799,
+                "height": 799
+              },
+              "fullWidth": false,
+              "textAlign": "center",
+              "maxWidth": "100%",
+              "altText": "Image",
+              "action": {
+                "url": "",
+                "target": ""
+              }
+            }
+          }
+        ],
+        "values": {}
+      }
+    ],
+    "values": {
+      "columns": false,
+      "backgroundColor": "",
+      "columnsBackgroundColor": "",
+      "backgroundImage": {
+        "url": "",
+        "fullWidth": true,
+        "repeat": false,
+        "center": true,
+        "cover": false
+      },
+      "padding": "0px",
+      "hideMobile": false,
+      "noStackMobile": false,
+      "selectable": true,
+      "draggable": true,
+      "deletable": true
+    }
+  },
+  "displayMode": "web"
+}
