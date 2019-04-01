@@ -37,7 +37,7 @@ import {
 } from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/select";
-import { getFavorites, postStatus } from "../../actions/Twitter";
+const { REACT_APP_UNLAYER_API_KEY } = process.env;
 
 const mapStateToProps = ({ Newsletters, HtmlDocument, User, Settings }) => ({
   Newsletters,
@@ -405,7 +405,7 @@ class NewsLetterGenerator extends PureComponent {
             id="editor"
             projectId={1558}
             displayMode="web"
-            templateId="UVUlFBYAZkRx58DwbDkC3BU4JrEmCW9AN8flo4vYtEAg9h1ULftKMXpu2UIEGDZs"
+            templateId={REACT_APP_UNLAYER_API_KEY}
             minHeight="calc(100vh - 58px)"
             ref={editor => (this.editor = editor)}
             style={styles}
