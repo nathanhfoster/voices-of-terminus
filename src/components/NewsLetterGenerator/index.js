@@ -27,7 +27,7 @@ import {
 import { clearHtmlDocument } from "../../actions/App";
 import { Redirect } from "react-router-dom";
 import formDesign from "./formDesign.json";
-import votLogoBlock from "./BlockTemplates/votLogoBlock.json";
+import votLogoBlock from "./BlockTemplates/votLogo.json";
 import defaultDesign from "./defaultDesign.json";
 import Cards from "../Cards";
 import Select from "react-select";
