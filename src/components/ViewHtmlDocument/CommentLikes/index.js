@@ -25,8 +25,9 @@ import {
   deleteArticleComment
 } from "../../../actions/Articles";
 import "./styles.css";
+import deepEqual from "deep-equal";
 
-const mapStateToProps = ({}) => ({});
+const mapStateToProps = ({ User, HtmlDocument }) => ({ User, HtmlDocument });
 
 const mapDispatchToProps = {
   postNewsletterLike,
@@ -54,6 +55,20 @@ class CommentLikes extends PureComponent {
   componentWillMount() {
     this.getState(this.props);
   }
+
+  componentDidMount() {}
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { HtmlDocument } = nextProps;
+  //   const { text } = nextState;
+  //   const currentText = this.state.text;
+  //   const currentHtmlDocument = this.state.HtmlDocument;
+
+  //   return (
+  //     !deepEqual(HtmlDocument, currentHtmlDocument) ||
+  //     !deepEqual(text, currentText)
+  //   );
+  // }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -157,7 +172,7 @@ class CommentLikes extends PureComponent {
     comments.map(com => {
       const { User } = this.props;
       return (
-        <Row className="commentContainer">
+        <Row className="commentContainer" key={com.id}>
           <Col xs={10}>
             <Image
               style={{ height: "50px" }}
@@ -216,6 +231,7 @@ class CommentLikes extends PureComponent {
       amountLiked
     } = this.state;
     const { comments } = HtmlDocument ? HtmlDocument : [];
+    // console.log("LIKES");
 
     return (
       <Row>

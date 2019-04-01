@@ -128,8 +128,6 @@ class ViewHtmlDocument extends Component {
             <CommentLikes
               match={match}
               history={history}
-              User={User}
-              HtmlDocument={HtmlDocument}
             />
           </Row>
         </Grid>
