@@ -25,9 +25,13 @@ import {
   deleteArticleComment
 } from "../../../actions/Articles";
 import "./styles.css";
-import deepEqual from "deep-equal";
+import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, HtmlDocument }) => ({ User, HtmlDocument });
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  HtmlDocument
+}) => ({ AuthenticationAndAuthorization, User, HtmlDocument });
 
 const mapDispatchToProps = {
   postNewsletterLike,
@@ -75,7 +79,13 @@ class CommentLikes extends PureComponent {
   }
 
   getState = props => {
-    const { User, HtmlDocument, history, match } = props;
+    const {
+      AuthenticationAndAuthorization,
+      User,
+      HtmlDocument,
+      history,
+      match
+    } = props;
 
     const { likes } = HtmlDocument;
     const likeTotal = likes
@@ -89,9 +99,10 @@ class CommentLikes extends PureComponent {
         ? likes.results[userLikeIndex].count
         : 0;
     this.setState({
+      AuthenticationAndAuthorization,
+      User,
       history,
       match,
-      User,
       HtmlDocument,
       likeTotal,
       amountLiked
@@ -170,7 +181,9 @@ class CommentLikes extends PureComponent {
 
   renderComments = comments =>
     comments.map(com => {
-      const { User } = this.props;
+      const { AuthenticationAndAuthorization } = this.state;
+      const { User, match } = this.props;
+      const { path } = match;
       return (
         <Row className="commentContainer" key={com.id}>
           <Col xs={10}>
@@ -186,7 +199,14 @@ class CommentLikes extends PureComponent {
               Action={e => this.deleteComment(com.id, User.token)}
               Disabled={false}
               Icon={<i className="fas fa-trash" />}
-              hasPermission={User.is_superuser || User.id === com.author}
+              hasPermission={UserHasPermissions(
+                AuthenticationAndAuthorization,
+                User,
+                path.includes("article")
+                  ? "delete_articlecomment"
+                  : "delete_newslettercomment",
+                com.author
+              )}
               Size=""
               Class="pull-right"
               Title={com.text}
@@ -223,8 +243,8 @@ class CommentLikes extends PureComponent {
 
   render() {
     const {
-      history,
       User,
+      history,
       HtmlDocument,
       text,
       likeTotal,

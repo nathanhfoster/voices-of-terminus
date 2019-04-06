@@ -31,8 +31,14 @@ import {
 } from "../../actions/Polls";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Polls, Admin }) => ({ User, Polls, Admin });
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  Polls,
+  Admin
+}) => ({ AuthenticationAndAuthorization, User, Polls, Admin });
 
 const mapDispatchToProps = {
   getUsers,
@@ -134,7 +140,15 @@ class PollGenerator extends Component {
   }
 
   getState = props => {
-    const { Questions, User, Admin, title, match, Polls } = props;
+    const {
+      AuthenticationAndAuthorization,
+      Questions,
+      User,
+      Admin,
+      title,
+      match,
+      Polls
+    } = props;
     const { Recipients } = Polls;
     const pollId = match.params.id;
     const selectOptions = Admin.Users
@@ -144,8 +158,15 @@ class PollGenerator extends Component {
       : [];
     if (pollId) {
       this.pollPropToState(Polls, User.id, selectOptions);
+      this.setState({ AuthenticationAndAuthorization });
     } else {
-      this.setState({ Questions, selectOptions, title, Polls });
+      this.setState({
+        AuthenticationAndAuthorization,
+        Questions,
+        selectOptions,
+        title,
+        Polls
+      });
     }
   };
 
@@ -429,6 +450,7 @@ class PollGenerator extends Component {
     const { User, Admin, PostPoll, UpdatePoll, match, history } = this.props;
     const pollId = match.params.id;
     const {
+      AuthenticationAndAuthorization,
       Polls,
       Questions,
       Recipients,
@@ -481,34 +503,41 @@ class PollGenerator extends Component {
                   ]
                 : "POST"}
             </Button>
-            <Button
-              disabled={!pollId}
-              onClick={e =>
-                UpdatePoll(
-                  pollId,
-                  User.token,
-                  User.id,
-                  User.username,
-                  title,
-                  body,
-                  expiration_date,
-                  Questions,
-                  Recipients.map(r => (r = { recipient: r.value }))
-                )
-              }
-            >
-              {updating && !updated
-                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                : !updating && updated && !error
-                ? [
-                    <i
-                      className="fas fa-check"
-                      style={{ color: "var(--color_emerald)" }}
-                    />,
-                    " UPDATE"
-                  ]
-                : "UPDATE"}
-            </Button>
+            {pollId &&
+              UserHasPermissions(
+                AuthenticationAndAuthorization,
+                User,
+                "change_poll"
+              ) && (
+                <Button
+                  disabled={!pollId}
+                  onClick={e =>
+                    UpdatePoll(
+                      pollId,
+                      User.token,
+                      User.id,
+                      User.username,
+                      title,
+                      body,
+                      expiration_date,
+                      Questions,
+                      Recipients.map(r => (r = { recipient: r.value }))
+                    )
+                  }
+                >
+                  {updating && !updated
+                    ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+                    : !updating && updated && !error
+                    ? [
+                        <i
+                          className="fas fa-check"
+                          style={{ color: "var(--color_emerald)" }}
+                        />,
+                        " UPDATE"
+                      ]
+                    : "UPDATE"}
+                </Button>
+              )}
           </Col>
           <Col
             md={4}

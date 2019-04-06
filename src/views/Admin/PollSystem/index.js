@@ -34,8 +34,13 @@ import Moment from "react-moment";
 import { withAlert } from "react-alert";
 import { Redirect } from "react-router-dom";
 import ConfirmAction from "../../../components/ConfirmAction";
+import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Polls }) => ({ User, Polls });
+const mapStateToProps = ({ AuthenticationAndAuthorization, User, Polls }) => ({
+  AuthenticationAndAuthorization,
+  User,
+  Polls
+});
 
 const mapDispatchToProps = {
   GetPoll,
@@ -97,13 +102,20 @@ class PollSystem extends Component {
   }
 
   getState = props => {
-    const { User, Polls, match, history } = props;
+    const {
+      AuthenticationAndAuthorization,
+      User,
+      Polls,
+      match,
+      history
+    } = props;
     const pollId = match.params.id;
     const { Poll, Questions, Choices, Responses, Recipients } = Polls;
     const { pathname } = history.location;
     const { expiration_date } = Poll;
     const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
     this.setState({
+      AuthenticationAndAuthorization,
       User,
       Polls,
       Poll,
@@ -139,7 +151,7 @@ class PollSystem extends Component {
 
   renderPolls = Polls => {
     const { User, DeletePoll } = this.props;
-    const { history } = this.state;
+    const { AuthenticationAndAuthorization, history } = this.state;
     return Polls.map(p => {
       const {
         id,
@@ -167,22 +179,31 @@ class PollSystem extends Component {
           >
             <ConfirmAction
               Action={e => DeletePoll(User.token, id)}
-              Disabled={!(User.is_superuser || User.is_leader)}
+              Disabled={false}
               Icon={<i className="fas fa-trash" />}
-              hasPermission={true}
+              hasPermission={UserHasPermissions(
+                AuthenticationAndAuthorization,
+                User,
+                "delete_poll"
+              )}
               Class="pull-right"
               Title={title}
             />
-            <Button
-              disabled={!(User.is_superuser || User.is_leader)}
-              onClick={e => {
-                e.stopPropagation();
-                history.push(`/poll/edit/${id}`);
-              }}
-              className="pull-right"
-            >
-              <i className="fa fa-pencil-alt" />
-            </Button>
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "change_poll"
+            ) && (
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  history.push(`/poll/edit/${id}`);
+                }}
+                className="pull-right"
+              >
+                <i className="fa fa-pencil-alt" />
+              </Button>
+            )}
           </Col>
           <Col xs={12}>
             <h4>
@@ -565,6 +586,7 @@ class PollSystem extends Component {
 
   render() {
     const {
+      AuthenticationAndAuthorization,
       User,
       Polls,
       Poll,
@@ -608,20 +630,25 @@ class PollSystem extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              disabled={!User.is_superuser}
-              onClick={() => history.push("/poll/new/")}
-            >
-              <i className="fas fa-plus" /> Poll
-            </Button>
-            {pollId ? (
-              <Button
-                disabled={!User.is_superuser}
-                onClick={() => history.push(`/poll/edit/${pollId}`)}
-              >
-                <i className="fa fa-pencil-alt" /> Poll
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_poll"
+            ) && (
+              <Button onClick={() => history.push("/poll/new/")}>
+                <i className="fas fa-plus" /> Poll
               </Button>
-            ) : null}
+            )}
+            {pollId &&
+              UserHasPermissions(
+                AuthenticationAndAuthorization,
+                User,
+                "change_poll"
+              ) && (
+                <Button onClick={() => history.push(`/poll/edit/${pollId}`)}>
+                  <i className="fa fa-pencil-alt" /> Poll
+                </Button>
+              )}
           </Col>
         </Row>
         {pollId

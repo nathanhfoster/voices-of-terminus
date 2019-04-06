@@ -19,8 +19,14 @@ import votLogo from "../../images/VoT-Logo-White.png";
 import votLogoHover from "../../images/VoT-Logo-Orange-Border-White.png";
 import { Logout } from "../../actions/App";
 import { roleClassIcon } from "../../helpers";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Messages }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  User,
+  Messages
+}) => ({
+  AuthenticationAndAuthorization,
   User,
   Messages
 });
@@ -54,8 +60,8 @@ class NavBar extends PureComponent {
   }
 
   getState = props => {
-    const { User, Messages } = props;
-    this.setState({ User, Messages });
+    const { AuthenticationAndAuthorization, User, Messages } = props;
+    this.setState({ AuthenticationAndAuthorization, User, Messages });
   };
 
   Logout = () => {
@@ -82,7 +88,7 @@ class NavBar extends PureComponent {
   render() {
     const { history, location } = this.props;
     const { pathname } = location;
-    const { User, Messages } = this.state;
+    const { AuthenticationAndAuthorization, User, Messages } = this.state;
     const { Settings } = User;
     const { show_footer, push_messages } = Settings;
     const unreadMessages = this.unreadMessages(Messages.results);
@@ -248,24 +254,34 @@ class NavBar extends PureComponent {
                   </NavItem>
                 </LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
-                {(User.is_superuser ||
-                  User.can_create_article ||
-                  User.can_create_newsletter) && <MenuItem divider />}
-                {(User.is_superuser || User.can_create_article) && (
+                <MenuItem divider />
+                {UserHasPermissions(
+                  AuthenticationAndAuthorization,
+                  User,
+                  "add_article"
+                ) && (
                   <LinkContainer to="/article/new/">
                     <NavItem eventKey={10.6}>
                       <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
                 )}
-                {(User.is_superuser || User.can_create_newsletter) && (
+                {UserHasPermissions(
+                  AuthenticationAndAuthorization,
+                  User,
+                  "add_newsletter"
+                ) && (
                   <LinkContainer to="/newsletter/new">
                     <NavItem eventKey={10.7}>
                       <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
                   </LinkContainer>
                 )}
-                {(User.is_superuser || User.is_staff) && (
+                {UserHasPermissions(
+                  AuthenticationAndAuthorization,
+                  User,
+                  "add_poll"
+                ) && (
                   <LinkContainer to="/poll/new/">
                     <NavItem eventKey={10.8}>
                       <i className="fas fa-plus" /> POLL
@@ -273,18 +289,28 @@ class NavBar extends PureComponent {
                   </LinkContainer>
                 )}
 
-                {(User.is_superuser || User.can_create_calendar_event) && (
+                {UserHasPermissions(
+                  AuthenticationAndAuthorization,
+                  User,
+                  "add_event"
+                ) && (
                   <LinkContainer to="/calendar/new/event">
                     <NavItem eventKey={10.9}>
                       <i className="fas fa-plus" /> EVENT
                     </NavItem>
                   </LinkContainer>
                 )}
-                <LinkContainer to="/ticket/new">
-                  <NavItem eventKey={10.1}>
-                    <i className="fas fa-plus" /> TICKET
-                  </NavItem>
-                </LinkContainer>
+                {UserHasPermissions(
+                  AuthenticationAndAuthorization,
+                  User,
+                  "add_ticket"
+                ) && (
+                  <LinkContainer to="/ticket/new">
+                    <NavItem eventKey={10.1}>
+                      <i className="fas fa-plus" /> TICKET
+                    </NavItem>
+                  </LinkContainer>
+                )}
                 <MenuItem divider />
                 <LinkContainer to="/polls">
                   <NavItem eventKey={10.11}>
