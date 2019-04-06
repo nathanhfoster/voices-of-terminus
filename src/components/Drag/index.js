@@ -47,10 +47,10 @@ class Drag extends PureComponent {
 
   componentWillUnmount() {}
 
-  eventLogger = (e: MouseEvent, data: Object) => {
-    console.log("Event: ", e);
-    console.log("Data: ", data);
-  };
+  // eventLogger = (e: MouseEvent, data: Object) => {
+  //   console.log("Event: ", e);
+  //   console.log("Data: ", data);
+  // };
 
   render() {
     return (
