@@ -276,22 +276,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       is_host,
-      is_lore_master,
-      can_create_article,
-      can_create_galleries,
-      can_create_lore,
-      can_create_references,
-      can_create_newsletter,
-      can_create_calendar_event,
-      can_read_article,
-      can_read_newsletter,
-      can_read_calendar_event,
-      can_update_article,
-      can_update_newsletter,
-      can_update_calendar_event,
-      can_delete_article,
-      can_delete_newsletter,
-      can_delete_calendar_event
+      is_lore_master
     } = this.state.Admin.User;
 
     const payload = {
@@ -320,22 +305,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       is_host,
-      is_lore_master,
-      can_create_article,
-      can_create_galleries,
-      can_create_lore,
-      can_create_references,
-      can_create_newsletter,
-      can_create_calendar_event,
-      can_read_article,
-      can_read_newsletter,
-      can_read_calendar_event,
-      can_update_article,
-      can_update_newsletter,
-      can_update_calendar_event,
-      can_delete_article,
-      can_delete_newsletter,
-      can_delete_calendar_event
+      is_lore_master
     };
     updateUserProfile(id, User.token, payload);
 
