@@ -36,8 +36,15 @@ import { defaultProfileImages } from "../../helpers/defaultProfileImages";
 import PermissionsTable from "./PermissionsTable";
 import OverviewTable from "./OverviewTable";
 import TicketTable from "./TicketsTable";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({ Admin, User, Window }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  Admin,
+  User,
+  Window
+}) => ({
+  AuthenticationAndAuthorization,
   Admin,
   User,
   Window
@@ -94,12 +101,7 @@ class Admin extends PureComponent {
   }*/
 
   componentDidMount() {
-    const {
-
-      getUsers,
-      clearUser,
-      getTickets
-    } = this.props;
+    const { getUsers, clearUser, getTickets } = this.props;
     getUsers();
     clearUser();
     getTickets();
@@ -110,9 +112,22 @@ class Admin extends PureComponent {
   }
 
   getState = props => {
-    const { Admin, User, Window, history } = props;
+    const {
+      AuthenticationAndAuthorization,
+      Admin,
+      User,
+      Window,
+      history
+    } = props;
     const { pathname } = history.location;
-    this.setState({ Admin, User, Window, eventKey: pathname, history });
+    this.setState({
+      AuthenticationAndAuthorization,
+      Admin,
+      User,
+      Window,
+      eventKey: pathname,
+      history
+    });
   };
 
   componentWillUnmount() {
@@ -230,6 +245,7 @@ class Admin extends PureComponent {
     const canSubmit = !this.cantSubmit();
     const { updateUserProfile } = this.props;
     const {
+      AuthenticationAndAuthorization,
       Admin,
       User,
       Window,
@@ -271,36 +287,60 @@ class Admin extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button onClick={this.handleShow}>
-              <i className="fas fa-plus" /> User
-            </Button>
-            <Button
-              disabled={!(User.is_superuser || User.can_create_article)}
-              onClick={() => history.push("/article/new")}
-            >
-              <i className="fas fa-plus" /> Article
-            </Button>
-            <Button
-              disabled={!(User.is_superuser || User.can_create_newsletter)}
-              onClick={() => history.push("/newsletter/new")}
-            >
-              <i className="fas fa-plus" /> Newsletter
-            </Button>
-            <Button onClick={() => history.push("/calendar/new/event")}>
-              <i className="far fa-calendar-plus" /> Event
-            </Button>
-            <Button
-              disabled={!(User.is_superuser || User.can_create_calendar_event)}
-              onClick={() => history.push("/poll/new")}
-            >
-              <i className="fas fa-plus" /> Poll
-            </Button>
-            <Button
-              disabled={!(User.is_superuser || User.can_create_calendar_event)}
-              onClick={() => history.push("/ticket/new")}
-            >
-              <i className="fas fa-plus" /> Ticket
-            </Button>
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_user"
+            ) && (
+              <Button onClick={this.handleShow}>
+                <i className="fas fa-plus" /> User
+              </Button>
+            )}
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_article"
+            ) && (
+              <Button onClick={() => history.push("/article/new")}>
+                <i className="fas fa-plus" /> Article
+              </Button>
+            )}
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_newsletter"
+            ) && (
+              <Button onClick={() => history.push("/newsletter/new")}>
+                <i className="fas fa-plus" /> Newsletter
+              </Button>
+            )}
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_event"
+            ) && (
+              <Button onClick={() => history.push("/calendar/new/event")}>
+                <i className="far fa-calendar-plus" /> Event
+              </Button>
+            )}
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_poll"
+            ) && (
+              <Button onClick={() => history.push("/poll/new")}>
+                <i className="fas fa-plus" /> Poll
+              </Button>
+            )}
+            {UserHasPermissions(
+              AuthenticationAndAuthorization,
+              User,
+              "add_ticket"
+            ) && (
+              <Button onClick={() => history.push("/ticket/new")}>
+                <i className="fas fa-plus" /> Ticket
+              </Button>
+            )}
             <Button
               disabled={!User.is_superuser}
               onClick={() => history.push("/polls")}
@@ -324,7 +364,7 @@ class Admin extends PureComponent {
               title={"Overview"}
               unmountOnExit={true}
             >
-              {OverviewTable(Users, User)}
+              {OverviewTable(AuthenticationAndAuthorization, Users, User)}
             </Tab>
             <Tab
               eventKey={`/admin/permissions`}

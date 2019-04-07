@@ -32,14 +32,17 @@ import { selectStyles } from "../../helpers/styles";
 import deepEqual from "deep-equal";
 import { articleSlectOptions } from "../../helpers/select";
 import { options } from "./options";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 
 const mapStateToProps = ({
+  AuthenticationAndAuthorization,
   Articles,
   editorState,
   HtmlDocument,
   User,
   Admin
 }) => ({
+  AuthenticationAndAuthorization,
   Articles,
   editorState,
   HtmlDocument,
@@ -117,7 +120,12 @@ class TextEditor extends Component {
   }
 
   getState = props => {
-    let { Articles, editorState, Admin } = props;
+    let {
+      AuthenticationAndAuthorization,
+      Articles,
+      editorState,
+      Admin
+    } = props;
     const { Users } = Admin;
     const suggestions = Users.map(
       user =>
@@ -153,6 +161,7 @@ class TextEditor extends Component {
     } else editorState = EditorState.createEmpty();
 
     this.setState({
+      AuthenticationAndAuthorization,
       Articles,
       User,
       HtmlDocument,
@@ -239,6 +248,7 @@ class TextEditor extends Component {
   render() {
     const { history } = this.props;
     const {
+      AuthenticationAndAuthorization,
       User,
       id,
       author,
@@ -251,7 +261,11 @@ class TextEditor extends Component {
       Articles
     } = this.state;
     const { posting, posted, updating, updated, error } = Articles;
-    return !(User.is_superuser || User.can_create_article) ? (
+    return !UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "add_article"
+    ) ? (
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (

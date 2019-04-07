@@ -38,6 +38,7 @@ import {
   PermissionTitle
 } from "../../../helpers/userPermissions";
 import { ExperienceBar } from "../../../components/ExperienceBar";
+import { UserHasPermissions } from "../../../helpers/userPermissions";
 
 const mapStateToProps = ({ AuthenticationAndAuthorization, Admin, User }) => ({
   AuthenticationAndAuthorization,
@@ -275,22 +276,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       is_host,
-      is_lore_master,
-      can_create_article,
-      can_create_galleries,
-      can_create_lore,
-      can_create_references,
-      can_create_newsletter,
-      can_create_calendar_event,
-      can_read_article,
-      can_read_newsletter,
-      can_read_calendar_event,
-      can_update_article,
-      can_update_newsletter,
-      can_update_calendar_event,
-      can_delete_article,
-      can_delete_newsletter,
-      can_delete_calendar_event
+      is_lore_master
     } = this.state.Admin.User;
 
     const payload = {
@@ -319,22 +305,7 @@ class UserProfile extends PureComponent {
       is_class_lead,
       is_crafter_lead,
       is_host,
-      is_lore_master,
-      can_create_article,
-      can_create_galleries,
-      can_create_lore,
-      can_create_references,
-      can_create_newsletter,
-      can_create_calendar_event,
-      can_read_article,
-      can_read_newsletter,
-      can_read_calendar_event,
-      can_update_article,
-      can_update_newsletter,
-      can_update_calendar_event,
-      can_delete_article,
-      can_delete_newsletter,
-      can_delete_calendar_event
+      is_lore_master
     };
     updateUserProfile(id, User.token, payload);
 
@@ -398,10 +369,6 @@ class UserProfile extends PureComponent {
     const { AuthenticationAndAuthorization, Admin, User } = this.state;
     const { history } = this.props;
     const { updating, updated, error } = Admin;
-    const {
-      AllUserGroups,
-      AllUserPermissions
-    } = AuthenticationAndAuthorization;
     const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt(User);
@@ -853,299 +820,12 @@ class UserProfile extends PureComponent {
                 </Row>,
                 <Row className="checkBoxTable">
                   {this.renderUserPermissions(
-                    AllUserPermissions.sort((a, b) =>
-                      a.codename.localeCompare(b.codename)
+                    AuthenticationAndAuthorization.AllUserPermissions.sort(
+                      (a, b) => a.codename.localeCompare(b.codename)
                     ) || [],
                     Admin.User.user_permissions || [],
                     canEdit
                   )}
-                </Row>,
-                <Row className="checkBoxTable">
-                  <Col md={3} xs={12}>
-                    <h3>CREATE</h3>
-                    <span className="help">Can create designated content.</span>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_create_article}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_create_article: !Admin.User.can_create_article
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Articles
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_create_newsletter}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_create_newsletter: !Admin.User
-                                .can_create_newsletter
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Newsletters
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_create_calendar_event}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_create_calendar_event: !Admin.User
-                                .can_create_calendar_event
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Calendar Events
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_create_galleries}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_create_galleries: !Admin.User
-                                .can_create_galleries
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Galleries
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_create_lore}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_create_lore: !Admin.User.can_create_lore
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Lore
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_create_references}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_create_references: !Admin.User
-                                .can_create_references
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      References
-                    </Checkbox>
-                  </Col>
-                  <Col md={3} xs={12}>
-                    <h3>READ</h3>
-                    <span className="help">Can read designated content.</span>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_read_article}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_read_article: !Admin.User.can_read_article
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Articles
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_read_newsletter}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_read_newsletter: !Admin.User
-                                .can_read_newsletter
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Newsletters
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_read_calendar_event}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_read_calendar_event: !Admin.User
-                                .can_read_calendar_event
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Calendar Events
-                    </Checkbox>
-                  </Col>
-                  <Col md={3} xs={12}>
-                    <h3>UPDATE</h3>
-                    <span className="help">
-                      Can update ANY designated content.
-                    </span>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_update_article}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_update_article: !Admin.User.can_update_article
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Articles
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_update_newsletter}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_update_newsletter: !Admin.User
-                                .can_update_newsletter
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Newsletters
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_update_calendar_event}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_update_calendar_event: !Admin.User
-                                .can_update_calendar_event
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Calendar Events
-                    </Checkbox>
-                  </Col>
-                  <Col md={3} xs={12}>
-                    <h3>DELETE</h3>
-                    <span className="help">
-                      Can delete ANY designated content.
-                    </span>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_delete_article}
-                      onClick={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_delete_article: !Admin.User.can_delete_article
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Articles
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_delete_newsletter}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_delete_newsletter: !Admin.User
-                                .can_delete_newsletter
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Newsletters
-                    </Checkbox>
-                    <Checkbox
-                      disabled={!canEdit}
-                      checked={Admin.User.can_delete_calendar_event}
-                      onChange={e =>
-                        this.setState(prevState => ({
-                          Admin: {
-                            ...prevState.Admin,
-                            User: {
-                              ...prevState.Admin.User,
-                              can_delete_calendar_event: !Admin.User
-                                .can_delete_calendar_event
-                            }
-                          }
-                        }))
-                      }
-                    >
-                      Calendar Events
-                    </Checkbox>
-                  </Col>
                 </Row>
               ]
             : null}

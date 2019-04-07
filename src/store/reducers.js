@@ -251,6 +251,8 @@ export const User = (
       };
     case C.SET_LOGOUT:
       return {
+        groups: [],
+        user_permissions: [],
         AllUserGroups: [],
         AllUserPermissions: [],
         Characters: [],

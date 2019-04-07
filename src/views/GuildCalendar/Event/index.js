@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -36,12 +36,17 @@ import "rc-slider/assets/index.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { postEvent, clearEventsApi } from "../../../actions/Events";
+import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Events }) => ({ User, Events });
+const mapStateToProps = ({ AuthenticationAndAuthorization, User, Events }) => ({
+  AuthenticationAndAuthorization,
+  User,
+  Events
+});
 
 const mapDispatchToProps = { postEvent, clearEventsApi };
 
-class Event extends Component {
+class Event extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -111,10 +116,6 @@ class Event extends Component {
     this.getState(this.props);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }
-
   componentWillUpdate() {}
 
   /* render() */
@@ -129,8 +130,9 @@ class Event extends Component {
   }
 
   getState = props => {
-    const { User, Events, groups } = props;
+    const { AuthenticationAndAuthorization, User, Events, groups } = props;
     this.setState({
+      AuthenticationAndAuthorization,
       User,
       Events,
       groups,
@@ -389,6 +391,7 @@ class Event extends Component {
   render() {
     const { history } = this.props;
     const {
+      AuthenticationAndAuthorization,
       User,
       Events,
       title,
@@ -414,7 +417,11 @@ class Event extends Component {
       error
     } = Events;
     const raidSelected = tags.map(e => e.value).includes("Raid");
-    return !(User.is_superuser || User.can_create_calendar_event) ? (
+    return !UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "add_event"
+    ) ? (
       history.length > 1 ? (
         <Redirect to={history.goBack()} />
       ) : (
@@ -433,10 +440,7 @@ class Event extends Component {
           >
             <Button
               style={{ marginLeft: 16 }}
-              disabled={
-                !this.canSubmit() ||
-                !(User.is_superuser || User.can_create_calendar_event)
-              }
+              disabled={!this.canSubmit()}
               onClick={this.postEvent}
             >
               {posting && !posted

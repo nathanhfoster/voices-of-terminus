@@ -1,25 +1,24 @@
 export const UserHasPermissions = (
   AuthenticationAndAuthorization,
   User,
-  Codename
+  Codename,
+  AuthorId
 ) => {
   const { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization;
   const { groups, user_permissions } = User;
+
+  if (!User) return false;
+  if (User.is_superuser) return true;
+
+  if (AuthorId != null && User.id == AuthorId) return true;
 
   if (
     AllUserGroups == null ||
     user_permissions == null ||
     AllUserPermissions.length < 1 ||
-    user_permissions.length < 1
+    (groups.length < 1 && user_permissions.length < 1)
   )
     return false;
-
-  if (User.is_superuser) return true;
-
-  // console.log("AllUserGroups: ", AllUserGroups);
-  // console.log("groups: ", groups);
-  // console.log("AllUserPermissions: ", AllUserPermissions);
-  // console.log("user_permissions: ", user_permissions);
 
   let GroupsMap = {};
 
@@ -48,9 +47,6 @@ export const UserHasPermissions = (
     const permission = user_permissions[i];
     if (PermissionMap[permission] == Codename) return true;
   }
-
-  // console.log(PermissionMap);
-  // console.log(GroupsMap);
   return false;
 };
 

@@ -36,11 +36,7 @@ import Select from "react-select";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
-import {
-  hasUpdatePermission,
-  hasDeletePermission,
-  isSubset
-} from "../../helpers";
+import { isSubset } from "../../helpers";
 import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
@@ -216,6 +212,7 @@ class News extends Component {
       .filter(tabFilter)
       .sort(sort)
       .map(card => {
+        const { AuthenticationAndAuthorization } = this.state;
         const {
           User,
           history,
@@ -228,6 +225,22 @@ class News extends Component {
         let editCard = null;
         let deleteCard = null;
         let className = "CardContainer ";
+        const documentType = card.tags.includes("Article")
+          ? "article"
+          : "newsletter";
+        let deletePermission = (deletePermission = UserHasPermissions(
+          AuthenticationAndAuthorization,
+          User,
+          "delete_" + documentType,
+          card.author
+        ));
+        let updatePermission = (updatePermission = UserHasPermissions(
+          AuthenticationAndAuthorization,
+          User,
+          "change_" + documentType,
+          card.author
+        ));
+
         if (card.tags.includes("Article")) {
           click = () => history.push(`/view/article/${card.id}`);
           editCard = () => {
@@ -253,25 +266,13 @@ class News extends Component {
               Settings={Settings}
               key={card.id}
               User={User}
-              canDelete={hasDeletePermission(User, card.author, card.tags)}
-              canUpdate={hasUpdatePermission(User, card.author, card.tags)}
+              canDelete={deletePermission}
+              canUpdate={updatePermission}
               click={click}
               editCard={editCard}
               deleteCard={deleteCard}
               summary={true}
             />
-            {/* {Cards({
-              ...card,
-              Settings,
-              key: card.id,
-              User,
-              canDelete: hasDeletePermission(User, card.author, card.tags),
-              canUpdate: hasUpdatePermission(User, card.author, card.tags),
-              click,
-              editCard,
-              deleteCard,
-              summary: true
-            })} */}
           </Col>
         );
       });

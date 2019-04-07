@@ -31,16 +31,20 @@ import votLogoBlock from "./BlockTemplates/votLogo.json";
 import defaultDesign from "./defaultDesign.json";
 import Cards from "../Cards";
 import Select from "react-select";
-import {
-  getImageBase64,
-  hasUpdatePermission,
-  hasDeletePermission
-} from "../../helpers/";
+import { getImageBase64 } from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/select";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 const { REACT_APP_UNLAYER_API_KEY } = process.env;
 
-const mapStateToProps = ({ Newsletters, HtmlDocument, User, Settings }) => ({
+const mapStateToProps = ({
+  AuthenticationAndAuthorization,
+  Newsletters,
+  HtmlDocument,
+  User,
+  Settings
+}) => ({
+  AuthenticationAndAuthorization,
   Newsletters,
   HtmlDocument,
   User,
@@ -97,7 +101,12 @@ class NewsLetterGenerator extends PureComponent {
   }
 
   getState = props => {
-    const { User, Newsletters, HtmlDocument } = props;
+    const {
+      AuthenticationAndAuthorization,
+      User,
+      Newsletters,
+      HtmlDocument
+    } = props;
     newsletterSelectOptions[1].isDisabled = !(
       User.is_leader || User.is_council
     );
@@ -115,6 +124,7 @@ class NewsLetterGenerator extends PureComponent {
       design = JSON.parse(HtmlDocument.design);
 
     this.setState({
+      AuthenticationAndAuthorization,
       design,
       User,
       Newsletters,
@@ -199,8 +209,8 @@ class NewsLetterGenerator extends PureComponent {
             Settings,
             key: card.id,
             User,
-            canDelete: hasDeletePermission(User, card.author, card.tags),
-            canUpdate: hasUpdatePermission(User, card.author, card.tags),
+            // canDelete: hasDeletePermission(User, card.author, card.tags),
+            // canUpdate: hasUpdatePermission(User, card.author, card.tags),
             click: () => this.handleHide(card.id),
             editCard: getNewsletter,
             deleteCard: deleteNewsLetter,
@@ -250,6 +260,7 @@ class NewsLetterGenerator extends PureComponent {
   render() {
     const { history } = this.props;
     const {
+      AuthenticationAndAuthorization,
       design,
       User,
       Newsletters,
@@ -274,7 +285,11 @@ class NewsLetterGenerator extends PureComponent {
       boxShadow: "0 2px 5px 0 rgba(0, 0, 0, 0.25)",
       width: "100%"
     };
-    return !(User.is_superuser || User.can_create_newsletter) ? (
+    return !UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "add_newsletter"
+    ) ? (
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
