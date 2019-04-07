@@ -328,7 +328,6 @@ class Messages extends PureComponent {
             componentClass={ButtonToolbar}
           >
             <Button
-              //disabled={!(User.is_superuser || User.can_create_article)}
               onClick={() => {
                 this.setState({ show: true, creatingMessage: true });
               }}

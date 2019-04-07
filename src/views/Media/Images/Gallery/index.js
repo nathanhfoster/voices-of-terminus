@@ -338,8 +338,16 @@ class Gallery extends PureComponent {
       tags,
       currentTags
     } = this.state;
-    const canDelete = User.is_superuser || User.can_create_galleries;
-    const canUpdate = User.is_superuser || User.can_create_galleries;
+    const canDelete = UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "add_gallery"
+    );
+    const canUpdate = UserHasPermissions(
+      AuthenticationAndAuthorization,
+      User,
+      "change_gallery"
+    );
     let images = Gallery ? Gallery.results : [];
     images = search
       ? matchSorter(images, search, {

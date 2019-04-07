@@ -7,9 +7,10 @@ export const UserHasPermissions = (
   const { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization;
   const { groups, user_permissions } = User;
 
+  if (!User) return false;
   if (User.is_superuser) return true;
 
-  if (User && AuthorId && User.id == AuthorId) return true;
+  if (AuthorId != null && User.id == AuthorId) return true;
 
   if (
     AllUserGroups == null ||

@@ -301,10 +301,7 @@ class Admin extends PureComponent {
               User,
               "add_article"
             ) && (
-              <Button
-                disabled={!(User.is_superuser || User.can_create_article)}
-                onClick={() => history.push("/article/new")}
-              >
+              <Button onClick={() => history.push("/article/new")}>
                 <i className="fas fa-plus" /> Article
               </Button>
             )}
@@ -313,10 +310,7 @@ class Admin extends PureComponent {
               User,
               "add_newsletter"
             ) && (
-              <Button
-                disabled={!(User.is_superuser || User.can_create_newsletter)}
-                onClick={() => history.push("/newsletter/new")}
-              >
+              <Button onClick={() => history.push("/newsletter/new")}>
                 <i className="fas fa-plus" /> Newsletter
               </Button>
             )}
@@ -334,12 +328,7 @@ class Admin extends PureComponent {
               User,
               "add_poll"
             ) && (
-              <Button
-                disabled={
-                  !(User.is_superuser || User.can_create_calendar_event)
-                }
-                onClick={() => history.push("/poll/new")}
-              >
+              <Button onClick={() => history.push("/poll/new")}>
                 <i className="fas fa-plus" /> Poll
               </Button>
             )}
@@ -348,12 +337,7 @@ class Admin extends PureComponent {
               User,
               "add_ticket"
             ) && (
-              <Button
-                disabled={
-                  !(User.is_superuser || User.can_create_calendar_event)
-                }
-                onClick={() => history.push("/ticket/new")}
-              >
+              <Button onClick={() => history.push("/ticket/new")}>
                 <i className="fas fa-plus" /> Ticket
               </Button>
             )}
