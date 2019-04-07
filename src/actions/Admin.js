@@ -11,7 +11,6 @@ export const changeGroups = (token, id, payload) => (dispatch, getState) => {
     .then(res => {
       const userIndex = usersPayload.findIndex(user => user.id === id);
       usersPayload[userIndex].groups = JSON.parse(res.data);
-      console.log("changeGroups: ", JSON.parse(res.data));
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
         payload: usersPayload
@@ -35,7 +34,6 @@ export const changePermissions = (token, id, payload) => (
     .then(res => {
       const userIndex = usersPayload.findIndex(user => user.id === id);
       usersPayload[userIndex].user_permissions = JSON.parse(res.data);
-      console.log("changePermissions: ", JSON.parse(res.data));
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
         payload: usersPayload

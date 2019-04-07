@@ -322,6 +322,40 @@ class UserProfile extends PureComponent {
       txt ? txt + " | " : i === 0 ? <i className="fas fa-ban" /> : null
     );
 
+  renderUserGroupPermissions = (AllUserGroups, UserGroups, canEdit) => {
+    return (
+      <Col xs={12}>
+        <h3>GROUPS</h3>
+        {AllUserGroups.map(g => {
+          const { id, name, permissions } = g;
+          const UserHasGroup = UserGroups.some(e => e == id);
+          return (
+            <Checkbox
+              key={id}
+              disabled={!canEdit}
+              checked={UserHasGroup}
+              onClick={e =>
+                this.setState(prevState => ({
+                  Admin: {
+                    ...prevState.Admin,
+                    User: {
+                      ...prevState.Admin.User,
+                      groups: prevState.Admin.User.groups.includes(id)
+                        ? prevState.Admin.User.groups.filter(e => e != id)
+                        : [...prevState.Admin.User.groups, ...[id]]
+                    }
+                  }
+                }))
+              }
+            >
+              {name}
+            </Checkbox>
+          );
+        })}
+      </Col>
+    );
+  };
+
   renderUserPermissions = (AllUserPermissions, UserPermissions, canEdit) =>
     CategorizedPermissions(AllUserPermissions).map(columnPermissions => {
       const Header = PermissionHeader(columnPermissions[0].codename);
@@ -337,6 +371,7 @@ class UserProfile extends PureComponent {
             const UserHasPermission = UserPermissions.some(e => e == id);
             return (
               <Checkbox
+                key={id}
                 disabled={!canEdit}
                 checked={UserHasPermission}
                 onClick={e =>
@@ -819,6 +854,11 @@ class UserProfile extends PureComponent {
                   <h2 className="headerBanner">PERMISSIONS</h2>
                 </Row>,
                 <Row className="checkBoxTable">
+                  {this.renderUserGroupPermissions(
+                    AuthenticationAndAuthorization.AllUserGroups,
+                    Admin.User.groups || [],
+                    canEdit
+                  )}
                   {this.renderUserPermissions(
                     AuthenticationAndAuthorization.AllUserPermissions.sort(
                       (a, b) => a.codename.localeCompare(b.codename)
