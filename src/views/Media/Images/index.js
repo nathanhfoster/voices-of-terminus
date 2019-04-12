@@ -214,7 +214,7 @@ class Images extends PureComponent {
         dontFilter ? gal : deepEqual(gal.tags.split("|"), filter)
       )
       .map(gallery => (
-        <Col md={3} xs={6} className="galleryCardContainer">
+        <Col md={3} xs={12} className="galleryCardContainer">
           <div
             key={gallery.id}
             className="Clickable galleryCard Hover"

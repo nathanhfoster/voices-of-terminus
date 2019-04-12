@@ -38,7 +38,6 @@ import {
   PermissionTitle
 } from "../../../helpers/userPermissions";
 import { ExperienceBar } from "../../../components/ExperienceBar";
-import { UserHasPermissions } from "../../../helpers/userPermissions";
 
 const mapStateToProps = ({ AuthenticationAndAuthorization, Admin, User }) => ({
   AuthenticationAndAuthorization,
@@ -367,7 +366,6 @@ class UserProfile extends PureComponent {
           {columnPermissions.map(p => {
             const { codename, content_type, id, name } = p;
             const title = PermissionTitle(name);
-            //console.log(UserPermissions);
             const UserHasPermission = UserPermissions.some(e => e == id);
             return (
               <Checkbox

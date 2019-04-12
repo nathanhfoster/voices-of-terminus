@@ -5,7 +5,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { getVotTwitchStreams } from "../../../actions/App";
 import { Grid } from "react-bootstrap";
-import StreamCard from "./StreamCard/";
+import StreamCard from "./StreamCard";
 
 const mapStateToProps = ({ VotTwitchStreams }) => ({ VotTwitchStreams });
 
@@ -46,7 +46,6 @@ class Streams extends PureComponent {
 
   render() {
     const { _total, _links, videos } = this.state.VotTwitchStreams;
-    console.log(_total, _links);
     return (
       <Grid className="Streams Container fadeIn">
         {this.renderStreams(videos)}

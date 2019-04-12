@@ -242,7 +242,7 @@ class Gallery extends PureComponent {
       )
       .map((image, index) => {
         return (
-          <Col md={3} xs={6} className="galleryCardContainer">
+          <Col md={3} xs={12} className="galleryCardContainer">
             <div
               key={image.id}
               className="Clickable galleryCard Hover"

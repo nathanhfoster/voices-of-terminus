@@ -1,26 +1,34 @@
 import axios from "axios";
-import qs from "qs";
 const { REACT_APP_API_URL } = process.env;
+
+const base = {
+  Accept: "application/json"
+};
+
+const baseHeaders = {
+  ...base,
+  "Cache-Control": "no-cache",
+  "Content-Type": "application/x-www-form-urlencoded"
+};
+
+const baseFormHeaders = payload => ({
+  ...base,
+  "Accept-Language": "en-US,en;q=0.8",
+  "Content-Type": `multipart/form-data; boundary=${payload._boundary}`
+});
 
 export const Axios = (token, pagination) =>
   axios.create({
     withCredentials: token ? true : false,
     baseURL: pagination ? pagination : REACT_APP_API_URL,
     timeout: 25000,
-    async: true,
     crossDomain: true,
     headers: token
       ? {
-          Authorization: "Token " + token,
-          "Cache-Control": "no-cache",
-          "Content-type": "application/x-www-form-urlencoded",
-          Accept: "application/json"
+          Authorization: `Token ${token}`,
+          ...baseHeaders
         }
-      : {
-          "Cache-Control": "no-cache",
-          "Content-type": "application/x-www-form-urlencoded",
-          Accept: "application/json"
-        }
+      : baseHeaders
   });
 
 export const AxiosForm = (token, payload) =>
@@ -29,16 +37,10 @@ export const AxiosForm = (token, payload) =>
     timeout: 25000,
     headers: token
       ? {
-          Authorization: "Token " + token,
-          Accept: "application/json",
-          "Accept-Language": "en-US,en;q=0.8",
-          "Content-Type": `multipart/form-data; boundary=${payload._boundary}`
+          Authorization: `Token ${token}`,
+          ...baseFormHeaders(payload)
         }
-      : {
-          Accept: "application/json",
-          "Accept-Language": "en-US,en;q=0.8",
-          "Content-Type": `multipart/form-data; boundary=${payload._boundary}`
-        }
+      : baseFormHeaders(payload)
   });
 
 export const AxiosData = (token, payload) => {
@@ -50,16 +52,10 @@ export const AxiosData = (token, payload) => {
     crossDomain: true,
     headers: token
       ? {
-          Authorization: "Token " + token,
-          "Cache-Control": "no-cache",
-          "Content-type": "application/x-www-form-urlencoded",
-          Accept: "application/json"
+          Authorization: `Token ${token}`,
+          ...baseHeaders
         }
-      : {
-          "Cache-Control": "no-cache",
-          "Content-type": "application/x-www-form-urlencoded",
-          Accept: "application/json"
-        },
+      : baseHeaders,
     data: payload
   });
 };

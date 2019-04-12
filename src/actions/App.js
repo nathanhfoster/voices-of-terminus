@@ -46,17 +46,28 @@ export const getVotPlaylistShow = () => dispatch =>
     .catch(e => console.log("getVotPlaylistShow: ", e));
 
 export const getVotTwitchStreams = () => dispatch =>
-  Axios()
-    .get(
-      `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
-    )
-    .then(res => {
+  fetch(
+    `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
+  )
+    .then(response => response.json())
+    .then(res =>
       dispatch({
         type: C.GET_VOT_TWITCH_STREAMS,
-        payload: res.data
-      });
-    })
-    .catch(e => console.log("getVotTwitchStreams: ", e));
+        payload: res
+      })
+    );
+
+// Axios()
+//   .get(
+//     `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
+//   )
+//   .then(res => {
+//     dispatch({
+//       type: C.GET_VOT_TWITCH_STREAMS,
+//       payload: res.data
+//     });
+//   })
+//   .catch(e => console.log("getVotTwitchStreams: ", e));
 
 export const getAllVotYouTube = () => dispatch =>
   ytube
