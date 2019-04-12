@@ -259,7 +259,7 @@ class Gallery extends PureComponent {
                     Disabled={false}
                     Icon={<i className="fas fa-trash" />}
                     hasPermission={canDelete}
-                    Size="small"
+                    Size=""
                     Class="pull-right"
                     Title={image.title}
                   />
@@ -279,7 +279,7 @@ class Gallery extends PureComponent {
                           image: image.image
                         });
                       }}
-                      bsSize="small"
+                      bsSize=""
                       className="pull-right"
                     >
                       <i className="fa fa-pencil-alt" />

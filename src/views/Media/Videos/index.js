@@ -5,6 +5,7 @@ import { Grid, Row, Col, Image, NavItem } from "react-bootstrap";
 import "./styles.css";
 import Moment from "react-moment";
 import { LinkContainer } from "react-router-bootstrap";
+import VideoCard from "./VideoCard";
 
 const mapStateToProps = ({ VoTYouTubeChannelData }) => ({
   VoTYouTubeChannelData
@@ -23,7 +24,8 @@ class Videos extends PureComponent {
   }
 
   static propTypes = {
-    VoTYouTubeChannelData: PropTypes.array
+    VoTYouTubeChannelData: PropTypes.array,
+    history: PropTypes.object
   };
 
   static defaultProps = {
@@ -46,35 +48,13 @@ class Videos extends PureComponent {
     this.setState({ VoTYouTubeChannelData });
   };
 
-  renderVideos = videos =>
-    videos.map(video => {
-      const route = `videos/${video.videoId}/youtube`;
-      return (
-        <LinkContainer to={route}>
-          <NavItem eventKey={video.videoId}>
-            <Row className="youTubeContainer">
-              <Col md={3} className="videoImageContainer Center">
-                <Image src={video.thumbnails.high} />
-              </Col>
-              <Col md={9} className="videoTitleContainer">
-                <h3>{video.title}</h3>
-                <i className="far fa-clock" />{" "}
-                <Moment fromNow>{video.publishedAt}</Moment>
-                <p>{video.description}</p>
-              </Col>
-            </Row>
-          </NavItem>
-        </LinkContainer>
-      );
-    });
+  renderVideos = videos => videos.map(video => <VideoCard {...video} />);
 
   render() {
     const { VoTYouTubeChannelData } = this.state;
     return (
       <Grid className="Videos Container fadeIn">
-        {VoTYouTubeChannelData.length > 1
-          ? this.renderVideos(VoTYouTubeChannelData)
-          : null}
+        {this.renderVideos(VoTYouTubeChannelData)}
       </Grid>
     );
   }

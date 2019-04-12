@@ -94,11 +94,7 @@ class Media extends Component {
       const { eventKey, Title, Component } = k;
       const { history, location, match } = this.props;
       return (
-        <Tab
-          eventKey={eventKey}
-          title={Title}
-          unmountOnExit={true}
-        >
+        <Tab eventKey={eventKey} title={Title} unmountOnExit={true}>
           {<Component history={history} location={location} match={match} />}
         </Tab>
       );

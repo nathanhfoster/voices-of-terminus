@@ -1,11 +1,10 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
-import { Grid, Row, Col, Image, NavItem } from "react-bootstrap";
-import { LinkContainer } from "react-router-bootstrap";
+import { Grid } from "react-bootstrap";
 import "./styles.css";
 import "./stylesM.css";
-import Moment from "react-moment";
+import PodcastCard from "./PodcastCard";
 import { getVotPlaylistShow } from "../../../actions/App";
 
 const mapStateToProps = ({ VotPlaylistShow }) => ({
@@ -23,7 +22,7 @@ class Podcasts extends PureComponent {
     this.state = {};
   }
 
-  static propTypes = {};
+  static propTypes = { VotPlaylistShow: PropTypes.array };
 
   static defaultProps = {};
 
@@ -49,27 +48,7 @@ class Podcasts extends PureComponent {
   };
 
   renderPlaylistItems = playlist =>
-    playlist.map(podcast => {
-      const { videoId } = podcast;
-      const route = `podcasts/${videoId}/youtube`;
-      return (
-        <LinkContainer to={route}>
-          <NavItem eventKey={podcast.playlistItemId}>
-            <Row className="youTubeContainer">
-              <Col md={3} className="videoImageContainer Center">
-                <Image src={podcast.thumbnails.high} />
-              </Col>
-              <Col md={9} className="videoTitleContainer">
-                <h3>{podcast.title}</h3>
-                <i className="far fa-clock" />{" "}
-                <Moment fromNow>{podcast.publishedAt}</Moment>
-                <p>{podcast.description}</p>
-              </Col>
-            </Row>
-          </NavItem>
-        </LinkContainer>
-      );
-    });
+    playlist.map(podcast => <PodcastCard {...podcast} />);
 
   render() {
     const { VotPlaylistShow } = this.state;

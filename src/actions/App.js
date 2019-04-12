@@ -5,6 +5,7 @@ import YTube from "ytube";
 import qs from "qs";
 const {
   REACT_APP_YOUTUBE_API_KEY,
+  REACT_APP_TWITCH_CLIENT_ID,
   REACT_APP_VOT_YOUTUBE_CHANNEL_ID,
   REACT_APP_VR_YOUTUBE_CHANNEL_ID,
   REACT_APP_VOT_PLAYLIST_ID_SHOW
@@ -47,7 +48,7 @@ export const getVotPlaylistShow = () => dispatch =>
 export const getVotTwitchStreams = () => dispatch =>
   Axios()
     .get(
-      "https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=jvqb2pnewihctq9ov3on4ajzhyqc7t"
+      `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
     )
     .then(res => {
       dispatch({
