@@ -181,11 +181,12 @@ const PostQuestions = (
 ) => {
   let payload = getState().Polls.Questions;
   for (let i = 0; i < Questions.length; i++) {
-    const { question, question_type, Choices, position } = Questions[i];
+    const { question, question_type, image, Choices, position } = Questions[i];
     const pollQuestionPayload = {
       author,
       question,
       question_type,
+      image,
       poll_id,
       position
     };

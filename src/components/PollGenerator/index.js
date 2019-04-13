@@ -10,7 +10,8 @@ import {
   ControlLabel,
   FormControl,
   Form,
-  InputGroup
+  InputGroup,
+  Image
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
@@ -21,6 +22,7 @@ import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
 import { selectStyles } from "../../helpers/styles";
 import { Redirect } from "react-router-dom";
 import { getUsers } from "../../actions/Admin";
+import { withAlert } from "react-alert";
 import {
   PostPoll,
   clearPollsApi,
@@ -32,6 +34,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { UserHasPermissions } from "../../helpers/userPermissions";
+import { defaultImage } from "../../helpers/defaultProfileImages";
 
 const mapStateToProps = ({
   AuthenticationAndAuthorization,
@@ -63,6 +66,7 @@ class PollGenerator extends Component {
           position: 0,
           question: "",
           question_type: PollChoices[0].value,
+          image: defaultImage,
           Choices: []
         }
       ],
@@ -80,6 +84,7 @@ class PollGenerator extends Component {
         position: 0,
         question: "",
         question_type: PollChoices[0].value,
+        image: defaultImage,
         Choices: []
       }
     ]
@@ -217,7 +222,7 @@ class PollGenerator extends Component {
   onQuestionChange = e => {
     const { id, value } = e.target;
     let { Questions } = this.state;
-    Questions[parseInt(id)].question = value;
+    Questions[id].question = value;
     this.setState({ Questions });
   };
 
@@ -271,10 +276,29 @@ class PollGenerator extends Component {
     }
   };
 
+  setImage = e => {
+    const { id } = e.target;
+    const { alert } = this.props;
+    var file = e.target.files[0];
+
+    if (file.size > 3145728) {
+      alert.error(<div>Please use an image less then 3MB</div>);
+    } else {
+      var reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onloadend = () => {
+        let { Questions } = this.state;
+        Questions[id].image = reader.result;
+        console.log(Questions[id].image);
+        this.setState({ Questions });
+      };
+    }
+  };
+
   renderQuestions = Questions =>
     Questions.map((q, i) => {
       const { NewChoice } = this.state;
-      const { question_type, question, Choices } = q;
+      const { question_type, image, question, Choices } = q;
       return (
         <Row className="Questions Center borderedRow">
           <Col xs={12}>
@@ -289,6 +313,18 @@ class PollGenerator extends Component {
               Class="pull-right"
               Title={question}
               CloseOnReceiveProps={true}
+            />
+          </Col>
+          <Col xs={12}>
+            <Image src={image} width={200} />
+            <FormControl
+              style={{ margin: "auto" }}
+              key={i}
+              id={i}
+              type="file"
+              label="File"
+              name="image"
+              onChange={this.setImage}
             />
           </Col>
           <Col md={9} xs={12}>
@@ -554,6 +590,7 @@ class PollGenerator extends Component {
                       position: Questions.length,
                       question: "",
                       question_type: PollChoices[0].value,
+                      image: defaultImage,
                       Choices: []
                     }
                   ]
@@ -663,4 +700,6 @@ class PollGenerator extends Component {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator);
+export default withAlert(
+  reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator)
+);
