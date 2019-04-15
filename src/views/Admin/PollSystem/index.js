@@ -253,11 +253,20 @@ class PollSystem extends Component {
           unmountOnExit={true}
         >
           {Questions.map((q, i) => {
-            const { question, question_type } = q;
+            const { question, question_type, image } = q;
             return [
-              <h4>
-                <i className="far fa-question-circle" /> {question}
-              </h4>,
+              <Row style={{ marginTop: 8 }}>
+                <Col xs={12}>
+                  <h4>
+                    <i className="far fa-question-circle" /> {question}
+                  </h4>
+                </Col>
+                {image && (
+                  <Col xs={12}>
+                    <Image src={image} height={250} />
+                  </Col>
+                )}
+              </Row>,
               Choices.length > 0 && Choices[i]
                 ? Choices[i].map(c => {
                     const { id, title, question_id } = c;
