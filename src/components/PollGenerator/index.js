@@ -562,7 +562,8 @@ class PollGenerator extends Component {
                       body,
                       expiration_date,
                       Questions,
-                      Recipients.map(r => (r = { recipient: r.value }))
+                      Recipients.map(r => (r = { recipient: r.value })),
+                      is_private
                     )
                   }
                 >

@@ -302,13 +302,15 @@ export const UpdatePoll = (
   body,
   expiration_date,
   Questions,
-  Recipients
+  Recipients,
+  is_private
 ) => (dispatch, getState) => {
   const pollPayload = {
     author,
     title,
     last_modified_by: author,
-    expiration_date
+    expiration_date,
+    is_private
   };
 
   dispatch({ type: C.UPDATE_POLLS_LOADING });
