@@ -11,7 +11,8 @@ import {
   FormControl,
   Form,
   InputGroup,
-  Image
+  Image,
+  Checkbox
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
@@ -71,6 +72,7 @@ class PollGenerator extends Component {
         }
       ],
       Recipients: [],
+      is_private: false,
       selectOptions: []
     };
   }
@@ -107,7 +109,7 @@ class PollGenerator extends Component {
     return true;
   }
 
-  componentWillUpdate() {}
+  componentWillUpdate() { }
 
   componentDidMount() {
     const {
@@ -133,8 +135,8 @@ class PollGenerator extends Component {
     } else {
       Recipients = Users
         ? Users.filter(i => i.id === User.id).map(
-            e => (e = { value: e.id, label: e.username, isFixed: true })
-          )
+          e => (e = { value: e.id, label: e.username, isFixed: true })
+        )
         : [];
       this.setState({ Recipients });
     }
@@ -158,8 +160,8 @@ class PollGenerator extends Component {
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
-          (a, b) => a.label.localeCompare(b.label)
-        )
+        (a, b) => a.label.localeCompare(b.label)
+      )
       : [];
     if (pollId) {
       this.pollPropToState(Polls, User.id, selectOptions);
@@ -175,7 +177,7 @@ class PollGenerator extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) { }
 
   componentWillUnmount() {
     const { clearPollsApi } = this.props;
@@ -184,7 +186,7 @@ class PollGenerator extends Component {
 
   pollPropToState = (Polls, userId, selectOptions) => {
     let { Poll, Questions, Choices, Recipients } = Polls;
-    const { title, expiration_date } = Poll;
+    const { title, expiration_date, is_private } = Poll;
     Questions = Questions.map(
       (q, i) =>
         (q = {
@@ -194,12 +196,11 @@ class PollGenerator extends Component {
           question_type: q.question_type,
           Choices: Choices[i]
             ? Choices[i].map(
-                (c, i) => (c = { id: c.id, position: i, title: c.title })
-              )
+              (c, i) => (c = { id: c.id, position: i, title: c.title })
+            )
             : []
         })
     );
-
     Recipients = Recipients.map(
       r =>
         (r = {
@@ -209,13 +210,15 @@ class PollGenerator extends Component {
           isFixed: r.recipient == userId
         })
     );
+
     this.setState({
       Polls,
       title,
       Questions,
       Recipients,
       selectOptions,
-      expiration_date
+      expiration_date,
+      is_private
     });
   };
 
@@ -493,7 +496,8 @@ class PollGenerator extends Component {
       selectOptions,
       title,
       body,
-      expiration_date
+      expiration_date,
+      is_private
     } = this.state;
     const {
       loading,
@@ -523,21 +527,22 @@ class PollGenerator extends Component {
                   body,
                   expiration_date,
                   Questions,
-                  Recipients.map(r => (r = { recipient: r.value }))
+                  Recipients.map(r => (r = { recipient: r.value })),
+                  is_private
                 )
               }
             >
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                 : !posting && posted && !error
-                ? [
+                  ? [
                     <i
                       className="fas fa-check"
                       style={{ color: "var(--color_emerald)" }}
                     />,
                     " POST"
                   ]
-                : "POST"}
+                  : "POST"}
             </Button>
             {pollId &&
               UserHasPermissions(
@@ -564,14 +569,14 @@ class PollGenerator extends Component {
                   {updating && !updated
                     ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
                     : !updating && updated && !error
-                    ? [
+                      ? [
                         <i
                           className="fas fa-check"
                           style={{ color: "var(--color_emerald)" }}
                         />,
                         " UPDATE"
                       ]
-                    : "UPDATE"}
+                      : "UPDATE"}
                 </Button>
               )}
           </Col>
@@ -689,6 +694,18 @@ class PollGenerator extends Component {
                 </InputGroup>
               </Col>
             </Row>
+            <Row>
+              <Col xs={12}>
+                <Checkbox
+                  checked={is_private}
+                  onClick={e =>
+                    this.setState({ is_private: !is_private })
+                  }
+                >
+                  Private
+                  </Checkbox>
+              </Col>
+            </Row>
           </Form>
         </Row>
         {this.renderQuestions(Questions)}
@@ -696,8 +713,8 @@ class PollGenerator extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-      <Redirect to="/login" />
-    );
+          <Redirect to="/login" />
+        );
   }
 }
 export default withAlert(

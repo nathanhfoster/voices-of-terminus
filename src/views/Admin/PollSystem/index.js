@@ -73,8 +73,6 @@ class PollSystem extends Component {
     return true;
   }
 
-  componentWillUpdate() {}
-
   componentDidMount() {
     const {
       User,
@@ -194,16 +192,16 @@ class PollSystem extends Component {
               User,
               "change_poll"
             ) && (
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  history.push(`/poll/edit/${id}`);
-                }}
-                className="pull-right"
-              >
-                <i className="fa fa-pencil-alt" />
-              </Button>
-            )}
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    history.push(`/poll/edit/${id}`);
+                  }}
+                  className="pull-right"
+                >
+                  <i className="fa fa-pencil-alt" />
+                </Button>
+              )}
           </Col>
           <Col xs={12}>
             <h4>
@@ -233,11 +231,12 @@ class PollSystem extends Component {
     });
   };
 
-  renderQuestions = (User, Questions, Choices, Responses, Recipients) => {
+  renderQuestions = (User, Questions, Choices, Responses, Recipients, is_private) => {
     const { eventKey, pollId, history, expired } = this.state;
     const isRecipient =
-      Recipients.findIndex(e => User.id === e.recipient) != -1;
-    return User.is_superuser || isRecipient ? (
+      Recipients.some(e => User.id === e.recipient);
+    const canView = !is_private && isRecipient;
+    return User.is_superuser || canView ? (
       <Tabs
         defaultActiveKey={eventKey}
         activeKey={eventKey}
@@ -269,25 +268,25 @@ class PollSystem extends Component {
               </Row>,
               Choices.length > 0 && Choices[i]
                 ? Choices[i].map(c => {
-                    const { id, title, question_id } = c;
-                    return (
-                      <Row className="borderedRow noHover">
-                        <Col xs={12}>
-                          <FormGroup key={i}>
-                            {this.switchQuestionChoices(
-                              question_type,
-                              id,
-                              title,
-                              User,
-                              Choices[i],
-                              Responses,
-                              expired
-                            )}
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    );
-                  })
+                  const { id, title, question_id } = c;
+                  return (
+                    <Row className="borderedRow noHover">
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoices(
+                            question_type,
+                            id,
+                            title,
+                            User,
+                            Choices[i],
+                            Responses,
+                            expired
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
                 : null
             ];
           })}
@@ -305,30 +304,30 @@ class PollSystem extends Component {
               </h4>,
               Choices.length > 0 && Choices[i]
                 ? Choices[i].map(c => {
-                    const { id, title, question_id } = c;
-                    return (
-                      <Row className="borderedRow noHover">
-                        <Col xs={12}>
-                          <FormGroup key={i}>
-                            {this.switchQuestionChoicesResponses(
-                              question_type,
-                              id,
-                              title,
-                              Responses
-                            )}
-                          </FormGroup>
-                        </Col>
-                      </Row>
-                    );
-                  })
+                  const { id, title, question_id } = c;
+                  return (
+                    <Row className="borderedRow noHover">
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoicesResponses(
+                            question_type,
+                            id,
+                            title,
+                            Responses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
                 : null
             ];
           })}
         </Tab>
       </Tabs>
     ) : (
-      <h1>Sorry you are not a recipient to this poll</h1>
-    );
+        <h1>You don't have permission to view this poll.</h1>
+      );
   };
 
   switchQuestionChoices = (
@@ -435,22 +434,22 @@ class PollSystem extends Component {
                 {posting && !posted
                   ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                   : !posting && posted && !error
-                  ? [
+                    ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " SUBMIT"
                     ]
-                  : error
-                  ? [
-                      <i
-                        className="fas fa-times"
-                        style={{ color: "var(--color_alizarin)" }}
-                      />,
-                      " SUBMIT"
-                    ]
-                  : "SUBMIT"}
+                    : error
+                      ? [
+                        <i
+                          className="fas fa-times"
+                          style={{ color: "var(--color_alizarin)" }}
+                        />,
+                        " SUBMIT"
+                      ]
+                      : "SUBMIT"}
               </Button>
             </InputGroup.Addon>
           </InputGroup>
@@ -607,7 +606,7 @@ class PollSystem extends Component {
       eventKey,
       history
     } = this.state;
-    const { title, expiration_date } = Poll;
+    const { title, expiration_date, is_private } = Poll;
     const expired = new Date(expiration_date) - new Date() < 0;
     return pollId &&
       !(
@@ -615,62 +614,63 @@ class PollSystem extends Component {
         eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
-      <Redirect to={`/polls/${pollId}/respond`} />
-    ) : (
-      <Grid className="PollSystem Container">
-        <Row>
-          <PageHeader className="pageHeader">POLLS</PageHeader>
-        </Row>
-        <Row>
-          <h1 className="Center">{title}</h1>
-        </Row>
-        {pollId ? (
+        <Redirect to={`/polls/${pollId}/respond`} />
+      ) : (
+        <Grid className="PollSystem Container">
           <Row>
-            <h3 className="Center">
-              {expired
-                ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
-                : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
-            </h3>
+            <PageHeader className="pageHeader">POLLS</PageHeader>
           </Row>
-        ) : null}
-        <Row className="ActionToolbarRow">
-          <Col
-            md={4}
-            className="ActionToolbar cardActions"
-            componentClass={ButtonToolbar}
-          >
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_poll"
-            ) && (
-              <Button onClick={() => history.push("/poll/new/")}>
-                <i className="fas fa-plus" /> Poll
-              </Button>
-            )}
-            {pollId &&
-              UserHasPermissions(
+          <Row>
+            <h1 className="Center">{title}</h1>
+          </Row>
+          {pollId ? (
+            <Row>
+              <h3 className="Center">
+                {expired
+                  ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
+                  : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
+              </h3>
+            </Row>
+          ) : null}
+          <Row className="ActionToolbarRow">
+            <Col
+              md={4}
+              className="ActionToolbar cardActions"
+              componentClass={ButtonToolbar}
+            >
+              {UserHasPermissions(
                 AuthenticationAndAuthorization,
                 User,
-                "change_poll"
+                "add_poll"
               ) && (
-                <Button onClick={() => history.push(`/poll/edit/${pollId}`)}>
-                  <i className="fa fa-pencil-alt" /> Poll
+                  <Button onClick={() => history.push("/poll/new/")}>
+                    <i className="fas fa-plus" /> Poll
+              </Button>
+                )}
+              {pollId &&
+                UserHasPermissions(
+                  AuthenticationAndAuthorization,
+                  User,
+                  "change_poll"
+                ) && (
+                  <Button onClick={() => history.push(`/poll/edit/${pollId}`)}>
+                    <i className="fa fa-pencil-alt" /> Poll
                 </Button>
-              )}
-          </Col>
-        </Row>
-        {pollId
-          ? this.renderQuestions(
+                )}
+            </Col>
+          </Row>
+          {pollId
+            ? this.renderQuestions(
               User,
               Questions,
               Choices,
               Responses,
-              Recipients
+              Recipients,
+              is_private
             )
-          : this.renderPolls(Polls.results)}
-      </Grid>
-    );
+            : this.renderPolls(Polls.results)}
+        </Grid>
+      );
   }
 }
 export default withAlert(

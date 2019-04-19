@@ -79,9 +79,10 @@ export const PostPoll = (
   body,
   expiration_date,
   Questions,
-  Recipients
+  Recipients,
+  is_private
 ) => (dispatch, getState) => {
-  const pollPayload = { author, title, expiration_date };
+  const pollPayload = { author, title, expiration_date, is_private };
   dispatch({ type: C.POST_POLLS_LOADING });
   const { Polls } = getState();
   let payload = { ...Polls };
@@ -435,7 +436,7 @@ const UpdateChoices = (
     };
     Axios(token)
       .patch(`poll/choices/${id}/`, qs.stringify(choicePayload))
-      .then(choice => {})
+      .then(choice => { })
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
   GetQuestionChoices(token, Questions, dispatch, getState);
