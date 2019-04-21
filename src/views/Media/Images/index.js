@@ -258,10 +258,10 @@ class Images extends PureComponent {
             {gallery.image ? (
               <Image src={gallery.image} />
             ) : (
-              <div style={{ position: "absolute", top: "25%", right: "50%" }}>
-                <i className="fa fa-spinner fa-spin" />
-              </div>
-            )}
+                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                  <i className="fa fa-spinner fa-spin" />
+                </div>
+              )}
             <div className="gallerySummary">
               <h4>{gallery.title}</h4>
               <span>{gallery.description}</span>
@@ -281,20 +281,6 @@ class Images extends PureComponent {
                   <i className="far fa-clock" />
                   <Moment fromNow>{gallery.date_created}</Moment>
                 </div>
-                {/* <div className="inlineNoWrap">
-                  <i className="fas fa-pencil-alt" />
-                  <Link
-                    to={`/profile/ ${gallery.last_modified_by}`}
-                    onClick={e => e.stopPropagation()}
-                  >
-                    {gallery.last_modified_by_username}
-                  </Link>{" "}
-                  <i className="far fa-clock" />
-                  <Moment fromNow>{gallery.last_modified}</Moment>
-                </div> */}
-                {/* <div>
-                  <i className="fas fa-tags" /> [{gallery.tags}]
-                </div> */}
               </div>
             </div>
           </div>
@@ -318,8 +304,8 @@ class Images extends PureComponent {
     let galleries = Galleries.results ? Galleries.results : [];
     galleries = search
       ? matchSorter(galleries, search, {
-          keys: ["title", "author_username", "description"]
-        })
+        keys: ["title", "author_username", "description"]
+      })
       : galleries;
     const selectValue =
       this.state.selectValue.length > 0
@@ -342,10 +328,10 @@ class Images extends PureComponent {
               User,
               "add_gallery"
             ) && (
-              <Button onClick={() => this.setState({ show: true })}>
-                <i className="fas fa-plus" /> Gallery
+                <Button onClick={() => this.setState({ show: true })}>
+                  <i className="fas fa-plus" /> Gallery
               </Button>
-            )}
+              )}
           </Col>
           <Col md={5} xs={12}>
             <InputGroup>
@@ -471,10 +457,10 @@ class Images extends PureComponent {
                 {editing ? (
                   <Button onClick={this.updateGallery}>UPDATE</Button>
                 ) : (
-                  <Button onClick={this.postGallery}>
-                    <i className="fas fa-cloud-upload-alt" /> POST
+                    <Button onClick={this.postGallery}>
+                      <i className="fas fa-cloud-upload-alt" /> POST
                   </Button>
-                )}
+                  )}
               </Modal.Footer>
             </Modal>
           </Row>
