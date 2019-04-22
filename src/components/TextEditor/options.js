@@ -300,10 +300,11 @@ export const options = {
     component: undefined,
     popupClassName: undefined,
     embedCallback: (embeddedLink, height, width) => {
-      if (embeddedLink.indexOf("youtube") >= 0) {
-        embeddedLink = embeddedLink.replace("watch?v=", "embed/");
-        embeddedLink = embeddedLink.replace("/watch/", "/embed/");
-        embeddedLink = embeddedLink.replace("youtu.be/", "youtube.com/embed/");
+      if (embeddedLink.includes("youtube")) {
+        embeddedLink = embeddedLink
+          .replace("watch?v=", "embed/")
+          .replace("/watch/", "/embed/")
+          .replace("youtu.be/", "youtube.com/embed/");
       }
       return embeddedLink;
     },
