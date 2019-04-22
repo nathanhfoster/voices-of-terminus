@@ -299,7 +299,14 @@ export const options = {
     className: undefined,
     component: undefined,
     popupClassName: undefined,
-    embedCallback: undefined,
+    embedCallback: (embeddedLink, height, width) => {
+      if (embeddedLink.indexOf("youtube") >= 0) {
+        embeddedLink = embeddedLink.replace("watch?v=", "embed/");
+        embeddedLink = embeddedLink.replace("/watch/", "/embed/");
+        embeddedLink = embeddedLink.replace("youtu.be/", "youtube.com/embed/");
+      }
+      return embeddedLink;
+    },
     defaultSize: {
       height: "540",
       width: "100%"
