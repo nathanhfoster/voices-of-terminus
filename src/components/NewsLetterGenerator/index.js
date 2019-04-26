@@ -107,7 +107,7 @@ class NewsLetterGenerator extends PureComponent {
       Newsletters,
       HtmlDocument
     } = props;
-    const { author, title } = HtmlDocument ? HtmlDocument : "";
+    const { author, title } = HtmlDocument ? HtmlDocument : this.state;
     const { id } = props.match.params;
     let { tags } = this.state
     if (HtmlDocument)
