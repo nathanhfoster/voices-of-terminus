@@ -84,19 +84,25 @@ class EventDetails extends Component {
 
   componentWillUnmount() {}
 
-  renderGroups = (User, Groups) =>
-    Groups.map((g, i) => {
+  renderGroups = (User, Groups) => {
+    const { Characters } = User;
+    const UserAlreadySignedUp = Groups.some(g =>
+      g.GroupMembers.some(m => Characters.some(c => c.id == m.filled))
+    );
+
+    return Groups.map((g, i) => {
       const { id, event_id, position, GroupMembers } = g;
       const header = Groups.length > 1 ? `Group: ${position + 1}` : `Group`;
       return (
         <Col className="Group" md={12 / Groups.length} xs={12}>
           <h2 className="headerBanner">{header}</h2>
-          {this.renderGroupMembers(User, GroupMembers)}
+          {this.renderGroupMembers(User, GroupMembers, UserAlreadySignedUp)}
         </Col>
       );
     });
+  };
 
-  renderGroupMembers = (User, GroupMembers) => {
+  renderGroupMembers = (User, GroupMembers, UserAlreadySignedUp) => {
     const { Characters } = User;
     return GroupMembers.map(member => {
       const {
@@ -133,7 +139,8 @@ class EventDetails extends Component {
               Response,
               rolePreference,
               hasClassPreferences,
-              classPreferences
+              classPreferences,
+              UserAlreadySignedUp
             )}
           </div>
         </div>
@@ -149,12 +156,11 @@ class EventDetails extends Component {
     Response,
     rolePreference,
     hasClassPreferences,
-    classPreferences
+    classPreferences,
+    UserAlreadySignedUp
   ) => {
     let Elements = [];
-    let UserAlreadySignedUp = GroupMembers.some(m =>
-      Characters.some(c => c.id == m.filled)
-    );
+
     const imageDimensions = 20;
     const canSignUpForAnyClass =
       rolePreference == "Any" && !hasClassPreferences;
