@@ -2,8 +2,7 @@ import React from "react";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import "./styles.css";
 
-const PopOver = props => {
-  const { User, children } = props;
+const PopOver = ({ User, children }) => {
   const { token } = User;
 
   const popover = (
