@@ -31,7 +31,7 @@ import {
   clearUser
 } from "../../actions/Admin";
 import { getTickets } from "../../actions/Tickets";
-import { isEquivalent } from "../../helpers";
+import { isEquivalent, removeObjProp } from "../../helpers";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import PermissionsTable from "./PermissionsTable";
@@ -81,11 +81,13 @@ class Admin extends PureComponent {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { Admin, User } = this.state;
+    const { Admin } = this.state;
+    const User = removeObjProp(this.state.User, "last_login")
     const { Tickets, Users } = nextProps.Admin;
     const currentTickets = Admin.Tickets;
     const currentUsers = Admin.Users;
-    const currentUser = nextProps.User;
+    const currentUser = removeObjProp(nextProps.User, "last_login");
+
     const differentTickets = !isEquivalent(Tickets, currentTickets);
     const differentUsers = !isEquivalent(Users, currentUsers);
     const differentUser = !isEquivalent(User, currentUser);
@@ -262,209 +264,209 @@ class Admin extends PureComponent {
         eventKey.includes("tickets") ||
         eventKey.includes("edit")
       ) ? (
-      <Redirect to="/admin/overview" />
-    ) : User.is_superuser || User.is_staff ? (
-      <Grid className="Admin Container fadeIn">
-        <Row>
-          <PageHeader className="pageHeader">ADMIN</PageHeader>
-        </Row>
-        <Row className="ActionToolbarRow">
-          <Col
-            xs={12}
-            className="ActionToolbar cardActions"
-            componentClass={ButtonToolbar}
-          >
-            {UserHasPermissions(User, "add_user") && (
-              <Button onClick={this.handleShow}>
-                <i className="fas fa-plus" /> User
-              </Button>
-            )}
-            {UserHasPermissions(User, "add_article") && (
-              <Button onClick={() => history.push("/article/new")}>
-                <i className="fas fa-plus" /> Article
-              </Button>
-            )}
-            {UserHasPermissions(User, "add_newsletter") && (
-              <Button onClick={() => history.push("/newsletter/new")}>
-                <i className="fas fa-plus" /> Newsletter
-              </Button>
-            )}
-            {UserHasPermissions(User, "add_event") && (
-              <Button onClick={() => history.push("/calendar/new/event")}>
-                <i className="far fa-calendar-plus" /> Event
-              </Button>
-            )}
-            {UserHasPermissions(User, "add_poll") && (
-              <Button onClick={() => history.push("/poll/new")}>
-                <i className="fas fa-plus" /> Poll
-              </Button>
-            )}
-            {UserHasPermissions(User, "add_ticket") && (
-              <Button onClick={() => history.push("/ticket/new")}>
-                <i className="fas fa-plus" /> Ticket
-              </Button>
-            )}
-            <Button
-              disabled={!User.is_superuser}
-              onClick={() => history.push("/polls")}
+        <Redirect to="/admin/overview" />
+      ) : User.is_superuser || User.is_staff ? (
+        <Grid className="Admin Container fadeIn">
+          <Row>
+            <PageHeader className="pageHeader">ADMIN</PageHeader>
+          </Row>
+          <Row className="ActionToolbarRow">
+            <Col
+              xs={12}
+              className="ActionToolbar cardActions"
+              componentClass={ButtonToolbar}
             >
-              <i className="fas fa-eye" /> Poll
+              {UserHasPermissions(User, "add_user") && (
+                <Button onClick={this.handleShow}>
+                  <i className="fas fa-plus" /> User
+              </Button>
+              )}
+              {UserHasPermissions(User, "add_article") && (
+                <Button onClick={() => history.push("/article/new")}>
+                  <i className="fas fa-plus" /> Article
+              </Button>
+              )}
+              {UserHasPermissions(User, "add_newsletter") && (
+                <Button onClick={() => history.push("/newsletter/new")}>
+                  <i className="fas fa-plus" /> Newsletter
+              </Button>
+              )}
+              {UserHasPermissions(User, "add_event") && (
+                <Button onClick={() => history.push("/calendar/new/event")}>
+                  <i className="far fa-calendar-plus" /> Event
+              </Button>
+              )}
+              {UserHasPermissions(User, "add_poll") && (
+                <Button onClick={() => history.push("/poll/new")}>
+                  <i className="fas fa-plus" /> Poll
+              </Button>
+              )}
+              {UserHasPermissions(User, "add_ticket") && (
+                <Button onClick={() => history.push("/ticket/new")}>
+                  <i className="fas fa-plus" /> Ticket
+              </Button>
+              )}
+              <Button
+                disabled={!User.is_superuser}
+                onClick={() => history.push("/polls")}
+              >
+                <i className="fas fa-eye" /> Poll
             </Button>
-          </Col>
-        </Row>
-        <Row>
-          <Tabs
-            defaultActiveKey={eventKey}
-            activeKey={eventKey}
-            className="Tabs"
-            onSelect={eventKey => {
-              this.setState({ eventKey });
-              history.push(eventKey);
-            }}
-          >
-            <Tab
-              eventKey={`/admin/overview`}
-              title={"Overview"}
-              unmountOnExit={true}
+            </Col>
+          </Row>
+          <Row>
+            <Tabs
+              defaultActiveKey={eventKey}
+              activeKey={eventKey}
+              className="Tabs"
+              onSelect={eventKey => {
+                this.setState({ eventKey });
+                history.push(eventKey);
+              }}
             >
-              {OverviewTable(Users, User)}
-            </Tab>
-            <Tab
-              eventKey={`/admin/permissions`}
-              title={"Permissions"}
-              unmountOnExit={true}
-            >
-              {PermissionsTable(Users, User, changePermissions)}
-            </Tab>
-            {canViewTickets && (
               <Tab
-                eventKey={`/admin/tickets`}
-                title={"Tickets"}
+                eventKey={`/admin/overview`}
+                title={"Overview"}
                 unmountOnExit={true}
               >
-                {TicketTable(Tickets, history, eventKey)}
+                {OverviewTable(Users, User)}
               </Tab>
-            )}
-          </Tabs>
-        </Row>
-        {show ? (
-          <Row>
-            <Modal
-              backdrop={false}
-              {...this.props}
-              show={show}
-              onHide={this.handleHide}
-              dialogClassName="loginModal"
-            >
-              <Modal.Header closeButton>
-                <Modal.Title id="contained-modal-title-lg">
-                  Account Creation
-                </Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Form className="Container fadeIn">
-                  <Row>
-                    <Col md={12}>
-                      <FormGroup validationState={this.validateUsername()}>
-                        <ControlLabel>Username</ControlLabel>
-                        <FormControl
-                          value={username}
-                          type="text"
-                          name="username"
-                          placeholder="Username"
-                          onChange={this.onChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md={12}>
-                      <FormGroup validationState={this.validatePassword()}>
-                        <ControlLabel>Password</ControlLabel>
-                        <FormControl
-                          value={password}
-                          type="password"
-                          name="password"
-                          placeholder="Password"
-                          onChange={this.onChange}
-                        />
-                        <FormControl.Feedback />
-                      </FormGroup>
-                    </Col>
-                    <Col md={12}>
-                      <FormGroup
-                        validationState={this.validateReEnterPassword()}
-                      >
-                        <ControlLabel>Re-Enter Password</ControlLabel>
-                        <FormControl
-                          value={reEnterPassword}
-                          type="password"
-                          name="reEnterPassword"
-                          placeholder="Re-Enter Password"
-                          onChange={this.onChange}
-                        />
-                        <FormControl.Feedback />
-                      </FormGroup>
-                    </Col>
-                    <Col md={12}>
-                      <FormGroup validationState={this.validateEmail()}>
-                        <ControlLabel>Email</ControlLabel>
-                        <FormControl
-                          value={email}
-                          type="email"
-                          name="email"
-                          placeholder="Email"
-                          onChange={this.onChange}
-                        />
-                      </FormGroup>
-                    </Col>
-                    <Col md={12}>
-                      <Checkbox
-                        checked={opt_in}
-                        onClick={() => this.setState({ opt_in: !opt_in })}
-                      >
-                        <span className="checkBoxText">Opt In</span>
-                        <span className="help">
-                          Check if you would like to recieve emails.
-                        </span>
-                      </Checkbox>
-                    </Col>
-                  </Row>
-                  <Row className="Center">
-                    <Col md={12}>
-                      <Image
-                        src={profile_image}
-                        className="ProfileImages"
-                        responsive
-                        rounded
-                      />
-                      <ControlLabel>Profile Picture</ControlLabel>
-                      <FormControl
-                        style={{ margin: "auto" }}
-                        type="file"
-                        label="File"
-                        name="profile_image"
-                        onChange={this.setImage}
-                      />
-                    </Col>
-                  </Row>
-                  <Row className="Center">
-                    <Col md={12}>
-                      {this.renderDefaultImages(defaultProfileImages)}
-                    </Col>
-                  </Row>
-                </Form>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button onClick={this.createUserAccount}>Create</Button>
-              </Modal.Footer>
-            </Modal>
+              <Tab
+                eventKey={`/admin/permissions`}
+                title={"Permissions"}
+                unmountOnExit={true}
+              >
+                {PermissionsTable(Users, User, changePermissions)}
+              </Tab>
+              {canViewTickets && (
+                <Tab
+                  eventKey={`/admin/tickets`}
+                  title={"Tickets"}
+                  unmountOnExit={true}
+                >
+                  {TicketTable(Tickets, history, eventKey)}
+                </Tab>
+              )}
+            </Tabs>
           </Row>
-        ) : null}
-      </Grid>
-    ) : User.token ? (
-      <Redirect to={history.goBack()} />
-    ) : (
-      <Redirect to="/login" />
-    );
+          {show ? (
+            <Row>
+              <Modal
+                backdrop={false}
+                {...this.props}
+                show={show}
+                onHide={this.handleHide}
+                dialogClassName="loginModal"
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title id="contained-modal-title-lg">
+                    Account Creation
+                </Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form className="Container fadeIn">
+                    <Row>
+                      <Col md={12}>
+                        <FormGroup validationState={this.validateUsername()}>
+                          <ControlLabel>Username</ControlLabel>
+                          <FormControl
+                            value={username}
+                            type="text"
+                            name="username"
+                            placeholder="Username"
+                            onChange={this.onChange}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={12}>
+                        <FormGroup validationState={this.validatePassword()}>
+                          <ControlLabel>Password</ControlLabel>
+                          <FormControl
+                            value={password}
+                            type="password"
+                            name="password"
+                            placeholder="Password"
+                            onChange={this.onChange}
+                          />
+                          <FormControl.Feedback />
+                        </FormGroup>
+                      </Col>
+                      <Col md={12}>
+                        <FormGroup
+                          validationState={this.validateReEnterPassword()}
+                        >
+                          <ControlLabel>Re-Enter Password</ControlLabel>
+                          <FormControl
+                            value={reEnterPassword}
+                            type="password"
+                            name="reEnterPassword"
+                            placeholder="Re-Enter Password"
+                            onChange={this.onChange}
+                          />
+                          <FormControl.Feedback />
+                        </FormGroup>
+                      </Col>
+                      <Col md={12}>
+                        <FormGroup validationState={this.validateEmail()}>
+                          <ControlLabel>Email</ControlLabel>
+                          <FormControl
+                            value={email}
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            onChange={this.onChange}
+                          />
+                        </FormGroup>
+                      </Col>
+                      <Col md={12}>
+                        <Checkbox
+                          checked={opt_in}
+                          onClick={() => this.setState({ opt_in: !opt_in })}
+                        >
+                          <span className="checkBoxText">Opt In</span>
+                          <span className="help">
+                            Check if you would like to recieve emails.
+                        </span>
+                        </Checkbox>
+                      </Col>
+                    </Row>
+                    <Row className="Center">
+                      <Col md={12}>
+                        <Image
+                          src={profile_image}
+                          className="ProfileImages"
+                          responsive
+                          rounded
+                        />
+                        <ControlLabel>Profile Picture</ControlLabel>
+                        <FormControl
+                          style={{ margin: "auto" }}
+                          type="file"
+                          label="File"
+                          name="profile_image"
+                          onChange={this.setImage}
+                        />
+                      </Col>
+                    </Row>
+                    <Row className="Center">
+                      <Col md={12}>
+                        {this.renderDefaultImages(defaultProfileImages)}
+                      </Col>
+                    </Row>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button onClick={this.createUserAccount}>Create</Button>
+                </Modal.Footer>
+              </Modal>
+            </Row>
+          ) : null}
+        </Grid>
+      ) : User.token ? (
+        <Redirect to={history.goBack()} />
+      ) : (
+            <Redirect to="/login" />
+          );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Admin);

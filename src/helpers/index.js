@@ -954,7 +954,7 @@ const removeDuplicates = (array, objAttr) => {
   for (let i = 0; i < array.length; i++) {
     try {
       map.set(array[i][objAttr], array[i]);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   return [...map.values()];
@@ -976,6 +976,11 @@ const GetUserPermissions = user_permissions =>
   ReduxStore.getState().AuthenticationAndAuthorization.AllUserPermissions.filter(
     p => user_permissions.includes(p.id)
   );
+
+const removeObjProp = (obj, prop) => {
+  delete obj[prop];
+  return obj;
+}
 
 export {
   arrayToObject,
