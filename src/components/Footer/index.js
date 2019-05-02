@@ -53,7 +53,7 @@ class Footer extends PureComponent {
       history,
       location,
       match,
-      shouldShow: Window.innerWidth > 1550,
+      shouldShow: Window.innerWidth > 1000 && Settings.show_footer,
       Settings
     });
   };
