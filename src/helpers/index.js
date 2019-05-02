@@ -1020,5 +1020,6 @@ export {
   removeDuplicates,
   joinStrings,
   splitString,
-  GetUserPermissions
+  GetUserPermissions,
+  removeObjProp
 };
