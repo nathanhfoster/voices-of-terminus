@@ -82,11 +82,11 @@ class Admin extends PureComponent {
 
   shouldComponentUpdate(nextProps, nextState) {
     const { Admin } = this.state;
-    const User = removeObjProp(this.state.User, "last_login")
+    const User = removeObjProp(nextProps.User, "last_login")
     const { Tickets, Users } = nextProps.Admin;
     const currentTickets = Admin.Tickets;
     const currentUsers = Admin.Users;
-    const currentUser = removeObjProp(nextProps.User, "last_login");
+    const currentUser = removeObjProp(this.state.User, "last_login");
 
     const differentTickets = !isEquivalent(Tickets, currentTickets);
     const differentUsers = !isEquivalent(Users, currentUsers);
