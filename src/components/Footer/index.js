@@ -40,7 +40,7 @@ class Footer extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -116,7 +116,7 @@ class Footer extends PureComponent {
     const femaleImage = this.backgroundImageRouteMap(pathname)[0];
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
 
-    return show_footer ? (
+    return (
       <Collapse
         isOpened={show_footer}
         fixedHeight={52}
@@ -132,19 +132,24 @@ class Footer extends PureComponent {
               <i className="fas fa-user-secret" /> Privacy policy
             </Link>
           </div>
+          <div>
+            <Link to="/settings">
+              <i className="fas fa-cog" /> Remove footer
+            </Link>
+          </div>
           {shouldShow
             ? [
-                <Image
-                  key={1}
-                  className="Female footerImages"
-                  src={femaleImage}
-                />,
-                <Image key={2} className="Male footerImages" src={maleImage} />
-              ]
+              <Image
+                key={1}
+                className="Female footerImages"
+                src={femaleImage}
+              />,
+              <Image key={2} className="Male footerImages" src={maleImage} />
+            ]
             : null}
         </footer>
       </Collapse>
-    ) : null;
+    )
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Footer);
