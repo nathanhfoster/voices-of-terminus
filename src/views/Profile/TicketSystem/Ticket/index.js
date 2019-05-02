@@ -222,7 +222,7 @@ class Ticket extends Component {
           </Col>
         </Row>
         <Row className="borderedRow">
-          <Col xs={4}>
+          <Col xs={6}>
             <ControlLabel>Type</ControlLabel>
             <FormGroup>
               <Select
@@ -238,7 +238,7 @@ class Ticket extends Component {
               />
             </FormGroup>
           </Col>
-          <Col xs={4}>
+          <Col xs={6}>
             <ControlLabel>Offenders</ControlLabel>
             <span className="help-inline">Main person involved.</span>
             <FormGroup>
@@ -258,7 +258,7 @@ class Ticket extends Component {
               />
             </FormGroup>
           </Col>
-          <Col xs={4}>
+          <Col xs={6}>
             <ControlLabel>Corroborators</ControlLabel>
             <span className="help-inline">Main person who is a witness.</span>
             <FormGroup>
@@ -278,7 +278,7 @@ class Ticket extends Component {
               />
             </FormGroup>
           </Col>
-          <Col xs={12}>
+          <Col xs={6}>
             <ControlLabel>Others involved</ControlLabel>
             <span className="help-inline">
               If the person(s) are not listed, type to add them.
