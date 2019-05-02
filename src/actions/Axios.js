@@ -17,7 +17,7 @@ const baseFormHeaders = payload => ({
   "Content-Type": `multipart/form-data; boundary=${payload._boundary}`
 });
 
-export const Axios = (token, pagination) =>
+const Axios = (token, pagination) =>
   axios.create({
     withCredentials: token ? true : false,
     baseURL: pagination ? pagination : REACT_APP_API_URL,
@@ -31,7 +31,7 @@ export const Axios = (token, pagination) =>
       : baseHeaders
   });
 
-export const AxiosForm = (token, payload) =>
+const AxiosForm = (token, payload) =>
   axios.create({
     baseURL: REACT_APP_API_URL,
     timeout: 25000,
@@ -43,7 +43,7 @@ export const AxiosForm = (token, payload) =>
       : baseFormHeaders(payload)
   });
 
-export const AxiosData = (token, payload) => {
+const AxiosData = (token, payload) => {
   return axios.create({
     withCredentials: token ? true : false,
     baseURL: REACT_APP_API_URL,
@@ -59,3 +59,5 @@ export const AxiosData = (token, payload) => {
     data: payload
   });
 };
+
+export { Axios, AxiosForm, AxiosData };

@@ -3,7 +3,7 @@ import { Axios } from "./Axios";
 import qs from "qs";
 import { DeepCopy } from "../helpers";
 
-export const getYearMonthEvents = payload => dispatch => {
+const getYearMonthEvents = payload => dispatch => {
   dispatch({ type: C.GET_EVENTS_LOADING });
   return Axios()
     .post(`calendar/events/view/`, qs.stringify(payload))
@@ -16,7 +16,7 @@ export const getYearMonthEvents = payload => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getEvent = eventId => dispatch =>
+const getEvent = eventId => dispatch =>
   Axios()
     .get(`calendar/events/${eventId}/`)
     .then(res => {
@@ -93,7 +93,7 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
     });
 };
 
-export const editEventGroupMember = (id, User, payload) => dispatch => {
+const editEventGroupMember = (id, User, payload) => dispatch => {
   const { Characters, token } = User;
   const endpoint = `calendar/event/group/members/${id}/`;
   return Axios(token)
@@ -152,10 +152,7 @@ export const editEventGroupMember = (id, User, payload) => dispatch => {
     });
 };
 
-export const postEvent = (userId, token, payload, groups) => (
-  dispatch,
-  getState
-) => {
+const postEvent = (userId, token, payload, groups) => (dispatch, getState) => {
   dispatch({ type: C.POST_EVENTS_LOADING });
   return Axios(token)
     .post(`calendar/events/`, qs.stringify(payload))
@@ -228,8 +225,7 @@ const postEventGroupMembers = (
   }
 };
 
-export const clearEventsApi = () => dispatch =>
-  dispatch({ type: C.CLEAR_EVENTS_API });
+const clearEventsApi = () => dispatch => dispatch({ type: C.CLEAR_EVENTS_API });
 
 const createMessageGroup = (
   token,
@@ -284,7 +280,7 @@ const createMessageGroup = (
     .catch(e => console.log(e, "groupPayload: ", groupPayload));
 };
 
-export const deleteEvent = (eventId, token) => (dispatch, getState) =>
+const deleteEvent = (eventId, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`calendar/events/${eventId}/`)
     .then(res => {
@@ -299,3 +295,18 @@ export const deleteEvent = (eventId, token) => (dispatch, getState) =>
         payload: e.response
       })
     );
+
+export {
+  getYearMonthEvents,
+  getEvent,
+  getEventGroups,
+  getEventGroupMembers,
+  getEventGroupMembersCharacters,
+  editEventGroupMember,
+  postEvent,
+  postEventGroups,
+  postEventGroupMembers,
+  clearEventsApi,
+  createMessageGroup,
+  deleteEvent
+};

@@ -10,7 +10,7 @@ import img9 from "../images/backgrounds/bg10.jpg";
 import img10 from "../images/backgrounds/bg11.jpg";
 import img11 from "../images/backgrounds/bg12.jpg";
 
-export const carouselImages = [
+const carouselImages = [
   {
     image: img1,
     title: "Concept Art",
@@ -67,3 +67,5 @@ export const carouselImages = [
     description: "Property of Visionary Realms."
   }
 ];
+
+export { carouselImages };

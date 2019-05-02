@@ -19,13 +19,7 @@ import { getYearMonthEvents } from "../../actions/Events";
 import { eventLabelColor } from "../../helpers";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({
-  AuthenticationAndAuthorization,
-  User,
-  Window,
-  Events
-}) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ User, Window, Events }) => ({
   User,
   Window,
   Events
@@ -68,8 +62,8 @@ class GuildCalendar extends PureComponent {
   }
 
   getState = props => {
-    const { AuthenticationAndAuthorization, User, Events, Window } = props;
-    this.setState({ AuthenticationAndAuthorization, User, Events, Window });
+    const { User, Events, Window } = props;
+    this.setState({ User, Events, Window });
   };
 
   onChange = activeDate => this.setState({ activeDate });
@@ -92,7 +86,6 @@ class GuildCalendar extends PureComponent {
   render() {
     const { history } = this.props;
     const {
-      AuthenticationAndAuthorization,
       User,
       Events,
       Window,
@@ -175,7 +168,6 @@ class GuildCalendar extends PureComponent {
             componentClass={ButtonToolbar}
           >
             {UserHasPermissions(
-              AuthenticationAndAuthorization,
               User,
               "add_event"
             ) && (

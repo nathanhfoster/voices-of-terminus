@@ -36,8 +36,7 @@ import { Redirect } from "react-router-dom";
 import ConfirmAction from "../../../components/ConfirmAction";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({ AuthenticationAndAuthorization, User, Polls }) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ User, Polls }) => ({
   User,
   Polls
 });
@@ -100,20 +99,13 @@ class PollSystem extends Component {
   }
 
   getState = props => {
-    const {
-      AuthenticationAndAuthorization,
-      User,
-      Polls,
-      match,
-      history
-    } = props;
+    const { User, Polls, match, history } = props;
     const pollId = match.params.id;
     const { Poll, Questions, Choices, Responses, Recipients } = Polls;
     const { pathname } = history.location;
     const { expiration_date } = Poll;
     const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
     this.setState({
-      AuthenticationAndAuthorization,
       User,
       Polls,
       Poll,
@@ -149,7 +141,7 @@ class PollSystem extends Component {
 
   renderPolls = Polls => {
     const { User, DeletePoll } = this.props;
-    const { AuthenticationAndAuthorization, history } = this.state;
+    const { history } = this.state;
     return Polls.map(p => {
       const {
         id,
@@ -179,29 +171,21 @@ class PollSystem extends Component {
               Action={e => DeletePoll(User.token, id)}
               Disabled={false}
               Icon={<i className="fas fa-trash" />}
-              hasPermission={UserHasPermissions(
-                AuthenticationAndAuthorization,
-                User,
-                "delete_poll"
-              )}
+              hasPermission={UserHasPermissions(User, "delete_poll")}
               Class="pull-right"
               Title={title}
             />
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "change_poll"
-            ) && (
-                <Button
-                  onClick={e => {
-                    e.stopPropagation();
-                    history.push(`/poll/edit/${id}`);
-                  }}
-                  className="pull-right"
-                >
-                  <i className="fa fa-pencil-alt" />
-                </Button>
-              )}
+            {UserHasPermissions(User, "change_poll") && (
+              <Button
+                onClick={e => {
+                  e.stopPropagation();
+                  history.push(`/poll/edit/${id}`);
+                }}
+                className="pull-right"
+              >
+                <i className="fa fa-pencil-alt" />
+              </Button>
+            )}
           </Col>
           <Col xs={12}>
             <h4>
@@ -231,10 +215,16 @@ class PollSystem extends Component {
     });
   };
 
-  renderQuestions = (User, Questions, Choices, Responses, Recipients, is_private) => {
+  renderQuestions = (
+    User,
+    Questions,
+    Choices,
+    Responses,
+    Recipients,
+    is_private
+  ) => {
     const { eventKey, pollId, history, expired } = this.state;
-    const isRecipient =
-      Recipients.some(e => User.id === e.recipient);
+    const isRecipient = Recipients.some(e => User.id === e.recipient);
     const canView = !is_private && isRecipient;
     return User.is_superuser || canView ? (
       <Tabs
@@ -268,25 +258,25 @@ class PollSystem extends Component {
               </Row>,
               Choices.length > 0 && Choices[i]
                 ? Choices[i].map(c => {
-                  const { id, title, question_id } = c;
-                  return (
-                    <Row className="borderedRow noHover">
-                      <Col xs={12}>
-                        <FormGroup key={i}>
-                          {this.switchQuestionChoices(
-                            question_type,
-                            id,
-                            title,
-                            User,
-                            Choices[i],
-                            Responses,
-                            expired
-                          )}
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  );
-                })
+                    const { id, title, question_id } = c;
+                    return (
+                      <Row className="borderedRow noHover">
+                        <Col xs={12}>
+                          <FormGroup key={i}>
+                            {this.switchQuestionChoices(
+                              question_type,
+                              id,
+                              title,
+                              User,
+                              Choices[i],
+                              Responses,
+                              expired
+                            )}
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    );
+                  })
                 : null
             ];
           })}
@@ -304,30 +294,30 @@ class PollSystem extends Component {
               </h4>,
               Choices.length > 0 && Choices[i]
                 ? Choices[i].map(c => {
-                  const { id, title, question_id } = c;
-                  return (
-                    <Row className="borderedRow noHover">
-                      <Col xs={12}>
-                        <FormGroup key={i}>
-                          {this.switchQuestionChoicesResponses(
-                            question_type,
-                            id,
-                            title,
-                            Responses
-                          )}
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                  );
-                })
+                    const { id, title, question_id } = c;
+                    return (
+                      <Row className="borderedRow noHover">
+                        <Col xs={12}>
+                          <FormGroup key={i}>
+                            {this.switchQuestionChoicesResponses(
+                              question_type,
+                              id,
+                              title,
+                              Responses
+                            )}
+                          </FormGroup>
+                        </Col>
+                      </Row>
+                    );
+                  })
                 : null
             ];
           })}
         </Tab>
       </Tabs>
     ) : (
-        <h1>You don't have permission to view this poll.</h1>
-      );
+      <h1>You don't have permission to view this poll.</h1>
+    );
   };
 
   switchQuestionChoices = (
@@ -434,22 +424,22 @@ class PollSystem extends Component {
                 {posting && !posted
                   ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                   : !posting && posted && !error
-                    ? [
+                  ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " SUBMIT"
                     ]
-                    : error
-                      ? [
-                        <i
-                          className="fas fa-times"
-                          style={{ color: "var(--color_alizarin)" }}
-                        />,
-                        " SUBMIT"
-                      ]
-                      : "SUBMIT"}
+                  : error
+                  ? [
+                      <i
+                        className="fas fa-times"
+                        style={{ color: "var(--color_alizarin)" }}
+                      />,
+                      " SUBMIT"
+                    ]
+                  : "SUBMIT"}
               </Button>
             </InputGroup.Addon>
           </InputGroup>
@@ -594,7 +584,6 @@ class PollSystem extends Component {
 
   render() {
     const {
-      AuthenticationAndAuthorization,
       User,
       Polls,
       Poll,
@@ -614,53 +603,44 @@ class PollSystem extends Component {
         eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
-        <Redirect to={`/polls/${pollId}/respond`} />
-      ) : (
-        <Grid className="PollSystem Container">
+      <Redirect to={`/polls/${pollId}/respond`} />
+    ) : (
+      <Grid className="PollSystem Container">
+        <Row>
+          <PageHeader className="pageHeader">POLLS</PageHeader>
+        </Row>
+        <Row>
+          <h1 className="Center">{title}</h1>
+        </Row>
+        {pollId ? (
           <Row>
-            <PageHeader className="pageHeader">POLLS</PageHeader>
+            <h3 className="Center">
+              {expired
+                ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
+                : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
+            </h3>
           </Row>
-          <Row>
-            <h1 className="Center">{title}</h1>
-          </Row>
-          {pollId ? (
-            <Row>
-              <h3 className="Center">
-                {expired
-                  ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
-                  : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
-              </h3>
-            </Row>
-          ) : null}
-          <Row className="ActionToolbarRow">
-            <Col
-              md={4}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              {UserHasPermissions(
-                AuthenticationAndAuthorization,
-                User,
-                "add_poll"
-              ) && (
-                  <Button onClick={() => history.push("/poll/new/")}>
-                    <i className="fas fa-plus" /> Poll
+        ) : null}
+        <Row className="ActionToolbarRow">
+          <Col
+            md={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            {UserHasPermissions(User, "add_poll") && (
+              <Button onClick={() => history.push("/poll/new/")}>
+                <i className="fas fa-plus" /> Poll
               </Button>
-                )}
-              {pollId &&
-                UserHasPermissions(
-                  AuthenticationAndAuthorization,
-                  User,
-                  "change_poll"
-                ) && (
-                  <Button onClick={() => history.push(`/poll/edit/${pollId}`)}>
-                    <i className="fa fa-pencil-alt" /> Poll
-                </Button>
-                )}
-            </Col>
-          </Row>
-          {pollId
-            ? this.renderQuestions(
+            )}
+            {pollId && UserHasPermissions(User, "change_poll") && (
+              <Button onClick={() => history.push(`/poll/edit/${pollId}`)}>
+                <i className="fa fa-pencil-alt" /> Poll
+              </Button>
+            )}
+          </Col>
+        </Row>
+        {pollId
+          ? this.renderQuestions(
               User,
               Questions,
               Choices,
@@ -668,9 +648,9 @@ class PollSystem extends Component {
               Recipients,
               is_private
             )
-            : this.renderPolls(Polls.results)}
-        </Grid>
-      );
+          : this.renderPolls(Polls.results)}
+      </Grid>
+    );
   }
 }
 export default withAlert(

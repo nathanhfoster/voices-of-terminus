@@ -1,1 +1,3 @@
-export const userRefreshDelay = 5500;
+const userRefreshDelay = 5500;
+
+export { userRefreshDelay };

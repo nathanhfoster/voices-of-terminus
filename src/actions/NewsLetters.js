@@ -1,9 +1,9 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
-import deepEqual from "deep-equal";
+import { isEquivalent } from "../helpers";
 
-export const getNewsletters = () => (dispatch, getState) => {
+const getNewsletters = () => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
   return Axios()
     .get("newsletters/all/")
@@ -56,7 +56,7 @@ export const getNewsletters = () => (dispatch, getState) => {
     .catch(e => dispatch({ type: C.GET_NEWSLETTERS_ERROR, payload: e }));
 };
 
-export const nextNewsletters = paginator => (dispatch, getState) => {
+const nextNewsletters = paginator => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
   return Axios(null, paginator)
     .get()
@@ -71,7 +71,7 @@ export const nextNewsletters = paginator => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-export const getNewslettersAllHtml = () => dispatch => {
+const getNewslettersAllHtml = () => dispatch => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
   return Axios()
     .get(`newsletters/allhtml/`)
@@ -84,7 +84,7 @@ export const getNewslettersAllHtml = () => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getNewsletterHtml = id => (dispatch, getState) => {
+const getNewsletterHtml = id => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
   return Axios()
     .get(`newsletters/${id}/html/`)
@@ -104,7 +104,7 @@ export const getNewsletterHtml = id => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-export const getNewsletter = id => dispatch =>
+const getNewsletter = id => dispatch =>
   Axios()
     .get(`newsletters/${id}/`)
     .then(res => {
@@ -115,7 +115,7 @@ export const getNewsletter = id => dispatch =>
     })
     .catch(e => console.log(e));
 
-export const viewNewsletter = id => (dispatch, getState) =>
+const viewNewsletter = id => (dispatch, getState) =>
   Axios()
     .get(`newsletters/${id}/view/`)
     .then(res => {
@@ -147,7 +147,7 @@ export const viewNewsletter = id => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const postNewsletter = (token, payload) => (dispatch, getState) => {
+const postNewsletter = (token, payload) => (dispatch, getState) => {
   dispatch({ type: C.POST_NEWSLETTERS_LOADING });
   return Axios(token)
     .post("newsletters/", qs.stringify(payload))
@@ -169,7 +169,7 @@ export const postNewsletter = (token, payload) => (dispatch, getState) => {
     );
 };
 
-export const postNewsletterLike = (token, payload) => (dispatch, getState) =>
+const postNewsletterLike = (token, payload) => (dispatch, getState) =>
   Axios(token)
     .post(`newsletter/likes/`, qs.stringify(payload))
     .then(res => {
@@ -183,10 +183,7 @@ export const postNewsletterLike = (token, payload) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const updateNewsletterLike = (id, token, payload) => (
-  dispatch,
-  getState
-) =>
+const updateNewsletterLike = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
     .patch(`newsletter/likes/${id}/`, qs.stringify(payload))
     .then(res => {
@@ -203,7 +200,7 @@ export const updateNewsletterLike = (id, token, payload) => (
     })
     .catch(e => console.log(e));
 
-export const postNewsletterComment = (token, payload) => (dispatch, getState) =>
+const postNewsletterComment = (token, payload) => (dispatch, getState) =>
   Axios(token)
     .post(`newsletter/comments/`, qs.stringify(payload))
     .then(res => {
@@ -222,7 +219,7 @@ export const postNewsletterComment = (token, payload) => (dispatch, getState) =>
       })
     );
 
-export const deleteNewsletterComment = (id, token) => (dispatch, getState) =>
+const deleteNewsletterComment = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`newsletter/comments/${id}/`)
     .then(res => {
@@ -238,10 +235,7 @@ export const deleteNewsletterComment = (id, token) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const updateNewsLetter = (id, token, payload) => (
-  dispatch,
-  getState
-) => {
+const updateNewsLetter = (id, token, payload) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_NEWSLETTERS_LOADING });
   return Axios(token)
     .patch(`newsletters/${id}/`, qs.stringify(payload))
@@ -268,7 +262,7 @@ export const updateNewsLetter = (id, token, payload) => (
     );
 };
 
-export const deleteNewsLetter = (id, token) => (dispatch, getState) =>
+const deleteNewsLetter = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`newsletters/${id}/`)
     .then(res => {
@@ -282,4 +276,21 @@ export const deleteNewsLetter = (id, token) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const clearNewsletterApi = () => ({ type: C.CLEAR_NEWSLETTERS_API });
+const clearNewsletterApi = () => ({ type: C.CLEAR_NEWSLETTERS_API });
+
+export {
+  getNewsletters,
+  nextNewsletters,
+  getNewslettersAllHtml,
+  getNewsletterHtml,
+  getNewsletter,
+  viewNewsletter,
+  postNewsletter,
+  postNewsletterLike,
+  updateNewsletterLike,
+  postNewsletterComment,
+  deleteNewsletterComment,
+  updateNewsLetter,
+  deleteNewsLetter,
+  clearNewsletterApi
+};

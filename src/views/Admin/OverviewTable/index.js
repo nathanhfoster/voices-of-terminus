@@ -15,7 +15,7 @@ import {
 import "./styles.css";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const OverviewTable = (AuthenticationAndAuthorization, Users, User) => {
+const OverviewTable = (Users, User) => {
   const { token } = User;
 
   return (
@@ -35,13 +35,7 @@ const OverviewTable = (AuthenticationAndAuthorization, Users, User) => {
               Cell: props => (
                 <ConfirmAction
                   Action={e => this.deleteThisUser(token, props.value)}
-                  Disabled={
-                    !UserHasPermissions(
-                      AuthenticationAndAuthorization,
-                      User,
-                      "delete_user"
-                    )
-                  }
+                  Disabled={!UserHasPermissions(User, "delete_user")}
                   Icon={<i className="fas fa-trash" />}
                   hasPermission={true}
                   Size="small"

@@ -25,13 +25,10 @@ import {
   deleteArticleComment
 } from "../../../actions/Articles";
 import "./styles.css";
+import { isEquivalent } from "../../../helpers";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({
-  AuthenticationAndAuthorization,
-  User,
-  HtmlDocument
-}) => ({ AuthenticationAndAuthorization, User, HtmlDocument });
+const mapStateToProps = ({ User, HtmlDocument }) => ({ User, HtmlDocument });
 
 const mapDispatchToProps = {
   postNewsletterLike,
@@ -62,30 +59,24 @@ class CommentLikes extends PureComponent {
 
   componentDidMount() {}
 
-  // shouldComponentUpdate(nextProps, nextState) {
-  //   const { HtmlDocument } = nextProps;
-  //   const { text } = nextState;
-  //   const currentText = this.state.text;
-  //   const currentHtmlDocument = this.state.HtmlDocument;
+  shouldComponentUpdate(nextProps, nextState) {
+    const { HtmlDocument } = nextProps;
+    const { text } = nextState;
+    const currentText = this.state.text;
+    const currentHtmlDocument = this.state.HtmlDocument;
 
-  //   return (
-  //     !deepEqual(HtmlDocument, currentHtmlDocument) ||
-  //     !deepEqual(text, currentText)
-  //   );
-  // }
+    const documentChanged = HtmlDocument != currentHtmlDocument;
+    const textChanged = !isEquivalent(text, currentText);
+
+    return documentChanged || textChanged;
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
 
   getState = props => {
-    const {
-      AuthenticationAndAuthorization,
-      User,
-      HtmlDocument,
-      history,
-      match
-    } = props;
+    const { User, HtmlDocument, history, match } = props;
 
     const { likes } = HtmlDocument;
     const likeTotal = likes
@@ -99,7 +90,6 @@ class CommentLikes extends PureComponent {
         ? likes.results[userLikeIndex].count
         : 0;
     this.setState({
-      AuthenticationAndAuthorization,
       User,
       history,
       match,
@@ -181,7 +171,6 @@ class CommentLikes extends PureComponent {
 
   renderComments = comments =>
     comments.map(com => {
-      const { AuthenticationAndAuthorization } = this.state;
       const { User, match } = this.props;
       const { path } = match;
       return (
@@ -200,7 +189,6 @@ class CommentLikes extends PureComponent {
               Disabled={false}
               Icon={<i className="fas fa-trash" />}
               hasPermission={UserHasPermissions(
-                AuthenticationAndAuthorization,
                 User,
                 path.includes("article")
                   ? "delete_articlecomment"

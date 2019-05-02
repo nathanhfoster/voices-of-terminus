@@ -8,7 +8,8 @@ import Official from "../images/News/official.png";
 import VotShow from "../images/News/show.png";
 import VoT from "../images/News/vot.png";
 
-export const tagImage = tags => tags.includes("Newsletter") ? newsLetterImage(tags) : articleImage(tags);
+const tagImage = tags =>
+  tags.includes("Newsletter") ? newsLetterImage(tags) : articleImage(tags);
 
 const newsLetterImage = tags => {
   if (tags.includes("Official")) return Official;
@@ -26,9 +27,10 @@ const newsLetterImage = tags => {
   //   if (tags.includes("VotVotShow"))
   //   if (tags.includes("Other"))
   return NewsDefault;
-}
+};
 
 const articleImage = tags => {
-
   return ArticleDefault;
-}
+};
+
+export { tagImage };

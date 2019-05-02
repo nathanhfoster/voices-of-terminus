@@ -14,7 +14,7 @@ let client = new Twitter({
   access_token_secret: REACT_APP_TWITTER_ACCESS_TOKEN_SECRET
 });
 
-export const getFavorites = () => {
+const getFavorites = () => {
   client.get("favorites/list", function(error, tweets, response) {
     if (error) throw error;
     console.log(tweets); // The favorites.
@@ -22,7 +22,7 @@ export const getFavorites = () => {
   });
 };
 
-export const postStatus = () => {
+const postStatus = () => {
   client
     .post("statuses/update", { status: "I Love Twitter" })
     .then(tweet => {
@@ -33,3 +33,5 @@ export const postStatus = () => {
       throw error;
     });
 };
+
+export { getFavorites, postStatus };

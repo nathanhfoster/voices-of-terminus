@@ -32,8 +32,7 @@ const initialState = localStorage["redux-store"]
   ? JSON.parse(localStorage["redux-store"])
   : {};
 const store = storeFactory(initialState);
-// window.React = React
-// window.store = store
+export const ReduxStore = store;
 const Clean = array => {
   for (let i = 0; i < array.length; i++) {
     const item = array[i];

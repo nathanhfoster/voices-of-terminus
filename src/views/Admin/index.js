@@ -28,23 +28,17 @@ import {
   getUsers,
   createUser,
   deleteUser,
-  updateUserProfile,
   clearUser
 } from "../../actions/Admin";
 import { getTickets } from "../../actions/Tickets";
+import { isEquivalent } from "../../helpers";
 import { defaultProfileImages } from "../../helpers/defaultProfileImages";
+import { UserHasPermissions } from "../../helpers/userPermissions";
 import PermissionsTable from "./PermissionsTable";
 import OverviewTable from "./OverviewTable";
 import TicketTable from "./TicketsTable";
-import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({
-  AuthenticationAndAuthorization,
-  Admin,
-  User,
-  Window
-}) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ Admin, User, Window }) => ({
   Admin,
   User,
   Window
@@ -56,7 +50,6 @@ const mapDispatchToProps = {
   getUsers,
   createUser,
   deleteUser,
-  updateUserProfile,
   clearUser,
   getTickets
 };
@@ -87,18 +80,16 @@ class Admin extends PureComponent {
     this.getState(this.props);
   }
 
-  /*shouldComponentUpdate(nextProps, nextState) {
-    let shouldUpdate = true;
+  shouldComponentUpdate(nextProps, nextState) {
     const { Admin } = this.state;
-    const { Tickets } = nextProps.Admin;
+    const { Tickets, Users } = nextProps.Admin;
     const currentTickets = Admin.Tickets;
-    const sameTickets = deepEqual(
-      Tickets.map(t => t.id),
-      currentTickets.map(t => t.id)
-    );
-    if (sameTickets) shouldUpdate = false;
-    return shouldUpdate;
-  }*/
+    const currentUsers = Admin.Users;
+    const differentTickets = !isEquivalent(Tickets, currentTickets);
+    const differentUsers = !isEquivalent(Users, currentUsers);
+
+    return differentTickets || differentUsers;
+  }
 
   componentDidMount() {
     const { getUsers, clearUser, getTickets } = this.props;
@@ -112,16 +103,9 @@ class Admin extends PureComponent {
   }
 
   getState = props => {
-    const {
-      AuthenticationAndAuthorization,
-      Admin,
-      User,
-      Window,
-      history
-    } = props;
+    const { Admin, User, Window, history } = props;
     const { pathname } = history.location;
     this.setState({
-      AuthenticationAndAuthorization,
       Admin,
       User,
       Window,
@@ -242,10 +226,10 @@ class Admin extends PureComponent {
   deleteThisUser = (token, id) => this.props.deleteUser(token, id);
 
   render() {
+    console.log("ADMIN");
     const canSubmit = !this.cantSubmit();
-    const { updateUserProfile } = this.props;
+    const { changePermissions } = this.props;
     const {
-      AuthenticationAndAuthorization,
       Admin,
       User,
       Window,
@@ -287,56 +271,32 @@ class Admin extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_user"
-            ) && (
+            {UserHasPermissions(User, "add_user") && (
               <Button onClick={this.handleShow}>
                 <i className="fas fa-plus" /> User
               </Button>
             )}
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_article"
-            ) && (
+            {UserHasPermissions(User, "add_article") && (
               <Button onClick={() => history.push("/article/new")}>
                 <i className="fas fa-plus" /> Article
               </Button>
             )}
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_newsletter"
-            ) && (
+            {UserHasPermissions(User, "add_newsletter") && (
               <Button onClick={() => history.push("/newsletter/new")}>
                 <i className="fas fa-plus" /> Newsletter
               </Button>
             )}
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_event"
-            ) && (
+            {UserHasPermissions(User, "add_event") && (
               <Button onClick={() => history.push("/calendar/new/event")}>
                 <i className="far fa-calendar-plus" /> Event
               </Button>
             )}
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_poll"
-            ) && (
+            {UserHasPermissions(User, "add_poll") && (
               <Button onClick={() => history.push("/poll/new")}>
                 <i className="fas fa-plus" /> Poll
               </Button>
             )}
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_ticket"
-            ) && (
+            {UserHasPermissions(User, "add_ticket") && (
               <Button onClick={() => history.push("/ticket/new")}>
                 <i className="fas fa-plus" /> Ticket
               </Button>
@@ -364,14 +324,14 @@ class Admin extends PureComponent {
               title={"Overview"}
               unmountOnExit={true}
             >
-              {OverviewTable(AuthenticationAndAuthorization, Users, User)}
+              {OverviewTable(Users, User)}
             </Tab>
             <Tab
               eventKey={`/admin/permissions`}
               title={"Permissions"}
               unmountOnExit={true}
             >
-              {PermissionsTable(Users, User, updateUserProfile)}
+              {PermissionsTable(Users, User, changePermissions)}
             </Tab>
             {canViewTickets && (
               <Tab

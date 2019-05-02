@@ -3,6 +3,7 @@ import { Axios } from "./Axios";
 import Cookies from "js-cookie";
 import YTube from "ytube";
 import qs from "qs";
+import { GetUserPermissions } from "../helpers";
 const {
   REACT_APP_YOUTUBE_API_KEY,
   REACT_APP_TWITCH_CLIENT_ID,
@@ -12,7 +13,7 @@ const {
 } = process.env;
 const ytube = new YTube(REACT_APP_YOUTUBE_API_KEY);
 
-export const getVoTYouTubeChannelData = () => dispatch =>
+const getVoTYouTubeChannelData = () => dispatch =>
   ytube
     .getChannelsLatestVideos(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
     .then(res => {
@@ -23,7 +24,7 @@ export const getVoTYouTubeChannelData = () => dispatch =>
     })
     .catch(e => console.log("getVoTYouTubeChannelData: ", e));
 
-export const getVotChannelsPlayLists = () => dispatch =>
+const getVotChannelsPlayLists = () => dispatch =>
   ytube
     .getChannelsPlayLists(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
     .then(res => {
@@ -34,7 +35,7 @@ export const getVotChannelsPlayLists = () => dispatch =>
     })
     .catch(e => console.log("getVotChannelsPlayLists: ", e));
 
-export const getVotPlaylistShow = () => dispatch =>
+const getVotPlaylistShow = () => dispatch =>
   ytube
     .getPlaylistVideos(REACT_APP_VOT_PLAYLIST_ID_SHOW, 50)
     .then(res => {
@@ -45,7 +46,7 @@ export const getVotPlaylistShow = () => dispatch =>
     })
     .catch(e => console.log("getVotPlaylistShow: ", e));
 
-export const getVotTwitchStreams = () => dispatch =>
+const getVotTwitchStreams = () => dispatch =>
   fetch(
     `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
   )
@@ -57,19 +58,7 @@ export const getVotTwitchStreams = () => dispatch =>
       })
     );
 
-// Axios()
-//   .get(
-//     `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
-//   )
-//   .then(res => {
-//     dispatch({
-//       type: C.GET_VOT_TWITCH_STREAMS,
-//       payload: res.data
-//     });
-//   })
-//   .catch(e => console.log("getVotTwitchStreams: ", e));
-
-export const getAllVotYouTube = () => dispatch =>
+const getAllVotYouTube = () => dispatch =>
   ytube
     .fetchAllYouTube("Voices of Terminus")
     .then(res => {
@@ -80,7 +69,7 @@ export const getAllVotYouTube = () => dispatch =>
     })
     .catch(e => console.log("getAllVotYouTube: ", e));
 
-export const getVRYouTubeChannelData = () => dispatch =>
+const getVRYouTubeChannelData = () => dispatch =>
   ytube
     .getChannelsLatestVideos(REACT_APP_VR_YOUTUBE_CHANNEL_ID, 50)
     .then(res => {
@@ -91,12 +80,12 @@ export const getVRYouTubeChannelData = () => dispatch =>
     })
     .catch(e => console.log("getVRYouTubeChannelData: ", e));
 
-export const setWindow = Window => ({
+const setWindow = Window => ({
   type: C.SET_WINDOW,
   payload: Window
 });
 
-export const login = (username, password, rememberMe) => dispatch =>
+const login = (username, password, rememberMe) => dispatch =>
   Axios()
     .post("login/", qs.stringify({ username, password }))
     .then(res => {
@@ -118,7 +107,7 @@ export const login = (username, password, rememberMe) => dispatch =>
       })
     );
 
-export const Logout = () => dispatch => {
+const Logout = () => dispatch => {
   Cookies.remove("User_LoginToken");
   return dispatch({
     type: C.SET_LOGOUT,
@@ -126,32 +115,33 @@ export const Logout = () => dispatch => {
   });
 };
 
-export const setApiResponse = response => ({
+const setApiResponse = response => ({
   type: C.SET_API_RESPONSE,
   payload: response
 });
 
-export const clearApiResponse = () => ({
+const clearApiResponse = () => ({
   type: C.SET_API_RESPONSE,
   payload: null
 });
 
-export const setUser = User => ({
+const setUser = User => ({
   type: C.GET_USER,
   payload: User
 });
 
-export const getUser = id => dispatch =>
+const getUser = id => dispatch =>
   Axios()
     .get(`users/${id}/`)
-    .then(res => getUserCharacters(res.data, dispatch))
+    .then(res => getUserCharactersAndPermissions(res.data, dispatch))
     .catch(e => console.log(e));
 
-const getUserCharacters = (User, dispatch) =>
+const getUserCharactersAndPermissions = (User, dispatch) =>
   Axios()
     .get(`user/characters/${User.id}/view/`)
     .then(res => {
       User.Characters = res.data;
+      User.permissions = GetUserPermissions(User.user_permissions);
       dispatch({
         type: C.GET_USER,
         payload: User
@@ -159,10 +149,11 @@ const getUserCharacters = (User, dispatch) =>
     })
     .catch(e => console.log(e));
 
-export const refreshPatchUser = (token, id) => dispatch =>
+const refreshPatchUser = (token, id) => dispatch =>
   Axios(token)
     .get(`users/${id}/refresh/`)
     .then(res => {
+      res.data.permissions = GetUserPermissions(res.data.user_permissions);
       dispatch({
         type: C.SET_LOGIN_TOKEN,
         payload: res.data
@@ -177,12 +168,32 @@ export const refreshPatchUser = (token, id) => dispatch =>
         : console.log(e)
     );
 
-export const setHtmlDocument = Document => ({
+const setHtmlDocument = Document => ({
   type: C.GET_HTML_DOCUMENT,
   payload: Document
 });
 
-export const clearHtmlDocument = () => ({
+const clearHtmlDocument = () => ({
   type: C.CLEAR_HTML_DOCUMENT,
   payload: null
 });
+
+export {
+  getVoTYouTubeChannelData,
+  getVotChannelsPlayLists,
+  getVotPlaylistShow,
+  getVotTwitchStreams,
+  getAllVotYouTube,
+  getVRYouTubeChannelData,
+  setWindow,
+  login,
+  Logout,
+  setApiResponse,
+  clearApiResponse,
+  setUser,
+  getUser,
+  getUserCharactersAndPermissions,
+  refreshPatchUser,
+  setHtmlDocument,
+  clearHtmlDocument
+};

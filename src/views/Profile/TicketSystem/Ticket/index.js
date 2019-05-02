@@ -19,7 +19,7 @@ import { postTicket } from "../../../../actions/Tickets";
 import { withAlert } from "react-alert";
 import Select from "react-select";
 import CreatableSelect from "react-select/lib/Creatable";
-import { ticketTypeOptions } from "../../../../helpers";
+import { ticketTypeOptions, joinStrings } from "../../../../helpers";
 import { selectStyles } from "../../../../helpers/styles";
 import "./styles.css";
 
@@ -53,7 +53,7 @@ class Ticket extends Component {
     // const currentUser = this.state.User;
     // const currentLogin = currentUser.last_login;
 
-    // if (deepEqual(currentUser, User) && last_login != currentLogin)
+    // if (isEquivalent(currentUser, User) && last_login != currentLogin)
     //   shouldUpdate = false;
 
     return shouldUpdate;
@@ -144,8 +144,8 @@ class Ticket extends Component {
     const {
       token,
       author,
-      offender,
-      corroborator,
+      offenders,
+      corroborators,
       others_involved,
       description,
       ticket_type,
@@ -154,11 +154,14 @@ class Ticket extends Component {
 
     let payload = new FormData();
     payload.append("author", author);
-    payload.append("offender", offender ? offender.value : "");
-    payload.append("corroborator", corroborator ? corroborator.value : "");
+    payload.append("offenders", offenders ? joinStrings(offenders) : "");
+    payload.append(
+      "corroborators",
+      corroborators ? joinStrings(corroborators) : ""
+    );
     payload.append(
       "others_involved",
-      others_involved ? others_involved.map(o => o.label).join("|") : ""
+      others_involved ? joinStrings(others_involved) : ""
     );
     payload.append("description", description);
     payload.append("ticket_type", ticket_type.label);
@@ -170,8 +173,8 @@ class Ticket extends Component {
 
   render() {
     const {
-      offender,
-      corroborator,
+      offenders,
+      corroborators,
       others_involved,
       description,
       ticket_type,
@@ -236,38 +239,42 @@ class Ticket extends Component {
             </FormGroup>
           </Col>
           <Col xs={4}>
-            <ControlLabel>Offender</ControlLabel>
+            <ControlLabel>Offenders</ControlLabel>
             <span className="help-inline">Main person involved.</span>
             <FormGroup>
-              <Select
-                name="offender"
-                placeholder="Search..."
-                value={offender}
-                onChange={(e, a) => this.selectOnChange(e, a, "offender")}
-                options={offenderOptions}
-                isClearable={false}
-                isSearchable={true}
+              <CreatableSelect
+                //https://react-select.com/props
+                name="offenders"
+                value={offenders}
+                isMulti={true}
+                styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles()}
+                isClearable={true}
+                placeholder="Add..."
+                classNamePrefix="select"
+                onChange={(e, a) => this.selectOnChange(e, a, "offenders")}
+                options={offenderOptions}
               />
             </FormGroup>
           </Col>
           <Col xs={4}>
-            <ControlLabel>Corroborator</ControlLabel>
+            <ControlLabel>Corroborators</ControlLabel>
             <span className="help-inline">Main person who is a witness.</span>
             <FormGroup>
-              <Select
-                name="corroborator"
-                placeholder="Search..."
-                value={corroborator}
-                onChange={(e, a) => this.selectOnChange(e, a, "corroborator")}
-                options={offenderOptions}
-                isClearable={false}
-                isSearchable={true}
+              <CreatableSelect
+                //https://react-select.com/props
+                name="corroborators"
+                value={corroborators}
+                isMulti={true}
+                styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                styles={selectStyles()}
+                isClearable={true}
+                placeholder="Add..."
+                classNamePrefix="select"
+                onChange={(e, a) => this.selectOnChange(e, a, "corroborators")}
+                options={offenderOptions}
               />
             </FormGroup>
           </Col>
@@ -278,7 +285,7 @@ class Ticket extends Component {
             </span>
             <FormGroup>
               <CreatableSelect
-                //https://react-select.com/props
+                name="others_involved"
                 value={others_involved}
                 isMulti={true}
                 styles={selectStyles()}

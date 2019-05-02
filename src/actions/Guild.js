@@ -2,7 +2,7 @@ import C from "../constants";
 import axios from "axios";
 const { REACT_APP_DISCORD_API_URL } = process.env;
 
-export const getGuildMembers = () => dispatch =>
+const getGuildMembers = () => dispatch =>
   axios
     .get(REACT_APP_DISCORD_API_URL)
     .then(res => res.data)
@@ -29,3 +29,5 @@ export const getGuildMembers = () => dispatch =>
         payload: payload
       });
     });
+
+export { getGuildMembers };

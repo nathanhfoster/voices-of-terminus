@@ -2,7 +2,7 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-export const getUserSettings = (token, UserId) => dispatch =>
+const getUserSettings = (token, UserId) => dispatch =>
   Axios(token)
     .get(`user/settings/${UserId}/view/`)
     .then(res => {
@@ -13,7 +13,7 @@ export const getUserSettings = (token, UserId) => dispatch =>
     })
     .catch(e => console.log(e));
 
-export const postSettings = (token, payload) => dispatch =>
+const postSettings = (token, payload) => dispatch =>
   Axios(token)
     .post(`user/settings/`, qs.stringify(payload))
     .then(res => {
@@ -29,7 +29,7 @@ export const postSettings = (token, payload) => dispatch =>
       })
     );
 
-export const setSettings = (token, id, payload) => dispatch =>
+const setSettings = (token, id, payload) => dispatch =>
   Axios(token)
     .patch(`user/settings/${id}/`, qs.stringify(payload))
     .then(res => {
@@ -44,3 +44,5 @@ export const setSettings = (token, id, payload) => dispatch =>
         payload: e.response
       })
     );
+
+export { getUserSettings, postSettings, setSettings };

@@ -2,7 +2,7 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-export const GetPoll = (token, id) => dispatch => {
+const GetPoll = (token, id) => dispatch => {
   Axios(token)
     .get(`/polls/${id}/`)
     .then(poll => {
@@ -11,7 +11,7 @@ export const GetPoll = (token, id) => dispatch => {
     .catch(e => console.log(e, "token and id: ", token, id));
 };
 
-export const GetPollQuestions = (token, pollId) => (dispatch, getState) =>
+const GetPollQuestions = (token, pollId) => (dispatch, getState) =>
   Axios(token)
     .get(`/poll/questions/${pollId}/view/`)
     .then(questions => {
@@ -53,7 +53,7 @@ const GetChoiceResponses = (token, dispatch, getState) => {
   }
 };
 
-export const GetPollRecipients = (token, pollId) => dispatch =>
+const GetPollRecipients = (token, pollId) => dispatch =>
   Axios(token)
     .get(`/poll/recipients/${pollId}/view/`)
     .then(recipients => {
@@ -61,7 +61,7 @@ export const GetPollRecipients = (token, pollId) => dispatch =>
     })
     .catch(e => console.log(e));
 
-export const GetPolls = token => dispatch => {
+const GetPolls = token => dispatch => {
   dispatch({ type: C.GET_POLLS_LOADING });
   return Axios(token)
     .get("/polls/")
@@ -71,7 +71,7 @@ export const GetPolls = token => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const PostPoll = (
+const PostPoll = (
   token,
   author,
   username,
@@ -236,7 +236,7 @@ const PostRecipients = (recipient_poll_id, token, Recipients, getState) => {
   //dispatch({ type: C.GET_RECIPIENTS, payload: payload });
 };
 
-export const PostResponse = (token, payload, question_type) => (
+const PostResponse = (token, payload, question_type) => (
   dispatch,
   getState
 ) => {
@@ -259,7 +259,7 @@ export const PostResponse = (token, payload, question_type) => (
     });
 };
 
-export const EditResponse = (token, id, payload, question_type) => (
+const EditResponse = (token, id, payload, question_type) => (
   dispatch,
   getState
 ) => {
@@ -280,7 +280,7 @@ export const EditResponse = (token, id, payload, question_type) => (
     });
 };
 
-export const DeletePoll = (token, id) => (dispatch, getState) => {
+const DeletePoll = (token, id) => (dispatch, getState) => {
   const { Polls } = getState();
   let payload = { ...Polls };
   dispatch({ type: C.GET_POLLS_LOADING });
@@ -293,7 +293,7 @@ export const DeletePoll = (token, id) => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-export const UpdatePoll = (
+const UpdatePoll = (
   pollId,
   token,
   author,
@@ -322,7 +322,7 @@ export const UpdatePoll = (
   const questionsToDelete = currentQuestions.filter(
     q => !Questions.some(e => e.id === q.id)
   );
-  return Axios(token)
+  Axios(token)
     .patch(`/polls/${pollId}/`, qs.stringify(pollPayload))
     .then(poll => {
       const indexToUpdate = payload.results.findIndex(p => p.id === pollId);
@@ -438,7 +438,7 @@ const UpdateChoices = (
     };
     Axios(token)
       .patch(`poll/choices/${id}/`, qs.stringify(choicePayload))
-      .then(choice => { })
+      .then(choice => {})
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
   GetQuestionChoices(token, Questions, dispatch, getState);
@@ -495,6 +495,31 @@ const deleteRecipients = (token, Recipients, dispatch, getState) => {
   }
 };
 
-export const clearPollsApi = () => ({ type: C.CLEAR_POLLS_API });
+const clearPollsApi = () => ({ type: C.CLEAR_POLLS_API });
 
-export const clearResponses = () => ({ type: C.CLEAR_RESPONSES });
+const clearResponses = () => ({ type: C.CLEAR_RESPONSES });
+
+export {
+  GetPoll,
+  GetPollQuestions,
+  GetQuestionChoices,
+  GetChoiceResponses,
+  GetPollRecipients,
+  GetPolls,
+  PostPoll,
+  createMessageGroup,
+  PostQuestions,
+  PostChoices,
+  PostRecipients,
+  PostResponse,
+  EditResponse,
+  DeletePoll,
+  UpdatePoll,
+  UpdateQuestions,
+  DeleteQuestions,
+  UpdateChoices,
+  DeleteChoices,
+  deleteRecipients,
+  clearPollsApi,
+  clearResponses
+};

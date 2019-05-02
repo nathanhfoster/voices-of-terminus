@@ -1,9 +1,8 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
-import deepEqual from "deep-equal";
 
-export const getArticles = () => (dispatch, getState) => {
+const getArticles = () => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
   return Axios()
     .get("articles/all/")
@@ -56,7 +55,7 @@ export const getArticles = () => (dispatch, getState) => {
     .catch(e => dispatch({ type: C.GET_ARTICLES_ERROR, payload: e }));
 };
 
-export const nextArticles = paginator => (dispatch, getState) => {
+const nextArticles = paginator => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
   return Axios(null, paginator)
     .get()
@@ -71,7 +70,7 @@ export const nextArticles = paginator => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-export const getArticlesAllHtml = () => dispatch => {
+const getArticlesAllHtml = () => dispatch => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
   return Axios()
     .get(`articles/allhtml/`)
@@ -84,7 +83,7 @@ export const getArticlesAllHtml = () => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getArticleHtml = id => (dispatch, getState) => {
+const getArticleHtml = id => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
   return Axios()
     .get(`articles/${id}/html/`)
@@ -104,7 +103,7 @@ export const getArticleHtml = id => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-export const getArticle = id => dispatch =>
+const getArticle = id => dispatch =>
   Axios()
     .get(`articles/${id}/`)
     .then(res => {
@@ -115,7 +114,7 @@ export const getArticle = id => dispatch =>
     })
     .catch(e => console.log(e));
 
-export const viewArticle = id => (dispatch, getState) =>
+const viewArticle = id => (dispatch, getState) =>
   Axios()
     .get(`articles/${id}/view/`)
     .then(res => {
@@ -147,7 +146,7 @@ export const viewArticle = id => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const postArticle = (token, payload) => (dispatch, getState) => {
+const postArticle = (token, payload) => (dispatch, getState) => {
   dispatch({ type: C.POST_ARTICLES_LOADING });
   return Axios(token)
     .post("articles/", qs.stringify(payload))
@@ -169,7 +168,7 @@ export const postArticle = (token, payload) => (dispatch, getState) => {
     );
 };
 
-export const postArticleLike = (token, payload) => (dispatch, getState) =>
+const postArticleLike = (token, payload) => (dispatch, getState) =>
   Axios(token)
     .post(`article/likes/`, qs.stringify(payload))
     .then(res => {
@@ -188,7 +187,7 @@ export const postArticleLike = (token, payload) => (dispatch, getState) =>
       })
     );
 
-export const updateArticleLike = (id, token, payload) => (dispatch, getState) =>
+const updateArticleLike = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
     .patch(`article/likes/${id}/`, qs.stringify(payload))
     .then(res => {
@@ -205,7 +204,7 @@ export const updateArticleLike = (id, token, payload) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const postArticleComment = (token, payload) => (dispatch, getState) =>
+const postArticleComment = (token, payload) => (dispatch, getState) =>
   Axios(token)
     .post(`article/comments/`, qs.stringify(payload))
     .then(res => {
@@ -224,7 +223,7 @@ export const postArticleComment = (token, payload) => (dispatch, getState) =>
       })
     );
 
-export const deleteArticleComment = (id, token) => (dispatch, getState) =>
+const deleteArticleComment = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`article/comments/${id}/`)
     .then(res => {
@@ -240,7 +239,7 @@ export const deleteArticleComment = (id, token) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const updateArticle = (id, token, payload) => (dispatch, getState) => {
+const updateArticle = (id, token, payload) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_ARTICLES_LOADING });
   return Axios(token)
     .patch(`articles/${id}/`, qs.stringify(payload))
@@ -267,7 +266,7 @@ export const updateArticle = (id, token, payload) => (dispatch, getState) => {
     );
 };
 
-export const deleteArticle = (id, token) => (dispatch, getState) =>
+const deleteArticle = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`articles/${id}/`)
     .then(res => {
@@ -281,4 +280,21 @@ export const deleteArticle = (id, token) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const clearArticlesApi = () => ({ type: C.CLEAR_ARTICLES_API });
+const clearArticlesApi = () => ({ type: C.CLEAR_ARTICLES_API });
+
+export {
+  getArticles,
+  nextArticles,
+  getArticlesAllHtml,
+  getArticleHtml,
+  getArticle,
+  viewArticle,
+  postArticle,
+  postArticleLike,
+  updateArticleLike,
+  postArticleComment,
+  deleteArticleComment,
+  updateArticle,
+  deleteArticle,
+  clearArticlesApi
+};

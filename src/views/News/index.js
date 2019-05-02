@@ -33,21 +33,13 @@ import {
 import Cards from "../../components/Cards";
 import { Redirect } from "react-router-dom";
 import Select from "react-select";
+import { isEquivalent, isSubset } from "../../helpers";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import { newsSelectOptions } from "../../helpers/select";
 import { selectStyles } from "../../helpers/styles";
-import { isSubset } from "../../helpers";
-import deepEqual from "deep-equal";
 import matchSorter from "match-sorter";
 
-const mapStateToProps = ({
-  AuthenticationAndAuthorization,
-  User,
-  Settings,
-  Articles,
-  Newsletters
-}) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ User, Settings, Articles, Newsletters }) => ({
   User,
   Settings,
   Articles,
@@ -109,12 +101,12 @@ class News extends Component {
     const currentSearch = this.state.search;
 
     return (
-      !deepEqual(groups, CurrentUserGroups) ||
-      !deepEqual(user_permissions, CurrentUserPermissions) ||
-      !deepEqual(Documents, currentDocuments) ||
-      !deepEqual(pathname, currentPathName) ||
-      !deepEqual(selectValue, currentSelectValue) ||
-      !deepEqual(search, currentSearch)
+      !isEquivalent(groups, CurrentUserGroups) ||
+      !isEquivalent(user_permissions, CurrentUserPermissions) ||
+      !isEquivalent(Documents, currentDocuments) ||
+      !isEquivalent(pathname, currentPathName) ||
+      !isEquivalent(selectValue, currentSelectValue) ||
+      !isEquivalent(search, currentSearch)
     );
   }
 
@@ -146,14 +138,7 @@ class News extends Component {
   };
 
   getState = props => {
-    const {
-      AuthenticationAndAuthorization,
-      User,
-      Settings,
-      history,
-      match,
-      ApiResponse
-    } = props;
+    const { User, Settings, history, match, ApiResponse } = props;
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -173,7 +158,6 @@ class News extends Component {
             .map(i => (i = { value: i, label: i }))
         : selectOptions;
     this.setState({
-      AuthenticationAndAuthorization,
       User,
       Settings,
       Articles,
@@ -212,7 +196,6 @@ class News extends Component {
       .filter(tabFilter)
       .sort(sort)
       .map(card => {
-        const { AuthenticationAndAuthorization } = this.state;
         const {
           User,
           history,
@@ -229,15 +212,13 @@ class News extends Component {
           ? "article"
           : "newsletter";
         let deletePermission = (deletePermission = UserHasPermissions(
-          AuthenticationAndAuthorization,
           User,
-          "delete_" + documentType,
+          `delete_${documentType}`,
           card.author
         ));
         let updatePermission = (updatePermission = UserHasPermissions(
-          AuthenticationAndAuthorization,
           User,
-          "change_" + documentType,
+          `change_${documentType}`,
           card.author
         ));
 
@@ -306,17 +287,9 @@ class News extends Component {
   };
 
   render() {
-    //console.log("NEWS");
+    // console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
-    const {
-      AuthenticationAndAuthorization,
-      User,
-      Settings,
-      search,
-      eventKey,
-      history,
-      match
-    } = this.state;
+    const { User, Settings, search, eventKey, history, match } = this.state;
     let { selectValue } = this.state;
     selectValue = selectValue.length > 0 ? selectValue : selectOptions;
     let { Documents } = this.state;
@@ -346,26 +319,16 @@ class News extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {Title == "ARTICLES" &&
-              UserHasPermissions(
-                AuthenticationAndAuthorization,
-                User,
-                "add_article"
-              ) && (
-                <Button onClick={() => history.push("/article/new/")}>
-                  <i className="fas fa-plus" /> Article
-                </Button>
-              )}
-            {Title == "NEWS" &&
-              UserHasPermissions(
-                AuthenticationAndAuthorization,
-                User,
-                "add_newsletter"
-              ) && (
-                <Button onClick={() => history.push("/newsletter/new")}>
-                  <i className="fas fa-plus" /> Newsletter
-                </Button>
-              )}
+            {Title == "ARTICLES" && UserHasPermissions(User, "add_article") && (
+              <Button onClick={() => history.push("/article/new/")}>
+                <i className="fas fa-plus" /> Article
+              </Button>
+            )}
+            {Title == "NEWS" && UserHasPermissions(User, "add_newsletter") && (
+              <Button onClick={() => history.push("/newsletter/new")}>
+                <i className="fas fa-plus" /> Newsletter
+              </Button>
+            )}
           </Col>
           <Col md={5} xs={12}>
             <InputGroup>

@@ -30,7 +30,7 @@ class Permission {
   }
 }
 
-export class UserHasPermissionTo {
+class UserHasPermissionTo {
   Add = new Category();
   View = new Category();
   Change = new Category();
@@ -51,3 +51,5 @@ export class UserHasPermissionTo {
     }
   }
 }
+
+export { UserHasPermissionTo };

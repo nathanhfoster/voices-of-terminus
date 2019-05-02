@@ -2,7 +2,7 @@
 group groupHeading indicatorsContainer indicatorSeparator 
 input loadingIndicator loadingMessage menu menuList multiValue 
 multiValueLabel multiValueRemove noOptionsMessage option placeholder singleValue valueContainer */
-export const selectStyles = props => {
+const selectStyles = props => {
   return {
     /* 
   clearIndicator function (Object) => Object
@@ -157,3 +157,5 @@ const switchRoleColor = role => {
       return "var(--slate_grey)";
   }
 };
+
+export { selectStyles };

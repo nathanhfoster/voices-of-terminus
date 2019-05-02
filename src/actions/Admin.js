@@ -1,9 +1,9 @@
 import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
-import { DeepCopy } from "../helpers";
+import { DeepCopy, GetUserPermissions } from "../helpers";
 
-export const changeGroups = (token, id, payload) => (dispatch, getState) => {
+const changeGroups = (token, id, payload) => (dispatch, getState) => {
   const { Users } = getState().Admin;
   let usersPayload = DeepCopy(Users);
   return Axios(token)
@@ -23,10 +23,7 @@ export const changeGroups = (token, id, payload) => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-export const changePermissions = (token, id, payload) => (
-  dispatch,
-  getState
-) => {
+const changePermissions = (token, id, payload) => (dispatch, getState) => {
   const { Users } = getState().Admin;
   let usersPayload = DeepCopy(Users);
   return Axios(token)
@@ -46,7 +43,7 @@ export const changePermissions = (token, id, payload) => (
     .catch(e => console.log(e));
 };
 
-export const getUsersWithProfileImages = () => dispatch =>
+const getUsersWithProfileImages = () => dispatch =>
   Axios()
     .get("users/")
     .then(res => {
@@ -57,20 +54,21 @@ export const getUsersWithProfileImages = () => dispatch =>
     })
     .catch(e => console.log(e));
 
-export const getUsers = () => dispatch =>
+const getUsers = () => dispatch =>
   Axios()
     .get("users/all/")
-    .then(res => getUsersCharacters(res.data, dispatch))
+    .then(res => getUsersCharactersAndPermissions(res.data, dispatch))
     .catch(e => console.log(e));
 
-const getUsersCharacters = (Users, dispatch) => {
+const getUsersCharactersAndPermissions = (Users, dispatch) => {
   Axios()
     .get(`user/characters/`)
     .then(res => {
       const Characters = res.data;
-      const payload = Users.map(u => {
-        u.Characters = Characters.filter(c => c.author === u.id);
-        return u;
+      const payload = Users.map(user => {
+        user.Characters = Characters.filter(c => c.author === user.id);
+        user.permissions = GetUserPermissions(user.user_permissions);
+        return user;
       });
       dispatch({
         type: C.GET_USERS,
@@ -80,20 +78,17 @@ const getUsersCharacters = (Users, dispatch) => {
     .catch(e => console.log(e));
 };
 
-export const clearUser = () => dispatch =>
+const clearUser = () => dispatch =>
   dispatch({
     type: C.CLEAR_USER
   });
 
-export const clearAdminApi = () => dispatch =>
+const clearAdminApi = () => dispatch =>
   dispatch({
     type: C.CLEAR_ADMIN_API
   });
 
-export const updateUserProfile = (id, token, payload) => (
-  dispatch,
-  getState
-) => {
+const updateUserProfile = (id, token, payload) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_USERS_LOADING });
   const { Users } = getState().Admin;
   let usersPayload = [...Users];
@@ -119,7 +114,7 @@ export const updateUserProfile = (id, token, payload) => (
     );
 };
 
-export const createUser = payload => (dispatch, getState) =>
+const createUser = payload => (dispatch, getState) =>
   AxiosForm(null, payload)
     .post("users/", payload)
     .then(res => {
@@ -132,7 +127,7 @@ export const createUser = payload => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const deleteUser = (token, id) => (dispatch, getState) =>
+const deleteUser = (token, id) => (dispatch, getState) =>
   Axios(token)
     .delete(`users/${id}/`)
     .then(res => {
@@ -144,3 +139,16 @@ export const deleteUser = (token, id) => (dispatch, getState) =>
       });
     })
     .catch(e => console.log(e));
+
+export {
+  changeGroups,
+  changePermissions,
+  getUsersWithProfileImages,
+  getUsers,
+  getUsersCharactersAndPermissions,
+  clearUser,
+  clearAdminApi,
+  updateUserProfile,
+  createUser,
+  deleteUser
+};

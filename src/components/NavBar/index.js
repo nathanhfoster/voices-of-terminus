@@ -21,12 +21,7 @@ import { Logout } from "../../actions/App";
 import { roleClassIcon } from "../../helpers";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 
-const mapStateToProps = ({
-  AuthenticationAndAuthorization,
-  User,
-  Messages
-}) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ User, Messages }) => ({
   User,
   Messages
 });
@@ -60,8 +55,8 @@ class NavBar extends PureComponent {
   }
 
   getState = props => {
-    const { AuthenticationAndAuthorization, User, Messages } = props;
-    this.setState({ AuthenticationAndAuthorization, User, Messages });
+    const { User, Messages } = props;
+    this.setState({ User, Messages });
   };
 
   Logout = () => {
@@ -88,7 +83,7 @@ class NavBar extends PureComponent {
   render() {
     const { history, location } = this.props;
     const { pathname } = location;
-    const { AuthenticationAndAuthorization, User, Messages } = this.state;
+    const { User, Messages } = this.state;
     const { Settings } = User;
     const { show_footer, push_messages } = Settings;
     const unreadMessages = this.unreadMessages(Messages.results);
@@ -255,33 +250,21 @@ class NavBar extends PureComponent {
                 </LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
                 <MenuItem divider />
-                {UserHasPermissions(
-                  AuthenticationAndAuthorization,
-                  User,
-                  "add_article"
-                ) && (
+                {UserHasPermissions(User, "add_article") && (
                   <LinkContainer to="/article/new/">
                     <NavItem eventKey={10.6}>
                       <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
                 )}
-                {UserHasPermissions(
-                  AuthenticationAndAuthorization,
-                  User,
-                  "add_newsletter"
-                ) && (
+                {UserHasPermissions(User, "add_newsletter") && (
                   <LinkContainer to="/newsletter/new">
                     <NavItem eventKey={10.7}>
                       <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
                   </LinkContainer>
                 )}
-                {UserHasPermissions(
-                  AuthenticationAndAuthorization,
-                  User,
-                  "add_poll"
-                ) && (
+                {UserHasPermissions(User, "add_poll") && (
                   <LinkContainer to="/poll/new/">
                     <NavItem eventKey={10.8}>
                       <i className="fas fa-plus" /> POLL
@@ -289,22 +272,14 @@ class NavBar extends PureComponent {
                   </LinkContainer>
                 )}
 
-                {UserHasPermissions(
-                  AuthenticationAndAuthorization,
-                  User,
-                  "add_event"
-                ) && (
+                {UserHasPermissions(User, "add_event") && (
                   <LinkContainer to="/calendar/new/event">
                     <NavItem eventKey={10.9}>
                       <i className="fas fa-plus" /> EVENT
                     </NavItem>
                   </LinkContainer>
                 )}
-                {UserHasPermissions(
-                  AuthenticationAndAuthorization,
-                  User,
-                  "add_ticket"
-                ) && (
+                {UserHasPermissions(User, "add_ticket") && (
                   <LinkContainer to="/ticket/new">
                     <NavItem eventKey={10.1}>
                       <i className="fas fa-plus" /> TICKET

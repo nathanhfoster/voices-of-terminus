@@ -3,7 +3,7 @@ import { Axios, AxiosForm } from "./Axios";
 import Cookies from "js-cookie";
 import qs from "qs";
 
-export const createUser = payload => dispatch => {
+const createUser = payload => dispatch => {
   const eightHours = 1 / 3;
   return AxiosForm(null, payload)
     .post("users/", payload)
@@ -24,7 +24,7 @@ export const createUser = payload => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const updateProfile = (id, token, payload) => dispatch => {
+const updateProfile = (id, token, payload) => dispatch => {
   dispatch({ type: C.UPDATE_USER_LOADING });
   return AxiosForm(token, payload)
     .patch(`users/${id}/`, payload)
@@ -43,7 +43,7 @@ export const updateProfile = (id, token, payload) => dispatch => {
     );
 };
 
-export const getCharacters = (userId, token) => dispatch =>
+const getCharacters = (userId, token) => dispatch =>
   Axios(token)
     .get(`user/characters/${userId}/view/`)
     .then(res => {
@@ -59,7 +59,7 @@ export const getCharacters = (userId, token) => dispatch =>
       })
     );
 
-export const postCharacter = (token, payload) => (dispatch, getState) => {
+const postCharacter = (token, payload) => (dispatch, getState) => {
   Axios(token)
     .post(`user/characters/`, qs.stringify(payload))
     .then(res => {
@@ -73,7 +73,7 @@ export const postCharacter = (token, payload) => (dispatch, getState) => {
     .catch(e => console.log(e, "postCharacter: ", payload));
 };
 
-export const editCharacter = (id, token, payload) => (dispatch, getState) => {
+const editCharacter = (id, token, payload) => (dispatch, getState) => {
   Axios(token)
     .patch(`user/characters/${id}/`, qs.stringify(payload))
     .then(res => {
@@ -94,7 +94,7 @@ export const editCharacter = (id, token, payload) => (dispatch, getState) => {
     );
 };
 
-export const deleteCharacter = (token, id) => (dispatch, getState) =>
+const deleteCharacter = (token, id) => (dispatch, getState) =>
   Axios(token)
     .delete(`user/characters/${id}/`)
     .then(res => {
@@ -107,6 +107,16 @@ export const deleteCharacter = (token, id) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const clearUserApi = () => ({
+const clearUserApi = () => ({
   type: C.CLEAR_USER_API
 });
+
+export {
+  createUser,
+  updateProfile,
+  getCharacters,
+  postCharacter,
+  editCharacter,
+  deleteCharacter,
+  clearUserApi
+};

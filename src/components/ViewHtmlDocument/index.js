@@ -9,12 +9,12 @@ import ReactHtmlParser, {
   convertNodeToElement,
   htmlparser2
 } from "react-html-parser";
+import { isEquivalent } from "../../helpers";
 import { viewNewsletter } from "../../actions/NewsLetters";
 import { viewArticle } from "../../actions/Articles";
 import { setHtmlDocument, clearHtmlDocument } from "../../actions/App";
 import { Link } from "react-router-dom";
 import CommentLikes from "./CommentLikes";
-import deepEqual from "deep-equal";
 
 const mapStateToProps = ({ User, Articles, Newsletters, HtmlDocument }) => ({
   User,
@@ -78,7 +78,7 @@ class ViewHtmlDocument extends Component {
     const { HtmlDocument } = nextProps;
     const currentHtmlDocument = this.state.HtmlDocument;
 
-    return !deepEqual(HtmlDocument, currentHtmlDocument);
+    return !isEquivalent(HtmlDocument, currentHtmlDocument);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -125,10 +125,7 @@ class ViewHtmlDocument extends Component {
                 ReactHtmlParser(HtmlDocument.html)
               )}
             </Col>
-            <CommentLikes
-              match={match}
-              history={history}
-            />
+            <CommentLikes match={match} history={history} />
           </Row>
         </Grid>
       )

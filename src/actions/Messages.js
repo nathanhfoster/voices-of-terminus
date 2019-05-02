@@ -2,7 +2,7 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-export const getUserMessages = (userId, token) => dispatch =>
+const getUserMessages = (userId, token) => dispatch =>
   getMessages(userId, token, dispatch);
 
 const getMessages = (userId, token, dispatch) => {
@@ -60,7 +60,7 @@ const getMessages = (userId, token, dispatch) => {
     .catch(e => console.log(e));
 };
 
-export const postMessage = (token, recipient_group_id, recipients, payload) => (
+const postMessage = (token, recipient_group_id, recipients, payload) => (
   dispatch,
   getState
 ) => {
@@ -101,7 +101,7 @@ export const postMessage = (token, recipient_group_id, recipients, payload) => (
     );
 };
 
-export const updateMessage = (id, token, payload) => (dispatch, getState) =>
+const updateMessage = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
     .patch(`/message/recipients/${id}/`, qs.stringify(payload))
     .then(res => {
@@ -124,7 +124,7 @@ export const updateMessage = (id, token, payload) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-export const createMessageGroup = (
+const createMessageGroup = (
   token,
   author,
   uri,
@@ -177,7 +177,7 @@ export const createMessageGroup = (
     .catch(e => console.log(e));
 };
 
-export const getMessageDetails = (token, recipient_group_id) => dispatch => {
+const getMessageDetails = (token, recipient_group_id) => dispatch => {
   Axios(token)
     .get(`/messages/${recipient_group_id}/view/`)
     .then(res => {
@@ -189,10 +189,7 @@ export const getMessageDetails = (token, recipient_group_id) => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getGroupMessageRecipients = (
-  token,
-  recipient_group_id
-) => dispatch =>
+const getGroupMessageRecipients = (token, recipient_group_id) => dispatch =>
   Axios(token)
     .get(`/message/recipients/${recipient_group_id}/group/`)
     .then(res => {
@@ -203,8 +200,19 @@ export const getGroupMessageRecipients = (
     })
     .catch(e => console.log(e));
 
-export const deleteMessageRecipient = (token, userId, id) => dispatch =>
+const deleteMessageRecipient = (token, userId, id) => dispatch =>
   Axios(token)
     .delete(`/message/recipients/${id}/`)
     .then(res => getMessages(userId, token, dispatch))
     .catch(e => console.log(e));
+
+export {
+  getUserMessages,
+  getMessages,
+  postMessage,
+  updateMessage,
+  createMessageGroup,
+  getMessageDetails,
+  getGroupMessageRecipients,
+  deleteMessageRecipient
+};

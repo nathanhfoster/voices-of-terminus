@@ -1,7 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 
-export const getAllUserGroups = () => dispatch => {
+const getAllUserGroups = () => dispatch => {
   return Axios()
     .get(`user-groups/`)
     .then(res => {
@@ -13,7 +13,7 @@ export const getAllUserGroups = () => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getAllUserPermissions = () => dispatch =>
+const getAllUserPermissions = () => dispatch =>
   Axios()
     .get(`user-permissions/`)
     .then(res => {
@@ -23,3 +23,5 @@ export const getAllUserPermissions = () => dispatch =>
       });
     })
     .catch(e => console.log(e));
+
+export { getAllUserGroups, getAllUserPermissions };

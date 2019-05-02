@@ -18,8 +18,10 @@ import {
 import { Link } from "react-router-dom";
 import Select from "react-select";
 import CreatableSelect from "react-select/lib/Creatable";
+import { joinStrings, splitString, isEquivalent } from "../../../../helpers";
 import { galleryImageTags } from "../../../../helpers/select";
 import { selectStyles } from "../../../../helpers/styles";
+import { UserHasPermissions } from "../../../../helpers/userPermissions";
 import { connect as reduxConnect } from "react-redux";
 import {
   viewGalleryImages,
@@ -31,21 +33,14 @@ import {
 } from "../../../../actions/Media";
 import Moment from "react-moment";
 import matchSorter from "match-sorter";
-import deepEqual from "deep-equal";
 import "./styles.css";
 import "./stylesM.css";
 import ConfirmAction from "../../../../components/ConfirmAction";
 import Lightbox from "react-image-lightbox";
 import { withAlert } from "react-alert";
 import PopOver from "../../../../components/PopOver";
-import { UserHasPermissions } from "../../../../helpers/userPermissions";
 
-const mapStateToProps = ({
-  AuthenticationAndAuthorization,
-  User,
-  Galleries
-}) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ User, Galleries }) => ({
   User,
   Galleries
 });
@@ -98,7 +93,7 @@ class Gallery extends PureComponent {
 
   getState = props => {
     const { id } = props.match.params;
-    const { AuthenticationAndAuthorization, User, Galleries } = props;
+    const { User, Galleries } = props;
     const GalleryTitleIndex = Galleries.results.findIndex(
       gallery => gallery.id == id
     );
@@ -107,12 +102,9 @@ class Gallery extends PureComponent {
         ? Galleries.results[GalleryTitleIndex].title
         : null;
     const { Gallery } = Galleries;
-    const currentTags = Gallery.results
-      .map(e => e.tags.split("|").map(i => (i = { value: i, label: i })))
-      .flat(1);
+    const currentTags = Gallery.results.map(e => splitString(e.tags)).flat(1);
     this.getGalleryImage(Gallery);
     this.setState({
-      AuthenticationAndAuthorization,
       User,
       id,
       GalleryTitle,
@@ -191,7 +183,7 @@ class Gallery extends PureComponent {
     const { id } = this.state;
     const { image, title, description } = this.state;
     let { tags } = this.state;
-    tags = tags.map(i => i.value).join("|");
+    tags = joinStrings(tags);
     const payload = {
       gallery_id: id,
       author: User.id,
@@ -210,7 +202,7 @@ class Gallery extends PureComponent {
     e.preventDefault();
     const { User, title, description, image, image_id } = this.state;
     let { tags } = this.state;
-    tags = tags.map(i => i.value).join("|");
+    tags = joinStrings(tags);
     const payload = {
       title,
       description,
@@ -225,20 +217,12 @@ class Gallery extends PureComponent {
   };
 
   renderGalleryImages = (images, filter, dontFilter) => {
-    const { AuthenticationAndAuthorization, User } = this.state;
-    const canDelete = UserHasPermissions(
-      AuthenticationAndAuthorization,
-      User,
-      "delete_galleryimages"
-    );
-    const canUpdate = UserHasPermissions(
-      AuthenticationAndAuthorization,
-      User,
-      "change_galleryimages"
-    );
+    const { User } = this.state;
+    const canDelete = UserHasPermissions(User, "delete_galleryimages");
+    const canUpdate = UserHasPermissions(User, "change_galleryimages");
     return images
       .filter(img =>
-        dontFilter ? img : deepEqual(img.tags.split("|"), filter)
+        dontFilter ? img : isEquivalent(img.tags.split("|"), filter)
       )
       .map((image, index) => {
         return (
@@ -323,7 +307,6 @@ class Gallery extends PureComponent {
 
   render() {
     const {
-      AuthenticationAndAuthorization,
       User,
       GalleryTitle,
       Gallery,
@@ -338,16 +321,8 @@ class Gallery extends PureComponent {
       tags,
       currentTags
     } = this.state;
-    const canDelete = UserHasPermissions(
-      AuthenticationAndAuthorization,
-      User,
-      "add_gallery"
-    );
-    const canUpdate = UserHasPermissions(
-      AuthenticationAndAuthorization,
-      User,
-      "change_gallery"
-    );
+    const canDelete = UserHasPermissions(User, "add_gallery");
+    const canUpdate = UserHasPermissions(User, "change_gallery");
     let images = Gallery ? Gallery.results : [];
     images = search
       ? matchSorter(images, search, {
@@ -378,11 +353,7 @@ class Gallery extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(
-              AuthenticationAndAuthorization,
-              User,
-              "add_galleryimages"
-            ) && (
+            {UserHasPermissions(User, "add_galleryimages") && (
               <Button onClick={() => this.setState({ show: true })}>
                 <i className="fas fa-plus" /> Image
               </Button>

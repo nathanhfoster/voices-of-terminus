@@ -121,7 +121,7 @@ const AdminUserInfoColumns = [
     accessor: Tickets => Tickets.offender_username,
     filterable: true,
     Cell: props => (
-      <Link to={`/admin/edit/user/${props.original.offender}`}>
+      <Link to={`/admin/edit/user/${props.original.offenders}`}>
         {props.value}
       </Link>
     ),
@@ -145,7 +145,7 @@ const AdminUserInfoColumns = [
       );
     }
   },
-  //corroborator,
+  //corroborators,
   //others_involved,
   {
     Header: "Others",

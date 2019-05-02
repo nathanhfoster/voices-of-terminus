@@ -2,7 +2,7 @@ import C from "../constants";
 import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 
-export const getTickets = () => dispatch => {
+const getTickets = () => dispatch => {
   Axios()
     .get(`tickets/`)
     .then(res => {
@@ -14,7 +14,7 @@ export const getTickets = () => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getTicket = (UserId, token, id) => dispatch => {
+const getTicket = (UserId, token, id) => dispatch => {
   Axios(token)
     .get(`tickets/${id}/`)
     .then(res => {
@@ -33,7 +33,7 @@ export const getTicket = (UserId, token, id) => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const getUserTickets = (token, userId) => dispatch => {
+const getUserTickets = (token, userId) => dispatch => {
   Axios(token)
     .get(`tickets/${userId}/view/`)
     .then(res => {
@@ -45,7 +45,7 @@ export const getUserTickets = (token, userId) => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const postTicket = (token, payload) => dispatch => {
+const postTicket = (token, payload) => dispatch => {
   dispatch({ type: C.POST_TICKETS_LOADING });
   return AxiosForm(token, payload)
     .post(`tickets/`, payload)
@@ -61,7 +61,7 @@ export const postTicket = (token, payload) => dispatch => {
     });
 };
 
-export const editTicket = (token, id, payload) => dispatch => {
+const editTicket = (token, id, payload) => dispatch => {
   dispatch({ type: C.POST_TICKETS_LOADING });
   return Axios(token)
     .patch(`tickets/${id}/`, qs.stringify(payload))
@@ -81,7 +81,7 @@ export const editTicket = (token, id, payload) => dispatch => {
     });
 };
 
-export const getTicketNotes = (token, ticketId) => dispatch => {
+const getTicketNotes = (token, ticketId) => dispatch => {
   Axios(token)
     .get(`ticket/notes/${ticketId}/view/`)
     .then(res => {
@@ -93,7 +93,7 @@ export const getTicketNotes = (token, ticketId) => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const postTicketNote = (token, payload) => (dispatch, geState) =>
+const postTicketNote = (token, payload) => (dispatch, geState) =>
   Axios(token)
     .post(`ticket/notes/`, qs.stringify(payload))
     .then(res => {
@@ -106,7 +106,7 @@ export const postTicketNote = (token, payload) => (dispatch, geState) =>
     })
     .catch(e => console.log(e));
 
-export const getTicketStatusChanges = (token, ticketId) => dispatch => {
+const getTicketStatusChanges = (token, ticketId) => dispatch => {
   Axios(token)
     .get(`ticket/statusChanges/${ticketId}/view/`)
     .then(res => {
@@ -118,7 +118,7 @@ export const getTicketStatusChanges = (token, ticketId) => dispatch => {
     .catch(e => console.log(e));
 };
 
-export const postTicketStatusChange = (token, payload) => (dispatch, geState) =>
+const postTicketStatusChange = (token, payload) => (dispatch, geState) =>
   Axios(token)
     .post(`ticket/statusChanges/`, qs.stringify(payload))
     .then(res => {
@@ -130,3 +130,15 @@ export const postTicketStatusChange = (token, payload) => (dispatch, geState) =>
       });
     })
     .catch(e => console.log(e));
+
+export {
+  getTickets,
+  getTicket,
+  getUserTickets,
+  postTicket,
+  editTicket,
+  getTicketNotes,
+  postTicketNote,
+  getTicketStatusChanges,
+  postTicketStatusChange
+};

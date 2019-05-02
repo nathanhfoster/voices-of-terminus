@@ -27,7 +27,8 @@ import {
   DeepCopy,
   roleOptions,
   IconOption,
-  classOptions
+  classOptions,
+  joinStrings
 } from "../../../helpers";
 import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
@@ -38,8 +39,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { postEvent, clearEventsApi } from "../../../actions/Events";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({ AuthenticationAndAuthorization, User, Events }) => ({
-  AuthenticationAndAuthorization,
+const mapStateToProps = ({ User, Events }) => ({
   User,
   Events
 });
@@ -130,9 +130,8 @@ class Event extends PureComponent {
   }
 
   getState = props => {
-    const { AuthenticationAndAuthorization, User, Events, groups } = props;
+    const { User, Events, groups } = props;
     this.setState({
-      AuthenticationAndAuthorization,
       User,
       Events,
       groups,
@@ -276,7 +275,7 @@ class Event extends PureComponent {
           description,
           author: User.id,
           last_modified_by: User.id,
-          tags: tags.map(e => e.value).join("|")
+          tags: joinStrings(tags)
         }
       : {
           start_date,
@@ -286,7 +285,7 @@ class Event extends PureComponent {
           description,
           author: User.id,
           last_modified_by: User.id,
-          tags: tags.map(e => e.value).join("|"),
+          tags: joinStrings(tags),
           min_level,
           max_level,
           locations: locations.map(e => e.value).join("|"),
@@ -391,7 +390,6 @@ class Event extends PureComponent {
   render() {
     const { history } = this.props;
     const {
-      AuthenticationAndAuthorization,
       User,
       Events,
       title,
@@ -418,7 +416,6 @@ class Event extends PureComponent {
     } = Events;
     const raidSelected = tags.map(e => e.value).includes("Raid");
     return !UserHasPermissions(
-      AuthenticationAndAuthorization,
       User,
       "add_event"
     ) ? (

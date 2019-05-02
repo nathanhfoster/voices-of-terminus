@@ -26,14 +26,15 @@ import RangedDps from "../images/classIcons/ranged_dps.png";
 import Support from "../images/classIcons/support.png";
 import Utility from "../images/classIcons/utility.png";
 import CrowdControl from "../images/classIcons/crowd_control.png";
+import { ReduxStore } from "../index";
 
-export const arrayToObject = (arr, keyField) =>
+const arrayToObject = (arr, keyField) =>
   Object.assign({}, ...arr.map(item => ({ [item[keyField]]: item })));
-export const objectToArray = obj => Object.keys(obj).map(key => obj[key]);
-export const DeepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
-export const isOnline = last_login =>
+const objectToArray = obj => Object.keys(obj).map(key => obj[key]);
+const DeepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
+const isOnline = last_login =>
   new Date() - new Date(last_login) <= 1000 * 60 * 5;
-export const eventLabelColor = tags => {
+const eventLabelColor = tags => {
   const type = tags.split("|")[1];
   if (type == "Dungeon") return "var(--color_emerald)";
   if (type == "Explore") return "var(--color_sunflower)";
@@ -45,10 +46,10 @@ export const eventLabelColor = tags => {
   return "var(--primaryColor)";
 };
 
-export const findMaxInt = (arrayOfObjs, prop) =>
+const findMaxInt = (arrayOfObjs, prop) =>
   Math.max(...arrayOfObjs.map(e => e[prop]));
 
-export const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
+const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
   let map = new Map();
   for (let i = 0; i < arrayOfObjs.length; i++) {
     const s = arrayOfObjs[i][prop];
@@ -64,7 +65,7 @@ export const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
   else return newArray;
 };
 
-export const hasCharAfterSpace = string => {
+const hasCharAfterSpace = string => {
   const charArray = string.split(" ").slice(-2);
   const SecondToLastChar = charArray[0];
   const LastChar = charArray[1];
@@ -72,8 +73,8 @@ export const hasCharAfterSpace = string => {
 
   return true;
 };
-
-export const isSubset = (arr1, arr2) => {
+// arr1.some(e => arr2.includes(e));
+const isSubset = (arr1, arr2) => {
   // console.log(arr1, arr2);
   const hset = new Map();
 
@@ -90,48 +91,10 @@ export const isSubset = (arr1, arr2) => {
   return true;
 };
 
-const issubset = (arr1, arr2) => {
-  if (typeof arr1 != "Array" || typeof arr2 != "Array") return false;
-  const hset = new Map();
+const isEquivalent = (obj1, obj2) =>
+  JSON.stringify(obj1) === JSON.stringify(obj2);
 
-  // hset stores all the values of arr1
-  for (let i = 0; i < arr1.length; i++) {
-    if (!hset.has(arr1[i])) hset.set(arr1[i]);
-  }
-
-  // loop to check if all elements of arr2 also
-  // lies in arr1
-  for (let i = 0; i < arr2.length; i++) {
-    if (!hset.has(arr2[i])) return false;
-  }
-  return true;
-};
-
-export const isEquivalent = (obj1, obj2) => {
-  // Create arrays of property names
-  const obj1Props = Object.getOwnPropertyNames(obj1);
-  const obj2Props = Object.getOwnPropertyNames(obj2);
-
-  // If number of properties is different,
-  // objects are not equivalent
-  if (obj1Props.length != obj2Props.length) {
-    return false;
-  }
-
-  for (let i = 0; i < obj1Props.length; i++) {
-    let propName = obj1Props[i];
-
-    if (!issubset(obj1[propName], obj2[propName])) return false;
-
-    // If values of same property are not equal,
-    // objects are not equivalent
-    if (obj1[propName] !== obj2[propName]) {
-      return false;
-    }
-  }
-};
-
-export const circleColor = status => {
+const circleColor = status => {
   switch (status) {
     case "Open":
       return "var(--color_emerald)";
@@ -144,7 +107,7 @@ export const circleColor = status => {
   }
 };
 
-export const MainAltCharacter = (User, MainOrAlt) => {
+const MainAltCharacter = (User, MainOrAlt) => {
   const DEFAULT = {
     race: null,
     role: null,
@@ -163,13 +126,13 @@ export const MainAltCharacter = (User, MainOrAlt) => {
   return Characters.reduce((a, c) => (a = c[MainOrAlt] ? c : DEFAULT), DEFAULT);
 };
 
-export const ticketStatusOptions = [
+const ticketStatusOptions = [
   { value: "Open", label: "Open" },
   { value: "Pending", label: "Pending" },
   { value: "Resolved", label: "Resolved" }
 ];
 
-export const ticketTypeOptions = [
+const ticketTypeOptions = [
   { value: 3, label: "Harassment" },
   { value: 3, label: "Abuse / Griefing" },
   { value: 3, label: "Exploit" },
@@ -184,10 +147,10 @@ export const ticketTypeOptions = [
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!
  */
-export const getRandomInt = (min, max) =>
+const getRandomInt = (min, max) =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
-export const getImageBase64 = image => {
+const getImageBase64 = image => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(image);
@@ -196,14 +159,14 @@ export const getImageBase64 = image => {
   });
 };
 
-export const isEmpty = obj => {
+const isEmpty = obj => {
   for (var key in obj) {
     if (obj.hasOwnProperty(key)) return false;
   }
   return true;
 };
 
-export const checkNestedProps = (obj, level1) => {
+const checkNestedProps = (obj, level1) => {
   var args = Array.prototype.slice.call(obj, 1);
 
   for (var i = 0; i < args.length; i++) {
@@ -215,7 +178,7 @@ export const checkNestedProps = (obj, level1) => {
   return true;
 };
 
-export const statusLevelInt = User => {
+const statusLevelInt = User => {
   const {
     id,
     is_leader,
@@ -240,7 +203,7 @@ export const statusLevelInt = User => {
   return 0;
 };
 
-export const statusLevelString = status => {
+const statusLevelString = status => {
   switch (status) {
     case 9:
       return "Admin";
@@ -265,7 +228,7 @@ export const statusLevelString = status => {
   }
 };
 
-export const roleClassIcon = roleOrClass => {
+const roleClassIcon = roleOrClass => {
   switch (roleOrClass) {
     case "Bard":
       return Bard;
@@ -318,7 +281,7 @@ export const roleClassIcon = roleOrClass => {
   }
 };
 
-export const professionIcon = (profession, professionSpecialization) => {
+const professionIcon = (profession, professionSpecialization) => {
   switch (professionSpecialization || profession) {
     case "Alchemist":
       return <i className="fas fa-vial" />;
@@ -365,7 +328,7 @@ export const professionIcon = (profession, professionSpecialization) => {
   }
 };
 
-export const renderRoles = User => {
+const renderRoles = User => {
   let Roles = [];
   const {
     is_raid_leader,
@@ -396,7 +359,7 @@ export const renderRoles = User => {
   return Roles.map(r => <span>{r}</span>);
 };
 
-export const raceRoleClassOptions = {
+const raceRoleClassOptions = {
   Archai: {
     // Bard, Druid, Monk, Shaman, Warrior, Wizard
     roleOptions: [
@@ -783,7 +746,7 @@ export const raceRoleClassOptions = {
   }
 };
 
-export const raceOptions = [
+const raceOptions = [
   { value: "Archai", label: "Archai" }, // Bard, Druid, Monk, Shaman, Warrior, Wizard
   { value: "Dark Myr", label: "Dark Myr" }, // Bard, Cleric, Dire Lord, Druid, Enchanter, Monk, Necromancer, Rogue, Summoner, Warrior, Wizard
   { value: "Dwarf", label: "Dwarf" }, // Bard, Cleric, Enchanter, Paladin, Rogue, Warrior
@@ -795,7 +758,7 @@ export const raceOptions = [
   { value: "Skar", label: "Skar" } // Skar, Mink, Necrimancer, Rogue, Shaman
 ];
 
-export const roleOptions = [
+const roleOptions = [
   { value: "Any", label: "Any" },
   { value: "Crowd Control", label: "Crowd Control" },
   { value: "Healer", label: "Healer" },
@@ -808,7 +771,7 @@ export const roleOptions = [
 ];
 
 const { Option } = components;
-export const IconOption = props => {
+const IconOption = props => {
   const { value, label } = props.data;
   return (
     <Option {...props}>
@@ -817,7 +780,7 @@ export const IconOption = props => {
   );
 };
 
-export const classOptions = {
+const classOptions = {
   Any: [
     // { value: "Bard", label: "Bard" },
     // { value: "Cleric", label: "Cleric" },
@@ -889,7 +852,7 @@ export const classOptions = {
   ]
 };
 
-export const professionOptions = [
+const professionOptions = [
   { value: "Alchemist", label: "Alchemist" },
   { value: "Blacksmith", label: "Blacksmith" },
   { value: "Outfitter", label: "Outfitter" },
@@ -898,7 +861,7 @@ export const professionOptions = [
   { value: "Stonemason", label: "Stonemason" },
   { value: "Woodworker", label: "Woodworker" }
 ];
-export const professionSpecializationOptions = {
+const professionSpecializationOptions = {
   Alchemist: [],
   Blacksmith: [
     { value: "Armorsmith", label: "Armorsmith" },
@@ -931,7 +894,7 @@ const choiceStyle = {
   display: "inline-block"
 };
 
-export const PollChoices = [
+const PollChoices = [
   {
     value: "Multiple",
     label: [
@@ -962,7 +925,7 @@ export const PollChoices = [
   }
 ];
 
-export const switchPollTypeIcon = type => {
+const switchPollTypeIcon = type => {
   switch (type) {
     case "Multiple":
       return <i className="fas fa-check-square" />;
@@ -975,7 +938,7 @@ export const switchPollTypeIcon = type => {
   }
 };
 
-export const Redirection = (history, userToken, noPermission) => {
+const Redirection = (history, userToken, noPermission) => {
   if (!userToken) return <Redirect exact to="/login" />;
   else if (noPermission && history.length > 2)
     return <Redirect exact to={history.goBack()} />;
@@ -983,9 +946,9 @@ export const Redirection = (history, userToken, noPermission) => {
   return false;
 };
 
-export const RemoveArrayDuplicates = array => [...new Set(array)];
+const RemoveArrayDuplicates = array => [...new Set(array)];
 
-export const removeDuplicates = (array, objAttr) => {
+const removeDuplicates = (array, objAttr) => {
   let map = new Map();
 
   for (let i = 0; i < array.length; i++) {
@@ -995,4 +958,62 @@ export const removeDuplicates = (array, objAttr) => {
   }
 
   return [...map.values()];
+};
+
+const joinStrings = objectArray => objectArray.map(i => i.value).join("|");
+
+const splitString = string =>
+  string.split("|").map(
+    i =>
+      (i = {
+        value: i,
+        label: i,
+        isFixed: i === "Article" || i === "Newsletter"
+      })
+  );
+
+const GetUserPermissions = user_permissions =>
+  ReduxStore.getState().AuthenticationAndAuthorization.AllUserPermissions.filter(
+    p => user_permissions.includes(p.id)
+  );
+
+export {
+  arrayToObject,
+  objectToArray,
+  DeepCopy,
+  isOnline,
+  eventLabelColor,
+  findMaxInt,
+  TopKFrequentStrings,
+  hasCharAfterSpace,
+  isSubset,
+  isEquivalent,
+  circleColor,
+  MainAltCharacter,
+  ticketStatusOptions,
+  ticketTypeOptions,
+  getRandomInt,
+  getImageBase64,
+  isEmpty,
+  checkNestedProps,
+  statusLevelInt,
+  statusLevelString,
+  roleClassIcon,
+  professionIcon,
+  renderRoles,
+  raceRoleClassOptions,
+  professionSpecializationOptions,
+  raceOptions,
+  roleOptions,
+  IconOption,
+  classOptions,
+  professionOptions,
+  PollChoices,
+  switchPollTypeIcon,
+  Redirection,
+  RemoveArrayDuplicates,
+  removeDuplicates,
+  joinStrings,
+  splitString,
+  GetUserPermissions
 };

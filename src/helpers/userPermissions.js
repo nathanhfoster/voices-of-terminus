@@ -1,10 +1,10 @@
-export const UserHasPermissions = (
-  AuthenticationAndAuthorization,
-  User,
-  Codename,
-  AuthorId
-) => {
-  const { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization;
+import { ReduxStore } from "../index";
+
+const UserHasPermissions = (User, Codename, AuthorId) => {
+  const {
+    AllUserGroups,
+    AllUserPermissions
+  } = ReduxStore.getState().AuthenticationAndAuthorization;
   const { groups, user_permissions } = User;
 
   if (!User) return false;
@@ -50,21 +50,21 @@ export const UserHasPermissions = (
   return false;
 };
 
-export const CategorizedPermissions = AllUserPermissions => {
+const CategorizedPermissions = AllUserPermissions => {
   const CategorizedPermissions = ["add", "view", "change", "delete"];
   return CategorizedPermissions.map(c =>
     AllUserPermissions.filter(e => e.codename.split("_")[0] == c)
   );
 };
 
-export const PermissionTitle = name =>
+const PermissionTitle = name =>
   name
     .split(" ")
     .splice(2)
     .map(e => e.charAt(0).toUpperCase() + e.slice(1))
     .join(" ");
 
-export const PermissionHeader = name => name.split("_")[0].toUpperCase();
+const PermissionHeader = name => name.split("_")[0].toUpperCase();
 
 /*
 0: "add_article"
@@ -192,3 +192,10 @@ export const PermissionHeader = name => name.split("_")[0].toUpperCase();
 122: "view_user"
 123: "view_usergroup"
 */
+
+export {
+  UserHasPermissions,
+  CategorizedPermissions,
+  PermissionTitle,
+  PermissionHeader
+};

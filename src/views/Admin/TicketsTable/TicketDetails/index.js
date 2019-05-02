@@ -141,7 +141,7 @@ class TicketDetails extends Component {
   };
 
   editTicketStatus = () => {
-    const { Ticket} = this.props.Admin
+    const { Ticket } = this.props.Admin;
     const {
       User,
       editTicket,
@@ -165,11 +165,9 @@ class TicketDetails extends Component {
       text: notes
     };
     if (statusChanged || notesChanged)
-    editTicket(User.token, id, ticketPayload);
-    if (statusChanged)
-    postTicketStatusChange(User.token, statusChangePayload);
-    if(notesChanged)
-    postTicketNote(User.token, notesPayload);
+      editTicket(User.token, id, ticketPayload);
+    if (statusChanged) postTicketStatusChange(User.token, statusChangePayload);
+    if (notesChanged) postTicketNote(User.token, notesPayload);
   };
 
   renderStatusChangesOrNotes = array =>
@@ -243,9 +241,9 @@ class TicketDetails extends Component {
       id,
       author,
       author_username,
-      offender,
+      offenders,
       offender_username,
-      corroborator,
+      corroborators,
       corroborator_username,
       others_involved,
       description,
@@ -318,11 +316,11 @@ class TicketDetails extends Component {
                 </h3>
               </Col>
             )}
-            {offender && (
+            {offenders && (
               <Col xs={12}>
                 <h3>
                   Offended by:{" "}
-                  <Link to={`/admin/edit/user/${offender}`}>
+                  <Link to={`/admin/edit/user/${offenders}`}>
                     {offender_username}
                   </Link>
                 </h3>

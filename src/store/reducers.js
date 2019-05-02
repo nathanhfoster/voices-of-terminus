@@ -664,24 +664,24 @@ export const Events = (
 };
 
 export const appReducer = combineReducers({
-  AuthenticationAndAuthorization,
+  Admin,
   ApiResponse,
-  VoTYouTubeChannelData,
+  Articles,
+  AuthenticationAndAuthorization,
+  DiscordData,
+  editorState,
+  Events,
+  Galleries,
+  HtmlDocument,
+  Messages,
+  Newsletters,
+  Polls,
+  User,
   VotAllYouTubeChannelData,
   VotChannelsPlaylist,
   VotPlaylistShow,
   VotTwitchStreams,
+  VoTYouTubeChannelData,
   VRYouTubeChannelData,
-  Window,
-  DiscordData,
-  editorState,
-  Articles,
-  Newsletters,
-  HtmlDocument,
-  User,
-  Admin,
-  Galleries,
-  Messages,
-  Polls,
-  Events
+  Window
 });
