@@ -28,6 +28,7 @@
 
 .MainFooter a {
   color: var(--primaryColor);
+  margin-right: 10px;
 }
 
 .MainFooter a:hover {

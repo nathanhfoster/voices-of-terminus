@@ -115,11 +115,11 @@ class Footer extends PureComponent {
     const { shouldShow } = this.state;
     const femaleImage = this.backgroundImageRouteMap(pathname)[0];
     const maleImage = this.backgroundImageRouteMap(pathname)[1];
-
+    const navBarHeight = 52;
     return (
       <Collapse
         isOpened={show_footer}
-        fixedHeight={52}
+        fixedHeight={navBarHeight}
         className="MainFooter fadeIn"
       >
         <footer>
@@ -131,8 +131,6 @@ class Footer extends PureComponent {
             <Link to="/privacy-policy">
               <i className="fas fa-user-secret" /> Privacy policy
             </Link>
-          </div>
-          <div>
             <Link to="/settings">
               <i className="fas fa-cog" /> Remove footer
             </Link>
