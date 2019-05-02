@@ -246,6 +246,7 @@ class Admin extends PureComponent {
     } = this.state;
     const { Users, Tickets } = Admin;
     const canViewTickets =
+      UserHasPermissions(User, "view_ticket") ||
       User.is_leader ||
       User.is_advisor ||
       User.is_council ||
