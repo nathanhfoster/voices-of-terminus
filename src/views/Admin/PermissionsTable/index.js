@@ -13,6 +13,14 @@ import {
 import { ReduxStore } from "../../../index";
 import "./styles.css";
 
+const getColumnWidth = headerText => {
+  const maxWidth = 100
+  const magicSpacing = 10
+  const { length } = headerText
+
+  return Math.min(maxWidth, length * magicSpacing)
+}
+
 const PermissionsTable = (Users, User, changePermissions) => {
   const {
     AllUserPermissions
@@ -61,6 +69,7 @@ const PermissionsTable = (Users, User, changePermissions) => {
                   keys: [filter.id]
                 }),
               filterAll: true,
+              width: getColumnWidth(name),
               // maxWidth: 75,
               Cell: props => {
                 const userId = props.original.id;
