@@ -147,32 +147,9 @@ const createMessageGroup = (
       payload.results.unshift(group.data);
       payload.results[0].messages = new Array();
 
-      Axios(token)
-        .post("/messages/", qs.stringify(messagePayload))
-        .then(message => {
-          const message_id = message.data.id;
-          //console.log("message.data: ", message.data);
-
-          for (let i = 0; i < recipients.length; i++) {
-            const recipient = recipients[i];
-            const messagePayload = {
-              recipient,
-              recipient_group_id,
-              message_id
-            };
-            Axios(token)
-              .post("/message/recipients/", qs.stringify(messagePayload))
-              .then(messageGroup => {
-                payload.results[0].messages.unshift(messageGroup.data);
-                //console.log("messageGroup.data: ", messageGroup.data);
-                dispatch({
-                  type: C.GET_MESSAGES,
-                  payload: payload
-                });
-              });
-          }
-        })
-        .catch(e => console.log(e));
+      dispatch(
+        postMessage(token, recipient_group_id, recipients, messagePayload)
+      );
     })
     .catch(e => console.log(e));
 };

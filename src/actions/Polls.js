@@ -1,5 +1,6 @@
 import C from "../constants";
 import { Axios } from "./Axios";
+import { createMessageGroup } from "./Messages";
 import qs from "qs";
 
 const GetPoll = (token, id) => dispatch => {
@@ -104,70 +105,8 @@ const PostPoll = (
       const uri = `/polls/${id}/respond`;
       const recipients = Recipients.map(r => r.recipient);
 
-      createMessageGroup(
-        token,
-        author,
-        uri,
-        recipients,
-        title,
-        body,
-        dispatch,
-        getState
-      );
+      dispatch(createMessageGroup(token, author, uri, recipients, title, body));
       dispatch({ type: C.POST_POLLS_SUCCESS });
-    })
-    .catch(e => console.log(e));
-};
-
-const createMessageGroup = (
-  token,
-  author,
-  uri,
-  recipients,
-  title,
-  body,
-  dispatch,
-  getState
-) => {
-  const groupPayload = { title, author, is_active: true, uri };
-  const { Messages } = getState();
-  let payload = { ...Messages };
-  Axios(token)
-    .post("/user/groups/", qs.stringify(groupPayload))
-    .then(group => {
-      const recipient_group_id = group.data.id;
-      const messagePayload = {
-        author,
-        body,
-        group_message_id: recipient_group_id
-      };
-      payload.results.unshift(group.data);
-      payload.results[0].messages = new Array();
-
-      Axios(token)
-        .post("/messages/", qs.stringify(messagePayload))
-        .then(message => {
-          const message_id = message.data.id;
-
-          for (let i = 0; i < recipients.length; i++) {
-            const recipient = recipients[i];
-            const messagePayload = {
-              recipient,
-              recipient_group_id,
-              message_id
-            };
-            Axios(token)
-              .post("/message/recipients/", qs.stringify(messagePayload))
-              .then(messageGroup => {
-                payload.results[0].messages.unshift(messageGroup.data);
-                dispatch({
-                  type: C.GET_MESSAGES,
-                  payload: payload
-                });
-              });
-          }
-        })
-        .catch(e => console.log(e));
     })
     .catch(e => console.log(e));
 };
@@ -507,7 +446,6 @@ export {
   GetPollRecipients,
   GetPolls,
   PostPoll,
-  createMessageGroup,
   PostQuestions,
   PostChoices,
   PostRecipients,

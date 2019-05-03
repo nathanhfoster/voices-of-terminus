@@ -1,6 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
+import { createMessageGroup } from "./Messages";
 import { DeepCopy } from "../helpers";
 
 const getYearMonthEvents = payload => dispatch => {
@@ -165,16 +166,7 @@ const postEvent = (userId, token, payload, groups) => (dispatch, getState) => {
       const title = "New Event";
       const body =
         "We found an event match for you! Click the link button to view it.";
-      createMessageGroup(
-        token,
-        userId,
-        uri,
-        recipients,
-        title,
-        body,
-        dispatch,
-        getState
-      );
+      dispatch(createMessageGroup(token, userId, uri, recipients, title, body));
       dispatch({ type: C.POST_EVENTS_SUCCESS });
     })
     .catch(e =>
@@ -227,59 +219,6 @@ const postEventGroupMembers = (
 
 const clearEventsApi = () => dispatch => dispatch({ type: C.CLEAR_EVENTS_API });
 
-const createMessageGroup = (
-  token,
-  author,
-  uri,
-  recipients,
-  title,
-  body,
-  dispatch,
-  getState
-) => {
-  const groupPayload = { title, author, is_active: true, uri };
-  const { Messages } = getState();
-  let payload = { ...Messages };
-  Axios(token)
-    .post("/user/groups/", qs.stringify(groupPayload))
-    .then(group => {
-      const recipient_group_id = group.data.id;
-      const messagePayload = {
-        author,
-        body,
-        group_message_id: recipient_group_id
-      };
-      payload.results.unshift(group.data);
-      payload.results[0].messages = new Array();
-
-      Axios(token)
-        .post("/messages/", qs.stringify(messagePayload))
-        .then(message => {
-          const message_id = message.data.id;
-
-          for (let i = 0; i < recipients.length; i++) {
-            const recipient = recipients[i];
-            const messagePayload = {
-              recipient,
-              recipient_group_id,
-              message_id
-            };
-            Axios(token)
-              .post("/message/recipients/", qs.stringify(messagePayload))
-              .then(messageGroup => {
-                payload.results[0].messages.unshift(messageGroup.data);
-                dispatch({
-                  type: C.GET_MESSAGES,
-                  payload: payload
-                });
-              });
-          }
-        })
-        .catch(e => console.log(e, "messagePayload: ", messagePayload));
-    })
-    .catch(e => console.log(e, "groupPayload: ", groupPayload));
-};
-
 const deleteEvent = (eventId, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`calendar/events/${eventId}/`)
@@ -307,6 +246,5 @@ export {
   postEventGroups,
   postEventGroupMembers,
   clearEventsApi,
-  createMessageGroup,
   deleteEvent
 };

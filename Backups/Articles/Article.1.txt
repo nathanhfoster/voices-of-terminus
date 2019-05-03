@@ -1,0 +1,45 @@
+Title:
+The Team Grows
+Slug:
+doc
+Author:
+Kyrais
+Html:
+<p style="text-align:start;"></p>
+<img src="http://www.pantheonmmo.com/images/18JulyNewsletter/under_wraps/underwraps_header.png" alt="" style="float:none;height: ;width: 945px"/>
+<p></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Another hearty thank you to all of you for your continued support for Pantheon: Rise of the Fallen. Our November Pledge Drive wrapped up last week and we were able to raise enough to secure some top talent as well as get some commissioned art lined up. Both of these components are going to play an important part in the next phase of Pantheon development.</span></p>
+<p></p>
+<h4><span style="color: rgb(249,186,31);font-size: 18px;font-family: Arial;">THE TEAM GROWS</span></h4>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">First, let’s talk about the team expansion!</span></p>
+<p></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">We’ve brought on a brand new lead animator who will be joining us next week. He’s got oodles of experience in animating, leading animation teams and MMO-specific animations so he’s the right person for the job. We’re very excited to get him on the team. Be sure to keep an eye out for a formal introduction soon.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Additionally, we are bringing on another concept artist who will help the rest of the art team to get new work into the development pipeline.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Finally, we’ve got a new character artist.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">We are also posting a few new jobs soon. These are for a VFX artist, a web developer and a position in Development Operations.</span></p>
+<p></p>
+<p></p>
+<img src="http://www.pantheonmmo.com/images/18DecemberNewsletter/under_wraps/ft1-sm.jpg" alt="" style="float:none;height: ;width: 865px"/>
+<p></p>
+<h4><span style="color: rgb(249,186,31);font-size: 18px;font-family: Arial;">PROJECT FAERTHALE</span></h4>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">So, what are all these positions pointing to? Why an exciting new Pantheon build of course!</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">For the first time since development started we are bringing together the full Pantheon experience, with all of the systems, animations, models, sounds, and effects one would expect to see in a modern game. With the end of Pre-Alpha 4 coming up in a couple of short weeks, we are happy with the state of Pantheon and it’s time to really flesh out the concepts and systems we have in place. We also aim to add in a few new systems we have talked about but haven’t quite worked into a Pre-Alpha build.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">This project, dubbed Project Faerthale, will show Pantheon as it is meant to be experienced. Notice I said “experienced” and not “played” because we believe this next iteration will be much, much closer to our goal of creating a full world, a home, not just a game. It will be the culmination of awesome systems complimented by thoughtful visual effects, animations and sounds. It will be representative of the minimum caliber of game we are targeting for launch. It will also include some exciting new NPCs and at least one significant boss encounter, which is where our new character artist comes in.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">This will require intense, sustained focus from all departments, from programming, to tools, to art and animation, to lore, to design, to tech and db... and everything in between. Most importantly, this is going to take time.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">This massive milestone means that after Pre-Alpha 4 wraps up, we won’t have another client out for our testers for some time. We will keep all of our community up-to-date on the state of Pantheon and Faerthale, but expect a delay before the world opens to play again. We are quite confident you’ll agree it will have been worth the wait.</span></p>
+<p></p>
+<p></p>
+<img src="http://www.pantheonmmo.com/images/18DecemberNewsletter/under_wraps/ft2-sm.jpg" alt="" style="float:none;height: ;width: 865px"/>
+<p></p>
+<h4><span style="color: rgb(249,186,31);font-size: 18px;font-family: Arial;">CONCLUSION</span></h4>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">We will have more to share on this project in January, but for now, them’s the plans. All teams are booked solid through to the holidays as we flesh out the plans for this build and we hit the ground running in January.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Best holiday wishes from all of us at Visionary Realms to all of you.</span></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Ben Dean</span><br><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Producer, Pantheon: Rise of the Fallen</span></p>
+<p></p>
+<p><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Let's meet the Spriggan in this month's</span> <a href="http://www.pantheonmmo.com/newsletter/2018_december_rogues_gallery/" target="_self"><span style="color: rgb(255,255,255);font-size: 18px;font-family: Arial;">Rogue's Gallery</span></a>&nbsp;</p>
+Tags:
+Article
+Last modified by:
+Kyrais
+Views:
+12

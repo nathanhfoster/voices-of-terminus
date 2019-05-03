@@ -1,0 +1,423 @@
+Title:
+Buffs and Debuffs for EVERY CLASS
+Slug:
+doc
+Author:
+Kyrais
+Html:
+<p>Hey Pantheon Fans! I have compiled a list of all the Buffs and Debuffs, along with any spell that is concidered Stat altering! They are catagorized by effect. So those of us that love designing groups around desired effect(s) this should make your life that much easier, enjoy!</p>
+<p><span style="font-size: 24px;"> <strong><ins>Buffs </ins></strong></span></p>
+<p><strong><ins>Self Heal per Hit/Healing Converted </ins></strong></p>
+<p><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Favor of the Order</span>&nbsp;</p>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive ability. Your successful melee attacks heal you for X%<br>of the damage they deal. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">PALADIN - Glory and Honor</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">For X duration, Y% of the damage you deal to your offensive<br>target is converted into healing for your defensive target. (Paladin)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - Shoulder Crash</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Slam into your enemy with a vicious, close quarters attack. If<br>your enemy is at 30% health or less, you will gain the Upper Hand, restoring<br>some of your Resilience and increasing your Strength by 20% of your overall<br>health for a short time. (Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Relentless Vitality</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. The lower your health, the stronger your<br>natural health regeneration becomes. (Dire Lord)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Dark Revenge</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. After being critically hit, your next attack<br>will restore your health by X% of the damage you deal. (Dire Lord)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">DIRE LORD - Essence Leech</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Your blood swells with the essence of your<br>enemies, increasing your critical strike chance. Your critical hits draw out<br>the essence of your enemy, healing you for X% of the damage dealt.</span>&nbsp;</p>
+<p>&nbsp;<span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Dire Lord)</span>&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">DIRE LORD - Torrential Veins</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You cause your blood to flow faster,<br>increasing your health regeneration rate and causing your Essence Vial to fill<br>X% faster </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Dire Lord)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">RANGER - Moonrose Balm</span> <br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Increases your natural health regeneration by<br>X% for Y duration.(Ranger)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Strike of the<br>Wandering Wind</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A powerful technique that inflicts your enemy with all of the<br>Physical damage you have taken in the last 5 seconds and heals you for the same<br>amount. (Uses Chakra. Requires the Gate of Balance to be open). (Monk)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Harmonious Bond</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Perfectly align your body and soul, instantly restoring 10% of<br>your total Health, increasing your attack speed and restoring an additional 15%<br>of your total health over a short time. (Uses Chakra. Requires the Gate of Joy<br>to be open) (Monk)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Reverberation</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. When an ally is under the effects of any of<br>your healing abilities and they are healed by another player in the group, that<br>healing effect will jump to another group member as well. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Primordial Bonds</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. Your<br>healing abilities will also heal you for X% of the effective healing on others.<br>(Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Anti-Interrupt</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Conviction</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. While you maintain a Celestial Bond, your heals<br>cannot be interrupted and you are able to heal while stunned. (Cleric)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Damage Reduction </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Resilient Pages</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. While holding a Celestial Tome, if your Wisdom<br>is higher than your enemy’s, there is a chance your Tome will reduce X% of<br>incoming damage from that enemy’s attack. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Reckon's Shield</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Surrounds your target with protective light, reducing all incoming<br>damage by X% for Y duration. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Reckon's Barrier</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Clerics can evolve Reckon’s Shield into Reckon’s Barrier,<br>dramatically increasing the amount of damage reduction. In addition, critical<br>hits against your target while Reckon’s Barrier is active will heal the target<br>for X% of the damage inflicted. (Cleric)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">WARRIOR - Shieldman's Banner</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Self - Increases the damage reduction of your<br>Shield Block ability. </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Mana Shield</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive. Through your Materialization prowess, you are able to<br>summon a brief barrier of consolidated Mana every X seconds that will keep a<br>Magic-based attack from landing on you if timed correctly. (Summoner)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - Shield Block</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You raise your shield to meet your attackers, dramatically<br>reducing the physical damage you receive for 2 seconds and converting X% of it<br>into Resilience. If timed correctly, you will reduce the damage of an enemy’s<br>Devastating Attack by up to 50% based on your Strength, Constitution and Shield<br>Mastery. Certain shields may have material properties that can reflect magical<br>damage when using Shield Block. (Uses 2 Battle Points) (Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Dire Mark</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You mark a member of your group. Whenever that group member takes<br>damage, X% of that damage will be redirected to you. (Dire Lord)</span>&nbsp;</p>
+<h6></h6>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Runeskin</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. Causes you to naturally absorb X% of incoming<br>damage. Once that amount of damage has been absorbed, Runeskin will fade for Y<br>duration before passively reactivating at full effect. Runeskin’s damage<br>absorption capacity will slowly replenish over time when not taking damage.<br>(Enchanter)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Malison’s Lucid<br>Nightmare</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Epic Ability. You take control of your enemy’s reality, causing<br>all of their attacks and abilities to have no effect. This ability shares the<br>same duration as Malison’s Lucid Dream. If this target is not killed while<br>Malison’s Lucid Nightmare is active, all resources your Defensive target has<br>spent during its duration will be retroactively lost. Additionally, the<br>collective damage done to this target while the effect was active will be<br>discharged in full at a random member of your group. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Eyumai’s Dulling</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You weaken the materials in your enemy’s weapons, lowering the<br>damage they are capable of dealing. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;</p>
+<p><strong><ins>Attack Speed Increased </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ROUGE - Blackjack Kick</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A swift kick that gives you leverage, increasing your attack<br>speed for a short time. (Rouge)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Harmonious Bond</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Perfectly align your body and soul, instantly restoring 10% of<br>your total Health, increasing your attack speed and restoring an additional 15%<br>of your total health over a short time. (Uses Chakra. Requires the Gate of Joy<br>to be open). (Monk)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Resource Generation </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Celestial Focus</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Epic Skill. When you meditate, you will generate Celestial Power<br>in addition to Mana. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Signet of Refreshing</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A powerful signet that improves the accumulation of your group’s<br>unique combat resources for a short time. (Cleric)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - Resilient Leader</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. A portion of your Resilience is restored when<br>you receive healing from a member of your group. (Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - War Banners</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">The Warrior is capable of planting a variety of banners in the<br>ground, providing a wide array of beneficial and detrimental effects to friends<br>and foes nearby. Challenger’s Banner Group – Increases Generation rate for the<br>Melee Classes in your group. (Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">RANGER - Sugarberry Tonic</span> <br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Grants a bonus to Momentum generation from<br>abilities for X duration. (Ranger)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Enshire’s Faint Whisper</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You enchant your ally’s mind with serenity, causing them to<br>relax and allowing their Mana to regenerate more quickly. (Enchanter)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Rend the Mind</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You rend your target’s mind with a burst of mental energy,<br>dealing Magic damage and restoring some Mana to you and your group members. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Summon Arcane Familiar</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Summon your Arcane Familiar. When it arrives, it will absorb<br>Mana from the environment equal to X% of your Maximum Mana. While your Familiar<br>is active, it will feed X% of the Mana it holds to you every Y seconds.<br>Additionally, you may dismiss your Arcane Familiar at any time, instantly<br>gaining Z% of the Mana it holds. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><span style="color: rgb(204,204,204);background-color: black;font-size: 10.5pt;font-family: Libre Baskerville", serif;"><strong>WIZARD - Focus: Arcane Affinity</strong> (Passive) - As your Arcane Affinity focus grows, your<br>Magic spells will return up to X% mana to you when they land. Additionally, the<br>Mana cost and damage of your Magic spells will decrease up to Y%. (Wizard) </span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Ancient Focus</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. Because<br>of the Shaman’s temporal freedom, their Health and Mana generation rates do not<br>slow while in combat. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Increase Chance to Hit </ins></strong></p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">WARRIOR -Banner of Arms</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Group - Improves the chance to hit with melee<br>attacks.</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Enemies - Your enemies are less likely to<br>dodge your group’s melee attacks when in range of this banner. </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Warrior)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Baleful Severing</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You sever your enemy's will and command them to be still. In<br>this helpless state, the next attack against them will not miss and cannot be<br>dodged, parried, blocked, riposted or resisted. When the attack lands, fills<br>your Essence Vial to full. (Dire Lord)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Increase Health</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Awaken Bravery</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Dramatically increases the Maximum Health and Armor Class of an<br>ally. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Shelter of Energies</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You encircle yourself with resilient energy, increasing your<br>Maximum Health by X and Armor Class by Y. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Increased Health Regen </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Reptilian Veil</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Animus Boon. Imbue<br>yourself and the members of your group with the nature of the ancient Dragons<br>of the Sea, increasing Poison and Disease resistance by X and the natural<br>Health Regeneration rate by Y% for Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Increase AC</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Awaken Bravery</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Dramatically increases the Maximum Health and Armor Class of an<br>ally. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Ethereal Armor</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You manifest celestial armor around an ally. This gift increases<br>their Armor Class and can cause physical attacks against them to become<br>Glancing Hits, dramatically reducing the incoming damage. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Celestial Light</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Heals your ally for a moderate amount. If your ally’s health is<br>below 30%, this ability will manifest a celestial guard, increasing that ally’s<br>Armor Class by X% of your Armor Class for Y seconds. If Light Shroud is active<br>on your target, Celestial Light will refresh its duration. (Cleric)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Mountain Pose</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Your body becomes hard as stone, purging most Poison and Disease<br>effects and increasing your Armor Class for 10 seconds. (Uses Chakra. Requires<br>the Gate of Peace to be open). (Monk)</span>&nbsp;</p>
+<h6>&nbsp;&nbsp;</h6>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Protector’s Purpose</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive. Your Titan receives a bonus to its Armor Class equal to<br>X% of your own. This percentage increases based on your Titan’s Solidity and<br>Power. (Summoner)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Augment Arcamental:<br>Density</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You increase your Arcamental’s Solidity for X duration.<br>(Summoner)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait:<br>Panthra's Claw</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the deadly strength of the Panthras. This Trait<br>greatly increases the Strength and Armor Class of your target and makes them<br>nearly impossible to stun with physical attacks. (Druid)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait:<br>Grizzly's Resilience</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the resilient nature of the Grizzly Bear’s frame.<br>This Trait increases the Stamina and Armor Class of your target and makes them<br>less likely to be stunned by physical attacks. (Druid)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait:<br>Thunderpaw's Resilience</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the resilient nature of the Thunderpaw’s frame. This<br>Trait greatly increases the Stamina and Armor Class of your target and makes<br>them nearly impossible to stun with physical attacks. (Replaces Grizzly’s<br>Resilience). (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Interlocking Stones</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Earth Boon. You create a<br>network of interlocking stones around yourself and the members of your group,<br>increasing Armor Class by X for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Glancing Hits</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Ethereal Armor</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You manifest celestial armor around an ally. This gift increases<br>their Armor Class and can cause physical attacks against them to become<br>Glancing Hits, dramatically reducing the incoming damage. (Cleric)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Scorched Fog</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Primal Bane: Fire.<br>Amplifies a Fire Bane on your enemy, creating a dense cloud of black smoke that<br>obscures their vision, slowing their attack speed by X% and making their melee<br>attacks more likely to land as a Glancing Blow for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Stamina Increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait:<br>Grizzly's Resilience</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the resilient nature of the Grizzly Bear’s frame.<br>This Trait increases the Stamina and Armor Class of your target and makes them<br>less likely to be stunned by physical attacks. (Druid)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait:<br>Thunderpaw's Resilience</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the resilient nature of the Thunderpaw’s frame. This<br>Trait greatly increases the Stamina and Armor Class of your target and makes<br>them nearly impossible to stun with physical attacks. (Replaces Grizzly’s<br>Resilience). (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Grip of the Crags</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Ancestral Boon. Imbue<br>yourself and the members of your group with the nature of the ancient Mountain<br>Dwellers, increasing Strength and Stamina by X for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Agility Increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Mark of the Fireclaw</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Fire Boon. Imbue yourself<br>and the members of your group with the nature of the ancient Dragons of the<br>Air, increasing Fire and Nature resistance by X and Agility and Dexterity by Y<br>for Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Dexterity Increased </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Mark of the Fireclaw</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Fire Boon. Imbue yourself<br>and the members of your group with the nature of the ancient Dragons of the<br>Air, increasing Fire and Nature resistance by X and Agility and Dexterity by Y<br>for Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Wisdom Increase</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Adept's Theory</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You peer deeply into the<br>ancient mysteries of Terminus, increasing your Wisdom by X for Y duration.<br>(Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Critical Chance Increased</ins></strong>&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">WARRIOR - Banner of Onslaught</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Group - Improves the critical strike chance<br>and damage from melee attacks.</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Enemies - Your enemies become more vulnerable<br>to physical damage when in range of this banner. </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Warrior)</span>&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">DIRE LORD - Essence Leech</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Your blood swells with the essence of your<br>enemies, increasing your critical strike chance. Your critical hits draw out<br>the essence of your enemy, healing you for X% of the damage dealt. </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Dire<br>Lord)</span>&nbsp;</p>
+<p><strong><ins>Control Effects Decreased </ins></strong></p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">WARRIOR - Rallying Banner</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Group - Reduces the duration of control<br>effects afflicting members of your group.</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Enemies - Increases the duration of control<br>effects applied by your group on enemies in range of this banner. </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Warrior)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Terrormancer</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. The duration of Fear effects on you is cut in<br>half. (Dire Lord)</span>&nbsp;</p>
+<p><span style="color: rgb(204,204,204);background-color: black;font-size: 10.5pt;font-family: Libre Baskerville", serif;"><strong>WIZARD - Focus: Fury of<br>Flame</strong> (Passive) - As<br>your Fury of Flame grows, your Fire spells will gain bonus Fire damage up to<br>X%, bonus chance to critically hit up to Y% and will cost up to Z% more mana to<br>cast. (Wizard)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Primal Fury</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Ancestral Boon. Fills your<br>ally with primal fury, increasing their critical strike chance of physical and<br>magical abilities by X%. While active, every successful critical strike will<br>further increase their critical strike chance up to Y% for the duration of the<br>effect. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Aggro Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Edict of Peace</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A word of peace surrounds your ally, causing their activities to<br>generate less Hate for the duration of the effect. (Cleric)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">RANGER - Ladwen's Whisper</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Reduces the aggro radius of target animal for a short duration.<br>(Ranger)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ROUGE - Veiled Strike</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Strike at your enemy's eyes with a hidden blade, reducing their<br>Hate towards you by twice the amount of damage this ability inflicts. The<br>amount of Hate reduced can increase beyond this amount based on your Dexterity.<br>(Rouge)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Kata of the Flickering Flame</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A well-timed series of attacks designed to disorient your enemy,<br>inflicting damage with each hit and reducing their hatred toward you. (Monk)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Control Breath</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You slow your target’s breathing and calm their mind, reducing<br>the likelihood that they will assist their allies in battle. (Enchanter)</span>&nbsp;</p>
+<p><span style="color: rgb(204,204,204);background-color: black;font-size: 10.5pt;font-family: Libre Baskerville", serif;"><strong>WIZARD - Focus: Numbing Presence</strong> (Passive) - As your Numbing Presence grows, your Cold<br>spells will lower your target’s Hate towards you up to X% per land.<br>Additionally, the damage of your Cold spells will decrease up to Y%.( Wizard)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Wild-Eyed Wanderer</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. Your covenant with the natural world has<br>cultivated a unique sense of trust from the animals of Terminus, making most of<br>them unlikely to attack you unless provoked. (Druid)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Hirode's Shelter</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You ask Hirode to stand<br>beside your target ally. While Hirode is near, all healing this target receives<br>is increased by X%. Additionally, this target’s actions will generate less Hate<br>until you call Hirode back. (Druid)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Headwinds</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Wind Bane. Bombard your<br>enemy with cross-cutting winds, distracting them and reducing their Aggro and<br>Assist Radius by X meters for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Block Chance Increased</ins></strong>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">PALADIN - Lightguard</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You imbue your shield with celestial light, increasing your<br>chance to Block for a short time. If using a two-handed weapon, this ability<br>will increase your chance to Parry. While Lightguard is active, your Blocks and<br>Parries will stun the attacking enemy. (Uses Wrath) (Paladin)</span>&nbsp;</p>
+<p><strong><ins>Dodge Chance Increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - The Will to Live</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Your will to live surges forth, increasing your Dodge and Parry<br>chance, granting a bonus to healing effects cast on you and locking your<br>Resilience to full for the duration of the effect. (Uses 1 Battle Point)<br>(Warrior)</span>&nbsp;</p>
+<p><span style="color: white;background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">WARRIOR - Banner of Havoc</span><br><span style="color: rgb(204,204,204);background-color: rgb(51,51,51);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Enemies - Your enemies are less likely to hit<br>with Ranged attacks when in range of this banner. </span><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">(Warrior)</span>&nbsp;</p>
+<h6>&nbsp;&nbsp;</h6>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Kata of the Wandering<br>Wind</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You align your attacks with the flow of your Chakra,<br>dramatically increasing your chance to Dodge and counter-attacking every melee<br>attack that does damage to you. (Monk)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Counter Attack Increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Kata of the Wandering<br>Wind</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You align your attacks with the flow of your Chakra,<br>dramatically increasing your chance to Dodge and counter-attacking every melee<br>attack that does damage to you. (Monk)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Perry Chance Increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">PALADIN - Lightguard</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You imbue your shield with celestial light, increasing your<br>chance to Block for a short time. If using a two-handed weapon, this ability<br>will increase your chance to Parry. While Lightguard is active, your Blocks and<br>Parries will stun the attacking enemy. (Uses Wrath) (Paladin)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - The Will to Live</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Your will to live surges forth, increasing your Dodge and Parry<br>chance, granting a bonus to healing effects cast on you and locking your<br>Resilience to full for the duration of the effect. (Uses 1 Battle Point)<br>(Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Magic Resistance </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Sanguine Cloak</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. Your mastery of essence has made you more<br>resistant to magical effects. (Dire Lord)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD -Canopy of Blood</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You release nearly all of the blood in your veins, sacrificing<br>25% of your health to create a covering that renders all within X meters of you<br>immune to magical effects for a short time. (Uses Essence) (Dire Lord)</span>&nbsp;</p>
+<p></p>
+<p><strong><ins>Damage Reflection</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">PALADIN - Edict of Celestial<br>Fury</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You recite a sacred word of power, reflecting the next melee<br>attack or spell back at the attacker. (Uses Wrath, Generates 1 Reckoning Point)<br>(Paladin)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Shield of Spinning<br>Blades</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You summon a group of bladed weapons and set them spinning in a<br>circle around your ally, dealing Physical damage to enemies who deal Physical<br>damage to the affected ally. (Summoner)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Reciprocation</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">After being struck by a Magic-based attack, you open a portal<br>near your enemy and redirect the same energy back to them, dealing X% of the<br>damage their attack dealt to you. (Summoner)</span>&nbsp;&nbsp;</p>
+<p></p>
+<p><strong><ins>Increase Healing Received  </ins></strong></p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - The Will to Live</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Your will to live surges forth, increasing your Dodge and Parry<br>chance, granting a bonus to healing effects cast on you and locking your<br>Resilience to full for the duration of the effect. (Uses 1 Battle Point) (Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait: Oaken Regeneration</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the restorative nature of the Oak tree’s roots and<br>branches. This Trait improves Health Regeneration and increases all healing<br>your target receives by X%. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Increased Healing Done</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Storm Warden</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. It is said when a Druid is present, they become<br>the heart of any storm. While a storm is active in the area, you will receive<br>an X% bonus to the healing and damage you deal with abilities. (Outdoors only)(Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Hirode's Presence</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You ask Hirode to stand<br>beside your target ally. While she is near, whenever this target receives healing,<br>Hirode will also heal the target for X% of that amount. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Hirode's Shelter</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You ask Hirode to stand<br>beside your target ally. While Hirode is near, all healing this target receives<br>is increased by X%. Additionally, this target’s actions will generate less Hate<br>until you call Hirode back. (Druid)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Keeper of Elemental Mysteries</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive Ability. You<br>receive an X% bonus to your Healing abilities for each Elemental school you<br>have active on an Offensive target (Water, Fire, Earth, Wind, Animus,<br>Ancestral).(Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Strength Increase</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - Shoulder Crash</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Slam into your enemy with a vicious, close quarters attack. If<br>your enemy is at 30% health or less, you will gain the Upper Hand, restoring<br>some of your Resilience and increasing your Strength by 20% of your overall<br>health for a short time. (Warrior)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Rising Moon Kick</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A powerful kick that deals high damage to your enemy. If used<br>within 10 seconds of Setting Sun kick, this ability will increase your Strength<br>for a short time. (Generates Chakra). (Monk)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait: Panthra's Claw</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the deadly strength of the Panthras. This Trait<br>greatly increases the Strength and Armor Class of your target and makes them<br>nearly impossible to stun with physical attacks. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Grip of the Crags</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Ancestral Boon. Imbue<br>yourself and the members of your group with the nature of the ancient Mountain<br>Dwellers, increasing Strength and Stamina by X for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Attack Speed Increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Skymane's Momento</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Wind Boon. Fills your ally<br>with the nature of the ancient Skymanes, increasing their Attack Speed by X%<br>for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Movement Increased </ins></strong></p>
+<p><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">RANGER - Valeguard's Stride (Passive)</span>&nbsp;</p>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Increases your movement speed after being<br>outside for a short time. Returning inside will cancel the effect after a short<br>time. (Ranger)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">RANGER - Beckon: Vale Striders</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You beckon a pack of Vale Striders, which run alongside you,<br>dramatically increasing your movement speed for a short time. (Ranger)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Updraft</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Summoner Activated. Command your Zephyr to envelop you in wind<br>and speed you along, increasing your Movement Speed by X% for Y duration. Any<br>damage to you or your Zephyr will break the effect. (Summoner)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Imbue Trait: Black Wolf's<br>Swiftness</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You harness the speed and agility of the Black Wolf, allowing<br>you to imbue these traits into your ally. This ability increases the Movement<br>Speed of your target. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Chase the Wind</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Wind Boon. You summon a<br>gale of wind to propel you forward, greatly increasing your Movement Speed by<br>X% for Y seconds. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Poison/Disease Resist increased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Reptilian Veil</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Animus Boon. Imbue<br>yourself and the members of your group with the nature of the ancient Dragons<br>of the Sea, increasing Poison and Disease resistance by X and the natural<br>Health Regeneration rate by Y% for Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Fire/Nature Resisti Increase</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Mark of the Fireclaw</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Fire Boon. Imbue yourself<br>and the members of your group with the nature of the ancient Dragons of the<br>Air, increasing Fire and Nature resistance by X and Agility and Dexterity by Y<br>for Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><span style="font-size: 24px;"><strong><ins>Debuff</ins></strong></span>&nbsp;</p>
+<p><strong><ins>Movement Speed Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">CLERIC - Revile Undeath</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You smite an Undead enemy with astonishing power, inflicting<br>high damage and reducing their movement speed by X% for a short time. (Cleric)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Leaden Blood</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You cause your enemy's essence to grow thick and heavy, weighing<br>them to the ground and preventing movement. (Uses Essence) (Dire Lord)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;"> RANGER - Hidden Snare</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A hidden trap that wraps an enemy's feet in tight, thorny vines.<br>This roots the enemy in place for up to 30 seconds, causing damage over time.<br>Any additional damage will break the effect. (Ranger)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Shifting Stones</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Summoner Activated. Your Titan loosens the ground under your<br>enemy, catching them in a snare of shifting rock. While it lasts, the enemy is<br>rooted. Any damage done to the enemy has a chance to free them from the effect.<br>(Summoner)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Magical Bonds</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You form cords of dense energy around your enemies feet, slowing<br>their Movement Speed by X% for Y duration. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Enchantment DEBUFF</ins></strong>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">PALADIN - Chastening Blow</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You imbue your weapon with searing light as you swing it into<br>your enemy. This attack is able to strip profane and curse related enhancements<br>from enemies. (Uses Wrath) (Paladin)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">PALADIN - Hallowed Assault</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Paladins can evolve their Chastening Strike ability into<br>Hallowed Assault, allowing them to strip the Marks of High Mortals from their<br>enemies. (Uses Wrath, Uses 1 Reckoning Point) (Paladin)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Reduce AC</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WARRIOR - Strike of Breaking</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A fierce, well-placed strike that lowers your enemy’s Physical<br>Mitigation. (Grants 1 Battle Point) (Warrior)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ROUGE - Leaking Wound</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Inflict your enemy with a Bleeding wound, causing damage over<br>time and making them more vulnerable to Physical damage. (Rouge)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SUMMONER - Mineral Embrittlement</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Passive. Your Titan’s attacks have a chance to lower your<br>enemy’s Armor Class for a short duration. (Summoner)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Rockvine Tangle</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You cause powerful,<br>thorn-covered vines to erupt from the ground and entangle your enemy, rooting<br>them for X seconds and dealing moderate damage over time. This effect cannot be<br>broken by damage. If Hirode’s Gaze is active on your enemy, this ability will<br>crack your enemy’s defenses, reducing their Armor Class by X%. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Weathering</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Earth Bane. You erode the<br>earthen elements within your enemy’s armor, reducing their Armor Class by X for<br>Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Healing Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Grip of Torment</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Infiltrate your enemy's essence and turn it against them,<br>obstructing any healing from benefiting that enemy for the duration of the<br>effect. (Uses Essence) (Dire Lord)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Magic Resistance Reduced</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DIRE LORD - Sanguine Blade</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A blood-laced attack that makes your enemy more susceptible to<br>magical damage and drains a small portion of their mana. (Generates Essence)<br>(Dire Lord)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Malison’s Crushing<br>Grip</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Applies intense pressure to your target’s brain, causing Magic<br>damage over time. While active, your target’s Magic Resistance will decrease by<br>X every Y seconds. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Forceful Will</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You dominate your target’s will, reducing their Magic Resistance<br>by X and giving it to yourself for Y duration. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Spell Casting Speed Decreased</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">MONK - Setting Sun Kick</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A precise kick that slows your enemy's spell casting speed.<br>(Generates Chakra). (Monk)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Blast of Lightning</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You send a bolt of electrified mana through your target, dealing<br>Magic damage and decreasing their spell-casting speed for X duration. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Strength Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCAHTER - Illusion Graft: Exhaustion</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You graft an illusion into your enemy’s mind, overwhelming them<br>with the sense of exhaustion. While active, your enemy’s Strength and Agility<br>will be reduced by X and their Attack Speed will be reduced by Y%. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Shackle of the Dust<br>Eater</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Ancestral Bane. Inflicts<br>your enemy with the nature of the ancient Dust Eaters, decreasing their<br>Strength and Stamina by X and slows their combat resource generation by Y% for<br>Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Stamina Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Shackle of the Dust Eater</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Ancestral Bane. Inflicts<br>your enemy with the nature of the ancient Dust Eaters, decreasing their<br>Strength and Stamina by X and slows their combat resource generation by Y% for<br>Z duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Attack Speed Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHNTER - Illusion Graft: Exhaustion</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You graft an illusion into your enemy’s mind, overwhelming them<br>with the sense of exhaustion. While active, your enemy’s Strength and Agility<br>will be reduced by X and their Attack Speed will be reduced by Y%. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Scorched Fog</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Primal Bane: Fire.<br>Amplifies a Fire Bane on your enemy, creating a dense cloud of black smoke that<br>obscures their vision, slowing their attack speed by X% and making their melee<br>attacks more likely to land as a Glancing Blow for Y duration. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Agility Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHNTER - Illusion Graft: Exhaustion</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You graft an illusion into your enemy’s mind, overwhelming them<br>with the sense of exhaustion. While active, your enemy’s Strength and Agility<br>will be reduced by X and their Attack Speed will be reduced by Y%. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Silences</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ENCHANTER - Hush</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Silences your enemy, making them unable to cast spells for X<br>duration. This ability also interrupts spell casting. (Enchanter)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Fractal Jolt</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">A quick jolt of arcane energy that stuns your enemy briefly,<br>interrupting their spell casting. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Cold Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Brand of Frost</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You brand your enemy with frigid markings, lowering their<br>resistance to the Cold school of Magic. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Fire Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Brand of Embers</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You brand your enemy with fiery markings, lowering their<br>resistance to the Fire school of Magic. (Wizard)</span>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">DRUID - Hirode's Gaze</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You ask Hirode to set her<br>gaze on your enemy, reducing their Nature and Fire resistance and making them<br>more vulnerable to your attacks. (Druid)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Wreath of Coals</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Fire Bane. A Bane of<br>excruciating flame, damaging your enemy over time with Nature damage and making<br>them more vulnerable to Fire-based attacks. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Arcane Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">WIZARD - Brand of the Arcane</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">You brand your enemy with resonating markings, lowering their<br>resistance to the Arcane school of Magic. (Wizard)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Nature Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Sting of the Scorpion</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Animus Bane. A Bane of<br>potent venom, damaging your enemy over time with Nature damage and making them<br>more vulnerable to Nature-based attacks. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Poison/Disease Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Choking Thirst</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Water Bane. A Bane that<br>sucks the moisture from your enemy’s body, damaging them over time with Nature<br>damage and making them more vulnerable to Poison and Disease-based attacks.<br>(Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">ROUGE - Toxic Wound</span>&nbsp;</h6>
+<p><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Inflict your enemy with a Toxin-laced cut, causing damage over<br>time and making them more vulnerable to Poison damage. (Rouge)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;</p>
+<p><strong><ins>Health Regen Reduction</ins></strong>&nbsp;</p>
+<h6><span style="color: rgb(249,186,31);font-size: 12pt;font-family: Cinzel;">SHAMAN - Deluge</span>&nbsp;</h6>
+<p style="text-align:start;"><span style="color: rgb(204,204,204);font-size: 10.5pt;font-family: Libre Baskerville", serif;">Water Bane. A Bane that<br>drenches all enemies in the target area with viscous moisture, slowing their<br>movement speed and disrupting their health regeneration for X duration. Causes<br>affected targets to become Wet. (Shaman)</span>&nbsp;</p>
+<p>&nbsp;&nbsp;&nbsp;</p>
+Tags:
+Article|Guide
+Last modified by:Kyrais
+Views:10
