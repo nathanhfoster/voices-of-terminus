@@ -2,10 +2,7 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-const getUserMessages = (userId, token) => dispatch =>
-  getMessages(userId, token, dispatch);
-
-const getMessages = (userId, token, dispatch) => {
+const getUserMessages = (userId, token) => dispatch => {
   let groupMap = {};
   return Axios(token)
     .get(`/message/recipients/${userId}/view/`)
@@ -26,7 +23,6 @@ const getMessages = (userId, token, dispatch) => {
               title,
               uri
             } = group.data;
-            //mapCounter[dayOfTheYear] + 1 || 1
             if (!groupMap.hasOwnProperty(recipient_group_id)) {
               groupMap[recipient_group_id] = {
                 author,
@@ -77,20 +73,13 @@ const postMessage = (token, recipient_group_id, recipients, payload) => (
           message_id: id,
           is_read: author === recipients[i] ? true : false
         };
-
-        Axios(token)
-          .post("/message/recipients/", qs.stringify(messageRecipientPayload))
-          .then(replyMessage => {
-            const { recipient } = replyMessage.data;
-            if (author === recipient) {
-              finalPayload.results.push(res.data);
-              dispatch({
-                type: C.GET_MESSAGE_DETAILS,
-                payload: finalPayload
-              });
-            }
-          })
-          .catch(e => console.log(e));
+        postMessageRecipients(
+          token,
+          messageRecipientPayload,
+          author,
+          res,
+          finalPayload
+        );
       }
     })
     .catch(e =>
@@ -100,6 +89,27 @@ const postMessage = (token, recipient_group_id, recipients, payload) => (
       })
     );
 };
+
+const postMessageRecipients = (
+  token,
+  payload,
+  author,
+  messageResponse,
+  finalPayload
+) => dispatch =>
+  Axios(token)
+    .post("/message/recipients/", qs.stringify(payload))
+    .then(replyMessage => {
+      const { recipient } = replyMessage.data;
+      if (author === recipient) {
+        finalPayload.results.push(messageResponse.data);
+        dispatch({
+          type: C.GET_MESSAGE_DETAILS,
+          payload: finalPayload
+        });
+      }
+    })
+    .catch(e => console.log(e));
 
 const updateMessage = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
@@ -180,12 +190,11 @@ const getGroupMessageRecipients = (token, recipient_group_id) => dispatch =>
 const deleteMessageRecipient = (token, userId, id) => dispatch =>
   Axios(token)
     .delete(`/message/recipients/${id}/`)
-    .then(res => getMessages(userId, token, dispatch))
+    .then(res => getUserMessages(userId, token))
     .catch(e => console.log(e));
 
 export {
   getUserMessages,
-  getMessages,
   postMessage,
   updateMessage,
   createMessageGroup,
