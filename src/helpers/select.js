@@ -46,17 +46,22 @@ const eventTagOptions = {
   Event: [],
   Dungeon: [],
   Explore: [],
-  Group: [
-    { value: "Epic", label: "Epic" },
-    { value: "Harvesting", label: "Harvesting" },
-    { value: "Crafting", label: "Crafting" },
-    { value: "Perception", label: "Perception" },
-    { value: "Faction", label: "Faction" }
-  ],
+  Group: GroupAndRaidSubOptions,
   Quest: [],
-  Raid: [],
+  Raid: GroupAndRaidSubOptions,
   VoTShow: []
 };
+
+const GroupAndRaidSubOptions = [
+  { value: "Dungeon", label: "Dungeon" },
+  { value: "Explore", label: "Explore" },
+  { value: "Quest", label: "Quest" },
+  { value: "Epic", label: "Epic" },
+  { value: "Harvesting", label: "Harvesting" },
+  { value: "Crafting", label: "Crafting" },
+  { value: "Perception", label: "Perception" },
+  { value: "Faction", label: "Faction" }
+];
 
 const locationTags = [
   { value: "Locations", label: "Locations", isFixed: true },
