@@ -142,6 +142,7 @@ const createMessageGroup = (
   title,
   body
 ) => async (dispatch, getState) => {
+  if (recipients.length < 1) return;
   const groupPayload = { title, author, is_active: true, uri };
   const { Messages } = getState();
   let payload = { ...Messages };

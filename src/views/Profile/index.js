@@ -831,7 +831,7 @@ class Profile extends PureComponent {
             >
               <span className="checkBoxText">Opt In</span>
               <span className="help">
-                Check if you would like to recieve emails.
+                Check if you would like to recieve emails
               </span>
             </Checkbox>
           </Col>
@@ -843,7 +843,7 @@ class Profile extends PureComponent {
               <span className="checkBoxText">Lfg</span>
               <span className="help">
                 Check if you would like to recieve messages for events that
-                match your characters level, role, and class.
+                match your characters level, role, and class
               </span>
             </Checkbox>
           </Col>

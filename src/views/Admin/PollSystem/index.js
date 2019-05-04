@@ -215,17 +215,9 @@ class PollSystem extends Component {
     });
   };
 
-  renderQuestions = (
-    User,
-    Questions,
-    Choices,
-    Responses,
-    Recipients,
-    is_private
-  ) => {
+  renderQuestions = (User, Questions, Choices, Responses, canView) => {
     const { eventKey, pollId, history, expired } = this.state;
-    const isRecipient = Recipients.some(e => User.id === e.recipient);
-    const canView = !is_private && isRecipient;
+
     return User.is_superuser || canView ? (
       <Tabs
         defaultActiveKey={eventKey}
@@ -595,8 +587,20 @@ class PollSystem extends Component {
       eventKey,
       history
     } = this.state;
-    const { title, expiration_date, is_private } = Poll;
+    const {
+      author,
+      author_username,
+      date_created,
+      expiration_date,
+      id,
+      last_modified,
+      title
+    } = Poll;
     const expired = new Date(expiration_date) - new Date() < 0;
+    const isAuthor = author === User.id;
+    const isRecipient = Recipients.some(e => User.id === e.recipient);
+
+    const canView = isAuthor || isRecipient || !Recipients;
     return pollId &&
       !(
         eventKey.includes("respond") ||
@@ -612,7 +616,7 @@ class PollSystem extends Component {
         <Row>
           <h1 className="Center">{title}</h1>
         </Row>
-        {pollId ? (
+        {pollId && expiration_date && (
           <Row>
             <h3 className="Center">
               {expired
@@ -620,7 +624,7 @@ class PollSystem extends Component {
                 : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
             </h3>
           </Row>
-        ) : null}
+        )}
         <Row className="ActionToolbarRow">
           <Col
             md={4}
@@ -640,14 +644,7 @@ class PollSystem extends Component {
           </Col>
         </Row>
         {pollId
-          ? this.renderQuestions(
-              User,
-              Questions,
-              Choices,
-              Responses,
-              Recipients,
-              is_private
-            )
+          ? this.renderQuestions(User, Questions, Choices, Responses, canView)
           : this.renderPolls(Polls.results)}
       </Grid>
     );

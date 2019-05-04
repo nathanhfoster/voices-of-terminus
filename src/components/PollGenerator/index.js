@@ -62,12 +62,11 @@ class PollGenerator extends Component {
           position: 0,
           question: "",
           question_type: PollChoices[0].value,
-          image: defaultImage,
+          image: null,
           Choices: []
         }
       ],
       Recipients: [],
-      is_private: false,
       selectOptions: []
     };
   }
@@ -81,14 +80,18 @@ class PollGenerator extends Component {
         position: 0,
         question: "",
         question_type: PollChoices[0].value,
-        image: defaultImage,
+        image: null,
         Choices: []
       }
     ]
   };
 
   setExpirationDate = expiration_date =>
-    this.setState({ expiration_date: new Date(expiration_date).toISOString() });
+    this.setState({
+      expiration_date: expiration_date
+        ? new Date(expiration_date).toISOString()
+        : null
+    });
 
   focusInput = component => {
     if (component) {
@@ -114,26 +117,16 @@ class PollGenerator extends Component {
       GetPollQuestions,
       GetPollRecipients,
       clearPollsApi,
-      Polls,
       match
     } = this.props;
     const { token } = User;
     const pollId = match.params.id;
-    const { Users } = this.props.Admin;
-    let Recipients = [];
     getUsers();
     clearPollsApi();
     if (pollId) {
       GetPoll(token, pollId);
       GetPollQuestions(token, pollId);
       GetPollRecipients(token, pollId);
-    } else {
-      Recipients = Users
-        ? Users.filter(i => i.id === User.id).map(
-            e => (e = { value: e.id, label: e.username, isFixed: true })
-          )
-        : [];
-      this.setState({ Recipients });
     }
   }
 
@@ -143,7 +136,6 @@ class PollGenerator extends Component {
 
   getState = props => {
     const { Questions, User, Admin, title, match, Polls } = props;
-    const { Recipients } = Polls;
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
@@ -171,7 +163,7 @@ class PollGenerator extends Component {
 
   pollPropToState = (Polls, userId, selectOptions) => {
     let { Poll, Questions, Choices, Recipients } = Polls;
-    const { title, expiration_date, is_private } = Poll;
+    const { title, expiration_date } = Poll;
     Questions = Questions.map(
       (q, i) =>
         (q = {
@@ -202,24 +194,32 @@ class PollGenerator extends Component {
       Questions,
       Recipients,
       selectOptions,
-      expiration_date,
-      is_private
+      expiration_date
     });
   };
 
+  setQuestionProp = (index, prop, value) =>
+    this.setState(prevState => {
+      let { Questions } = prevState;
+      Questions[index][prop] = value;
+      return { Questions };
+    });
+
+  setChoiceProp = (questionIndex, choiceIndex, choiceProp, value) =>
+    this.setState(prevState => {
+      let { Questions } = prevState;
+      Questions[questionIndex].Choices[choiceIndex][choiceProp] = value;
+      return { Questions };
+    });
+
   onQuestionChange = e => {
     const { id, value } = e.target;
-    let { Questions } = this.state;
-    Questions[id].question = value;
-    this.setState({ Questions });
+    this.setQuestionProp(id, "question", value);
   };
 
   onChoiceChange = (choiceIndex, e) => {
     const { id, value } = e.target;
-    let { Questions } = this.state;
-
-    Questions[parseInt(id)].Choices[choiceIndex].title = value;
-    this.setState({ Questions });
+    this.setChoiceProp(id, choiceIndex, "title", value);
   };
 
   addChoice = e => {
@@ -234,10 +234,6 @@ class PollGenerator extends Component {
     switch (action) {
       case "remove-value":
       case "pop-value":
-        if (removedValue.isFixed) {
-          return;
-        }
-        break;
       case "clear":
         Recipients = this.state.Recipients.filter(v => v.isFixed);
         break;
@@ -251,16 +247,13 @@ class PollGenerator extends Component {
     let { Questions } = this.state;
     switch (a.action) {
       case "clear":
-        Questions[i].question_type = "";
-        return this.setState({ Questions });
-
+        return this.setQuestionProp(i, "question_type", "");
       case "select-option":
         if (value == "Text" || value == "Image") {
-          Questions[i].Choices.length = 0;
+          this.setQuestionProp(i, "Choices", []);
           Questions[i].Choices.push({ position: 0, title: "" });
         }
-        Questions[i].question_type = value;
-        return this.setState({ Questions });
+        return this.setQuestionProp(i, "question_type", value);
     }
   };
 
@@ -274,12 +267,7 @@ class PollGenerator extends Component {
     } else {
       var reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onloadend = () => {
-        let { Questions } = this.state;
-        Questions[id].image = reader.result;
-        console.log(Questions[id].image);
-        this.setState({ Questions });
-      };
+      reader.onloadend = () => this.setQuestionProp(id, "image", reader.result);
     }
   };
 
@@ -290,23 +278,31 @@ class PollGenerator extends Component {
       return (
         <Row className="Questions Center borderedRow">
           <Col xs={12}>
-            <ControlLabel style={{ marginLeft: 32 }}>Question</ControlLabel>
-            <ConfirmAction
-              key={i}
-              Action={e => this.deleteQuestion(i)}
-              Disabled={false}
-              Icon={<i className="fa fa-trash" />}
-              hasPermission={true}
-              Size="small"
-              Class="pull-right"
-              Title={question}
-              CloseOnReceiveProps={true}
-            />
+            <Col xs={4}>
+              <span className="pull-left questionNumber">{`${i + 1}`}</span>
+            </Col>
+            <Col xs={4}>
+              <ControlLabel>Question Image</ControlLabel>
+              <span className="help-inline">(optional)</span>
+            </Col>
+            <Col xs={4}>
+              <ConfirmAction
+                key={i}
+                Action={e => this.deleteQuestion(i)}
+                Disabled={false}
+                Icon={<i className="fa fa-trash" />}
+                hasPermission={true}
+                Size="small"
+                Class="pull-right"
+                Title={question}
+                CloseOnReceiveProps={true}
+              />
+            </Col>
           </Col>
           <Col xs={12}>
             <Image src={image} width={200} />
             <FormControl
-              style={{ margin: "auto" }}
+              style={{ margin: "8px auto" }}
               key={i}
               id={i}
               type="file"
@@ -480,8 +476,7 @@ class PollGenerator extends Component {
       selectOptions,
       title,
       body,
-      expiration_date,
-      is_private
+      expiration_date
     } = this.state;
     const {
       loading,
@@ -502,6 +497,7 @@ class PollGenerator extends Component {
             componentClass={ButtonToolbar}
           >
             <Button
+              disabled={!(title && expiration_date)}
               onClick={e =>
                 PostPoll(
                   User.token,
@@ -511,8 +507,7 @@ class PollGenerator extends Component {
                   body,
                   expiration_date,
                   Questions,
-                  Recipients.map(r => (r = { recipient: r.value })),
-                  is_private
+                  Recipients.map(r => (r = { recipient: r.value }))
                 )
               }
             >
@@ -541,8 +536,7 @@ class PollGenerator extends Component {
                     body,
                     expiration_date,
                     Questions,
-                    Recipients.map(r => (r = { recipient: r.value })),
-                    is_private
+                    Recipients.map(r => (r = { recipient: r.value }))
                   )
                 }
               >
@@ -575,7 +569,7 @@ class PollGenerator extends Component {
                       position: Questions.length,
                       question: "",
                       question_type: PollChoices[0].value,
-                      image: defaultImage,
+                      image: null,
                       Choices: []
                     }
                   ]
@@ -600,7 +594,7 @@ class PollGenerator extends Component {
         <Row>
           <Form className="Container fadeIn">
             <Row>
-              <Col xs={12}>
+              <Col xs={12} className={!title ? "notValid" : ""}>
                 <InputGroup>
                   <InputGroup.Addon>
                     <i className="fas fa-heading" />
@@ -608,50 +602,22 @@ class PollGenerator extends Component {
                   <FormControl
                     value={title}
                     type="text"
-                    placeholder="Title"
+                    placeholder="Title..."
                     name="title"
                     onChange={e => this.onChange(e)}
                   />
                 </InputGroup>
               </Col>
-              <Col xs={12}>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-comment" />
-                  </InputGroup.Addon>
-                  <FormControl
-                    value={body}
-                    type="text"
-                    placeholder="Message body"
-                    name="body"
-                    onChange={e => this.onChange(e)}
-                  />
-                </InputGroup>
-              </Col>
-              <Col xs={12}>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-user-plus" />
-                  </InputGroup.Addon>
-                  <Select
-                    //https://react-select.com/props
-                    value={Recipients}
-                    isMulti
-                    styles={selectStyles()}
-                    onBlur={e => e.preventDefault()}
-                    blurInputOnSelect={false}
-                    //isClearable={this.state.Recipients.some(v => !v.isFixed)}
-                    isSearchable={true}
-                    placeholder="Username..."
-                    classNamePrefix="select"
-                    onChange={this.onSelectFilterChange}
-                    options={selectOptions}
-                  />
-                </InputGroup>
-              </Col>
             </Row>
             <Row>
-              <Col xs={12} className="expirationDate">
+              <Col
+                xs={12}
+                className={
+                  !expiration_date
+                    ? "expirationDate notValid"
+                    : "expirationDate"
+                }
+              >
                 <InputGroup>
                   <InputGroup.Addon>
                     <i className="fas fa-lock" />
@@ -669,20 +635,50 @@ class PollGenerator extends Component {
                     timeIntervals={30}
                     dateFormat="MMMM d, yyyy h:mm aa"
                     timeCaption="time"
-                    placeholderText="Expiration date"
+                    placeholderText="Expiration date..."
                   />
                 </InputGroup>
               </Col>
             </Row>
             <Row>
               <Col xs={12}>
-                <Checkbox
-                  checked={is_private}
-                  onClick={e => this.setState({ is_private: !is_private })}
-                >
-                  Private
-                </Checkbox>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-user-plus" />
+                  </InputGroup.Addon>
+                  <Select
+                    //https://react-select.com/props
+                    value={Recipients}
+                    isMulti
+                    styles={selectStyles()}
+                    onBlur={e => e.preventDefault()}
+                    blurInputOnSelect={false}
+                    //isClearable={this.state.Recipients.some(v => !v.isFixed)}
+                    isSearchable={true}
+                    placeholder="Recipient username..."
+                    classNamePrefix="select"
+                    onChange={this.onSelectFilterChange}
+                    options={selectOptions}
+                  />
+                </InputGroup>
               </Col>
+              {Recipients.length > 0 && (
+                <Col xs={12}>
+                  <InputGroup>
+                    <InputGroup.Addon>
+                      <i className="fas fa-comment" />
+                    </InputGroup.Addon>
+                    <FormControl
+                      componentClass="textarea"
+                      value={body}
+                      type="text"
+                      placeholder="Message body"
+                      name="body"
+                      onChange={e => this.onChange(e)}
+                    />
+                  </InputGroup>
+                </Col>
+              )}
             </Row>
           </Form>
         </Row>

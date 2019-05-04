@@ -356,7 +356,7 @@ class Login extends PureComponent {
                         >
                           <span className="checkBoxText">Opt In</span>
                           <span className="help">
-                            Check if you would like to recieve emails.
+                            Check if you would like to recieve emails
                           </span>
                         </Checkbox>
                       </Col>

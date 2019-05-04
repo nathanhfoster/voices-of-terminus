@@ -230,7 +230,7 @@ class Admin extends PureComponent {
   deleteThisUser = (token, id) => this.props.deleteUser(token, id);
 
   render() {
-    console.log("ADMIN");
+    //console.log("ADMIN");
     const canSubmit = !this.cantSubmit();
     const { changePermissions } = this.props;
     const {
@@ -425,7 +425,7 @@ class Admin extends PureComponent {
                         >
                           <span className="checkBoxText">Opt In</span>
                           <span className="help">
-                            Check if you would like to recieve emails.
+                            Check if you would like to recieve emails
                         </span>
                         </Checkbox>
                       </Col>

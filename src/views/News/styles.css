@@ -11,26 +11,14 @@
   background-color: var(--slate_grey);
   color: var(--tertiarycolor);
   height: var(--inputButtonHeight);
-  min-width: 43px;
+  min-width: var(--inputButtonHeight);
 }
 
 .input-group-addon i,
 button i {
   font-size: 100%;
 }
-.form-control[disabled] {
-  opacity: var(--disabledOpacity);
-  background-color: var(--slate_grey);
-}
-.form-control {
-  height: var(--inputButtonHeight);
-  background-color: var(--slate_grey);
-}
 
-.form-control:focus {
-  border-color: var(--primaryColor);
-  box-shadow: 0 1px 1px var(--primaryColor);
-}
 
 .LoadButton {
   margin: 20px 0;

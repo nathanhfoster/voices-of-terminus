@@ -80,10 +80,9 @@ const PostPoll = (
   body,
   expiration_date,
   Questions,
-  Recipients,
-  is_private
+  Recipients
 ) => (dispatch, getState) => {
-  const pollPayload = { author, title, expiration_date, is_private };
+  const pollPayload = { author, title, expiration_date };
   dispatch({ type: C.POST_POLLS_LOADING });
   const { Polls } = getState();
   let payload = { ...Polls };
@@ -103,9 +102,17 @@ const PostPoll = (
       PostRecipients(id, token, Recipients, getState);
 
       const uri = `/polls/${id}/respond`;
-      const recipients = Recipients.map(r => r.recipient);
-
-      dispatch(createMessageGroup(token, author, uri, recipients, title, body));
+      const MessageGroupRecipients = Recipients.map(r => r.recipient);
+      dispatch(
+        createMessageGroup(
+          token,
+          author,
+          uri,
+          MessageGroupRecipients,
+          title,
+          body
+        )
+      );
       dispatch({ type: C.POST_POLLS_SUCCESS });
     })
     .catch(e => console.log(e));
@@ -241,15 +248,13 @@ const UpdatePoll = (
   body,
   expiration_date,
   Questions,
-  Recipients,
-  is_private
+  Recipients
 ) => (dispatch, getState) => {
   const pollPayload = {
     author,
     title,
     last_modified_by: author,
-    expiration_date,
-    is_private
+    expiration_date
   };
 
   dispatch({ type: C.UPDATE_POLLS_LOADING });

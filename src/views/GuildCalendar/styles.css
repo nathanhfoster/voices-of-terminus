@@ -126,15 +126,15 @@
   width: 25px;
   font-weight: 600;
   border-radius: 100%;
-  background-color: var(--primaryColor);
-  color: var(--slate_grey);
+  background-color: var(--secondaryColor);
+  color: var(--tertiarycolor);
 }
 .react-calendar__tile--active abbr {
   line-height: 25px;
   width: 25px;
   font-weight: 600;
   border-radius: 100%;
-  background-color: rgba(0, 0, 0, 0.55);
+  background-color: var(--primaryColor);
   color: var(--tertiarycolor);
   -webkit-transition: background-color 1s ease-out;
   -moz-transition: background-color 1s ease-out;

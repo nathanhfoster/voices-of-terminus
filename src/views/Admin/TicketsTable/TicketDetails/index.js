@@ -183,17 +183,19 @@ class TicketDetails extends Component {
           text
         } = s;
         return (
-          <div className="StatusChangeNoteCard">
-            <div>
+          <Col xs={12} className="StatusChangeNoteCard">
+            <Col xs={6}>
               <span>
                 <i className="far fa-clock" />{" "}
                 <Moment fromNow>{date_created}</Moment>
               </span>
-            </div>
-            <div>
-              <i className="fas fa-user" /> <span>{author_username}</span>
-            </div>
-            <div>
+            </Col>
+            <Col xs={6}>
+              <div className="pull-right">
+                <i className="fas fa-user" /> <span>{author_username}</span>
+              </div>
+            </Col>
+            <Col xs={12}>
               {status ? (
                 <span>
                   <i
@@ -203,12 +205,12 @@ class TicketDetails extends Component {
                   {` Status: ${status}`}
                 </span>
               ) : (
-                <span>
-                  <i className="fas fa-sticky-note" /> {text}
-                </span>
+                <div className="noteTextContainer">
+                  <p className="noteText">{text}</p>
+                </div>
               )}
-            </div>
-          </div>
+            </Col>
+          </Col>
         );
       })
     ) : (
@@ -270,10 +272,37 @@ class TicketDetails extends Component {
         <Redirect to="/" />
       )
     ) : (
-      !isEmpty(Ticket) && (
+      Ticket && (
         <Grid className="TicketDetails Container">
           <Row>
             <PageHeader className="pageHeader">TICKET</PageHeader>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <ButtonGroup>
+                <Button onClick={() => this.editTicketStatus()}>
+                  {posting && !posted
+                    ? [<i className="fa fa-spinner fa-spin" />, " SUBMIT"]
+                    : !posting && posted && !error
+                    ? [
+                        <i
+                          className="fas fa-check"
+                          style={{ color: "var(--color_emerald)" }}
+                        />,
+                        " SUBMIT"
+                      ]
+                    : error
+                    ? [
+                        <i
+                          className="fas fa-times"
+                          style={{ color: "var(--color_alizarin)" }}
+                        />,
+                        " SUBMIT"
+                      ]
+                    : "SUBMIT"}
+                </Button>
+              </ButtonGroup>
+            </Col>
           </Row>
           <Row>
             <Col xs={12}>
@@ -370,7 +399,9 @@ class TicketDetails extends Component {
             </Col>
             <Col xs={12}>
               <FormGroup>
-                <ControlLabel>Notes</ControlLabel>
+                <ControlLabel>
+                  <i className="fas fa-sticky-note" /> Notes
+                </ControlLabel>
                 <FormControl
                   value={notes}
                   componentClass="textarea"
@@ -382,42 +413,22 @@ class TicketDetails extends Component {
                 />
               </FormGroup>
             </Col>
-            <Col xs={12} className="Center">
-              <ButtonGroup>
-                <Button onClick={() => this.editTicketStatus()}>
-                  {" "}
-                  {posting && !posted
-                    ? [<i className="fa fa-spinner fa-spin" />, " SUBMIT"]
-                    : !posting && posted && !error
-                    ? [
-                        <i
-                          className="fas fa-check"
-                          style={{ color: "var(--color_emerald)" }}
-                        />,
-                        " SUBMIT"
-                      ]
-                    : error
-                    ? [
-                        <i
-                          className="fas fa-times"
-                          style={{ color: "var(--color_alizarin)" }}
-                        />,
-                        " SUBMIT"
-                      ]
-                    : "SUBMIT"}
-                </Button>
-              </ButtonGroup>
-            </Col>
+          </Row>
+          <Row style={{ marginTop: 16 }}>
+            <h2 className="headerBanner">HISTORY</h2>
           </Row>
           <Row>
-            <PageHeader>HISTORY</PageHeader>
-            <Col xs={12}>
+            <Col xs={12} className="borderedRow">
               <h2 className="headerBanner">Status Changes</h2>
-              {this.renderStatusChangesOrNotes(StatusChanges)}
+              <div className="StatusChangeContainer">
+                {this.renderStatusChangesOrNotes(StatusChanges)}
+              </div>
             </Col>
-            <Col xs={12}>
+            <Col xs={12} className="borderedRow">
               <h2 className="headerBanner">Notes</h2>
-              {this.renderStatusChangesOrNotes(Notes)}
+              <div className="StatusChangeContainer">
+                {this.renderStatusChangesOrNotes(Notes)}
+              </div>
             </Col>
           </Row>
         </Grid>

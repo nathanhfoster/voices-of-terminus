@@ -458,7 +458,7 @@ class Event extends PureComponent {
           <Row>
             <Col xs={12} className="expirationDate">
               <ControlLabel>Start date</ControlLabel>
-              <span className="help">Dates are in your local timezone.</span>
+              <span className="help">Dates are in your local timezone</span>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="far fa-calendar-check" />
@@ -629,7 +629,7 @@ class Event extends PureComponent {
               <Col xs={12}>
                 <FormGroup>
                   <ControlLabel>Group size</ControlLabel>
-                  <span className="help">Number of groups.</span>
+                  <span className="help">Number of groups</span>
                   <FormControl
                     value={group_size}
                     min={1}

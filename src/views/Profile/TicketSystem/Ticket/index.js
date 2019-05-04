@@ -32,7 +32,8 @@ class Ticket extends Component {
     super(props);
 
     this.state = {
-      ticket_type: { value: 3, label: "Harassment" }
+      ticket_type: { value: 3, label: "Harassment" },
+      image: null
     };
   }
 
@@ -217,7 +218,7 @@ class Ticket extends Component {
                     />,
                     " SUBMIT"
                   ]
-                : "SUBMIT"}
+                : [<i className="fas fa-paper-plane" />, " SUBMIT"]}
             </Button>
           </Col>
         </Row>
@@ -240,7 +241,7 @@ class Ticket extends Component {
           </Col>
           <Col xs={6}>
             <ControlLabel>Offenders</ControlLabel>
-            <span className="help-inline">Main person involved.</span>
+            <span className="help-inline">Main person involved</span>
             <FormGroup>
               <CreatableSelect
                 //https://react-select.com/props
@@ -260,7 +261,7 @@ class Ticket extends Component {
           </Col>
           <Col xs={6}>
             <ControlLabel>Corroborators</ControlLabel>
-            <span className="help-inline">Main person who is a witness.</span>
+            <span className="help-inline">Main person who is a witness</span>
             <FormGroup>
               <CreatableSelect
                 //https://react-select.com/props
@@ -280,9 +281,7 @@ class Ticket extends Component {
           </Col>
           <Col xs={6}>
             <ControlLabel>Others involved</ControlLabel>
-            <span className="help-inline">
-              If the person(s) are not listed, type to add them.
-            </span>
+            <span className="help-inline">Others people</span>
             <FormGroup>
               <CreatableSelect
                 name="others_involved"

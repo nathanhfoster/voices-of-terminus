@@ -32,15 +32,22 @@
   max-width: 100%;
 }
 
-.StatusChangeNoteCard {
-  width: 100%;
-  border-radius: 4px;
-  padding: 8px;
-  background-color: var(--grey);
-  display: inline-flex;
+.StatusChangeContainer {
+  height: calc(var(--inputButtonHeight) * 5);
+  overflow-y: auto;
 }
 
-.StatusChangeNoteCard div {
-  margin: auto;
-  width: calc(100% / 3);
+.StatusChangeNoteCard {
+  height: calc(var(--inputButtonHeight) * 2);
+  border-radius: 4px;
+  background-color: var(--grey);
+  margin: 2px 0;
+}
+
+.StatusChangeNoteCard [class*="col-"] {
+  padding: 8px;
+}
+
+.noteText {
+  overflow-y: auto;
 }

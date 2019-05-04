@@ -87,7 +87,7 @@ class Settings extends Component {
               }
             >
               <span className="checkBoxText">Show footer</span>
-              <span className="help">Toggles the view of the footer.</span>
+              <span className="help">Toggles the view of the footer</span>
             </Checkbox>
           </Col>
         </Row>
@@ -111,9 +111,7 @@ class Settings extends Component {
               }
             >
               <span className="checkBoxText">Push messages</span>
-              <span className="help">
-                Toggles frequent fetches of messages.
-              </span>
+              <span className="help">Toggles frequent fetches of messages</span>
             </Checkbox>
           </Col>
         </Row>

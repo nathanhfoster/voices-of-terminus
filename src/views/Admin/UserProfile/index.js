@@ -358,7 +358,7 @@ class UserProfile extends PureComponent {
   renderUserPermissions = (AllUserPermissions, UserPermissions, canEdit) =>
     CategorizedPermissions(AllUserPermissions).map(columnPermissions => {
       const Header = PermissionHeader(columnPermissions[0].codename);
-      const Helper = `Can ${Header} designated content.`;
+      const Helper = `Can ${Header} designated content`;
       return (
         <Col md={3} xs={12}>
           <h3>{Header}</h3>
@@ -615,7 +615,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Active</span>
                 <span className="help">
-                  Unselect this instead of deleting accounts.
+                  Unselect this instead of deleting accounts
                 </span>
               </Checkbox>
             </Col>
@@ -638,7 +638,7 @@ class UserProfile extends PureComponent {
                 <span className="checkBoxText">Admin</span>
                 <span className="help">
                   Grants access to admin panel and that this user has all
-                  permissions without explicitly assigning them.
+                  permissions without explicitly assigning them
                 </span>
               </Checkbox>
             </Col>
@@ -663,7 +663,7 @@ class UserProfile extends PureComponent {
                 </span>
                 <span className="help">
                   Grants access to admin panel and ability to edit user
-                  permissions of a lower status level.
+                  permissions of a lower status level
                 </span>
               </Checkbox>
             </Col>
@@ -687,7 +687,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Leader</span>
                 <span className="help">
-                  Will show up as a leader in guild roster.
+                  Will show up as a leader in guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -709,7 +709,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Advisor</span>
                 <span className="help">
-                  Will show up as an advisor in guild roster.
+                  Will show up as an advisor in guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -731,7 +731,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Council</span>
                 <span className="help">
-                  Will show up on the Council in the guild roster.
+                  Will show up on the Council in the guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -753,7 +753,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">General Officer</span>
                 <span className="help">
-                  Will show up as an Genral Officer in the guild roster.
+                  Will show up as an Genral Officer in the guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -775,7 +775,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Officer</span>
                 <span className="help">
-                  Will show up as an Officer in the guild roster.
+                  Will show up as an Officer in the guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -797,7 +797,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Senior Member</span>
                 <span className="help">
-                  Will show up as a Member in the guild roster.
+                  Will show up as a Member in the guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -819,7 +819,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Junior Member</span>
                 <span className="help">
-                  Will show up as a Member in the guild roster.
+                  Will show up as a Member in the guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -841,7 +841,7 @@ class UserProfile extends PureComponent {
               >
                 <span className="checkBoxText">Recruit</span>
                 <span className="help">
-                  Will show up as a Member in the guild roster.
+                  Will show up as a Member in the guild roster
                 </span>
               </Checkbox>
             </Col>
@@ -888,7 +888,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Raid Leader</span>
-                <span className="help">Raid Leader.</span>
+                <span className="help">Raid Leader</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -908,7 +908,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Banker</span>
-                <span className="help">Banker.</span>
+                <span className="help">Banker</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -928,7 +928,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Recruiter</span>
-                <span className="help">Recruiter.</span>
+                <span className="help">Recruiter</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -948,7 +948,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Class Lead</span>
-                <span className="help">Class Lead.</span>
+                <span className="help">Class Lead</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -968,7 +968,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Crafter Lead</span>
-                <span className="help">Crafter Lead.</span>
+                <span className="help">Crafter Lead</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -988,7 +988,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Host</span>
-                <span className="help">Host of the VoT show.</span>
+                <span className="help">Host of the VoT show</span>
               </Checkbox>
             </Col>
             <Col xs={12}>
@@ -1008,7 +1008,7 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">Lore Master</span>
-                <span className="help">Creates lore books.</span>
+                <span className="help">Creates lore books</span>
               </Checkbox>
             </Col>
           </Row>
