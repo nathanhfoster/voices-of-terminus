@@ -1,6 +1,12 @@
 .TicketDetails {
 }
 
+.detailRow [class*="col-"]:nth-child(-n+10) {
+  border: 1px solid var(--grey);
+  border-radius: 4px;
+  margin: 4px;
+}
+
 .TicketDetails a {
   color: var(--primaryColor);
 }

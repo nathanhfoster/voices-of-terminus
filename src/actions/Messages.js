@@ -7,6 +7,10 @@ const getUserMessages = (userId, token) => dispatch => {
   return Axios(token)
     .get(`/message/recipients/${userId}/view/`)
     .then(res => {
+      if (res.data.results < 1) return dispatch({
+        type: C.GET_MESSAGES,
+        payload: res.data
+      });
       for (let i = 0; i < res.data.results.length; i++) {
         const recipient = res.data.results[i];
         const { recipient_group_id } = recipient;
@@ -73,13 +77,13 @@ const postMessage = (token, recipient_group_id, recipients, payload) => (
           message_id: id,
           is_read: author === recipients[i] ? true : false
         };
-        postMessageRecipients(
+        dispatch(postMessageRecipients(
           token,
           messageRecipientPayload,
           author,
           res,
           finalPayload
-        );
+        ));
       }
     })
     .catch(e =>
@@ -97,19 +101,19 @@ const postMessageRecipients = (
   messageResponse,
   finalPayload
 ) => dispatch =>
-  Axios(token)
-    .post("/message/recipients/", qs.stringify(payload))
-    .then(replyMessage => {
-      const { recipient } = replyMessage.data;
-      if (author === recipient) {
-        finalPayload.results.push(messageResponse.data);
-        dispatch({
-          type: C.GET_MESSAGE_DETAILS,
-          payload: finalPayload
-        });
-      }
-    })
-    .catch(e => console.log(e));
+    Axios(token)
+      .post("/message/recipients/", qs.stringify(payload))
+      .then(replyMessage => {
+        const { recipient } = replyMessage.data;
+        if (author === recipient) {
+          finalPayload.results.push(messageResponse.data);
+          dispatch({
+            type: C.GET_MESSAGE_DETAILS,
+            payload: finalPayload
+          });
+        }
+      })
+      .catch(e => console.log(e));
 
 const updateMessage = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
@@ -191,7 +195,7 @@ const getGroupMessageRecipients = (token, recipient_group_id) => dispatch =>
 const deleteMessageRecipient = (token, userId, id) => dispatch =>
   Axios(token)
     .delete(`/message/recipients/${id}/`)
-    .then(res => getUserMessages(userId, token))
+    .then(res => dispatch(getUserMessages(userId, token)))
     .catch(e => console.log(e));
 
 export {

@@ -48,7 +48,7 @@ class NavBar extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() { }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -223,89 +223,89 @@ class NavBar extends PureComponent {
                 <NavItem eventKey={9}>LOGIN</NavItem>
               </LinkContainer>
             ) : (
-              <NavDropdown
-                eventKey={10}
-                title={[
-                  primary_class ? (
-                    <Image
-                      src={roleClassIcon(primary_class)}
-                      style={{ height: "25px" }}
-                    />
-                  ) : (
-                    <i key={10.1} className="fas fa-user" />
-                  ),
-                  <span key={10.2}> {User.username} </span>,
-                  <Badge key={10.3}>{unreadMessages}</Badge>
-                ]}
-                className="navbar-right"
-                id="basic-nav-dropdown"
-              >
-                <LinkContainer to="/profile">
-                  <NavItem eventKey={10.4}>PROFILE</NavItem>
-                </LinkContainer>
-                <LinkContainer to="/messages">
-                  <NavItem eventKey={10.5}>
-                    MESSAGES <Badge>{unreadMessages}</Badge>
-                  </NavItem>
-                </LinkContainer>
-                <NavItem onClick={this.Logout}>LOGOUT</NavItem>
-                <MenuItem divider />
-                {UserHasPermissions(User, "add_article") && (
-                  <LinkContainer to="/article/new/">
-                    <NavItem eventKey={10.6}>
-                      <i className="fas fa-plus" /> ARTICLE
-                    </NavItem>
-                  </LinkContainer>
-                )}
-                {UserHasPermissions(User, "add_newsletter") && (
-                  <LinkContainer to="/newsletter/new">
-                    <NavItem eventKey={10.7}>
-                      <i className="fas fa-plus" /> NEWSLETTER
-                    </NavItem>
-                  </LinkContainer>
-                )}
-                {UserHasPermissions(User, "add_poll") && (
-                  <LinkContainer to="/poll/new/">
-                    <NavItem eventKey={10.8}>
-                      <i className="fas fa-plus" /> POLL
-                    </NavItem>
-                  </LinkContainer>
-                )}
-
-                {UserHasPermissions(User, "add_event") && (
-                  <LinkContainer to="/calendar/new/event">
-                    <NavItem eventKey={10.9}>
-                      <i className="fas fa-plus" /> EVENT
-                    </NavItem>
-                  </LinkContainer>
-                )}
-                {UserHasPermissions(User, "add_ticket") && (
-                  <LinkContainer to="/ticket/new">
-                    <NavItem eventKey={10.1}>
-                      <i className="fas fa-plus" /> TICKET
-                    </NavItem>
-                  </LinkContainer>
-                )}
-                <MenuItem divider />
-                <LinkContainer to="/polls">
-                  <NavItem eventKey={10.11}>
-                    <i className="fas fa-eye" /> POLLS
-                  </NavItem>
-                </LinkContainer>
-                <LinkContainer to="/tickets">
-                  <NavItem eventKey={10.12}>
-                    <i className="fas fa-eye" /> TICKETS
-                  </NavItem>
-                </LinkContainer>
-                <MenuItem divider />
-                <MenuItem
-                  onClick={() => history.push("/settings")}
-                  className="Center"
+                <NavDropdown
+                  eventKey={10}
+                  title={[
+                    primary_class ? (
+                      <Image
+                        src={roleClassIcon(primary_class)}
+                        style={{ height: "25px" }}
+                      />
+                    ) : (
+                        <i key={10.1} className="fas fa-user" />
+                      ),
+                    <span key={10.2}> {User.username} </span>,
+                    <Badge key={10.3}>{unreadMessages}</Badge>
+                  ]}
+                  className="navbar-right"
+                  id="basic-nav-dropdown"
                 >
-                  <i className="fas fa-cog" /> Settings
+                  <LinkContainer to="/profile">
+                    <NavItem eventKey={10.4}>PROFILE</NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/messages">
+                    <NavItem eventKey={10.5}>
+                      MESSAGES <Badge>{unreadMessages}</Badge>
+                    </NavItem>
+                  </LinkContainer>
+                  <NavItem onClick={this.Logout}>LOGOUT</NavItem>
+                  <MenuItem divider />
+                  {UserHasPermissions(User, "add_article") && (
+                    <LinkContainer to="/article/new/">
+                      <NavItem eventKey={10.6}>
+                        <i className="fas fa-plus" /> ARTICLE
+                    </NavItem>
+                    </LinkContainer>
+                  )}
+                  {UserHasPermissions(User, "add_newsletter") && (
+                    <LinkContainer to="/newsletter/new">
+                      <NavItem eventKey={10.7}>
+                        <i className="fas fa-plus" /> NEWSLETTER
+                    </NavItem>
+                    </LinkContainer>
+                  )}
+                  {UserHasPermissions(User, "add_poll") && (
+                    <LinkContainer to="/poll/new/">
+                      <NavItem eventKey={10.8}>
+                        <i className="fas fa-plus" /> POLL
+                    </NavItem>
+                    </LinkContainer>
+                  )}
+
+                  {UserHasPermissions(User, "add_event") && (
+                    <LinkContainer to="/calendar/new/event">
+                      <NavItem eventKey={10.9}>
+                        <i className="fas fa-plus" /> EVENT
+                    </NavItem>
+                    </LinkContainer>
+                  )}
+                  {UserHasPermissions(User, "add_ticket") && (
+                    <LinkContainer to="/ticket/new">
+                      <NavItem eventKey={10.1}>
+                        <i className="fas fa-plus" /> TICKET
+                    </NavItem>
+                    </LinkContainer>
+                  )}
+                  <MenuItem divider />
+                  <LinkContainer to="/polls">
+                    <NavItem eventKey={10.11}>
+                      <i className="fas fa-eye" /> POLLS
+                  </NavItem>
+                  </LinkContainer>
+                  <LinkContainer to="/tickets">
+                    <NavItem eventKey={10.12}>
+                      <i className="fas fa-eye" /> YOUR TICKETS
+                  </NavItem>
+                  </LinkContainer>
+                  <MenuItem divider />
+                  <MenuItem
+                    onClick={() => history.push("/settings")}
+                    className="Center"
+                  >
+                    <i className="fas fa-cog" /> Settings
                 </MenuItem>
-              </NavDropdown>
-            )}
+                </NavDropdown>
+              )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

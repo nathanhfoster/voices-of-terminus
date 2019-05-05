@@ -28,8 +28,8 @@ export const ApiResponse = (state = {}, action) =>
       ? action.payload
       : {}
     : action.type === C.CLEAR_API_RESPONSE
-    ? {}
-    : state;
+      ? {}
+      : state;
 
 export const VoTYouTubeChannelData = (state = [], action) =>
   action.type === C.GET_VOT_YOUTUBE_CHANNEL_DATA ? action.payload : state;
@@ -194,8 +194,8 @@ export const HtmlDocument = (state = null, action) =>
   action.type === C.GET_HTML_DOCUMENT
     ? action.payload
     : action.type === C.CLEAR_HTML_DOCUMENT
-    ? null
-    : state;
+      ? null
+      : state;
 
 export const User = (
   state = {
