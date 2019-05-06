@@ -203,6 +203,7 @@ class Login extends PureComponent {
   render() {
     const canSubmit = !this.cantSubmit();
     const { User, history } = this.props;
+    const { action, length } = history;
     const {
       username,
       password,
@@ -214,7 +215,7 @@ class Login extends PureComponent {
     } = this.state;
 
     return User.token ? (
-      history.length > 2 ? (
+      action !== "POP" && length > 2 ? (
         this.Redirect()
       ) : (
         <Redirect to="/" />
