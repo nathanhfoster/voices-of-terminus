@@ -2,9 +2,9 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-const getUserMessages = (userId, token) => dispatch => {
+const getUserMessages = (userId, token) => async dispatch => {
   let groupMap = {};
-  return Axios(token)
+  return await Axios(token)
     .get(`/message/recipients/${userId}/view/`)
     .then(res => {
       if (res.data.results < 1) return dispatch({
