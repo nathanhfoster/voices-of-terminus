@@ -338,7 +338,7 @@ class NewsLetterGenerator extends PureComponent {
                   type="text"
                   placeholder="Title"
                   name="title"
-                  onChange={() => this.onChange}
+                  onChange={e => this.onChange(e)}
                 />
               </InputGroup>
             </FormGroup>

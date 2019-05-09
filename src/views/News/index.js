@@ -66,7 +66,7 @@ class News extends Component {
     const { match } = this.props;
     const { path } = match;
     this.state = {
-      selectValue: [
+      tagFilter: [
         path.includes("article")
           ? { value: "Article", label: "Article" }
           : { value: "Newsletter", label: "Newsletter" }
@@ -91,13 +91,13 @@ class News extends Component {
     const CurrentUserGroups = this.state.User.groups;
     const CurrentUserPermissions = this.state.User.user_permissions;
     const { Documents } = this.state;
-    const { selectValue, search, history } = nextState;
+    const { tagFilter, search, history } = nextState;
     const { pathname } = history.location;
 
     const currentPathName = this.state.eventKey;
     const currentDocuments = Articles.results.concat(Newsletters.results);
 
-    const currentSelectValue = this.state.selectValue;
+    const currentSelectValue = this.state.tagFilter;
     const currentSearch = this.state.search;
 
     return (
@@ -105,7 +105,7 @@ class News extends Component {
       !isEquivalent(user_permissions, CurrentUserPermissions) ||
       !isEquivalent(Documents, currentDocuments) ||
       !isEquivalent(pathname, currentPathName) ||
-      !isEquivalent(selectValue, currentSelectValue) ||
+      !isEquivalent(tagFilter, currentSelectValue) ||
       !isEquivalent(search, currentSearch)
     );
   }
@@ -258,7 +258,7 @@ class News extends Component {
         );
       });
 
-  onSelectChange = (selectValue, { action, removedValue }) => {
+  onSelectChange = (tagFilter, { action, removedValue }) => {
     const { selectOptions } = this.props;
     switch (action) {
       case "remove-value":
@@ -268,11 +268,11 @@ class News extends Component {
         }
         break;
       case "clear":
-        selectValue = selectOptions.filter(v => v.isFixed);
+        tagFilter = selectOptions.filter(v => v.isFixed);
         break;
     }
 
-    this.setState({ selectValue });
+    this.setState({ tagFilter });
   };
 
   onChange = (filter, Documents) => {
@@ -290,8 +290,8 @@ class News extends Component {
     // console.log("NEWS");
     const { Articles, Newsletters, selectOptions } = this.props;
     const { User, Settings, search, eventKey, history, match } = this.state;
-    let { selectValue } = this.state;
-    selectValue = selectValue.length > 0 ? selectValue : selectOptions;
+    let { tagFilter } = this.state;
+    tagFilter = tagFilter.length > 0 ? tagFilter : selectOptions;
     let { Documents } = this.state;
     Documents = search
       ? matchSorter(Documents, search, {
@@ -304,7 +304,7 @@ class News extends Component {
       Title == "ARTICLES" ? "/articles/suggested" : "/news/suggested";
     const popular = Title == "ARTICLES" ? "/articles/popular" : "/news/popular";
     const myDocs = Title == "ARTICLES" ? "/articles/my-docs" : "/news/my-docs";
-    const filter = selectValue.map(i => i.value);
+    const filter = tagFilter.map(i => i.value);
     const maxlength = selectOptions.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return this.redirect(history, eventKey) && Documents ? (
@@ -351,12 +351,12 @@ class News extends Component {
               </InputGroup.Addon>
               <Select
                 //https://react-select.com/props
-                value={this.state.selectValue}
+                value={this.state.tagFilter}
                 isMulti
                 styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                //isClearable={this.state.tagFilter.some(v => !v.isFixed)}
                 isSearchable={false}
                 placeholder="Filter by tags..."
                 classNamePrefix="select"

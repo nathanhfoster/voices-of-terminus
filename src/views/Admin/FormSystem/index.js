@@ -16,6 +16,11 @@ import {
   Tabs,
   Tab
 } from "react-bootstrap";
+import Select from "react-select";
+import { isSubset, joinStrings } from "../../../helpers";
+import { selectStyles } from "../../../helpers/styles";
+import { formOptions } from "../../../helpers/options";
+import { UserHasPermissions } from "../../../helpers/userPermissions";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
@@ -34,7 +39,6 @@ import Moment from "react-moment";
 import { withAlert } from "react-alert";
 import { Redirect } from "react-router-dom";
 import ConfirmAction from "../../../components/ConfirmAction";
-import { UserHasPermissions } from "../../../helpers/userPermissions";
 
 const mapStateToProps = ({ User, Forms }) => ({
   User,
@@ -57,7 +61,7 @@ class FormSystem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = { tagFilter: [] };
   }
 
   static propTypes = {};
@@ -139,10 +143,11 @@ class FormSystem extends Component {
     clearResponses();
   }
 
-  renderPolls = Forms => {
+  renderPolls = (Forms, tagFilter) => {
     const { User, DeleteForm } = this.props;
     const { history } = this.state;
-    return Forms.map(p => {
+    const tagsArray = tagFilter.map(t => t.value);
+    return Forms.filter(f => isSubset(f.tags.split("|"), tagsArray)).map(p => {
       const {
         id,
         title,
@@ -574,6 +579,23 @@ class FormSystem extends Component {
     }
   };
 
+  onSelectChange = (tagFilter, { action, removedValue }) => {
+    switch (action) {
+      case "remove-value":
+      case "pop-value":
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case "clear":
+        tagFilter = formOptions.filter(v => v.isFixed);
+        break;
+    }
+    let { Forms } = this.state;
+
+    this.setState({ tagFilter });
+  };
+
   render() {
     const {
       User,
@@ -585,7 +607,8 @@ class FormSystem extends Component {
       Recipients,
       pollId,
       eventKey,
-      history
+      history,
+      tagFilter
     } = this.state;
     const {
       author,
@@ -642,10 +665,31 @@ class FormSystem extends Component {
               </Button>
             )}
           </Col>
+          <Col md={8} xs={12}>
+            <InputGroup>
+              <InputGroup.Addon>
+                <i className="fas fa-tags" />
+              </InputGroup.Addon>
+              <Select
+                //https://react-select.com/props
+                value={tagFilter}
+                isMulti
+                styles={selectStyles()}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                //isClearable={this.state.tagFilter.some(v => !v.isFixed)}
+                isSearchable={false}
+                placeholder="Filter by tags..."
+                classNamePrefix="select"
+                onChange={this.onSelectChange}
+                options={formOptions}
+              />
+            </InputGroup>
+          </Col>
         </Row>
         {pollId
           ? this.renderQuestions(User, Questions, Choices, Responses, canView)
-          : this.renderPolls(Forms.results)}
+          : this.renderPolls(Forms.results, tagFilter)}
       </Grid>
     );
   }
