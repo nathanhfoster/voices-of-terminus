@@ -61,7 +61,7 @@ class FormSystem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { typeFilter: { value: null, label: null } };
+    this.state = { typeFilter: [] };
   }
 
   static propTypes = {};
@@ -144,83 +144,84 @@ class FormSystem extends Component {
   }
 
   filterForms = (typeFilter, form_type) =>
-    typeFilter ? typeFilter === form_type : true;
+    typeFilter.length > 0 ? typeFilter.some(e => e.value === form_type) : true;
 
   renderPolls = (Forms, typeFilter) => {
     const { User, DeleteForm } = this.props;
     const { history } = this.state;
-    const { value } = typeFilter;
-    return Forms.filter(f => this.filterForms(value, f.form_type)).map(p => {
-      const {
-        id,
-        title,
-        author_username,
-        date_created,
-        last_modified,
-        expiration_date
-      } = p;
-      return (
-        <Row
-          className="borderedRow"
-          key={id}
-          onClick={() => history.push(`/forms/${id}`)}
-        >
-          <Col xs={8}>
-            <h3>
-              <i className="fas fa-heading" /> {title}
-            </h3>
-          </Col>
-          <Col
-            xs={4}
-            className="ActionToolbar cardActions"
-            componentClass={ButtonToolbar}
+    return Forms.filter(f => this.filterForms(typeFilter, f.form_type)).map(
+      p => {
+        const {
+          id,
+          title,
+          author_username,
+          date_created,
+          last_modified,
+          expiration_date
+        } = p;
+        return (
+          <Row
+            className="borderedRow"
+            key={id}
+            onClick={() => history.push(`/forms/${id}`)}
           >
-            <ConfirmAction
-              Action={e => DeleteForm(User.token, id)}
-              Disabled={false}
-              Icon={<i className="fas fa-trash" />}
-              hasPermission={UserHasPermissions(User, "delete_poll")}
-              Class="pull-right"
-              Title={title}
-            />
-            {UserHasPermissions(User, "change_poll") && (
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  history.push(`/form/edit/${id}`);
-                }}
-                className="pull-right"
-              >
-                <i className="fa fa-pencil-alt" />
-              </Button>
-            )}
-          </Col>
-          <Col xs={12}>
-            <h4>
-              <i className="fas fa-user" /> {author_username}
-            </h4>
-          </Col>
-          <Col xs={12}>
-            <h4>
-              <i className="far fa-clock" />{" "}
-              <Moment fromNow>{date_created}</Moment>
-            </h4>
-          </Col>
-          <Col xs={12}>
-            <h4>
-              <i className="fa fa-pencil-alt" />{" "}
-              <Moment fromNow>{last_modified}</Moment>
-            </h4>
-          </Col>
-          <Col xs={12}>
-            <h4>
-              <i className="fas fa-lock" />{" "}
-              <Moment fromNow>{expiration_date}</Moment>
-            </h4>
-          </Col>
-        </Row>
-      );
-    });
+            <Col xs={8}>
+              <h3>
+                <i className="fas fa-heading" /> {title}
+              </h3>
+            </Col>
+            <Col
+              xs={4}
+              className="ActionToolbar cardActions"
+              componentClass={ButtonToolbar}
+            >
+              <ConfirmAction
+                Action={e => DeleteForm(User.token, id)}
+                Disabled={false}
+                Icon={<i className="fas fa-trash" />}
+                hasPermission={UserHasPermissions(User, "delete_poll")}
+                Class="pull-right"
+                Title={title}
+              />
+              {UserHasPermissions(User, "change_poll") && (
+                <Button
+                  onClick={e => {
+                    e.stopPropagation();
+                    history.push(`/form/edit/${id}`);
+                  }}
+                  className="pull-right"
+                >
+                  <i className="fa fa-pencil-alt" />
+                </Button>
+              )}
+            </Col>
+            <Col xs={12}>
+              <h4>
+                <i className="fas fa-user" /> {author_username}
+              </h4>
+            </Col>
+            <Col xs={12}>
+              <h4>
+                <i className="far fa-clock" />{" "}
+                <Moment fromNow>{date_created}</Moment>
+              </h4>
+            </Col>
+            <Col xs={12}>
+              <h4>
+                <i className="fa fa-pencil-alt" />{" "}
+                <Moment fromNow>{last_modified}</Moment>
+              </h4>
+            </Col>
+            <Col xs={12}>
+              <h4>
+                <i className="fas fa-lock" />{" "}
+                <Moment fromNow>{expiration_date}</Moment>
+              </h4>
+            </Col>
+          </Row>
+        );
+      }
+    );
   };
 
   renderQuestions = (User, Questions, Choices, Responses, canView) => {
@@ -594,8 +595,6 @@ class FormSystem extends Component {
         typeFilter = formOptions.filter(v => v.isFixed);
         break;
     }
-    let { Forms } = this.state;
-
     this.setState({ typeFilter });
   };
 
@@ -676,6 +675,7 @@ class FormSystem extends Component {
               <Select
                 //https://react-select.com/props
                 value={typeFilter}
+                isMulti
                 styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
