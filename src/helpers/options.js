@@ -9,6 +9,7 @@ const choiceStyle = {
 };
 
 const documentBase = [
+  { value: "Official", label: "Official" },
   { value: "Blog", label: "Blog" },
   { value: "FanFiction", label: "FanFiction" },
   { value: "FanMade", label: "FanMade" },
@@ -27,13 +28,12 @@ const documentBase = [
 const articleSlectOptions = [
   { value: "Article", label: "Article", isFixed: true },
   { value: "Guide", label: "Guide" },
-  ...documentBase.slice(0, 6)
+  ...documentBase.slice(1, 7)
 ];
 
 const newsletterSelectOptions = [
   { value: "Newsletter", label: "Newsletter", isFixed: true },
-  { value: "Official", label: "Official" },
-  ...documentBase.slice(8)
+  ...documentBase.slice(9)
 ];
 
 const newsSelectOptions = [
