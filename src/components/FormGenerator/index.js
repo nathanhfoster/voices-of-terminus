@@ -146,7 +146,9 @@ class FormGenerator extends Component {
   }
 
   getState = props => {
-    const { Questions, User, Admin, title, form_type, match, Forms } = props;
+    const { Questions, User, Admin,  match, Forms } = props;
+    const { title } = this.state.title ? this.state : props;
+    const { form_type } = this.state.form_type ? this.state : props;
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
