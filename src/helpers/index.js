@@ -73,8 +73,9 @@ const hasCharAfterSpace = string => {
 
   return true;
 };
-// arr2.every(e => arr1.includes(e))
-const isSubset = (arr1, arr2) => {
+
+const isSubset = (arr1, arr2) => arr2.every(e => arr1.includes(e));
+/*{
   // console.log(arr1, arr2);
   const hset = new Map();
 
@@ -89,7 +90,7 @@ const isSubset = (arr1, arr2) => {
     if (!hset.has(arr2[i])) return false;
   }
   return true;
-};
+};*/
 
 const isEquivalent = (obj1, obj2) =>
   JSON.stringify(obj1) === JSON.stringify(obj2);
