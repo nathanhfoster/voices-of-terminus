@@ -67,15 +67,7 @@ class FormGenerator extends Component {
       expiration_date: null,
       NewChoice: "",
       Forms: [],
-      Questions: [
-        {
-          position: 0,
-          question: "",
-          question_type: FormQuestionTypeOptions[0].value,
-          image: null,
-          Choices: []
-        }
-      ],
+      Questions: null,
       Recipients: [],
       selectOptions: []
     };
@@ -146,7 +138,8 @@ class FormGenerator extends Component {
   }
 
   getState = props => {
-    const { Questions, User, Admin,  match, Forms } = props;
+    const { User, Admin,  match, Forms } = props;
+    const { Questions } = this.state.Questions ? this.state : props;
     const { title } = this.state.title ? this.state : props;
     const { form_type } = this.state.form_type ? this.state : props;
     const pollId = match.params.id;
