@@ -61,7 +61,7 @@ class FormSystem extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { tagFilter: [] };
+    this.state = { typeFilter: { value: null, label: null } };
   }
 
   static propTypes = {};
@@ -143,11 +143,14 @@ class FormSystem extends Component {
     clearResponses();
   }
 
-  renderPolls = (Forms, tagFilter) => {
+  filterForms = (typeFilter, form_type) =>
+    typeFilter ? typeFilter === form_type : true;
+
+  renderPolls = (Forms, typeFilter) => {
     const { User, DeleteForm } = this.props;
     const { history } = this.state;
-    const tagsArray = tagFilter.map(t => t.value);
-    return Forms.filter(f => isSubset(f.tags.split("|"), tagsArray)).map(p => {
+    const { value } = typeFilter;
+    return Forms.filter(f => this.filterForms(value, f.form_type)).map(p => {
       const {
         id,
         title,
@@ -579,7 +582,7 @@ class FormSystem extends Component {
     }
   };
 
-  onSelectChange = (tagFilter, { action, removedValue }) => {
+  onSelectChange = (typeFilter, { action, removedValue }) => {
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -588,12 +591,12 @@ class FormSystem extends Component {
         }
         break;
       case "clear":
-        tagFilter = formOptions.filter(v => v.isFixed);
+        typeFilter = formOptions.filter(v => v.isFixed);
         break;
     }
     let { Forms } = this.state;
 
-    this.setState({ tagFilter });
+    this.setState({ typeFilter });
   };
 
   render() {
@@ -608,7 +611,7 @@ class FormSystem extends Component {
       pollId,
       eventKey,
       history,
-      tagFilter
+      typeFilter
     } = this.state;
     const {
       author,
@@ -672,14 +675,13 @@ class FormSystem extends Component {
               </InputGroup.Addon>
               <Select
                 //https://react-select.com/props
-                value={tagFilter}
-                isMulti
+                value={typeFilter}
                 styles={selectStyles()}
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
-                //isClearable={this.state.tagFilter.some(v => !v.isFixed)}
+                //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
                 isSearchable={false}
-                placeholder="Filter by tags..."
+                placeholder="Filter by form type..."
                 classNamePrefix="select"
                 onChange={this.onSelectChange}
                 options={formOptions}
@@ -689,7 +691,7 @@ class FormSystem extends Component {
         </Row>
         {pollId
           ? this.renderQuestions(User, Questions, Choices, Responses, canView)
-          : this.renderPolls(Forms.results, tagFilter)}
+          : this.renderPolls(Forms.results, typeFilter)}
       </Grid>
     );
   }

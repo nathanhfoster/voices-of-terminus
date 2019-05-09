@@ -665,15 +665,15 @@ const FormQuestionTypeOptions = [
   ]
 ];
 
-const SwitchQuestionType = tags => {
-  if (!tags) return FormQuestionTypeOptions;
-  if (tags.length < 1) return FormQuestionTypeOptions;
-  const tag = tags[0].value;
-
-  if (tag === "Form") return FormQuestionTypeOptions;
-  if (tag === "Poll") return PollQuestionTypeOptions;
-
-  return FormQuestionTypeOptions;
+const SwitchQuestionOptions = ({ value }) => {
+  switch (value) {
+    case "Form":
+      return FormQuestionTypeOptions;
+    case "Poll":
+      return PollQuestionTypeOptions;
+    default:
+      return FormQuestionTypeOptions;
+  }
 };
 
 const { Option } = components;
@@ -706,6 +706,6 @@ export {
   formOptions,
   PollQuestionTypeOptions,
   FormQuestionTypeOptions,
-  SwitchQuestionType,
+  SwitchQuestionOptions,
   IconOption
 };

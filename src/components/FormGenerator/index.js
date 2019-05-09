@@ -11,8 +11,7 @@ import {
   FormControl,
   Form,
   InputGroup,
-  Image,
-  Checkbox
+  Image
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
@@ -27,7 +26,7 @@ import {
 } from "../../helpers";
 import {
   FormQuestionTypeOptions,
-  SwitchQuestionType,
+  SwitchQuestionOptions,
   formOptions
 } from "../../helpers/options";
 import { selectStyles } from "../../helpers/styles";
@@ -86,7 +85,7 @@ class FormGenerator extends Component {
 
   static defaultProps = {
     title: "",
-    tags: [],
+    form_type: [],
     Questions: [
       {
         position: 0,
@@ -147,7 +146,7 @@ class FormGenerator extends Component {
   }
 
   getState = props => {
-    const { Questions, User, Admin, title, tags, match, Forms } = props;
+    const { Questions, User, Admin, title, form_type, match, Forms } = props;
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
@@ -161,7 +160,7 @@ class FormGenerator extends Component {
         Questions,
         selectOptions,
         title,
-        tags,
+        form_type,
         Forms
       });
     }
@@ -176,7 +175,7 @@ class FormGenerator extends Component {
 
   pollPropToState = (Forms, userId, selectOptions) => {
     let { Form, Questions, Choices, Recipients } = Forms;
-    const { title, expiration_date, tags } = Form;
+    const { title, expiration_date, form_type } = Form;
     Questions = Questions.map(
       (q, i) =>
         (q = {
@@ -204,7 +203,7 @@ class FormGenerator extends Component {
     this.setState({
       Forms,
       title,
-      tags: splitString(tags),
+      form_type: splitString(form_type),
       Questions,
       Recipients,
       selectOptions,
@@ -271,7 +270,7 @@ class FormGenerator extends Component {
     }
   };
 
-  onSelectTagChange(tags, { action, removedValue }) {
+  onSelectTagChange(form_type, { action, removedValue }) {
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -280,10 +279,10 @@ class FormGenerator extends Component {
         }
         break;
       case "clear":
-        tags = formOptions.filter(v => v.isFixed);
+        form_type = formOptions.filter(v => v.isFixed);
         break;
     }
-    this.setState({ tags });
+    this.setState({ form_type });
   }
 
   setImage = e => {
@@ -302,9 +301,9 @@ class FormGenerator extends Component {
 
   renderQuestions = Questions =>
     Questions.map((q, i) => {
-      const { NewChoice, tags } = this.state;
+      const { NewChoice, form_type } = this.state;
       const { question_type, image, question, Choices } = q;
-      const QuestionOptions = SwitchQuestionType(tags);
+      const QuestionOptions = SwitchQuestionOptions(form_type);
       return (
         <Row className="Questions Center borderedRow">
           <Col xs={12}>
@@ -507,7 +506,7 @@ class FormGenerator extends Component {
       title,
       body,
       expiration_date,
-      tags
+      form_type
     } = this.state;
     const {
       loading,
@@ -537,7 +536,7 @@ class FormGenerator extends Component {
                   title,
                   body,
                   expiration_date,
-                  joinStrings(tags),
+                  joinStrings(form_type),
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))
                 )
@@ -567,7 +566,7 @@ class FormGenerator extends Component {
                     title,
                     body,
                     expiration_date,
-                    joinStrings(tags),
+                    joinStrings(form_type),
                     Questions,
                     Recipients.map(r => (r = { recipient: r.value }))
                   )
@@ -720,13 +719,12 @@ class FormGenerator extends Component {
                     </InputGroup.Addon>
                     <Select
                       //https://react-select.com/props
-                      value={tags}
-                      isMulti
+                      value={form_type}
                       styles={selectStyles()}
                       onBlur={e => e.preventDefault()}
                       blurInputOnSelect={false}
                       isClearable
-                      placeholder="Add tags..."
+                      placeholder="Add form type..."
                       className="basic-multi-select"
                       classNamePrefix="select"
                       onChange={this.onSelectTagChange}

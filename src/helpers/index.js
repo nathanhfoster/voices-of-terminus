@@ -377,8 +377,15 @@ const removeDuplicates = (array, objAttr) => {
   return [...map.values()];
 };
 
-const joinStrings = objectArray =>
-  objectArray ? objectArray.map(i => i.value).join("|") : objectArray;
+const joinStrings = objectArray => {
+  if (!objectArray || objectArray.length < 1) {
+    return objectArray;
+  } else if (typeof objectArray === "array") {
+    return objectArray.map(i => i.value).join("|");
+  } else if (typeof objectArray === "object") {
+    return objectArray.value;
+  }
+};
 
 const splitString = string =>
   string

@@ -79,11 +79,11 @@ const PostForm = (
   title,
   body,
   expiration_date,
-  tags,
+  form_type,
   Questions,
   Recipients
 ) => (dispatch, getState) => {
-  const pollPayload = { author, title, expiration_date, tags };
+  const pollPayload = { author, title, expiration_date, form_type };
   dispatch({ type: C.POST_POLLS_LOADING });
   const { Forms } = getState();
   let payload = { ...Forms };
