@@ -381,7 +381,7 @@ const removeDuplicates = (array, objAttr) => {
 const joinStrings = objectArray => {
   if (!objectArray || objectArray.length < 1) {
     return objectArray;
-  } if (typeof objectArray === "array") {
+  } if (Array.isArray(objectArray)) {
     return objectArray.map(i => i.value).join("|");
   } if (typeof objectArray === "object") {
     return objectArray.value;
