@@ -19,49 +19,60 @@ import "./styles.css";
 import "./stylesM.css";
 import ConfirmAction from "../ConfirmAction";
 import Select from "react-select";
-import { PollChoices, switchPollTypeIcon, statusLevelInt } from "../../helpers";
+import {
+  switchPollTypeIcon,
+  statusLevelInt,
+  joinStrings,
+  splitString
+} from "../../helpers";
+import {
+  FormQuestionTypeOptions,
+  SwitchQuestionType,
+  formOptions
+} from "../../helpers/options";
 import { selectStyles } from "../../helpers/styles";
 import { Redirect } from "react-router-dom";
 import { getUsers } from "../../actions/Admin";
 import { withAlert } from "react-alert";
 import {
-  PostPoll,
-  clearPollsApi,
-  GetPoll,
-  GetPollQuestions,
-  GetPollRecipients,
-  UpdatePoll
-} from "../../actions/Polls";
+  PostForm,
+  clearFormApi,
+  GetForm,
+  GetFormQuestions,
+  GetFormRecipients,
+  UpdateForm
+} from "../../actions/Forms";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import { defaultImage } from "../../helpers/defaultProfileImages";
 
-const mapStateToProps = ({ User, Polls, Admin }) => ({ User, Polls, Admin });
+const mapStateToProps = ({ User, Forms, Admin }) => ({ User, Forms, Admin });
 
 const mapDispatchToProps = {
   getUsers,
-  PostPoll,
-  clearPollsApi,
-  GetPoll,
-  GetPollQuestions,
-  GetPollRecipients,
-  UpdatePoll
+  PostForm,
+  clearFormApi,
+  GetForm,
+  GetFormQuestions,
+  GetFormRecipients,
+  UpdateForm
 };
 
-class PollGenerator extends Component {
+class FormGenerator extends Component {
   constructor(props) {
     super(props);
+    this.onSelectTagChange = this.onSelectTagChange.bind(this);
 
     this.state = {
       expiration_date: null,
       NewChoice: "",
-      Polls: [],
+      Forms: [],
       Questions: [
         {
           position: 0,
           question: "",
-          question_type: PollChoices[0].value,
+          question_type: FormQuestionTypeOptions[0].value,
           image: null,
           Choices: []
         }
@@ -75,11 +86,12 @@ class PollGenerator extends Component {
 
   static defaultProps = {
     title: "",
+    tags: [],
     Questions: [
       {
         position: 0,
         question: "",
-        question_type: PollChoices[0].value,
+        question_type: FormQuestionTypeOptions[0].value,
         image: null,
         Choices: []
       }
@@ -113,20 +125,20 @@ class PollGenerator extends Component {
     const {
       getUsers,
       User,
-      GetPoll,
-      GetPollQuestions,
-      GetPollRecipients,
-      clearPollsApi,
+      GetForm,
+      GetFormQuestions,
+      GetFormRecipients,
+      clearFormApi,
       match
     } = this.props;
     const { token } = User;
     const pollId = match.params.id;
     getUsers();
-    clearPollsApi();
+    clearFormApi();
     if (pollId) {
-      GetPoll(token, pollId);
-      GetPollQuestions(token, pollId);
-      GetPollRecipients(token, pollId);
+      GetForm(token, pollId);
+      GetFormQuestions(token, pollId);
+      GetFormRecipients(token, pollId);
     }
   }
 
@@ -135,7 +147,7 @@ class PollGenerator extends Component {
   }
 
   getState = props => {
-    const { Questions, User, Admin, title, match, Polls } = props;
+    const { Questions, User, Admin, title, tags, match, Forms } = props;
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
@@ -143,13 +155,14 @@ class PollGenerator extends Component {
         )
       : [];
     if (pollId) {
-      this.pollPropToState(Polls, User.id, selectOptions);
+      this.pollPropToState(Forms, User.id, selectOptions);
     } else {
       this.setState({
         Questions,
         selectOptions,
         title,
-        Polls
+        tags,
+        Forms
       });
     }
   };
@@ -157,13 +170,13 @@ class PollGenerator extends Component {
   componentDidUpdate(prevProps, prevState) {}
 
   componentWillUnmount() {
-    const { clearPollsApi } = this.props;
-    clearPollsApi();
+    const { clearFormApi } = this.props;
+    clearFormApi();
   }
 
-  pollPropToState = (Polls, userId, selectOptions) => {
-    let { Poll, Questions, Choices, Recipients } = Polls;
-    const { title, expiration_date } = Poll;
+  pollPropToState = (Forms, userId, selectOptions) => {
+    let { Form, Questions, Choices, Recipients } = Forms;
+    const { title, expiration_date, tags } = Form;
     Questions = Questions.map(
       (q, i) =>
         (q = {
@@ -189,8 +202,9 @@ class PollGenerator extends Component {
     );
 
     this.setState({
-      Polls,
+      Forms,
       title,
+      tags: splitString(tags),
       Questions,
       Recipients,
       selectOptions,
@@ -257,6 +271,21 @@ class PollGenerator extends Component {
     }
   };
 
+  onSelectTagChange(tags, { action, removedValue }) {
+    switch (action) {
+      case "remove-value":
+      case "pop-value":
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case "clear":
+        tags = formOptions.filter(v => v.isFixed);
+        break;
+    }
+    this.setState({ tags });
+  }
+
   setImage = e => {
     const { id } = e.target;
     const { alert } = this.props;
@@ -273,8 +302,9 @@ class PollGenerator extends Component {
 
   renderQuestions = Questions =>
     Questions.map((q, i) => {
-      const { NewChoice } = this.state;
+      const { NewChoice, tags } = this.state;
       const { question_type, image, question, Choices } = q;
+      const QuestionOptions = SwitchQuestionType(tags);
       return (
         <Row className="Questions Center borderedRow">
           <Col xs={12}>
@@ -338,7 +368,7 @@ class PollGenerator extends Component {
                     : null
                 }
                 onChange={(e, a) => this.selectOnChange(e, a, i)}
-                options={PollChoices}
+                options={QuestionOptions}
                 isClearable={false}
                 isSearchable={false}
                 onBlur={e => e.preventDefault()}
@@ -467,16 +497,17 @@ class PollGenerator extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   render() {
-    const { User, Admin, PostPoll, UpdatePoll, match, history } = this.props;
+    const { User, Admin, PostForm, UpdateForm, match, history } = this.props;
     const pollId = match.params.id;
     const {
-      Polls,
+      Forms,
       Questions,
       Recipients,
       selectOptions,
       title,
       body,
-      expiration_date
+      expiration_date,
+      tags
     } = this.state;
     const {
       loading,
@@ -486,9 +517,9 @@ class PollGenerator extends Component {
       updating,
       updated,
       error
-    } = Polls;
+    } = Forms;
     return User.is_superuser || User.is_staff ? (
-      <Grid className="PollGenerator Container">
+      <Grid className="FormGenerator Container">
         <Row className="ActionToolbarRow">
           <Col
             md={4}
@@ -499,13 +530,14 @@ class PollGenerator extends Component {
             <Button
               disabled={!(title && expiration_date)}
               onClick={e =>
-                PostPoll(
+                PostForm(
                   User.token,
                   User.id,
                   User.username,
                   title,
                   body,
                   expiration_date,
+                  joinStrings(tags),
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))
                 )
@@ -527,7 +559,7 @@ class PollGenerator extends Component {
               <Button
                 disabled={!pollId}
                 onClick={e =>
-                  UpdatePoll(
+                  UpdateForm(
                     pollId,
                     User.token,
                     User.id,
@@ -568,7 +600,7 @@ class PollGenerator extends Component {
                     {
                       position: Questions.length,
                       question: "",
-                      question_type: PollChoices[0].value,
+                      question_type: FormQuestionTypeOptions[0].value,
                       image: null,
                       Choices: []
                     }
@@ -679,6 +711,29 @@ class PollGenerator extends Component {
                   </InputGroup>
                 </Col>
               )}
+              <Col xs={12}>
+                <FormGroup>
+                  <InputGroup>
+                    <InputGroup.Addon>
+                      <i className="fas fa-tag" />
+                    </InputGroup.Addon>
+                    <Select
+                      //https://react-select.com/props
+                      value={tags}
+                      isMulti
+                      styles={selectStyles()}
+                      onBlur={e => e.preventDefault()}
+                      blurInputOnSelect={false}
+                      isClearable
+                      placeholder="Add tags..."
+                      className="basic-multi-select"
+                      classNamePrefix="select"
+                      onChange={this.onSelectTagChange}
+                      options={formOptions}
+                    />
+                  </InputGroup>
+                </FormGroup>
+              </Col>
             </Row>
           </Form>
         </Row>
@@ -692,5 +747,5 @@ class PollGenerator extends Component {
   }
 }
 export default withAlert(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(PollGenerator)
+  reduxConnect(mapStateToProps, mapDispatchToProps)(FormGenerator)
 );

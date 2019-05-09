@@ -29,7 +29,7 @@ import { getUsers } from "../../actions/Admin";
 import { Redirect } from "react-router-dom";
 import CreatableSelect from "react-select/lib/Creatable";
 import { selectStyles } from "../../helpers/styles";
-import { articleSlectOptions } from "../../helpers/select";
+import { articleSlectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import {
   removeDuplicates,

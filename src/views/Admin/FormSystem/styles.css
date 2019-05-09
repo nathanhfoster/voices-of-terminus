@@ -1,8 +1,8 @@
-.PollSystem .row {
+.FormSystem .row {
   margin-bottom: 16px;
 }
 
-.PollSystem .borderedRow {
+.FormSystem .borderedRow {
   background-color: var(--slate_grey);
 }
 
@@ -10,17 +10,17 @@
   border: 1px solid var(--grey) !important;
 }
 
-.PollSystem .row:hover {
+.FormSystem .row:hover {
   border-color: var(--primaryColor);
   transition: border-color 0.4s;
 }
 
-.PollSystem .form-group span {
+.FormSystem .form-group span {
   margin-right: 8px;
 }
 
-.PollSystem .checkbox.disabled label,
-.PollSystem input[type="checkbox"][disabled] {
+.FormSystem .checkbox.disabled label,
+.FormSystem input[type="checkbox"][disabled] {
   cursor: context-menu;
 }
 

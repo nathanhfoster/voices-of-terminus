@@ -35,7 +35,7 @@ import { Redirect } from "react-router-dom";
 import Select from "react-select";
 import { isEquivalent, isSubset } from "../../helpers";
 import { UserHasPermissions } from "../../helpers/userPermissions";
-import { newsSelectOptions } from "../../helpers/select";
+import { newsSelectOptions } from "../../helpers/options";
 import { selectStyles } from "../../helpers/styles";
 import matchSorter from "match-sorter";
 

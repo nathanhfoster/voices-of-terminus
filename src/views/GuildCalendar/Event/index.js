@@ -19,17 +19,14 @@ import "./stylesM.css";
 import { selectStyles } from "../../../helpers/styles";
 import Select from "react-select";
 import {
-  eventTags,
-  eventTagOptions,
-  locationTags
-} from "../../../helpers/select";
-import {
-  DeepCopy,
   roleOptions,
   IconOption,
   classOptions,
-  joinStrings
-} from "../../../helpers";
+  eventTags,
+  eventTagOptions,
+  locationTags
+} from "../../../helpers/options";
+import { DeepCopy, joinStrings } from "../../../helpers";
 import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Tooltip from "rc-tooltip";
@@ -415,10 +412,7 @@ class Event extends PureComponent {
       error
     } = Events;
     const raidSelected = tags.map(e => e.value).includes("Raid");
-    return !UserHasPermissions(
-      User,
-      "add_event"
-    ) ? (
+    return !UserHasPermissions(User, "add_event") ? (
       history.length > 1 ? (
         <Redirect to={history.goBack()} />
       ) : (

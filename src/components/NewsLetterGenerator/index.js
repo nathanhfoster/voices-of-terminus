@@ -33,7 +33,7 @@ import Cards from "../Cards";
 import CreatableSelect from "react-select/lib/Creatable";
 import { getImageBase64 } from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
-import { newsletterSelectOptions } from "../../helpers/select";
+import { newsletterSelectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import { removeDuplicates, joinStrings, splitString } from "../../helpers";
 const { REACT_APP_UNLAYER_API_KEY } = process.env;
@@ -338,7 +338,7 @@ class NewsLetterGenerator extends PureComponent {
                   type="text"
                   placeholder="Title"
                   name="title"
-                  onChange={this.onChange.bind(this)}
+                  onChange={() => this.onChange}
                 />
               </InputGroup>
             </FormGroup>

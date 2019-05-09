@@ -28,14 +28,13 @@ import {
 import Select from "react-select";
 import "./styles.css";
 import "./stylesM.css";
+import { hasCharAfterSpace, roleClassIcon } from "../../helpers";
 import {
   raceRoleClassOptions,
   raceOptions,
   professionOptions,
-  professionSpecializationOptions,
-  hasCharAfterSpace,
-  roleClassIcon
-} from "../../helpers";
+  professionSpecializationOptions
+} from "../../helpers/options";
 import { selectStyles } from "../../helpers/styles";
 import FormData from "form-data";
 import { withAlert } from "react-alert";

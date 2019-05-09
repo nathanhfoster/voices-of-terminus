@@ -19,7 +19,7 @@ import { Link } from "react-router-dom";
 import Select from "react-select";
 import CreatableSelect from "react-select/lib/Creatable";
 import { joinStrings, splitString, isEquivalent } from "../../../../helpers";
-import { galleryImageTags } from "../../../../helpers/select";
+import { galleryImageTags } from "../../../../helpers/options";
 import { selectStyles } from "../../../../helpers/styles";
 import { UserHasPermissions } from "../../../../helpers/userPermissions";
 import { connect as reduxConnect } from "react-redux";

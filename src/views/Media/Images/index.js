@@ -21,7 +21,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { joinStrings, splitString, isEquivalent } from "../../../helpers";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
-import { galleryImageTags } from "../../../helpers/select";
+import { galleryImageTags } from "../../../helpers/options";
 import { selectStyles } from "../../../helpers/styles";
 import {
   getGalleries,

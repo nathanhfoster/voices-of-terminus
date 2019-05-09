@@ -28,8 +28,8 @@ export const ApiResponse = (state = {}, action) =>
       ? action.payload
       : {}
     : action.type === C.CLEAR_API_RESPONSE
-      ? {}
-      : state;
+    ? {}
+    : state;
 
 export const VoTYouTubeChannelData = (state = [], action) =>
   action.type === C.GET_VOT_YOUTUBE_CHANNEL_DATA ? action.payload : state;
@@ -194,8 +194,8 @@ export const HtmlDocument = (state = null, action) =>
   action.type === C.GET_HTML_DOCUMENT
     ? action.payload
     : action.type === C.CLEAR_HTML_DOCUMENT
-      ? null
-      : state;
+    ? null
+    : state;
 
 export const User = (
   state = {
@@ -302,10 +302,10 @@ export const Messages = (
   }
 };
 
-export const Polls = (
+export const Forms = (
   state = {
     results: [],
-    Poll: {},
+    Form: {},
     Questions: [],
     Choices: [],
     Responses: { results: [] },
@@ -335,7 +335,7 @@ export const Polls = (
         ...payload
       };
     case C.GET_POLL:
-      return { ...state, Poll: payload };
+      return { ...state, Form: payload };
     case C.POST_POLLS_LOADING:
       return {
         ...state,
@@ -428,7 +428,7 @@ export const Polls = (
         updating: false,
         updated: false,
         error: null,
-        Poll: {}
+        Form: {}
       };
     default:
       return { ...state };
@@ -675,7 +675,7 @@ export const appReducer = combineReducers({
   HtmlDocument,
   Messages,
   Newsletters,
-  Polls,
+  Forms,
   User,
   VotAllYouTubeChannelData,
   VotChannelsPlaylist,

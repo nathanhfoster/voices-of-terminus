@@ -19,7 +19,8 @@ import { postTicket } from "../../../../actions/Tickets";
 import { withAlert } from "react-alert";
 import Select from "react-select";
 import CreatableSelect from "react-select/lib/Creatable";
-import { ticketTypeOptions, joinStrings } from "../../../../helpers";
+import { joinStrings } from "../../../../helpers";
+import { ticketTypeOptions } from "../../../../helpers/options";
 import { selectStyles } from "../../../../helpers/styles";
 import "./styles.css";
 

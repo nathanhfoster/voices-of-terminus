@@ -12,11 +12,11 @@ import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Image } from "react-bootstrap";
 
 import Admin from "./views/Admin";
-import PollSystem from "./views/Admin/PollSystem";
+import FormSystem from "./views/Admin/FormSystem";
 import TicketDetails from "./views/Admin/TicketsTable/TicketDetails";
 import TicketSystem from "./views/Profile/TicketSystem";
 import Ticket from "./views/Profile/TicketSystem/Ticket";
-import PollGenerator from "./components/PollGenerator";
+import FormGenerator from "./components/FormGenerator";
 import BackgroundImage from "./components/BackgroundImage";
 import UserProfile from "./views/Admin/UserProfile";
 import NavBar from "./components/NavBar";
@@ -113,12 +113,12 @@ class App extends PureComponent {
         { path: "/admin/tickets", component: Admin },
         { path: "/admin/view/ticket/:id", component: TicketDetails },
         { path: "/admin/edit/user/:id", component: UserProfile },
-        { path: "/polls", component: PollSystem },
-        { path: "/polls/:id", component: PollSystem },
-        { path: "/polls/:id/respond", component: PollSystem },
-        { path: "/polls/:id/results", component: PollSystem },
-        { path: "/poll/new/", component: PollGenerator },
-        { path: "/poll/edit/:id", component: PollGenerator },
+        { path: "/forms", component: FormSystem },
+        { path: "/forms/:id", component: FormSystem },
+        { path: "/forms/:id/respond", component: FormSystem },
+        { path: "/forms/:id/results", component: FormSystem },
+        { path: "/form/new/", component: FormGenerator },
+        { path: "/form/edit/:id", component: FormGenerator },
         { path: "/view/article/:id", component: ViewHtmlDocument },
         { path: "/article/new", component: TextEditor },
         { path: "/article/edit/:id", component: TextEditor },
@@ -320,21 +320,21 @@ class App extends PureComponent {
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (
-        <div className="App">
-          <NavBar history={history} location={location} match={match} />
-          <BackgroundImage history={history} location={location} match={match} />
-          <div
-            className="routeOverlay"
-            style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
-          >
-            <Switch>
-              {this.renderRouteItems(routeItems)}
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-          <Footer history={history} location={location} match={match} />
+      <div className="App">
+        <NavBar history={history} location={location} match={match} />
+        <BackgroundImage history={history} location={location} match={match} />
+        <div
+          className="routeOverlay"
+          style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
+        >
+          <Switch>
+            {this.renderRouteItems(routeItems)}
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
-      );
+        <Footer history={history} location={location} match={match} />
+      </div>
+    );
   }
 }
 

@@ -21,7 +21,8 @@ import {
 import { getCharacters } from "../../../actions/User";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
-import { roleClassIcon, classOptions } from "../../../helpers";
+import { roleClassIcon } from "../../../helpers";
+import { classOptions } from "../../../helpers/options";
 import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Events }) => ({ User, Events });

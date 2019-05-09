@@ -3,18 +3,18 @@ import { Axios } from "./Axios";
 import { createMessageGroup } from "./Messages";
 import qs from "qs";
 
-const GetPoll = (token, id) => dispatch => {
+const GetForm = (token, id) => dispatch => {
   Axios(token)
-    .get(`/polls/${id}/`)
-    .then(poll => {
-      dispatch({ type: C.GET_POLL, payload: poll.data });
+    .get(`/forms/${id}/`)
+    .then(form => {
+      dispatch({ type: C.GET_POLL, payload: form.data });
     })
     .catch(e => console.log(e, "token and id: ", token, id));
 };
 
-const GetPollQuestions = (token, pollId) => async dispatch =>
+const GetFormQuestions = (token, pollId) => async dispatch =>
   await Axios(token)
-    .get(`/poll/questions/${pollId}/view/`)
+    .get(`/form/questions/${pollId}/view/`)
     .then(questions => {
       dispatch({ type: C.GET_QUESTIONS, payload: questions.data });
       dispatch(GetQuestionChoices(token, questions.data));
@@ -26,7 +26,7 @@ const GetQuestionChoices = (token, Questions) => async (dispatch, getState) => {
   for (let i = 0; i < Questions.length; i++) {
     const questionId = Questions[i].id;
     await Axios(token)
-      .get(`/poll/choices/${questionId}/view/`)
+      .get(`/form/choices/${questionId}/view/`)
       .then(responses => {
         payload.push(responses.data);
         dispatch({
@@ -40,12 +40,12 @@ const GetQuestionChoices = (token, Questions) => async (dispatch, getState) => {
 };
 
 const GetChoiceResponses = token => async (dispatch, getState) => {
-  const Choices = getState().Polls.Choices.flat(2);
+  const Choices = getState().Forms.Choices.flat(2);
   let payload = { results: [] };
   for (let i = 0; i < Choices.length; i++) {
     const choiceId = Choices[i].id;
     await Axios(token)
-      .get(`/poll/responses/${choiceId}/view/`)
+      .get(`/form/responses/${choiceId}/view/`)
       .then(responses => {
         payload.results.push(responses.data);
         dispatch({ type: C.GET_RESPONSES, payload: payload });
@@ -54,44 +54,45 @@ const GetChoiceResponses = token => async (dispatch, getState) => {
   }
 };
 
-const GetPollRecipients = (token, pollId) => async dispatch =>
+const GetFormRecipients = (token, pollId) => async dispatch =>
   await Axios(token)
-    .get(`/poll/recipients/${pollId}/view/`)
+    .get(`/form/recipients/${pollId}/view/`)
     .then(recipients => {
       dispatch({ type: C.GET_RECIPIENTS, payload: recipients.data });
     })
     .catch(e => console.log(e));
 
-const GetPolls = token => dispatch => {
+const GetForms = token => dispatch => {
   dispatch({ type: C.GET_POLLS_LOADING });
   return Axios(token)
-    .get("/polls/")
-    .then(polls => {
-      dispatch({ type: C.GET_POLLS_SUCCESS, payload: polls.data });
+    .get("/forms/")
+    .then(forms => {
+      dispatch({ type: C.GET_POLLS_SUCCESS, payload: forms.data });
     })
     .catch(e => console.log(e));
 };
 
-const PostPoll = (
+const PostForm = (
   token,
   author,
   username,
   title,
   body,
   expiration_date,
+  tags,
   Questions,
   Recipients
 ) => (dispatch, getState) => {
-  const pollPayload = { author, title, expiration_date };
+  const pollPayload = { author, title, expiration_date, tags };
   dispatch({ type: C.POST_POLLS_LOADING });
-  const { Polls } = getState();
-  let payload = { ...Polls };
+  const { Forms } = getState();
+  let payload = { ...Forms };
   return Axios(token)
-    .post("/polls/", qs.stringify(pollPayload))
-    .then(poll => {
-      const { id } = poll.data;
+    .post("/forms/", qs.stringify(pollPayload))
+    .then(form => {
+      const { id } = form.data;
 
-      payload.results.unshift(poll.data);
+      payload.results.unshift(form.data);
 
       // dispatch({
       //   type: C.GET_POLLS_SUCCESS,
@@ -101,7 +102,7 @@ const PostPoll = (
       dispatch(PostQuestions(author, id, token, Questions));
       dispatch(PostRecipients(id, token, Recipients));
 
-      const uri = `/polls/${id}/respond`;
+      const uri = `/forms/${id}/respond`;
       const MessageGroupRecipients = Recipients.map(r => r.recipient);
       dispatch(
         createMessageGroup(
@@ -118,13 +119,11 @@ const PostPoll = (
     .catch(e => console.log(e));
 };
 
-const PostQuestions = (
-  author,
-  poll_id,
-  token,
-  Questions
-) => async (dispatch, getState) => {
-  let payload = getState().Polls.Questions;
+const PostQuestions = (author, form_id, token, Questions) => async (
+  dispatch,
+  getState
+) => {
+  let payload = getState().Forms.Questions;
   for (let i = 0; i < Questions.length; i++) {
     const { question, question_type, image, Choices, position } = Questions[i];
     const pollQuestionPayload = {
@@ -132,12 +131,12 @@ const PostQuestions = (
       question,
       question_type,
       image,
-      poll_id,
+      form_id,
       position
     };
 
     await Axios(token)
-      .post("poll/questions/", qs.stringify(pollQuestionPayload))
+      .post("form/questions/", qs.stringify(pollQuestionPayload))
       .then(question => {
         const question_id = question.data.id;
         payload.push(question.data);
@@ -151,13 +150,16 @@ const PostQuestions = (
   // });
 };
 
-const PostChoices = (author, question_id, token, Choices) => async (dispatch, getState) => {
+const PostChoices = (author, question_id, token, Choices) => async (
+  dispatch,
+  getState
+) => {
   let payload = [];
   for (let i = 0; i < Choices.length; i++) {
     const { title, position } = Choices[i];
     const choicePayload = { author, title, question_id, position };
     await Axios(token)
-      .post("poll/choices/", qs.stringify(choicePayload))
+      .post("form/choices/", qs.stringify(choicePayload))
       .then(response => {
         // payload.push(response.data);
         // dispatch({ type: C.GET_CHOICES, payload: payload });
@@ -165,13 +167,16 @@ const PostChoices = (author, question_id, token, Choices) => async (dispatch, ge
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
 };
-const PostRecipients = (recipient_poll_id, token, Recipients) => async (dispatch, getState) => {
-  const payload = getState().Polls.Recipients;
+const PostRecipients = (recipient_poll_id, token, Recipients) => async (
+  dispatch,
+  getState
+) => {
+  const payload = getState().Forms.Recipients;
   for (let i = 0; i < Recipients.length; i++) {
     const { recipient } = Recipients[i];
     const recipientPayload = { recipient, recipient_poll_id };
     await Axios(token)
-      .post("poll/recipients/", qs.stringify(recipientPayload))
+      .post("form/recipients/", qs.stringify(recipientPayload))
       .then(res => {
         payload.push(res.data);
       })
@@ -188,7 +193,7 @@ const PostResponse = (token, payload, question_type) => async (
 
   if (isText) dispatch({ type: C.POST_RESPONSE_LOADING });
   return await Axios(token)
-    .post("poll/responses/", qs.stringify(payload))
+    .post("form/responses/", qs.stringify(payload))
     .then(response => {
       if (isText) dispatch({ type: C.POST_RESPONSE_SUCCESS });
       dispatch(GetChoiceResponses(token));
@@ -209,7 +214,7 @@ const EditResponse = (token, id, payload, question_type) => async (
 ) => {
   dispatch({ type: C.POST_RESPONSE_LOADING });
   return await Axios(token)
-    .patch(`poll/responses/${id}/`, qs.stringify(payload))
+    .patch(`form/responses/${id}/`, qs.stringify(payload))
     .then(response => {
       dispatch({ type: C.POST_RESPONSE_SUCCESS });
       dispatch(GetChoiceResponses(token));
@@ -224,12 +229,12 @@ const EditResponse = (token, id, payload, question_type) => async (
     });
 };
 
-const DeletePoll = (token, id) => async (dispatch, getState) => {
-  const { Polls } = getState();
-  let payload = { ...Polls };
+const DeleteForm = (token, id) => async (dispatch, getState) => {
+  const { Forms } = getState();
+  let payload = { ...Forms };
   dispatch({ type: C.GET_POLLS_LOADING });
   return await Axios(token)
-    .delete(`/polls/${id}/`)
+    .delete(`/forms/${id}/`)
     .then(res => {
       payload.results = payload.results.filter(r => r.id != id);
       dispatch({ type: C.GET_POLLS_SUCCESS, payload: payload });
@@ -237,7 +242,7 @@ const DeletePoll = (token, id) => async (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-const UpdatePoll = (
+const UpdateForm = (
   pollId,
   token,
   author,
@@ -256,29 +261,24 @@ const UpdatePoll = (
   };
 
   dispatch({ type: C.UPDATE_POLLS_LOADING });
-  const { Polls } = getState();
-  let payload = { ...Polls };
-  const currentQuestions = Polls.Questions;
+  const { Forms } = getState();
+  let payload = { ...Forms };
+  const currentQuestions = Forms.Questions;
   const questionsToPost = Questions.filter(q => !q.id);
   const questionsToUpdate = Questions.filter(q => q.id);
   const questionsToDelete = currentQuestions.filter(
     q => !Questions.some(e => e.id === q.id)
   );
   await Axios(token)
-    .patch(`/polls/${pollId}/`, qs.stringify(pollPayload))
-    .then(poll => {
+    .patch(`/forms/${pollId}/`, qs.stringify(pollPayload))
+    .then(form => {
       const indexToUpdate = payload.results.findIndex(p => p.id === pollId);
-      payload.Poll = poll.data;
-      payload.results[indexToUpdate] = poll.data;
+      payload.Form = form.data;
+      payload.results[indexToUpdate] = form.data;
 
       dispatch(PostQuestions(author, pollId, token, questionsToPost));
 
-      dispatch(UpdateQuestions(
-        author,
-        pollId,
-        token,
-        questionsToUpdate
-      ));
+      dispatch(UpdateQuestions(author, pollId, token, questionsToUpdate));
 
       dispatch(DeleteQuestions(token, questionsToDelete));
 
@@ -289,51 +289,43 @@ const UpdatePoll = (
     .catch(e => console.log(e));
 };
 
-const UpdateQuestions = (
-  author,
-  poll_id,
-  token,
-  Questions
-) => async (dispatch, getState) => {
-  const { Polls } = getState();
-  const currentChoices = Polls.Choices;
-  let payload = Polls.Questions;
+const UpdateQuestions = (author, form_id, token, Questions) => async (
+  dispatch,
+  getState
+) => {
+  const { Forms } = getState();
+  const currentChoices = Forms.Choices;
+  let payload = Forms.Questions;
   for (let i = 0; i < Questions.length; i++) {
     const { id, question, question_type, Choices, position } = Questions[i];
     const pollQuestionPayload = {
       author,
       question,
       question_type,
-      poll_id,
+      form_id,
       last_modified_by: author,
       position
     };
 
     await Axios(token)
-      .patch(`poll/questions/${id}/`, qs.stringify(pollQuestionPayload))
+      .patch(`form/questions/${id}/`, qs.stringify(pollQuestionPayload))
       .then(question => {
         const question_id = question.data.id;
         const updateIndex = payload.findIndex(q => q.id === question.id);
         payload[updateIndex] = question.data;
         dispatch({ type: C.GET_QUESTIONS, payload: payload });
-        dispatch(UpdateChoices(
-          author,
-          question_id,
-          token,
-          Choices,
-          Questions
-        ));
+        dispatch(UpdateChoices(author, question_id, token, Choices, Questions));
       })
       .catch(e => console.log(e, "UpdateQuestions: ", pollQuestionPayload));
   }
 };
 
 const DeleteQuestions = (token, Questions) => async (dispatch, getState) => {
-  let payload = getState().Polls.Questions;
+  let payload = getState().Forms.Questions;
   for (let i = 0; i < Questions.length; i++) {
     const { id } = Questions[i];
     await Axios(token)
-      .delete(`poll/questions/${id}/`)
+      .delete(`form/questions/${id}/`)
       .then(res => {
         payload = payload.filter(q => q.id != id);
         dispatch({ type: C.GET_QUESTIONS, payload: payload });
@@ -350,7 +342,7 @@ const UpdateChoices = (
   Questions
 ) => async (dispatch, getState) => {
   const currentChoices = getState()
-    .Polls.Choices.flat(2)
+    .Forms.Choices.flat(2)
     .filter(c => c.question_id === question_id);
   const choicesToPost = Choices.filter(c => !c.id);
   const choicesToUpdate = Choices.filter(q => q.id);
@@ -359,7 +351,7 @@ const UpdateChoices = (
   );
   dispatch(PostChoices(author, question_id, token, choicesToPost));
   dispatch(DeleteChoices(token, choicesToDelete));
-  let payload = [...getState().Polls.Choices];
+  let payload = [...getState().Forms.Choices];
 
   for (let i = 0; i < choicesToUpdate.length; i++) {
     const { id, title, position } = choicesToUpdate[i];
@@ -371,20 +363,20 @@ const UpdateChoices = (
       position
     };
     await Axios(token)
-      .patch(`poll/choices/${id}/`, qs.stringify(choicePayload))
-      .then(choice => { })
+      .patch(`form/choices/${id}/`, qs.stringify(choicePayload))
+      .then(choice => {})
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
   dispatch(GetQuestionChoices(token, Questions));
 };
 
 const DeleteChoices = (token, Choices) => async (dispatch, getState) => {
-  let payload = [...getState().Polls.Choices];
+  let payload = [...getState().Forms.Choices];
   for (let i = 0; i < Choices.length; i++) {
     const { id, title } = Choices[i];
 
     await Axios(token)
-      .delete(`poll/choices/${id}/`)
+      .delete(`form/choices/${id}/`)
       .then(choice => {
         payload = payload.filter(c => c.id != choice.data.id);
         dispatch({ type: C.GET_CHOICES, payload: payload });
@@ -393,12 +385,11 @@ const DeleteChoices = (token, Choices) => async (dispatch, getState) => {
   }
 };
 
-const UpdateRecipients = (
-  recipient_poll_id,
-  token,
-  Recipients
-) => (dispatch, getState) => {
-  const currentRecipients = getState().Polls.Recipients;
+const UpdateRecipients = (recipient_poll_id, token, Recipients) => (
+  dispatch,
+  getState
+) => {
+  const currentRecipients = getState().Forms.Recipients;
 
   const recipientsToPost = Recipients.filter(
     r => !currentRecipients.some(e => e.recipient === r.recipient)
@@ -413,12 +404,12 @@ const UpdateRecipients = (
 };
 
 const deleteRecipients = (token, Recipients) => async (dispatch, getState) => {
-  const currentRecipients = getState().Polls.Recipients;
+  const currentRecipients = getState().Forms.Recipients;
   let payload = [...currentRecipients];
   for (let i = 0; i < Recipients.length; i++) {
     const { id, recipient } = Recipients[i];
     await Axios(token)
-      .delete(`poll/recipients/${id}/`)
+      .delete(`form/recipients/${id}/`)
       .then(res => {
         payload = payload.filter(r => r.recipient != recipient);
         dispatch({ type: C.GET_RECIPIENTS, payload: payload });
@@ -427,30 +418,30 @@ const deleteRecipients = (token, Recipients) => async (dispatch, getState) => {
   }
 };
 
-const clearPollsApi = () => ({ type: C.CLEAR_POLLS_API });
+const clearFormApi = () => ({ type: C.CLEAR_POLLS_API });
 
 const clearResponses = () => ({ type: C.CLEAR_RESPONSES });
 
 export {
-  GetPoll,
-  GetPollQuestions,
+  GetForm,
+  GetFormQuestions,
   GetQuestionChoices,
   GetChoiceResponses,
-  GetPollRecipients,
-  GetPolls,
-  PostPoll,
+  GetFormRecipients,
+  GetForms,
+  PostForm,
   PostQuestions,
   PostChoices,
   PostRecipients,
   PostResponse,
   EditResponse,
-  DeletePoll,
-  UpdatePoll,
+  DeleteForm,
+  UpdateForm,
   UpdateQuestions,
   DeleteQuestions,
   UpdateChoices,
   DeleteChoices,
   deleteRecipients,
-  clearPollsApi,
+  clearFormApi,
   clearResponses
 };

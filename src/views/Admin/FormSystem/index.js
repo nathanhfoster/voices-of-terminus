@@ -20,40 +20,40 @@ import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
 import {
-  GetPoll,
-  GetPollQuestions,
-  GetPollRecipients,
-  GetPolls,
+  GetForm,
+  GetFormQuestions,
+  GetFormRecipients,
+  GetForms,
   PostResponse,
   clearResponses,
   EditResponse,
-  DeletePoll,
-  clearPollsApi
-} from "../../../actions/Polls";
+  DeleteForm,
+  clearFormApi
+} from "../../../actions/Forms";
 import Moment from "react-moment";
 import { withAlert } from "react-alert";
 import { Redirect } from "react-router-dom";
 import ConfirmAction from "../../../components/ConfirmAction";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 
-const mapStateToProps = ({ User, Polls }) => ({
+const mapStateToProps = ({ User, Forms }) => ({
   User,
-  Polls
+  Forms
 });
 
 const mapDispatchToProps = {
-  GetPoll,
-  GetPollQuestions,
-  GetPollRecipients,
-  GetPolls,
+  GetForm,
+  GetFormQuestions,
+  GetFormRecipients,
+  GetForms,
   PostResponse,
   clearResponses,
   EditResponse,
-  DeletePoll,
-  clearPollsApi
+  DeleteForm,
+  clearFormApi
 };
 
-class PollSystem extends Component {
+class FormSystem extends Component {
   constructor(props) {
     super(props);
 
@@ -75,22 +75,22 @@ class PollSystem extends Component {
   componentDidMount() {
     const {
       User,
-      GetPoll,
-      GetPollQuestions,
-      GetPollRecipients,
-      GetPolls,
-      clearPollsApi,
+      GetForm,
+      GetFormQuestions,
+      GetFormRecipients,
+      GetForms,
+      clearFormApi,
       match
     } = this.props;
     const { token } = User;
     const pollId = match.params.id;
-    clearPollsApi();
+    clearFormApi();
     if (pollId) {
-      GetPoll(token, pollId);
-      GetPollQuestions(token, pollId);
-      GetPollRecipients(token, pollId);
+      GetForm(token, pollId);
+      GetFormQuestions(token, pollId);
+      GetFormRecipients(token, pollId);
     } else {
-      GetPolls(token);
+      GetForms(token);
     }
   }
 
@@ -99,16 +99,16 @@ class PollSystem extends Component {
   }
 
   getState = props => {
-    const { User, Polls, match, history } = props;
+    const { User, Forms, match, history } = props;
     const pollId = match.params.id;
-    const { Poll, Questions, Choices, Responses, Recipients } = Polls;
+    const { Form, Questions, Choices, Responses, Recipients } = Forms;
     const { pathname } = history.location;
-    const { expiration_date } = Poll;
+    const { expiration_date } = Form;
     const expired = new Date(expiration_date) - new Date() < 0 ? true : false;
     this.setState({
       User,
-      Polls,
-      Poll,
+      Forms,
+      Form,
       Questions,
       Choices,
       Responses,
@@ -121,28 +121,28 @@ class PollSystem extends Component {
   };
 
   componentWillUpdate(nextProps, nextState) {
-    const { User, GetPollQuestions } = nextProps;
+    const { User, GetFormQuestions } = nextProps;
     const currentPollId = this.state.pollId;
     const nextPollId = nextState.pollId;
     const { token } = User;
 
     if (currentPollId != nextPollId) {
-      GetPoll(token, nextPollId);
-      GetPollQuestions(token, nextPollId);
-      GetPollRecipients(token, nextPollId);
+      GetForm(token, nextPollId);
+      GetFormQuestions(token, nextPollId);
+      GetFormRecipients(token, nextPollId);
     }
   }
 
   componentWillUnmount() {
-    const { clearPollsApi, clearResponses } = this.props;
-    clearPollsApi();
+    const { clearFormApi, clearResponses } = this.props;
+    clearFormApi();
     clearResponses();
   }
 
-  renderPolls = Polls => {
-    const { User, DeletePoll } = this.props;
+  renderPolls = Forms => {
+    const { User, DeleteForm } = this.props;
     const { history } = this.state;
-    return Polls.map(p => {
+    return Forms.map(p => {
       const {
         id,
         title,
@@ -155,7 +155,7 @@ class PollSystem extends Component {
         <Row
           className="borderedRow"
           key={id}
-          onClick={() => history.push(`/polls/${id}`)}
+          onClick={() => history.push(`/forms/${id}`)}
         >
           <Col xs={8}>
             <h3>
@@ -168,7 +168,7 @@ class PollSystem extends Component {
             componentClass={ButtonToolbar}
           >
             <ConfirmAction
-              Action={e => DeletePoll(User.token, id)}
+              Action={e => DeleteForm(User.token, id)}
               Disabled={false}
               Icon={<i className="fas fa-trash" />}
               hasPermission={UserHasPermissions(User, "delete_poll")}
@@ -179,7 +179,7 @@ class PollSystem extends Component {
               <Button
                 onClick={e => {
                   e.stopPropagation();
-                  history.push(`/poll/edit/${id}`);
+                  history.push(`/form/edit/${id}`);
                 }}
                 className="pull-right"
               >
@@ -229,7 +229,7 @@ class PollSystem extends Component {
         }}
       >
         <Tab
-          eventKey={`/polls/${pollId}/respond`}
+          eventKey={`/forms/${pollId}/respond`}
           title={"Respond"}
           unmountOnExit={true}
         >
@@ -274,7 +274,7 @@ class PollSystem extends Component {
           })}
         </Tab>
         <Tab
-          eventKey={`/polls/${pollId}/results`}
+          eventKey={`/forms/${pollId}/results`}
           title={"Results"}
           unmountOnExit={true}
         >
@@ -308,7 +308,7 @@ class PollSystem extends Component {
         </Tab>
       </Tabs>
     ) : (
-      <h1>You don't have permission to view this poll.</h1>
+      <h1>You don't have permission to view this form.</h1>
     );
   };
 
@@ -577,8 +577,8 @@ class PollSystem extends Component {
   render() {
     const {
       User,
-      Polls,
-      Poll,
+      Forms,
+      Form,
       Questions,
       Choices,
       Responses,
@@ -595,7 +595,7 @@ class PollSystem extends Component {
       id,
       last_modified,
       title
-    } = Poll;
+    } = Form;
     const expired = new Date(expiration_date) - new Date() < 0;
     const isAuthor = author === User.id;
     const isRecipient = Recipients.some(e => User.id === e.recipient);
@@ -607,11 +607,11 @@ class PollSystem extends Component {
         eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
-      <Redirect to={`/polls/${pollId}/respond`} />
+      <Redirect to={`/forms/${pollId}/respond`} />
     ) : (
-      <Grid className="PollSystem Container">
+      <Grid className="FormSystem Container">
         <Row>
-          <PageHeader className="pageHeader">POLLS</PageHeader>
+          <PageHeader className="pageHeader">FORMS</PageHeader>
         </Row>
         <Row>
           <h1 className="Center">{title}</h1>
@@ -632,24 +632,24 @@ class PollSystem extends Component {
             componentClass={ButtonToolbar}
           >
             {UserHasPermissions(User, "add_poll") && (
-              <Button onClick={() => history.push("/poll/new/")}>
-                <i className="fas fa-plus" /> Poll
+              <Button onClick={() => history.push("/form/new/")}>
+                <i className="fas fa-plus" /> Form
               </Button>
             )}
             {pollId && UserHasPermissions(User, "change_poll") && (
-              <Button onClick={() => history.push(`/poll/edit/${pollId}`)}>
-                <i className="fa fa-pencil-alt" /> Poll
+              <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
+                <i className="fa fa-pencil-alt" /> Form
               </Button>
             )}
           </Col>
         </Row>
         {pollId
           ? this.renderQuestions(User, Questions, Choices, Responses, canView)
-          : this.renderPolls(Polls.results)}
+          : this.renderPolls(Forms.results)}
       </Grid>
     );
   }
 }
 export default withAlert(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(PollSystem)
+  reduxConnect(mapStateToProps, mapDispatchToProps)(FormSystem)
 );
