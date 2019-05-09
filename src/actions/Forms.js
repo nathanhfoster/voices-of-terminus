@@ -250,6 +250,7 @@ const UpdateForm = (
   title,
   body,
   expiration_date,
+  tags,
   Questions,
   Recipients
 ) => async (dispatch, getState) => {
@@ -257,7 +258,8 @@ const UpdateForm = (
     author,
     title,
     last_modified_by: author,
-    expiration_date
+    expiration_date,
+    tags
   };
 
   dispatch({ type: C.UPDATE_POLLS_LOADING });

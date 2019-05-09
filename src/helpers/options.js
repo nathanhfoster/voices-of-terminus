@@ -666,6 +666,7 @@ const FormQuestionTypeOptions = [
 ];
 
 const SwitchQuestionType = tags => {
+  if (!tags) return FormQuestionTypeOptions;
   if (tags.length < 1) return FormQuestionTypeOptions;
   const tag = tags[0].value;
 

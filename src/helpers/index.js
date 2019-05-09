@@ -377,17 +377,20 @@ const removeDuplicates = (array, objAttr) => {
   return [...map.values()];
 };
 
-const joinStrings = objectArray => objectArray.map(i => i.value).join("|");
+const joinStrings = objectArray =>
+  objectArray ? objectArray.map(i => i.value).join("|") : objectArray;
 
 const splitString = string =>
-  string.split("|").map(
-    i =>
-      (i = {
-        value: i,
-        label: i,
-        isFixed: i === "Article" || i === "Newsletter"
-      })
-  );
+  string
+    ? string.split("|").map(
+        i =>
+          (i = {
+            value: i,
+            label: i,
+            isFixed: i === "Article" || i === "Newsletter"
+          })
+      )
+    : string;
 
 const GetUserPermissions = user_permissions =>
   ReduxStore.getState().AuthenticationAndAuthorization.AllUserPermissions.filter(

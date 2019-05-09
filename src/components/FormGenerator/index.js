@@ -567,6 +567,7 @@ class FormGenerator extends Component {
                     title,
                     body,
                     expiration_date,
+                    joinStrings(tags),
                     Questions,
                     Recipients.map(r => (r = { recipient: r.value }))
                   )
