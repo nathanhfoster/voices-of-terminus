@@ -100,6 +100,8 @@ class BackgroundImage extends PureComponent {
         return bg9;
       case "/guild/join":
         return bg9;
+      case "/guild/donate":
+        return bg9;
       case "/forums":
         return bg9;
       case "/login":
