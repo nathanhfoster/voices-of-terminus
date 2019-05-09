@@ -73,7 +73,7 @@ const hasCharAfterSpace = string => {
 
   return true;
 };
-// arr1.some(e => arr2.includes(e));
+// arr2.every(e => arr1.includes(e))
 const isSubset = (arr1, arr2) => {
   // console.log(arr1, arr2);
   const hset = new Map();
