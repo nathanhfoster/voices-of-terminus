@@ -381,11 +381,12 @@ const removeDuplicates = (array, objAttr) => {
 const joinStrings = objectArray => {
   if (!objectArray || objectArray.length < 1) {
     return objectArray;
-  } else if (typeof objectArray === "array") {
+  } if (typeof objectArray === "array") {
     return objectArray.map(i => i.value).join("|");
-  } else if (typeof objectArray === "object") {
+  } if (typeof objectArray === "object") {
     return objectArray.value;
   }
+  return objectArray;
 };
 
 const splitString = string =>
