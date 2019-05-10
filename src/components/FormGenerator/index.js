@@ -27,7 +27,8 @@ import {
 import {
   FormQuestionTypeOptions,
   SwitchQuestionOptions,
-  formOptions
+  formOptions,
+  formTypeIcon
 } from "../../helpers/options";
 import { selectStyles } from "../../helpers/styles";
 import { Redirect } from "react-router-dom";
@@ -67,7 +68,18 @@ class FormGenerator extends Component {
       expiration_date: null,
       NewChoice: "",
       Forms: [],
-      Questions: null,
+      title: "",
+      form_type: { value: "Form", label: "Form" },
+      Questions: [
+        {
+          showImage: false,
+          position: 0,
+          question: "",
+          question_type: FormQuestionTypeOptions[0].value,
+          image: null,
+          Choices: []
+        }
+      ],
       Recipients: [],
       selectOptions: []
     };
@@ -75,19 +87,7 @@ class FormGenerator extends Component {
 
   static propTypes = {};
 
-  static defaultProps = {
-    title: "",
-    form_type: [],
-    Questions: [
-      {
-        position: 0,
-        question: "",
-        question_type: FormQuestionTypeOptions[0].value,
-        image: null,
-        Choices: []
-      }
-    ]
-  };
+  static defaultProps = {};
 
   setExpirationDate = expiration_date =>
     this.setState({
@@ -138,10 +138,7 @@ class FormGenerator extends Component {
   }
 
   getState = props => {
-    const { User, Admin,  match, Forms } = props;
-    const { Questions } = this.state.Questions ? this.state : props;
-    const { title } = this.state.title ? this.state : props;
-    const { form_type } = this.state.form_type ? this.state : props;
+    const { User, Admin, match, Forms } = props;
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
@@ -152,10 +149,7 @@ class FormGenerator extends Component {
       this.pollPropToState(Forms, User.id, selectOptions);
     } else {
       this.setState({
-        Questions,
         selectOptions,
-        title,
-        form_type,
         Forms
       });
     }
@@ -294,20 +288,28 @@ class FormGenerator extends Component {
     }
   };
 
+  questionShowImage = (showImage, i) => {
+    let { Questions } = this.state;
+    Questions[i].image = null;
+    Questions[i].showImage = !showImage;
+    this.setState({ Questions });
+  };
+
   renderQuestions = Questions =>
     Questions.map((q, i) => {
       const { NewChoice, form_type } = this.state;
-      const { question_type, image, question, Choices } = q;
+      const { question_type, image, question, Choices, showImage } = q;
       const QuestionOptions = SwitchQuestionOptions(form_type);
       return (
         <Row className="Questions Center borderedRow">
-          <Col xs={12}>
+          <Col xs={12} className="QuestionContainer">
             <Col xs={4}>
               <span className="pull-left questionNumber">{`${i + 1}`}</span>
             </Col>
             <Col xs={4}>
-              <ControlLabel>Question Image</ControlLabel>
-              <span className="help-inline">(optional)</span>
+              <Button onClick={e => this.questionShowImage(showImage, i)}>
+                <i className="fas fa-file-image fa-2x" />
+              </Button>
             </Col>
             <Col xs={4}>
               <ConfirmAction
@@ -316,24 +318,25 @@ class FormGenerator extends Component {
                 Disabled={false}
                 Icon={<i className="fa fa-trash" />}
                 hasPermission={true}
-                Size="small"
                 Class="pull-right"
                 Title={question}
                 CloseOnReceiveProps={true}
               />
             </Col>
-          </Col>
-          <Col xs={12}>
-            <Image src={image} width={200} />
-            <FormControl
-              style={{ margin: "8px auto" }}
-              key={i}
-              id={i}
-              type="file"
-              label="File"
-              name="image"
-              onChange={this.setImage}
-            />
+            {showImage && (
+              <Col xs={12}>
+                <Image src={image} width={200} />
+                <FormControl
+                  style={{ margin: "8px auto" }}
+                  key={i}
+                  id={i}
+                  type="file"
+                  label="File"
+                  name="image"
+                  onChange={this.setImage}
+                />
+              </Col>
+            )}
           </Col>
           <Col md={9} xs={12}>
             <InputGroup>
@@ -344,7 +347,7 @@ class FormGenerator extends Component {
                 id={`${i}`}
                 value={question}
                 question_type="text"
-                placeholder="Enter question..."
+                placeholder="Untitled Question"
                 onChange={this.onQuestionChange}
                 autoFocus={true}
               />
@@ -482,13 +485,27 @@ class FormGenerator extends Component {
         i =>
           (i = {
             value: i.id,
-            label: i.username,
-            isFixed: i.id === User.id
+            label: i.username
           })
       )
       .sort((a, b) => a.label.localeCompare(b.label));
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
+
+  addQuestion = currentQuestions =>
+    this.setState({
+      Questions: [
+        ...currentQuestions,
+        {
+          showImage: false,
+          position: currentQuestions.length,
+          question: "",
+          question_type: FormQuestionTypeOptions[0].value,
+          image: null,
+          Choices: []
+        }
+      ]
+    });
 
   render() {
     const { User, Admin, PostForm, UpdateForm, match, history } = this.props;
@@ -587,22 +604,7 @@ class FormGenerator extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              onClick={e =>
-                this.setState({
-                  Questions: [
-                    ...Questions,
-                    {
-                      position: Questions.length,
-                      question: "",
-                      question_type: FormQuestionTypeOptions[0].value,
-                      image: null,
-                      Choices: []
-                    }
-                  ]
-                })
-              }
-            >
+            <Button onClick={e => this.addQuestion(Questions)}>
               <i className="fas fa-plus" /> Question
             </Button>
           </Col>
@@ -629,7 +631,7 @@ class FormGenerator extends Component {
                   <FormControl
                     value={title}
                     type="text"
-                    placeholder="Title..."
+                    placeholder={`Untitled ${form_type.value}`}
                     name="title"
                     onChange={e => this.onChange(e)}
                   />
@@ -662,7 +664,7 @@ class FormGenerator extends Component {
                     timeIntervals={30}
                     dateFormat="MMMM d, yyyy h:mm aa"
                     timeCaption="time"
-                    placeholderText="Expiration date..."
+                    placeholderText="Expiration date"
                   />
                 </InputGroup>
               </Col>
@@ -682,7 +684,7 @@ class FormGenerator extends Component {
                     blurInputOnSelect={false}
                     //isClearable={this.state.Recipients.some(v => !v.isFixed)}
                     isSearchable={true}
-                    placeholder="Recipient username..."
+                    placeholder="Recipients"
                     classNamePrefix="select"
                     onChange={this.onSelectFilterChange}
                     options={selectOptions}
@@ -710,7 +712,7 @@ class FormGenerator extends Component {
                 <FormGroup>
                   <InputGroup>
                     <InputGroup.Addon>
-                      <i className="fas fa-tag" />
+                      {formTypeIcon(form_type.value)}
                     </InputGroup.Addon>
                     <Select
                       //https://react-select.com/props

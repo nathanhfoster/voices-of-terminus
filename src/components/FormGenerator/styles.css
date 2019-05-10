@@ -126,10 +126,14 @@
 }
 
 .questionNumber {
-  font-size: 20px;
-  height: 30px;
-  width: 30px;
+  font-size: 26px;
+  height: 35px;
+  width: 35px;
   background-color: var(--primaryColor);
   border-radius: 50%;
   margin: auto;
+}
+
+.QuestionContainer {
+  margin-bottom: 20px;
 }

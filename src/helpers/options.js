@@ -628,6 +628,17 @@ const formOptions = [
   { value: "Poll", label: "Poll" }
 ];
 
+const formTypeIcon = type => {
+  switch (type) {
+    case "Form":
+      return <i className="fab fa-wpforms" />;
+    case "Poll":
+      return <i className="fas fa-poll-h" />;
+    default:
+      return <i className="fab fa-wpforms" />;
+  }
+};
+
 const PollQuestionTypeOptions = [
   {
     value: "Multiple",
@@ -704,6 +715,7 @@ export {
   professionOptions,
   professionSpecializationOptions,
   formOptions,
+  formTypeIcon,
   PollQuestionTypeOptions,
   FormQuestionTypeOptions,
   SwitchQuestionOptions,
