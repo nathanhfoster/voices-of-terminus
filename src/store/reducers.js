@@ -28,8 +28,8 @@ export const ApiResponse = (state = {}, action) =>
       ? action.payload
       : {}
     : action.type === C.CLEAR_API_RESPONSE
-    ? {}
-    : state;
+      ? {}
+      : state;
 
 export const VoTYouTubeChannelData = (state = [], action) =>
   action.type === C.GET_VOT_YOUTUBE_CHANNEL_DATA ? action.payload : state;
@@ -194,8 +194,8 @@ export const HtmlDocument = (state = null, action) =>
   action.type === C.GET_HTML_DOCUMENT
     ? action.payload
     : action.type === C.CLEAR_HTML_DOCUMENT
-    ? null
-    : state;
+      ? null
+      : state;
 
 export const User = (
   state = {
@@ -315,13 +315,13 @@ export const Forms = (
 ) => {
   const { id, type, payload } = action;
   switch (type) {
-    case C.GET_POLLS_LOADING:
+    case C.GET_FORMS_LOADING:
       return {
         ...state,
         loading: true,
         loaded: false
       };
-    case C.GET_POLLS_SUCCESS:
+    case C.GET_FORMS_SUCCESS:
       const { posting, posted, updating, updated } = state;
       return {
         loading: false,
@@ -334,35 +334,35 @@ export const Forms = (
         ...state,
         ...payload
       };
-    case C.GET_POLL:
+    case C.GET_FORM:
       return { ...state, Form: payload };
-    case C.POST_POLLS_LOADING:
+    case C.POST_FORMS_LOADING:
       return {
         ...state,
         posting: true,
         posted: false
       };
-    case C.POST_POLLS_SUCCESS:
+    case C.POST_FORMS_SUCCESS:
       return {
         ...state,
         posting: false,
         posted: true,
         error: null
       };
-    case C.POST_POLLS_ERROR:
+    case C.POST_FORMS_ERROR:
       return {
         ...state,
         posting: false,
         posted: true,
         error: true
       };
-    case C.UPDATE_POLLS_LOADING:
+    case C.UPDATE_FORMS_LOADING:
       return {
         ...state,
         updating: true,
         updated: false
       };
-    case C.UPDATE_POLLS_SUCCESS:
+    case C.UPDATE_FORMS_SUCCESS:
       return {
         ...state,
         ...payload,

@@ -77,7 +77,7 @@ class FormGenerator extends Component {
           question: "",
           question_type: FormQuestionTypeOptions[0].value,
           image: null,
-          Choices: []
+          Choices: this.props.Choices
         }
       ],
       Recipients: [],
@@ -87,7 +87,7 @@ class FormGenerator extends Component {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = { Choices: [{ title: null, position: 0 }] };
 
   setExpirationDate = expiration_date =>
     this.setState({
@@ -95,12 +95,6 @@ class FormGenerator extends Component {
         ? new Date(expiration_date).toISOString()
         : null
     });
-
-  focusInput = component => {
-    if (component) {
-      component.focus();
-    }
-  };
 
   componentWillMount() {
     this.getState(this.props);
@@ -110,7 +104,7 @@ class FormGenerator extends Component {
     return true;
   }
 
-  componentWillUpdate() {}
+  componentWillUpdate() { }
 
   componentDidMount() {
     const {
@@ -142,8 +136,8 @@ class FormGenerator extends Component {
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
-          (a, b) => a.label.localeCompare(b.label)
-        )
+        (a, b) => a.label.localeCompare(b.label)
+      )
       : [];
     if (pollId) {
       this.pollPropToState(Forms, User.id, selectOptions);
@@ -155,7 +149,7 @@ class FormGenerator extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) { }
 
   componentWillUnmount() {
     const { clearFormApi } = this.props;
@@ -174,8 +168,8 @@ class FormGenerator extends Component {
           question_type: q.question_type,
           Choices: Choices[i]
             ? Choices[i].map(
-                (c, i) => (c = { id: c.id, position: i, title: c.title })
-              )
+              (c, i) => (c = { id: c.id, position: i, title: c.title })
+            )
             : []
         })
     );
@@ -249,14 +243,16 @@ class FormGenerator extends Component {
     let { Questions } = this.state;
     switch (a.action) {
       case "clear":
-        return this.setQuestionProp(i, "question_type", "");
+        this.setQuestionProp(i, "question_type", "");
+        break;
       case "select-option":
         if (value == "Text" || value == "Image") {
-          this.setQuestionProp(i, "Choices", []);
-          Questions[i].Choices.push({ position: 0, title: "" });
+          this.setQuestionProp(i, "Choices", [{ title: null, position: 0 }]);
         }
-        return this.setQuestionProp(i, "question_type", value);
+        this.setQuestionProp(i, "question_type", value);
+        break;
     }
+    this.setState({ Questions });
   };
 
   onSelectTagChange(form_type, { action, removedValue }) {
@@ -444,7 +440,7 @@ class FormGenerator extends Component {
             id={`${pollIndex}`}
             value={title}
             question_type="text"
-            placeholder={title}
+            placeholder="Untitled Choice"
             onChange={e => this.onChoiceChange(i, e)}
             autoFocus={position == i}
           />
@@ -502,7 +498,7 @@ class FormGenerator extends Component {
           question: "",
           question_type: FormQuestionTypeOptions[0].value,
           image: null,
-          Choices: []
+          Choices: this.props.Choices
         }
       ]
     });
@@ -557,14 +553,14 @@ class FormGenerator extends Component {
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                 : !posting && posted && !error
-                ? [
+                  ? [
                     <i
                       className="fas fa-check"
                       style={{ color: "var(--color_emerald)" }}
                     />,
                     " POST"
                   ]
-                : "POST"}
+                  : "POST"}
             </Button>
             {pollId && UserHasPermissions(User, "change_poll") && (
               <Button
@@ -587,14 +583,14 @@ class FormGenerator extends Component {
                 {updating && !updated
                   ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
                   : !updating && updated && !error
-                  ? [
+                    ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " UPDATE"
                     ]
-                  : "UPDATE"}
+                    : "UPDATE"}
               </Button>
             )}
           </Col>
@@ -631,7 +627,7 @@ class FormGenerator extends Component {
                   <FormControl
                     value={title}
                     type="text"
-                    placeholder={`Untitled ${form_type.value}`}
+                    placeholder={`Untitled ${form_type ? form_type.value : 'Form'}`}
                     name="title"
                     onChange={e => this.onChange(e)}
                   />
@@ -712,7 +708,7 @@ class FormGenerator extends Component {
                 <FormGroup>
                   <InputGroup>
                     <InputGroup.Addon>
-                      {formTypeIcon(form_type.value)}
+                      {formTypeIcon(form_type)}
                     </InputGroup.Addon>
                     <Select
                       //https://react-select.com/props
@@ -738,8 +734,8 @@ class FormGenerator extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-      <Redirect to="/login" />
-    );
+          <Redirect to="/login" />
+        );
   }
 }
 export default withAlert(

@@ -629,13 +629,16 @@ const formOptions = [
 ];
 
 const formTypeIcon = type => {
-  switch (type) {
+  const defaultType = <i className="fab fa-wpforms" />;
+  if (!type) return defaultType;
+  const { value } = type
+  switch (value) {
     case "Form":
-      return <i className="fab fa-wpforms" />;
+      return defaultType;
     case "Poll":
       return <i className="fas fa-poll-h" />;
     default:
-      return <i className="fab fa-wpforms" />;
+      return defaultType;
   }
 };
 
@@ -676,14 +679,17 @@ const FormQuestionTypeOptions = [
   ]
 ];
 
-const SwitchQuestionOptions = ({ value }) => {
+const SwitchQuestionOptions = type => {
+  const defaultQuestionType = FormQuestionTypeOptions;
+  if (!type) return defaultQuestionType;
+  const { value } = type;
   switch (value) {
     case "Form":
-      return FormQuestionTypeOptions;
+      return defaultQuestionType;
     case "Poll":
       return PollQuestionTypeOptions;
     default:
-      return FormQuestionTypeOptions;
+      return defaultQuestionType;
   }
 };
 

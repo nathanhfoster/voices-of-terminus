@@ -3,11 +3,11 @@ import { Axios } from "./Axios";
 import { createMessageGroup } from "./Messages";
 import qs from "qs";
 
-const GetForm = (token, id) => dispatch => {
-  Axios(token)
+const GetForm = (token, id) => async dispatch => {
+  await Axios(token)
     .get(`/forms/${id}/`)
     .then(form => {
-      dispatch({ type: C.GET_POLL, payload: form.data });
+      dispatch({ type: C.GET_FORM, payload: form.data });
     })
     .catch(e => console.log(e, "token and id: ", token, id));
 };
@@ -28,10 +28,11 @@ const GetQuestionChoices = (token, Questions) => async (dispatch, getState) => {
     await Axios(token)
       .get(`/form/choices/${questionId}/view/`)
       .then(responses => {
-        payload.push(responses.data);
+        const choices = [...responses.data]
+        payload = [...payload, choices]
         dispatch({
           type: C.GET_CHOICES,
-          payload: payload.sort((a, b) => a[0].question_id - b[0].question_id)
+          payload: payload
         });
       })
       .catch(e => console.log(e, "GetQuestionChoices: ", Questions));
@@ -63,11 +64,11 @@ const GetFormRecipients = (token, pollId) => async dispatch =>
     .catch(e => console.log(e));
 
 const GetForms = token => dispatch => {
-  dispatch({ type: C.GET_POLLS_LOADING });
+  dispatch({ type: C.GET_FORMS_LOADING });
   return Axios(token)
     .get("/forms/")
     .then(forms => {
-      dispatch({ type: C.GET_POLLS_SUCCESS, payload: forms.data });
+      dispatch({ type: C.GET_FORMS_SUCCESS, payload: forms.data });
     })
     .catch(e => console.log(e));
 };
@@ -84,7 +85,7 @@ const PostForm = (
   Recipients
 ) => (dispatch, getState) => {
   const pollPayload = { author, title, expiration_date, form_type };
-  dispatch({ type: C.POST_POLLS_LOADING });
+  dispatch({ type: C.POST_FORMS_LOADING });
   const { Forms } = getState();
   let payload = { ...Forms };
   return Axios(token)
@@ -95,14 +96,14 @@ const PostForm = (
       payload.results.unshift(form.data);
 
       // dispatch({
-      //   type: C.GET_POLLS_SUCCESS,
+      //   type: C.GET_FORMS_SUCCESS,
       //   payload: payload
       // });
 
       dispatch(PostQuestions(author, id, token, Questions));
       dispatch(PostRecipients(id, token, Recipients));
 
-      const uri = `/forms/${id}/respond`;
+      const uri = `/forms/${id}/questions`;
       const MessageGroupRecipients = Recipients.map(r => r.recipient);
       dispatch(
         createMessageGroup(
@@ -114,7 +115,7 @@ const PostForm = (
           body
         )
       );
-      dispatch({ type: C.POST_POLLS_SUCCESS });
+      dispatch({ type: C.POST_FORMS_SUCCESS });
     })
     .catch(e => console.log(e));
 };
@@ -232,12 +233,12 @@ const EditResponse = (token, id, payload, question_type) => async (
 const DeleteForm = (token, id) => async (dispatch, getState) => {
   const { Forms } = getState();
   let payload = { ...Forms };
-  dispatch({ type: C.GET_POLLS_LOADING });
+  dispatch({ type: C.GET_FORMS_LOADING });
   return await Axios(token)
     .delete(`/forms/${id}/`)
     .then(res => {
       payload.results = payload.results.filter(r => r.id != id);
-      dispatch({ type: C.GET_POLLS_SUCCESS, payload: payload });
+      dispatch({ type: C.GET_FORMS_SUCCESS, payload: payload });
     })
     .catch(e => console.log(e));
 };
@@ -262,7 +263,7 @@ const UpdateForm = (
     tags
   };
 
-  dispatch({ type: C.UPDATE_POLLS_LOADING });
+  dispatch({ type: C.UPDATE_FORMS_LOADING });
   const { Forms } = getState();
   let payload = { ...Forms };
   const currentQuestions = Forms.Questions;
@@ -284,9 +285,9 @@ const UpdateForm = (
 
       dispatch(DeleteQuestions(token, questionsToDelete));
 
-      UpdateRecipients(pollId, token, Recipients);
+      dispatch(UpdateRecipients(pollId, token, Recipients));
 
-      dispatch({ type: C.UPDATE_POLLS_SUCCESS, payload: payload });
+      dispatch({ type: C.UPDATE_FORMS_SUCCESS, payload: payload });
     })
     .catch(e => console.log(e));
 };
@@ -351,8 +352,7 @@ const UpdateChoices = (
   const choicesToDelete = currentChoices.filter(
     c => !Choices.some(e => e.id === c.id)
   );
-  dispatch(PostChoices(author, question_id, token, choicesToPost));
-  dispatch(DeleteChoices(token, choicesToDelete));
+
   let payload = [...getState().Forms.Choices];
 
   for (let i = 0; i < choicesToUpdate.length; i++) {
@@ -366,9 +366,11 @@ const UpdateChoices = (
     };
     await Axios(token)
       .patch(`form/choices/${id}/`, qs.stringify(choicePayload))
-      .then(choice => {})
+      .then(choice => { })
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
+  dispatch(PostChoices(author, question_id, token, choicesToPost));
+  dispatch(DeleteChoices(token, choicesToDelete));
   dispatch(GetQuestionChoices(token, Questions));
 };
 

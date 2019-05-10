@@ -115,7 +115,7 @@ class App extends PureComponent {
         { path: "/admin/edit/user/:id", component: UserProfile },
         { path: "/forms", component: FormSystem },
         { path: "/forms/:id", component: FormSystem },
-        { path: "/forms/:id/respond", component: FormSystem },
+        { path: "/forms/:id/questions", component: FormSystem },
         { path: "/forms/:id/results", component: FormSystem },
         { path: "/form/new/", component: FormGenerator },
         { path: "/form/edit/:id", component: FormGenerator },
@@ -320,21 +320,21 @@ class App extends PureComponent {
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (
-      <div className="App">
-        <NavBar history={history} location={location} match={match} />
-        <BackgroundImage history={history} location={location} match={match} />
-        <div
-          className="routeOverlay"
-          style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
-        >
-          <Switch>
-            {this.renderRouteItems(routeItems)}
-            <Route component={PageNotFound} />
-          </Switch>
+        <div className="App">
+          <NavBar history={history} location={location} match={match} />
+          <BackgroundImage history={history} location={location} match={match} />
+          <div
+            className="routeOverlay"
+            style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
+          >
+            <Switch>
+              {this.renderRouteItems(routeItems)}
+              <Route component={PageNotFound} />
+            </Switch>
+          </div>
+          <Footer history={history} location={location} match={match} />
         </div>
-        <Footer history={history} location={location} match={match} />
-      </div>
-    );
+      );
   }
 }
 
