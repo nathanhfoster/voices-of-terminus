@@ -717,7 +717,7 @@ class FormGenerator extends Component {
                       styles={selectStyles()}
                       onBlur={e => e.preventDefault()}
                       blurInputOnSelect={false}
-                      isClearable
+                      isClearable={false}
                       placeholder="Add form type..."
                       className="basic-multi-select"
                       classNamePrefix="select"
