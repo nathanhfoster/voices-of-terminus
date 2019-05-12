@@ -398,6 +398,22 @@ class UserProfile extends PureComponent {
       );
     });
 
+  UpdateButton = (updating, updated, error) => (
+    <Button onClick={this.updateUserProfile}>
+      {updating && !updated
+        ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
+        : !updating && updated && !error
+        ? [
+            <i
+              className="fas fa-check"
+              style={{ color: "var(--color_emerald)" }}
+            />,
+            " UPDATE"
+          ]
+        : "UPDATE"}
+    </Button>
+  );
+
   render() {
     const { AuthenticationAndAuthorization, Admin, User } = this.state;
     const { history } = this.props;
@@ -424,6 +440,7 @@ class UserProfile extends PureComponent {
               className="ActionToolbar cardActions"
               componentClass={ButtonToolbar}
             >
+              {this.UpdateButton(updating, updated, error)}
               <Button
                 onClick={() => history.push(`/profile/${Admin.User.id}`)}
                 className="pull-right"
@@ -1014,19 +1031,7 @@ class UserProfile extends PureComponent {
           </Row>
           <Row>
             <Col style={{ textAlign: "center", margin: "20px" }}>
-              <Button onClick={this.updateUserProfile}>
-                {updating && !updated
-                  ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                  : !updating && updated && !error
-                  ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " UPDATE"
-                    ]
-                  : "UPDATE"}
-              </Button>
+              {this.UpdateButton(updating, updated, error)}
             </Col>
           </Row>
         </Grid>

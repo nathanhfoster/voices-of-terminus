@@ -31,6 +31,7 @@ import "./styles.css";
 import "./stylesM.css";
 import matchSorter from "match-sorter";
 import Select from "react-select";
+import { selectGuildRecipients } from "../../../helpers";
 import { selectStyles } from "../../../helpers/styles";
 import ConfirmAction from "../../../components/ConfirmAction";
 
@@ -58,7 +59,7 @@ class Messages extends PureComponent {
     this.state = {
       show: false,
       search: "",
-      recipients: [],
+      Recipients: [],
       selectOptions: [],
       modalTitle: "Create Message",
       creatingMessage: false,
@@ -82,12 +83,12 @@ class Messages extends PureComponent {
     const { id, token, Settings } = User;
     const { push_messages } = Settings;
     const { Users } = this.props.Admin;
-    const recipients = Users
+    const Recipients = Users
       ? Users.filter(i => i.id === User.id).map(
           e => (e = { value: e.id, label: e.username, isFixed: true })
         )
       : [];
-    this.setState({ recipients });
+    this.setState({ Recipients });
 
     if (!push_messages) getUserMessages(id, token);
     getUsers();
@@ -105,7 +106,14 @@ class Messages extends PureComponent {
           (a, b) => a.label.localeCompare(b.label)
         )
       : [];
-    this.setState({ User, Messages, selectOptions, messageDetails, history });
+    this.setState({
+      Admin,
+      User,
+      Messages,
+      selectOptions,
+      messageDetails,
+      history
+    });
   };
 
   readMessage = messages => {
@@ -126,7 +134,7 @@ class Messages extends PureComponent {
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
-  onSelectFilterChange = (recipients, { action, removedValue }) => {
+  onSelectFilterChange = (Recipients, { action, removedValue }) => {
     switch (action) {
       case "remove-value":
       case "pop-value":
@@ -135,11 +143,11 @@ class Messages extends PureComponent {
         }
         break;
       case "clear":
-        recipients = this.state.recipients.filter(v => v.isFixed);
+        Recipients = this.state.Recipients.filter(v => v.isFixed);
         break;
     }
 
-    this.setState({ recipients });
+    this.setState({ Recipients });
   };
 
   renderGroupMessages = messages => {
@@ -179,7 +187,7 @@ class Messages extends PureComponent {
               modalTitle: title,
               uri,
               recipient_group_id,
-              recipients: []
+              Recipients: []
             });
           }}
           className="Message borderedRow"
@@ -248,12 +256,12 @@ class Messages extends PureComponent {
       );
     });
 
-  createMessage = (recipients, title, body) => {
+  createMessage = (Recipients, title, body) => {
     const { User } = this.props;
     const { token } = User;
     const author = User.id;
     const uri = null;
-    const recipientList = recipients.map(e => e.value);
+    const recipientList = Recipients.map(e => e.value);
 
     this.props.createMessageGroup(
       token,
@@ -292,10 +300,11 @@ class Messages extends PureComponent {
   render() {
     const { deleteMessageRecipient } = this.props;
     const {
+      Admin,
       User,
       show,
       search,
-      recipients,
+      Recipients,
       selectOptions,
       title,
       body,
@@ -375,7 +384,22 @@ class Messages extends PureComponent {
               <Modal.Body>
                 {creatingMessage ? (
                   <Form className="Container fadeIn">
-                    <Row>
+                    <Row >
+                      <Col xs={12} className="ActionToolbarRow Center">
+                        <Button
+                          onClick={e =>
+                            this.setState({
+                              Recipients: selectGuildRecipients(
+                                Recipients,
+                                User,
+                                Admin.Users
+                              )
+                            })
+                          }
+                        >
+                          <i className="fas fa-user-plus" /> Guild
+                        </Button>
+                      </Col>
                       <Col xs={12}>
                         <InputGroup>
                           <InputGroup.Addon>
@@ -383,12 +407,12 @@ class Messages extends PureComponent {
                           </InputGroup.Addon>
                           <Select
                             //https://react-select.com/props
-                            value={recipients}
+                            value={Recipients}
                             isMulti
                             styles={selectStyles()}
                             onBlur={e => e.preventDefault()}
                             blurInputOnSelect={false}
-                            //isClearable={this.state.recipients.some(v => !v.isFixed)}
+                            //isClearable={this.state.Recipients.some(v => !v.isFixed)}
                             isSearchable={true}
                             placeholder="Username..."
                             classNamePrefix="select"
@@ -440,8 +464,8 @@ class Messages extends PureComponent {
               <Modal.Footer>
                 {creatingMessage ? (
                   <Button
-                    disabled={recipients.length < 1}
-                    onClick={() => this.createMessage(recipients, title, body)}
+                    disabled={Recipients.length < 1}
+                    onClick={() => this.createMessage(Recipients, title, body)}
                   >
                     <i className="fas fa-plus" /> Create
                   </Button>

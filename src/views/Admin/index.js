@@ -87,12 +87,15 @@ class Admin extends PureComponent {
     const currentTickets = Admin.Tickets;
     const currentUsers = Admin.Users;
     const currentUser = removeObjProp(this.state.User, "last_login");
+    const { show } = nextProps;
+    const currentShow = this.state.show;
 
     const differentTickets = !isEquivalent(Tickets, currentTickets);
     const differentUsers = !isEquivalent(Users, currentUsers);
     const differentUser = !isEquivalent(User, currentUser);
+    const differentShow = currentShow != show;
 
-    return differentTickets || differentUsers || differentUser;
+    return differentTickets || differentUsers || differentUser || differentShow;
   }
 
   componentDidMount() {

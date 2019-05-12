@@ -2,7 +2,8 @@
   margin-bottom: 16px;
 }
 
-.FormSystem .borderedRow {
+.FormSystem .borderedRow,
+.FormSystem .highlightedRow {
   background-color: var(--slate_grey);
 }
 
@@ -27,4 +28,8 @@
 .responseStats {
   display: inline;
   background-color: var(--slate_grey);
+}
+
+.borderedRow .SelectedChoice {
+  border: 1px solid var(--primaryColor) !important;
 }

@@ -22,7 +22,8 @@ import {
   switchPollTypeIcon,
   statusLevelInt,
   joinStrings,
-  splitString
+  splitString,
+  selectGuildRecipients
 } from "../../helpers";
 import {
   FormQuestionTypeOptions,
@@ -45,7 +46,6 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { UserHasPermissions } from "../../helpers/userPermissions";
-import { defaultImage } from "../../helpers/defaultProfileImages";
 
 const mapStateToProps = ({ User, Forms, Admin }) => ({ User, Forms, Admin });
 
@@ -104,7 +104,7 @@ class FormGenerator extends Component {
     return true;
   }
 
-  componentWillUpdate() { }
+  componentWillUpdate() {}
 
   componentDidMount() {
     const {
@@ -136,8 +136,8 @@ class FormGenerator extends Component {
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
-        (a, b) => a.label.localeCompare(b.label)
-      )
+          (a, b) => a.label.localeCompare(b.label)
+        )
       : [];
     if (pollId) {
       this.pollPropToState(Forms, User.id, selectOptions);
@@ -149,7 +149,7 @@ class FormGenerator extends Component {
     }
   };
 
-  componentDidUpdate(prevProps, prevState) { }
+  componentDidUpdate(prevProps, prevState) {}
 
   componentWillUnmount() {
     const { clearFormApi } = this.props;
@@ -168,8 +168,8 @@ class FormGenerator extends Component {
           question_type: q.question_type,
           Choices: Choices[i]
             ? Choices[i].map(
-              (c, i) => (c = { id: c.id, position: i, title: c.title })
-            )
+                (c, i) => (c = { id: c.id, position: i, title: c.title })
+              )
             : []
         })
     );
@@ -382,11 +382,11 @@ class FormGenerator extends Component {
       case "Text":
         return (
           <FormGroup>
-            <ControlLabel>Choice</ControlLabel>
+            <ControlLabel>Text</ControlLabel>
             <FormControl
               componentClass="textarea"
               question_type="text"
-              placeholder="Text..."
+              placeholder="This text box is what the respondent will see"
               value={Choices.length > 0 ? Choices[0].title : ""}
               disabled
             />
@@ -395,7 +395,13 @@ class FormGenerator extends Component {
       case "Image":
         return (
           <FormGroup>
-            <ControlLabel>Image</ControlLabel>
+            <ControlLabel>
+              Image
+              <span className="help">
+                This "Choose File" button is what the respondent will see
+              </span>
+            </ControlLabel>
+
             <FormControl
               disabled
               style={{ margin: "auto" }}
@@ -475,17 +481,6 @@ class FormGenerator extends Component {
     this.setState({ Choices });
   };
 
-  selectGuildRecipients = (User, Users) =>
-    Users.filter(user => statusLevelInt(user) != 0)
-      .map(
-        i =>
-          (i = {
-            value: i.id,
-            label: i.username
-          })
-      )
-      .sort((a, b) => a.label.localeCompare(b.label));
-
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
   addQuestion = currentQuestions =>
@@ -553,14 +548,14 @@ class FormGenerator extends Component {
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                 : !posting && posted && !error
-                  ? [
+                ? [
                     <i
                       className="fas fa-check"
                       style={{ color: "var(--color_emerald)" }}
                     />,
                     " POST"
                   ]
-                  : "POST"}
+                : "POST"}
             </Button>
             {pollId && UserHasPermissions(User, "change_poll") && (
               <Button
@@ -583,14 +578,14 @@ class FormGenerator extends Component {
                 {updating && !updated
                   ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
                   : !updating && updated && !error
-                    ? [
+                  ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " UPDATE"
                     ]
-                    : "UPDATE"}
+                  : "UPDATE"}
               </Button>
             )}
           </Col>
@@ -608,7 +603,11 @@ class FormGenerator extends Component {
             <Button
               onClick={e =>
                 this.setState({
-                  Recipients: this.selectGuildRecipients(User, Admin.Users)
+                  Recipients: selectGuildRecipients(
+                    Recipients,
+                    User,
+                    Admin.Users
+                  )
                 })
               }
             >
@@ -627,7 +626,9 @@ class FormGenerator extends Component {
                   <FormControl
                     value={title}
                     type="text"
-                    placeholder={`Untitled ${form_type ? form_type.value : 'Form'}`}
+                    placeholder={`Untitled ${
+                      form_type ? form_type.value : "Form"
+                    }`}
                     name="title"
                     onChange={e => this.onChange(e)}
                   />
@@ -734,8 +735,8 @@ class FormGenerator extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-          <Redirect to="/login" />
-        );
+      <Redirect to="/login" />
+    );
   }
 }
 export default withAlert(

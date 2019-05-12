@@ -257,26 +257,49 @@ class FormSystem extends Component {
                   </Col>
                 )}
               </Row>,
-              Choices[i] && Choices[i].map(c => {
-                const { id, title, question_id } = c;
-                return (
-                  <Row className="borderedRow noHover" key={i}>
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoices(
-                          question_type,
-                          id,
-                          title,
-                          User,
-                          Choices[i],
-                          Responses,
-                          expired
-                        )}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                );
-              })
+              Choices[i] &&
+                Choices[i].map(c => {
+                  const { id, title, question_id } = c;
+                  const usersResponses = Responses.results
+                    .flat(2)
+                    .filter(
+                      r =>
+                        r.author === User.id &&
+                        Choices[i].some(c => c.id === r.choice_id)
+                    );
+
+                  const responseIndex = usersResponses.findIndex(
+                    response => response.choice_id == id
+                  );
+                  const usersResponse =
+                    responseIndex != -1 ? usersResponses[responseIndex] : {};
+                  const { response } = usersResponse;
+                  const checked = response === "true";
+
+                  return (
+                    <Row
+                      className={checked ? "highlightedRow" : "borderedRow"}
+                      key={i}
+                    >
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoices(
+                            question_type,
+                            id,
+                            title,
+                            User,
+                            Responses,
+                            expired,
+                            checked,
+                            usersResponse.id,
+                            response,
+                            usersResponses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
             ];
           })}
         </Tab>
@@ -291,30 +314,31 @@ class FormSystem extends Component {
               <h4>
                 <i className="far fa-question-circle" /> {question}
               </h4>,
-              Choices[i] && Choices[i].map(c => {
-                const { id, title, question_id } = c;
-                return (
-                  <Row className="borderedRow noHover">
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoicesResponses(
-                          question_type,
-                          id,
-                          title,
-                          Responses
-                        )}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                );
-              })
+              Choices[i] &&
+                Choices[i].map(c => {
+                  const { id, title, question_id } = c;
+                  return (
+                    <Row className="borderedRow noHover">
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoicesResponses(
+                            question_type,
+                            id,
+                            title,
+                            Responses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
             ];
           })}
         </Tab>
       </Tabs>
     ) : (
-        <h1>You don't have permission to view this form.</h1>
-      );
+      <h1>You don't have permission to view this form.</h1>
+    );
   };
 
   switchQuestionChoices = (
@@ -322,26 +346,14 @@ class FormSystem extends Component {
     choiceId,
     title,
     User,
-    Choices,
     Responses,
-    expired
+    expired,
+    checked,
+    responseId,
+    response,
+    usersResponses
   ) => {
     const { PostResponse, EditResponse } = this.props;
-    const usersResponses = Responses.results
-      .flat(2)
-      .filter(
-        r => r.author === User.id && Choices.some(c => c.id === r.choice_id)
-      );
-
-    const responseIndex = usersResponses.findIndex(
-      response => response.choice_id == choiceId
-    );
-
-    const usersResponse =
-      responseIndex != -1 ? usersResponses[responseIndex] : {};
-    let { id, response } = usersResponse;
-    const checked = response === "true";
-
     var payload = {
       author: User.id,
       response: !checked,
@@ -357,7 +369,7 @@ class FormSystem extends Component {
             onClick={() =>
               !response
                 ? PostResponse(User.token, payload, question_type)
-                : EditResponse(User.token, id, payload, question_type)
+                : EditResponse(User.token, responseId, payload, question_type)
             }
           >
             <span className="checkBoxText">{title}</span>
@@ -376,7 +388,7 @@ class FormSystem extends Component {
             onClick={() =>
               !response
                 ? PostResponse(User.token, payload)
-                : EditResponse(User.token, id, payload)
+                : EditResponse(User.token, responseId, payload)
             }
           >
             <span className="checkBoxText">{title}</span>
@@ -415,28 +427,28 @@ class FormSystem extends Component {
                 onClick={() =>
                   !response
                     ? PostResponse(User.token, payload)
-                    : EditResponse(User.token, id, payload)
+                    : EditResponse(User.token, responseId, payload)
                 }
               >
                 {posting && !posted
                   ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                   : !posting && posted && !error
-                    ? [
+                  ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " SUBMIT"
                     ]
-                    : error
-                      ? [
-                        <i
-                          className="fas fa-times"
-                          style={{ color: "var(--color_alizarin)" }}
-                        />,
-                        " SUBMIT"
-                      ]
-                      : "SUBMIT"}
+                  : error
+                  ? [
+                      <i
+                        className="fas fa-times"
+                        style={{ color: "var(--color_alizarin)" }}
+                      />,
+                      " SUBMIT"
+                    ]
+                  : "SUBMIT"}
               </Button>
             </InputGroup.Addon>
           </InputGroup>
@@ -453,7 +465,7 @@ class FormSystem extends Component {
               this.setImage(
                 e,
                 User.token,
-                id,
+                responseId,
                 payload,
                 response,
                 PostResponse,
@@ -628,42 +640,43 @@ class FormSystem extends Component {
         eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
-        <Redirect to={`/forms/${pollId}/questions`} />
-      ) : (
-        <Grid className="FormSystem Container">
+      <Redirect to={`/forms/${pollId}/questions`} />
+    ) : (
+      <Grid className="FormSystem Container">
+        <Row>
+          <PageHeader className="pageHeader">FORMS</PageHeader>
+        </Row>
+        <Row>
+          <h1 className="Center">{title}</h1>
+        </Row>
+        {pollId && expiration_date && (
           <Row>
-            <PageHeader className="pageHeader">FORMS</PageHeader>
+            <h3 className="Center">
+              {expired
+                ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
+                : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
+            </h3>
           </Row>
-          <Row>
-            <h1 className="Center">{title}</h1>
-          </Row>
-          {pollId && expiration_date && (
-            <Row>
-              <h3 className="Center">
-                {expired
-                  ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
-                  : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
-              </h3>
-            </Row>
-          )}
-          <Row className="ActionToolbarRow">
-            <Col
-              md={4}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              {UserHasPermissions(User, "add_poll") && (
-                <Button onClick={() => history.push("/form/new/")}>
-                  <i className="fas fa-plus" /> Form
+        )}
+        <Row className="ActionToolbarRow">
+          <Col
+            md={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            {UserHasPermissions(User, "add_poll") && (
+              <Button onClick={() => history.push("/form/new/")}>
+                <i className="fas fa-plus" /> Form
               </Button>
-              )}
-              {pollId && UserHasPermissions(User, "change_poll") && (
-                <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
-                  <i className="fa fa-pencil-alt" /> Form
+            )}
+            {pollId && UserHasPermissions(User, "change_poll") && (
+              <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
+                <i className="fa fa-pencil-alt" /> Form
               </Button>
-              )}
-            </Col>
-            {!eventKey && <Col md={8} xs={12}>
+            )}
+          </Col>
+          {!eventKey && (
+            <Col md={8} xs={12}>
               <InputGroup>
                 <InputGroup.Addon>
                   <i className="fas fa-tags" />
@@ -683,13 +696,14 @@ class FormSystem extends Component {
                   options={formOptions}
                 />
               </InputGroup>
-            </Col>}
-          </Row>
-          {pollId
-            ? this.renderQuestions(User, Questions, Choices, Responses, canView)
-            : this.renderPolls(Forms.results, typeFilter)}
-        </Grid>
-      );
+            </Col>
+          )}
+        </Row>
+        {pollId
+          ? this.renderQuestions(User, Questions, Choices, Responses, canView)
+          : this.renderPolls(Forms.results, typeFilter)}
+      </Grid>
+    );
   }
 }
 export default withAlert(

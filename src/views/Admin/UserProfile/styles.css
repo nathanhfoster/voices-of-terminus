@@ -8,6 +8,12 @@
   padding: 8px;
 }
 
+.highlightedRow {
+  border: 1px solid var(--primaryColor);
+  border-radius: 4px;
+  padding: 8px;
+}
+
 .headerBanner {
   border-radius: 4px;
   background-color: var(--primaryColor);

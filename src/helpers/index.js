@@ -381,9 +381,11 @@ const removeDuplicates = (array, objAttr) => {
 const joinStrings = objectArray => {
   if (!objectArray || objectArray.length < 1) {
     return objectArray;
-  } if (Array.isArray(objectArray)) {
+  }
+  if (Array.isArray(objectArray)) {
     return objectArray.map(i => i.value).join("|");
-  } if (typeof objectArray === "object") {
+  }
+  if (typeof objectArray === "object") {
     return objectArray.value;
   }
   return objectArray;
@@ -411,6 +413,18 @@ const removeObjProp = (obj, prop) => {
   return obj;
 };
 
+const selectGuildRecipients = (Recipients, User, Users) => [
+  ...Recipients,
+  ...Users.filter(user => user.id != User.id && statusLevelInt(user) != 0)
+    .map(
+      i =>
+        (i = {
+          value: i.id,
+          label: i.username
+        })
+    )
+    .sort((a, b) => a.label.localeCompare(b.label))
+];
 export {
   arrayToObject,
   objectToArray,
@@ -440,5 +454,6 @@ export {
   joinStrings,
   splitString,
   GetUserPermissions,
-  removeObjProp
+  removeObjProp,
+  selectGuildRecipients
 };
