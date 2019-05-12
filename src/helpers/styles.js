@@ -30,7 +30,7 @@ const selectStyles = props => {
   */
     menu: (base, state) => ({
       ...base,
-      backgroundColor: "inherit",
+      backgroundColor: "var(--slate_grey)",
       zIndex: "9999"
     }),
     menuList: (base, state) => ({
@@ -74,7 +74,7 @@ const selectStyles = props => {
       backgroundColor: state.isSelected ? "var(--secondaryColor)"
         : state.isFocused ? "var(--primaryColor)"
           : switchRoleColor(state.value),
-      color: "white",
+      color: "var(--tertiarycolor)",
       ":active": {
         backgroundColor: !state.isSelected
           ? "var(--secondaryColor)"

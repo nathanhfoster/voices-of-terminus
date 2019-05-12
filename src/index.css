@@ -440,3 +440,8 @@ a:visited {
     transform: rotateZ(60deg) translate(1em, -9em);
   }
 }
+
+/* No Options text color for react-select */
+.css-1gl4k7y {
+  color: var(--tertiarycolor) !important;
+}
