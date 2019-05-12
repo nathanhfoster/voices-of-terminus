@@ -328,15 +328,15 @@ class Event extends PureComponent {
               <FormGroup key={k}>
                 <Select
                   //https://react-select.com/props
-                  //closeMenuOnSelect={false}
                   value={role_class_preferences}
                   isMulti
                   styles={selectStyles()}
                   onBlur={e => e.preventDefault()}
+                  closeMenuOnSelect={false}
                   blurInputOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                   isSearchable={true}
-                  placeholder={`Role preference (${k + 1})`}
+                  placeholder={`Role / Class preference (${k + 1})`}
                   classNamePrefix="select"
                   onChange={(selectValue, { action, removedValue }) =>
                     this.onSelectRollPreferenceChange(
@@ -535,12 +535,12 @@ class Event extends PureComponent {
                   <i className="fas fa-tags" />
                 </InputGroup.Addon>
                 <Select
-                  //https://react-select.com/props
                   value={tags}
                   isMulti
                   styles={selectStyles()}
                   onBlur={e => e.preventDefault()}
                   blurInputOnSelect={false}
+                  closeMenuOnSelect={false}
                   //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                   isSearchable={false}
                   placeholder="Tags..."
@@ -560,11 +560,11 @@ class Event extends PureComponent {
                     <i className="fas fa-globe-americas" />
                   </InputGroup.Addon>
                   <Select
-                    //https://react-select.com/props
                     value={locations}
                     styles={selectStyles()}
                     onBlur={e => e.preventDefault()}
                     blurInputOnSelect={false}
+                    closeMenuOnSelect={false}
                     isMulti
                     //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                     isSearchable={true}

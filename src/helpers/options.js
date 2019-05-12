@@ -52,16 +52,6 @@ const eventTags = [
   { value: "VoTShow", label: "VoTShow" }
 ];
 
-const eventTagOptions = {
-  Event: [],
-  Dungeon: [],
-  Explore: [],
-  Group: GroupAndRaidSubOptions,
-  Quest: [],
-  Raid: GroupAndRaidSubOptions,
-  VoTShow: []
-};
-
 const GroupAndRaidSubOptions = [
   { value: "Dungeon", label: "Dungeon" },
   { value: "Explore", label: "Explore" },
@@ -72,6 +62,16 @@ const GroupAndRaidSubOptions = [
   { value: "Perception", label: "Perception" },
   { value: "Faction", label: "Faction" }
 ];
+
+const eventTagOptions = {
+  Event: [],
+  Dungeon: [],
+  Explore: [],
+  Group: GroupAndRaidSubOptions,
+  Quest: [],
+  Raid: GroupAndRaidSubOptions,
+  VoTShow: []
+};
 
 const locationTags = [
   { value: "Locations", label: "Locations", isFixed: true },
@@ -631,7 +631,7 @@ const formOptions = [
 const formTypeIcon = type => {
   const defaultType = <i className="fab fa-wpforms" />;
   if (!type) return defaultType;
-  const { value } = type
+  const { value } = type;
   switch (value) {
     case "Form":
       return defaultType;
