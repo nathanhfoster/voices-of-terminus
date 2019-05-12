@@ -23,7 +23,8 @@ import {
   statusLevelInt,
   joinStrings,
   splitString,
-  selectGuildRecipients
+  selectGuildRecipients,
+  DeepCopy
 } from "../../helpers";
 import {
   FormQuestionTypeOptions,
@@ -104,8 +105,6 @@ class FormGenerator extends Component {
     return true;
   }
 
-  componentWillUpdate() {}
-
   componentDidMount() {
     const {
       getUsers,
@@ -148,8 +147,6 @@ class FormGenerator extends Component {
       });
     }
   };
-
-  componentDidUpdate(prevProps, prevState) {}
 
   componentWillUnmount() {
     const { clearFormApi } = this.props;
@@ -194,24 +191,24 @@ class FormGenerator extends Component {
     });
   };
 
+  onQuestionChange = e => {
+    const { id, value } = e.target;
+    this.setQuestionProp(id, "question", value);
+  };
+
   setQuestionProp = (index, prop, value) =>
     this.setState(prevState => {
-      let { Questions } = prevState;
+      let { Questions } = DeepCopy(prevState);
       Questions[index][prop] = value;
       return { Questions };
     });
 
   setChoiceProp = (questionIndex, choiceIndex, choiceProp, value) =>
     this.setState(prevState => {
-      let { Questions } = prevState;
+      let { Questions } = DeepCopy(prevState);
       Questions[questionIndex].Choices[choiceIndex][choiceProp] = value;
       return { Questions };
     });
-
-  onQuestionChange = e => {
-    const { id, value } = e.target;
-    this.setQuestionProp(id, "question", value);
-  };
 
   onChoiceChange = (choiceIndex, e) => {
     const { id, value } = e.target;
@@ -251,8 +248,9 @@ class FormGenerator extends Component {
         }
         this.setQuestionProp(i, "question_type", value);
         break;
+      default:
+        this.setState({ Questions });
     }
-    this.setState({ Questions });
   };
 
   onSelectTagChange(form_type, { action, removedValue }) {

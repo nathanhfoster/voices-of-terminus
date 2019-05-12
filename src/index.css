@@ -77,7 +77,7 @@
     var(--primaryColor),
     var(--primaryColor)
   );
-  --disabledOpacity: 0.75;
+  --disabledOpacity: 0.5;
   --primaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
   --secondaryBackGroundOpacity: rgba(0, 0, 0, 0.2);
   --tertiaryBackGroundOpacity: rgba(0, 0, 0, 0.5);
