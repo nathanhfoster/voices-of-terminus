@@ -71,9 +71,9 @@ const selectStyles = props => {
     option: (base, state) => ({
       ...base,
       borderBottom: "1px solid var(--primaryColor)",
-      backgroundColor: state.isFocused
-        ? "var(--primaryColor)"
-        : switchRoleColor(state.value),
+      backgroundColor: state.isSelected ? "var(--secondaryColor)"
+        : state.isFocused ? "var(--primaryColor)"
+          : switchRoleColor(state.value),
       color: "white",
       ":active": {
         backgroundColor: !state.isSelected
@@ -109,26 +109,26 @@ const selectStyles = props => {
       const { isFixed } = state.data;
       return isFixed
         ? {
-            ...base,
-            fontWeight: "bold",
-            color: "var(--tertiarycolor)",
-            paddingRight: 6
-          }
+          ...base,
+          fontWeight: "bold",
+          color: "var(--tertiarycolor)",
+          paddingRight: 6
+        }
         : {
-            ...base,
-            color: "var(--tertiarycolor)"
-          };
+          ...base,
+          color: "var(--tertiarycolor)"
+        };
     },
     multiValueRemove: (base, state) =>
       state.data.isFixed
         ? { ...base, display: "none" }
         : {
-            ...base,
-            ":hover": {
-              backgroundColor: "var(--secondaryColor)",
-              color: "var(--tertiarycolor)"
-            }
+          ...base,
+          ":hover": {
+            backgroundColor: "var(--secondaryColor)",
+            color: "var(--tertiarycolor)"
           }
+        }
   };
 };
 
