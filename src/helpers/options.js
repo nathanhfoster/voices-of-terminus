@@ -65,10 +65,7 @@ const GroupAndRaidSubOptions = [
 
 const eventTagOptions = {
   Event: [],
-  Dungeon: [],
-  Explore: [],
   Group: GroupAndRaidSubOptions,
-  Quest: [],
   Raid: GroupAndRaidSubOptions,
   VoTShow: []
 };
