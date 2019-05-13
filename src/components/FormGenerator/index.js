@@ -156,6 +156,7 @@ class FormGenerator extends Component {
   pollPropToState = (Forms, userId, selectOptions) => {
     let { Form, Questions, Choices, Recipients } = Forms;
     const { title, expiration_date, form_type } = Form;
+
     Questions = Questions.map(
       (q, i) =>
         (q = {
@@ -163,6 +164,8 @@ class FormGenerator extends Component {
           position: i,
           question: q.question,
           question_type: q.question_type,
+          image: q.image,
+          showImage: q.image ? true : false,
           Choices: Choices[i]
             ? Choices[i].map(
                 (c, i) => (c = { id: c.id, position: i, title: c.title })
