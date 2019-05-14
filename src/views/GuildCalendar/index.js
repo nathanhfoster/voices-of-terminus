@@ -196,7 +196,8 @@ class GuildCalendar extends PureComponent {
         </Row>
         <Row className="ActionToolbarRow">
           <Col
-            xs={4}
+            md={4}
+            xs={12}
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
