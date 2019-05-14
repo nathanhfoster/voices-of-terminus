@@ -434,7 +434,10 @@ class EventDetails extends Component {
             </Col>
           )}
           <Col xs={12}>
-            <i className="fas fa-tags" /> [{tags.concat(sub_tags)}]
+            <i className="fas fa-tags" /> [{tags}]
+          </Col>
+          <Col xs={12}>
+            <i className="fas fa-tags" /> [{sub_tags}]
           </Col>
           {description && (
             <Col xs={12} className="blockLineBreak">
