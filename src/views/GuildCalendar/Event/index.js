@@ -186,8 +186,6 @@ class Event extends PureComponent {
     });
   };
 
-  pollPropToState = (Events, User, eventId) => {};
-
   componentWillUnmount() {
     const { clearEventsApi } = this.props;
     clearEventsApi();

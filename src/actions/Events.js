@@ -219,6 +219,35 @@ const postEventGroupMembers = (
   }
 };
 
+
+// TODO
+const updateEvent = (userId, token, payload, groups) => async (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: C.POST_EVENTS_LOADING });
+  return await Axios(token)
+    .post(`calendar/events/`, qs.stringify(payload))
+    .then(res => {
+      const { Users } = getState().Admin;
+      const { id } = res.data;
+      dispatch(postEventGroups(token, id, groups));
+      const uri = `/calendar/event/${id}`;
+      const recipients = Users.filter(u => u.lfg).map(u => u.id);
+      const title = "New Event";
+      const body =
+        "We found an event match for you! Click the link button to view it.";
+      dispatch(createMessageGroup(token, userId, uri, recipients, title, body));
+      dispatch({ type: C.POST_EVENTS_SUCCESS });
+    })
+    .catch(e =>
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+      })
+    );
+};
+
 // TODO
 const updateEventGroups = (token, event_id, groups) => async dispatch => {
   for (let i = 0; i < groups.length; i++) {

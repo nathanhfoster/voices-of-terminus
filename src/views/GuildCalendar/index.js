@@ -9,18 +9,19 @@ import {
   Col,
   PageHeader,
   ButtonToolbar,
-  Button, InputGroup
+  Button,
+  InputGroup
 } from "react-bootstrap";
 import Select from "react-select";
 import { eventLabelColor, isSubset, splitString } from "../../helpers";
 import { UserHasPermissions } from "../../helpers/userPermissions";
-import { eventOptions } from '../../helpers/options';
+import { eventOptions } from "../../helpers/options";
 import { selectStyles } from "../../helpers/styles";
 import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
-import { getYearMonthEvents } from "../../actions/Events";
+import { getYearMonthEvents, clearEventsApi } from "../../actions/Events";
 
 const mapStateToProps = ({ User, Window, Events }) => ({
   User,
@@ -28,7 +29,7 @@ const mapStateToProps = ({ User, Window, Events }) => ({
   Events
 });
 
-const mapDispatchToProps = { getYearMonthEvents };
+const mapDispatchToProps = { getYearMonthEvents, clearEventsApi };
 
 class GuildCalendar extends PureComponent {
   constructor(props) {
@@ -55,7 +56,8 @@ class GuildCalendar extends PureComponent {
   }
 
   componentDidMount() {
-    const { getYearMonthEvents, activeDate } = this.props;
+    const { getYearMonthEvents, activeDate, clearEventsApi } = this.props;
+    clearEventsApi();
     const payload = { date: activeDate };
     getYearMonthEvents(payload);
     this.setState({ activeDate });
@@ -88,7 +90,9 @@ class GuildCalendar extends PureComponent {
   };
 
   filterForms = (typeFilter, tags, sub_tags) => {
-    const allTags = sub_tags ? [...tags.split("|"), ...sub_tags.split("|")] : tags.split("|");
+    const allTags = sub_tags
+      ? [...tags.split("|"), ...sub_tags.split("|")]
+      : tags.split("|");
     const filter = typeFilter.map(f => f.value);
     return typeFilter.length > 0 ? isSubset(allTags, filter) : true;
   };
@@ -126,60 +130,62 @@ class GuildCalendar extends PureComponent {
       let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
       return (
         <div class="TileContent">
-          {Events.results.filter(e => this.filterForms(typeFilter, e.tags, e.sub_tags)).map((e, i) => {
-            const {
-              id,
-              start_date,
-              end_date,
-              title,
-              description,
-              author,
-              author_username,
-              last_modified_by,
-              tags,
-              sub_tags,
-              min_level,
-              max_level,
-              role_preferences,
-              class_preferences,
-              location,
-              group_size
-            } = e;
-            const calendarDay = MomentJS(date);
-            const eventStartTime = MomentJS(start_date);
-            const eventFound = eventStartTime.isSame(calendarDay, "day");
+          {Events.results
+            .filter(e => this.filterForms(typeFilter, e.tags, e.sub_tags))
+            .map((e, i) => {
+              const {
+                id,
+                start_date,
+                end_date,
+                title,
+                description,
+                author,
+                author_username,
+                last_modified_by,
+                tags,
+                sub_tags,
+                min_level,
+                max_level,
+                role_preferences,
+                class_preferences,
+                location,
+                group_size
+              } = e;
+              const calendarDay = MomentJS(date);
+              const eventStartTime = MomentJS(start_date);
+              const eventFound = eventStartTime.isSame(calendarDay, "day");
 
-            const dayOfTheYear = eventStartTime.dayOfYear();
-            //console.log("calendarDay: ", calendarDay);
-            mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
+              const dayOfTheYear = eventStartTime.dayOfYear();
+              //console.log("calendarDay: ", calendarDay);
+              mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
 
-            return view === "month" && eventFound && !isMobile ? (
-              <div
-                onClick={e => history.push(`/calendar/event/${id}`)}
-                className="hasEventsContainer"
-                data-for={`${id}`}
-                data-tip={i}
-              >
-                <span
-                  className="eventLabelColor"
-                  style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
-                />
-                <span>
-                  <Moment format="hh:mma">{start_date}</Moment>
-                </span>
-                <h6 className="eventTitle">{title}</h6>
-              </div>
-            ) : view === "month" &&
-              eventFound &&
-              mapCounter[dayOfTheYear] < 2 ? (
-                  <div class="hasEventsContainerMobile">
-                    <span
-                      className="eventLabelColor"
-                      style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
-                    />
-                  </div>
-                ) : null;
-          })}
+              return view === "month" && eventFound && !isMobile ? (
+                <div
+                  onClick={e => history.push(`/calendar/event/${id}`)}
+                  className="hasEventsContainer"
+                  data-for={`${id}`}
+                  data-tip={i}
+                >
+                  <span
+                    className="eventLabelColor"
+                    style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
+                  />
+                  <span>
+                    <Moment format="hh:mma">{start_date}</Moment>
+                  </span>
+                  <h6 className="eventTitle">{title}</h6>
+                </div>
+              ) : view === "month" &&
+                eventFound &&
+                mapCounter[dayOfTheYear] < 2 ? (
+                <div class="hasEventsContainerMobile">
+                  <span
+                    className="eventLabelColor"
+                    style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
+                  />
+                </div>
+              ) : null;
+            })}
         </div>
       );
     };
@@ -194,17 +200,14 @@ class GuildCalendar extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {UserHasPermissions(
-              User,
-              "add_event"
-            ) && (
-                <Button
-                  onClick={e => history.push("/calendar/new/event")}
-                  className="todayButton"
-                >
-                  <i className="far fa-calendar-plus" /> Event
+            {UserHasPermissions(User, "add_event") && (
+              <Button
+                onClick={e => history.push("/calendar/new/event")}
+                className="todayButton"
+              >
+                <i className="far fa-calendar-plus" /> Event
               </Button>
-              )}
+            )}
             <Button onClick={this.Today} className="todayButton">
               <i className="fas fa-calendar-day" /> Today
             </Button>
