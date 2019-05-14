@@ -60,10 +60,6 @@ class EventDetails extends Component {
     return true;
   }
 
-  componentWillUpdate() {}
-
-  /* render() */
-
   componentDidMount() {
     const { User, getEvent, getCharacters, match } = this.props;
     const { id } = match.params;
@@ -80,10 +76,6 @@ class EventDetails extends Component {
     const { Event, Groups, GroupMembers } = Events;
     this.setState({ User, Event, Groups, GroupMembers });
   };
-
-  componentDidUpdate(prevProps, prevState) {}
-
-  componentWillUnmount() {}
 
   renderGroups = (User, Groups) => {
     const { Characters } = User;
@@ -378,6 +370,7 @@ class EventDetails extends Component {
       max_level,
       min_level,
       tags,
+      sub_tags,
       title,
       url
     } = Event;
@@ -441,7 +434,7 @@ class EventDetails extends Component {
             </Col>
           )}
           <Col xs={12}>
-            <i className="fas fa-tags" /> [{tags}]
+            <i className="fas fa-tags" /> [{tags.concat(sub_tags)}]
           </Col>
           {description && (
             <Col xs={12} className="blockLineBreak">
