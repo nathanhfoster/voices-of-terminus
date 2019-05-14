@@ -26,14 +26,14 @@ import {
   eventTagOptions,
   locationTags
 } from "../../../helpers/options";
-import { DeepCopy, joinStrings } from "../../../helpers";
+import { DeepCopy, joinStrings, splitString } from "../../../helpers";
 import { Redirect } from "react-router-dom";
 import Slider, { Range } from "rc-slider";
 import Tooltip from "rc-tooltip";
 import "rc-slider/assets/index.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { postEvent, clearEventsApi } from "../../../actions/Events";
+import { postEvent, getEvent, clearEventsApi } from "../../../actions/Events";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 
 const mapStateToProps = ({ User, Events }) => ({
@@ -41,7 +41,7 @@ const mapStateToProps = ({ User, Events }) => ({
   Events
 });
 
-const mapDispatchToProps = { postEvent, clearEventsApi };
+const mapDispatchToProps = { postEvent, getEvent, clearEventsApi };
 
 class Event extends PureComponent {
   constructor(props) {
@@ -52,6 +52,7 @@ class Event extends PureComponent {
       end_date: new Date(),
       locations: locationTags.filter(e => e.isFixed),
       tags: eventTags.filter(e => e.isFixed),
+      sub_tags: [],
       min_level: 1,
       max_level: 60,
       role_class_preferences: [
@@ -113,13 +114,12 @@ class Event extends PureComponent {
     this.getState(this.props);
   }
 
-  componentWillUpdate() { }
-
-  /* render() */
-
   componentDidMount() {
-    const { clearEventsApi } = this.props;
-    clearEventsApi();
+    const { getEvent, clearEventsApi, match } = this.props;
+    const pollId = match.params.id;
+    if (pollId) {
+      getEvent(pollId)
+    } else clearEventsApi();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -127,13 +127,38 @@ class Event extends PureComponent {
   }
 
   getState = props => {
-    const { User, Events, groups } = props;
+    const { User, Events, groups, match } = props;
+    const eventId = match.params.id;
+    let { Event, Groups, GroupMembers } = Events;
+    const { author, title, start_date, end_date, url, description,
+      tags, sub_tags, min_level, max_level,
+      locations, group_size } = Event;
+
+    GroupMembers = GroupMembers.map(g => (g = { event_group_id: g.event_group_id, role_class_preferences: g.role_class_preferences.split("|").map(e => (e = { value: g.role_class_preferences, label: g.role_class_preferences })) }));
+    Groups = Groups.map(g => GroupMembers.filter(m => m.event_group_id === g.id))
     this.setState({
       User,
       Events,
       groups,
-      group_size: groups.length
+      group_size: groups.length,
+      author,
+      title,
+      start_date,
+      end_date,
+      url,
+      description,
+      tags: tags ? splitString(tags) : [],
+      sub_tags: sub_tags ? splitString(sub_tags) : [],
+      min_level, max_level,
+      locations: locations ? splitString(locations) : [],
+      groups: Groups.length > 0 ? Groups : groups,
+      group_size,
+      eventId
     });
+  };
+
+  pollPropToState = (Events, User, eventId) => {
+
   };
 
   componentWillUnmount() {
@@ -189,11 +214,11 @@ class Event extends PureComponent {
     this.setState({ locations: selectValue });
   };
 
-  onSelectTagChange = (selectValue, { action, removedValue }) => {
+  onSelectTagChange = (tags, { action, removedValue }) => {
     const { party } = this.props;
     let { groups } = this.state;
-    const raidSelected = selectValue.map(e => e.value).includes("Raid");
-    const oneGroup = this.showGroups(selectValue);
+    const raidSelected = tags.map(e => e.value).includes("Raid");
+    const oneGroup = this.showGroups(tags);
     if (raidSelected) {
       groups.length = 4;
       for (let i = 0; i < groups.length; i++) {
@@ -211,11 +236,27 @@ class Event extends PureComponent {
         }
         break;
       case "clear":
-        selectValue = eventTags.filter(v => v.isFixed);
+        tags = eventTags.filter(v => v.isFixed);
         break;
     }
 
-    this.setState({ tags: selectValue, groups, group_size: groups.length });
+    this.setState({ tags, groups, group_size: groups.length });
+  };
+
+  onSelectSubTagChange = (sub_tags, { action, removedValue }) => {
+    switch (action) {
+      case "remove-value":
+      case "pop-value":
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case "clear":
+        sub_tags = [];
+        break;
+    }
+
+    this.setState({ sub_tags });
   };
 
   onSelectRollPreferenceChange = (
@@ -257,6 +298,7 @@ class Event extends PureComponent {
       url,
       description,
       tags,
+      sub_tags,
       min_level,
       max_level,
       locations,
@@ -272,7 +314,8 @@ class Event extends PureComponent {
         description,
         author: User.id,
         last_modified_by: User.id,
-        tags: joinStrings(tags)
+        tags: joinStrings(tags),
+        sub_tags: joinStrings(sub_tags)
       }
       : {
         start_date,
@@ -283,6 +326,7 @@ class Event extends PureComponent {
         author: User.id,
         last_modified_by: User.id,
         tags: joinStrings(tags),
+        sub_tags: joinStrings(sub_tags),
         min_level,
         max_level,
         locations: locations.map(e => e.value).join("|"),
@@ -320,6 +364,7 @@ class Event extends PureComponent {
           <span className="help">{GroupHelper}</span>
           {group.map((member, k) => {
             const { role_class_preferences } = member;
+
             const Options =
               role_class_preferences.length === 0
                 ? roleOptions
@@ -400,7 +445,9 @@ class Event extends PureComponent {
       start_date,
       end_date,
       group_size,
-      groups
+      groups,
+      author,
+      eventId
     } = this.state;
     const {
       loading,
@@ -411,15 +458,17 @@ class Event extends PureComponent {
       updated,
       error
     } = Events;
+
     const raidSelected = tags.map(e => e.value).includes("Raid");
-    console.log(eventTagOptions[tags.length < 2 ? "" : tags[1].value] ? false : true)
-    return !UserHasPermissions(User, "add_event") ? (
-      history.length > 1 ? (
-        <Redirect to={history.goBack()} />
+    const { sub_tags } = this.state
+    return eventId && !UserHasPermissions(User, "change_event", author)
+      || !UserHasPermissions(User, "add_event") ? (
+        history.length > 1 ? (
+          <Redirect to={history.goBack()} />
+        ) : (
+            <Redirect to="/login" />
+          )
       ) : (
-          <Redirect to="/login" />
-        )
-    ) : (
         <Grid className="Event Container fadeIn">
           <Row>
             <PageHeader className="pageHeader">EVENT</PageHeader>
@@ -536,8 +585,33 @@ class Event extends PureComponent {
                     <i className="fas fa-tags" />
                   </InputGroup.Addon>
                   <Select
-                    key={1}
                     value={tags}
+                    isMulti
+                    styles={selectStyles()}
+                    onBlur={e => e.preventDefault()}
+                    blurInputOnSelect={false}
+                    closeMenuOnSelect={true}
+                    escapeClearsValue={true}
+                    //isClearable={this.state.selectValue.some(v => !v.isFixed)}
+                    isSearchable={false}
+                    placeholder="Tags..."
+                    classNamePrefix="select"
+                    onChange={this.onSelectTagChange}
+                    options={eventTags}
+                  />
+                </InputGroup>
+              </Col>
+              {tags.length > 1 && <Col xs={12}>
+                <ControlLabel>Subtag(s)</ControlLabel>
+                <span className="help">
+                  Choose subcategories
+              </span>
+                <InputGroup>
+                  <InputGroup.Addon>
+                    <i className="fas fa-tags" />
+                  </InputGroup.Addon>
+                  <Select
+                    value={sub_tags}
                     isMulti
                     styles={selectStyles()}
                     onBlur={e => e.preventDefault()}
@@ -546,15 +620,13 @@ class Event extends PureComponent {
                     escapeClearsValue={true}
                     //isClearable={this.state.selectValue.some(v => !v.isFixed)}
                     isSearchable={false}
-                    placeholder="Tags..."
+                    placeholder="Sub tags..."
                     classNamePrefix="select"
-                    onChange={this.onSelectTagChange}
-                    options={
-                      tags.length < 2 ? eventTags : eventTagOptions[tags[1].value]
-                    }
+                    onChange={this.onSelectSubTagChange}
+                    options={eventTagOptions[tags[1].value]}
                   />
                 </InputGroup>
-              </Col>
+              </Col>}
               {this.showGroups(tags) && (
                 <Col xs={12}>
                   <ControlLabel>Location(s)</ControlLabel>

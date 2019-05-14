@@ -1,4 +1,10 @@
 import ArticleDefault from "../images/Articles/default.png";
+import Blog from '../images/Articles/blog.png'
+import FanFiction from '../images/Articles/fanfiction.png'
+import FanMade from '../images/Articles/fanmade.png'
+import Guide from '../images/Articles/guide.png'
+import Lore from '../images/Articles/lore.png'
+import Review from '../images/Articles/review.png'
 
 import NewsDefault from "../images/News/default.png";
 import Community from "../images/News/community.png";
@@ -7,6 +13,8 @@ import Guild from "../images/News/guild.png";
 import Official from "../images/News/official.png";
 import VotShow from "../images/News/show.png";
 import VoT from "../images/News/vot.png";
+
+
 
 const tagImage = tags =>
   tags.includes("Newsletter") ? newsLetterImage(tags) : articleImage(tags);
@@ -19,17 +27,18 @@ const newsLetterImage = tags => {
   if (tags.includes("VoTShow")) return VotShow;
   if (tags.includes("Community")) return Community;
   if (tags.includes("VoT")) return VoT;
-  //   if (tags.includes("Blog"))
-  //   if (tags.includes("FanMade"))
-  //   if (tags.includes("Guide"))
-  //   if (tags.includes("Lore"))
-  //   if (tags.includes("Review"))
-  //   if (tags.includes("VotVotShow"))
-  //   if (tags.includes("Other"))
+
   return NewsDefault;
 };
 
 const articleImage = tags => {
+  if (tags.includes("Blog")) return Blog;
+  if (tags.includes("FanFiction")) return FanFiction;
+  if (tags.includes("FanMade")) return FanMade;
+  if (tags.includes("Guide")) return Guide;
+  if (tags.includes("Lore")) return Lore;
+  if (tags.includes("Review")) return Review;
+
   return ArticleDefault;
 };
 

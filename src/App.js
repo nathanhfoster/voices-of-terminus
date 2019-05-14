@@ -124,6 +124,7 @@ class App extends PureComponent {
         { path: "/article/edit/:id", component: TextEditor },
         { path: "/calendar", component: GuildCalendar },
         { path: "/calendar/new/event", component: Event },
+        { path: "/calendar/edit/event/:id", component: Event },
         { path: "/calendar/event/:id", component: EventDetails },
         { path: "/articles/*", component: News },
         { path: "/news/*", component: News },

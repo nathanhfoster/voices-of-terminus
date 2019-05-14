@@ -8,7 +8,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { eventLabelColor } from "../../helpers";
 
-const mapStateToProps = ({}) => ({});
+const mapStateToProps = ({ }) => ({});
 
 const mapDispatchToProps = {};
 
@@ -36,9 +36,9 @@ class EventList extends PureComponent {
     this.getState(this.props);
   }
 
-  componentWillUpdate() {}
+  componentWillUpdate() { }
 
-  componentDidMount() {}
+  componentDidMount() { }
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
@@ -51,12 +51,12 @@ class EventList extends PureComponent {
     });
   };
 
-  componentDidUpdate() {}
+  componentDidUpdate() { }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
-  renderItems = (date, data, history) =>
-    data.map((k, i) => {
+  renderItems = (date, events, history) =>
+    events.map((e, i) => {
       const {
         id,
         start_date,
@@ -67,13 +67,14 @@ class EventList extends PureComponent {
         author_username,
         last_modified_by,
         tags,
+        sub_tags,
         min_level,
         max_level,
         role_preferences,
         class_preferences,
         location,
         group_size
-      } = k;
+      } = e;
       const activeDate = MomentJS(date);
       const startDate = MomentJS(start_date);
       const sameDayEvent = startDate.isSame(activeDate, "day");
@@ -88,7 +89,7 @@ class EventList extends PureComponent {
             >
               <span
                 className="EventColorLabelContainer"
-                style={{ backgroundColor: eventLabelColor(tags) }}
+                style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
               />
               <Moment format="hh:mm a - ">{start_date}</Moment>
               <Moment format="hh:mm a">{end_date}</Moment>

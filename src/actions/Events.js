@@ -17,13 +17,13 @@ const getYearMonthEvents = payload => dispatch => {
     .catch(e => console.log(e));
 };
 
-const getEvent = eventId => dispatch =>
-  Axios()
+const getEvent = eventId => async dispatch =>
+  await Axios()
     .get(`calendar/events/${eventId}/`)
     .then(res => {
       const { id } = res.data;
       dispatch({ type: C.GET_EVENT, payload: res.data });
-      getEventGroups(id, dispatch);
+      dispatch(getEventGroups(id));
     })
     .catch(e =>
       dispatch({
@@ -32,9 +32,9 @@ const getEvent = eventId => dispatch =>
       })
     );
 
-const getEventGroups = (eventId, dispatch) => {
+const getEventGroups = eventId => async dispatch => {
   let Groups = [];
-  return Axios()
+  return await Axios()
     .get(`calendar/event/groups/${eventId}/view/`)
     .then(res => {
       dispatch({ type: C.GET_EVENT_GROUPS, payload: res.data });
@@ -42,7 +42,7 @@ const getEventGroups = (eventId, dispatch) => {
         const { id } = res.data[i];
         Groups = [...Groups, id];
       }
-      getEventGroupMembers(Groups, dispatch);
+      dispatch(getEventGroupMembers(Groups));
     })
     .catch(e =>
       dispatch({
@@ -52,7 +52,7 @@ const getEventGroups = (eventId, dispatch) => {
     );
 };
 
-const getEventGroupMembers = (Groups, dispatch) => {
+const getEventGroupMembers = Groups => dispatch => {
   let payload = [];
   for (let i = 0; i < Groups.length; i++) {
     const eventGroupId = Groups[i];
@@ -60,20 +60,20 @@ const getEventGroupMembers = (Groups, dispatch) => {
       .get(`calendar/event/group/members/${eventGroupId}/view/`)
       .then(res => {
         payload = [...payload, ...res.data];
-        getEventGroupMembersCharacters(payload, dispatch);
+        dispatch(getEventGroupMembersCharacters(payload));
       })
       .catch(e => console.log(e));
   }
 };
 
-const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
+const getEventGroupMembersCharacters = GroupMembers => async dispatch => {
   let payload = DeepCopy(GroupMembers);
   const filledGroupMembers = GroupMembers.filter(m => m.filled);
   const filledMembers = filledGroupMembers.length > 0;
   if (filledMembers) {
     for (let i = 0; i < filledGroupMembers.length; i++) {
       const { filled } = filledGroupMembers[i];
-      Axios()
+      await Axios()
         .get(`user/characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
@@ -94,10 +94,10 @@ const getEventGroupMembersCharacters = (GroupMembers, dispatch) => {
     });
 };
 
-const editEventGroupMember = (id, User, payload) => dispatch => {
+const editEventGroupMember = (id, User, payload) => async dispatch => {
   const { Characters, token } = User;
   const endpoint = `calendar/event/group/members/${id}/`;
-  return Axios(token)
+  return await Axios(token)
     .get(endpoint)
     .then(res => {
       const { event_group_id, filled } = res.data;
@@ -117,7 +117,7 @@ const editEventGroupMember = (id, User, payload) => dispatch => {
               .get(`calendar/event/groups/${event_group_id}/`)
               .then(res => {
                 const { event_id } = res.data;
-                getEventGroups(event_id, dispatch);
+                dispatch(getEventGroups(event_id));
               })
               .catch(e =>
                 dispatch({
@@ -141,7 +141,7 @@ const editEventGroupMember = (id, User, payload) => dispatch => {
           .get(`calendar/event/groups/${event_group_id}/`)
           .then(res => {
             const { event_id } = res.data;
-            getEventGroups(event_id, dispatch);
+            dispatch(getEventGroups(event_id));
           })
           .catch(e =>
             dispatch({
@@ -153,14 +153,14 @@ const editEventGroupMember = (id, User, payload) => dispatch => {
     });
 };
 
-const postEvent = (userId, token, payload, groups) => (dispatch, getState) => {
+const postEvent = (userId, token, payload, groups) => async (dispatch, getState) => {
   dispatch({ type: C.POST_EVENTS_LOADING });
-  return Axios(token)
+  return await Axios(token)
     .post(`calendar/events/`, qs.stringify(payload))
     .then(res => {
       const { Users } = getState().Admin;
       const { id } = res.data;
-      postEventGroups(token, id, groups, dispatch);
+      dispatch(postEventGroups(token, id, groups));
       const uri = `/calendar/event/${id}`;
       const recipients = Users.filter(u => u.lfg).map(u => u.id);
       const title = "New Event";
@@ -177,15 +177,15 @@ const postEvent = (userId, token, payload, groups) => (dispatch, getState) => {
     );
 };
 
-const postEventGroups = (token, event_id, groups, dispatch) => {
+const postEventGroups = (token, event_id, groups) => async dispatch => {
   for (let i = 0; i < groups.length; i++) {
     const groupMembers = groups[i];
     const payload = { event_id, position: i };
-    Axios(token)
+    await Axios(token)
       .post(`calendar/event/groups/`, qs.stringify(payload))
       .then(res => {
         const { id } = res.data;
-        postEventGroupMembers(token, id, groupMembers, dispatch);
+        dispatch(postEventGroupMembers(token, id, groupMembers));
       })
       .catch(e => console.log(e, "postEventGroups: ", payload));
   }
@@ -194,9 +194,8 @@ const postEventGroups = (token, event_id, groups, dispatch) => {
 const postEventGroupMembers = (
   token,
   event_group_id,
-  groupMembers,
-  dispatch
-) => {
+  groupMembers
+) => async dispatch => {
   for (let i = 0; i < groupMembers.length; i++) {
     const { role_class_preferences } = groupMembers[i];
     const payload = {
@@ -204,9 +203,9 @@ const postEventGroupMembers = (
       position: i,
       role_class_preferences: role_class_preferences.map(i => i.value).join("|")
     };
-    Axios(token)
+    await Axios(token)
       .post(`calendar/event/group/members/`, qs.stringify(payload))
-      .then(res => {})
+      .then(res => { })
       .catch(e =>
         dispatch({
           type: C.SET_API_RESPONSE,

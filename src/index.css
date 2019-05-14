@@ -94,6 +94,8 @@
 
   /* Other Colors */
   --color_whiteSmoke: #f5f5f5;
+  --color_white_pepper: #f8efba;
+  --color_oasis_stream: #9aecdb;
   --color_turquoise: #1abc9c;
   --color_greenSea: #16a085;
   --color_emerald: #2ecc71;
@@ -102,6 +104,7 @@
   --color_belizehole: #2980b9;
   --color_amethyst: #9b59b6;
   --color_wisteria: #8e44ad;
+  --color_fiery_fuchsia: #b33771;
   --color_wetasphalt: #34495e;
   --color_midnightBlue: #2c3e50;
   --color_sunflower: #f1c40f;
@@ -110,6 +113,7 @@
   --color_pumpkin: #d35400;
   --color_alizarin: #e74c3c;
   --color_pomegranate: #c0392b;
+  --color_bara_red: #ed4c67;
   --color_clouds: #ecf0f1;
   --color_silver: #bdc3c7;
   --color_concrete: #95a5a6;

@@ -9,15 +9,18 @@ import {
   Col,
   PageHeader,
   ButtonToolbar,
-  Button
+  Button, InputGroup
 } from "react-bootstrap";
+import Select from "react-select";
+import { eventLabelColor, isSubset, splitString } from "../../helpers";
+import { UserHasPermissions } from "../../helpers/userPermissions";
+import { eventOptions } from '../../helpers/options';
+import { selectStyles } from "../../helpers/styles";
 import Moment from "react-moment";
 import MomentJS from "moment";
 import "./styles.css";
 import "./stylesM.css";
 import { getYearMonthEvents } from "../../actions/Events";
-import { eventLabelColor } from "../../helpers";
-import { UserHasPermissions } from "../../helpers/userPermissions";
 
 const mapStateToProps = ({ User, Window, Events }) => ({
   User,
@@ -32,6 +35,7 @@ class GuildCalendar extends PureComponent {
     super(props);
 
     this.state = {
+      typeFilter: [],
       activeDate: null,
       isMobile: false,
       show: false,
@@ -83,6 +87,27 @@ class GuildCalendar extends PureComponent {
     return this.setState({ activeDate: activeStartDate });
   };
 
+  filterForms = (typeFilter, tags, sub_tags) => {
+    const allTags = sub_tags ? [...tags.split("|"), ...sub_tags.split("|")] : tags.split("|");
+    const filter = typeFilter.map(f => f.value);
+    return typeFilter.length > 0 ? isSubset(allTags, filter) : true;
+  };
+
+  onSelectChange = (typeFilter, { action, removedValue }) => {
+    switch (action) {
+      case "remove-value":
+      case "pop-value":
+        if (removedValue.isFixed) {
+          return;
+        }
+        break;
+      case "clear":
+        typeFilter = eventOptions.filter(v => v.isFixed);
+        break;
+    }
+    this.setState({ typeFilter });
+  };
+
   render() {
     const { history } = this.props;
     const {
@@ -91,7 +116,8 @@ class GuildCalendar extends PureComponent {
       Window,
       activeDate,
       show,
-      editing
+      editing,
+      typeFilter
     } = this.state;
     const { isMobile } = Window;
     const tileContent = ({ date, view }) => {
@@ -100,7 +126,7 @@ class GuildCalendar extends PureComponent {
       let mapCounter = {}; // Use to display only 1 eventLabelColor per day for mobile
       return (
         <div class="TileContent">
-          {Events.results.map((k, i) => {
+          {Events.results.filter(e => this.filterForms(typeFilter, e.tags, e.sub_tags)).map((e, i) => {
             const {
               id,
               start_date,
@@ -111,13 +137,14 @@ class GuildCalendar extends PureComponent {
               author_username,
               last_modified_by,
               tags,
+              sub_tags,
               min_level,
               max_level,
               role_preferences,
               class_preferences,
               location,
               group_size
-            } = k;
+            } = e;
             const calendarDay = MomentJS(date);
             const eventStartTime = MomentJS(start_date);
             const eventFound = eventStartTime.isSame(calendarDay, "day");
@@ -135,7 +162,7 @@ class GuildCalendar extends PureComponent {
               >
                 <span
                   className="eventLabelColor"
-                  style={{ backgroundColor: eventLabelColor(tags) }}
+                  style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
                 />
                 <span>
                   <Moment format="hh:mma">{start_date}</Moment>
@@ -145,13 +172,13 @@ class GuildCalendar extends PureComponent {
             ) : view === "month" &&
               eventFound &&
               mapCounter[dayOfTheYear] < 2 ? (
-              <div class="hasEventsContainerMobile">
-                <span
-                  className="eventLabelColor"
-                  style={{ backgroundColor: eventLabelColor(tags) }}
-                />
-              </div>
-            ) : null;
+                  <div class="hasEventsContainerMobile">
+                    <span
+                      className="eventLabelColor"
+                      style={{ backgroundColor: eventLabelColor(tags, sub_tags) }}
+                    />
+                  </div>
+                ) : null;
           })}
         </div>
       );
@@ -163,7 +190,7 @@ class GuildCalendar extends PureComponent {
         </Row>
         <Row className="ActionToolbarRow">
           <Col
-            xs={12}
+            xs={4}
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
@@ -171,16 +198,37 @@ class GuildCalendar extends PureComponent {
               User,
               "add_event"
             ) && (
-              <Button
-                onClick={e => history.push("/calendar/new/event")}
-                className="todayButton"
-              >
-                <i className="far fa-calendar-plus" /> Event
+                <Button
+                  onClick={e => history.push("/calendar/new/event")}
+                  className="todayButton"
+                >
+                  <i className="far fa-calendar-plus" /> Event
               </Button>
-            )}
-            <Button onClick={this.Today} className="todayButton pull-right">
+              )}
+            <Button onClick={this.Today} className="todayButton">
               <i className="fas fa-calendar-day" /> Today
             </Button>
+          </Col>
+          <Col md={8} xs={12}>
+            <InputGroup>
+              <InputGroup.Addon>
+                <i className="fas fa-tags" />
+              </InputGroup.Addon>
+              <Select
+                //https://react-select.com/props
+                value={typeFilter}
+                isMulti
+                styles={selectStyles()}
+                onBlur={e => e.preventDefault()}
+                blurInputOnSelect={false}
+                //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
+                isSearchable={false}
+                placeholder="Filter by event type..."
+                classNamePrefix="select"
+                onChange={this.onSelectChange}
+                options={eventOptions}
+              />
+            </InputGroup>
           </Col>
         </Row>
         <Row>

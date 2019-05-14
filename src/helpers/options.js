@@ -44,10 +44,7 @@ const newsSelectOptions = [
 
 const eventTags = [
   { value: "Event", label: "Event", isFixed: true },
-  { value: "Dungeon", label: "Dungeon" },
-  { value: "Explore", label: "Explore" },
   { value: "Group", label: "Group" },
-  { value: "Quest", label: "Quest" },
   { value: "Raid", label: "Raid" },
   { value: "VoTShow", label: "VoTShow" }
 ];
@@ -62,6 +59,8 @@ const GroupAndRaidSubOptions = [
   { value: "Perception", label: "Perception" },
   { value: "Faction", label: "Faction" }
 ];
+
+const eventOptions = [...eventTags.slice(1), ...GroupAndRaidSubOptions];
 
 const eventTagOptions = {
   Event: [],
@@ -706,6 +705,7 @@ export {
   newsletterSelectOptions,
   newsSelectOptions,
   eventTags,
+  eventOptions,
   eventTagOptions,
   locationTags,
   galleryImageTags,

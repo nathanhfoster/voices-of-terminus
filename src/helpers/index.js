@@ -34,14 +34,21 @@ const objectToArray = obj => Object.keys(obj).map(key => obj[key]);
 const DeepCopy = arrayOrObj => JSON.parse(JSON.stringify(arrayOrObj));
 const isOnline = last_login =>
   new Date() - new Date(last_login) <= 1000 * 60 * 5;
-const eventLabelColor = tags => {
-  const type = tags.split("|")[1];
-  if (type == "Dungeon") return "var(--color_emerald)";
-  if (type == "Explore") return "var(--color_sunflower)";
-  if (type == "Group") return "var(--color_peterRiver)";
-  if (type == "Quest") return "var(--color_amethyst)";
-  if (type == "Raid") return "var(--color_alizarin)";
-  if (type == "VoTShow") return "var(--color_turquoise)";
+
+const eventLabelColor = (tags, sub_tags) => {
+  if (sub_tags) {
+    if (sub_tags.includes("Crafting")) return "var(--color_oasis_stream)";
+    if (sub_tags.includes("Dungeon")) return "var(--color_emerald)";
+    if (sub_tags.includes("Epic")) return "var(--color_fiery_fuchsia)";
+    if (sub_tags.includes("Explore")) return "var(--color_sunflower)";
+    if (sub_tags.includes("Faction")) return "var(--color_bara_red)";
+    if (sub_tags.includes("Harvesting")) return "var(--color_emerald)";
+    if (sub_tags.includes("Perception")) return "var(--color_white_pepper)";
+    if (sub_tags.includes("Quest")) return "var(--color_amethyst)";
+    if (sub_tags.includes("VoTShow")) return "var(--color_turquoise)";
+  }
+  if (tags.includes("Raid")) return "var(--color_alizarin)";
+  if (tags.includes("Group")) return "var(--color_peterRiver)";
 
   return "var(--primaryColor)";
 };
@@ -372,7 +379,7 @@ const removeDuplicates = (array, objAttr) => {
   for (let i = 0; i < array.length; i++) {
     try {
       map.set(array[i][objAttr], array[i]);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   return [...map.values()];
@@ -394,13 +401,13 @@ const joinStrings = objectArray => {
 const splitString = string =>
   string
     ? string.split("|").map(
-        i =>
-          (i = {
-            value: i,
-            label: i,
-            isFixed: i === "Article" || i === "Newsletter"
-          })
-      )
+      i =>
+        (i = {
+          value: i,
+          label: i,
+          isFixed: i === "Article" || i === "Newsletter" || i === "Event" || i === "Locations"
+        })
+    )
     : string;
 
 const GetUserPermissions = user_permissions =>
