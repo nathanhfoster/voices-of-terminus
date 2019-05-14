@@ -163,7 +163,7 @@ class Event extends PureComponent {
       GroupMembers.filter(m => m.event_group_id === g.id)
     );
 
-    console.log(Groups);
+    //console.log(Groups);
     this.setState({
       User,
       Events,
@@ -175,11 +175,13 @@ class Event extends PureComponent {
       end_date,
       url,
       description,
-      tags: tags ? splitString(tags) : [],
+      tags: tags ? splitString(tags) : eventTags.filter(e => e.isFixed),
       sub_tags: sub_tags ? splitString(sub_tags) : [],
       min_level,
       max_level,
-      locations: locations ? splitString(locations) : [],
+      locations: locations
+        ? splitString(locations)
+        : locationTags.filter(e => e.isFixed),
       groups: Groups.length > 0 ? Groups : groups,
       group_size,
       eventId
