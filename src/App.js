@@ -41,6 +41,8 @@ import PageNotFound from "./views/PageNotFound";
 import Footer from "./components/Footer";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Settings from "./views/Settings";
+import References from "./views/References";
+import ReferenceDetails from "./views/References/ReferenceDetails";
 import {
   clearApiResponse,
   setWindow,
@@ -154,7 +156,9 @@ class App extends PureComponent {
         { path: "/messages", component: Messages },
         { path: "/login", component: Login },
         { path: "/privacy-policy", component: PrivacyPolicy },
-        { path: "/settings", component: Settings }
+        { path: "/settings", component: Settings },
+        { path: "/references", component: References },
+        { path: "/references/:id/", component: ReferenceDetails }
       ]
     };
   }
@@ -321,21 +325,21 @@ class App extends PureComponent {
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (
-        <div className="App">
-          <NavBar history={history} location={location} match={match} />
-          <BackgroundImage history={history} location={location} match={match} />
-          <div
-            className="routeOverlay"
-            style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
-          >
-            <Switch>
-              {this.renderRouteItems(routeItems)}
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-          <Footer history={history} location={location} match={match} />
+      <div className="App">
+        <NavBar history={history} location={location} match={match} />
+        <BackgroundImage history={history} location={location} match={match} />
+        <div
+          className="routeOverlay"
+          style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
+        >
+          <Switch>
+            {this.renderRouteItems(routeItems)}
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
-      );
+        <Footer history={history} location={location} match={match} />
+      </div>
+    );
   }
 }
 

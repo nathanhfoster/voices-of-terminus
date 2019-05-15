@@ -179,38 +179,41 @@ class NavBar extends PureComponent {
                 <NavItem eventKey={8.4}>PODCASTS</NavItem>
               </LinkContainer>
             </NavDropdown>
-            <NavDropdown eventKey={9} title="VR" id="connect-nav-dropdown">
+            <LinkContainer to="/references">
+              <NavItem eventKey={9}>REFERENCES</NavItem>
+            </LinkContainer>
+            <NavDropdown eventKey={10} title="VR" id="connect-nav-dropdown">
               <Image src={vrLogo} className="vrLogo" />
               <NavItem
-                eventKey={9.1}
+                eventKey={10.1}
                 href="http://pantheonmmo.com/?referer=VoicesOfTerminus"
                 target="_blank"
               >
                 WEBSITE
               </NavItem>
               <NavItem
-                eventKey={9.2}
+                eventKey={10.2}
                 href="http://visionaryrealms.com/?referer=VoicesOfTerminus"
                 target="_blank"
               >
                 NEWS + EVENTS
               </NavItem>
               <NavItem
-                eventKey={9.3}
+                eventKey={10.3}
                 href="https://www.youtube.com/channel/UC4MbaiykerIrjKWRA6407tQ"
                 target="_blank"
               >
                 GAMEPLAY
               </NavItem>
               <NavItem
-                eventKey={9.4}
+                eventKey={10.4}
                 href="http://www.pantheonmmo.com/news/latest_news/"
                 target="_blank"
               >
                 NEWSLETTERS
               </NavItem>
               <NavItem
-                eventKey={9.5}
+                eventKey={10.5}
                 href="https://pantheonriseofthefallen.gamepedia.com/Pantheon:_Rise_of_the_Fallen_Wiki"
                 target="_blank"
               >
@@ -224,7 +227,7 @@ class NavBar extends PureComponent {
               </LinkContainer>
             ) : (
               <NavDropdown
-                eventKey={10}
+                eventKey={11}
                 title={[
                   primary_class ? (
                     <Image
@@ -232,19 +235,19 @@ class NavBar extends PureComponent {
                       style={{ height: "25px" }}
                     />
                   ) : (
-                    <i key={10.1} className="fas fa-user" />
+                    <i key={11.1} className="fas fa-user" />
                   ),
-                  <span key={10.2}> {User.username} </span>,
-                  <Badge key={10.3}>{unreadMessages}</Badge>
+                  <span key={11.2}> {User.username} </span>,
+                  <Badge key={11.3}>{unreadMessages}</Badge>
                 ]}
                 className="navbar-right"
                 id="basic-nav-dropdown"
               >
                 <LinkContainer to="/profile">
-                  <NavItem eventKey={10.4}>PROFILE</NavItem>
+                  <NavItem eventKey={11.4}>PROFILE</NavItem>
                 </LinkContainer>
                 <LinkContainer to="/messages">
-                  <NavItem eventKey={10.5}>
+                  <NavItem eventKey={11.5}>
                     MESSAGES <Badge>{unreadMessages}</Badge>
                   </NavItem>
                 </LinkContainer>
@@ -252,21 +255,21 @@ class NavBar extends PureComponent {
                 <MenuItem divider />
                 {UserHasPermissions(User, "add_article") && (
                   <LinkContainer to="/article/new/">
-                    <NavItem eventKey={10.6}>
+                    <NavItem eventKey={11.6}>
                       <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
                 )}
                 {UserHasPermissions(User, "add_newsletter") && (
                   <LinkContainer to="/newsletter/new">
-                    <NavItem eventKey={10.7}>
+                    <NavItem eventKey={11.7}>
                       <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
                   </LinkContainer>
                 )}
-                {UserHasPermissions(User, "add_poll") && (
+                {UserHasPermissions(User, "add_form") && (
                   <LinkContainer to="/form/new/">
-                    <NavItem eventKey={10.8}>
+                    <NavItem eventKey={11.8}>
                       <i className="fas fa-plus" /> FORM
                     </NavItem>
                   </LinkContainer>
@@ -274,26 +277,26 @@ class NavBar extends PureComponent {
 
                 {UserHasPermissions(User, "add_event") && (
                   <LinkContainer to="/calendar/new/event">
-                    <NavItem eventKey={10.9}>
+                    <NavItem eventKey={11.9}>
                       <i className="fas fa-plus" /> EVENT
                     </NavItem>
                   </LinkContainer>
                 )}
                 {UserHasPermissions(User, "add_ticket") && (
                   <LinkContainer to="/ticket/new">
-                    <NavItem eventKey={10.1}>
+                    <NavItem eventKey={11.1}>
                       <i className="fas fa-plus" /> TICKET
                     </NavItem>
                   </LinkContainer>
                 )}
                 <MenuItem divider />
                 <LinkContainer to="/forms">
-                  <NavItem eventKey={10.11}>
+                  <NavItem eventKey={11.11}>
                     <i className="fas fa-eye" /> FORMS
                   </NavItem>
                 </LinkContainer>
                 <LinkContainer to="/tickets">
-                  <NavItem eventKey={10.12}>
+                  <NavItem eventKey={11.12}>
                     <i className="fas fa-eye" /> YOUR TICKETS
                   </NavItem>
                 </LinkContainer>

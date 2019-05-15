@@ -135,8 +135,8 @@ class FormGenerator extends Component {
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
-        (a, b) => a.label.localeCompare(b.label)
-      )
+          (a, b) => a.label.localeCompare(b.label)
+        )
       : [];
     if (pollId) {
       this.pollPropToState(Forms, User.id, selectOptions);
@@ -168,8 +168,8 @@ class FormGenerator extends Component {
           showImage: q.image ? true : false,
           Choices: Choices[i]
             ? Choices[i].map(
-              (c, i) => (c = { id: c.id, position: i, title: c.title })
-            )
+                (c, i) => (c = { id: c.id, position: i, title: c.title })
+              )
             : []
         })
     );
@@ -521,7 +521,7 @@ class FormGenerator extends Component {
       updated,
       error
     } = Forms;
-    return User.is_superuser || User.is_staff ? (
+    return UserHasPermissions(User, "add_form") ? (
       <Grid className="FormGenerator Container">
         <Row className="ActionToolbarRow">
           <Col
@@ -549,16 +549,16 @@ class FormGenerator extends Component {
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                 : !posting && posted && !error
-                  ? [
+                ? [
                     <i
                       className="fas fa-check"
                       style={{ color: "var(--color_emerald)" }}
                     />,
                     " POST"
                   ]
-                  : "POST"}
+                : "POST"}
             </Button>
-            {pollId && UserHasPermissions(User, "change_poll") && (
+            {pollId && UserHasPermissions(User, "change_form") && (
               <Button
                 disabled={!pollId}
                 onClick={e =>
@@ -579,14 +579,14 @@ class FormGenerator extends Component {
                 {updating && !updated
                   ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
                   : !updating && updated && !error
-                    ? [
+                  ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " UPDATE"
                     ]
-                    : "UPDATE"}
+                  : "UPDATE"}
               </Button>
             )}
           </Col>
@@ -629,7 +629,7 @@ class FormGenerator extends Component {
                     type="text"
                     placeholder={`Untitled ${
                       form_type ? form_type.value : "Form"
-                      }`}
+                    }`}
                     name="title"
                     onChange={e => this.onChange(e)}
                   />
@@ -736,8 +736,8 @@ class FormGenerator extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-          <Redirect to="/login" />
-        );
+      <Redirect to="/login" />
+    );
   }
 }
 export default withAlert(

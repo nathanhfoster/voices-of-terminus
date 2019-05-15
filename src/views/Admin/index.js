@@ -299,7 +299,7 @@ class Admin extends PureComponent {
                 <i className="far fa-calendar-plus" /> Event
               </Button>
             )}
-            {UserHasPermissions(User, "add_poll") && (
+            {UserHasPermissions(User, "add_form") && (
               <Button onClick={() => history.push("/form/new")}>
                 <i className="fas fa-plus" /> Form
               </Button>

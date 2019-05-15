@@ -178,11 +178,11 @@ class FormSystem extends Component {
                 Action={e => DeleteForm(User.token, id)}
                 Disabled={false}
                 Icon={<i className="fas fa-trash" />}
-                hasPermission={UserHasPermissions(User, "delete_poll")}
+                hasPermission={UserHasPermissions(User, "delete_form")}
                 Class="pull-right"
                 Title={title}
               />
-              {UserHasPermissions(User, "change_poll") && (
+              {UserHasPermissions(User, "change_form") && (
                 <Button
                   onClick={e => {
                     e.stopPropagation();
@@ -257,48 +257,49 @@ class FormSystem extends Component {
                 )}
               </Row>,
               Choices[i] &&
-              Choices[i].map(c => {
-                const { id, title, question_id } = c;
-                const usersResponses = Responses.results
-                  .flat(2)
-                  .filter(
-                    r =>
-                      r.author === User.id &&
-                      Choices[i].some(c => c.id === r.choice_id)
+                Choices[i].map(c => {
+                  const { id, title, question_id } = c;
+                  const usersResponses = Responses.results
+                    .flat(2)
+                    .filter(
+                      r =>
+                        r.author === User.id &&
+                        Choices[i].some(c => c.id === r.choice_id)
+                    );
+
+                  const responseIndex = usersResponses.findIndex(
+                    response => response.choice_id == id
                   );
+                  const usersResponse =
+                    responseIndex != -1 ? usersResponses[responseIndex] : {};
+                  const { response } = usersResponse;
+                  const checked = response === "true";
 
-                const responseIndex = usersResponses.findIndex(
-                  response => response.choice_id == id
-                );
-                const usersResponse =
-                  responseIndex != -1 ? usersResponses[responseIndex] : {};
-                const { response } = usersResponse;
-                const checked = response === "true";
-
-                return (
-                  <Row
-                    className={checked ? "highlightedRow" : "borderedRow"}
-                    key={i}
-                  >
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoices(
-                          question_type,
-                          id,
-                          title,
-                          User,
-                          Responses,
-                          expired,
-                          checked,
-                          usersResponse.id,
-                          response,
-                          usersResponses
-                        )}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                );
-              })
+                  return (
+                    <Row
+                      className={checked ? "highlightedRow" : "borderedRow"}
+                      key={i}
+                    >
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoices(
+                            question_id,
+                            question_type,
+                            id,
+                            title,
+                            User,
+                            Responses,
+                            expired,
+                            checked,
+                            usersResponse.id,
+                            response,
+                            usersResponses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
             ];
           })}
         </Tab>
@@ -314,35 +315,37 @@ class FormSystem extends Component {
                 <i className="far fa-question-circle" /> {question}
               </h4>,
               Choices[i] &&
-              Choices[i].map(c => {
-                const { id, title, question_id } = c;
-                return (
-                  <Row className="borderedRow noHover">
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoicesResponses(
-                          question_type,
-                          id,
-                          title,
-                          Responses
-                        )}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                );
-              })
+                Choices[i].map(c => {
+                  const { id, title, question_id } = c;
+                  return (
+                    <Row className="borderedRow noHover">
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoicesResponses(
+                            question_id,
+                            question_type,
+                            id,
+                            title,
+                            Responses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
             ];
           })}
         </Tab>
       </Tabs>
     ) : (
-        <h1>You don't have permission to view this form.</h1>
-      );
+      <h1>You don't have permission to view this form.</h1>
+    );
   };
 
   switchQuestionChoices = (
+    question_id,
     question_type,
-    choiceId,
+    choice_id,
     title,
     User,
     Responses,
@@ -356,14 +359,15 @@ class FormSystem extends Component {
     var payload = {
       author: User.id,
       response: !checked,
-      choice_id: choiceId
+      question_id,
+      choice_id
     };
     switch (question_type) {
       case "Multiple":
         return (
           <Checkbox
             disabled={expired}
-            key={choiceId}
+            key={choice_id}
             checked={checked}
             onClick={() =>
               !response
@@ -382,7 +386,7 @@ class FormSystem extends Component {
               expired
             }
             name="radioGroup"
-            key={choiceId}
+            key={choice_id}
             checked={checked}
             onClick={() =>
               !response
@@ -432,22 +436,22 @@ class FormSystem extends Component {
                 {posting && !posted
                   ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                   : !posting && posted && !error
-                    ? [
+                  ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " SUBMIT"
                     ]
-                    : error
-                      ? [
-                        <i
-                          className="fas fa-times"
-                          style={{ color: "var(--color_alizarin)" }}
-                        />,
-                        " SUBMIT"
-                      ]
-                      : "SUBMIT"}
+                  : error
+                  ? [
+                      <i
+                        className="fas fa-times"
+                        style={{ color: "var(--color_alizarin)" }}
+                      />,
+                      " SUBMIT"
+                    ]
+                  : "SUBMIT"}
               </Button>
             </InputGroup.Addon>
           </InputGroup>
@@ -478,13 +482,17 @@ class FormSystem extends Component {
     }
   };
 
-  showStats = (userBoolResponsesStats, userResponses) => (
+  showStats = (userBoolResponsesStats, userQuestionResponses) => (
     <div className="responseStats">
       <span>
-        {this.responsePercentage(userBoolResponsesStats, userResponses.length)}%
+        {this.responsePercentage(
+          userBoolResponsesStats,
+          userQuestionResponses.length
+        )}
+        %
       </span>
       <span>
-        {userBoolResponsesStats} / {userResponses.length}
+        {userBoolResponsesStats} / {userQuestionResponses.length}
       </span>
     </div>
   );
@@ -495,41 +503,45 @@ class FormSystem extends Component {
   };
 
   switchQuestionChoicesResponses = (
+    question_id,
     question_type,
-    choiceId,
+    choice_id,
     title,
     Responses
   ) => {
-    const userResponses = Responses.results
+    const userQuestionResponses = Responses.results
       .flat(2)
-      .filter(r => r.choice_id == choiceId);
+      .filter(r => r.question_id == question_id);
 
-    const userBoolResponsesStats = userResponses.reduce(
+    const userChoiceResponses = userQuestionResponses.filter(
+      r => r.choice_id == choice_id
+    );
+
+    const userBoolResponsesStats = userChoiceResponses.reduce(
       (total, r) => (r.response == "true" ? total + 1 : total),
       0
     );
 
-    const userStringResponsesStats = userResponses.reduce(
+    const userStringResponsesStats = userChoiceResponses.reduce(
       (total, r) =>
         r.response && r.response != "true" && r.response != "false"
           ? total + 1
           : total,
       0
     );
-
     switch (question_type) {
       case "Multiple":
         return (
-          <Checkbox disabled={true} key={choiceId}>
+          <Checkbox disabled={true} key={choice_id}>
             <span className="checkBoxText">{title}</span>
-            {this.showStats(userBoolResponsesStats, userResponses)}
+            {this.showStats(userBoolResponsesStats, userQuestionResponses)}
           </Checkbox>
         );
       case "Select":
         return (
-          <Radio disabled={true} name="radioGroup" key={choiceId}>
+          <Radio disabled={true} name="radioGroup" key={choice_id}>
             <span className="checkBoxText">{title}</span>
-            {this.showStats(userBoolResponsesStats, userResponses)}
+            {this.showStats(userBoolResponsesStats, userQuestionResponses)}
           </Radio>
         );
       case "Text":
@@ -544,7 +556,7 @@ class FormSystem extends Component {
               type="textarea"
               placeholder="Response..."
             />
-            {this.showStats(userStringResponsesStats, userResponses)}
+            {this.showStats(userStringResponsesStats, userQuestionResponses)}
           </InputGroup>
         );
       case "Image":
@@ -561,7 +573,7 @@ class FormSystem extends Component {
             type="file"
             label="File"
           />,
-          this.showStats(userStringResponsesStats, userResponses)
+          this.showStats(userStringResponsesStats, userQuestionResponses)
         ];
       default:
         return null;
@@ -639,70 +651,70 @@ class FormSystem extends Component {
         eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
-        <Redirect to={`/forms/${pollId}/questions`} />
-      ) : (
-        <Grid className="FormSystem Container">
+      <Redirect to={`/forms/${pollId}/questions`} />
+    ) : (
+      <Grid className="FormSystem Container">
+        <Row>
+          <PageHeader className="pageHeader">FORMS</PageHeader>
+        </Row>
+        <Row>
+          <h1 className="Center">{title}</h1>
+        </Row>
+        {pollId && expiration_date && (
           <Row>
-            <PageHeader className="pageHeader">FORMS</PageHeader>
+            <h3 className="Center">
+              {expired
+                ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
+                : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
+            </h3>
           </Row>
-          <Row>
-            <h1 className="Center">{title}</h1>
-          </Row>
-          {pollId && expiration_date && (
-            <Row>
-              <h3 className="Center">
-                {expired
-                  ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
-                  : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
-              </h3>
-            </Row>
-          )}
-          <Row className="ActionToolbarRow">
-            <Col
-              md={4}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              {UserHasPermissions(User, "add_poll") && (
-                <Button onClick={() => history.push("/form/new/")}>
-                  <i className="fas fa-plus" /> Form
+        )}
+        <Row className="ActionToolbarRow">
+          <Col
+            md={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            {UserHasPermissions(User, "add_form") && (
+              <Button onClick={() => history.push("/form/new/")}>
+                <i className="fas fa-plus" /> Form
               </Button>
-              )}
-              {pollId && UserHasPermissions(User, "change_poll") && (
-                <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
-                  <i className="fa fa-pencil-alt" /> Form
-              </Button>
-              )}
-            </Col>
-            {!pollId && (
-              <Col md={8} xs={12}>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-tags" />
-                  </InputGroup.Addon>
-                  <Select
-                    //https://react-select.com/props
-                    value={typeFilter}
-                    isMulti
-                    styles={selectStyles()}
-                    onBlur={e => e.preventDefault()}
-                    blurInputOnSelect={false}
-                    //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
-                    isSearchable={false}
-                    placeholder="Filter by form type..."
-                    classNamePrefix="select"
-                    onChange={this.onSelectChange}
-                    options={formOptions}
-                  />
-                </InputGroup>
-              </Col>
             )}
-          </Row>
-          {pollId
-            ? this.renderQuestions(User, Questions, Choices, Responses, canView)
-            : this.renderPolls(Forms.results, typeFilter)}
-        </Grid>
-      );
+            {pollId && UserHasPermissions(User, "change_form") && (
+              <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
+                <i className="fa fa-pencil-alt" /> Form
+              </Button>
+            )}
+          </Col>
+          {!pollId && (
+            <Col md={8} xs={12}>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-tags" />
+                </InputGroup.Addon>
+                <Select
+                  //https://react-select.com/props
+                  value={typeFilter}
+                  isMulti
+                  styles={selectStyles()}
+                  onBlur={e => e.preventDefault()}
+                  blurInputOnSelect={false}
+                  //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
+                  isSearchable={false}
+                  placeholder="Filter by form type..."
+                  classNamePrefix="select"
+                  onChange={this.onSelectChange}
+                  options={formOptions}
+                />
+              </InputGroup>
+            </Col>
+          )}
+        </Row>
+        {pollId
+          ? this.renderQuestions(User, Questions, Choices, Responses, canView)
+          : this.renderPolls(Forms.results, typeFilter)}
+      </Grid>
+    );
   }
 }
 export default withAlert(
