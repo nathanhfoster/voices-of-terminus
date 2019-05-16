@@ -226,7 +226,7 @@ class Messages extends PureComponent {
       } = group;
       const is_read = this.hasUnreadMessage(messages);
       const recentMessage =
-        messages.length > 0 ? messages[messages.length - 1] : {};
+        messages.length > 0 ? messages[0] : {};
       const {
         //id,
         //is_read,
