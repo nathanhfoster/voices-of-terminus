@@ -571,7 +571,10 @@ class Messages extends PureComponent {
                             <i className="fas fa-link" /> {modalTitle}
                           </Button>
                         ) : (
-                          <Button onClick={e => this.replyToGroup(e, body)}>
+                          <Button
+                            disabled={!body}
+                            onClick={e => this.replyToGroup(e, body)}
+                          >
                             <i className="fas fa-reply-all" /> Reply
                           </Button>
                         )}
