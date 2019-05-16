@@ -159,3 +159,7 @@
   /* background-color: var(--tertiarycolor); */
   border-radius: 6px;
 }
+
+.unreadMessages {
+  background-color: var(--primaryColor);
+}

@@ -87,6 +87,7 @@ class NavBar extends PureComponent {
     const { Settings } = User;
     const { show_footer, push_messages } = Settings;
     const unreadMessages = this.unreadMessages(Messages.results);
+    const hasUnreadMessages = unreadMessages > 0;
     const {
       token,
       id,
@@ -238,7 +239,12 @@ class NavBar extends PureComponent {
                     <i key={11.1} className="fas fa-user" />
                   ),
                   <span key={11.2}> {User.username} </span>,
-                  <Badge key={11.3}>{unreadMessages}</Badge>
+                  <Badge
+                    key={11.3}
+                    className={`${hasUnreadMessages ? "unreadMessages" : ""}`}
+                  >
+                    {unreadMessages}
+                  </Badge>
                 ]}
                 className="navbar-right"
                 id="basic-nav-dropdown"
@@ -248,7 +254,12 @@ class NavBar extends PureComponent {
                 </LinkContainer>
                 <LinkContainer to="/messages">
                   <NavItem eventKey={11.5}>
-                    MESSAGES <Badge>{unreadMessages}</Badge>
+                    MESSAGES{" "}
+                    <Badge
+                      className={`${hasUnreadMessages ? "unreadMessages" : ""}`}
+                    >
+                      {unreadMessages}
+                    </Badge>
                   </NavItem>
                 </LinkContainer>
                 <NavItem onClick={this.Logout}>LOGOUT</NavItem>
