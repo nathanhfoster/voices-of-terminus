@@ -172,6 +172,7 @@ const checkNestedProps = (obj, level1) => {
 const statusLevelInt = User => {
   const {
     id,
+    is_superuser,
     is_leader,
     is_advisor,
     is_council,
@@ -182,7 +183,7 @@ const statusLevelInt = User => {
     is_recruit
   } = User;
 
-  if (id === 1) return 9;
+  if (is_superuser) return 9;
   if (is_leader) return 8;
   if (is_advisor) return 7;
   if (is_council) return 6;
