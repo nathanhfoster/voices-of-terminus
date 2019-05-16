@@ -80,7 +80,7 @@ class EventDetails extends Component {
   renderGroups = (User, Groups) => {
     const { Characters } = User;
     const UserAlreadySignedUp = Groups.some(g =>
-      g.GroupMembers.some(m => Characters.some(c => c.id == m.filled))
+      g.GroupMembers.some(m => Characters.some(c => c.id === m.filled))
     );
 
     return Groups.map((g, i) => {
@@ -156,9 +156,9 @@ class EventDetails extends Component {
 
     const imageDimensions = 20;
     const canSignUpForAnyClass =
-      rolePreference == "Any" && !hasClassPreferences;
+      rolePreference === "Any" && !hasClassPreferences;
     if (Characters && Response) {
-      const UsersCharacter = Characters.filter(c => c.id == Response.id)[0];
+      const UsersCharacter = Characters.filter(c => c.id === Response.id)[0];
 
       return this.renderCharacterInfo(
         User,
@@ -200,7 +200,8 @@ class EventDetails extends Component {
       for (let i = 0; i < classPreferences.length; i++) {
         const classPreference = classPreferences[i];
         const UserCharacterCandidates = Characters.filter(
-          c => c.role == rolePreference && c.character_class == classPreference
+          c =>
+            c.role === rolePreference && c.character_class === classPreference
         );
         const roleMatch = UserCharacterCandidates.length > 0;
         if (roleMatch) {
@@ -258,7 +259,7 @@ class EventDetails extends Component {
 
   renderCharacterInfo = (User, CharacterSignedUpWith, memberId) => {
     const { editEventGroupMember } = this.props;
-    const isUsersCharacter = User.id == CharacterSignedUpWith.author;
+    const isUsersCharacter = User.id === CharacterSignedUpWith.author;
     const {
       id,
       author,
@@ -374,7 +375,7 @@ class EventDetails extends Component {
       title,
       url
     } = Event;
-    const canDelete = User.is_superuser || User.id == author;
+    const canDelete = User.is_superuser || User.id === author;
     return (
       <Grid className="EventDetails Container">
         <Row>

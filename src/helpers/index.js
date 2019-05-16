@@ -60,7 +60,7 @@ const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
   let map = new Map();
   for (let i = 0; i < arrayOfObjs.length; i++) {
     const s = arrayOfObjs[i][prop];
-    if (s != undefined && s.length > 0)
+    if (s !== undefined && s.length > 0)
       map.has(s) ? map.set(s, map.get(s) + 1) : map.set(s, 1);
   }
 
@@ -76,7 +76,7 @@ const hasCharAfterSpace = string => {
   const charArray = string.split(" ").slice(-2);
   const SecondToLastChar = charArray[0];
   const LastChar = charArray[1];
-  if (SecondToLastChar != "" && LastChar == "") return false;
+  if (SecondToLastChar !== "" && LastChar === "") return false;
 
   return true;
 };
@@ -127,7 +127,7 @@ const MainAltCharacter = (User, MainOrAlt) => {
   if (!User) return DEFAULT;
   const { Characters } = User;
 
-  if (Characters === undefined || Characters.length == 0) {
+  if (Characters === undefined || Characters.length === 0) {
     return DEFAULT;
   }
 
@@ -426,7 +426,7 @@ const removeObjProp = (obj, prop) => {
 
 const selectGuildRecipients = (Recipients, User, Users) => [
   ...Recipients,
-  ...Users.filter(user => user.id != User.id && statusLevelInt(user) != 0)
+  ...Users.filter(user => user.id !== User.id && statusLevelInt(user) !== 0)
     .map(
       i =>
         (i = {

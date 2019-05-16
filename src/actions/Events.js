@@ -101,7 +101,7 @@ const editEventGroupMember = (id, User, payload) => async dispatch => {
     .get(endpoint)
     .then(res => {
       const { event_group_id, filled } = res.data;
-      const UsersCharacter = Characters.some(c => c.id == filled);
+      const UsersCharacter = Characters.some(c => c.id === filled);
       if (UsersCharacter || !filled) {
         Axios(token)
           .patch(endpoint, qs.stringify(payload))
@@ -219,7 +219,6 @@ const postEventGroupMembers = (
   }
 };
 
-
 // TODO
 const updateEvent = (userId, token, payload, groups) => async (
   dispatch,
@@ -297,7 +296,7 @@ const deleteEvent = (eventId, token) => (dispatch, getState) =>
     .then(res => {
       const { results } = getState().Events;
       let payload = DeepCopy(results);
-      payload = payload.filter(e => e.id != eventId);
+      payload = payload.filter(e => e.id !== eventId);
       dispatch({ type: C.GET_EVENTS_SUCCESS, payload: payload });
     })
     .catch(e =>

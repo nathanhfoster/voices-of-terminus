@@ -160,7 +160,7 @@ const refreshPatchUser = (token, id) => dispatch =>
       });
     })
     .catch(e =>
-      e.response && e.response.status == 401
+      e.response && e.response.status === 401
         ? dispatch({
             type: C.SET_LOGOUT,
             payload: null

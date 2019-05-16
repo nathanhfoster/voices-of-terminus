@@ -179,7 +179,7 @@ class FormGenerator extends Component {
           id: r.id,
           value: r.recipient,
           label: r.recipient_username,
-          isFixed: r.recipient == userId
+          isFixed: r.recipient === userId
         })
     );
 
@@ -246,7 +246,7 @@ class FormGenerator extends Component {
         this.setQuestionProp(i, "question_type", "");
         break;
       case "select-option":
-        if (value == "Text" || value == "Image") {
+        if (value === "Text" || value === "Image") {
           this.setQuestionProp(i, "Choices", [{ title: null, position: 0 }]);
         }
         this.setQuestionProp(i, "question_type", value);
@@ -449,7 +449,7 @@ class FormGenerator extends Component {
             question_type="text"
             placeholder="Untitled Choice"
             onChange={e => this.onChoiceChange(i, e)}
-            autoFocus={position == i}
+            autoFocus={position === i}
           />
           <InputGroup.Addon>
             <ConfirmAction

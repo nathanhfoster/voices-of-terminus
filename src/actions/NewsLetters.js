@@ -122,8 +122,8 @@ const viewNewsletter = id => (dispatch, getState) =>
       const { id } = res.data;
       const { Newsletters } = getState();
       let payload = { ...Newsletters };
-      const NewsletterViewsIndex = payload.results.findIndex(k => k.id == id);
-      if (NewsletterViewsIndex != -1) {
+      const NewsletterViewsIndex = payload.results.findIndex(k => k.id === id);
+      if (NewsletterViewsIndex !== -1) {
         payload.results[NewsletterViewsIndex] = res.data;
         dispatch({
           type: C.GET_NEWSLETTERS_SUCCESS,

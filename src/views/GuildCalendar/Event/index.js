@@ -297,7 +297,7 @@ class Event extends PureComponent {
     groups[groupIndex][partyIndex].role_class_preferences = selectValue;
     switch (action) {
       case "remove-value":
-        if (roleOptions.some(e => e.value == removedValue.value)) {
+        if (roleOptions.some(e => e.value === removedValue.value)) {
           selectValue = roleOptions.filter(v => v.isFixed);
           groups[groupIndex][partyIndex].role_class_preferences = [];
         }
@@ -598,6 +598,7 @@ class Event extends PureComponent {
                   name="title"
                   placeholder="Title"
                   onChange={this.onChange}
+                  blurInputOnSelect
                 />
               </FormGroup>
             </Col>

@@ -65,7 +65,7 @@ class CommentLikes extends PureComponent {
     const currentText = this.state.text;
     const currentHtmlDocument = this.state.HtmlDocument;
 
-    const documentChanged = HtmlDocument != currentHtmlDocument;
+    const documentChanged = HtmlDocument !== currentHtmlDocument;
     const textChanged = !isEquivalent(text, currentText);
 
     return documentChanged || textChanged;

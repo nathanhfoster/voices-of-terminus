@@ -59,11 +59,12 @@ class PublicProfile extends PureComponent {
   }
 
   componentDidMount() {
-    const { Users } = this.props.Admin;
-    const { id } = this.props.match.params;
-    const UserIndex = Users && Users.findIndex(user => user.id == id);
-    if (UserIndex != -1) this.props.setUser(Users[UserIndex]);
-    this.props.getUser(id);
+    const { Admin, match, setUser, getUser } = this.props;
+    const { Users } = Admin;
+    const { id } = match.params;
+    const UserIndex = Users && Users.findIndex(user => user.id === id);
+    if (UserIndex !== -1) setUser(Users[UserIndex]);
+    getUser(id);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -123,7 +124,7 @@ class PublicProfile extends PureComponent {
                 <i className="fas fa-database" />
               </Button>
             ) : null}
-            {CurrentUser.id == id ? (
+            {CurrentUser.id === id ? (
               <Button
                 onClick={() => history.push("/profile/")}
                 className="pull-right"

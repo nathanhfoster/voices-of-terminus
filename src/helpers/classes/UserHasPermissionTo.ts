@@ -15,13 +15,13 @@ class UserHasPermissionTo {
     for (let i = 0; i < length; i++) {
       const permission = allUserPermissions[i];
       const codename = permission.codename.split("_")[0];
-      if (codename == "add")
+      if (codename === "add")
         this.Add.pushPermissions(new Permission(permission));
-      if (codename == "view")
+      if (codename === "view")
         this.View.pushPermissions(new Permission(permission));
-      if (codename == "change")
+      if (codename === "change")
         this.Change.pushPermissions(new Permission(permission));
-      if (codename == "delete")
+      if (codename === "delete")
         this.Delete.pushPermissions(new Permission(permission));
     }
   }

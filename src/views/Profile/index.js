@@ -410,7 +410,7 @@ class Profile extends PureComponent {
     let { value } = e.target;
     const payload = { [name]: value };
     value.indexOf(e => console.log(e));
-    if (name != "name") editCharacter(id, User.token, payload);
+    if (name !== "name") editCharacter(id, User.token, payload);
     else {
       let updateCharacters = { ...User };
       updateCharacters.Characters[i].name = value;
@@ -471,7 +471,7 @@ class Profile extends PureComponent {
             <FormGroup className="MainAlt">
               <Image src={roleClassIcon(character_class || role)} height={46} />
               <Checkbox
-                disabled={Characters.some(c => c.main && c.id != id)}
+                disabled={Characters.some(c => c.main && c.id !== id)}
                 key={id}
                 checked={main}
                 onClick={() => editCharacter(id, User.token, { main: !main })}
@@ -479,7 +479,7 @@ class Profile extends PureComponent {
                 <span className="checkBoxText">Main</span>
               </Checkbox>
               <Checkbox
-                disabled={Characters.some(c => c.alt && c.id != id)}
+                disabled={Characters.some(c => c.alt && c.id !== id)}
                 key={id}
                 checked={alt}
                 onClick={() => editCharacter(id, User.token, { alt: !alt })}

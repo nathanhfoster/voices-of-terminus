@@ -28,8 +28,8 @@ const GetQuestionChoices = (token, Questions) => async (dispatch, getState) => {
     await Axios(token)
       .get(`/form/choices/${questionId}/view/`)
       .then(responses => {
-        const choices = [...responses.data]
-        payload = [...payload, choices]
+        const choices = [...responses.data];
+        payload = [...payload, choices];
         dispatch({
           type: C.GET_CHOICES,
           payload: payload
@@ -237,7 +237,7 @@ const DeleteForm = (token, id) => async (dispatch, getState) => {
   return await Axios(token)
     .delete(`/forms/${id}/`)
     .then(res => {
-      payload.results = payload.results.filter(r => r.id != id);
+      payload.results = payload.results.filter(r => r.id !== id);
       dispatch({ type: C.GET_FORMS_SUCCESS, payload: payload });
     })
     .catch(e => console.log(e));
@@ -330,7 +330,7 @@ const DeleteQuestions = (token, Questions) => async (dispatch, getState) => {
     await Axios(token)
       .delete(`form/questions/${id}/`)
       .then(res => {
-        payload = payload.filter(q => q.id != id);
+        payload = payload.filter(q => q.id !== id);
         dispatch({ type: C.GET_QUESTIONS, payload: payload });
       })
       .catch(e => console.log("DeleteQuestions: ", e));
@@ -366,7 +366,7 @@ const UpdateChoices = (
     };
     await Axios(token)
       .patch(`form/choices/${id}/`, qs.stringify(choicePayload))
-      .then(choice => { })
+      .then(choice => {})
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
   dispatch(PostChoices(author, question_id, token, choicesToPost));
@@ -382,7 +382,7 @@ const DeleteChoices = (token, Choices) => async (dispatch, getState) => {
     await Axios(token)
       .delete(`form/choices/${id}/`)
       .then(choice => {
-        payload = payload.filter(c => c.id != choice.data.id);
+        payload = payload.filter(c => c.id !== choice.data.id);
         dispatch({ type: C.GET_CHOICES, payload: payload });
       })
       .catch(e => console.log("choicePayload: ", e));
@@ -415,7 +415,7 @@ const deleteRecipients = (token, Recipients) => async (dispatch, getState) => {
     await Axios(token)
       .delete(`form/recipients/${id}/`)
       .then(res => {
-        payload = payload.filter(r => r.recipient != recipient);
+        payload = payload.filter(r => r.recipient !== recipient);
         dispatch({ type: C.GET_RECIPIENTS, payload: payload });
       })
       .catch(e => console.log("deleteRecipients: ", e));

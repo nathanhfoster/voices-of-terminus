@@ -14,12 +14,12 @@ import { ReduxStore } from "../../../index";
 import "./styles.css";
 
 const getColumnWidth = headerText => {
-  const maxWidth = 100
-  const magicSpacing = 10
-  const { length } = headerText
+  const maxWidth = 100;
+  const magicSpacing = 10;
+  const { length } = headerText;
 
-  return Math.min(maxWidth, length * magicSpacing)
-}
+  return Math.min(maxWidth, length * magicSpacing);
+};
 
 const PermissionsTable = (Users, User, changePermissions) => {
   const {
@@ -76,7 +76,7 @@ const PermissionsTable = (Users, User, changePermissions) => {
                 let user_permissions = props.value;
                 const userHasPermission = user_permissions.includes(id);
                 user_permissions = userHasPermission
-                  ? user_permissions.filter(p => p != id)
+                  ? user_permissions.filter(p => p !== id)
                   : [...user_permissions, ...[id]];
                 const userPermissionsPayload = {
                   user_permissions: JSON.stringify(user_permissions)

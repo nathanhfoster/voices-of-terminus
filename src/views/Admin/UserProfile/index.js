@@ -327,7 +327,7 @@ class UserProfile extends PureComponent {
         <h3>GROUPS</h3>
         {AllUserGroups.map(g => {
           const { id, name, permissions } = g;
-          const UserHasGroup = UserGroups.some(e => e == id);
+          const UserHasGroup = UserGroups.some(e => e === id);
           return (
             <Checkbox
               key={id}
@@ -340,7 +340,7 @@ class UserProfile extends PureComponent {
                     User: {
                       ...prevState.Admin.User,
                       groups: prevState.Admin.User.groups.includes(id)
-                        ? prevState.Admin.User.groups.filter(e => e != id)
+                        ? prevState.Admin.User.groups.filter(e => e !== id)
                         : [...prevState.Admin.User.groups, ...[id]]
                     }
                   }
@@ -366,7 +366,7 @@ class UserProfile extends PureComponent {
           {columnPermissions.map(p => {
             const { codename, content_type, id, name } = p;
             const title = PermissionTitle(name);
-            const UserHasPermission = UserPermissions.some(e => e == id);
+            const UserHasPermission = UserPermissions.some(e => e === id);
             return (
               <Checkbox
                 key={id}
@@ -382,7 +382,7 @@ class UserProfile extends PureComponent {
                           id
                         )
                           ? prevState.Admin.User.user_permissions.filter(
-                              e => e != id
+                              e => e !== id
                             )
                           : [...prevState.Admin.User.user_permissions, ...[id]]
                       }

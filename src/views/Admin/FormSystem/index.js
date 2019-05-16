@@ -129,7 +129,7 @@ class FormSystem extends Component {
     const nextPollId = nextState.pollId;
     const { token } = User;
 
-    if (currentPollId != nextPollId) {
+    if (currentPollId !== nextPollId) {
       GetForm(token, nextPollId);
       GetFormQuestions(token, nextPollId);
       GetFormRecipients(token, nextPollId);
@@ -268,10 +268,10 @@ class FormSystem extends Component {
                     );
 
                   const responseIndex = usersResponses.findIndex(
-                    response => response.choice_id == id
+                    response => response.choice_id === id
                   );
                   const usersResponse =
-                    responseIndex != -1 ? usersResponses[responseIndex] : {};
+                    responseIndex !== -1 ? usersResponses[responseIndex] : {};
                   const { response } = usersResponse;
                   const checked = response === "true";
 
@@ -415,7 +415,7 @@ class FormSystem extends Component {
             <FormControl
               disabled={expired}
               value={
-                stateResponse || stateResponse == "" ? stateResponse : response
+                stateResponse || stateResponse === "" ? stateResponse : response
               }
               componentClass="textarea"
               name="response"
@@ -498,7 +498,7 @@ class FormSystem extends Component {
   );
 
   responsePercentage = (numerator, denominator) => {
-    if (numerator == 0 || denominator == 0) return 0;
+    if (numerator === 0 || denominator === 0) return 0;
     return (numerator / parseInt(denominator)) * 100;
   };
 
@@ -511,20 +511,20 @@ class FormSystem extends Component {
   ) => {
     const userQuestionResponses = Responses.results
       .flat(2)
-      .filter(r => r.question_id == question_id);
+      .filter(r => r.question_id === question_id);
 
     const userChoiceResponses = userQuestionResponses.filter(
-      r => r.choice_id == choice_id
+      r => r.choice_id === choice_id
     );
 
     const userBoolResponsesStats = userChoiceResponses.reduce(
-      (total, r) => (r.response == "true" ? total + 1 : total),
+      (total, r) => (r.response === "true" ? total + 1 : total),
       0
     );
 
     const userStringResponsesStats = userChoiceResponses.reduce(
       (total, r) =>
-        r.response && r.response != "true" && r.response != "false"
+        r.response && r.response !== "true" && r.response !== "false"
           ? total + 1
           : total,
       0

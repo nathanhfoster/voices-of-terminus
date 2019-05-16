@@ -96,7 +96,7 @@ class Images extends PureComponent {
     const emptyGalleryImage = results.findIndex(
       gallery => !gallery.hasOwnProperty("image")
     );
-    if (emptyGalleryImage != -1 && !loading)
+    if (emptyGalleryImage !== -1 && !loading)
       return this.props.getGalleryImage(results[emptyGalleryImage].id);
     return null;
   };
@@ -296,7 +296,7 @@ class Images extends PureComponent {
         : galleryImageTags;
     const filter = selectValue.map(i => i.value);
     const maxlength = galleryImageTags.length;
-    const dontFilter = filter.length == maxlength || filter.length == 0;
+    const dontFilter = filter.length === maxlength || filter.length === 0;
     return (
       <Grid className="Images Container">
         <Row className="ActionToolbarRow">

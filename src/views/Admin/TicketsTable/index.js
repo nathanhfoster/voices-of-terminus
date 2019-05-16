@@ -48,7 +48,7 @@ const TicketTable = (Tickets, history, pathname) => {
                     />{" "}
                     <strong style={{ color: "var(--primaryColor)" }}>
                       {Tickets.data.reduce(
-                        (acc, curr) => acc + (curr.status == "Open" ? 1 : 0),
+                        (acc, curr) => acc + (curr.status === "Open" ? 1 : 0),
                         0
                       )}
                     </strong>
@@ -243,7 +243,7 @@ const AdminDetailsColumns = [
 ];
 
 const UserDetailsColumns = AdminDetailsColumns.filter(
-  c => c.Header != "Priority"
+  c => c.Header !== "Priority"
 );
 
 const AcvtivityColumns = {

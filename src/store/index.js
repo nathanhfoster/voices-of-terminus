@@ -15,7 +15,7 @@ const consoleMessages = store => next => action => {
 };
 
 export default (initialState = {}) =>
-  ENV == "development"
+  ENV === "development"
     ? composeWithDevTools(applyMiddleware(thunk))(createStore)(
         appReducer,
         initialState

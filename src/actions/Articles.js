@@ -121,8 +121,8 @@ const viewArticle = id => (dispatch, getState) =>
       const { id } = res.data;
       const { Articles } = getState();
       let payload = { ...Articles };
-      const ArticleViewsIndex = payload.results.findIndex(k => k.id == id);
-      if (ArticleViewsIndex != -1) {
+      const ArticleViewsIndex = payload.results.findIndex(k => k.id === id);
+      if (ArticleViewsIndex !== -1) {
         payload.results[ArticleViewsIndex] = res.data;
         dispatch({
           type: C.GET_ARTICLES_SUCCESS,

@@ -93,7 +93,7 @@ class Admin extends PureComponent {
     const differentTickets = !isEquivalent(Tickets, currentTickets);
     const differentUsers = !isEquivalent(Users, currentUsers);
     const differentUser = !isEquivalent(User, currentUser);
-    const differentShow = currentShow != show;
+    const differentShow = currentShow !== show;
 
     return differentTickets || differentUsers || differentUser || differentShow;
   }
