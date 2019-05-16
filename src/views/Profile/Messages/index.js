@@ -35,6 +35,7 @@ import Select from "react-select";
 import { selectGuildRecipients, RemoveArrayDuplicates } from "../../../helpers";
 import { selectStyles } from "../../../helpers/styles";
 import ConfirmAction from "../../../components/ConfirmAction";
+import { userRefreshDelay } from "../../../helpers/variables";
 
 const mapStateToProps = ({ Admin, User, Messages }) => ({
   Admin,
@@ -65,9 +66,9 @@ class Messages extends PureComponent {
       Recipients: [],
       selectOptions: [],
       modalTitle: "Create Message",
-      creatingMessage: false,
       title: "",
-      body: ""
+      body: "",
+      recipient_group_id: null
     };
   }
 
@@ -98,8 +99,44 @@ class Messages extends PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    clearInterval(this.interval);
     this.getState(nextProps);
   }
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   const { Messages } = nextProps;
+  //   const { messageDetails } = Messages;
+  //   const messageCount = Messages.count;
+  //   const currentMessageCount = this.state.Messages.count;
+
+  //   const messageDetailCount = messageDetails.count;
+  //   const currentMessageDetailCount = this.state.messageDetails.count;
+
+  //   const { show, search, title, body } = nextState;
+  //   const currentShow = this.state.show;
+  //   const currentSearch = this.state.search;
+  //   const currentTitle = this.state.title;
+  //   const currentBody = this.state.body;
+
+  //   const messagesChanged = currentMessageCount !== messageCount;
+  //   const showChanged = show !== currentShow;
+  //   const messageDetailChanged =
+  //     messageDetailCount !== currentMessageDetailCount;
+  //   const searchChanged = search !== currentSearch;
+  //   const titleChanged = title !== currentTitle;
+  //   const bodyChanged = body !== currentBody;
+
+  //   console.log(messageDetailCount, currentMessageDetailCount);
+
+  //   return (
+  //     messagesChanged ||
+  //     messageDetailChanged ||
+  //     showChanged ||
+  //     searchChanged ||
+  //     titleChanged ||
+  //     bodyChanged
+  //   );
+  // }
 
   getState = props => {
     const { Admin, User, Messages, history } = props;
@@ -109,6 +146,12 @@ class Messages extends PureComponent {
           (a, b) => a.label.localeCompare(b.label)
         )
       : [];
+
+    this.interval = setInterval(
+      () => this.fetchMessages(User.token, User.Settings),
+      userRefreshDelay
+    );
+
     this.setState({
       Admin,
       User,
@@ -119,12 +162,27 @@ class Messages extends PureComponent {
     });
   };
 
+  fetchMessages = (token, Settings) => {
+    const { recipient_group_id } = this.state;
+    const { push_messages } = Settings;
+    const { getMessageDetails, getGroupMessageRecipients } = this.props;
+    const shouldFetch = recipient_group_id && push_messages;
+    if (shouldFetch) {
+      getMessageDetails(token, recipient_group_id);
+      getGroupMessageRecipients(token, recipient_group_id);
+    }
+  };
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   readMessage = messages => {
-    const { token } = this.props.User;
+    const { User, updateMessage } = this.props;
     const payload = { is_read: true };
     for (let i = 0; i < messages.length; i++) {
       const { id } = messages[i];
-      this.props.updateMessage(id, token, payload);
+      updateMessage(id, User.token, payload);
     }
   };
 
@@ -311,16 +369,17 @@ class Messages extends PureComponent {
       title,
       body,
       modalTitle,
-      creatingMessage,
       messageDetails,
       Messages,
       history,
-      uri
+      uri,
+      recipient_group_id
     } = this.state;
     const { Settings } = User;
     const { push_messages } = Settings;
     let messages = Messages.results;
     const { messageRecipients } = Messages;
+    const creatingMessage = !recipient_group_id;
     messages = search
       ? matchSorter(messages, search, {
           keys: ["author_username", "title", "messages.0.message_body"]
@@ -340,11 +399,7 @@ class Messages extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              onClick={() =>
-                this.setState({ show: true, creatingMessage: true })
-              }
-            >
+            <Button onClick={() => this.setState({ show: true })}>
               <i className="fas fa-comment" /> Message
             </Button>
             <Button
@@ -389,7 +444,7 @@ class Messages extends PureComponent {
                 this.setState({
                   show: false,
                   modalTitle: this.props.modalTitle,
-                  creatingMessage: false
+                  recipient_group_id: null
                 })
               }
               dialogClassName="loginModal"

@@ -16,10 +16,7 @@ export const Messages = (
     case C.GET_MESSAGES:
       return {
         ...state,
-        count: payload.count,
-        next: payload.next,
-        previous: payload.previous,
-        results: payload.results
+        ...payload
       };
     case C.GET_MESSAGE_DETAILS:
       return { ...state, messageDetails: payload };

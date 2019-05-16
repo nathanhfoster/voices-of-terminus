@@ -7,7 +7,7 @@ const getUserMessages = (userId, token) => dispatch => {
   return Axios(token)
     .get(`/message/recipients/${userId}/view/`)
     .then(res => {
-      if (res.data.results < 1)
+      if (res.data.results <= 1)
         return dispatch({
           type: C.GET_MESSAGES,
           payload: res.data
@@ -41,10 +41,7 @@ const getUserMessages = (userId, token) => dispatch => {
                 messages: [recipient]
               };
             } else {
-              groupMap[recipient_group_id].messages = [
-                ...groupMap[recipient_group_id].messages,
-                recipient
-              ];
+              groupMap[recipient_group_id].messages.push(recipient);
             }
             res.data.results = Object.values(groupMap).sort(
               (a, b) => new Date(b.date_created) - new Date(a.date_created)
