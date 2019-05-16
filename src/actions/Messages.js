@@ -73,10 +73,7 @@ const postMessage = (token, recipient_group_id, recipients, payload) => (
       const { id, author, group_message_id } = messageResponse.data;
       for (let i = 0; i < recipients.length; i++) {
         const messageRecipientPayload = {
-          recipient:
-            typeof recipients[i] === "object"
-              ? recipients[i].recipient_id
-              : recipients[i],
+          recipient: recipients[i],
           recipient_group_id,
           message_id: id,
           is_read: author === recipients[i] ? true : false
