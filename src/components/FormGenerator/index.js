@@ -20,7 +20,6 @@ import ConfirmAction from "../ConfirmAction";
 import Select from "react-select";
 import {
   switchPollTypeIcon,
-  statusLevelInt,
   joinStrings,
   splitString,
   selectGuildRecipients,
@@ -46,7 +45,10 @@ import {
 } from "../../actions/Forms";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { UserHasPermissions } from "../../helpers/userPermissions";
+import {
+  statusLevelInt,
+  UserHasPermissions
+} from "../../helpers/userPermissions";
 
 const mapStateToProps = ({ User, Forms, Admin }) => ({ User, Forms, Admin });
 

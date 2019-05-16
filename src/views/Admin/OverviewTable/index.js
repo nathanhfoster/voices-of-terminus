@@ -8,12 +8,14 @@ import {
   isOnline,
   findMaxInt,
   MainAltCharacter,
-  arrayToObject,
-  statusLevelInt,
-  statusLevelString
+  arrayToObject
 } from "../../../helpers";
 import "./styles.css";
-import { UserHasPermissions } from "../../../helpers/userPermissions";
+import {
+  statusLevelInt,
+  statusLevelString,
+  UserHasPermissions
+} from "../../../helpers/userPermissions";
 
 const OverviewTable = (Users, User) => {
   const { token } = User;

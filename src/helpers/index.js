@@ -26,6 +26,7 @@ import RangedDps from "../images/classIcons/ranged_dps.png";
 import Support from "../images/classIcons/support.png";
 import Utility from "../images/classIcons/utility.png";
 import CrowdControl from "../images/classIcons/crowd_control.png";
+import { statusLevelInt } from "./userPermissions";
 import { ReduxStore } from "../index";
 
 const arrayToObject = (arr, keyField) =>
@@ -167,57 +168,6 @@ const checkNestedProps = (obj, level1) => {
     obj = obj[args[i]];
   }
   return true;
-};
-
-const statusLevelInt = User => {
-  const {
-    id,
-    is_superuser,
-    is_leader,
-    is_advisor,
-    is_council,
-    is_general_officer,
-    is_officer,
-    is_senior_member,
-    is_junior_member,
-    is_recruit
-  } = User;
-
-  if (is_superuser) return 9;
-  if (is_leader) return 8;
-  if (is_advisor) return 7;
-  if (is_council) return 6;
-  if (is_general_officer) return 5;
-  if (is_officer) return 4;
-  if (is_senior_member) return 3;
-  if (is_junior_member) return 2;
-  if (is_recruit) return 1;
-  return 0;
-};
-
-const statusLevelString = status => {
-  switch (status) {
-    case 9:
-      return "Admin";
-    case 8:
-      return "Leader";
-    case 7:
-      return "Advisor";
-    case 6:
-      return "Council";
-    case 5:
-      return "General Officer";
-    case 4:
-      return "Officer";
-    case 3:
-      return "Senior Member";
-    case 2:
-      return "Junior Member";
-    case 1:
-      return "Recruit";
-    default:
-      return "Guest";
-  }
 };
 
 const roleClassIcon = roleOrClass => {
@@ -454,8 +404,6 @@ export {
   getImageBase64,
   isEmpty,
   checkNestedProps,
-  statusLevelInt,
-  statusLevelString,
   roleClassIcon,
   professionIcon,
   renderRoles,

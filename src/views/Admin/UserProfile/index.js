@@ -27,12 +27,12 @@ import {
   isOnline,
   MainAltCharacter,
   renderRoles,
-  statusLevelInt,
-  statusLevelString,
   roleClassIcon,
   professionIcon
 } from "../../../helpers";
 import {
+  statusLevelInt,
+  statusLevelString,
   CategorizedPermissions,
   PermissionHeader,
   PermissionTitle

@@ -15,12 +15,14 @@ import {
   MainAltCharacter,
   isOnline,
   isEmpty,
-  statusLevelInt,
-  statusLevelString,
   roleClassIcon,
   professionIcon,
   renderRoles
 } from "../../../helpers";
+import {
+  statusLevelInt,
+  statusLevelString
+} from "../../../helpers/userPermissions";
 import Moment from "react-moment";
 import { ExperienceBar } from "../../../components/ExperienceBar";
 import { CharacterCard } from "../../../components/CharacterCard";
