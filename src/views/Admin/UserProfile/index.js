@@ -85,7 +85,6 @@ class UserProfile extends PureComponent {
       username: "",
       bio: "",
       date_joined: "",
-      discord_url: "",
       email: "",
       first_name: "",
       last_name: "",

@@ -364,7 +364,7 @@ class Event extends PureComponent {
 
   setStartDate = startDate => {
     const { end_date } = this.state;
-    const newDate = new Date(startDate).toISOString();
+    const newDate = new Date(startDate);
     if (new Date(end_date) - new Date(startDate) <= 0)
       return this.setState({ start_date: newDate, end_date: newDate });
     else return this.setState({ start_date: newDate });
@@ -372,7 +372,7 @@ class Event extends PureComponent {
 
   setEndDate = endDate => {
     const { start_date } = this.state;
-    const newDate = new Date(endDate).toISOString();
+    const newDate = new Date(endDate);
     if (new Date(start_date) - new Date(endDate) >= 0)
       return this.setState({ start_date: newDate, end_date: newDate });
     else return this.setState({ end_date: newDate });
