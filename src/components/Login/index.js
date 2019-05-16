@@ -197,7 +197,9 @@ class Login extends PureComponent {
   Redirect = () => {
     const { User, history, refreshPatchUser } = this.props;
     refreshPatchUser(User.token, User.id);
-    return <Redirect to={history.goBack()} />;
+    return <Redirect to="/" />;
+    // TODO
+    //return <Redirect to={history.goBack()} />;
   };
 
   render() {

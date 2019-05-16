@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { Grid, Row, Col, PageHeader, Checkbox } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
@@ -14,7 +14,7 @@ const mapStateToProps = ({ User }) => ({ User });
 
 const mapDispatchToProps = { getUserSettings, postSettings, setSettings };
 
-class Settings extends Component {
+class Settings extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -31,14 +31,6 @@ class Settings extends Component {
     this.getState(this.props);
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }
-
-  componentWillUpdate() {}
-
-  /* render() */
-
   componentDidMount() {
     const { User, getUserSettings } = this.props;
     if (User.token) getUserSettings(User.token, User.id);
@@ -52,10 +44,6 @@ class Settings extends Component {
     const { User } = props;
     this.setState({ User });
   };
-
-  componentDidUpdate(prevProps, prevState) {}
-
-  componentWillUnmount() {}
 
   render() {
     const { postSettings, setSettings } = this.props;

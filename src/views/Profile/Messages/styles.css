@@ -5,7 +5,17 @@
   background-color: var(--slate_grey);
 }
 
+.messageBody {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.messageBody::-webkit-scrollbar {
+  display: block;
+}
+
 .Message {
+  border-radius: 6px;
   padding: 8px;
   margin-bottom: 8px;
 }

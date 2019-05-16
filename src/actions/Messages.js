@@ -2,15 +2,16 @@ import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
 
-const getUserMessages = (userId, token) => async dispatch => {
+const getUserMessages = (userId, token) => dispatch => {
   let groupMap = {};
-  return await Axios(token)
+  return Axios(token)
     .get(`/message/recipients/${userId}/view/`)
     .then(res => {
-      if (res.data.results < 1) return dispatch({
-        type: C.GET_MESSAGES,
-        payload: res.data
-      });
+      if (res.data.results < 1)
+        return dispatch({
+          type: C.GET_MESSAGES,
+          payload: res.data
+        });
       for (let i = 0; i < res.data.results.length; i++) {
         const recipient = res.data.results[i];
         const { recipient_group_id } = recipient;
@@ -68,22 +69,27 @@ const postMessage = (token, recipient_group_id, recipients, payload) => (
   let finalPayload = { ...messageDetails };
   return Axios(token)
     .post("/messages/", qs.stringify(payload))
-    .then(res => {
-      const { id, author, group_message_id } = res.data;
+    .then(messageResponse => {
+      const { id, author, group_message_id } = messageResponse.data;
       for (let i = 0; i < recipients.length; i++) {
         const messageRecipientPayload = {
-          recipient: recipients[i],
+          recipient:
+            typeof recipients[i] === "object"
+              ? recipients[i].recipient_id
+              : recipients[i],
           recipient_group_id,
           message_id: id,
           is_read: author === recipients[i] ? true : false
         };
-        dispatch(postMessageRecipients(
-          token,
-          messageRecipientPayload,
-          author,
-          res,
-          finalPayload
-        ));
+        dispatch(
+          postMessageRecipients(
+            token,
+            messageRecipientPayload,
+            author,
+            messageResponse,
+            finalPayload
+          )
+        );
       }
     })
     .catch(e =>
@@ -101,22 +107,28 @@ const postMessageRecipients = (
   messageResponse,
   finalPayload
 ) => dispatch =>
-    Axios(token)
-      .post("/message/recipients/", qs.stringify(payload))
-      .then(replyMessage => {
-        const { recipient } = replyMessage.data;
-        if (author === recipient) {
-          finalPayload.results.push(messageResponse.data);
-          dispatch({
-            type: C.GET_MESSAGE_DETAILS,
-            payload: finalPayload
-          });
-        }
-      })
-      .catch(e => console.log(e));
-
-const updateMessage = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
+    .post("/message/recipients/", qs.stringify(payload))
+    .then(replyMessage => {
+      const { recipient } = replyMessage.data;
+      if (author === recipient) {
+        finalPayload.results.unshift(messageResponse.data);
+        dispatch({
+          type: C.GET_MESSAGE_DETAILS,
+          payload: finalPayload
+        });
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
+      });
+      console.log("postMessageRecipients: ", payload);
+    });
+
+const updateMessage = (id, token, payload) => async (dispatch, getState) =>
+  await Axios(token)
     .patch(`/message/recipients/${id}/`, qs.stringify(payload))
     .then(res => {
       const { Messages } = getState();

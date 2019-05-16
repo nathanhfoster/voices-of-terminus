@@ -71,15 +71,6 @@
   border-radius: 6px;
 }
 
-textarea {
-  min-height: calc(var(--inputButtonHeight) * 3);
-  resize: none;
-}
-
-textarea::-webkit-scrollbar {
-  display: block;
-}
-
 input[type="checkbox"],
 input[type="radio"] {
   margin: 0 5px 0 0;
@@ -146,8 +137,23 @@ textarea {
   background-color: var(--slate_grey);
 }
 .form-control {
-  height: var(--inputButtonHeight);
+  min-height: var(--inputButtonHeight);
+  max-height: calc(var(--inputButtonHeight) * 2);
+  overflow-y: auto;
   background-color: var(--slate_grey);
+}
+
+textarea {
+  min-height: calc(var(--inputButtonHeight) * 2);
+  resize: none;
+}
+
+textarea::-webkit-scrollbar {
+  display: block;
+}
+
+.form-control::-webkit-scrollbar {
+  display: block;
 }
 
 .form-control:focus {
