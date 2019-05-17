@@ -230,8 +230,6 @@ class Admin extends PureComponent {
       </Col>
     ));
 
-  deleteThisUser = (token, id) => this.props.deleteUser(token, id);
-
   render() {
     //console.log("ADMIN");
     const canSubmit = !this.cantSubmit();
@@ -251,6 +249,7 @@ class Admin extends PureComponent {
       eventKey,
       show
     } = this.state;
+    const { deleteUser } = this.props;
     const { Users, Tickets } = Admin;
     const canViewTickets =
       UserHasPermissions(User, "view_ticket") ||
@@ -332,7 +331,7 @@ class Admin extends PureComponent {
               title={"Overview"}
               unmountOnExit={true}
             >
-              {OverviewTable(Users, User)}
+              {OverviewTable(Users, User, deleteUser)}
             </Tab>
             <Tab
               eventKey={`/admin/permissions`}

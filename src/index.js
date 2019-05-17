@@ -1,7 +1,6 @@
-import 'core-js';
+import "core-js";
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import { Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "./components/AlertTemplate";
@@ -9,6 +8,9 @@ import registerServiceWorker from "./registerServiceWorker";
 import storeFactory from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import "./index.css";
+import "./App.css";
+import "./AppM.css";
 require("dotenv").config();
 
 const options = {

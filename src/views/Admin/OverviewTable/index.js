@@ -11,13 +11,14 @@ import {
   arrayToObject
 } from "../../../helpers";
 import "./styles.css";
+import { deleteUser } from "../../../actions/Admin";
 import {
   statusLevelInt,
   statusLevelString,
   UserHasPermissions
 } from "../../../helpers/userPermissions";
 
-const OverviewTable = (Users, User) => {
+const OverviewTable = (Users, User, deleteThisUser) => {
   const { token } = User;
 
   return (
@@ -36,7 +37,7 @@ const OverviewTable = (Users, User) => {
               maxWidth: 48,
               Cell: props => (
                 <ConfirmAction
-                  Action={e => this.deleteThisUser(token, props.value)}
+                  Action={e => deleteThisUser(token, props.value)}
                   Disabled={!UserHasPermissions(User, "delete_user")}
                   Icon={<i className="fas fa-trash" />}
                   hasPermission={true}
