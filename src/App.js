@@ -296,7 +296,6 @@ class App extends PureComponent {
     const { Settings, routeItems } = this.state;
     const { show_footer } = Settings;
     const { history, location, match } = this.props;
-    console.log(this.props)
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (

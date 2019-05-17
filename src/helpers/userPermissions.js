@@ -1,9 +1,12 @@
 import { ReduxStore } from "../index";
 
 const statusLevelInt = User => {
+  if (!User) return 0;
   const {
     id,
     is_superuser,
+    is_staff,
+    is_moderator,
     is_leader,
     is_advisor,
     is_council,
@@ -14,7 +17,9 @@ const statusLevelInt = User => {
     is_recruit
   } = User;
 
-  if (is_superuser) return 9;
+  if (is_superuser) return 11;
+  if (is_staff) return 10;
+  if (is_moderator) return 9;
   if (is_leader) return 8;
   if (is_advisor) return 7;
   if (is_council) return 6;
@@ -28,8 +33,12 @@ const statusLevelInt = User => {
 
 const statusLevelString = status => {
   switch (status) {
-    case 9:
+    case 11:
+      return "Super Admin";
+    case 10:
       return "Admin";
+    case 9:
+      return "Moderator";
     case 8:
       return "Leader";
     case 7:
@@ -51,17 +60,20 @@ const statusLevelString = status => {
   }
 };
 
-const UserHasPermissions = (User, Codename, AuthorId) => {
+const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
   const {
     AllUserGroups,
     AllUserPermissions
   } = ReduxStore.getState().AuthenticationAndAuthorization;
+  const loggedInUserStatus = statusLevelInt(User);
+  const otherUserStatus = statusLevelInt(OtherUser);
   const { groups, user_permissions } = User;
 
   if (!User) return false;
   if (User.is_superuser) return true;
 
-  if (AuthorId !== null && User.id === AuthorId) return true;
+  if (User.id === AuthorId) return true;
+  if (loggedInUserStatus > otherUserStatus) return true;
 
   if (
     AllUserGroups === null ||
@@ -87,7 +99,7 @@ const UserHasPermissions = (User, Codename, AuthorId) => {
 
   for (let i = 0; i < groups.length; i++) {
     const group = groups[i];
-    const groupPermissions = GroupsMap[group];
+    const groupPermissions = GroupsMap[group] ? GroupsMap[group] : [];
     for (let i = 0; i < groupPermissions.length; i++) {
       const permission = groupPermissions[i];
       if (PermissionMap[permission] === Codename) return true;

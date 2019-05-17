@@ -93,7 +93,7 @@ class PublicProfile extends PureComponent {
 
   render() {
     const CurrentUser = this.props.User;
-    const { is_superuser, is_staff } = CurrentUser;
+    const { is_superuser, is_staff, is_moderator } = CurrentUser;
     const { User, history } = this.state;
     const { id } = this.props.match.params;
     const {
@@ -118,7 +118,7 @@ class PublicProfile extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {is_superuser || is_staff ? (
+            {is_superuser || is_staff || is_moderator ? (
               <Button
                 onClick={() => history.push(`/admin/edit/user/${id}/`)}
                 className="pull-right"
@@ -219,11 +219,11 @@ class PublicProfile extends PureComponent {
                 <span class="dot-text">Online</span>
               </div>
             ) : (
-              <div>
-                <span class="dot red" />
-                <span class="dot-text">Offline</span>
-              </div>
-            )}
+                <div>
+                  <span class="dot red" />
+                  <span class="dot-text">Offline</span>
+                </div>
+              )}
             <h3 title="Date Joined">
               <i className="fas fa-birthday-cake" />{" "}
               <Moment format="MMM DD, YYYY">{User.date_joined}</Moment>
@@ -241,8 +241,8 @@ class PublicProfile extends PureComponent {
               {User.lfg ? (
                 <i className="fas fa-check" />
               ) : (
-                <i className="fas fa-times" />
-              )}
+                  <i className="fas fa-times" />
+                )}
             </h3>
           </Col>
         </Row>

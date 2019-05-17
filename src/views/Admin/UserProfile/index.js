@@ -33,6 +33,7 @@ import {
 import {
   statusLevelInt,
   statusLevelString,
+  UserHasPermissions,
   CategorizedPermissions,
   PermissionHeader,
   PermissionTitle
@@ -73,8 +74,9 @@ class UserProfile extends PureComponent {
     User: {
       experience_points: "",
       is_active: "",
-      is_staff: "",
       is_superuser: "",
+      is_staff: "",
+      is_moderator: "",
       primary_class: "",
       primary_role: "",
       secondary_class: "",
@@ -257,9 +259,10 @@ class UserProfile extends PureComponent {
       secondary_class,
       profession,
       profession_specialization,
+      is_active,
       is_superuser,
       is_staff,
-      is_active,
+      is_moderator,
       is_leader,
       is_advisor,
       is_council,
@@ -286,9 +289,10 @@ class UserProfile extends PureComponent {
       secondary_class,
       profession,
       profession_specialization,
+      is_active,
       is_superuser,
       is_staff,
-      is_active,
+      is_moderator,
       is_leader,
       is_advisor,
       is_council,
@@ -320,7 +324,7 @@ class UserProfile extends PureComponent {
       txt ? txt + " | " : i === 0 ? <i className="fas fa-ban" /> : null
     );
 
-  renderUserGroupPermissions = (AllUserGroups, UserGroups, canEdit) => {
+  renderUserGroupPermissions = (AllUserGroups, UserGroups, canChangePermission) => {
     return (
       <Col xs={12}>
         <h3>GROUPS</h3>
@@ -330,7 +334,7 @@ class UserProfile extends PureComponent {
           return (
             <Checkbox
               key={id}
-              disabled={!canEdit}
+              disabled={!canChangePermission}
               checked={UserHasGroup}
               onClick={e =>
                 this.setState(prevState => ({
@@ -354,7 +358,7 @@ class UserProfile extends PureComponent {
     );
   };
 
-  renderUserPermissions = (AllUserPermissions, UserPermissions, canEdit) =>
+  renderUserPermissions = (AllUserPermissions, UserPermissions, canChangePermission) =>
     CategorizedPermissions(AllUserPermissions).map(columnPermissions => {
       const Header = PermissionHeader(columnPermissions[0].codename);
       const Helper = `Can ${Header} designated content`;
@@ -369,7 +373,7 @@ class UserProfile extends PureComponent {
             return (
               <Checkbox
                 key={id}
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={UserHasPermission}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -381,8 +385,8 @@ class UserProfile extends PureComponent {
                           id
                         )
                           ? prevState.Admin.User.user_permissions.filter(
-                              e => e !== id
-                            )
+                            e => e !== id
+                          )
                           : [...prevState.Admin.User.user_permissions, ...[id]]
                       }
                     }
@@ -402,14 +406,14 @@ class UserProfile extends PureComponent {
       {updating && !updated
         ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
         : !updating && updated && !error
-        ? [
+          ? [
             <i
               className="fas fa-check"
               style={{ color: "var(--color_emerald)" }}
             />,
             " UPDATE"
           ]
-        : "UPDATE"}
+          : "UPDATE"}
     </Button>
   );
 
@@ -417,17 +421,12 @@ class UserProfile extends PureComponent {
     const { AuthenticationAndAuthorization, Admin, User } = this.state;
     const { history } = this.props;
     const { updating, updated, error } = Admin;
-    const loggedInUserId = User.id;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt(User);
-    const currentUserStatus = Admin.User ? statusLevelInt(Admin.User) : null;
-    const canEdit =
-      User.id === 1 ||
-      loggedInUserId === currentUserId ||
-      loggedInUserStatus > currentUserStatus;
+    const canChangePermission = UserHasPermissions(User, "change_user", currentUserId, Admin.User);
     const MainCharacter = MainAltCharacter(Admin.User, "main");
     const AltCharacter = MainAltCharacter(Admin.User, "alt");
-    return User.is_superuser || User.is_staff ? (
+    return UserHasPermissions(User, "change_user") ? (
       Admin.User ? (
         <Grid className="UserProfile Container">
           <Row>
@@ -531,11 +530,11 @@ class UserProfile extends PureComponent {
                   <span class="dot-text">Online</span>
                 </div>
               ) : (
-                <div>
-                  <span class="dot red" />
-                  <span class="dot-text">Offline</span>
-                </div>
-              )}
+                  <div>
+                    <span class="dot red" />
+                    <span class="dot-text">Offline</span>
+                  </div>
+                )}
               <h3 title="Date Joined">
                 <i className="fas fa-birthday-cake" />{" "}
                 <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment>
@@ -552,16 +551,16 @@ class UserProfile extends PureComponent {
                 {Admin.User.opt_in ? (
                   <i className="fas fa-check" />
                 ) : (
-                  <i className="fas fa-times" />
-                )}
+                    <i className="fas fa-times" />
+                  )}
               </h3>
               <h3 title="Lfg">
                 <i className="fas fa-users" />{" "}
                 {Admin.User.lfg ? (
                   <i className="fas fa-check" />
                 ) : (
-                  <i className="fas fa-times" />
-                )}
+                    <i className="fas fa-times" />
+                  )}
               </h3>
             </Col>
           </Row>
@@ -615,7 +614,7 @@ class UserProfile extends PureComponent {
           <Row className="checkBoxTable">
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus >= 7)}
+                disabled={!User.is_superuser}
                 checked={Admin.User.is_active}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -637,7 +636,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus >= 7)}
+                disabled={!User.is_superuser}
                 checked={Admin.User.is_superuser}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -651,16 +650,15 @@ class UserProfile extends PureComponent {
                   }))
                 }
               >
-                <span className="checkBoxText">Admin</span>
+                <span className="checkBoxText">Super Admin</span>
                 <span className="help">
-                  Grants access to admin panel and that this user has all
-                  permissions without explicitly assigning them
+                  Grants absolute power. Be careful who you give this to.
                 </span>
               </Checkbox>
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus >= 7)}
+                disabled={!(canChangePermission && loggedInUserStatus >= 10)}
                 checked={Admin.User.is_staff}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -675,10 +673,35 @@ class UserProfile extends PureComponent {
                 }
               >
                 <span className="checkBoxText">
-                  Staff <span style={{ fontSize: "16px" }}>(Moderator)</span>
+                  Admin
                 </span>
                 <span className="help">
                   Grants access to admin panel and ability to edit user
+                  permissions of a lower status level
+                </span>
+              </Checkbox>
+            </Col>
+            <Col xs={12}>
+              <Checkbox
+                disabled={!(canChangePermission && loggedInUserStatus >= 9)}
+                checked={Admin.User.is_moderator}
+                onClick={e =>
+                  this.setState(prevState => ({
+                    Admin: {
+                      ...prevState.Admin,
+                      User: {
+                        ...prevState.Admin.User,
+                        is_moderator: !Admin.User.is_moderator
+                      }
+                    }
+                  }))
+                }
+              >
+                <span className="checkBoxText">
+                  Moderator
+                </span>
+                <span className="help">
+                  Grants the ability to edit user
                   permissions of a lower status level
                 </span>
               </Checkbox>
@@ -687,7 +710,7 @@ class UserProfile extends PureComponent {
           <Row className="checkBoxTable">
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus >= 8)}
+                disabled={!(canChangePermission && loggedInUserStatus >= 8)}
                 checked={Admin.User.is_leader}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -709,7 +732,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus >= 7)}
+                disabled={!(canChangePermission && loggedInUserStatus >= 7)}
                 checked={Admin.User.is_advisor}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -731,7 +754,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus > 6)}
+                disabled={!(canChangePermission && loggedInUserStatus > 6)}
                 checked={Admin.User.is_council}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -753,7 +776,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus > 5)}
+                disabled={!(canChangePermission && loggedInUserStatus > 5)}
                 checked={Admin.User.is_general_officer}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -775,7 +798,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus > 4)}
+                disabled={!(canChangePermission && loggedInUserStatus > 4)}
                 checked={Admin.User.is_officer}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -797,7 +820,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus > 3)}
+                disabled={!(canChangePermission && loggedInUserStatus > 3)}
                 checked={Admin.User.is_senior_member}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -819,7 +842,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus > 2)}
+                disabled={!(canChangePermission && loggedInUserStatus > 2)}
                 checked={Admin.User.is_junior_member}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -841,7 +864,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!(canEdit && loggedInUserStatus > 1)}
+                disabled={!(canChangePermission && loggedInUserStatus > 1)}
                 checked={Admin.User.is_recruit}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -864,24 +887,24 @@ class UserProfile extends PureComponent {
           </Row>
           {User.is_leader || User.is_advisor || User.is_council
             ? [
-                <Row>
-                  <h2 className="headerBanner">PERMISSIONS</h2>
-                </Row>,
-                <Row className="checkBoxTable">
-                  {this.renderUserGroupPermissions(
-                    AuthenticationAndAuthorization.AllUserGroups,
-                    Admin.User.groups || [],
-                    canEdit
-                  )}
-                  {this.renderUserPermissions(
-                    AuthenticationAndAuthorization.AllUserPermissions.sort(
-                      (a, b) => a.codename.localeCompare(b.codename)
-                    ) || [],
-                    Admin.User.user_permissions || [],
-                    canEdit
-                  )}
-                </Row>
-              ]
+              <Row>
+                <h2 className="headerBanner">PERMISSIONS</h2>
+              </Row>,
+              <Row className="checkBoxTable">
+                {this.renderUserGroupPermissions(
+                  AuthenticationAndAuthorization.AllUserGroups,
+                  Admin.User.groups || [],
+                  canChangePermission
+                )}
+                {this.renderUserPermissions(
+                  AuthenticationAndAuthorization.AllUserPermissions.sort(
+                    (a, b) => a.codename.localeCompare(b.codename)
+                  ) || [],
+                  Admin.User.user_permissions || [],
+                  canChangePermission
+                )}
+              </Row>
+            ]
             : null}
           <Row>
             <h2 className="headerBanner">ROLES</h2>
@@ -889,7 +912,7 @@ class UserProfile extends PureComponent {
           <Row className="checkBoxTable">
             <Col md={12} xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_raid_leader}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -909,7 +932,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_banker}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -929,7 +952,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_recruiter}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -949,7 +972,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_class_lead}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -969,7 +992,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_crafter_lead}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -989,7 +1012,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_host}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -1009,7 +1032,7 @@ class UserProfile extends PureComponent {
             </Col>
             <Col xs={12}>
               <Checkbox
-                disabled={!canEdit}
+                disabled={!canChangePermission}
                 checked={Admin.User.is_lore_master}
                 onClick={e =>
                   this.setState(prevState => ({
@@ -1038,8 +1061,8 @@ class UserProfile extends PureComponent {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-      <Redirect to="/login" />
-    );
+          <Redirect to="/login" />
+        );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(UserProfile);

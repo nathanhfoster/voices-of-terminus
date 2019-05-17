@@ -61,8 +61,8 @@ const OverviewTable = (Users, User, deleteThisUser) => {
                 props.value ? (
                   <i className="fas fa-check" />
                 ) : (
-                  <i className="fas fa-times" />
-                ),
+                    <i className="fas fa-times" />
+                  ),
               Footer: Users => (
                 <span>
                   <i className="fas fa-check" />{" "}
@@ -114,7 +114,7 @@ const OverviewTable = (Users, User, deleteThisUser) => {
               id: "status",
               accessor: User => statusLevelInt(User),
               filterMethod: (filter, rows) =>
-                matchSorter(rows, filter.value[1], {
+                matchSorter(rows, filter.value, {
                   keys: [filter.id]
                 }),
               filterAll: true,
@@ -128,47 +128,6 @@ const OverviewTable = (Users, User, deleteThisUser) => {
                 </span>
               ),
               Cell: props => statusLevelString(props.value)
-            },
-            {
-              Header: "Admin?",
-              accessor: "is_superuser",
-              filterMethod: (filter, rows) =>
-                matchSorter(rows, filter.value, {
-                  keys: [filter.id]
-                }),
-              filterAll: true,
-              maxWidth: 75,
-              Footer: Users => (
-                <span>
-                  <i className="fas fa-unlock-alt" />{" "}
-                  <strong style={{ color: "var(--primaryColor)" }}>
-                    {Users.data.reduce(
-                      (acc, curr) => acc + curr.is_superuser,
-                      0
-                    )}
-                  </strong>
-                </span>
-              ),
-              Cell: props => String(props.value)
-            },
-            {
-              Header: "Mod?",
-              accessor: "is_staff",
-              filterMethod: (filter, rows) =>
-                matchSorter(rows, filter.value, {
-                  keys: [filter.id]
-                }),
-              filterAll: true,
-              maxWidth: 75,
-              Footer: Users => (
-                <span>
-                  <i className="fas fa-unlock" />{" "}
-                  <strong style={{ color: "var(--primaryColor)" }}>
-                    {Users.data.reduce((acc, curr) => acc + curr.is_staff, 0)}
-                  </strong>
-                </span>
-              ),
-              Cell: props => String(props.value)
             }
           ]
         },
