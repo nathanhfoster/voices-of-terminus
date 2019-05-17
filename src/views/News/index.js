@@ -63,14 +63,9 @@ const mapDispatchToProps = {
 class News extends Component {
   constructor(props) {
     super(props);
-    const { match } = this.props;
-    const { path } = match;
+
     this.state = {
-      tagFilter: [
-        path.includes("article")
-          ? { value: "Article", label: "Article" }
-          : { value: "Newsletter", label: "Newsletter" }
-      ],
+      tagFilter: [],
       Documents: { results: [] },
       search: ""
     };
@@ -97,16 +92,26 @@ class News extends Component {
     const currentPathName = this.state.eventKey;
     const currentDocuments = Articles.results.concat(Newsletters.results);
 
-    const currentSelectValue = this.state.tagFilter;
+    const currentTagFilter = this.state.tagFilter;
     const currentSearch = this.state.search;
 
+    const groupsChanged = !isEquivalent(groups, CurrentUserGroups);
+    const userPermissionsChanged = !isEquivalent(
+      user_permissions,
+      CurrentUserPermissions
+    );
+    const documentsChanged = !isEquivalent(Documents, currentDocuments);
+    const urlChanged = !isEquivalent(pathname, currentPathName);
+    const searchChanged = !isEquivalent(search, currentSearch);
+    const tagFilterChanged = !isEquivalent(tagFilter, currentTagFilter);
+
     return (
-      !isEquivalent(groups, CurrentUserGroups) ||
-      !isEquivalent(user_permissions, CurrentUserPermissions) ||
-      !isEquivalent(Documents, currentDocuments) ||
-      !isEquivalent(pathname, currentPathName) ||
-      !isEquivalent(tagFilter, currentSelectValue) ||
-      !isEquivalent(search, currentSearch)
+      groupsChanged ||
+      userPermissionsChanged ||
+      documentsChanged ||
+      urlChanged ||
+      searchChanged ||
+      tagFilterChanged
     );
   }
 
@@ -139,6 +144,12 @@ class News extends Component {
 
   getState = props => {
     const { User, Settings, history, match, ApiResponse } = props;
+    const { path } = match;
+    let { tagFilter } = this.state;
+    if (path.includes("article")) {
+      tagFilter[0] = { value: "Article", label: "Article" };
+    } else tagFilter[0] = { value: "Newsletter", label: "Newsletter" };
+
     let { selectOptions } = props;
     let { Articles, Newsletters } = props;
     Articles.results = Articles.hasOwnProperty("results")
@@ -159,6 +170,7 @@ class News extends Component {
         : selectOptions;
     this.setState({
       User,
+      tagFilter,
       Settings,
       Articles,
       Newsletters,
