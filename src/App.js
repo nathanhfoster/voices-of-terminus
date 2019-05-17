@@ -322,21 +322,21 @@ class App extends PureComponent {
     return location.pathname === "/" ? (
       <Redirect to="/home" />
     ) : (
-      <div className="App">
-        <NavBar history={history} location={location} match={match} />
-        <BackgroundImage history={history} location={location} match={match} />
-        <div
-          className="routeOverlay"
-          style={{ bottom: show_footer ? "var(--navBarHeight" : 0 }}
-        >
-          <Switch>
-            {this.renderRouteItems(routeItems)}
-            <Route component={PageNotFound} />
-          </Switch>
+        <div className="App">
+          <NavBar history={history} location={location} match={match} />
+          <BackgroundImage history={history} location={location} match={match} />
+          <div
+            className="routeOverlay"
+            style={{ bottom: show_footer ? "var(--navBarHeight)" : 0 }}
+          >
+            <Switch>
+              {this.renderRouteItems(routeItems)}
+              <Route component={PageNotFound} />
+            </Switch>
+          </div>
+          <Footer history={history} location={location} match={match} />
         </div>
-        <Footer history={history} location={location} match={match} />
-      </div>
-    );
+      );
   }
 }
 
