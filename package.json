@@ -39,7 +39,7 @@
     "react-scripts": "^3.0.1",
     "react-select": "^2.4.3",
     "react-table": "^6.10.0",
-    "react-transition-group": "^2.5.3",
+    "react-transition-group": "^4.0.1",
     "react-twitter-widgets": "^1.7.1",
     "redux": "^4.0.1",
     "redux-devtools-extension": "^2.13.8",
