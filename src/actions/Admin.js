@@ -96,7 +96,6 @@ const updateUserProfile = (id, token, payload) => (dispatch, getState) => {
     .patch(`users/${id}/`, qs.stringify(payload))
     .then(res => {
       const userIndex = usersPayload.findIndex(user => user.id === res.data.id);
-      console.log(userIndex)
       usersPayload[userIndex] = res.data;
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,

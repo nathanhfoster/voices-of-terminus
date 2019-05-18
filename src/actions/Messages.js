@@ -121,8 +121,8 @@ const postMessageRecipients = (
         console.log("postMessageRecipients: ", payload);
       });
 
-const updateMessage = (id, token, payload) => (dispatch, getState) =>
-  Axios(token)
+const updateMessage = (id, token, payload) => async (dispatch, getState) =>
+  await Axios(token)
     .patch(`/message/recipients/${id}/`, qs.stringify(payload))
     .then(res => {
       const { Messages } = getState();
@@ -151,12 +151,12 @@ const createMessageGroup = (
   recipients,
   title,
   body
-) => (dispatch, getState) => {
+) => async (dispatch, getState) => {
   if (recipients.length < 1) return;
   const groupPayload = { title, author, is_active: true, uri };
   const { Messages } = getState();
   let payload = { ...Messages };
-  return Axios(token)
+  return await Axios(token)
     .post("/user/groups/", qs.stringify(groupPayload))
     .then(group => {
       const recipient_group_id = group.data.id;
