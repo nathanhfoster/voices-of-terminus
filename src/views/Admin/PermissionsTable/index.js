@@ -10,10 +10,7 @@ import {
   statusLevelInt,
   statusLevelString
 } from "../../../helpers";
-import {
-  filterUserPermissions,
-  permissionShortName
-} from "../../../helpers/userPermissions";
+import { filterUserPermissions, permissionShortName } from '../../../helpers/userPermissions'
 import { ReduxStore } from "../../../index";
 import "./styles.css";
 
@@ -79,10 +76,11 @@ const PermissionsTable = (Users, User, changePermissions) => {
                 const userId = props.original.id;
                 let user_permissions = props.value;
                 const userHasPermission = user_permissions.includes(id);
-
+                
                 user_permissions = userHasPermission
                   ? user_permissions.filter(p => p !== id)
                   : [...user_permissions, ...[id]];
+                  
                 const userPermissionsPayload = {
                   user_permissions: JSON.stringify(user_permissions)
                 };

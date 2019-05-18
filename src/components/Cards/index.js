@@ -88,7 +88,6 @@ class Cards extends PureComponent {
       commentCount,
       renderHtml
     } = this.state.props;
-    const shouldSeePopOver = canDelete || canUpdate;
     return (
       <div
         className="Clickable Card Hover"
@@ -97,31 +96,29 @@ class Cards extends PureComponent {
         // onMouseEnter={() => this.setState({ isHovered: true })}
         // onMouseLeave={() => this.setState({ isHovered: false })}
       >
-        {shouldSeePopOver && (
-          <PopOver User={User} className="pull-right">
-            {canUpdate && (
-              <Button
-                onClick={e => {
-                  e.stopPropagation();
-                  editCard(id);
-                }}
-                bsSize=""
-                className="pull-right"
-              >
-                <i className="fa fa-pencil-alt" />
-              </Button>
-            )}
-            <ConfirmAction
-              Action={e => deleteCard(id, User.token)}
-              Disabled={false}
-              Icon={<i className="fas fa-trash" />}
-              hasPermission={canDelete}
-              Size=""
-              Class="pull-right"
-              Title={title}
-            />
-          </PopOver>
-        )}
+        <PopOver User={User} className="pull-right">
+          {canUpdate ? (
+            <Button
+              onClick={e => {
+                e.stopPropagation();
+                editCard(id);
+              }}
+              bsSize=""
+              className="pull-right"
+            >
+              <i className="fa fa-pencil-alt" />
+            </Button>
+          ) : null}
+          <ConfirmAction
+            Action={e => deleteCard(id, User.token)}
+            Disabled={false}
+            Icon={<i className="fas fa-trash" />}
+            hasPermission={canDelete}
+            Size=""
+            Class="pull-right"
+            Title={title}
+          />
+        </PopOver>
         <div className="Preview">
           <div className="previewItem">
             <Image className="tagImage" src={tagImage(tags)} />

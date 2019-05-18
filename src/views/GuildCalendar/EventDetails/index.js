@@ -23,7 +23,7 @@ import { getCharacters } from "../../../actions/User";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { roleClassIcon } from "../../../helpers";
-import { UserHasPermissions } from "../../../helpers/userPermissions";
+import { UserHasPermissions } from '../../../helpers/userPermissions'
 import { classOptions } from "../../../helpers/options";
 import ConfirmAction from "../../../components/ConfirmAction";
 
@@ -172,11 +172,11 @@ class EventDetails extends PureComponent {
             onClick={e =>
               !UserAlreadySignedUp && User.id
                 ? this.setState({
-                    show: true,
-                    memberId,
-                    MatchedCharacters: Characters,
-                    rolePreference
-                  })
+                  show: true,
+                  memberId,
+                  MatchedCharacters: Characters,
+                  rolePreference
+                })
                 : editEventGroupMember(memberId, User, { filled: null })
             }
             className={
@@ -215,14 +215,14 @@ class EventDetails extends PureComponent {
                 onClick={e =>
                   !UserAlreadySignedUp
                     ? this.setState({
-                        show: true,
-                        memberId,
-                        MatchedCharacters: UserCharacterCandidates,
-                        rolePreference
-                      })
+                      show: true,
+                      memberId,
+                      MatchedCharacters: UserCharacterCandidates,
+                      rolePreference
+                    })
                     : editEventGroupMember(memberId, User, {
-                        filled: null
-                      })
+                      filled: null
+                    })
                 }
                 className={
                   !UserAlreadySignedUp
@@ -297,8 +297,8 @@ class EventDetails extends PureComponent {
               Title={name}
             />
           ) : (
-            <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
-          )}
+              <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
+            )}
         </Col>
       </Row>
     );
@@ -418,10 +418,7 @@ class EventDetails extends PureComponent {
           </Col>
           {url && (
             <Col xs={12}>
-              <i className="fas fa-link" />{" "}
-              <a href={`${url}`} target="_blank">
-                {url}
-              </a>
+              <i className="fas fa-link" /> <Link to={`${url}`}>{url}</Link>
             </Col>
           )}
           <Col xs={12}>
@@ -440,11 +437,9 @@ class EventDetails extends PureComponent {
           <Col xs={12}>
             <i className="fas fa-tags" /> [{tags}]
           </Col>
-          {sub_tags && (
-            <Col xs={12}>
-              <i className="fas fa-tags" /> [{sub_tags}]
-            </Col>
-          )}
+          <Col xs={12}>
+            <i className="fas fa-tags" /> [{sub_tags}]
+          </Col>
           {description && (
             <Col xs={12} className="blockLineBreak">
               <i className="fas fa-clipboard" /> {description}
