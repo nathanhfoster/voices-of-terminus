@@ -21,17 +21,21 @@ const filterPermissionsConditions = [
   "token",
   "permission",
   "question"
-]
-
-
+];
 
 const filterUserPermissions = AllUserPermissions =>
-  AllUserPermissions.filter(permission =>
-    !filterPermissionsConditions.some(condition =>
-      permission.codename.includes(condition)))
+  AllUserPermissions.filter(
+    permission =>
+      !filterPermissionsConditions.some(condition =>
+        permission.codename.includes(condition)
+      )
+  );
 
-
-const permissionShortName = name => name.split(" ").splice(1).join(" ");
+const permissionShortName = name =>
+  name
+    .split(" ")
+    .splice(1)
+    .join(" ");
 
 const statusLevelInt = User => {
   if (!User) return 0;
@@ -98,23 +102,46 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
     AllUserGroups,
     AllUserPermissions
   } = ReduxStore.getState().AuthenticationAndAuthorization;
-  const loggedInUserStatus = statusLevelInt(User);
-  const otherUserStatus = statusLevelInt(OtherUser);
+  const loggedInUserStatus = User ? statusLevelInt(User) : null;
+  const otherUserStatus = OtherUser ? statusLevelInt(OtherUser) : null;
   const { groups, user_permissions } = User;
 
-  if (!User) return false;
-  if (User.is_superuser) return true;
+  if (!User) {
+    // console.log("!User: ", !User);
+    return false;
+  }
+  
+  if (User.is_superuser) {
+    // console.log("User.is_superuser: ", User.is_superuser);
+    return true;
+  }
 
-  if (User.id === AuthorId) return true;
-  if (loggedInUserStatus > otherUserStatus) return true;
+  if (User.id === AuthorId) {
+    // console.log("User.id === AuthorId: ", User.id === AuthorId);
+    return true;
+  }
+
+  if (
+    loggedInUserStatus &&
+    otherUserStatus &&
+    loggedInUserStatus > otherUserStatus
+  ) {
+    // console.log(
+    //   "loggedInUserStatus > otherUserStatus: ",
+    //   loggedInUserStatus > otherUserStatus
+    // );
+    return true;
+  }
 
   if (
     AllUserGroups === null ||
     user_permissions === null ||
     AllUserPermissions.length < 1 ||
     (groups.length < 1 && user_permissions.length < 1)
-  )
+  ) {
+    // console.log("No permissions");
     return false;
+  }
 
   let GroupsMap = {};
 
