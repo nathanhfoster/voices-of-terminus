@@ -17,8 +17,8 @@ const getYearMonthEvents = payload => dispatch => {
     .catch(e => console.log(e));
 };
 
-const getEvent = eventId => async dispatch =>
-  await Axios()
+const getEvent = eventId => dispatch =>
+  Axios()
     .get(`calendar/events/${eventId}/`)
     .then(res => {
       const { id } = res.data;
@@ -32,9 +32,9 @@ const getEvent = eventId => async dispatch =>
       })
     );
 
-const getEventGroups = eventId => async dispatch => {
+const getEventGroups = eventId => dispatch => {
   let Groups = [];
-  return await Axios()
+  return Axios()
     .get(`calendar/event/groups/${eventId}/view/`)
     .then(res => {
       dispatch({ type: C.GET_EVENT_GROUPS, payload: res.data });
@@ -66,14 +66,14 @@ const getEventGroupMembers = Groups => dispatch => {
   }
 };
 
-const getEventGroupMembersCharacters = GroupMembers => async dispatch => {
+const getEventGroupMembersCharacters = GroupMembers => dispatch => {
   let payload = DeepCopy(GroupMembers);
   const filledGroupMembers = GroupMembers.filter(m => m.filled);
   const filledMembers = filledGroupMembers.length > 0;
   if (filledMembers) {
     for (let i = 0; i < filledGroupMembers.length; i++) {
       const { filled } = filledGroupMembers[i];
-      await Axios()
+      Axios()
         .get(`user/characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
@@ -94,10 +94,10 @@ const getEventGroupMembersCharacters = GroupMembers => async dispatch => {
     });
 };
 
-const editEventGroupMember = (id, User, payload) => async dispatch => {
+const editEventGroupMember = (id, User, payload) => dispatch => {
   const { Characters, token } = User;
   const endpoint = `calendar/event/group/members/${id}/`;
-  return await Axios(token)
+  return Axios(token)
     .get(endpoint)
     .then(res => {
       const { event_group_id, filled } = res.data;
@@ -153,12 +153,12 @@ const editEventGroupMember = (id, User, payload) => async dispatch => {
     });
 };
 
-const postEvent = (userId, token, payload, groups) => async (
+const postEvent = (userId, token, payload, groups) => (
   dispatch,
   getState
 ) => {
   dispatch({ type: C.POST_EVENTS_LOADING });
-  return await Axios(token)
+  return Axios(token)
     .post(`calendar/events/`, qs.stringify(payload))
     .then(res => {
       const { Users } = getState().Admin;
@@ -180,11 +180,11 @@ const postEvent = (userId, token, payload, groups) => async (
     );
 };
 
-const postEventGroups = (token, event_id, groups) => async dispatch => {
+const postEventGroups = (token, event_id, groups) => dispatch => {
   for (let i = 0; i < groups.length; i++) {
     const groupMembers = groups[i];
     const payload = { event_id, position: i };
-    await Axios(token)
+    Axios(token)
       .post(`calendar/event/groups/`, qs.stringify(payload))
       .then(res => {
         const { id } = res.data;
@@ -198,7 +198,7 @@ const postEventGroupMembers = (
   token,
   event_group_id,
   groupMembers
-) => async dispatch => {
+) => dispatch => {
   for (let i = 0; i < groupMembers.length; i++) {
     const { role_class_preferences } = groupMembers[i];
     const payload = {
@@ -206,9 +206,9 @@ const postEventGroupMembers = (
       position: i,
       role_class_preferences: role_class_preferences.map(i => i.value).join("|")
     };
-    await Axios(token)
+    Axios(token)
       .post(`calendar/event/group/members/`, qs.stringify(payload))
-      .then(res => {})
+      .then(res => { })
       .catch(e =>
         dispatch({
           type: C.SET_API_RESPONSE,
@@ -220,12 +220,12 @@ const postEventGroupMembers = (
 };
 
 // TODO
-const updateEvent = (userId, token, payload, groups) => async (
+const updateEvent = (userId, token, payload, groups) => (
   dispatch,
   getState
 ) => {
   dispatch({ type: C.POST_EVENTS_LOADING });
-  return await Axios(token)
+  return Axios(token)
     .post(`calendar/events/`, qs.stringify(payload))
     .then(res => {
       const { Users } = getState().Admin;
@@ -248,11 +248,11 @@ const updateEvent = (userId, token, payload, groups) => async (
 };
 
 // TODO
-const updateEventGroups = (token, event_id, groups) => async dispatch => {
+const updateEventGroups = (token, event_id, groups) => dispatch => {
   for (let i = 0; i < groups.length; i++) {
     const groupMembers = groups[i];
     const payload = { event_id, position: i };
-    await Axios(token)
+    Axios(token)
       .post(`calendar/event/groups/`, qs.stringify(payload))
       .then(res => {
         const { id } = res.data;
@@ -267,7 +267,7 @@ const updateEventGroupMembers = (
   token,
   event_group_id,
   groupMembers
-) => async dispatch => {
+) => dispatch => {
   for (let i = 0; i < groupMembers.length; i++) {
     const { role_class_preferences } = groupMembers[i];
     const payload = {
@@ -275,9 +275,9 @@ const updateEventGroupMembers = (
       position: i,
       role_class_preferences: role_class_preferences.map(i => i.value).join("|")
     };
-    await Axios(token)
+    Axios(token)
       .post(`calendar/event/group/members/`, qs.stringify(payload))
-      .then(res => {})
+      .then(res => { })
       .catch(e =>
         dispatch({
           type: C.SET_API_RESPONSE,

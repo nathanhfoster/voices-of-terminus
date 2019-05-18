@@ -1,5 +1,38 @@
 import { ReduxStore } from "../index";
 
+const filterPermissionsConditions = [
+  // "view",
+  "comment",
+  "character",
+  "choice",
+  "content",
+  "like",
+  "group",
+  "recipient",
+  "response",
+  "entry",
+  "message",
+  "image",
+  "note",
+  "session",
+  "setting",
+  "status",
+  "ticket",
+  "token",
+  "permission",
+  "question"
+]
+
+
+
+const filterUserPermissions = AllUserPermissions =>
+  AllUserPermissions.filter(permission =>
+    !filterPermissionsConditions.some(condition =>
+      permission.codename.includes(condition)))
+
+
+const permissionShortName = name => name.split(" ").splice(1).join(" ");
+
 const statusLevelInt = User => {
   if (!User) return 0;
   const {
@@ -257,6 +290,8 @@ const PermissionHeader = name => name.split("_")[0].toUpperCase();
 */
 
 export {
+  filterUserPermissions,
+  permissionShortName,
   statusLevelInt,
   statusLevelString,
   UserHasPermissions,

@@ -82,7 +82,8 @@ class Images extends PureComponent {
 
   getState = props => {
     const { User, Galleries } = props;
-    const currentTags = Galleries.results.map(e => splitString(e.tags)).flat(1);
+    const currentTags = Galleries.results.map(e => splitString(e.tags)).flat(1) || [];
+    console.log(currentTags)
     this.getGalleryImage(Galleries);
     this.setState({
       User,
@@ -242,10 +243,10 @@ class Images extends PureComponent {
             {gallery.image ? (
               <Image src={gallery.image} />
             ) : (
-              <div style={{ position: "absolute", top: "25%", right: "50%" }}>
-                <i className="fa fa-spinner fa-spin" />
-              </div>
-            )}
+                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                  <i className="fa fa-spinner fa-spin" />
+                </div>
+              )}
             <div className="gallerySummary">
               <h4>{gallery.title}</h4>
               <span>{gallery.description}</span>
@@ -287,8 +288,8 @@ class Images extends PureComponent {
     let galleries = Galleries.results ? Galleries.results : [];
     galleries = search
       ? matchSorter(galleries, search, {
-          keys: ["title", "author_username", "description"]
-        })
+        keys: ["title", "author_username", "description"]
+      })
       : galleries;
     const selectValue =
       this.state.selectValue.length > 0
@@ -436,10 +437,10 @@ class Images extends PureComponent {
                 {editing ? (
                   <Button onClick={this.updateGallery}>UPDATE</Button>
                 ) : (
-                  <Button onClick={this.postGallery}>
-                    <i className="fas fa-cloud-upload-alt" /> POST
+                    <Button onClick={this.postGallery}>
+                      <i className="fas fa-cloud-upload-alt" /> POST
                   </Button>
-                )}
+                  )}
               </Modal.Footer>
             </Modal>
           </Row>

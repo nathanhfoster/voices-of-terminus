@@ -76,26 +76,26 @@ const TicketTable = (Tickets, history, pathname) => {
       showPageJump
       defaultSorted={[
         { id: "status", desc: false },
-        { id: "priority", desc: false }
+        { id: "priority", desc: true }
       ]}
       defaultPageSize={Window.isMobile ? 10 : 15}
       pageSizeOptions={[5, 10, 15, 20, 50, 100]}
       multiSort={true}
       previousText={<i className="fas fa-arrow-left" />}
       nextText={<i className="fas fa-arrow-right" />}
-      // getTrProps={(state, rowInfo, column, instance) => {
-      //   console.log(state);
-      //   return {
-      //     onClick: e =>
-      //       history.push(`/admin/view/ticket/${rowInfo.original.id}`),
-      //     style: {
-      //       background: rowInfo && rowInfo.row.selected ? "green" : "red"
-      //       background:
-      //         rowInfo.index === this.state.selected ? "#00afec" : "white",
-      //       color: rowInfo.index === this.state.selected ? "white" : "black"
-      //     }
-      //   };
-      // }}
+    // getTrProps={(state, rowInfo, column, instance) => {
+    //   console.log(state);
+    //   return {
+    //     onClick: e =>
+    //       history.push(`/admin/view/ticket/${rowInfo.original.id}`),
+    //     style: {
+    //       background: rowInfo && rowInfo.row.selected ? "green" : "red"
+    //       background:
+    //         rowInfo.index === this.state.selected ? "#00afec" : "white",
+    //       color: rowInfo.index === this.state.selected ? "white" : "black"
+    //     }
+    //   };
+    // }}
     />
   );
 };
@@ -117,16 +117,18 @@ const AdminUserInfoColumns = [
   },
   {
     Header: "Offender",
-    id: "offender_username",
-    accessor: Tickets => Tickets.offender_username,
+    id: "offenders",
+    accessor: Tickets => Tickets.offenders,
     filterable: true,
-    Cell: props => (
-      <Link to={`/admin/edit/user/${props.original.offenders}`}>
-        {props.value}
-      </Link>
-    ),
-    Footer: Tickets => {
-      const User = TopKFrequentStrings(Tickets.data, "offender_username", 1);
+    Cell: props => props.value
+    // return (
+    //   <Link to={`/admin/edit/user/${props.original.offenders}`}>
+    //     {props.value}
+    //   </Link>
+    // )
+    ,
+    Footer: Offenders => {
+      const User = TopKFrequentStrings(Offenders.data, "offenders", 1);
       return (
         <div>
           <i className="fas fa-skull-crossbones" />
@@ -135,7 +137,7 @@ const AdminUserInfoColumns = [
             className="pull-right"
             style={{ color: "var(--primaryColor)", marginLeft: 4 }}
           >
-            {Tickets.data.reduce(
+            {Offenders.data.reduce(
               (acc, curr) => acc + (curr.offender_username ? 1 : 0),
               0
             )}
@@ -145,35 +147,55 @@ const AdminUserInfoColumns = [
       );
     }
   },
-  //corroborators,
-  //others_involved,
+  {
+    Header: "Corroborators",
+    accessor: "corroborators",
+    filterable: true,
+    Cell: Corroborator => Corroborator.value,
+    Footer: Corroborators => {
+      const User = TopKFrequentStrings(Corroborators.data, "corroborators", 1);
+      return (
+        <div>
+          <i className="fas fa-skull-crossbones" />
+          <strong style={{ color: "var(--primaryColor)" }}>{` ${User}`}</strong>
+          <strong
+            className="pull-right"
+            style={{ color: "var(--primaryColor)", marginLeft: 4 }}
+          >
+            {Corroborators.data.reduce(
+              (acc, curr) => acc + (curr.offender_username ? 1 : 0),
+              0
+            )}
+          </strong>
+          <i className="fas fa-user-secret pull-right" />
+        </div>
+      );
+    }
+  },
   {
     Header: "Others",
     accessor: "others_involved",
     filterable: true,
-    Cell: Tickets => {
-      //console.log(Tickets);
-      return null;
+    Cell: others => others.value,
+    Footer: Others => {
+      const User = TopKFrequentStrings(Others.data, "others_involved", 1);
+      return (
+        <div>
+          <i className="fas fa-skull-crossbones" />
+          <strong style={{ color: "var(--primaryColor)" }}>{` ${User}`}</strong>
+          <strong
+            className="pull-right"
+            style={{ color: "var(--primaryColor)", marginLeft: 4 }}
+          >
+            {Others.data.reduce(
+              (acc, curr) => acc + (curr.offender_username ? 1 : 0),
+              0
+            )}
+          </strong>
+          <i className="fas fa-user-secret pull-right" />
+        </div>
+      );
     }
-    // Footer: Tickets => {
-    //   const User = TopKFrequentStrings(Tickets.data, "offender_username", 1);
-    //   return (
-    //     <div>
-    //       <i className="fas fa-skull-crossbones" />
-    //       <strong style={{ color: "var(--primaryColor)" }}>{` ${User}`}</strong>
-    //       <strong
-    //         className="pull-right"
-    //         style={{ color: "var(--primaryColor)", marginLeft: 4 }}
-    //       >
-    //         {Tickets.data.reduce(
-    //           (acc, curr) => acc + (curr.offender_username ? 1 : 0),
-    //           0
-    //         )}
-    //       </strong>
-    //       <i className="fas fa-user-secret pull-right" />
-    //     </div>
-    //   );
-    // }
   },
   {
     Header: "Description",

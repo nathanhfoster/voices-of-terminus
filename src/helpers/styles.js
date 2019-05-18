@@ -71,8 +71,9 @@ const selectStyles = props => {
     option: (base, state) => ({
       ...base,
       borderBottom: "1px solid var(--primaryColor)",
-      backgroundColor: state.isSelected ? "var(--secondaryColor)"
-        : state.isFocused ? "var(--primaryColor)"
+      backgroundColor:
+        // state.isSelected ? "var(--secondaryColor)": 
+        state.isFocused ? "var(--primaryColor)"
           : switchRoleColor(state.value),
       color: "var(--tertiarycolor)",
       ":active": {

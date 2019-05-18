@@ -49,6 +49,7 @@ import {
   statusLevelInt,
   UserHasPermissions
 } from "../../helpers/userPermissions";
+import MomentJS from "moment";
 
 const mapStateToProps = ({ User, Forms, Admin }) => ({ User, Forms, Admin });
 
@@ -68,7 +69,6 @@ class FormGenerator extends Component {
     this.onSelectTagChange = this.onSelectTagChange.bind(this);
 
     this.state = {
-      expiration_date: null,
       NewChoice: "",
       Forms: [],
       title: "",
@@ -93,11 +93,7 @@ class FormGenerator extends Component {
   static defaultProps = { Choices: [{ title: null, position: 0 }] };
 
   setExpirationDate = expiration_date =>
-    this.setState({
-      expiration_date: expiration_date
-        ? new Date(expiration_date)
-        : null
-    });
+    this.setState({ expiration_date: new Date(expiration_date) });
 
   componentWillMount() {
     this.getState(this.props);
@@ -137,8 +133,8 @@ class FormGenerator extends Component {
     const pollId = match.params.id;
     const selectOptions = Admin.Users
       ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
-          (a, b) => a.label.localeCompare(b.label)
-        )
+        (a, b) => a.label.localeCompare(b.label)
+      )
       : [];
     if (pollId) {
       this.pollPropToState(Forms, User.id, selectOptions);
@@ -170,8 +166,8 @@ class FormGenerator extends Component {
           showImage: q.image ? true : false,
           Choices: Choices[i]
             ? Choices[i].map(
-                (c, i) => (c = { id: c.id, position: i, title: c.title })
-              )
+              (c, i) => (c = { id: c.id, position: i, title: c.title })
+            )
             : []
         })
     );
@@ -192,7 +188,7 @@ class FormGenerator extends Component {
       Questions,
       Recipients,
       selectOptions,
-      expiration_date
+      expiration_date: new Date(expiration_date || null)
     });
   };
 
@@ -514,6 +510,7 @@ class FormGenerator extends Component {
       expiration_date,
       form_type
     } = this.state;
+
     const {
       loading,
       loaded,
@@ -551,14 +548,14 @@ class FormGenerator extends Component {
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " POST"]
                 : !posting && posted && !error
-                ? [
+                  ? [
                     <i
                       className="fas fa-check"
                       style={{ color: "var(--color_emerald)" }}
                     />,
                     " POST"
                   ]
-                : "POST"}
+                  : "POST"}
             </Button>
             {pollId && UserHasPermissions(User, "change_form") && (
               <Button
@@ -581,14 +578,14 @@ class FormGenerator extends Component {
                 {updating && !updated
                   ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
                   : !updating && updated && !error
-                  ? [
+                    ? [
                       <i
                         className="fas fa-check"
                         style={{ color: "var(--color_emerald)" }}
                       />,
                       " UPDATE"
                     ]
-                  : "UPDATE"}
+                    : "UPDATE"}
               </Button>
             )}
           </Col>
@@ -631,7 +628,7 @@ class FormGenerator extends Component {
                     type="text"
                     placeholder={`Untitled ${
                       form_type ? form_type.value : "Form"
-                    }`}
+                      }`}
                     name="title"
                     onChange={e => this.onChange(e)}
                   />
@@ -660,7 +657,6 @@ class FormGenerator extends Component {
                     selected={expiration_date}
                     onChange={date => this.setExpirationDate(date)}
                     showTimeSelect
-                    //timeFormat="hh:mm"
                     timeIntervals={30}
                     dateFormat="MMMM d, yyyy h:mm aa"
                     timeCaption="time"
@@ -738,8 +734,8 @@ class FormGenerator extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-      <Redirect to="/login" />
-    );
+          <Redirect to="/login" />
+        );
   }
 }
 export default withAlert(

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -7,6 +7,7 @@ import {
   PageHeader,
   Image,
   Modal,
+  Button,
   ButtonToolbar
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
@@ -22,6 +23,7 @@ import { getCharacters } from "../../../actions/User";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { roleClassIcon } from "../../../helpers";
+import { UserHasPermissions } from '../../../helpers/userPermissions'
 import { classOptions } from "../../../helpers/options";
 import ConfirmAction from "../../../components/ConfirmAction";
 
@@ -35,7 +37,7 @@ const mapDispatchToProps = {
   clearEventsApi
 };
 
-class EventDetails extends Component {
+class EventDetails extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -54,10 +56,6 @@ class EventDetails extends Component {
     const { clearEventsApi } = this.props;
     clearEventsApi();
     this.getState(this.props);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
   }
 
   componentDidMount() {
@@ -174,11 +172,11 @@ class EventDetails extends Component {
             onClick={e =>
               !UserAlreadySignedUp && User.id
                 ? this.setState({
-                    show: true,
-                    memberId,
-                    MatchedCharacters: Characters,
-                    rolePreference
-                  })
+                  show: true,
+                  memberId,
+                  MatchedCharacters: Characters,
+                  rolePreference
+                })
                 : editEventGroupMember(memberId, User, { filled: null })
             }
             className={
@@ -217,14 +215,14 @@ class EventDetails extends Component {
                 onClick={e =>
                   !UserAlreadySignedUp
                     ? this.setState({
-                        show: true,
-                        memberId,
-                        MatchedCharacters: UserCharacterCandidates,
-                        rolePreference
-                      })
+                      show: true,
+                      memberId,
+                      MatchedCharacters: UserCharacterCandidates,
+                      rolePreference
+                    })
                     : editEventGroupMember(memberId, User, {
-                        filled: null
-                      })
+                      filled: null
+                    })
                 }
                 className={
                   !UserAlreadySignedUp
@@ -299,8 +297,8 @@ class EventDetails extends Component {
               Title={name}
             />
           ) : (
-            <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
-          )}
+              <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
+            )}
         </Col>
       </Row>
     );
@@ -375,7 +373,8 @@ class EventDetails extends Component {
       title,
       url
     } = Event;
-    const canDelete = User.is_superuser || User.id === author;
+    const canEdit = UserHasPermissions(User, "change_event", author);
+    const canDelete = UserHasPermissions(User, "delete_event", author);
     return (
       <Grid className="EventDetails Container">
         <Row>
@@ -387,6 +386,7 @@ class EventDetails extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
+            {/* TODO <Button disabled={!canEdit} onClick={e => history.push(`/calendar/edit/event/${id}`)}><i className="fa fa-pencil-alt" /></Button> */}
             <ConfirmAction
               Action={e => {
                 deleteEvent(id, User.token);

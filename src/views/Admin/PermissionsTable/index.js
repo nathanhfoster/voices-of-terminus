@@ -10,6 +10,7 @@ import {
   statusLevelInt,
   statusLevelString
 } from "../../../helpers";
+import { filterUserPermissions, permissionShortName } from '../../../helpers/userPermissions'
 import { ReduxStore } from "../../../index";
 import "./styles.css";
 
@@ -59,10 +60,10 @@ const PermissionsTable = (Users, User, changePermissions) => {
           ]
         },
         {
-          columns: AllUserPermissions.map(p => {
+          columns: filterUserPermissions(AllUserPermissions).map(p => {
             const { id, codename, content_type, name } = p;
             return (p = {
-              Header: name,
+              Header: permissionShortName(name),
               accessor: "user_permissions",
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {

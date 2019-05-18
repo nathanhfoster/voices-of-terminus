@@ -33,8 +33,7 @@ class Ticket extends Component {
     super(props);
 
     this.state = {
-      ticket_type: { value: 3, label: "Harassment" },
-      image: null
+      ticket_type: ticketTypeOptions[0]
     };
   }
 
@@ -61,9 +60,6 @@ class Ticket extends Component {
     return shouldUpdate;
   }
 
-  componentWillUpdate() {}
-
-  /* render() */
 
   componentDidMount() {
     const { getUsers, clearAdminApi } = this.props;
@@ -76,19 +72,17 @@ class Ticket extends Component {
   }
 
   getState = props => {
-    const { Admin, User, ticketTypeOptions } = props;
-    const { token, id } = User;
-    const offenderOptions = Admin.Users
-      ? Admin.Users.map(i => (i = { value: i.id, label: i.username })).sort(
-          (a, b) => a.label.localeCompare(b.label)
-        )
+    const { Admin, ticketTypeOptions } = props;
+
+    const peoplOptions = Admin.Users
+      ? Admin.Users.map(i => (i = { value: i.username, label: i.username })).sort(
+        (a, b) => a.label.localeCompare(b.label)
+      )
       : [];
     const { posting, posted, updating, updated, error } = Admin;
     this.setState({
-      token: token,
-      author: id,
       ticketTypeOptions,
-      offenderOptions,
+      peoplOptions,
       posting,
       posted,
       updating,
@@ -96,8 +90,6 @@ class Ticket extends Component {
       error
     });
   };
-
-  componentDidUpdate(prevProps, prevState) {}
 
   componentWillUnmount() {
     const { clearAdminApi } = this.props;
@@ -127,12 +119,11 @@ class Ticket extends Component {
       //   this.setState({ [name]: e });
       //   break;
       case "pop-value":
-        if (e.value.isFixed) {
-          return;
-        }
-      // case "remove-value":
-      //   this.setState({ [name]: e });
-      //   break;
+        this.setState({ [name]: null });
+        break;
+      case "remove-value":
+        this.setState({ [name]: null });
+        break;
       // case "select-option":
       //   this.setState({ [name]: e });
       //   break;
@@ -142,10 +133,8 @@ class Ticket extends Component {
   };
 
   postTicket = () => {
-    const { postTicket } = this.props;
+    const { User, postTicket } = this.props;
     const {
-      token,
-      author,
       offenders,
       corroborators,
       others_involved,
@@ -155,7 +144,7 @@ class Ticket extends Component {
     } = this.state;
 
     let payload = new FormData();
-    payload.append("author", author);
+    payload.append("author", User.id);
     payload.append("offenders", offenders ? joinStrings(offenders) : "");
     payload.append(
       "corroborators",
@@ -167,10 +156,10 @@ class Ticket extends Component {
     );
     payload.append("description", description);
     payload.append("ticket_type", ticket_type.label);
-    payload.append("image", image);
+    if (image) payload.append("image", image);
     payload.append("priority", ticket_type.value);
 
-    postTicket(token, payload);
+    postTicket(User.token, payload);
   };
 
   render() {
@@ -182,7 +171,7 @@ class Ticket extends Component {
       ticket_type,
       image,
       ticketTypeOptions,
-      offenderOptions,
+      peoplOptions,
       posting,
       posted,
       updating,
@@ -200,26 +189,30 @@ class Ticket extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button onClick={e => this.postTicket()}>
+            <Button disabled={!(offenders &&
+              corroborators &&
+              others_involved &&
+              description &&
+              ticket_type)} onClick={e => this.postTicket()}>
               {posting && !posted
                 ? [<i className="fa fa-spinner fa-spin" />, " SUBMIT"]
                 : !posting && posted && !error
-                ? [
+                  ? [
                     <i
                       className="fas fa-check"
                       style={{ color: "var(--color_emerald)" }}
                     />,
                     " SUBMIT"
                   ]
-                : error
-                ? [
-                    <i
-                      className="fas fa-times"
-                      style={{ color: "var(--color_alizarin)" }}
-                    />,
-                    " SUBMIT"
-                  ]
-                : [<i className="fas fa-paper-plane" />, " SUBMIT"]}
+                  : error
+                    ? [
+                      <i
+                        className="fas fa-times"
+                        style={{ color: "var(--color_alizarin)" }}
+                      />,
+                      " SUBMIT"
+                    ]
+                    : [<i className="fas fa-paper-plane" />, " SUBMIT"]}
             </Button>
           </Col>
         </Row>
@@ -256,7 +249,7 @@ class Ticket extends Component {
                 placeholder="Add..."
                 classNamePrefix="select"
                 onChange={(e, a) => this.selectOnChange(e, a, "offenders")}
-                options={offenderOptions}
+                options={peoplOptions}
               />
             </FormGroup>
           </Col>
@@ -276,7 +269,7 @@ class Ticket extends Component {
                 placeholder="Add..."
                 classNamePrefix="select"
                 onChange={(e, a) => this.selectOnChange(e, a, "corroborators")}
-                options={offenderOptions}
+                options={peoplOptions}
               />
             </FormGroup>
           </Col>
@@ -297,7 +290,7 @@ class Ticket extends Component {
                 onChange={(e, a) =>
                   this.selectOnChange(e, a, "others_involved")
                 }
-                options={offenderOptions}
+                options={peoplOptions}
               />
             </FormGroup>
           </Col>
@@ -329,7 +322,7 @@ class Ticket extends Component {
             />
           </Col>
         </Row>
-      </Grid>
+      </Grid >
     );
   }
 }

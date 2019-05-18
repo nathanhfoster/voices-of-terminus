@@ -324,13 +324,13 @@ const Redirection = (history, userToken, noPermission) => {
 
 const RemoveArrayDuplicates = array => [...new Set(array)];
 
-const removeDuplicates = (array, objAttr) => {
+const removeAttributeDuplicates = (array, objAttr) => {
   let map = new Map();
 
   for (let i = 0; i < array.length; i++) {
     try {
       map.set(array[i][objAttr], array[i]);
-    } catch (e) {}
+    } catch (e) { }
   }
 
   return [...map.values()];
@@ -341,7 +341,7 @@ const joinStrings = objectArray => {
     return objectArray;
   }
   if (Array.isArray(objectArray)) {
-    return objectArray.map(i => i.value.replace("|", "")).join("|");
+    return objectArray.map(i => typeof i.value === "number" ? i.value : i.value.replace("|", "")).join("|");
   }
   if (typeof objectArray === "object") {
     return objectArray.value;
@@ -352,17 +352,17 @@ const joinStrings = objectArray => {
 const splitString = string =>
   string
     ? string.split("|").map(
-        i =>
-          (i = {
-            value: i,
-            label: i,
-            isFixed:
-              i === "Article" ||
-              i === "Newsletter" ||
-              i === "Event" ||
-              i === "Locations"
-          })
-      )
+      i =>
+        (i = {
+          value: i,
+          label: i,
+          isFixed:
+            i === "Article" ||
+            i === "Newsletter" ||
+            i === "Event" ||
+            i === "Locations"
+        })
+    )
     : string;
 
 const GetUserPermissions = user_permissions =>
@@ -410,7 +410,7 @@ export {
   switchPollTypeIcon,
   Redirection,
   RemoveArrayDuplicates,
-  removeDuplicates,
+  removeAttributeDuplicates,
   joinStrings,
   splitString,
   GetUserPermissions,

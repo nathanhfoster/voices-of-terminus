@@ -95,10 +95,10 @@ class Gallery extends PureComponent {
     const { id } = props.match.params;
     const { User, Galleries } = props;
     const GalleryTitleIndex = Galleries.results.findIndex(
-      gallery => gallery.id === id
+      gallery => gallery.id == id
     );
     const GalleryTitle =
-      Galleries.results && Galleries.results.length > 0
+      Galleries.results && Galleries.results[GalleryTitleIndex]
         ? Galleries.results[GalleryTitleIndex].title
         : null;
     const { Gallery } = Galleries;
@@ -274,10 +274,10 @@ class Gallery extends PureComponent {
               {image.image ? (
                 <Image src={image.image} />
               ) : (
-                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
-                  <i className="fa fa-spinner fa-spin" />
-                </div>
-              )}
+                  <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                    <i className="fa fa-spinner fa-spin" />
+                  </div>
+                )}
               <div className="gallerySummary">
                 <h4>{image.title}</h4>
                 <span>{image.description}</span>
@@ -326,8 +326,8 @@ class Gallery extends PureComponent {
     let images = Gallery ? Gallery.results : [];
     images = search
       ? matchSorter(images, search, {
-          keys: ["title", "author_username", "description"]
-        })
+        keys: ["title", "author_username", "description"]
+      })
       : images;
     const selectValue =
       this.state.selectValue.length > 0
@@ -466,10 +466,10 @@ class Gallery extends PureComponent {
                 })
               }
               nextLabel={<i className="fas fa-caret-right fa-2x">NEXT</i>}
-              // prevLabel={}
-              // zoomInLabel={}
-              // zoomOutLabel={}
-              // closeLabel={}
+            // prevLabel={}
+            // zoomInLabel={}
+            // zoomOutLabel={}
+            // closeLabel={}
             />
           )}
         </Row>
@@ -561,10 +561,10 @@ class Gallery extends PureComponent {
                 {editing ? (
                   <Button onClick={this.updateGalleryImage}>UPDATE</Button>
                 ) : (
-                  <Button onClick={this.createGalleryImage}>
-                    <i className="fas fa-cloud-upload-alt" /> Post
+                    <Button onClick={this.createGalleryImage}>
+                      <i className="fas fa-cloud-upload-alt" /> Post
                   </Button>
-                )}
+                  )}
               </Modal.Footer>
             </Modal>
           </Row>

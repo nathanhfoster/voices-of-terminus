@@ -91,11 +91,12 @@ const clearAdminApi = () => dispatch =>
 const updateUserProfile = (id, token, payload) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_USERS_LOADING });
   const { Users } = getState().Admin;
-  let usersPayload = [...Users];
+  let usersPayload = DeepCopy(Users);
   return Axios(token)
     .patch(`users/${id}/`, qs.stringify(payload))
     .then(res => {
       const userIndex = usersPayload.findIndex(user => user.id === res.data.id);
+      console.log(userIndex)
       usersPayload[userIndex] = res.data;
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,

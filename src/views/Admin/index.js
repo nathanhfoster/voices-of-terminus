@@ -252,12 +252,7 @@ class Admin extends PureComponent {
     const { deleteUser } = this.props;
     const { Users, Tickets } = Admin;
     const canViewTickets =
-      UserHasPermissions(User, "view_ticket") ||
-      User.is_leader ||
-      User.is_advisor ||
-      User.is_council ||
-      User.is_general_officer ||
-      User.is_officer;
+      UserHasPermissions(User, "view_ticket");
 
     return eventKey.includes("admin") &&
       !(

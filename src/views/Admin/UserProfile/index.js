@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -31,6 +31,7 @@ import {
   professionIcon
 } from "../../../helpers";
 import {
+  filterUserPermissions,
   statusLevelInt,
   statusLevelString,
   UserHasPermissions,
@@ -54,7 +55,7 @@ const mapDispatchToProps = {
   changePermissions
 };
 
-class UserProfile extends PureComponent {
+class UserProfile extends Component {
   constructor(props) {
     super(props);
 
@@ -358,12 +359,16 @@ class UserProfile extends PureComponent {
     );
   };
 
-  renderUserPermissions = (AllUserPermissions, UserPermissions, canChangePermission) =>
-    CategorizedPermissions(AllUserPermissions).map(columnPermissions => {
+  renderUserPermissions = (AllUserPermissions, UserPermissions, canChangePermission) => {
+    const categorizedPermissions = CategorizedPermissions(AllUserPermissions);
+    const { length } = categorizedPermissions;
+    const columnSize = length === 4 ? 3 : length === 3 ? 4 : length === 2 ? 6 : 12
+
+    return categorizedPermissions.map(columnPermissions => {
       const Header = PermissionHeader(columnPermissions[0].codename);
       const Helper = `Can ${Header} designated content`;
       return (
-        <Col md={3} xs={12}>
+        <Col md={columnSize} xs={12}>
           <h3>{Header}</h3>
           <span className="help">{Helper}</span>
           {columnPermissions.map(p => {
@@ -399,7 +404,8 @@ class UserProfile extends PureComponent {
           })}
         </Col>
       );
-    });
+    })
+  };
 
   UpdateButton = (updating, updated, error) => (
     <Button onClick={this.updateUserProfile}>
@@ -419,6 +425,7 @@ class UserProfile extends PureComponent {
 
   render() {
     const { AuthenticationAndAuthorization, Admin, User } = this.state;
+    const { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization
     const { history } = this.props;
     const { updating, updated, error } = Admin;
     const currentUserId = Admin.User ? Admin.User.id : null;
@@ -885,22 +892,22 @@ class UserProfile extends PureComponent {
               </Checkbox>
             </Col>
           </Row>
-          {User.is_leader || User.is_advisor || User.is_council
+          {canChangePermission
             ? [
               <Row>
                 <h2 className="headerBanner">PERMISSIONS</h2>
               </Row>,
               <Row className="checkBoxTable">
                 {this.renderUserGroupPermissions(
-                  AuthenticationAndAuthorization.AllUserGroups,
-                  Admin.User.groups || [],
+                  AllUserGroups,
+                  Admin.User.groups,
                   canChangePermission
                 )}
                 {this.renderUserPermissions(
-                  AuthenticationAndAuthorization.AllUserPermissions.sort(
+                  filterUserPermissions(AllUserPermissions).sort(
                     (a, b) => a.codename.localeCompare(b.codename)
-                  ) || [],
-                  Admin.User.user_permissions || [],
+                  ),
+                  Admin.User.user_permissions,
                   canChangePermission
                 )}
               </Row>
