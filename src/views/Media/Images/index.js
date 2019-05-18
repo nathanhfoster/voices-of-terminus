@@ -83,7 +83,6 @@ class Images extends PureComponent {
   getState = props => {
     const { User, Galleries } = props;
     const currentTags = Galleries.results.map(e => splitString(e.tags)).flat(1) || [];
-    console.log(currentTags)
     this.getGalleryImage(Galleries);
     this.setState({
       User,

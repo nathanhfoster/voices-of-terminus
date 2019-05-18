@@ -409,7 +409,6 @@ class Profile extends PureComponent {
     const { id, name } = e.target;
     let { value } = e.target;
     const payload = { [name]: value };
-    value.indexOf(e => console.log(e));
     if (name !== "name") editCharacter(id, User.token, payload);
     else {
       let updateCharacters = { ...User };
