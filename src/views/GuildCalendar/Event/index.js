@@ -163,7 +163,6 @@ class Event extends PureComponent {
       GroupMembers.filter(m => m.event_group_id === g.id)
     );
 
-    //console.log(Groups);
     this.setState({
       User,
       Events,
@@ -539,7 +538,7 @@ class Event extends PureComponent {
                   popperClassName="calendarPopper"
                   fixedHeight={true}
                   //startDate={expiration_date}
-                  //value={expiration_date.toString()}
+                  value={start_date}
                   selected={start_date}
                   onChange={date => this.setStartDate(date)}
                   showTimeSelect
@@ -562,7 +561,7 @@ class Event extends PureComponent {
                   popperClassName="calendarPopper"
                   fixedHeight={true}
                   //startDate={expiration_date}
-                  //value={expiration_date.toString()}
+                  value={end_date}
                   selected={end_date}
                   onChange={date => this.setEndDate(date)}
                   showTimeSelect

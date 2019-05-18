@@ -95,7 +95,7 @@ class FormGenerator extends Component {
   setExpirationDate = expiration_date =>
     this.setState({
       expiration_date: expiration_date
-        ? new Date(expiration_date).toISOString()
+        ? new Date(expiration_date)
         : null
     });
 
@@ -656,7 +656,7 @@ class FormGenerator extends Component {
                     popperClassName="calendarPopper"
                     fixedHeight={true}
                     //startDate={expiration_date}
-                    //value={expiration_date.toString()}
+                    value={expiration_date}
                     selected={expiration_date}
                     onChange={date => this.setExpirationDate(date)}
                     showTimeSelect
