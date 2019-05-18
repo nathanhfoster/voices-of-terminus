@@ -526,7 +526,7 @@ class Event extends PureComponent {
           </Row>
           <Form className="Container fadeIn">
             <Row>
-              <Col xs={12} className="expirationDate">
+              <Col md={6} xs={12} className="expirationDate">
                 <ControlLabel>Start date</ControlLabel>
                 <span className="help">Dates are in your local timezone</span>
                 <InputGroup>
@@ -550,7 +550,7 @@ class Event extends PureComponent {
                   />
                 </InputGroup>
               </Col>
-              <Col xs={12} className="expirationDate">
+              <Col md={6} xs={12} className="expirationDate">
                 <ControlLabel>End date</ControlLabel>
                 <InputGroup>
                   <InputGroup.Addon>
