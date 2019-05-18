@@ -494,7 +494,7 @@ class FormSystem extends Component {
     </div>
   );
 
-  responsePercentage = (numerator, denominator) => new Number(parseInt(numerator) / parseInt(denominator) * 100).toFixed(2)
+  responsePercentage = (numerator, denominator) => !numerator || !denominator ? 0 : new Number(parseInt(numerator) / parseInt(denominator) * 100).toFixed(2)
 
   switchQuestionChoicesResponses = (
     question_id,
