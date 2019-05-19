@@ -27,7 +27,7 @@ export const Admin = (
     case C.UPDATE_USERS_SUCCESS:
       return {
         ...state,
-        ...payload,
+        Users: payload,
         updating: false,
         updated: true,
         error: null

@@ -1,7 +1,8 @@
 import C from "../../constants.js";
 
 export const Articles = (state = { results: [] }, action) => {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case C.GET_ARTICLES_LOADING:
       return {
         ...state,
@@ -11,7 +12,7 @@ export const Articles = (state = { results: [] }, action) => {
     case C.GET_ARTICLES_SUCCESS:
       const { posting, posted, updating, updated } = state;
       return {
-        ...action.payload,
+        ...payload,
         loading: false,
         loaded: true,
         posting,
@@ -25,7 +26,7 @@ export const Articles = (state = { results: [] }, action) => {
         ...state,
         loading: false,
         loaded: true,
-        error: action.payload
+        error: payload
       };
     case C.POST_ARTICLES_LOADING:
       return {
