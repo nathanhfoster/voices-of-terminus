@@ -146,7 +146,7 @@ const viewArticle = id => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-const postArticle = (token, payload) => (dispatch, getState) => {
+const postArticle = (token, mentions, payload) => (dispatch, getState) => {
   dispatch({ type: C.POST_ARTICLES_LOADING });
   return Axios(token)
     .post("articles/", qs.stringify(payload))
@@ -239,7 +239,7 @@ const deleteArticleComment = (id, token) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-const updateArticle = (id, token, payload) => (dispatch, getState) => {
+const updateArticle = (id, token, mentions, payload) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_ARTICLES_LOADING });
   return Axios(token)
     .patch(`articles/${id}/`, qs.stringify(payload))

@@ -40,6 +40,7 @@ import {
   PermissionTitle
 } from "../../../helpers/userPermissions";
 import { ExperienceBar } from "../../../components/ExperienceBar";
+import PendingAction from '../../../components/PendingAction'
 
 const mapStateToProps = ({ AuthenticationAndAuthorization, Admin, User }) => ({
   AuthenticationAndAuthorization,
@@ -399,8 +400,8 @@ class UserProfile extends Component {
                           id
                         )
                           ? prevState.Admin.User.user_permissions.filter(
-                              e => e != id
-                            )
+                            e => e != id
+                          )
                           : [...prevState.Admin.User.user_permissions, ...[id]]
                       }
                     }
@@ -417,19 +418,13 @@ class UserProfile extends Component {
   };
 
   UpdateButton = (updating, updated, error) => (
-    <Button onClick={this.updateUserProfile}>
-      {updating && !updated
-        ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-        : !updating && updated && !error
-        ? [
-            <i
-              className="fas fa-check"
-              style={{ color: "var(--color_emerald)" }}
-            />,
-            " UPDATE"
-          ]
-        : "UPDATE"}
-    </Button>
+    <PendingAction
+      Click={this.updateUserProfile}
+      ActionPending={updating}
+      ActionComplete={updated}
+      ActionError={error}
+      ActionName={"UPDATE"}
+    />
   );
 
   render() {
@@ -554,11 +549,11 @@ class UserProfile extends Component {
                   <span class="dot-text">Online</span>
                 </div>
               ) : (
-                <div>
-                  <span class="dot red" />
-                  <span class="dot-text">Offline</span>
-                </div>
-              )}
+                  <div>
+                    <span class="dot red" />
+                    <span class="dot-text">Offline</span>
+                  </div>
+                )}
               <h3 title="Date Joined">
                 <i className="fas fa-birthday-cake" />{" "}
                 <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment>
@@ -575,16 +570,16 @@ class UserProfile extends Component {
                 {Admin.User.opt_in ? (
                   <i className="fas fa-check" />
                 ) : (
-                  <i className="fas fa-times" />
-                )}
+                    <i className="fas fa-times" />
+                  )}
               </h3>
               <h3 title="Lfg">
                 <i className="fas fa-users" />{" "}
                 {Admin.User.lfg ? (
                   <i className="fas fa-check" />
                 ) : (
-                  <i className="fas fa-times" />
-                )}
+                    <i className="fas fa-times" />
+                  )}
               </h3>
             </Col>
           </Row>
@@ -907,24 +902,24 @@ class UserProfile extends Component {
           </Row>
           {canChangePermission
             ? [
-                <Row>
-                  <h2 className="headerBanner">PERMISSIONS</h2>
-                </Row>,
-                <Row className="checkBoxTable">
-                  {this.renderUserGroupPermissions(
-                    AllUserGroups,
-                    Admin.User.groups,
-                    canChangePermission
-                  )}
-                  {this.renderUserPermissions(
-                    filterUserPermissions(AllUserPermissions).sort((a, b) =>
-                      a.codename.localeCompare(b.codename)
-                    ),
-                    Admin.User.user_permissions,
-                    canChangePermission
-                  )}
-                </Row>
-              ]
+              <Row>
+                <h2 className="headerBanner">PERMISSIONS</h2>
+              </Row>,
+              <Row className="checkBoxTable">
+                {this.renderUserGroupPermissions(
+                  AllUserGroups,
+                  Admin.User.groups,
+                  canChangePermission
+                )}
+                {this.renderUserPermissions(
+                  filterUserPermissions(AllUserPermissions).sort((a, b) =>
+                    a.codename.localeCompare(b.codename)
+                  ),
+                  Admin.User.user_permissions,
+                  canChangePermission
+                )}
+              </Row>
+            ]
             : null}
           <Row>
             <h2 className="headerBanner">ROLES</h2>
@@ -1081,8 +1076,8 @@ class UserProfile extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-      <Redirect to="/login" />
-    );
+          <Redirect to="/login" />
+        );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(UserProfile);

@@ -28,6 +28,7 @@ import {
 import { getUsers } from "../../actions/Admin";
 import { Redirect } from "react-router-dom";
 import CreatableSelect from "react-select/lib/Creatable";
+import { objectToArray } from '../../helpers'
 import { selectStyles } from "../../helpers/styles";
 import { articleSlectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
@@ -38,6 +39,7 @@ import {
   isEquivalent
 } from "../../helpers";
 import { options } from "./options";
+import PendingAction from '../PendingAction'
 
 const mapStateToProps = ({
   Articles,
@@ -198,28 +200,49 @@ class TextEditor extends Component {
   };
 
   postArticle = () => {
+    const { postArticle } = this.props
     const { editorState, title, User, tags } = this.state;
-    const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    this.props.postArticle(User.token, {
+    const EditorState = editorState.getCurrentContent()
+    const html = draftToHtml(convertToRaw(EditorState));
+    const mentions = this.getMentions(EditorState);
+    const payload = {
       title,
       slug: "doc",
       author: User.id,
       html,
       tags: joinStrings(tags),
       last_modified_by: User.id
-    });
+    }
+    //view/article/19
+    postArticle(User.token, mentions, payload);
   };
 
   updateArticle = id => {
+    const { updateArticle } = this.props
     const { author, tags, title, editorState, User } = this.state;
-    const html = draftToHtml(convertToRaw(editorState.getCurrentContent()));
-    this.props.updateArticle(id, User.token, {
+    const EditorState = editorState.getCurrentContent()
+    const html = draftToHtml(convertToRaw(EditorState));
+    const mentions = this.getMentions(EditorState);
+    const payload = {
       last_modified_by: User.id,
       html,
       tags: joinStrings(tags),
       title
-    });
+    }
+    updateArticle(id, User.token, mentions, payload);
   };
+
+  getMentions = EditorState => {
+    const entityMap = convertToRaw(EditorState).entityMap;
+    const mentions = [];
+    Object.values(entityMap).forEach(entity => {
+      if (entity.type === 'MENTION') {
+        entity.data.uri = "Something"
+        mentions.push(entity.data);
+      }
+    });
+    return mentions
+  }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -272,40 +295,23 @@ class TextEditor extends Component {
               className="ActionToolbar cardActions"
               componentClass={ButtonToolbar}
             >
-              <Button
-                disabled={!tags[0].value}
-                type="submit"
-                onClick={this.postArticle}
-              >
-                {posting && !posted
-                  ? [<i className="fa fa-spinner fa-spin" />, " POST"]
-                  : !posting && posted && !error
-                    ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " POST"
-                    ]
-                    : "POST"}
-              </Button>
-              <Button
-                type="submit"
-                onClick={() => this.updateArticle(id)}
-                disabled={!id}
-              >
-                {updating && !updated
-                  ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                  : !updating && updated && !error
-                    ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " UPDATE"
-                    ]
-                    : "UPDATE"}
-              </Button>
+              <PendingAction
+                Disabled={!tags[0].value}
+                Click={this.postArticle}
+                ActionPending={posting}
+                ActionComplete={posted}
+                ActionError={error}
+                ActionName={"POST"}
+              />
+              <PendingAction
+                ShouldShow={id ? true : false}
+                Disabled={!id}
+                Click={e => this.updateArticle(id)}
+                ActionPending={updating}
+                ActionComplete={updated}
+                ActionError={error}
+                ActionName={"UPDATE"}
+              />
             </Col>
             <Col
               md={6}
@@ -410,7 +416,7 @@ class TextEditor extends Component {
             />
           </Col>
         </Row> */}
-        </Grid>
+        </Grid >
       );
   }
 }

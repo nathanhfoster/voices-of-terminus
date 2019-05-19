@@ -49,7 +49,7 @@ import {
   statusLevelInt,
   UserHasPermissions
 } from "../../helpers/userPermissions";
-import MomentJS from "moment";
+import PendingAction from '../PendingAction'
 
 const mapStateToProps = ({ User, Forms, Admin }) => ({ User, Forms, Admin });
 
@@ -529,9 +529,9 @@ class FormGenerator extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button
-              disabled={!(title && expiration_date)}
-              onClick={e =>
+            <PendingAction
+              Disabled={!(title && expiration_date)}
+              Click={e =>
                 PostForm(
                   User.token,
                   User.id,
@@ -542,52 +542,33 @@ class FormGenerator extends Component {
                   joinStrings(form_type),
                   Questions,
                   Recipients.map(r => (r = { recipient: r.value }))
-                )
-              }
-            >
-              {posting && !posted
-                ? [<i className="fa fa-spinner fa-spin" />, " POST"]
-                : !posting && posted && !error
-                  ? [
-                    <i
-                      className="fas fa-check"
-                      style={{ color: "var(--color_emerald)" }}
-                    />,
-                    " POST"
-                  ]
-                  : "POST"}
-            </Button>
-            {pollId && UserHasPermissions(User, "change_form") && (
-              <Button
-                disabled={!pollId}
-                onClick={e =>
-                  UpdateForm(
-                    pollId,
-                    User.token,
-                    User.id,
-                    User.username,
-                    title,
-                    body,
-                    expiration_date,
-                    joinStrings(form_type),
-                    Questions,
-                    Recipients.map(r => (r = { recipient: r.value }))
-                  )
-                }
-              >
-                {updating && !updated
-                  ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                  : !updating && updated && !error
-                    ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " UPDATE"
-                    ]
-                    : "UPDATE"}
-              </Button>
-            )}
+                )}
+              ActionPending={posting}
+              ActionComplete={posted}
+              ActionError={error}
+              ActionName={"POST"}
+            />
+            <PendingAction
+              ShouldShow={pollId && UserHasPermissions(User, "change_form")}
+              Disabled={!pollId}
+              Click={e =>
+                UpdateForm(
+                  pollId,
+                  User.token,
+                  User.id,
+                  User.username,
+                  title,
+                  body,
+                  expiration_date,
+                  joinStrings(form_type),
+                  Questions,
+                  Recipients.map(r => (r = { recipient: r.value }))
+                )}
+              ActionPending={updating}
+              ActionComplete={updated}
+              ActionError={error}
+              ActionName={"UPDATE"}
+            />
           </Col>
           <Col
             md={4}

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -10,9 +10,9 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  Button,
   ButtonToolbar
 } from "react-bootstrap";
+import PendingAction from '../../../../components/PendingAction'
 import { connect as reduxConnect } from "react-redux";
 import {
   getTicket,
@@ -44,7 +44,7 @@ const mapDispatchToProps = {
   clearAdminApi
 };
 
-class TicketDetails extends Component {
+class TicketDetails extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -60,14 +60,6 @@ class TicketDetails extends Component {
   componentWillMount() {
     this.getState(this.props);
   }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return true;
-  }
-
-  componentWillUpdate() {}
-
-  /* render() */
 
   componentDidMount() {
     const {
@@ -112,7 +104,7 @@ class TicketDetails extends Component {
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {}
+  componentDidUpdate(prevProps, prevState) { }
 
   componentWillUnmount() {
     const { clearAdminApi } = this.props;
@@ -207,19 +199,19 @@ class TicketDetails extends Component {
                   {` Status: ${status}`}
                 </span>
               ) : (
-                <div className="noteTextContainer">
-                  <p className="noteText">{text}</p>
-                </div>
-              )}
+                  <div className="noteTextContainer">
+                    <p className="noteText">{text}</p>
+                  </div>
+                )}
             </Col>
           </Col>
         );
       })
     ) : (
-      <div className="StatusChangeNoteCard">
-        <span>None</span>
-      </div>
-    );
+        <div className="StatusChangeNoteCard">
+          <span>None</span>
+        </div>
+      );
 
   render() {
     const { history } = this.props;
@@ -270,175 +262,163 @@ class TicketDetails extends Component {
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
-        <Redirect to="/" />
-      )
+          <Redirect to="/" />
+        )
     ) : (
-      Ticket && (
-        <Grid className="TicketDetails Container">
-          <Row>
-            <PageHeader className="pageHeader">TICKET</PageHeader>
-          </Row>
-          <Row className="ActionToolbarRow">
-            <Col
-              xs={12}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              <Button onClick={() => this.editTicketStatus()}>
-                {posting && !posted
-                  ? [<i className="fa fa-spinner fa-spin" />, " SUBMIT"]
-                  : !posting && posted && !error
-                  ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " SUBMIT"
-                    ]
-                  : error
-                  ? [
-                      <i
-                        className="fas fa-times"
-                        style={{ color: "var(--color_alizarin)" }}
-                      />,
-                      " SUBMIT"
-                    ]
-                  : "SUBMIT"}
-              </Button>
-            </Col>
-          </Row>
-          <Row className="detailRow borderedRow">
-            <Col xs={12}>
-              <h3>
-                <i
-                  className="fas fa-circle"
-                  style={{ color: circleColor(status) }}
-                />
-                {` Status: ${status}`}
-              </h3>
-            </Col>
-            <Col xs={12}>
-              <h3>{` Priority: ${priority}`}</h3>
-            </Col>
-            <Col xs={12}>
-              <h3>{`Type: ${ticket_type}`}</h3>
-            </Col>
-            <Col xs={12}>
-              <h3>
-                Created:{" "}
-                <Moment format="MM/DD/YYYY hh:mm a">{date_created}</Moment>
-              </h3>
-            </Col>
-            {dateChanged && (
-              <Col xs={12}>
-                <h3>
-                  Updated:{" "}
-                  <Moment format="MM/DD/YYYY hh:mm a">{last_modified}</Moment>
-                </h3>
-              </Col>
-            )}
-            {author_username && (
-              <Col xs={12}>
-                <h3>
-                  Reported by:{" "}
-                  <Link to={`/admin/edit/user/${author}`}>
-                    {author_username}
-                  </Link>
-                </h3>
-              </Col>
-            )}
-            {offenders && (
-              <Col xs={12}>
-                <h3>
-                  Offended by:{" "}
-                  <Link to={`/admin/edit/user/${offenders}`}>
-                    {offender_username}
-                  </Link>
-                </h3>
-              </Col>
-            )}
-            {othersInvolved.length > 0 && (
-              <Col xs={12}>
-                <h3>
-                  Others involved:{this.renderOthersInvolved(othersInvolved)}
-                </h3>
-              </Col>
-            )}
-            <Col xs={12}>
-              <h3>Description</h3>
-              <Well className="TicketDescription" bsSize="large">
-                {description}
-              </Well>
-            </Col>
-            {image && (
-              <Col xs={12}>
-                <h3>Image proof</h3>
-                <Image
-                  title="Image proof"
-                  className="ImageProof"
-                  src={image}
-                  rounded
+        Ticket && (
+          <Grid className="TicketDetails Container">
+            <Row>
+              <PageHeader className="pageHeader">TICKET</PageHeader>
+            </Row>
+            <Row className="ActionToolbarRow">
+              <Col
+                xs={12}
+                className="ActionToolbar cardActions"
+                componentClass={ButtonToolbar}
+              >
+                <PendingAction
+                  ShouldShow={UserHasPermissions(User, "change_ticket")}
+                  Click={e => this.editTicketStatus()}
+                  ActionPending={posting}
+                  ActionComplete={posted}
+                  ActionError={error}
+                  ActionName={"POST"}
                 />
               </Col>
-            )}
-            {UserHasPermissions(User, "change_ticket") &&
-              User.id != Ticket.author && [
-                <Col xs={12}>
-                  <ControlLabel>Update status</ControlLabel>
-                  <Select
-                    name="ticket_type"
-                    value={
-                      status && status.value
-                        ? status
-                        : { value: status, label: status }
-                    }
-                    onChange={(e, a) => this.selectOnChange(e, a, "status")}
-                    options={ticketTypeOptions}
-                    isClearable={false}
-                    isSearchable={false}
-                    onBlur={e => e.preventDefault()}
-                    blurInputOnSelect={false}
-                    styles={selectStyles()}
+            </Row>
+            <Row className="detailRow borderedRow">
+              <Col xs={12}>
+                <h3>
+                  <i
+                    className="fas fa-circle"
+                    style={{ color: circleColor(status) }}
                   />
-                </Col>,
+                  {` Status: ${status}`}
+                </h3>
+              </Col>
+              <Col xs={12}>
+                <h3>{` Priority: ${priority}`}</h3>
+              </Col>
+              <Col xs={12}>
+                <h3>{`Type: ${ticket_type}`}</h3>
+              </Col>
+              <Col xs={12}>
+                <h3>
+                  Created:{" "}
+                  <Moment format="MM/DD/YYYY hh:mm a">{date_created}</Moment>
+                </h3>
+              </Col>
+              {dateChanged && (
                 <Col xs={12}>
-                  <FormGroup>
-                    <ControlLabel>
-                      <i className="fas fa-sticky-note" /> Notes
-                    </ControlLabel>
-                    <FormControl
-                      value={notes}
-                      componentClass="textarea"
-                      type="textarea"
-                      name="notes"
-                      wrap="hard"
-                      placeholder="Notes..."
-                      onChange={this.onChange}
-                    />
-                  </FormGroup>
+                  <h3>
+                    Updated:{" "}
+                    <Moment format="MM/DD/YYYY hh:mm a">{last_modified}</Moment>
+                  </h3>
                 </Col>
-              ]}
-          </Row>
-          <Row style={{ marginTop: 16 }}>
-            <h2 className="headerBanner">HISTORY</h2>
-          </Row>
-          <Row>
-            <Col xs={12} className="borderedRow">
-              <h2 className="headerBanner">Status Changes</h2>
-              <div className="StatusChangeContainer">
-                {this.renderStatusChangesOrNotes(StatusChanges)}
-              </div>
-            </Col>
-            <Col xs={12} className="borderedRow">
-              <h2 className="headerBanner">Notes</h2>
-              <div className="StatusChangeContainer">
-                {this.renderStatusChangesOrNotes(Notes)}
-              </div>
-            </Col>
-          </Row>
-        </Grid>
-      )
-    );
+              )}
+              {author_username && (
+                <Col xs={12}>
+                  <h3>
+                    Reported by:{" "}
+                    <Link to={`/admin/edit/user/${author}`}>
+                      {author_username}
+                    </Link>
+                  </h3>
+                </Col>
+              )}
+              {offenders && (
+                <Col xs={12}>
+                  <h3>
+                    Offended by:{" "}
+                    <Link to={`/admin/edit/user/${offenders}`}>
+                      {offender_username}
+                    </Link>
+                  </h3>
+                </Col>
+              )}
+              {othersInvolved.length > 0 && (
+                <Col xs={12}>
+                  <h3>
+                    Others involved:{this.renderOthersInvolved(othersInvolved)}
+                  </h3>
+                </Col>
+              )}
+              <Col xs={12}>
+                <h3>Description</h3>
+                <Well className="TicketDescription" bsSize="large">
+                  {description}
+                </Well>
+              </Col>
+              {image && (
+                <Col xs={12}>
+                  <h3>Image proof</h3>
+                  <Image
+                    title="Image proof"
+                    className="ImageProof"
+                    src={image}
+                    rounded
+                  />
+                </Col>
+              )}
+              {/* User.id != Ticket.author && */}
+              {UserHasPermissions(User, "change_ticket") &&
+                [
+                  <Col xs={12}>
+                    <ControlLabel>Update status</ControlLabel>
+                    <Select
+                      name="ticket_type"
+                      value={
+                        status && status.value
+                          ? status
+                          : { value: status, label: status }
+                      }
+                      onChange={(e, a) => this.selectOnChange(e, a, "status")}
+                      options={ticketTypeOptions}
+                      isClearable={false}
+                      isSearchable={false}
+                      onBlur={e => e.preventDefault()}
+                      blurInputOnSelect={false}
+                      styles={selectStyles()}
+                    />
+                  </Col>,
+                  <Col xs={12}>
+                    <FormGroup>
+                      <ControlLabel>
+                        <i className="fas fa-sticky-note" /> Notes
+                    </ControlLabel>
+                      <FormControl
+                        value={notes}
+                        componentClass="textarea"
+                        type="textarea"
+                        name="notes"
+                        wrap="hard"
+                        placeholder="Notes..."
+                        onChange={this.onChange}
+                      />
+                    </FormGroup>
+                  </Col>
+                ]}
+            </Row>
+            <Row style={{ marginTop: 16 }}>
+              <h2 className="headerBanner">HISTORY</h2>
+            </Row>
+            <Row>
+              <Col xs={12} className="borderedRow">
+                <h2 className="headerBanner">Status Changes</h2>
+                <div className="StatusChangeContainer">
+                  {this.renderStatusChangesOrNotes(StatusChanges)}
+                </div>
+              </Col>
+              <Col xs={12} className="borderedRow">
+                <h2 className="headerBanner">Notes</h2>
+                <div className="StatusChangeContainer">
+                  {this.renderStatusChangesOrNotes(Notes)}
+                </div>
+              </Col>
+            </Row>
+          </Grid>
+        )
+      );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(TicketDetails);

@@ -22,6 +22,7 @@ import CreatableSelect from "react-select/lib/Creatable";
 import { joinStrings } from "../../../../helpers";
 import { ticketTypeOptions } from "../../../../helpers/options";
 import { selectStyles } from "../../../../helpers/styles";
+import PendingAction from '../../../../components/PendingAction'
 import "./styles.css";
 
 const mapStateToProps = ({ Admin, User }) => ({ Admin, User });
@@ -189,31 +190,18 @@ class Ticket extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            <Button disabled={!(offenders &&
-              corroborators &&
-              others_involved &&
-              description &&
-              ticket_type)} onClick={e => this.postTicket()}>
-              {posting && !posted
-                ? [<i className="fa fa-spinner fa-spin" />, " SUBMIT"]
-                : !posting && posted && !error
-                  ? [
-                    <i
-                      className="fas fa-check"
-                      style={{ color: "var(--color_emerald)" }}
-                    />,
-                    " SUBMIT"
-                  ]
-                  : error
-                    ? [
-                      <i
-                        className="fas fa-times"
-                        style={{ color: "var(--color_alizarin)" }}
-                      />,
-                      " SUBMIT"
-                    ]
-                    : [<i className="fas fa-paper-plane" />, " SUBMIT"]}
-            </Button>
+            <PendingAction
+              Disabled={!(offenders &&
+                corroborators &&
+                others_involved &&
+                description &&
+                ticket_type)}
+              Click={e => this.postTicket()}
+              ActionPending={posting}
+              ActionComplete={posted}
+              ActionError={error}
+              ActionName={"POST"}
+            />
           </Col>
         </Row>
         <Row className="borderedRow">

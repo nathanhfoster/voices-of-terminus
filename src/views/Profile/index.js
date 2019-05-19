@@ -42,6 +42,7 @@ import { ExperienceBar } from "../../components/ExperienceBar";
 import ConfirmAction from "../../components/ConfirmAction";
 import Tooltip from "rc-tooltip";
 import Slider, { Range } from "rc-slider";
+import PendingAction from '../../components/PendingAction'
 
 const mapStateToProps = ({ User }) => ({
   User
@@ -626,9 +627,9 @@ class Profile extends PureComponent {
                 value={
                   profession_specialization
                     ? {
-                        value: profession_specialization,
-                        label: profession_specialization
-                      }
+                      value: profession_specialization,
+                      label: profession_specialization
+                    }
                     : null
                 }
                 onChange={(e, a) =>
@@ -686,263 +687,250 @@ class Profile extends PureComponent {
     return !token ? (
       <Redirect to="/login" />
     ) : (
-      <Grid className="Profile Container fadeIn">
-        <Row>
-          <PageHeader className="pageHeader">PROFILE</PageHeader>
-        </Row>
-        <Row className="ActionToolbarRow">
-          <Col
-            xs={12}
-            className="ActionToolbar cardActions"
-            componentClass={ButtonToolbar}
-          >
-            <Button
-              onClick={this.updateProfile}
-              disabled={canSubmit}
-              className="pull-left"
+        <Grid className="Profile Container fadeIn">
+          <Row>
+            <PageHeader className="pageHeader">PROFILE</PageHeader>
+          </Row>
+          <Row className="ActionToolbarRow">
+            <Col
+              xs={12}
+              className="ActionToolbar cardActions"
+              componentClass={ButtonToolbar}
             >
-              {updating && !updated
-                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                : !updating && updated && !error
-                ? [
-                    <i
-                      className="fas fa-check"
-                      style={{ color: "var(--color_emerald)" }}
-                    />,
-                    " UPDATE"
-                  ]
-                : "UPDATE"}
+              <PendingAction
+                className="pull-left"
+                Disabled={canSubmit}
+                Click={this.updateProfile}
+                ActionPending={updating}
+                ActionComplete={updated}
+                ActionError={error}
+                ActionName={"UPDATE"}
+              />
+              <Button
+                onClick={() => history.push(`/profile/${id}`)}
+                className="pull-right"
+              >
+                Public Profile
             </Button>
-            <Button
-              onClick={() => history.push(`/profile/${id}`)}
-              className="pull-right"
-            >
-              Public Profile
-            </Button>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">ACCOUNT</h2>
-        </Row>
-        <Row className="Center borderedRow">
-          <Col md={3}>
-            <Image
-              src={profile_image}
-              className="ProfileImages"
-              responsive
-              rounded
-            />
-            <ControlLabel>Profile Picture</ControlLabel>
-            <FormControl
-              style={{ margin: "auto" }}
-              type="file"
-              label="File"
-              name="profile_image"
-              onChange={this.setImage}
-            />
-          </Col>
-          <Col md={3} xs={12}>
-            <h3>
-              <i className="fas fa-birthday-cake" />{" "}
-              <Moment format="MMM DD, YYYY">{date_joined}</Moment>
-            </h3>
-          </Col>
-          <Col md={3} xs={12}>
-            <h3>
-              <i className="fas fa-sign-in-alt" />{" "}
-              <Moment fromNow>{last_login}</Moment>
-            </h3>
-          </Col>
-          <Col md={3} xs={12}>
-            <h3>
-              <i className="fas fa-coins" /> {guild_points}
-            </h3>
-          </Col>
-          <Col xs={12}>{ExperienceBar(experience_points)}</Col>
-        </Row>
-        <Row className="borderedRow">
-          <Col md={3}>
-            <FormGroup validationState={this.validateUsername()}>
-              <ControlLabel>Username</ControlLabel>
-              <FormControl
-                value={username}
-                type="text"
-                name="username"
-                placeholder="Username"
-                onChange={this.onChange}
+            </Col>
+          </Row>
+          <Row>
+            <h2 className="headerBanner">ACCOUNT</h2>
+          </Row>
+          <Row className="Center borderedRow">
+            <Col md={3}>
+              <Image
+                src={profile_image}
+                className="ProfileImages"
+                responsive
+                rounded
               />
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <FormGroup validationState={this.validatePassword()}>
-              <ControlLabel>Password</ControlLabel>
+              <ControlLabel>Profile Picture</ControlLabel>
               <FormControl
-                value={password}
-                type="password"
-                name="password"
-                placeholder="Password"
-                onChange={this.onChange}
+                style={{ margin: "auto" }}
+                type="file"
+                label="File"
+                name="profile_image"
+                onChange={this.setImage}
               />
-              <FormControl.Feedback />
-            </FormGroup>
-          </Col>
-          <Col md={3}>
-            <FormGroup validationState={this.validateEmail()}>
-              <ControlLabel>Email</ControlLabel>
-              <FormControl
-                value={email}
-                type="email"
-                name="email"
-                placeholder="Email"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={2} sm={6}>
-            <FormGroup>
-              <ControlLabel>First Name</ControlLabel>
-              <FormControl
-                value={first_name}
-                type="text"
-                name="first_name"
-                placeholder="First Name"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={2}>
-            <FormGroup>
-              <ControlLabel>Last Name</ControlLabel>
-              <FormControl
-                value={last_name}
-                type="text"
-                name="last_name"
-                placeholder="Last Name"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={12}>
-            <Checkbox
-              checked={opt_in}
-              onClick={() => this.setState({ opt_in: !opt_in })}
-            >
-              <span className="checkBoxText">Opt In</span>
-              <span className="help">
-                Check if you would like to recieve emails
+            </Col>
+            <Col md={3} xs={12}>
+              <h3>
+                <i className="fas fa-birthday-cake" />{" "}
+                <Moment format="MMM DD, YYYY">{date_joined}</Moment>
+              </h3>
+            </Col>
+            <Col md={3} xs={12}>
+              <h3>
+                <i className="fas fa-sign-in-alt" />{" "}
+                <Moment fromNow>{last_login}</Moment>
+              </h3>
+            </Col>
+            <Col md={3} xs={12}>
+              <h3>
+                <i className="fas fa-coins" /> {guild_points}
+              </h3>
+            </Col>
+            <Col xs={12}>{ExperienceBar(experience_points)}</Col>
+          </Row>
+          <Row className="borderedRow">
+            <Col md={3}>
+              <FormGroup validationState={this.validateUsername()}>
+                <ControlLabel>Username</ControlLabel>
+                <FormControl
+                  value={username}
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup validationState={this.validatePassword()}>
+                <ControlLabel>Password</ControlLabel>
+                <FormControl
+                  value={password}
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  onChange={this.onChange}
+                />
+                <FormControl.Feedback />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup validationState={this.validateEmail()}>
+                <ControlLabel>Email</ControlLabel>
+                <FormControl
+                  value={email}
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={2} sm={6}>
+              <FormGroup>
+                <ControlLabel>First Name</ControlLabel>
+                <FormControl
+                  value={first_name}
+                  type="text"
+                  name="first_name"
+                  placeholder="First Name"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={2}>
+              <FormGroup>
+                <ControlLabel>Last Name</ControlLabel>
+                <FormControl
+                  value={last_name}
+                  type="text"
+                  name="last_name"
+                  placeholder="Last Name"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={12}>
+              <Checkbox
+                checked={opt_in}
+                onClick={() => this.setState({ opt_in: !opt_in })}
+              >
+                <span className="checkBoxText">Opt In</span>
+                <span className="help">
+                  Check if you would like to recieve emails
               </span>
-            </Checkbox>
-          </Col>
-          <Col md={12}>
-            <Checkbox
-              checked={lfg}
-              onClick={() => this.setState({ lfg: !lfg })}
-            >
-              <span className="checkBoxText">Lfg</span>
-              <span className="help">
-                Check if you would like to recieve messages for events that
-                match your characters level, role, and class
+              </Checkbox>
+            </Col>
+            <Col md={12}>
+              <Checkbox
+                checked={lfg}
+                onClick={() => this.setState({ lfg: !lfg })}
+              >
+                <span className="checkBoxText">Lfg</span>
+                <span className="help">
+                  Check if you would like to recieve messages for events that
+                  match your characters level, role, and class
               </span>
-            </Checkbox>
-          </Col>
-          <Col md={12}>
-            <FormGroup>
-              <ControlLabel>Biography</ControlLabel>
-              <FormControl
-                value={bio}
-                componentClass="textarea"
-                type="textarea"
-                name="bio"
-                wrap="hard"
-                placeholder="Bio"
-                onChange={this.onChange}
+              </Checkbox>
+            </Col>
+            <Col md={12}>
+              <FormGroup>
+                <ControlLabel>Biography</ControlLabel>
+                <FormControl
+                  value={bio}
+                  componentClass="textarea"
+                  type="textarea"
+                  name="bio"
+                  wrap="hard"
+                  placeholder="Bio"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <h2 className="headerBanner">CONNECTIONS</h2>
+          </Row>
+          <Row className="borderedRow">
+            <Col md={3}>
+              <FormGroup>
+                <ControlLabel>Discord</ControlLabel>
+                <FormControl
+                  value={discord_url}
+                  name="discord_url"
+                  type="text"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <ControlLabel>Twitch</ControlLabel>
+                <FormControl
+                  value={twitch_url}
+                  name="twitch_url"
+                  type="text"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <ControlLabel>Twitter</ControlLabel>
+                <FormControl
+                  value={twitter_url}
+                  name="twitter_url"
+                  type="text"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+            <Col md={3}>
+              <FormGroup>
+                <ControlLabel>YouTube</ControlLabel>
+                <FormControl
+                  value={youtube_url}
+                  name="youtube_url"
+                  type="text"
+                  onChange={this.onChange}
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row name="characters">
+            <Col md={11} xs={10} style={{ padding: 0 }}>
+              <h2 className="headerBanner">CHARACTERS</h2>
+            </Col>
+            <Col
+              md={1}
+              xs={2}
+              className="AddCharacter"
+              componentClass={Button}
+              onClick={e => postCharacter(token, { author: id })}
+            >
+              <i className="fas fa-plus fa-2x" />
+            </Col>
+          </Row>
+          {this.renderCharacters(Characters)}
+          <Row>
+            <Col md={12} style={{ textAlign: "center", margin: "20px" }}>
+              <PendingAction
+                Disabled={canSubmit}
+                Click={this.updateProfile}
+                ActionPending={updating}
+                ActionComplete={updated}
+                ActionError={error}
+                ActionName={"UPDATE"}
               />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row>
-          <h2 className="headerBanner">CONNECTIONS</h2>
-        </Row>
-        <Row className="borderedRow">
-          <Col md={3}>
-            <FormGroup>
-              <ControlLabel>Discord</ControlLabel>
-              <FormControl
-                value={discord_url}
-                name="discord_url"
-                type="text"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={3}>
-            <FormGroup>
-              <ControlLabel>Twitch</ControlLabel>
-              <FormControl
-                value={twitch_url}
-                name="twitch_url"
-                type="text"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={3}>
-            <FormGroup>
-              <ControlLabel>Twitter</ControlLabel>
-              <FormControl
-                value={twitter_url}
-                name="twitter_url"
-                type="text"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-          <Col md={3}>
-            <FormGroup>
-              <ControlLabel>YouTube</ControlLabel>
-              <FormControl
-                value={youtube_url}
-                name="youtube_url"
-                type="text"
-                onChange={this.onChange}
-              />
-            </FormGroup>
-          </Col>
-        </Row>
-        <Row name="characters">
-          <Col md={11} xs={10} style={{ padding: 0 }}>
-            <h2 className="headerBanner">CHARACTERS</h2>
-          </Col>
-          <Col
-            md={1}
-            xs={2}
-            className="AddCharacter"
-            componentClass={Button}
-            onClick={e => postCharacter(token, { author: id })}
-          >
-            <i className="fas fa-plus fa-2x" />
-          </Col>
-        </Row>
-        {this.renderCharacters(Characters)}
-        <Row>
-          <Col md={12} style={{ textAlign: "center", margin: "20px" }}>
-            <Button onClick={this.updateProfile} disabled={canSubmit}>
-              {updating && !updated
-                ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                : !updating && updated && !error
-                ? [
-                    <i
-                      className="fas fa-check"
-                      style={{ color: "var(--color_emerald)" }}
-                    />,
-                    " UPDATE"
-                  ]
-                : "UPDATE"}
-            </Button>
-          </Col>
-        </Row>
-      </Grid>
-    );
+            </Col>
+          </Row>
+        </Grid >
+      );
   }
 }
 export default withAlert(

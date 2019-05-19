@@ -36,6 +36,7 @@ import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import { removeAttributeDuplicates, joinStrings, splitString } from "../../helpers";
+import PendingAction from '../PendingAction'
 const { REACT_APP_UNLAYER_API_KEY } = process.env;
 
 const mapStateToProps = ({ Newsletters, HtmlDocument, User, Settings }) => ({
@@ -284,34 +285,22 @@ class NewsLetterGenerator extends PureComponent {
               className="ActionToolbar cardActions"
               componentClass={ButtonToolbar}
             >
-              <Button onClick={this.postNewsletter}>
-                {posting && !posted
-                  ? [<i className="fa fa-spinner fa-spin" />, " POST"]
-                  : !posting && posted && !error
-                    ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " POST"
-                    ]
-                    : "POST"}
-              </Button>
-              {id && (
-                <Button onClick={this.updateNewsletter} disabled={!design}>
-                  {updating && !updated
-                    ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
-                    : !updating && updated && !error
-                      ? [
-                        <i
-                          className="fas fa-check"
-                          style={{ color: "var(--color_emerald)" }}
-                        />,
-                        " UPDATE"
-                      ]
-                      : "UPDATE"}
-                </Button>
-              )}
+              <PendingAction
+                Click={this.postNewsletter}
+                ActionPending={posting}
+                ActionComplete={posted}
+                ActionError={error}
+                ActionName={"POST"}
+              />
+              <PendingAction
+                ShouldShow={id}
+                Disabled={!design}
+                Click={this.updateNewsletter}
+                ActionPending={updating}
+                ActionComplete={updated}
+                ActionError={error}
+                ActionName={"UPDATE"}
+              />
             </Col>
             <Col
               xs={6}

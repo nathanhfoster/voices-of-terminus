@@ -38,6 +38,7 @@ import {
 import Moment from "react-moment";
 import { withAlert } from "react-alert";
 import { Redirect } from "react-router-dom";
+import PendingAction from '../../../components/PendingAction'
 import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Forms }) => ({
@@ -422,34 +423,17 @@ class FormSystem extends Component {
               onChange={e => this.onChange(e)}
             />
             <InputGroup.Addon>
-              <Button
-                disabled={expired}
-                onClick={() =>
+              <PendingAction
+                Disabled={expired}
+                Click={e =>
                   !response
                     ? PostResponse(User.token, payload)
-                    : EditResponse(User.token, responseId, payload)
-                }
-              >
-                {posting && !posted
-                  ? [<i className="fa fa-spinner fa-spin" />, " POST"]
-                  : !posting && posted && !error
-                    ? [
-                      <i
-                        className="fas fa-check"
-                        style={{ color: "var(--color_emerald)" }}
-                      />,
-                      " SUBMIT"
-                    ]
-                    : error
-                      ? [
-                        <i
-                          className="fas fa-times"
-                          style={{ color: "var(--color_alizarin)" }}
-                        />,
-                        " SUBMIT"
-                      ]
-                      : "SUBMIT"}
-              </Button>
+                    : EditResponse(User.token, responseId, payload)}
+                ActionPending={posting}
+                ActionComplete={posted}
+                ActionError={error}
+                ActionName={"POST"}
+              />
             </InputGroup.Addon>
           </InputGroup>
         );
