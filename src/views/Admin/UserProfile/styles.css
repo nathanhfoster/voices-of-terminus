@@ -9,7 +9,7 @@
 }
 
 .highlightedRow {
-  border: 1px solid var(--primaryColor);
+  border: 2px solid var(--primaryColor);
   border-radius: 4px;
   padding: 8px;
 }

@@ -92,7 +92,7 @@ const getArticleHtml = id => (dispatch, getState) => {
       const { Articles } = getState();
       let payload = { ...Articles };
       const updatedIndex = payload.results.findIndex(
-        article => article.id === id
+        article => article.id == id
       );
       payload.results[updatedIndex].html = html;
       dispatch({
@@ -121,7 +121,7 @@ const viewArticle = id => (dispatch, getState) =>
       const { id } = res.data;
       const { Articles } = getState();
       let payload = { ...Articles };
-      const ArticleViewsIndex = payload.results.findIndex(k => k.id === id);
+      const ArticleViewsIndex = payload.results.findIndex(k => k.id == id);
       if (ArticleViewsIndex !== -1) {
         payload.results[ArticleViewsIndex] = res.data;
         dispatch({
@@ -194,7 +194,7 @@ const updateArticleLike = (id, token, payload) => (dispatch, getState) =>
       const { HtmlDocument } = getState();
       let payload = { ...HtmlDocument };
       const updatedIndex = payload.likes.results.findIndex(
-        like => like.author === res.data.author
+        like => like.author == res.data.author
       );
       payload.likes.results[updatedIndex] = res.data;
       dispatch({
@@ -246,7 +246,7 @@ const updateArticle = (id, token, payload) => (dispatch, getState) => {
     .then(res => {
       const { Articles } = getState();
       let payload = { ...Articles };
-      const updatedIndex = payload.results.findIndex(i => i.id === res.data.id);
+      const updatedIndex = payload.results.findIndex(i => i.id == res.data.id);
       payload.results[updatedIndex] = res.data;
       dispatch({ type: C.UPDATE_ARTICLES_SUCCESS });
       dispatch({

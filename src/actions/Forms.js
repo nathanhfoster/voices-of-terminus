@@ -190,7 +190,7 @@ const PostResponse = (token, payload, question_type) => async (
   dispatch,
   getState
 ) => {
-  const isText = question_type === "Text";
+  const isText = question_type == "Text";
 
   if (isText) dispatch({ type: C.POST_RESPONSE_LOADING });
   return await Axios(token)
@@ -270,7 +270,7 @@ const UpdateForm = (
   const questionsToPost = Questions.filter(q => !q.id);
   const questionsToUpdate = Questions.filter(q => q.id);
   const questionsToDelete = currentQuestions.filter(
-    q => !Questions.some(e => e.id === q.id)
+    q => !Questions.some(e => e.id == q.id)
   );
   await Axios(token)
     .patch(`/forms/${pollId}/`, qs.stringify(pollPayload))

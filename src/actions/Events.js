@@ -77,7 +77,7 @@ const getEventGroupMembersCharacters = GroupMembers => async dispatch => {
         .get(`user/characters/${filled}/`)
         .then(res => {
           const updateIndex = GroupMembers.findIndex(
-            m => m.filled === res.data.id
+            m => m.filled == res.data.id
           );
           payload[updateIndex].Response = res.data;
           dispatch({
@@ -101,7 +101,7 @@ const editEventGroupMember = (id, User, payload) => async dispatch => {
     .get(endpoint)
     .then(res => {
       const { event_group_id, filled } = res.data;
-      const UsersCharacter = Characters.some(c => c.id === filled);
+      const UsersCharacter = Characters.some(c => c.id == filled);
       if (UsersCharacter || !filled) {
         Axios(token)
           .patch(endpoint, qs.stringify(payload))

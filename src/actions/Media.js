@@ -38,7 +38,7 @@ const getGalleryImage = id => (dispatch, getState) =>
       const { Galleries } = getState();
       let payload = { ...Galleries };
       const updatedIndex = payload.results.findIndex(
-        gallery => gallery.id === id
+        gallery => gallery.id == id
       );
       payload.results[updatedIndex].image = image;
       dispatch({
@@ -143,7 +143,7 @@ const viewGalleryImage = id => (dispatch, getState) => {
       const { Gallery } = getState().Galleries;
       let payload = { ...Gallery };
       const updatedIndex = payload.results.findIndex(
-        gallery => gallery.id === id
+        gallery => gallery.id == id
       );
       payload.results[updatedIndex].image = image;
       dispatch({

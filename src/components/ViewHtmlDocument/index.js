@@ -62,12 +62,13 @@ class ViewHtmlDocument extends Component {
     const { params, path } = this.props.match;
     const { id } = params;
     if (path.includes("article")) {
-      const reduxArticle = Articles.results.findIndex(k => k.id === id);
+      const reduxArticle = Articles.results.findIndex(k => k.id == id);
+      console.log(reduxArticle)
       if (reduxArticle !== -1) setHtmlDocument(Articles.results[reduxArticle]);
       viewArticle(id);
     }
     if (path.includes("newsletter")) {
-      const reduxNewsletter = Newsletters.results.findIndex(k => k.id === id);
+      const reduxNewsletter = Newsletters.results.findIndex(k => k.id == id);
       if (reduxNewsletter !== -1)
         setHtmlDocument(Newsletters.results[reduxNewsletter]);
       viewNewsletter(id);

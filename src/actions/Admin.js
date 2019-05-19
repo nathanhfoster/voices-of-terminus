@@ -9,7 +9,7 @@ const changeGroups = (token, id, payload) => (dispatch, getState) => {
   return Axios(token)
     .post(`user-groups/${id}/add/`, qs.stringify(payload))
     .then(res => {
-      const userIndex = usersPayload.findIndex(user => user.id === id);
+      const userIndex = usersPayload.findIndex(user => user.id == id);
       usersPayload[userIndex].groups = JSON.parse(res.data);
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
@@ -29,7 +29,7 @@ const changePermissions = (token, id, payload) => (dispatch, getState) => {
   return Axios(token)
     .post(`user-permissions/${id}/add/`, qs.stringify(payload))
     .then(res => {
-      const userIndex = usersPayload.findIndex(user => user.id === id);
+      const userIndex = usersPayload.findIndex(user => user.id == id);
       usersPayload[userIndex].user_permissions = JSON.parse(res.data);
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
@@ -66,7 +66,7 @@ const getUsersCharactersAndPermissions = (Users, dispatch) => {
     .then(res => {
       const Characters = res.data;
       const payload = Users.map(user => {
-        user.Characters = Characters.filter(c => c.author === user.id);
+        user.Characters = Characters.filter(c => c.author == user.id);
         user.permissions = GetUserPermissions(user.user_permissions);
         return user;
       });
@@ -95,7 +95,7 @@ const updateUserProfile = (id, token, payload) => (dispatch, getState) => {
   return Axios(token)
     .patch(`users/${id}/`, qs.stringify(payload))
     .then(res => {
-      const userIndex = usersPayload.findIndex(user => user.id === res.data.id);
+      const userIndex = usersPayload.findIndex(user => user.id == res.data.id);
       usersPayload[userIndex] = res.data;
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,

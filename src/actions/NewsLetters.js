@@ -93,7 +93,7 @@ const getNewsletterHtml = id => (dispatch, getState) => {
       const { Newsletters } = getState();
       let payload = { ...Newsletters };
       const updatedIndex = payload.results.findIndex(
-        newsletter => newsletter.id === id
+        newsletter => newsletter.id == id
       );
       payload.results[updatedIndex].html = html;
       dispatch({
@@ -122,7 +122,7 @@ const viewNewsletter = id => (dispatch, getState) =>
       const { id } = res.data;
       const { Newsletters } = getState();
       let payload = { ...Newsletters };
-      const NewsletterViewsIndex = payload.results.findIndex(k => k.id === id);
+      const NewsletterViewsIndex = payload.results.findIndex(k => k.id == id);
       if (NewsletterViewsIndex !== -1) {
         payload.results[NewsletterViewsIndex] = res.data;
         dispatch({

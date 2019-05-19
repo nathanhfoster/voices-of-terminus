@@ -265,7 +265,7 @@ class FormSystem extends Component {
                   );
 
                 const responseIndex = usersResponses.findIndex(
-                  response => response.choice_id === id
+                  response => response.choice_id == id
                 );
                 const usersResponse =
                   responseIndex !== -1 ? usersResponses[responseIndex] : {};

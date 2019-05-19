@@ -325,13 +325,17 @@ class UserProfile extends Component {
       txt ? txt + " | " : i === 0 ? <i className="fas fa-ban" /> : null
     );
 
-  renderUserGroupPermissions = (AllUserGroups, UserGroups, canChangePermission) => {
+  renderUserGroupPermissions = (
+    AllUserGroups,
+    UserGroups,
+    canChangePermission
+  ) => {
     return (
       <Col xs={12}>
         <h3>GROUPS</h3>
         {AllUserGroups.map(g => {
           const { id, name, permissions } = g;
-          const UserHasGroup = UserGroups.some(e => e === id);
+          const UserHasGroup = UserGroups.some(e => e == id);
           return (
             <Checkbox
               key={id}
@@ -359,10 +363,15 @@ class UserProfile extends Component {
     );
   };
 
-  renderUserPermissions = (AllUserPermissions, UserPermissions, canChangePermission) => {
+  renderUserPermissions = (
+    AllUserPermissions,
+    UserPermissions,
+    canChangePermission
+  ) => {
     const categorizedPermissions = CategorizedPermissions(AllUserPermissions);
     const { length } = categorizedPermissions;
-    const columnSize = length === 4 ? 3 : length === 3 ? 4 : length === 2 ? 6 : 12
+    const columnSize =
+      length === 4 ? 3 : length === 3 ? 4 : length === 2 ? 6 : 12;
 
     return categorizedPermissions.map(columnPermissions => {
       const Header = PermissionHeader(columnPermissions[0].codename);
@@ -374,7 +383,7 @@ class UserProfile extends Component {
           {columnPermissions.map(p => {
             const { codename, content_type, id, name } = p;
             const title = PermissionTitle(name);
-            const UserHasPermission = UserPermissions.some(e => e === id);
+            const UserHasPermission = UserPermissions.some(e => e == id);
             return (
               <Checkbox
                 key={id}
@@ -390,8 +399,8 @@ class UserProfile extends Component {
                           id
                         )
                           ? prevState.Admin.User.user_permissions.filter(
-                            e => e !== id
-                          )
+                              e => e !== id
+                            )
                           : [...prevState.Admin.User.user_permissions, ...[id]]
                       }
                     }
@@ -404,7 +413,7 @@ class UserProfile extends Component {
           })}
         </Col>
       );
-    })
+    });
   };
 
   UpdateButton = (updating, updated, error) => (
@@ -412,25 +421,33 @@ class UserProfile extends Component {
       {updating && !updated
         ? [<i className="fa fa-spinner fa-spin" />, " UPDATE"]
         : !updating && updated && !error
-          ? [
+        ? [
             <i
               className="fas fa-check"
               style={{ color: "var(--color_emerald)" }}
             />,
             " UPDATE"
           ]
-          : "UPDATE"}
+        : "UPDATE"}
     </Button>
   );
 
   render() {
     const { AuthenticationAndAuthorization, Admin, User } = this.state;
-    const { AllUserGroups, AllUserPermissions } = AuthenticationAndAuthorization
+    const {
+      AllUserGroups,
+      AllUserPermissions
+    } = AuthenticationAndAuthorization;
     const { history } = this.props;
     const { updating, updated, error } = Admin;
     const currentUserId = Admin.User ? Admin.User.id : null;
     const loggedInUserStatus = statusLevelInt(User);
-    const canChangePermission = UserHasPermissions(User, "change_user", currentUserId, Admin.User);
+    const canChangePermission = UserHasPermissions(
+      User,
+      "change_user",
+      currentUserId,
+      Admin.User
+    );
     const MainCharacter = MainAltCharacter(Admin.User, "main");
     const AltCharacter = MainAltCharacter(Admin.User, "alt");
     return UserHasPermissions(User, "change_user") ? (
@@ -537,11 +554,11 @@ class UserProfile extends Component {
                   <span class="dot-text">Online</span>
                 </div>
               ) : (
-                  <div>
-                    <span class="dot red" />
-                    <span class="dot-text">Offline</span>
-                  </div>
-                )}
+                <div>
+                  <span class="dot red" />
+                  <span class="dot-text">Offline</span>
+                </div>
+              )}
               <h3 title="Date Joined">
                 <i className="fas fa-birthday-cake" />{" "}
                 <Moment format="MMM DD, YYYY">{Admin.User.date_joined}</Moment>
@@ -558,16 +575,16 @@ class UserProfile extends Component {
                 {Admin.User.opt_in ? (
                   <i className="fas fa-check" />
                 ) : (
-                    <i className="fas fa-times" />
-                  )}
+                  <i className="fas fa-times" />
+                )}
               </h3>
               <h3 title="Lfg">
                 <i className="fas fa-users" />{" "}
                 {Admin.User.lfg ? (
                   <i className="fas fa-check" />
                 ) : (
-                    <i className="fas fa-times" />
-                  )}
+                  <i className="fas fa-times" />
+                )}
               </h3>
             </Col>
           </Row>
@@ -679,9 +696,7 @@ class UserProfile extends Component {
                   }))
                 }
               >
-                <span className="checkBoxText">
-                  Admin
-                </span>
+                <span className="checkBoxText">Admin</span>
                 <span className="help">
                   Grants access to admin panel and ability to edit user
                   permissions of a lower status level
@@ -704,12 +719,10 @@ class UserProfile extends Component {
                   }))
                 }
               >
-                <span className="checkBoxText">
-                  Moderator
-                </span>
+                <span className="checkBoxText">Moderator</span>
                 <span className="help">
-                  Grants the ability to edit user
-                  permissions of a lower status level
+                  Grants the ability to edit user permissions of a lower status
+                  level
                 </span>
               </Checkbox>
             </Col>
@@ -894,24 +907,24 @@ class UserProfile extends Component {
           </Row>
           {canChangePermission
             ? [
-              <Row>
-                <h2 className="headerBanner">PERMISSIONS</h2>
-              </Row>,
-              <Row className="checkBoxTable">
-                {this.renderUserGroupPermissions(
-                  AllUserGroups,
-                  Admin.User.groups,
-                  canChangePermission
-                )}
-                {this.renderUserPermissions(
-                  filterUserPermissions(AllUserPermissions).sort(
-                    (a, b) => a.codename.localeCompare(b.codename)
-                  ),
-                  Admin.User.user_permissions,
-                  canChangePermission
-                )}
-              </Row>
-            ]
+                <Row>
+                  <h2 className="headerBanner">PERMISSIONS</h2>
+                </Row>,
+                <Row className="checkBoxTable">
+                  {this.renderUserGroupPermissions(
+                    AllUserGroups,
+                    Admin.User.groups,
+                    canChangePermission
+                  )}
+                  {this.renderUserPermissions(
+                    filterUserPermissions(AllUserPermissions).sort((a, b) =>
+                      a.codename.localeCompare(b.codename)
+                    ),
+                    Admin.User.user_permissions,
+                    canChangePermission
+                  )}
+                </Row>
+              ]
             : null}
           <Row>
             <h2 className="headerBanner">ROLES</h2>
@@ -1068,8 +1081,8 @@ class UserProfile extends Component {
     ) : history.length > 2 ? (
       <Redirect to={history.goBack()} />
     ) : (
-          <Redirect to="/login" />
-        );
+      <Redirect to="/login" />
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(UserProfile);
