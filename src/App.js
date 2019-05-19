@@ -242,13 +242,13 @@ class App extends PureComponent {
     const { data, status, statusText, headers, config, request } = ApiResponse;
     const { alert } = this.props;
 
-    if (status === 200 || status === 201)
+    if (status == 200 || status == 201)
       alert.success([
         <div>
           {status} {statusText}
         </div>
       ]);
-    if (status === 400 || status === 401)
+    if (status == 400 || status == 401)
       alert.error([
         <div>
           {status} {statusText}
@@ -296,7 +296,7 @@ class App extends PureComponent {
     const { Settings, routeItems } = this.state;
     const { show_footer } = Settings;
     const { history, location, match } = this.props;
-    return location.pathname === "/" ? (
+    return location.pathname == "/" ? (
       <Redirect to="/home" />
     ) : (
         <div className="App">

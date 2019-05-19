@@ -79,7 +79,7 @@ const editCharacter = (id, token, payload) => (dispatch, getState) => {
     .then(res => {
       const { Characters } = getState().User;
       let characterPayload = [...Characters];
-      const updateIndex = characterPayload.findIndex(e => e.id === res.data.id);
+      const updateIndex = characterPayload.findIndex(e => e.id == res.data.id);
       characterPayload[updateIndex] = res.data;
       dispatch({
         type: C.GET_CHARACTERS,
@@ -99,7 +99,7 @@ const deleteCharacter = (token, id) => (dispatch, getState) =>
     .delete(`user/characters/${id}/`)
     .then(res => {
       const { Characters } = getState().User;
-      const payload = [...Characters].filter(c => c.id !== id);
+      const payload = [...Characters].filter(c => c.id != id);
       dispatch({
         type: C.GET_CHARACTERS,
         payload: payload

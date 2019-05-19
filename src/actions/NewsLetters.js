@@ -123,7 +123,7 @@ const viewNewsletter = id => (dispatch, getState) =>
       const { Newsletters } = getState();
       let payload = { ...Newsletters };
       const NewsletterViewsIndex = payload.results.findIndex(k => k.id == id);
-      if (NewsletterViewsIndex !== -1) {
+      if (NewsletterViewsIndex != -1) {
         payload.results[NewsletterViewsIndex] = res.data;
         dispatch({
           type: C.GET_NEWSLETTERS_SUCCESS,
@@ -190,7 +190,7 @@ const updateNewsletterLike = (id, token, payload) => (dispatch, getState) =>
       const { HtmlDocument } = getState();
       let payload = { ...HtmlDocument };
       const updatedIndex = payload.likes.results.findIndex(
-        like => like.author === res.data.author
+        like => like.author == res.data.author
       );
       payload.likes.results[updatedIndex] = res.data;
       dispatch({
@@ -226,7 +226,7 @@ const deleteNewsletterComment = (id, token) => (dispatch, getState) =>
       const { HtmlDocument } = getState();
       res.data = { ...HtmlDocument };
       res.data.comments.results = res.data.comments.results.filter(
-        com => com.id !== id
+        com => com.id != id
       );
       dispatch({
         type: C.GET_HTML_DOCUMENT,
@@ -242,7 +242,7 @@ const updateNewsLetter = (id, token, payload) => (dispatch, getState) => {
     .then(res => {
       const { Newsletters } = getState();
       let payload = { ...Newsletters };
-      const updatedIndex = payload.results.findIndex(i => i.id === res.data.id);
+      const updatedIndex = payload.results.findIndex(i => i.id == res.data.id);
       payload.results[updatedIndex] = res.data;
       dispatch({ type: C.UPDATE_NEWSLETTERS_SUCCESS });
       dispatch({
@@ -268,7 +268,7 @@ const deleteNewsLetter = (id, token) => (dispatch, getState) =>
     .then(res => {
       const { Newsletters } = getState();
       res.data = { ...Newsletters };
-      res.data.results = res.data.results.filter(article => article.id !== id);
+      res.data.results = res.data.results.filter(article => article.id != id);
       dispatch({
         type: C.GET_NEWSLETTERS_SUCCESS,
         payload: res.data

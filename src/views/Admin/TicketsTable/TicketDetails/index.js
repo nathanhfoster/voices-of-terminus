@@ -155,9 +155,9 @@ class TicketDetails extends Component {
     const originalStatus = Ticket.status;
     const originalNotes = Ticket.notes;
     let { status, notes } = this.state;
-    const statusChanged = status !== originalStatus;
-    const notesChanged = notes !== originalNotes;
-    if (typeof status === "object") status = status.value;
+    const statusChanged = status != originalStatus;
+    const notesChanged = notes != originalNotes;
+    if (typeof status == "object") status = status.value;
 
     const ticketPayload = { status, notes };
     const statusChangePayload = { ticket_id: id, author: User.id, status };
@@ -382,7 +382,7 @@ class TicketDetails extends Component {
               </Col>
             )}
             {UserHasPermissions(User, "change_ticket") &&
-              User.id !== Ticket.author && [
+              User.id != Ticket.author && [
                 <Col xs={12}>
                   <ControlLabel>Update status</ControlLabel>
                   <Select

@@ -322,7 +322,7 @@ class UserProfile extends Component {
 
   renderDividedText = text =>
     text.map((txt, i) =>
-      txt ? txt + " | " : i === 0 ? <i className="fas fa-ban" /> : null
+      txt ? txt + " | " : i == 0 ? <i className="fas fa-ban" /> : null
     );
 
   renderUserGroupPermissions = (
@@ -348,7 +348,7 @@ class UserProfile extends Component {
                     User: {
                       ...prevState.Admin.User,
                       groups: prevState.Admin.User.groups.includes(id)
-                        ? prevState.Admin.User.groups.filter(e => e !== id)
+                        ? prevState.Admin.User.groups.filter(e => e != id)
                         : [...prevState.Admin.User.groups, ...[id]]
                     }
                   }
@@ -371,7 +371,7 @@ class UserProfile extends Component {
     const categorizedPermissions = CategorizedPermissions(AllUserPermissions);
     const { length } = categorizedPermissions;
     const columnSize =
-      length === 4 ? 3 : length === 3 ? 4 : length === 2 ? 6 : 12;
+      length == 4 ? 3 : length == 3 ? 4 : length == 2 ? 6 : 12;
 
     return categorizedPermissions.map(columnPermissions => {
       const Header = PermissionHeader(columnPermissions[0].codename);
@@ -399,7 +399,7 @@ class UserProfile extends Component {
                           id
                         )
                           ? prevState.Admin.User.user_permissions.filter(
-                              e => e !== id
+                              e => e != id
                             )
                           : [...prevState.Admin.User.user_permissions, ...[id]]
                       }

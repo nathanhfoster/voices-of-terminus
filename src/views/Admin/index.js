@@ -93,7 +93,7 @@ class Admin extends PureComponent {
     const differentTickets = !isEquivalent(Tickets, currentTickets);
     const differentUsers = !isEquivalent(Users, currentUsers);
     const differentUser = !isEquivalent(User, currentUser);
-    const differentShow = currentShow !== show;
+    const differentShow = currentShow != show;
 
     return differentTickets || differentUsers || differentUser || differentShow;
   }
@@ -189,7 +189,7 @@ class Admin extends PureComponent {
   validateReEnterPassword() {
     const { password, reEnterPassword } = this.state;
     const { length } = reEnterPassword;
-    if (password === reEnterPassword && length > 0) return "success";
+    if (password == reEnterPassword && length > 0) return "success";
     else if (length > 0) return "error";
     return null;
   }
@@ -203,12 +203,12 @@ class Admin extends PureComponent {
 
   cantSubmit = () => {
     if (
-      (this.validateUsername() === "success" ||
-        this.validateUsername() === "warning") &&
-      (this.validatePassword() === "success" ||
-        this.validatePassword() === "warning") &&
-      this.validateReEnterPassword() === "success" &&
-      (this.validateEmail() === "success" || this.validateEmail() === "warning")
+      (this.validateUsername() == "success" ||
+        this.validateUsername() == "warning") &&
+      (this.validatePassword() == "success" ||
+        this.validatePassword() == "warning") &&
+      this.validateReEnterPassword() == "success" &&
+      (this.validateEmail() == "success" || this.validateEmail() == "warning")
     )
       return true;
 

@@ -78,7 +78,7 @@ const PermissionsTable = (Users, User, changePermissions) => {
                 const userHasPermission = user_permissions.includes(id);
                 
                 user_permissions = userHasPermission
-                  ? user_permissions.filter(p => p !== id)
+                  ? user_permissions.filter(p => p != id)
                   : [...user_permissions, ...[id]];
                   
                 const userPermissionsPayload = {
@@ -102,7 +102,7 @@ const PermissionsTable = (Users, User, changePermissions) => {
         }
       ]}
       filterable
-      // defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value)}
+      // defaultFilterMethod={(filter, row) => String(row[filter.id]) == filter.value)}
       showFilters
       showPageSizeOptions
       showPaginationBottom

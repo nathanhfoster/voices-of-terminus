@@ -41,9 +41,9 @@ class AlertTemplate extends PureComponent {
 
     return (
       <div style={_extends({}, alertStyle, style)}>
-        {options.type === "info" && React.createElement(InfoIcon, null)}
-        {options.type === "success" && React.createElement(SuccessIcon, null)}
-        {options.type === "error" && React.createElement(ErrorIcon, null)}
+        {options.type == "info" && React.createElement(InfoIcon, null)}
+        {options.type == "success" && React.createElement(SuccessIcon, null)}
+        {options.type == "error" && React.createElement(ErrorIcon, null)}
 
         {message}
         <button onClick={close} style={buttonStyle}>

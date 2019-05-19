@@ -136,8 +136,8 @@ class News extends Component {
   }
 
   redirect = (history, path) => {
-    if (path === "/articles/") return history.push("/articles/latest");
-    if (path === "/news/") return history.push("/news/latest");
+    if (path == "/articles/") return history.push("/articles/latest");
+    if (path == "/news/") return history.push("/news/latest");
 
     return true;
   };
@@ -192,10 +192,10 @@ class News extends Component {
     const emptyNewsletterHtml = Newsletters.results.findIndex(
       newsletter => !newsletter.hasOwnProperty("html")
     );
-    if (emptyArticleHtml !== -1 && !Articles.loading) {
+    if (emptyArticleHtml != -1 && !Articles.loading) {
       return getArticleHtml(Articles.results[emptyArticleHtml].id);
     }
-    if (emptyNewsletterHtml !== -1 && !Newsletters.loading) {
+    if (emptyNewsletterHtml != -1 && !Newsletters.loading) {
       return getNewsletterHtml(Newsletters.results[emptyNewsletterHtml].id);
     }
   };
@@ -311,15 +311,15 @@ class News extends Component {
         })
       : Documents;
     const Title = match.path.includes("article") ? "ARTICLES" : "NEWS";
-    const latest = Title === "ARTICLES" ? "/articles/latest" : "/news/latest";
+    const latest = Title == "ARTICLES" ? "/articles/latest" : "/news/latest";
     const suggested =
-      Title === "ARTICLES" ? "/articles/suggested" : "/news/suggested";
+      Title == "ARTICLES" ? "/articles/suggested" : "/news/suggested";
     const popular =
-      Title === "ARTICLES" ? "/articles/popular" : "/news/popular";
-    const myDocs = Title === "ARTICLES" ? "/articles/my-docs" : "/news/my-docs";
+      Title == "ARTICLES" ? "/articles/popular" : "/news/popular";
+    const myDocs = Title == "ARTICLES" ? "/articles/my-docs" : "/news/my-docs";
     const filter = tagFilter.map(i => i.value);
     const maxlength = selectOptions.length;
-    const dontFilter = filter.length === maxlength || filter.length === 0;
+    const dontFilter = filter.length == maxlength || filter.length == 0;
     return this.redirect(history, eventKey) && Documents ? (
       <Grid className="News Container">
         <Row>
@@ -332,12 +332,12 @@ class News extends Component {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {Title === "ARTICLES" && UserHasPermissions(User, "add_article") && (
+            {Title == "ARTICLES" && UserHasPermissions(User, "add_article") && (
               <Button onClick={() => history.push("/article/new/")}>
                 <i className="fas fa-plus" /> Article
               </Button>
             )}
-            {Title === "NEWS" && UserHasPermissions(User, "add_newsletter") && (
+            {Title == "NEWS" && UserHasPermissions(User, "add_newsletter") && (
               <Button onClick={() => history.push("/newsletter/new")}>
                 <i className="fas fa-plus" /> Newsletter
               </Button>
@@ -446,7 +446,7 @@ class News extends Component {
                     dontFilter,
                     (a, b) =>
                       new Date(b.date_created) - new Date(a.date_created),
-                    doc => doc.author === this.state.User.id
+                    doc => doc.author == this.state.User.id
                   )
                 ) : null}
               </Row>

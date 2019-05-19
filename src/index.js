@@ -84,12 +84,12 @@ const isQuotaExceeded = e => {
           break;
         case 1014:
           // Firefox
-          if (e.name === "NS_ERROR_DOM_QUOTA_REACHED") {
+          if (e.name == "NS_ERROR_DOM_QUOTA_REACHED") {
             quotaExceeded = true;
           }
           break;
       }
-    } else if (e.number === -2147024882) {
+    } else if (e.number == -2147024882) {
       // Internet Explorer 8
       quotaExceeded = true;
     }

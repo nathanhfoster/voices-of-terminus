@@ -65,7 +65,7 @@ class PublicProfile extends PureComponent {
     const { Users } = Admin;
     const { id } = match.params;
     const UserIndex = Users && Users.findIndex(user => user.id == id);
-    if (UserIndex !== -1) setUser(Users[UserIndex]);
+    if (UserIndex != -1) setUser(Users[UserIndex]);
     getUser(id);
   }
 
@@ -83,7 +83,7 @@ class PublicProfile extends PureComponent {
     text.map((txt, i) =>
       txt ? (
         <span>{`${txt} | `}</span>
-      ) : i === 0 ? (
+      ) : i == 0 ? (
         <i className="fas fa-ban" />
       ) : null
     );

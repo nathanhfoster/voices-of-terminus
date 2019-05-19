@@ -228,19 +228,19 @@ class Profile extends PureComponent {
             secondary_role: "",
             secondary_class: ""
           });
-        else if (name === "race") {
+        else if (name == "race") {
           payload = { [name]: null, role: null, character_class: null };
           editCharacter(id, User.token, payload);
-        } else if (name === "role") {
+        } else if (name == "role") {
           payload = { [name]: null, character_class: null };
           editCharacter(id, User.token, payload);
-        } else if (name === "character_class") {
+        } else if (name == "character_class") {
           payload = { [name]: null };
           editCharacter(id, User.token, payload);
-        } else if (name === "profession") {
+        } else if (name == "profession") {
           payload = { [name]: null, profession_specialization: null };
           editCharacter(id, User.token, payload);
-        } else if (name === "profession_specialization") {
+        } else if (name == "profession_specialization") {
           payload = { [name]: null };
           editCharacter(id, User.token, payload);
         }
@@ -274,13 +274,13 @@ class Profile extends PureComponent {
             this.setState({ [name]: e.value });
             break;
           default:
-            if (name === "race")
+            if (name == "race")
               payload = { [name]: e.value, role: null, class: null };
-            if (name === "role") payload = { [name]: e.value, class: null };
-            if (name === "character_class") payload = { [name]: e.value };
-            if (name === "profession")
+            if (name == "role") payload = { [name]: e.value, class: null };
+            if (name == "character_class") payload = { [name]: e.value };
+            if (name == "profession")
               payload = { [name]: e.value, profession_specialization: "" };
-            if (name === "profession_specialization")
+            if (name == "profession_specialization")
               payload = { [name]: e.value };
             editCharacter(id, User.token, payload);
         }
@@ -314,7 +314,7 @@ class Profile extends PureComponent {
     const { password } = this.state;
     const { length } = password;
     if (this.hasSpecialChar(password)) return "success";
-    else if (length === 0) return null;
+    else if (length == 0) return null;
     else if (length > 7) return "warning";
     else if (length > 0 && length < 7) return "error";
     return null;
@@ -324,7 +324,7 @@ class Profile extends PureComponent {
     const validator = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     const { email } = this.state;
     const { length } = email;
-    if (length === 0) return null;
+    if (length == 0) return null;
     else if (validator.test(email)) return "success";
     else if (!validator.test(email)) return "error";
     return null;
@@ -332,14 +332,14 @@ class Profile extends PureComponent {
 
   cantSubmit = () => {
     if (
-      (this.validateUsername() === "success" ||
-        this.validateUsername() === "warning") &&
-      (this.validatePassword() === null ||
-        this.validatePassword() === "success" ||
-        this.validatePassword() === "warning") &&
-      (this.validateEmail() === null ||
-        this.validateEmail() === "success" ||
-        this.validateEmail() === "warning")
+      (this.validateUsername() == "success" ||
+        this.validateUsername() == "warning") &&
+      (this.validatePassword() == null ||
+        this.validatePassword() == "success" ||
+        this.validatePassword() == "warning") &&
+      (this.validateEmail() == null ||
+        this.validateEmail() == "success" ||
+        this.validateEmail() == "warning")
     )
       return true;
 
@@ -409,7 +409,7 @@ class Profile extends PureComponent {
     const { id, name } = e.target;
     let { value } = e.target;
     const payload = { [name]: value };
-    if (name !== "name") editCharacter(id, User.token, payload);
+    if (name != "name") editCharacter(id, User.token, payload);
     else {
       let updateCharacters = { ...User };
       updateCharacters.Characters[i].name = value;
@@ -470,7 +470,7 @@ class Profile extends PureComponent {
             <FormGroup className="MainAlt">
               <Image src={roleClassIcon(character_class || role)} height={46} />
               <Checkbox
-                disabled={Characters.some(c => c.main && c.id !== id)}
+                disabled={Characters.some(c => c.main && c.id != id)}
                 key={id}
                 checked={main}
                 onClick={() => editCharacter(id, User.token, { main: !main })}
@@ -478,7 +478,7 @@ class Profile extends PureComponent {
                 <span className="checkBoxText">Main</span>
               </Checkbox>
               <Checkbox
-                disabled={Characters.some(c => c.alt && c.id !== id)}
+                disabled={Characters.some(c => c.alt && c.id != id)}
                 key={id}
                 checked={alt}
                 onClick={() => editCharacter(id, User.token, { alt: !alt })}

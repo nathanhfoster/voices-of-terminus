@@ -19,7 +19,7 @@ export const _extends =
 const BaseIcon = _ref => {
   const color = _ref.color,
     _ref$pushRight = _ref.pushRight,
-    pushRight = _ref$pushRight === undefined ? true : _ref$pushRight,
+    pushRight = _ref$pushRight == undefined ? true : _ref$pushRight,
     children = _ref.children;
   return React.createElement(
     "svg",

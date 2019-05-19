@@ -296,7 +296,7 @@ const deleteEvent = (eventId, token) => (dispatch, getState) =>
     .then(res => {
       const { results } = getState().Events;
       let payload = DeepCopy(results);
-      payload = payload.filter(e => e.id !== eventId);
+      payload = payload.filter(e => e.id != eventId);
       dispatch({ type: C.GET_EVENTS_SUCCESS, payload: payload });
     })
     .catch(e =>

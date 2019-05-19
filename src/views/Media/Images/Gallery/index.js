@@ -123,7 +123,7 @@ class Gallery extends PureComponent {
     const emptyGalleryImage = results.findIndex(
       gallery => !gallery.hasOwnProperty("image")
     );
-    if (emptyGalleryImage !== -1 && !loading)
+    if (emptyGalleryImage != -1 && !loading)
       return this.props.viewGalleryImage(results[emptyGalleryImage].id);
     return null;
   };
@@ -335,7 +335,7 @@ class Gallery extends PureComponent {
         : galleryImageTags;
     const filter = selectValue.map(i => i.value);
     const maxlength = galleryImageTags.length;
-    const dontFilter = filter.length === maxlength || filter.length === 0;
+    const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
       <Grid className="Gallery Container">
         <Row>
@@ -430,7 +430,7 @@ class Gallery extends PureComponent {
                     this.setState({
                       isOpen: false,
                       images: images.filter(
-                        img => img.id !== images[photoIndex].id
+                        img => img.id != images[photoIndex].id
                       )
                     });
                   }}

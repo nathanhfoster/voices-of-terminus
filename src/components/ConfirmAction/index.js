@@ -50,7 +50,7 @@ class ConfirmAction extends PureComponent {
   };
 
   handleClickCapture = e => {
-    if (e.target.type === "button") {
+    if (e.target.type == "button") {
       return this.handleHide;
     } else {
       return e.stopPropagation();

@@ -111,7 +111,7 @@ class HomeCarousel extends PureComponent {
                 );
                 this.setState({
                   isOpen: false,
-                  images: images.filter(img => img.id !== images[photoIndex].id)
+                  images: images.filter(img => img.id != images[photoIndex].id)
                 });
               }}
               Disabled={false}

@@ -73,7 +73,7 @@ const postMessage = (token, recipient_group_id, recipients, payload) => (
           recipient: recipients[i],
           recipient_group_id,
           message_id: id,
-          is_read: author === recipients[i] ? true : false
+          is_read: author == recipients[i] ? true : false
         };
         dispatch(
           postMessageRecipients(
@@ -105,7 +105,7 @@ const postMessageRecipients = (
       .post("/message/recipients/", qs.stringify(payload))
       .then(replyMessage => {
         const { recipient } = replyMessage.data;
-        if (author === recipient) {
+        if (author == recipient) {
           finalPayload.results.unshift(messageResponse.data);
           dispatch({
             type: C.GET_MESSAGE_DETAILS,
@@ -132,7 +132,7 @@ const updateMessage = (id, token, payload) => async (dispatch, getState) =>
         const group = payload.results[i];
         for (let j = 0; j < group.messages.length; j++) {
           const message = group.messages[j];
-          if (message.id === res.data.id) {
+          if (message.id == res.data.id) {
             payload.results[i].messages[j] = res.data;
           }
         }

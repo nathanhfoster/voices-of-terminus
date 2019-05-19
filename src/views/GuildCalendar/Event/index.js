@@ -160,7 +160,7 @@ class Event extends PureComponent {
         })
     );
     Groups = Groups.map(g =>
-      GroupMembers.filter(m => m.event_group_id === g.id)
+      GroupMembers.filter(m => m.event_group_id == g.id)
     );
 
     this.setState({
@@ -196,7 +196,7 @@ class Event extends PureComponent {
     let { groups } = this.state;
     const { party } = this.props;
     let { name, value } = e.target;
-    if (name === "group_size") {
+    if (name == "group_size") {
       groups.length = value || 0;
       for (let i = 0; i < groups.length; i++) {
         if (!groups[i]) groups[i] = party;
@@ -296,7 +296,7 @@ class Event extends PureComponent {
     groups[groupIndex][partyIndex].role_class_preferences = selectValue;
     switch (action) {
       case "remove-value":
-        if (roleOptions.some(e => e.value === removedValue.value)) {
+        if (roleOptions.some(e => e.value == removedValue.value)) {
           selectValue = roleOptions.filter(v => v.isFixed);
           groups[groupIndex][partyIndex].role_class_preferences = [];
         }
@@ -392,7 +392,7 @@ class Event extends PureComponent {
             const { role_class_preferences } = member;
 
             const Options =
-              role_class_preferences.length === 0
+              role_class_preferences.length == 0
                 ? roleOptions
                 : classOptions[role_class_preferences[0].value];
             return (
@@ -447,8 +447,8 @@ class Event extends PureComponent {
   canSubmit = () => {
     const { title } = this.state;
     if (
-      this.validateTitle(title) === "success" ||
-      this.validateTitle(title) === "warning"
+      this.validateTitle(title) == "success" ||
+      this.validateTitle(title) == "warning"
     )
       return true;
 

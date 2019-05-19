@@ -105,12 +105,12 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
   if (!User) return false;
   if (User.is_superuser) return true;
 
-  if (User.id === AuthorId) return true;
+  if (User.id == AuthorId) return true;
   if (loggedInUserStatus > otherUserStatus) return true;
 
   if (
-    AllUserGroups === null ||
-    user_permissions === null ||
+    AllUserGroups == null ||
+    user_permissions == null ||
     AllUserPermissions.length < 1 ||
     (groups.length < 1 && user_permissions.length < 1)
   )
@@ -135,13 +135,13 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
     const groupPermissions = GroupsMap[group] ? GroupsMap[group] : [];
     for (let i = 0; i < groupPermissions.length; i++) {
       const permission = groupPermissions[i];
-      if (PermissionMap[permission] === Codename) return true;
+      if (PermissionMap[permission] == Codename) return true;
     }
   }
 
   for (let i = 0; i < user_permissions.length; i++) {
     const permission = user_permissions[i];
-    if (PermissionMap[permission] === Codename) return true;
+    if (PermissionMap[permission] == Codename) return true;
   }
   return false;
 };
@@ -149,7 +149,7 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
 const CategorizedPermissions = AllUserPermissions => {
   const CategorizedPermissions = ["add", "view", "change", "delete"];
   return CategorizedPermissions.map(c =>
-    AllUserPermissions.filter(e => e.codename.split("_")[0] === c)
+    AllUserPermissions.filter(e => e.codename.split("_")[0] == c)
   );
 };
 

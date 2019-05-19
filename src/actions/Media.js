@@ -55,7 +55,7 @@ const updateGallery = (id, token, payload) => (dispatch, getState) =>
       const { Galleries } = getState();
       let payload = { ...Galleries };
       const updatedIndex = payload.results.findIndex(
-        gallery => gallery.id === res.data.id
+        gallery => gallery.id == res.data.id
       );
       payload.results[updatedIndex] = res.data;
       dispatch({
@@ -76,7 +76,7 @@ const deleteGallery = (id, token) => (dispatch, getState) =>
     .then(res => {
       const { Galleries } = getState();
       res.data = { ...Galleries };
-      res.data.results = res.data.results.filter(gallery => gallery.id !== id);
+      res.data.results = res.data.results.filter(gallery => gallery.id != id);
       dispatch({
         type: C.GET_GALLERIES,
         payload: res.data
@@ -180,7 +180,7 @@ const updateGalleryImage = (id, token, payload) => (dispatch, getState) =>
       const { Gallery } = getState().Galleries;
       let payload = { ...Gallery };
       const updatedIndex = payload.results.findIndex(
-        gallery => gallery.id === res.data.id
+        gallery => gallery.id == res.data.id
       );
       payload.results[updatedIndex] = res.data;
       dispatch({
@@ -201,7 +201,7 @@ const deleteGalleryImage = (id, token) => (dispatch, getState) =>
     .then(res => {
       const { Gallery } = getState().Galleries;
       res.data = { ...Gallery };
-      res.data.results = res.data.results.filter(gallery => gallery.id !== id);
+      res.data.results = res.data.results.filter(gallery => gallery.id != id);
       dispatch({
         type: C.GET_GALLERY,
         payload: res.data

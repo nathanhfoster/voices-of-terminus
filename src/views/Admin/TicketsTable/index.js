@@ -48,7 +48,7 @@ const TicketTable = (Tickets, history, pathname) => {
                     />{" "}
                     <strong style={{ color: "var(--primaryColor)" }}>
                       {Tickets.data.reduce(
-                        (acc, curr) => acc + (curr.status === "Open" ? 1 : 0),
+                        (acc, curr) => acc + (curr.status == "Open" ? 1 : 0),
                         0
                       )}
                     </strong>
@@ -69,7 +69,7 @@ const TicketTable = (Tickets, history, pathname) => {
         AcvtivityColumns
       ]}
       filterable
-      // defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value)}
+      // defaultFilterMethod={(filter, row) => String(row[filter.id]) == filter.value)}
       showFilters
       showPageSizeOptions
       showPaginationBottom
@@ -91,8 +91,8 @@ const TicketTable = (Tickets, history, pathname) => {
     //     style: {
     //       background: rowInfo && rowInfo.row.selected ? "green" : "red"
     //       background:
-    //         rowInfo.index === this.state.selected ? "#00afec" : "white",
-    //       color: rowInfo.index === this.state.selected ? "white" : "black"
+    //         rowInfo.index == this.state.selected ? "#00afec" : "white",
+    //       color: rowInfo.index == this.state.selected ? "white" : "black"
     //     }
     //   };
     // }}
@@ -265,7 +265,7 @@ const AdminDetailsColumns = [
 ];
 
 const UserDetailsColumns = AdminDetailsColumns.filter(
-  c => c.Header !== "Priority"
+  c => c.Header != "Priority"
 );
 
 const AcvtivityColumns = {

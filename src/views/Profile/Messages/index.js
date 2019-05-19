@@ -88,7 +88,7 @@ class Messages extends PureComponent {
     const { push_messages } = Settings;
     const { Users } = this.props.Admin;
     const Recipients = Users
-      ? Users.filter(i => i.id === User.id).map(
+      ? Users.filter(i => i.id == User.id).map(
           e => (e = { value: e.id, label: e.username, isFixed: true })
         )
       : [];
@@ -118,13 +118,13 @@ class Messages extends PureComponent {
   //   const currentTitle = this.state.title;
   //   const currentBody = this.state.body;
 
-  //   const messagesChanged = currentMessageCount !== messageCount;
-  //   const showChanged = show !== currentShow;
+  //   const messagesChanged = currentMessageCount != messageCount;
+  //   const showChanged = show != currentShow;
   //   const messageDetailChanged =
-  //     messageDetailCount !== currentMessageDetailCount;
-  //   const searchChanged = search !== currentSearch;
-  //   const titleChanged = title !== currentTitle;
-  //   const bodyChanged = body !== currentBody;
+  //     messageDetailCount != currentMessageDetailCount;
+  //   const searchChanged = search != currentSearch;
+  //   const titleChanged = title != currentTitle;
+  //   const bodyChanged = body != currentBody;
 
   //   console.log(messageDetailCount, currentMessageDetailCount);
 
@@ -581,7 +581,7 @@ class Messages extends PureComponent {
                         <ConfirmAction
                           Action={e => {
                             const { id } = messageRecipients.filter(
-                              r => r.recipient_id === User.id
+                              r => r.recipient_id == User.id
                             )[0];
                             deleteMessageRecipient(User.token, User.id, id);
                             this.setState({ show: false });

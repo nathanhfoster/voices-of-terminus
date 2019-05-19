@@ -54,7 +54,7 @@ class Ticket extends Component {
     // const currentUser = this.state.User;
     // const currentLogin = currentUser.last_login;
 
-    // if (isEquivalent(currentUser, User) && last_login !== currentLogin)
+    // if (isEquivalent(currentUser, User) && last_login != currentLogin)
     //   shouldUpdate = false;
 
     return shouldUpdate;

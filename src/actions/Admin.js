@@ -132,7 +132,7 @@ const deleteUser = (token, id) => (dispatch, getState) =>
     .delete(`users/${id}/`)
     .then(res => {
       let { Users } = getState().Admin;
-      Users = Users.filter(user => user.id !== id);
+      Users = Users.filter(user => user.id != id);
       dispatch({
         type: C.GET_USERS,
         payload: Users

@@ -52,12 +52,12 @@ const StreamCard = stream => {
             <i className="far fa-eye"> {views}</i>
           </Col>
           <Col md={3} xs={6}>
-            {broadcast_type === "archive"
+            {broadcast_type == "archive"
               ? [<span>Type: </span>, <i className="fas fa-archive" />]
               : [<span>Type: </span>, <i className="fas fa-headset" />]}
           </Col>
           <Col md={3} xs={6}>
-            {status === "recorded"
+            {status == "recorded"
               ? [<span>Status: </span>, <i className="fas fa-microphone-alt" />]
               : [
                   <span>Status: </span>,

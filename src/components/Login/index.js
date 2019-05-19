@@ -153,7 +153,7 @@ class Login extends PureComponent {
   validateReEnterPassword() {
     const { password, reEnterPassword } = this.state;
     const { length } = reEnterPassword;
-    if (password === reEnterPassword && length > 0) return "success";
+    if (password == reEnterPassword && length > 0) return "success";
     else if (length > 0) return "error";
     return null;
   }
@@ -167,12 +167,12 @@ class Login extends PureComponent {
 
   cantSubmit = () => {
     if (
-      (this.validateUsername() === "success" ||
-        this.validateUsername() === "warning") &&
-      (this.validatePassword() === "success" ||
-        this.validatePassword() === "warning") &&
-      this.validateReEnterPassword() === "success" &&
-      (this.validateEmail() === "success" || this.validateEmail() === "warning")
+      (this.validateUsername() == "success" ||
+        this.validateUsername() == "warning") &&
+      (this.validatePassword() == "success" ||
+        this.validatePassword() == "warning") &&
+      this.validateReEnterPassword() == "success" &&
+      (this.validateEmail() == "success" || this.validateEmail() == "warning")
     )
       return true;
 
@@ -217,7 +217,7 @@ class Login extends PureComponent {
     } = this.state;
 
     return User.token ? (
-      action !== "POP" && length > 2 ? (
+      action != "POP" && length > 2 ? (
         this.Redirect()
       ) : (
         <Redirect to="/" />

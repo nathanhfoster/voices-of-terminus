@@ -241,7 +241,7 @@ const OverviewTable = (Users, User, deleteThisUser) => {
         }
       ]}
       filterable
-      // defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value)}
+      // defaultFilterMethod={(filter, row) => String(row[filter.id]) == filter.value)}
       showFilters
       showPageSizeOptions
       showPaginationBottom

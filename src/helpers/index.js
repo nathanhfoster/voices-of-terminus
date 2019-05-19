@@ -61,7 +61,7 @@ const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
   let map = new Map();
   for (let i = 0; i < arrayOfObjs.length; i++) {
     const s = arrayOfObjs[i][prop];
-    if (s !== undefined && s.length > 0)
+    if (s != undefined && s.length > 0)
       map.has(s) ? map.set(s, map.get(s) + 1) : map.set(s, 1);
   }
 
@@ -69,7 +69,7 @@ const TopKFrequentStrings = (arrayOfObjs, prop, k) => {
     [...map.entries()].sort().sort((a, b) => b[1] - a[1])
   );
   const newArray = [...sortedMap.keys()].slice(0, k);
-  if (newArray.length === 1) return newArray[0];
+  if (newArray.length == 1) return newArray[0];
   else return newArray;
 };
 
@@ -77,7 +77,7 @@ const hasCharAfterSpace = string => {
   const charArray = string.split(" ").slice(-2);
   const SecondToLastChar = charArray[0];
   const LastChar = charArray[1];
-  if (SecondToLastChar !== "" && LastChar === "") return false;
+  if (SecondToLastChar != "" && LastChar == "") return false;
 
   return true;
 };
@@ -101,7 +101,7 @@ const isSubset = (arr1, arr2) => arr2.every(e => arr1.includes(e));
 };*/
 
 const isEquivalent = (obj1, obj2) =>
-  JSON.stringify(obj1) === JSON.stringify(obj2);
+  JSON.stringify(obj1) == JSON.stringify(obj2);
 
 const circleColor = status => {
   switch (status) {
@@ -128,7 +128,7 @@ const MainAltCharacter = (User, MainOrAlt) => {
   if (!User) return DEFAULT;
   const { Characters } = User;
 
-  if (Characters === undefined || Characters.length === 0) {
+  if (Characters == undefined || Characters.length == 0) {
     return DEFAULT;
   }
 
@@ -341,9 +341,9 @@ const joinStrings = objectArray => {
     return objectArray;
   }
   if (Array.isArray(objectArray)) {
-    return objectArray.map(i => typeof i.value === "number" ? i.value : i.value.replace("|", "")).join("|");
+    return objectArray.map(i => typeof i.value == "number" ? i.value : i.value.replace("|", "")).join("|");
   }
-  if (typeof objectArray === "object") {
+  if (typeof objectArray == "object") {
     return objectArray.value;
   }
   return objectArray;
@@ -357,10 +357,10 @@ const splitString = string =>
           value: i,
           label: i,
           isFixed:
-            i === "Article" ||
-            i === "Newsletter" ||
-            i === "Event" ||
-            i === "Locations"
+            i == "Article" ||
+            i == "Newsletter" ||
+            i == "Event" ||
+            i == "Locations"
         })
     )
     : string;
@@ -377,7 +377,7 @@ const removeObjProp = (obj, prop) => {
 
 const selectGuildRecipients = (Recipients, User, Users) => [
   ...Recipients,
-  ...Users.filter(user => user.id !== User.id && statusLevelInt(user) !== 0)
+  ...Users.filter(user => user.id != User.id && statusLevelInt(user) != 0)
     .map(
       i =>
         (i = {

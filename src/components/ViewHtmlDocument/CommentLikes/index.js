@@ -65,7 +65,7 @@ class CommentLikes extends PureComponent {
     const currentText = this.state.text;
     const currentHtmlDocument = this.state.HtmlDocument;
 
-    const documentChanged = HtmlDocument !== currentHtmlDocument;
+    const documentChanged = HtmlDocument != currentHtmlDocument;
     const textChanged = !isEquivalent(text, currentText);
 
     return documentChanged || textChanged;
@@ -83,10 +83,10 @@ class CommentLikes extends PureComponent {
       ? likes.results.reduce((accumulator, like) => accumulator + like.count, 0)
       : null;
     const userLikeIndex = likes
-      ? likes.results.findIndex(like => like.author === User.id)
+      ? likes.results.findIndex(like => like.author == User.id)
       : -1;
     const amountLiked =
-      User.token && userLikeIndex !== -1
+      User.token && userLikeIndex != -1
         ? likes.results[userLikeIndex].count
         : 0;
     this.setState({
@@ -115,7 +115,7 @@ class CommentLikes extends PureComponent {
     const { id } = HtmlDocument;
     const document_id = id;
     const alreadyLiked = HtmlDocument.likes.results.findIndex(
-      like => like.author === User.id
+      like => like.author == User.id
     );
     const count = HtmlDocument.likes.results[alreadyLiked]
       ? HtmlDocument.likes.results[alreadyLiked].count + 1
@@ -123,7 +123,7 @@ class CommentLikes extends PureComponent {
     const payload = { document_id, author: User.id, count };
 
     if (path.includes("newsletter")) {
-      alreadyLiked !== -1
+      alreadyLiked != -1
         ? updateNewsletterLike(
             HtmlDocument.likes.results[alreadyLiked].id,
             User.token,
@@ -132,7 +132,7 @@ class CommentLikes extends PureComponent {
         : postNewsletterLike(User.token, payload);
     }
     if (path.includes("article")) {
-      alreadyLiked !== -1
+      alreadyLiked != -1
         ? updateArticleLike(
             HtmlDocument.likes.results[alreadyLiked].id,
             User.token,
@@ -285,7 +285,7 @@ class CommentLikes extends PureComponent {
             <div className="Center cardActions">
               <Button
                 className="commentPostButton"
-                disabled={text.length === 0}
+                disabled={text.length == 0}
                 type="submit"
                 onClick={this.postComment}
               >

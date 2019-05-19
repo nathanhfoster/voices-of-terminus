@@ -104,9 +104,9 @@ class TextEditor extends Component {
     const currentSelectValue = this.state.tags;
 
     const editorChanged = !isEquivalent(currentEditorState, editorState);
-    const titleChanged = currentTitle !== title;
+    const titleChanged = currentTitle != title;
     const userChanged = !isEquivalent(currentUser, User);
-    const isFiltering = tags !== currentSelectValue;
+    const isFiltering = tags != currentSelectValue;
 
     return editorChanged || titleChanged || userChanged || isFiltering;
   }
@@ -139,7 +139,7 @@ class TextEditor extends Component {
     if (HtmlDocument)
       tags = HtmlDocument.tags
         .split("|")
-        .map(i => (i = { value: i, label: i, isFixed: i === "Article" }));
+        .map(i => (i = { value: i, label: i, isFixed: i == "Article" }));
 
     const { id } = match ? match.params : null;
     const { path } = match ? match : null;

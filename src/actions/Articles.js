@@ -122,7 +122,7 @@ const viewArticle = id => (dispatch, getState) =>
       const { Articles } = getState();
       let payload = { ...Articles };
       const ArticleViewsIndex = payload.results.findIndex(k => k.id == id);
-      if (ArticleViewsIndex !== -1) {
+      if (ArticleViewsIndex != -1) {
         payload.results[ArticleViewsIndex] = res.data;
         dispatch({
           type: C.GET_ARTICLES_SUCCESS,
@@ -230,7 +230,7 @@ const deleteArticleComment = (id, token) => (dispatch, getState) =>
       const { HtmlDocument } = getState();
       res.data = { ...HtmlDocument };
       res.data.comments.results = res.data.comments.results.filter(
-        com => com.id !== id
+        com => com.id != id
       );
       dispatch({
         type: C.GET_HTML_DOCUMENT,
@@ -272,7 +272,7 @@ const deleteArticle = (id, token) => (dispatch, getState) =>
     .then(res => {
       const { Articles } = getState();
       res.data = { ...Articles };
-      res.data.results = res.data.results.filter(article => article.id !== id);
+      res.data.results = res.data.results.filter(article => article.id != id);
       dispatch({
         type: C.GET_ARTICLES_SUCCESS,
         payload: res.data

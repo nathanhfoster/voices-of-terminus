@@ -159,7 +159,7 @@ class GuildCalendar extends PureComponent {
               //console.log("calendarDay: ", calendarDay);
               mapCounter[dayOfTheYear] = mapCounter[dayOfTheYear] + 1 || 1;
 
-              return view === "month" && eventFound && !isMobile ? (
+              return view == "month" && eventFound && !isMobile ? (
                 <div
                   onClick={e => history.push(`/calendar/event/${id}`)}
                   className="hasEventsContainer"
@@ -175,7 +175,7 @@ class GuildCalendar extends PureComponent {
                   </span>
                   <h6 className="eventTitle">{title}</h6>
                 </div>
-              ) : view === "month" &&
+              ) : view == "month" &&
                 eventFound &&
                 mapCounter[dayOfTheYear] < 2 ? (
                 <div class="hasEventsContainerMobile">

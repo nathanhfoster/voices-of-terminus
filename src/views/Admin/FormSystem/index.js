@@ -126,7 +126,7 @@ class FormSystem extends Component {
     const nextPollId = nextState.pollId;
     const { token } = User;
 
-    if (currentPollId !== nextPollId) {
+    if (currentPollId != nextPollId) {
       GetForm(token, nextPollId);
       GetFormQuestions(token, nextPollId);
       GetFormRecipients(token, nextPollId);
@@ -140,7 +140,7 @@ class FormSystem extends Component {
   }
 
   filterForms = (typeFilter, form_type) =>
-    typeFilter.length > 0 ? typeFilter.some(e => e.value === form_type) : true;
+    typeFilter.length > 0 ? typeFilter.some(e => e.value == form_type) : true;
 
   renderPolls = (Forms, typeFilter) => {
     const { User, DeleteForm } = this.props;
@@ -260,17 +260,17 @@ class FormSystem extends Component {
                   .flat(2)
                   .filter(
                     r =>
-                      r.author === User.id &&
-                      Choices[i].some(c => c.id === r.choice_id)
+                      r.author == User.id &&
+                      Choices[i].some(c => c.id == r.choice_id)
                   );
 
                 const responseIndex = usersResponses.findIndex(
                   response => response.choice_id == id
                 );
                 const usersResponse =
-                  responseIndex !== -1 ? usersResponses[responseIndex] : {};
+                  responseIndex != -1 ? usersResponses[responseIndex] : {};
                 const { response } = usersResponse;
-                const checked = response === "true";
+                const checked = response == "true";
 
                 return (
                   <Row
@@ -379,7 +379,7 @@ class FormSystem extends Component {
         return (
           <Radio
             disabled={
-              (!checked && usersResponses.some(e => e.response === "true")) ||
+              (!checked && usersResponses.some(e => e.response == "true")) ||
               expired
             }
             name="radioGroup"
@@ -412,7 +412,7 @@ class FormSystem extends Component {
             <FormControl
               disabled={expired}
               value={
-                stateResponse || stateResponse === "" ? stateResponse : response
+                stateResponse || stateResponse == "" ? stateResponse : response
               }
               componentClass="textarea"
               name="response"
@@ -505,23 +505,23 @@ class FormSystem extends Component {
   ) => {
     const allUserQuestionResponses = Responses.results
       .flat(2)
-      .filter(r => r.question_id === question_id);
+      .filter(r => r.question_id == question_id);
 
     const uniqueUserResponses = removeAttributeDuplicates(allUserQuestionResponses, "author")
 
     const userChoiceResponses = allUserQuestionResponses.filter(
-      r => r.choice_id === choice_id
+      r => r.choice_id == choice_id
     );
 
 
     const userMultipleBoolResponses = userChoiceResponses.reduce(
-      (total, r) => (r.response === "true" ? total + 1 : total),
+      (total, r) => (r.response == "true" ? total + 1 : total),
       0
     );
 
     const userStringResponses = userChoiceResponses.reduce(
       (total, r) =>
-        r.response && r.response !== "true" && r.response !== "false"
+        r.response && r.response != "true" && r.response != "false"
           ? total + 1
           : total,
       0
@@ -638,9 +638,9 @@ class FormSystem extends Component {
       title
     } = Form;
     const expired = new Date(expiration_date) - new Date() < 0;
-    const isAuthor = author === User.id;
-    const isRecipient = Recipients.some(e => User.id === e.recipient);
-    const isPublic = Recipients.length === 0;
+    const isAuthor = author == User.id;
+    const isRecipient = Recipients.some(e => User.id == e.recipient);
+    const isPublic = Recipients.length == 0;
 
     const canView = isAuthor || isRecipient || isPublic;
     return pollId &&
