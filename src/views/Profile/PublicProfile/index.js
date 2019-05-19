@@ -64,7 +64,7 @@ class PublicProfile extends PureComponent {
     const { Admin, match, setUser, getUser } = this.props;
     const { Users } = Admin;
     const { id } = match.params;
-    const UserIndex = Users && Users.findIndex(user => user.id === id);
+    const UserIndex = Users && Users.findIndex(user => user.id == id);
     if (UserIndex !== -1) setUser(Users[UserIndex]);
     getUser(id);
   }
@@ -118,15 +118,17 @@ class PublicProfile extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {is_superuser || is_staff || is_moderator ? (
-              <Button
-                onClick={() => history.push(`/admin/edit/user/${id}/`)}
-                className="pull-right"
-              >
-                <i className="fas fa-database" />
-              </Button>
-            ) : null}
-            {CurrentUser.id === id ? (
+            {is_superuser ||
+              is_staff ||
+              (is_moderator && (
+                <Button
+                  onClick={() => history.push(`/admin/edit/user/${id}/`)}
+                  className="pull-right"
+                >
+                  <i className="fas fa-database" />
+                </Button>
+              ))}
+            {CurrentUser.id == id ? (
               <Button
                 onClick={() => history.push("/profile/")}
                 className="pull-right"
@@ -219,11 +221,11 @@ class PublicProfile extends PureComponent {
                 <span class="dot-text">Online</span>
               </div>
             ) : (
-                <div>
-                  <span class="dot red" />
-                  <span class="dot-text">Offline</span>
-                </div>
-              )}
+              <div>
+                <span class="dot red" />
+                <span class="dot-text">Offline</span>
+              </div>
+            )}
             <h3 title="Date Joined">
               <i className="fas fa-birthday-cake" />{" "}
               <Moment format="MMM DD, YYYY">{User.date_joined}</Moment>
@@ -241,8 +243,8 @@ class PublicProfile extends PureComponent {
               {User.lfg ? (
                 <i className="fas fa-check" />
               ) : (
-                  <i className="fas fa-times" />
-                )}
+                <i className="fas fa-times" />
+              )}
             </h3>
           </Col>
         </Row>

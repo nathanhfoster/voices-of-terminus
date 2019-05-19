@@ -275,7 +275,7 @@ const UpdateForm = (
   await Axios(token)
     .patch(`/forms/${pollId}/`, qs.stringify(pollPayload))
     .then(form => {
-      const indexToUpdate = payload.results.findIndex(p => p.id === pollId);
+      const indexToUpdate = payload.results.findIndex(p => p.id == pollId);
       payload.Form = form.data;
       payload.results[indexToUpdate] = form.data;
 
