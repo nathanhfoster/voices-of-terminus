@@ -17,7 +17,7 @@ import {
   Tab
 } from "react-bootstrap";
 import Select from "react-select";
-import { removeAttributeDuplicates } from '../../../helpers'
+import { removeAttributeDuplicates } from "../../../helpers";
 import { selectStyles } from "../../../helpers/styles";
 import { formOptions } from "../../../helpers/options";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
@@ -38,7 +38,7 @@ import {
 import Moment from "react-moment";
 import { withAlert } from "react-alert";
 import { Redirect } from "react-router-dom";
-import PendingAction from '../../../components/PendingAction'
+import PendingAction from "../../../components/PendingAction";
 import ConfirmAction from "../../../components/ConfirmAction";
 
 const mapStateToProps = ({ User, Forms }) => ({
@@ -151,6 +151,7 @@ class FormSystem extends Component {
         const {
           id,
           title,
+          author,
           author_username,
           date_created,
           last_modified,
@@ -176,11 +177,11 @@ class FormSystem extends Component {
                 Action={e => DeleteForm(User.token, id)}
                 Disabled={false}
                 Icon={<i className="fas fa-trash" />}
-                hasPermission={UserHasPermissions(User, "delete_form")}
+                hasPermission={UserHasPermissions(User, "delete_form", author)}
                 Class="pull-right"
                 Title={title}
               />
-              {UserHasPermissions(User, "change_form") && (
+              {UserHasPermissions(User, "change_form", author) && (
                 <Button
                   onClick={e => {
                     e.stopPropagation();
@@ -255,49 +256,49 @@ class FormSystem extends Component {
                 )}
               </Row>,
               Choices[i] &&
-              Choices[i].map(c => {
-                const { id, title, question_id } = c;
-                const usersResponses = Responses.results
-                  .flat(2)
-                  .filter(
-                    r =>
-                      r.author == User.id &&
-                      Choices[i].some(c => c.id == r.choice_id)
+                Choices[i].map(c => {
+                  const { id, title, question_id } = c;
+                  const usersResponses = Responses.results
+                    .flat(2)
+                    .filter(
+                      r =>
+                        r.author == User.id &&
+                        Choices[i].some(c => c.id == r.choice_id)
+                    );
+
+                  const responseIndex = usersResponses.findIndex(
+                    response => response.choice_id == id
                   );
+                  const usersResponse =
+                    responseIndex != -1 ? usersResponses[responseIndex] : {};
+                  const { response } = usersResponse;
+                  const checked = response == "true";
 
-                const responseIndex = usersResponses.findIndex(
-                  response => response.choice_id == id
-                );
-                const usersResponse =
-                  responseIndex != -1 ? usersResponses[responseIndex] : {};
-                const { response } = usersResponse;
-                const checked = response == "true";
-
-                return (
-                  <Row
-                    className={checked ? "highlightedRow" : "borderedRow"}
-                    key={i}
-                  >
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoices(
-                          question_id,
-                          question_type,
-                          id,
-                          title,
-                          User,
-                          Responses,
-                          expired,
-                          checked,
-                          usersResponse.id,
-                          response,
-                          usersResponses
-                        )}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                );
-              })
+                  return (
+                    <Row
+                      className={checked ? "highlightedRow" : "borderedRow"}
+                      key={i}
+                    >
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoices(
+                            question_id,
+                            question_type,
+                            id,
+                            title,
+                            User,
+                            Responses,
+                            expired,
+                            checked,
+                            usersResponse.id,
+                            response,
+                            usersResponses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
             ];
           })}
         </Tab>
@@ -313,31 +314,31 @@ class FormSystem extends Component {
                 <i className="far fa-question-circle" /> {question}
               </h4>,
               Choices[i] &&
-              Choices[i].map(c => {
-                const { id, title, question_id } = c;
-                return (
-                  <Row className="borderedRow noHover">
-                    <Col xs={12}>
-                      <FormGroup key={i}>
-                        {this.switchQuestionChoicesResponses(
-                          question_id,
-                          question_type,
-                          id,
-                          title,
-                          Responses
-                        )}
-                      </FormGroup>
-                    </Col>
-                  </Row>
-                );
-              })
+                Choices[i].map(c => {
+                  const { id, title, question_id } = c;
+                  return (
+                    <Row className="borderedRow noHover">
+                      <Col xs={12}>
+                        <FormGroup key={i}>
+                          {this.switchQuestionChoicesResponses(
+                            question_id,
+                            question_type,
+                            id,
+                            title,
+                            Responses
+                          )}
+                        </FormGroup>
+                      </Col>
+                    </Row>
+                  );
+                })
             ];
           })}
         </Tab>
       </Tabs>
     ) : (
-        <h1>You don't have permission to view this form.</h1>
-      );
+      <h1>You don't have permission to view this form.</h1>
+    );
   };
 
   switchQuestionChoices = (
@@ -428,7 +429,8 @@ class FormSystem extends Component {
                 Click={e =>
                   !response
                     ? PostResponse(User.token, payload)
-                    : EditResponse(User.token, responseId, payload)}
+                    : EditResponse(User.token, responseId, payload)
+                }
                 ActionPending={posting}
                 ActionComplete={posted}
                 ActionError={error}
@@ -473,12 +475,19 @@ class FormSystem extends Component {
         %
       </span>
       <span>
-        {`${userMultipleBoolResponses} / ${uniqueUserResponses.length} responses`}
+        {`${userMultipleBoolResponses} / ${
+          uniqueUserResponses.length
+        } responses`}
       </span>
     </div>
   );
 
-  responsePercentage = (numerator, denominator) => !numerator || !denominator ? 0 : new Number(parseInt(numerator) / parseInt(denominator) * 100).toFixed(2)
+  responsePercentage = (numerator, denominator) =>
+    !numerator || !denominator
+      ? 0
+      : new Number((parseInt(numerator) / parseInt(denominator)) * 100).toFixed(
+          2
+        );
 
   switchQuestionChoicesResponses = (
     question_id,
@@ -491,12 +500,14 @@ class FormSystem extends Component {
       .flat(2)
       .filter(r => r.question_id == question_id);
 
-    const uniqueUserResponses = removeAttributeDuplicates(allUserQuestionResponses, "author")
+    const uniqueUserResponses = removeAttributeDuplicates(
+      allUserQuestionResponses,
+      "author"
+    );
 
     const userChoiceResponses = allUserQuestionResponses.filter(
       r => r.choice_id == choice_id
     );
-
 
     const userMultipleBoolResponses = userChoiceResponses.reduce(
       (total, r) => (r.response == "true" ? total + 1 : total),
@@ -633,71 +644,73 @@ class FormSystem extends Component {
         eventKey.includes("results") ||
         eventKey.includes("edit")
       ) ? (
-        <Redirect to={`/forms/${pollId}/questions`} />
-      ) : (
-        <Grid className="FormSystem Container">
-          <Row>
-            <PageHeader className="pageHeader">FORMS</PageHeader>
+      <Redirect to={`/forms/${pollId}/questions`} />
+    ) : (
+      <Grid className="FormSystem Container">
+        <Row>
+          <PageHeader className="pageHeader">FORMS</PageHeader>
+        </Row>
+        <Row>
+          <h1 className="Center">{title}</h1>
+        </Row>
+        {pollId && expiration_date && (
+          <Row className="Center">
+            <span className="help Center">
+              {isPublic ? "(Public)" : "(Private)"}
+            </span>
+            <h3>
+              {expired
+                ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
+                : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
+            </h3>
           </Row>
-          <Row>
-            <h1 className="Center">{title}</h1>
-          </Row>
-          {pollId && expiration_date && (
-            <Row className="Center" >
-              <span className="help Center">{isPublic ? "(Public)" : "(Private)"}</span>
-              <h3>
-                {expired
-                  ? ["Expired ", <Moment fromNow>{expiration_date}</Moment>]
-                  : ["Expires ", <Moment fromNow>{expiration_date}</Moment>]}
-              </h3>
-            </Row>
-          )}
-          <Row className="ActionToolbarRow">
-            <Col
-              md={4}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              {UserHasPermissions(User, "add_form") && (
-                <Button onClick={() => history.push("/form/new/")}>
-                  <i className="fas fa-plus" /> Form
+        )}
+        <Row className="ActionToolbarRow">
+          <Col
+            md={4}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            {UserHasPermissions(User, "add_form") && (
+              <Button onClick={() => history.push("/form/new/")}>
+                <i className="fas fa-plus" /> Form
               </Button>
-              )}
-              {pollId && UserHasPermissions(User, "change_form") && (
-                <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
-                  <i className="fa fa-pencil-alt" /> Form
-              </Button>
-              )}
-            </Col>
-            {!pollId && (
-              <Col md={8} xs={12}>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-tags" />
-                  </InputGroup.Addon>
-                  <Select
-                    //https://react-select.com/props
-                    value={typeFilter}
-                    isMulti
-                    styles={selectStyles()}
-                    onBlur={e => e.preventDefault()}
-                    blurInputOnSelect={false}
-                    //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
-                    isSearchable={false}
-                    placeholder="Filter by form type..."
-                    classNamePrefix="select"
-                    onChange={this.onSelectChange}
-                    options={formOptions}
-                  />
-                </InputGroup>
-              </Col>
             )}
-          </Row>
-          {pollId
-            ? this.renderQuestions(User, Questions, Choices, Responses, canView)
-            : this.renderPolls(Forms.results, typeFilter)}
-        </Grid>
-      );
+            {pollId && UserHasPermissions(User, "change_form") && (
+              <Button onClick={() => history.push(`/form/edit/${pollId}`)}>
+                <i className="fa fa-pencil-alt" /> Form
+              </Button>
+            )}
+          </Col>
+          {!pollId && (
+            <Col md={8} xs={12}>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-tags" />
+                </InputGroup.Addon>
+                <Select
+                  //https://react-select.com/props
+                  value={typeFilter}
+                  isMulti
+                  styles={selectStyles()}
+                  onBlur={e => e.preventDefault()}
+                  blurInputOnSelect={false}
+                  //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
+                  isSearchable={false}
+                  placeholder="Filter by form type..."
+                  classNamePrefix="select"
+                  onChange={this.onSelectChange}
+                  options={formOptions}
+                />
+              </InputGroup>
+            </Col>
+          )}
+        </Row>
+        {pollId
+          ? this.renderQuestions(User, Questions, Choices, Responses, canView)
+          : this.renderPolls(Forms.results, typeFilter)}
+      </Grid>
+    );
   }
 }
 export default withAlert(
