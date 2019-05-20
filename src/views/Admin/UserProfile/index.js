@@ -900,7 +900,7 @@ class UserProfile extends Component {
                   <h2 className="headerBanner">PERMISSIONS</h2>
                 </Row>,
                 <Row className="checkBoxTable">
-                  {UserHasPermissions(User, "change_user") &&
+                  {User.is_superuser &&
                     this.renderUserGroupPermissions(
                       AllUserGroups,
                       Admin.User.groups
