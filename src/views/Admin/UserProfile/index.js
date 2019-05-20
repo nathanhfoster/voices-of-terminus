@@ -411,6 +411,16 @@ class UserProfile extends Component {
     });
   };
 
+  UpdateButton = (updating, updated, error) => (
+    <PendingAction
+      Click={this.updateUserProfile}
+      ActionPending={updating}
+      ActionComplete={updated}
+      ActionError={error}
+      ActionName={"UPDATE"}
+    />
+  );
+
   render() {
     const { AuthenticationAndAuthorization, Admin, User } = this.state;
     const {
@@ -441,13 +451,7 @@ class UserProfile extends Component {
               className="ActionToolbar cardActions"
               componentClass={ButtonToolbar}
             >
-              <PendingAction
-                Click={this.updateUserProfile}
-                ActionPending={updating}
-                ActionComplete={updated}
-                ActionError={error}
-                ActionName={"UPDATE"}
-              />
+              {this.UpdateButton(updating, updated, error)}
               <Button
                 onClick={() => history.push(`/profile/${Admin.User.id}`)}
                 className="pull-right"
@@ -896,7 +900,7 @@ class UserProfile extends Component {
                   <h2 className="headerBanner">PERMISSIONS</h2>
                 </Row>,
                 <Row className="checkBoxTable">
-                  {User.is_superuser &&
+                  {UserHasPermissions(User, "change_user") &&
                     this.renderUserGroupPermissions(
                       AllUserGroups,
                       Admin.User.groups
