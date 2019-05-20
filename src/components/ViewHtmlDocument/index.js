@@ -63,7 +63,6 @@ class ViewHtmlDocument extends Component {
     const { id } = params;
     if (path.includes("article")) {
       const reduxArticle = Articles.results.findIndex(k => k.id == id);
-      console.log(reduxArticle)
       if (reduxArticle != -1) setHtmlDocument(Articles.results[reduxArticle]);
       viewArticle(id);
     }

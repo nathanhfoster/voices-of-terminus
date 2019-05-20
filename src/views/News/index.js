@@ -236,19 +236,13 @@ class News extends Component {
 
         if (card.tags.includes("Article")) {
           click = () => history.push(`/view/article/${card.id}`);
-          editCard = () => {
-            history.push(`/article/edit/${card.id}`);
-            getArticle(card.id);
-          };
+          editCard = () => history.push(`/article/edit/${card.id}`);
           deleteCard = deleteArticle;
           className += "CardContainerArticle";
         }
         if (card.tags.includes("Newsletter")) {
           click = () => history.push(`/view/newsletter/${card.id}`);
-          editCard = () => {
-            history.push(`/newsletter/edit/${card.id}`);
-            getNewsletter(card.id);
-          };
+          editCard = () => history.push(`/newsletter/edit/${card.id}`);
           deleteCard = deleteNewsLetter;
           className += "CardContainerNewsletter";
         }
@@ -314,8 +308,7 @@ class News extends Component {
     const latest = Title == "ARTICLES" ? "/articles/latest" : "/news/latest";
     const suggested =
       Title == "ARTICLES" ? "/articles/suggested" : "/news/suggested";
-    const popular =
-      Title == "ARTICLES" ? "/articles/popular" : "/news/popular";
+    const popular = Title == "ARTICLES" ? "/articles/popular" : "/news/popular";
     const myDocs = Title == "ARTICLES" ? "/articles/my-docs" : "/news/my-docs";
     const filter = tagFilter.map(i => i.value);
     const maxlength = selectOptions.length;

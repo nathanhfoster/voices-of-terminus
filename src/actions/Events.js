@@ -166,10 +166,11 @@ const postEvent = (userId, token, payload, groups) => async (
       dispatch(postEventGroups(token, id, groups));
       const uri = `/calendar/event/${id}`;
       const recipients = Users.filter(u => u.lfg).map(u => u.id);
-      const title = "New Event";
-      const body =
-        "We found an event match for you! Click the link button to view it.";
-      dispatch(createMessageGroup(token, userId, uri, recipients, title, body));
+      const linkTitle = "View Event";
+      const body = "We found an event match for you!";
+      dispatch(
+        createMessageGroup(token, userId, uri, recipients, linkTitle, body)
+      );
       dispatch({ type: C.POST_EVENTS_SUCCESS });
     })
     .catch(e =>
@@ -233,10 +234,11 @@ const updateEvent = (userId, token, payload, groups) => async (
       dispatch(postEventGroups(token, id, groups));
       const uri = `/calendar/event/${id}`;
       const recipients = Users.filter(u => u.lfg).map(u => u.id);
-      const title = "New Event";
-      const body =
-        "We found an event match for you! Click the link button to view it.";
-      dispatch(createMessageGroup(token, userId, uri, recipients, title, body));
+      const linkTitle = "View Event";
+      const body = "We found an event match for you!";
+      dispatch(
+        createMessageGroup(token, userId, uri, recipients, linkTitle, body)
+      );
       dispatch({ type: C.POST_EVENTS_SUCCESS });
     })
     .catch(e =>

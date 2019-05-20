@@ -21,6 +21,7 @@ import htmlToDraft from "html-to-draftjs";
 import { setEditorState } from "../../actions/TextEditor";
 import { clearHtmlDocument } from "../../actions/App";
 import {
+  getArticle,
   postArticle,
   updateArticle,
   clearArticlesApi
@@ -28,7 +29,6 @@ import {
 import { getUsers } from "../../actions/Admin";
 import { Redirect } from "react-router-dom";
 import CreatableSelect from "react-select/lib/Creatable";
-import { objectToArray } from '../../helpers'
 import { selectStyles } from "../../helpers/styles";
 import { articleSlectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
@@ -39,7 +39,7 @@ import {
   isEquivalent
 } from "../../helpers";
 import { options } from "./options";
-import PendingAction from '../PendingAction'
+import PendingAction from "../PendingAction";
 
 const mapStateToProps = ({
   Articles,
@@ -56,6 +56,7 @@ const mapStateToProps = ({
 });
 
 const mapDispatchToProps = {
+  getArticle,
   postArticle,
   setEditorState,
   updateArticle,
@@ -92,7 +93,7 @@ class TextEditor extends Component {
     editorState: PropTypes.func.isRequired
   };
 
-  static defaultProps = {};
+  static defaultProps = { editorState: EditorState.createEmpty() };
 
   componentWillMount() {
     this.getState(this.props);
@@ -114,7 +115,9 @@ class TextEditor extends Component {
   }
 
   componentDidMount() {
-    const { getUsers, clearArticlesApi } = this.props;
+    const { match, getArticle, getUsers, clearArticlesApi } = this.props;
+    const { id } = match.params;
+    if (id) getArticle(id);
     clearArticlesApi();
     getUsers();
   }
@@ -160,7 +163,7 @@ class TextEditor extends Component {
     // Set the editorState from Redux if it exists else create an empty state
     else if (editorState) {
       editorState = this.htmlToEditorState(editorState);
-    } else editorState = EditorState.createEmpty();
+    }
 
     this.setState({
       Articles,
@@ -200,9 +203,9 @@ class TextEditor extends Component {
   };
 
   postArticle = () => {
-    const { postArticle } = this.props
+    const { postArticle } = this.props;
     const { editorState, title, User, tags } = this.state;
-    const EditorState = editorState.getCurrentContent()
+    const EditorState = editorState ? editorState.getCurrentContent() : null;
     const html = draftToHtml(convertToRaw(EditorState));
     const mentions = this.getMentions(EditorState);
     const payload = {
@@ -212,15 +215,14 @@ class TextEditor extends Component {
       html,
       tags: joinStrings(tags),
       last_modified_by: User.id
-    }
-    //view/article/19
+    };
     postArticle(User.token, mentions, payload);
   };
 
   updateArticle = id => {
-    const { updateArticle } = this.props
-    const { author, tags, title, editorState, User } = this.state;
-    const EditorState = editorState.getCurrentContent()
+    const { updateArticle } = this.props;
+    const { tags, title, editorState, User } = this.state;
+    const EditorState = editorState ? editorState.getCurrentContent() : null;
     const html = draftToHtml(convertToRaw(EditorState));
     const mentions = this.getMentions(EditorState);
     const payload = {
@@ -228,21 +230,24 @@ class TextEditor extends Component {
       html,
       tags: joinStrings(tags),
       title
-    }
-    updateArticle(id, User.token, mentions, payload);
+    };
+    updateArticle(id, User, mentions, payload);
   };
 
   getMentions = EditorState => {
-    const entityMap = convertToRaw(EditorState).entityMap;
     const mentions = [];
+    if (!EditorState) return mentions;
+
+    const entityMap = convertToRaw(EditorState).entityMap;
+
     Object.values(entityMap).forEach(entity => {
-      if (entity.type === 'MENTION') {
-        entity.data.uri = "Something"
+      if (entity.type === "MENTION") {
         mentions.push(entity.data);
       }
     });
-    return mentions
-  }
+
+    return mentions.map(m => parseInt(m.url.split("/")[2]));
+  };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 
@@ -265,6 +270,13 @@ class TextEditor extends Component {
     this.setState({ tags });
   }
 
+  clearArticle = () =>
+    this.setState({
+      title: "",
+      editorState: EditorState.createEmpty(),
+      tags: [articleSlectOptions[0]]
+    });
+
   render() {
     const { history } = this.props;
     const {
@@ -284,130 +296,125 @@ class TextEditor extends Component {
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
-          <Redirect to="/login" />
-        )
+        <Redirect to="/login" />
+      )
     ) : (
-        <Grid className="TextEditor Container fadeIn">
-          <Row className="ActionToolbarRow">
-            <Col
-              md={6}
-              xs={6}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
+      <Grid className="TextEditor Container fadeIn">
+        <Row className="ActionToolbarRow">
+          <Col
+            md={6}
+            xs={6}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            <PendingAction
+              Disabled={!(title && editorState && tags[0].value)}
+              Click={this.postArticle}
+              ActionPending={posting}
+              ActionComplete={posted}
+              ActionError={error}
+              ActionName={"POST"}
+            />
+            <PendingAction
+              Disabled={!editorState || !tags[0].value}
+              ShouldShow={id ? true : false}
+              Disabled={!id}
+              Click={e => this.updateArticle(id)}
+              ActionPending={updating}
+              ActionComplete={updated}
+              ActionError={error}
+              ActionName={"UPDATE"}
+            />
+          </Col>
+          <Col
+            md={6}
+            xs={6}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            <Button
+              type="submit"
+              onClick={() => this.clearArticle()}
+              className="pull-right"
             >
-              <PendingAction
-                Disabled={!tags[0].value}
-                Click={this.postArticle}
-                ActionPending={posting}
-                ActionComplete={posted}
-                ActionError={error}
-                ActionName={"POST"}
-              />
-              <PendingAction
-                ShouldShow={id ? true : false}
-                Disabled={!id}
-                Click={e => this.updateArticle(id)}
-                ActionPending={updating}
-                ActionComplete={updated}
-                ActionError={error}
-                ActionName={"UPDATE"}
-              />
-            </Col>
-            <Col
-              md={6}
-              xs={6}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              <Button
-                type="submit"
-                onClick={() =>
-                  this.setState({
-                    editorState: EditorState.createEmpty(),
-                    title: "",
-                    tags: ""
-                  })
-                }
-                className="pull-right"
-              >
-                Clear
+              Clear
             </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <FormGroup>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-heading" />
-                  </InputGroup.Addon>
-                  <FormControl
-                    value={title}
-                    type="text"
-                    placeholder="Title"
-                    name="title"
-                    autoFocus={true}
-                    onChange={this.onChange.bind(this)}
-                  />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-tag" />
-                  </InputGroup.Addon>
-                  <CreatableSelect
-                    //https://react-select.com/props
-                    value={tags}
-                    isMulti
-                    styles={selectStyles()}
-                    onBlur={e => e.preventDefault()}
-                    blurInputOnSelect={false}
-                    isClearable={tags.some(v => !v.isFixed)}
-                    placeholder="Add tags..."
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={this.onSelectChange}
-                    options={TagOptions}
-                  />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <Editor
-                wrapperClassName="Wrapper"
-                editorClassName="Editor"
-                toolbarClassName="Toolbar"
-                editorState={editorState}
-                onEditorStateChange={this.onEditorStateChange}
-                onFocus={e => e.preventDefault()}
-                // onBlur={(e, editorState) => {
-                //   this.props.setEditorState(
-                //     draftToHtml(convertToRaw(editorState.getCurrentContent()))
-                //   );
-                // }}
-                onTab={e => e.preventDefault()}
-                blurInputOnSelect={false}
-                toolbar={options}
-                mention={{
-                  separator: " ",
-                  trigger: "@",
-                  suggestions: suggestions
-                }}
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-heading" />
+                </InputGroup.Addon>
+                <FormControl
+                  value={title}
+                  type="text"
+                  placeholder="Title"
+                  name="title"
+                  autoFocus={true}
+                  onChange={this.onChange.bind(this)}
+                />
+              </InputGroup>
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-tag" />
+                </InputGroup.Addon>
+                <CreatableSelect
+                  //https://react-select.com/props
+                  value={tags}
+                  isMulti
+                  styles={selectStyles()}
+                  onBlur={e => e.preventDefault()}
+                  blurInputOnSelect={false}
+                  isClearable={tags.some(v => !v.isFixed)}
+                  placeholder="Add tags..."
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={this.onSelectChange}
+                  options={TagOptions}
+                />
+              </InputGroup>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Editor
+              wrapperClassName="Wrapper"
+              editorClassName="Editor"
+              toolbarClassName="Toolbar"
+              editorState={editorState}
+              onEditorStateChange={this.onEditorStateChange}
+              onFocus={e => e.preventDefault()}
+              // onBlur={(e, editorState) => {
+              //   this.props.setEditorState(
+              //     draftToHtml(convertToRaw(editorState.getCurrentContent()))
+              //   );
+              // }}
+              onTab={e => e.preventDefault()}
+              blurInputOnSelect={false}
+              toolbar={options}
+              mention={{
+                separator: " ",
+                trigger: "@",
+                suggestions
+              }}
               // toolbarOnFocus
               // stripPastedStyles="off"
               // spellCheck="off"
               // autoCapitalize="off"
               // autoComplete="off"
               // autoCorrect="off"
-              />
-            </Col>
-          </Row>
-          {/* <Row>
+            />
+          </Col>
+        </Row>
+        {/* <Row>
           <Col sm={12}>
             <textarea
             style={{height: '500px', width: '100%'}}
@@ -416,8 +423,8 @@ class TextEditor extends Component {
             />
           </Col>
         </Row> */}
-        </Grid >
-      );
+      </Grid>
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(TextEditor);

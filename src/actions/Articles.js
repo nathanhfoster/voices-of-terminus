@@ -1,6 +1,7 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import qs from "qs";
+import { createMessageGroup } from "./Messages";
 
 const getArticles = () => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
@@ -146,12 +147,16 @@ const viewArticle = id => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-const postArticle = (token, mentions, payload) => (dispatch, getState) => {
+const postArticle = (token, recipients, payload) => (dispatch, getState) => {
   dispatch({ type: C.POST_ARTICLES_LOADING });
   return Axios(token)
     .post("articles/", qs.stringify(payload))
     .then(res => {
       const { Articles } = getState();
+      const { id, author, author_username, title } = res.data;
+      const linkTitle = "Article Mention";
+      const uri = `/view/article/${id}`;
+      const body = `You were mentioned the article "${title}" by ${author_username}. Click the link button to view it.`;
       let payload = { ...Articles };
       payload.results.push(res.data);
       dispatch({ type: C.POST_ARTICLES_SUCCESS });
@@ -159,6 +164,9 @@ const postArticle = (token, mentions, payload) => (dispatch, getState) => {
         type: C.GET_ARTICLES_SUCCESS,
         payload: payload
       });
+      dispatch(
+        createMessageGroup(token, author, uri, recipients, linkTitle, body)
+      );
     })
     .catch(e =>
       dispatch({
@@ -187,8 +195,8 @@ const postArticleLike = (token, payload) => (dispatch, getState) =>
       })
     );
 
-const updateArticleLike = (id, token, payload) => (dispatch, getState) =>
-  Axios(token)
+const updateArticleLike = (id, User, payload) => (dispatch, getState) =>
+  Axios(User.token)
     .patch(`article/likes/${id}/`, qs.stringify(payload))
     .then(res => {
       const { HtmlDocument } = getState();
@@ -239,7 +247,10 @@ const deleteArticleComment = (id, token) => (dispatch, getState) =>
     })
     .catch(e => console.log(e));
 
-const updateArticle = (id, token, mentions, payload) => (dispatch, getState) => {
+const updateArticle = (id, token, recipients, payload) => (
+  dispatch,
+  getState
+) => {
   dispatch({ type: C.UPDATE_ARTICLES_LOADING });
   return Axios(token)
     .patch(`articles/${id}/`, qs.stringify(payload))

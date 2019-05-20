@@ -35,8 +35,12 @@ import { getImageBase64 } from "../../helpers/";
 import { selectStyles } from "../../helpers/styles";
 import { newsletterSelectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
-import { removeAttributeDuplicates, joinStrings, splitString } from "../../helpers";
-import PendingAction from '../PendingAction'
+import {
+  removeAttributeDuplicates,
+  joinStrings,
+  splitString
+} from "../../helpers";
+import PendingAction from "../PendingAction";
 const { REACT_APP_UNLAYER_API_KEY } = process.env;
 
 const mapStateToProps = ({ Newsletters, HtmlDocument, User, Settings }) => ({
@@ -86,7 +90,9 @@ class NewsLetterGenerator extends PureComponent {
   }
 
   componentDidMount() {
-    const { clearNewsletterApi } = this.props;
+    const { match, getNewsletter, clearNewsletterApi } = this.props;
+    const { id } = match.params;
+    if (id) getNewsletter(id);
     clearNewsletterApi();
   }
 
@@ -152,7 +158,11 @@ class NewsLetterGenerator extends PureComponent {
 
   loadNewsletterDesign = design => {
     this.editor.loadDesign(design);
-    this.setState({ newsletterLoaded: true });
+    this.setState({
+      title: "",
+      newsletterLoaded: true,
+      tags: [newsletterSelectOptions[0]]
+    });
   };
 
   loadFormDesign = () => window.unlayer.loadTemplate(4447);
@@ -275,166 +285,166 @@ class NewsLetterGenerator extends PureComponent {
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
       ) : (
-          <Redirect to="/login" />
-        )
+        <Redirect to="/login" />
+      )
     ) : (
-        <Grid className="NewsLetterGenerator Container fadeIn">
-          <Row className="ActionToolbarRow">
-            <Col
-              xs={6}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
+      <Grid className="NewsLetterGenerator Container fadeIn">
+        <Row className="ActionToolbarRow">
+          <Col
+            xs={6}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            <PendingAction
+              Click={this.postNewsletter}
+              ActionPending={posting}
+              ActionComplete={posted}
+              ActionError={error}
+              ActionName={"POST"}
+            />
+            <PendingAction
+              ShouldShow={id}
+              Disabled={!design}
+              Click={this.updateNewsletter}
+              ActionPending={updating}
+              ActionComplete={updated}
+              ActionError={error}
+              ActionName={"UPDATE"}
+            />
+          </Col>
+          <Col
+            xs={6}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            <Button
+              onClick={() => this.loadNewsletterDesign(defaultDesign)}
+              className="pull-right"
             >
-              <PendingAction
-                Click={this.postNewsletter}
-                ActionPending={posting}
-                ActionComplete={posted}
-                ActionError={error}
-                ActionName={"POST"}
-              />
-              <PendingAction
-                ShouldShow={id}
-                Disabled={!design}
-                Click={this.updateNewsletter}
-                ActionPending={updating}
-                ActionComplete={updated}
-                ActionError={error}
-                ActionName={"UPDATE"}
-              />
-            </Col>
-            <Col
-              xs={6}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              <Button
-                onClick={() => this.loadNewsletterDesign(defaultDesign)}
-                className="pull-right"
-              >
-                CLEAR
+              CLEAR
             </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Col>
-              <FormGroup>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-heading" />
-                  </InputGroup.Addon>
-                  <FormControl
-                    value={title}
-                    type="text"
-                    placeholder="Title"
-                    name="title"
-                    onChange={e => this.onChange(e)}
-                  />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-            <Col>
-              <FormGroup>
-                <InputGroup>
-                  <InputGroup.Addon>
-                    <i className="fas fa-tag" />
-                  </InputGroup.Addon>
-                  <CreatableSelect
-                    //https://react-select.com/props
-                    value={tags}
-                    isMulti
-                    styles={selectStyles()}
-                    onBlur={e => e.preventDefault()}
-                    blurInputOnSelect={false}
-                    isClearable
-                    placeholder="Add tags..."
-                    className="basic-multi-select"
-                    classNamePrefix="select"
-                    onChange={this.onSelectChange}
-                    options={TagOptions}
-                  />
-                </InputGroup>
-              </FormGroup>
-            </Col>
-          </Row>
-          <Row>
-            <EmailEditor
-              id="editor"
-              projectId={1558}
-              displayMode="web"
-              templateId={REACT_APP_UNLAYER_API_KEY}
-              minHeight="calc(100vh - 58px)"
-              ref={editor => (this.editor = editor)}
-              style={styles}
-              onDesignLoad={this.onDesignLoad}
-              onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
-              options={{
-                templateId: !id ? 4447 : null,
-                appearance: {
-                  theme: "dark",
-                  panels: {
-                    tools: {
-                      dock: "left"
-                    }
-                  }
-                },
-                blocks: [votLogoBlock],
-                // customCSS: [
-                //   `
-                //     body {
-                //       background-color: yellow !important;
-                //     }
-                //     .design-web {
-                //       background-color: red !important;
-                //     }
-                //   `
-                // ],
-                // customJS: [
-                //   `
-                //     console.log('I am custom JS!');
-                //   `
-                // ],
-                tools: {
-                  image: {
-                    enabled: true
-                    //position: 1
-                  },
-                  form: {
-                    enabled: true
-                  },
-                  "custom#video": {
-                    data: {
-                      user: User.id
-                    }
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-heading" />
+                </InputGroup.Addon>
+                <FormControl
+                  value={title}
+                  type="text"
+                  placeholder="Title"
+                  name="title"
+                  onChange={e => this.onChange(e)}
+                />
+              </InputGroup>
+            </FormGroup>
+          </Col>
+          <Col>
+            <FormGroup>
+              <InputGroup>
+                <InputGroup.Addon>
+                  <i className="fas fa-tag" />
+                </InputGroup.Addon>
+                <CreatableSelect
+                  //https://react-select.com/props
+                  value={tags}
+                  isMulti
+                  styles={selectStyles()}
+                  onBlur={e => e.preventDefault()}
+                  blurInputOnSelect={false}
+                  isClearable
+                  placeholder="Add tags..."
+                  className="basic-multi-select"
+                  classNamePrefix="select"
+                  onChange={this.onSelectChange}
+                  options={TagOptions}
+                />
+              </InputGroup>
+            </FormGroup>
+          </Col>
+        </Row>
+        <Row>
+          <EmailEditor
+            id="editor"
+            projectId={1558}
+            displayMode="web"
+            templateId={REACT_APP_UNLAYER_API_KEY}
+            minHeight="calc(100vh - 58px)"
+            ref={editor => (this.editor = editor)}
+            style={styles}
+            onDesignLoad={this.onDesignLoad}
+            onLoad={isEditingDesign ? this.loadNewsletterDesign(design) : null}
+            options={{
+              templateId: !id ? 4447 : null,
+              appearance: {
+                theme: "dark",
+                panels: {
+                  tools: {
+                    dock: "left"
                   }
                 }
-              }}
-            />
-          </Row>
-          {show ? (
-            <Row>
-              <Modal
-                backdrop={false}
-                {...this.props}
-                show={show}
-                onHide={() => this.handleHide(id)}
-                dialogClassName="newsletterModal"
-                bsSize="lg"
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title id="contained-modal-title-lg">
-                    Load Design
+              },
+              blocks: [votLogoBlock],
+              // customCSS: [
+              //   `
+              //     body {
+              //       background-color: yellow !important;
+              //     }
+              //     .design-web {
+              //       background-color: red !important;
+              //     }
+              //   `
+              // ],
+              // customJS: [
+              //   `
+              //     console.log('I am custom JS!');
+              //   `
+              // ],
+              tools: {
+                image: {
+                  enabled: true
+                  //position: 1
+                },
+                form: {
+                  enabled: true
+                },
+                "custom#video": {
+                  data: {
+                    user: User.id
+                  }
+                }
+              }
+            }}
+          />
+        </Row>
+        {show ? (
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={show}
+              onHide={() => this.handleHide(id)}
+              dialogClassName="newsletterModal"
+              bsSize="lg"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Load Design
                 </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form>
-                    <Row>{this.renderDesigns(Newsletters.results)}</Row>
-                  </Form>
-                </Modal.Body>
-              </Modal>
-            </Row>
-          ) : null}
-        </Grid>
-      );
+              </Modal.Header>
+              <Modal.Body>
+                <Form>
+                  <Row>{this.renderDesigns(Newsletters.results)}</Row>
+                </Form>
+              </Modal.Body>
+            </Modal>
+          </Row>
+        ) : null}
+      </Grid>
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(

@@ -101,25 +101,25 @@ const postMessageRecipients = (
   messageResponse,
   finalPayload
 ) => dispatch =>
-    Axios(token)
-      .post("/message/recipients/", qs.stringify(payload))
-      .then(replyMessage => {
-        const { recipient } = replyMessage.data;
-        if (author == recipient) {
-          finalPayload.results.unshift(messageResponse.data);
-          dispatch({
-            type: C.GET_MESSAGE_DETAILS,
-            payload: finalPayload
-          });
-        }
-      })
-      .catch(e => {
+  Axios(token)
+    .post("/message/recipients/", qs.stringify(payload))
+    .then(replyMessage => {
+      const { recipient } = replyMessage.data;
+      if (author == recipient) {
+        finalPayload.results.unshift(messageResponse.data);
         dispatch({
-          type: C.SET_API_RESPONSE,
-          payload: e.response
+          type: C.GET_MESSAGE_DETAILS,
+          payload: finalPayload
         });
-        console.log("postMessageRecipients: ", payload);
+      }
+    })
+    .catch(e => {
+      dispatch({
+        type: C.SET_API_RESPONSE,
+        payload: e.response
       });
+      console.log("postMessageRecipients: ", payload);
+    });
 
 const updateMessage = (id, token, payload) => async (dispatch, getState) =>
   await Axios(token)
