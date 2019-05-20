@@ -156,7 +156,7 @@ const postArticle = (token, recipients, payload) => (dispatch, getState) => {
       const { id, author, author_username, title } = res.data;
       const linkTitle = "Article Mention";
       const uri = `/view/article/${id}`;
-      const body = `You were mentioned the article "${title}" by ${author_username}. Click the link button to view it.`;
+      const body = `You were mentioned in the article "${title}" by ${author_username}.`;
       let payload = { ...Articles };
       payload.results.push(res.data);
       dispatch({ type: C.POST_ARTICLES_SUCCESS });
