@@ -82,7 +82,8 @@ class Images extends PureComponent {
 
   getState = props => {
     const { User, Galleries } = props;
-    const currentTags = Galleries.results.map(e => splitString(e.tags)).flat(1) || [];
+    const currentTags =
+      Galleries.results.map(e => splitString(e.tags)).flat(1) || [];
     this.getGalleryImage(Galleries);
     this.setState({
       User,
@@ -191,8 +192,6 @@ class Images extends PureComponent {
   renderGalleries = (galleries, filter, dontFilter) => {
     const { User } = this.state;
     const { history } = this.props;
-    const canDelete = UserHasPermissions(User, "delete_gallery");
-    const canUpdate = UserHasPermissions(User, "change_gallery");
     return galleries
       .filter(gal =>
         dontFilter ? gal : isEquivalent(gal.tags.split("|"), filter)
@@ -207,15 +206,19 @@ class Images extends PureComponent {
             <div className="cardActions">
               <PopOver User={User}>
                 <ConfirmAction
+                  hasPermission={UserHasPermissions(
+                    User,
+                    "delete_gallery",
+                    gallery.author
+                  )}
                   Action={e => this.props.deleteGallery(gallery.id, User.token)}
                   Disabled={false}
                   Icon={<i className="fas fa-trash" />}
-                  hasPermission={canDelete}
                   Size=""
                   Class="pull-right"
                   Title={gallery.title}
                 />
-                {canUpdate ? (
+                {UserHasPermissions(User, "change_gallery", gallery.author) && (
                   <Button
                     onClick={e => {
                       e.stopPropagation();
@@ -236,16 +239,16 @@ class Images extends PureComponent {
                   >
                     <i className="fa fa-pencil-alt" />
                   </Button>
-                ) : null}
+                )}
               </PopOver>
             </div>
             {gallery.image ? (
               <Image src={gallery.image} />
             ) : (
-                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
-                  <i className="fa fa-spinner fa-spin" />
-                </div>
-              )}
+              <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                <i className="fa fa-spinner fa-spin" />
+              </div>
+            )}
             <div className="gallerySummary">
               <h4>{gallery.title}</h4>
               <span>{gallery.description}</span>
@@ -287,8 +290,8 @@ class Images extends PureComponent {
     let galleries = Galleries.results ? Galleries.results : [];
     galleries = search
       ? matchSorter(galleries, search, {
-        keys: ["title", "author_username", "description"]
-      })
+          keys: ["title", "author_username", "description"]
+        })
       : galleries;
     const selectValue =
       this.state.selectValue.length > 0
@@ -436,10 +439,10 @@ class Images extends PureComponent {
                 {editing ? (
                   <Button onClick={this.updateGallery}>UPDATE</Button>
                 ) : (
-                    <Button onClick={this.postGallery}>
-                      <i className="fas fa-cloud-upload-alt" /> POST
+                  <Button onClick={this.postGallery}>
+                    <i className="fas fa-cloud-upload-alt" /> POST
                   </Button>
-                  )}
+                )}
               </Modal.Footer>
             </Modal>
           </Row>

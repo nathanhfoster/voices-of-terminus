@@ -21,20 +21,24 @@ const filterPermissionsConditions = [
   "token",
   "permission",
   "question"
-]
-
-
+];
 
 const filterUserPermissions = AllUserPermissions =>
-  AllUserPermissions.filter(permission =>
-    !filterPermissionsConditions.some(condition =>
-      permission.codename.includes(condition)))
+  AllUserPermissions.filter(
+    permission =>
+      !filterPermissionsConditions.some(condition =>
+        permission.codename.includes(condition)
+      )
+  );
 
-
-const permissionShortName = name => name.split(" ").splice(1).join(" ");
+const permissionShortName = name =>
+  name
+    .split(" ")
+    .splice(1)
+    .join(" ");
 
 const statusLevelInt = User => {
-  if (!User) return 0;
+  if (!User) return null;
   const {
     id,
     is_superuser,
@@ -102,19 +106,47 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
   const otherUserStatus = statusLevelInt(OtherUser);
   const { groups, user_permissions } = User;
 
-  if (!User) return false;
-  if (User.is_superuser) return true;
+  if (!User) {
+    // console.log("!User: ", !User);
+    return false;
+  }
+  if (User.is_superuser) {
+    // console.log("User.is_superuser: ", User.is_superuser);
+    return true;
+  }
 
-  if (User.id == AuthorId) return true;
-  if (loggedInUserStatus > otherUserStatus) return true;
+  if (User.id == AuthorId) {
+    // console.log("User.id == AuthorId: ", User.id == AuthorId);
+    return true;
+  }
+  if (
+    loggedInUserStatus != null &&
+    otherUserStatus != null &&
+    loggedInUserStatus > otherUserStatus
+  ) {
+    // console.log("`loggedInUserStatus != null: ",
+    //   loggedInUserStatus &&
+    //     otherUserStatus &&
+    //     loggedInUserStatus > otherUserStatus
+    // );
+    return true;
+  }
 
   if (
     AllUserGroups == null ||
     user_permissions == null ||
     AllUserPermissions.length < 1 ||
     (groups.length < 1 && user_permissions.length < 1)
-  )
+  ) {
+    // console.log(
+    //   " AllUserGroups == null: ",
+    //   AllUserGroups == null ||
+    //     user_permissions == null ||
+    //     AllUserPermissions.length < 1 ||
+    //     (groups.length < 1 && user_permissions.length < 1)
+    // );
     return false;
+  }
 
   let GroupsMap = {};
 

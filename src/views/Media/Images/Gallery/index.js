@@ -274,10 +274,10 @@ class Gallery extends PureComponent {
               {image.image ? (
                 <Image src={image.image} />
               ) : (
-                  <div style={{ position: "absolute", top: "25%", right: "50%" }}>
-                    <i className="fa fa-spinner fa-spin" />
-                  </div>
-                )}
+                <div style={{ position: "absolute", top: "25%", right: "50%" }}>
+                  <i className="fa fa-spinner fa-spin" />
+                </div>
+              )}
               <div className="gallerySummary">
                 <h4>{image.title}</h4>
                 <span>{image.description}</span>
@@ -321,13 +321,11 @@ class Gallery extends PureComponent {
       tags,
       currentTags
     } = this.state;
-    const canDelete = UserHasPermissions(User, "add_gallery");
-    const canUpdate = UserHasPermissions(User, "change_gallery");
     let images = Gallery ? Gallery.results : [];
     images = search
       ? matchSorter(images, search, {
-        keys: ["title", "author_username", "description"]
-      })
+          keys: ["title", "author_username", "description"]
+        })
       : images;
     const selectValue =
       this.state.selectValue.length > 0
@@ -400,7 +398,11 @@ class Gallery extends PureComponent {
           {isOpen && (
             <Lightbox
               toolbarButtons={[
-                canUpdate ? (
+                UserHasPermissions(
+                  User,
+                  "change_gallery",
+                  images[photoIndex].author
+                ) && (
                   <Button
                     className="LightboxButton"
                     onClick={e => {
@@ -420,7 +422,7 @@ class Gallery extends PureComponent {
                   >
                     <i className="fa fa-pencil-alt" />
                   </Button>
-                ) : null,
+                ),
                 <ConfirmAction
                   Action={e => {
                     this.props.deleteGalleryImage(
@@ -436,7 +438,11 @@ class Gallery extends PureComponent {
                   }}
                   Disabled={false}
                   Icon={<i className="fas fa-trash" />}
-                  hasPermission={canDelete}
+                  hasPermission={UserHasPermissions(
+                    User,
+                    "delete_gallery",
+                    images[photoIndex].author
+                  )}
                   Size=""
                   Class="LightboxButton"
                   Title={images[photoIndex].title}
@@ -466,10 +472,10 @@ class Gallery extends PureComponent {
                 })
               }
               nextLabel={<i className="fas fa-caret-right fa-2x">NEXT</i>}
-            // prevLabel={}
-            // zoomInLabel={}
-            // zoomOutLabel={}
-            // closeLabel={}
+              // prevLabel={}
+              // zoomInLabel={}
+              // zoomOutLabel={}
+              // closeLabel={}
             />
           )}
         </Row>
@@ -561,10 +567,10 @@ class Gallery extends PureComponent {
                 {editing ? (
                   <Button onClick={this.updateGalleryImage}>UPDATE</Button>
                 ) : (
-                    <Button onClick={this.createGalleryImage}>
-                      <i className="fas fa-cloud-upload-alt" /> Post
+                  <Button onClick={this.createGalleryImage}>
+                    <i className="fas fa-cloud-upload-alt" /> Post
                   </Button>
-                  )}
+                )}
               </Modal.Footer>
             </Modal>
           </Row>
