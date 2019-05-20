@@ -251,8 +251,7 @@ class Admin extends PureComponent {
     } = this.state;
     const { deleteUser } = this.props;
     const { Users, Tickets } = Admin;
-    const canViewTickets =
-      UserHasPermissions(User, "view_ticket");
+    const canViewTickets = UserHasPermissions(User, "view_ticket");
 
     return eventKey.includes("admin") &&
       !(
@@ -261,209 +260,208 @@ class Admin extends PureComponent {
         eventKey.includes("tickets") ||
         eventKey.includes("edit")
       ) ? (
-        <Redirect to="/admin/overview" />
-      ) : User.is_superuser || User.is_staff || User.is_moderator ? (
-        <Grid className="Admin Container fadeIn">
-          <Row>
-            <PageHeader className="pageHeader">ADMIN</PageHeader>
-          </Row>
-          <Row className="ActionToolbarRow">
-            <Col
-              xs={12}
-              className="ActionToolbar cardActions"
-              componentClass={ButtonToolbar}
-            >
-              {UserHasPermissions(User, "add_user") && (
-                <Button onClick={this.handleShow}>
-                  <i className="fas fa-plus" /> User
+      <Redirect to="/admin/overview" />
+    ) : User.is_superuser || User.is_staff || User.is_moderator ? (
+      <Grid className="Admin Container fadeIn">
+        <Row>
+          <PageHeader className="pageHeader">ADMIN</PageHeader>
+        </Row>
+        <Row className="ActionToolbarRow">
+          <Col
+            xs={12}
+            className="ActionToolbar cardActions"
+            componentClass={ButtonToolbar}
+          >
+            {UserHasPermissions(User, "add_user") && (
+              <Button onClick={this.handleShow}>
+                <i className="fas fa-plus" /> User
               </Button>
-              )}
-              {UserHasPermissions(User, "add_article") && (
-                <Button onClick={() => history.push("/article/new")}>
-                  <i className="fas fa-plus" /> Article
+            )}
+            {UserHasPermissions(User, "add_article") && (
+              <Button onClick={() => history.push("/article/new")}>
+                <i className="fas fa-plus" /> Article
               </Button>
-              )}
-              {UserHasPermissions(User, "add_newsletter") && (
-                <Button onClick={() => history.push("/newsletter/new")}>
-                  <i className="fas fa-plus" /> Newsletter
+            )}
+            {UserHasPermissions(User, "add_newsletter") && (
+              <Button onClick={() => history.push("/newsletter/new")}>
+                <i className="fas fa-plus" /> Newsletter
               </Button>
-              )}
-              {UserHasPermissions(User, "add_event") && (
-                <Button onClick={() => history.push("/calendar/new/event")}>
-                  <i className="far fa-calendar-plus" /> Event
+            )}
+            {UserHasPermissions(User, "add_event") && (
+              <Button onClick={() => history.push("/calendar/new/event")}>
+                <i className="far fa-calendar-plus" /> Event
               </Button>
-              )}
-              {UserHasPermissions(User, "add_form") && (
-                <Button onClick={() => history.push("/form/new")}>
-                  <i className="fas fa-plus" /> Form
+            )}
+            {UserHasPermissions(User, "add_form") && (
+              <Button onClick={() => history.push("/form/new")}>
+                <i className="fas fa-plus" /> Form
               </Button>
-              )}
-              {UserHasPermissions(User, "add_ticket") && (
-                <Button onClick={() => history.push("/ticket/new")}>
-                  <i className="fas fa-plus" /> Ticket
+            )}
+            {UserHasPermissions(User, "add_ticket") && (
+              <Button onClick={() => history.push("/ticket/new")}>
+                <i className="fas fa-plus" /> Ticket
               </Button>
-              )}
-              <Button
-                disabled={!User.is_superuser}
-                onClick={() => history.push("/forms")}
-              >
+            )}
+            {UserHasPermissions(User, "view_form") && (
+              <Button onClick={() => history.push("/forms")}>
                 <i className="fas fa-eye" /> Form
-            </Button>
-            </Col>
-          </Row>
-          <Row>
-            <Tabs
-              defaultActiveKey={eventKey}
-              activeKey={eventKey}
-              className="Tabs"
-              onSelect={eventKey => {
-                this.setState({ eventKey });
-                history.push(eventKey);
-              }}
+              </Button>
+            )}
+          </Col>
+        </Row>
+        <Row>
+          <Tabs
+            defaultActiveKey={eventKey}
+            activeKey={eventKey}
+            className="Tabs"
+            onSelect={eventKey => {
+              this.setState({ eventKey });
+              history.push(eventKey);
+            }}
+          >
+            <Tab
+              eventKey={`/admin/overview`}
+              title={"Overview"}
+              unmountOnExit={true}
             >
+              {OverviewTable(Users, User, deleteUser)}
+            </Tab>
+            <Tab
+              eventKey={`/admin/permissions`}
+              title={"Permissions"}
+              unmountOnExit={true}
+            >
+              {PermissionsTable(Users, User, changePermissions)}
+            </Tab>
+            {canViewTickets && (
               <Tab
-                eventKey={`/admin/overview`}
-                title={"Overview"}
+                eventKey={`/admin/tickets`}
+                title={"Tickets"}
                 unmountOnExit={true}
               >
-                {OverviewTable(Users, User, deleteUser)}
+                {TicketTable(Tickets, history, eventKey)}
               </Tab>
-              <Tab
-                eventKey={`/admin/permissions`}
-                title={"Permissions"}
-                unmountOnExit={true}
-              >
-                {PermissionsTable(Users, User, changePermissions)}
-              </Tab>
-              {canViewTickets && (
-                <Tab
-                  eventKey={`/admin/tickets`}
-                  title={"Tickets"}
-                  unmountOnExit={true}
-                >
-                  {TicketTable(Tickets, history, eventKey)}
-                </Tab>
-              )}
-            </Tabs>
-          </Row>
-          {show ? (
-            <Row>
-              <Modal
-                backdrop={false}
-                {...this.props}
-                show={show}
-                onHide={this.handleHide}
-                dialogClassName="loginModal"
-              >
-                <Modal.Header closeButton>
-                  <Modal.Title id="contained-modal-title-lg">
-                    Account Creation
+            )}
+          </Tabs>
+        </Row>
+        {show ? (
+          <Row>
+            <Modal
+              backdrop={false}
+              {...this.props}
+              show={show}
+              onHide={this.handleHide}
+              dialogClassName="loginModal"
+            >
+              <Modal.Header closeButton>
+                <Modal.Title id="contained-modal-title-lg">
+                  Account Creation
                 </Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Form className="Container fadeIn">
-                    <Row>
-                      <Col md={12}>
-                        <FormGroup validationState={this.validateUsername()}>
-                          <ControlLabel>Username</ControlLabel>
-                          <FormControl
-                            value={username}
-                            type="text"
-                            name="username"
-                            placeholder="Username"
-                            onChange={this.onChange}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col md={12}>
-                        <FormGroup validationState={this.validatePassword()}>
-                          <ControlLabel>Password</ControlLabel>
-                          <FormControl
-                            value={password}
-                            type="password"
-                            name="password"
-                            placeholder="Password"
-                            onChange={this.onChange}
-                          />
-                          <FormControl.Feedback />
-                        </FormGroup>
-                      </Col>
-                      <Col md={12}>
-                        <FormGroup
-                          validationState={this.validateReEnterPassword()}
-                        >
-                          <ControlLabel>Re-Enter Password</ControlLabel>
-                          <FormControl
-                            value={reEnterPassword}
-                            type="password"
-                            name="reEnterPassword"
-                            placeholder="Re-Enter Password"
-                            onChange={this.onChange}
-                          />
-                          <FormControl.Feedback />
-                        </FormGroup>
-                      </Col>
-                      <Col md={12}>
-                        <FormGroup validationState={this.validateEmail()}>
-                          <ControlLabel>Email</ControlLabel>
-                          <FormControl
-                            value={email}
-                            type="email"
-                            name="email"
-                            placeholder="Email"
-                            onChange={this.onChange}
-                          />
-                        </FormGroup>
-                      </Col>
-                      <Col md={12}>
-                        <Checkbox
-                          checked={opt_in}
-                          onClick={() => this.setState({ opt_in: !opt_in })}
-                        >
-                          <span className="checkBoxText">Opt In</span>
-                          <span className="help">
-                            Check if you would like to recieve emails
-                        </span>
-                        </Checkbox>
-                      </Col>
-                    </Row>
-                    <Row className="Center">
-                      <Col md={12}>
-                        <Image
-                          src={profile_image}
-                          className="ProfileImages"
-                          responsive
-                          rounded
-                        />
-                        <ControlLabel>Profile Picture</ControlLabel>
+              </Modal.Header>
+              <Modal.Body>
+                <Form className="Container fadeIn">
+                  <Row>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateUsername()}>
+                        <ControlLabel>Username</ControlLabel>
                         <FormControl
-                          style={{ margin: "auto" }}
-                          type="file"
-                          label="File"
-                          name="profile_image"
-                          onChange={this.setImage}
+                          value={username}
+                          type="text"
+                          name="username"
+                          placeholder="Username"
+                          onChange={this.onChange}
                         />
-                      </Col>
-                    </Row>
-                    <Row className="Center">
-                      <Col md={12}>
-                        {this.renderDefaultImages(defaultProfileImages)}
-                      </Col>
-                    </Row>
-                  </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                  <Button onClick={this.createUserAccount}>Create</Button>
-                </Modal.Footer>
-              </Modal>
-            </Row>
-          ) : null}
-        </Grid>
-      ) : User.token ? (
-        <Redirect to={history.goBack()} />
-      ) : (
-            <Redirect to="/login" />
-          );
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validatePassword()}>
+                        <ControlLabel>Password</ControlLabel>
+                        <FormControl
+                          value={password}
+                          type="password"
+                          name="password"
+                          placeholder="Password"
+                          onChange={this.onChange}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup
+                        validationState={this.validateReEnterPassword()}
+                      >
+                        <ControlLabel>Re-Enter Password</ControlLabel>
+                        <FormControl
+                          value={reEnterPassword}
+                          type="password"
+                          name="reEnterPassword"
+                          placeholder="Re-Enter Password"
+                          onChange={this.onChange}
+                        />
+                        <FormControl.Feedback />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <FormGroup validationState={this.validateEmail()}>
+                        <ControlLabel>Email</ControlLabel>
+                        <FormControl
+                          value={email}
+                          type="email"
+                          name="email"
+                          placeholder="Email"
+                          onChange={this.onChange}
+                        />
+                      </FormGroup>
+                    </Col>
+                    <Col md={12}>
+                      <Checkbox
+                        checked={opt_in}
+                        onClick={() => this.setState({ opt_in: !opt_in })}
+                      >
+                        <span className="checkBoxText">Opt In</span>
+                        <span className="help">
+                          Check if you would like to recieve emails
+                        </span>
+                      </Checkbox>
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      <Image
+                        src={profile_image}
+                        className="ProfileImages"
+                        responsive
+                        rounded
+                      />
+                      <ControlLabel>Profile Picture</ControlLabel>
+                      <FormControl
+                        style={{ margin: "auto" }}
+                        type="file"
+                        label="File"
+                        name="profile_image"
+                        onChange={this.setImage}
+                      />
+                    </Col>
+                  </Row>
+                  <Row className="Center">
+                    <Col md={12}>
+                      {this.renderDefaultImages(defaultProfileImages)}
+                    </Col>
+                  </Row>
+                </Form>
+              </Modal.Body>
+              <Modal.Footer>
+                <Button onClick={this.createUserAccount}>Create</Button>
+              </Modal.Footer>
+            </Modal>
+          </Row>
+        ) : null}
+      </Grid>
+    ) : User.token ? (
+      <Redirect to={history.goBack()} />
+    ) : (
+      <Redirect to="/login" />
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Admin);
