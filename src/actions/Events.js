@@ -166,7 +166,7 @@ const postEvent = (userId, token, payload, groups) => async (
       dispatch(postEventGroups(token, id, groups));
       const uri = `/calendar/event/${id}`;
       const recipients = Users.filter(u => u.lfg).map(u => u.id);
-      const linkTitle = "View Event";
+      const linkTitle = "New Event";
       const body = "We found an event match for you!";
       dispatch(
         createMessageGroup(token, userId, uri, recipients, linkTitle, body)
@@ -234,7 +234,7 @@ const updateEvent = (userId, token, payload, groups) => async (
       dispatch(postEventGroups(token, id, groups));
       const uri = `/calendar/event/${id}`;
       const recipients = Users.filter(u => u.lfg).map(u => u.id);
-      const linkTitle = "View Event";
+      const linkTitle = "New Event";
       const body = "We found an event match for you!";
       dispatch(
         createMessageGroup(token, userId, uri, recipients, linkTitle, body)
