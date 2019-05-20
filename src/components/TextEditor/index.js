@@ -232,7 +232,7 @@ class TextEditor extends Component {
       tags: joinStrings(tags),
       title
     };
-    updateArticle(id, User, mentions, payload);
+    updateArticle(id, User.token, mentions, payload);
   };
 
   getMentions = EditorState => {
@@ -295,6 +295,7 @@ class TextEditor extends Component {
       TagOptions
     } = this.state;
     const { posting, posted, updating, updated, error } = Articles;
+    const canPostOrUpdate = !(title && editorState && tags[0].value);
     return !UserHasPermissions(User, "add_article") ? (
       history.length > 2 ? (
         <Redirect to={history.goBack()} />
@@ -311,7 +312,8 @@ class TextEditor extends Component {
             componentClass={ButtonToolbar}
           >
             <PendingAction
-              Disabled={!(title && editorState && tags[0].value)}
+              key={1}
+              Disabled={canPostOrUpdate}
               Click={this.postArticle}
               ActionPending={posting}
               ActionComplete={posted}
@@ -319,9 +321,9 @@ class TextEditor extends Component {
               ActionName={"POST"}
             />
             <PendingAction
-              Disabled={!editorState || !tags[0].value}
+              key={2}
+              Disabled={!id || canPostOrUpdate}
               ShouldShow={id ? true : false}
-              Disabled={!id}
               Click={e => this.updateArticle(id)}
               ActionPending={updating}
               ActionComplete={updated}

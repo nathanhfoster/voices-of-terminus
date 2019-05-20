@@ -4,7 +4,7 @@ import { Button } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 
-const mapStateToProps = ({ }) => ({});
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = {};
 
@@ -28,22 +28,49 @@ class PendingAction extends PureComponent {
   }
 
   getState = props => {
-    const { ShouldShow, Disabled, Click, ActionPending, ActionComplete, ActionError, ActionName } = props
-    this.setState({ ShouldShow, Disabled, Click, ActionPending, ActionComplete, ActionError, ActionName });
+    const {
+      ShouldShow,
+      Disabled,
+      Click,
+      ActionPending,
+      ActionComplete,
+      ActionError,
+      ActionName
+    } = props;
+    this.setState({
+      ShouldShow,
+      Disabled,
+      Click,
+      ActionPending,
+      ActionComplete,
+      ActionError,
+      ActionName
+    });
   };
 
   switchActionIcon = ActionName => {
-    return null
+    return null;
     switch (ActionName) {
-      case "POST": return <i className="fas fa-paper-plane" />
-      case "UPDATE": return <i className="fas fa-pen-fancy" />
-      default: return null
+      case "POST":
+        return <i className="fas fa-paper-plane" />;
+      case "UPDATE":
+        return <i className="fas fa-pen-fancy" />;
+      default:
+        return null;
     }
-  }
+  };
 
   render() {
-    const { ShouldShow, Disabled, Click, ActionPending, ActionComplete, ActionError, ActionName } = this.state
-    return (ShouldShow ?
+    const {
+      ShouldShow,
+      Disabled,
+      Click,
+      ActionPending,
+      ActionComplete,
+      ActionError,
+      ActionName
+    } = this.state;
+    return ShouldShow ? (
       <Button
         className="PendingAction"
         disabled={Disabled}
@@ -53,16 +80,16 @@ class PendingAction extends PureComponent {
         {ActionPending && !ActionComplete
           ? [<i className="fa fa-spinner fa-spin" />, ActionName]
           : !ActionPending && ActionComplete && !ActionError
-            ? [
+          ? [
               <i
                 className="fas fa-check"
                 style={{ color: "var(--color_emerald)" }}
               />,
               ActionName
             ]
-            : [this.switchActionIcon(ActionName), ActionName]}
-      </Button> : null
-    );
+          : [this.switchActionIcon(ActionName), ActionName]}
+      </Button>
+    ) : null;
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(PendingAction);
