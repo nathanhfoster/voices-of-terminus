@@ -34,6 +34,7 @@ import { articleSlectOptions } from "../../helpers/options";
 import { UserHasPermissions } from "../../helpers/userPermissions";
 import {
   removeAttributeDuplicates,
+  RemoveArrayDuplicates,
   joinStrings,
   splitString,
   isEquivalent
@@ -246,7 +247,9 @@ class TextEditor extends Component {
       }
     });
 
-    return mentions.map(m => parseInt(m.url.split("/")[2]));
+    return RemoveArrayDuplicates(
+      mentions.map(m => parseInt(m.url.split("/")[2]))
+    );
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
