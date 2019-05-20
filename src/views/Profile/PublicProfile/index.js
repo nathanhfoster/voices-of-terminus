@@ -118,16 +118,14 @@ class PublicProfile extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {is_superuser ||
-              is_staff ||
-              (is_moderator && (
-                <Button
-                  onClick={() => history.push(`/admin/edit/user/${id}/`)}
-                  className="pull-right"
-                >
-                  <i className="fas fa-database" />
-                </Button>
-              ))}
+            {(is_superuser || is_staff || is_moderator) && (
+              <Button
+                onClick={() => history.push(`/admin/edit/user/${id}/`)}
+                className="pull-right"
+              >
+                <i className="fas fa-database" />
+              </Button>
+            )}
             {CurrentUser.id == id ? (
               <Button
                 onClick={() => history.push("/profile/")}
