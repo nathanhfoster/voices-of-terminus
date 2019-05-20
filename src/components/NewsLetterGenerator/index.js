@@ -304,7 +304,7 @@ class NewsLetterGenerator extends PureComponent {
             />
             <PendingAction
               ShouldShow={id}
-              Disabled={!design}
+              Disabled={!(title && design)}
               Click={this.updateNewsletter}
               ActionPending={updating}
               ActionComplete={updated}
