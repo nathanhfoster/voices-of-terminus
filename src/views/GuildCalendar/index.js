@@ -226,7 +226,7 @@ class GuildCalendar extends PureComponent {
                 onBlur={e => e.preventDefault()}
                 blurInputOnSelect={false}
                 //isClearable={this.state.typeFilter.some(v => !v.isFixed)}
-                isSearchable={false}
+                isSearchable={true}
                 placeholder="Filter by event type..."
                 classNamePrefix="select"
                 onChange={this.onSelectChange}
