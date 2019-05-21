@@ -330,7 +330,7 @@ const removeAttributeDuplicates = (array, objAttr) => {
   for (let i = 0; i < array.length; i++) {
     try {
       map.set(array[i][objAttr], array[i]);
-    } catch (e) { }
+    } catch (e) {}
   }
 
   return [...map.values()];
@@ -341,7 +341,11 @@ const joinStrings = objectArray => {
     return objectArray;
   }
   if (Array.isArray(objectArray)) {
-    return objectArray.map(i => typeof i.value == "number" ? i.value : i.value.replace("|", "")).join("|");
+    return objectArray
+      .map(i =>
+        typeof i.value == "number" ? i.value : i.value.replace("|", "")
+      )
+      .join("|");
   }
   if (typeof objectArray == "object") {
     return objectArray.value;
@@ -352,17 +356,17 @@ const joinStrings = objectArray => {
 const splitString = string =>
   string
     ? string.split("|").map(
-      i =>
-        (i = {
-          value: i,
-          label: i,
-          isFixed:
-            i == "Article" ||
-            i == "Newsletter" ||
-            i == "Event" ||
-            i == "Locations"
-        })
-    )
+        i =>
+          (i = {
+            value: i,
+            label: i,
+            isFixed:
+              i == "Article" ||
+              i == "Newsletter" ||
+              i == "Event" ||
+              i == "Locations"
+          })
+      )
     : string;
 
 const GetUserPermissions = user_permissions =>
@@ -387,6 +391,44 @@ const selectGuildRecipients = (Recipients, User, Users) => [
     )
     .sort((a, b) => a.label.localeCompare(b.label))
 ];
+
+const guildRoster = Users => {
+  let guildRoster = [
+    { color: "#ba0bfb", title: "Leaders", members: [] },
+    { color: "var(--primaryColor)", title: "Advisors", members: [] },
+    { color: "#ff9800", title: "Council", members: [] },
+    { color: "#f00", title: "General Officers", members: [] },
+    { color: "#f00", title: "Officers", members: [] },
+    { color: "#0f0", title: "Senior Members", members: [] },
+    { color: "#0f0", title: "Junior Members", members: [] },
+    { color: "#0f0", title: "Recruits", members: [] }
+  ];
+  const { length } = Users;
+
+  for (let i = 0; i < length; i++) {
+    const user = Users[i];
+    const {
+      is_leader,
+      is_advisor,
+      is_council,
+      is_general_officer,
+      is_officer,
+      is_senior_member,
+      is_junior_member,
+      is_recruit
+    } = user;
+
+    if (is_leader) guildRoster[0].members.push(user);
+    if (is_advisor) guildRoster[1].members.push(user);
+    if (is_council) guildRoster[2].members.push(user);
+    if (is_general_officer) guildRoster[3].members.push(user);
+    if (is_officer) guildRoster[4].members.push(user);
+    if (is_senior_member) guildRoster[5].members.push(user);
+    if (is_junior_member) guildRoster[6].members.push(user);
+    if (is_recruit) guildRoster[7].members.push(user);
+  }
+  return guildRoster;
+};
 export {
   arrayToObject,
   objectToArray,
@@ -415,5 +457,6 @@ export {
   splitString,
   GetUserPermissions,
   removeObjProp,
-  selectGuildRecipients
+  selectGuildRecipients,
+  guildRoster
 };
