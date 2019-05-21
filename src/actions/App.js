@@ -93,8 +93,8 @@ const login = (username, password, rememberMe) => dispatch =>
       rememberMe
         ? Cookies.set("User_LoginToken", res.data.token)
         : Cookies.set("User_LoginToken", res.data.token, {
-            expires: eightHours
-          });
+          expires: eightHours
+        });
       dispatch({
         type: C.SET_LOGIN_TOKEN,
         payload: res.data
@@ -133,10 +133,10 @@ const setUser = User => ({
 const getUser = id => dispatch =>
   Axios()
     .get(`users/${id}/`)
-    .then(res => getUserCharactersAndPermissions(res.data, dispatch))
+    .then(res => dispatch(getUserCharactersAndPermissions(res.data)))
     .catch(e => console.log(e));
 
-const getUserCharactersAndPermissions = (User, dispatch) =>
+const getUserCharactersAndPermissions = User => dispatch =>
   Axios()
     .get(`user/characters/${User.id}/view/`)
     .then(res => {
@@ -162,9 +162,9 @@ const refreshPatchUser = (token, id) => dispatch =>
     .catch(e =>
       e.response && e.response.status == 401
         ? dispatch({
-            type: C.SET_LOGOUT,
-            payload: null
-          })
+          type: C.SET_LOGOUT,
+          payload: null
+        })
         : console.log(e)
     );
 

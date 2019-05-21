@@ -16,7 +16,7 @@ const getUserMessages = (userId, token) => dispatch => {
         const recipient = res.data.results[i];
         const { recipient_group_id } = recipient;
         Axios(token)
-          .get(`user/groups/${recipient_group_id}/`)
+          .get(`message/groups/${recipient_group_id}/`)
           .then(group => {
             const {
               author,
@@ -101,25 +101,25 @@ const postMessageRecipients = (
   messageResponse,
   finalPayload
 ) => dispatch =>
-  Axios(token)
-    .post("/message/recipients/", qs.stringify(payload))
-    .then(replyMessage => {
-      const { recipient } = replyMessage.data;
-      if (author == recipient) {
-        finalPayload.results.unshift(messageResponse.data);
+    Axios(token)
+      .post("/message/recipients/", qs.stringify(payload))
+      .then(replyMessage => {
+        const { recipient } = replyMessage.data;
+        if (author == recipient) {
+          finalPayload.results.unshift(messageResponse.data);
+          dispatch({
+            type: C.GET_MESSAGE_DETAILS,
+            payload: finalPayload
+          });
+        }
+      })
+      .catch(e => {
         dispatch({
-          type: C.GET_MESSAGE_DETAILS,
-          payload: finalPayload
+          type: C.SET_API_RESPONSE,
+          payload: e.response
         });
-      }
-    })
-    .catch(e => {
-      dispatch({
-        type: C.SET_API_RESPONSE,
-        payload: e.response
+        console.log("postMessageRecipients: ", payload);
       });
-      console.log("postMessageRecipients: ", payload);
-    });
 
 const updateMessage = (id, token, payload) => async (dispatch, getState) =>
   await Axios(token)
@@ -157,7 +157,7 @@ const createMessageGroup = (
   const { Messages } = getState();
   let payload = { ...Messages };
   return await Axios(token)
-    .post("/user/groups/", qs.stringify(groupPayload))
+    .post("/message/groups/", qs.stringify(groupPayload))
     .then(group => {
       const recipient_group_id = group.data.id;
       const messagePayload = {
