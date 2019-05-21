@@ -106,7 +106,7 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
   const otherUserStatus = statusLevelInt(OtherUser);
   const { groups, user_permissions } = User;
 
-  if (!User) {
+  if (!(User && User.token)) {
     // console.log("!User: ", !User);
     return false;
   }
