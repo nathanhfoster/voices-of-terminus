@@ -418,14 +418,38 @@ const guildRoster = Users => {
       is_recruit
     } = user;
 
-    if (is_leader) guildRoster[0].members.push(user);
-    if (is_advisor) guildRoster[1].members.push(user);
-    if (is_council) guildRoster[2].members.push(user);
-    if (is_general_officer) guildRoster[3].members.push(user);
-    if (is_officer) guildRoster[4].members.push(user);
-    if (is_senior_member) guildRoster[5].members.push(user);
-    if (is_junior_member) guildRoster[6].members.push(user);
-    if (is_recruit) guildRoster[7].members.push(user);
+    if (is_leader) {
+      guildRoster[0].members.push(user);
+      continue;
+    }
+    if (is_advisor) {
+      guildRoster[1].members.push(user);
+      continue;
+    }
+    if (is_council) {
+      guildRoster[2].members.push(user);
+      continue;
+    }
+    if (is_general_officer) {
+      guildRoster[3].members.push(user);
+      continue;
+    }
+    if (is_officer) {
+      guildRoster[4].members.push(user);
+      continue;
+    }
+    if (is_senior_member) {
+      guildRoster[5].members.push(user);
+      continue;
+    }
+    if (is_junior_member) {
+      guildRoster[6].members.push(user);
+      continue;
+    }
+    if (is_recruit) {
+      guildRoster[7].members.push(user);
+      continue;
+    }
   }
   return guildRoster;
 };

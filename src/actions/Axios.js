@@ -1,5 +1,5 @@
 import axios from "axios";
-const { REACT_APP_API_URL } = process.env;
+const { REACT_APP_API_URL, REACT_APP_API_URL_PRODUCTION } = process.env;
 
 const base = {
   Accept: "application/json"
