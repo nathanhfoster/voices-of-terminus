@@ -102,7 +102,7 @@ class NavBar extends PureComponent {
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
           <Navbar.Brand>
-            {(UserHasPermissions(CurrentUser, "change_user") ||
+            {(UserHasPermissions(User, "change_user") ||
               User.is_staff ||
               User.is_moderator) && (
               <LinkContainer to="/admin/overview" className="AdminButton">
