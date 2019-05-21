@@ -48,7 +48,7 @@ class NavBar extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -102,7 +102,9 @@ class NavBar extends PureComponent {
       <Navbar inverse collapseOnSelect className="NavBar">
         <Navbar.Header>
           <Navbar.Brand>
-            {(User.is_superuser || User.is_staff || User.is_moderator) && (
+            {(UserHasPermissions(CurrentUser, "change_user") ||
+              User.is_staff ||
+              User.is_moderator) && (
               <LinkContainer to="/admin/overview" className="AdminButton">
                 <NavItem eventKey={11}>
                   <i className="fas fa-database" /> ADMIN
@@ -227,99 +229,99 @@ class NavBar extends PureComponent {
                 <NavItem eventKey={9}>LOGIN</NavItem>
               </LinkContainer>
             ) : (
-                <NavDropdown
-                  eventKey={11}
-                  title={[
-                    primary_class ? (
-                      <Image
-                        src={roleClassIcon(primary_class)}
-                        style={{ height: "25px" }}
-                      />
-                    ) : (
-                        <i key={11.1} className="fas fa-user" />
-                      ),
-                    <span key={11.2}> {User.username} </span>,
+              <NavDropdown
+                eventKey={11}
+                title={[
+                  primary_class ? (
+                    <Image
+                      src={roleClassIcon(primary_class)}
+                      style={{ height: "25px" }}
+                    />
+                  ) : (
+                    <i key={11.1} className="fas fa-user" />
+                  ),
+                  <span key={11.2}> {User.username} </span>,
+                  <Badge
+                    key={11.3}
+                    className={`${hasUnreadMessages ? "unreadMessages" : ""}`}
+                  >
+                    {unreadMessages}
+                  </Badge>
+                ]}
+                className="navbar-right"
+                id="basic-nav-dropdown"
+              >
+                <LinkContainer to="/profile">
+                  <NavItem eventKey={11.4}>PROFILE</NavItem>
+                </LinkContainer>
+                <LinkContainer to="/messages">
+                  <NavItem eventKey={11.5}>
+                    MESSAGES{" "}
                     <Badge
-                      key={11.3}
                       className={`${hasUnreadMessages ? "unreadMessages" : ""}`}
                     >
                       {unreadMessages}
                     </Badge>
-                  ]}
-                  className="navbar-right"
-                  id="basic-nav-dropdown"
-                >
-                  <LinkContainer to="/profile">
-                    <NavItem eventKey={11.4}>PROFILE</NavItem>
-                  </LinkContainer>
-                  <LinkContainer to="/messages">
-                    <NavItem eventKey={11.5}>
-                      MESSAGES{" "}
-                      <Badge
-                        className={`${hasUnreadMessages ? "unreadMessages" : ""}`}
-                      >
-                        {unreadMessages}
-                      </Badge>
+                  </NavItem>
+                </LinkContainer>
+                <NavItem onClick={this.Logout}>LOGOUT</NavItem>
+                <MenuItem divider />
+                {UserHasPermissions(User, "add_article") && (
+                  <LinkContainer to="/article/new/">
+                    <NavItem eventKey={11.6}>
+                      <i className="fas fa-plus" /> ARTICLE
                     </NavItem>
                   </LinkContainer>
-                  <NavItem onClick={this.Logout}>LOGOUT</NavItem>
-                  <MenuItem divider />
-                  {UserHasPermissions(User, "add_article") && (
-                    <LinkContainer to="/article/new/">
-                      <NavItem eventKey={11.6}>
-                        <i className="fas fa-plus" /> ARTICLE
+                )}
+                {UserHasPermissions(User, "add_newsletter") && (
+                  <LinkContainer to="/newsletter/new">
+                    <NavItem eventKey={11.7}>
+                      <i className="fas fa-plus" /> NEWSLETTER
                     </NavItem>
-                    </LinkContainer>
-                  )}
-                  {UserHasPermissions(User, "add_newsletter") && (
-                    <LinkContainer to="/newsletter/new">
-                      <NavItem eventKey={11.7}>
-                        <i className="fas fa-plus" /> NEWSLETTER
+                  </LinkContainer>
+                )}
+                {UserHasPermissions(User, "add_form") && (
+                  <LinkContainer to="/form/new/">
+                    <NavItem eventKey={11.8}>
+                      <i className="fas fa-plus" /> FORM
                     </NavItem>
-                    </LinkContainer>
-                  )}
-                  {UserHasPermissions(User, "add_form") && (
-                    <LinkContainer to="/form/new/">
-                      <NavItem eventKey={11.8}>
-                        <i className="fas fa-plus" /> FORM
-                    </NavItem>
-                    </LinkContainer>
-                  )}
+                  </LinkContainer>
+                )}
 
-                  {UserHasPermissions(User, "add_event") && (
-                    <LinkContainer to="/calendar/new/event">
-                      <NavItem eventKey={11.9}>
-                        <i className="fas fa-plus" /> EVENT
+                {UserHasPermissions(User, "add_event") && (
+                  <LinkContainer to="/calendar/new/event">
+                    <NavItem eventKey={11.9}>
+                      <i className="fas fa-plus" /> EVENT
                     </NavItem>
-                    </LinkContainer>
-                  )}
-                  {UserHasPermissions(User, "add_ticket") && (
-                    <LinkContainer to="/ticket/new">
-                      <NavItem eventKey={11.1}>
-                        <i className="fas fa-plus" /> TICKET
+                  </LinkContainer>
+                )}
+                {UserHasPermissions(User, "add_ticket") && (
+                  <LinkContainer to="/ticket/new">
+                    <NavItem eventKey={11.1}>
+                      <i className="fas fa-plus" /> TICKET
                     </NavItem>
-                    </LinkContainer>
-                  )}
-                  <MenuItem divider />
-                  <LinkContainer to="/forms">
-                    <NavItem eventKey={11.11}>
-                      <i className="fas fa-eye" /> FORMS
-                  </NavItem>
                   </LinkContainer>
-                  <LinkContainer to="/tickets">
-                    <NavItem eventKey={11.12}>
-                      <i className="fas fa-eye" /> YOUR TICKETS
+                )}
+                <MenuItem divider />
+                <LinkContainer to="/forms">
+                  <NavItem eventKey={11.11}>
+                    <i className="fas fa-eye" /> FORMS
                   </NavItem>
-                  </LinkContainer>
-                  <MenuItem divider />
-                  <MenuItem
-                    onClick={() => history.push("/settings")}
-                    className="Center"
-                  >
-                    <i className="fas fa-cog" /> Settings
+                </LinkContainer>
+                <LinkContainer to="/tickets">
+                  <NavItem eventKey={11.12}>
+                    <i className="fas fa-eye" /> YOUR TICKETS
+                  </NavItem>
+                </LinkContainer>
+                <MenuItem divider />
+                <MenuItem
+                  onClick={() => history.push("/settings")}
+                  className="Center"
+                >
+                  <i className="fas fa-cog" /> Settings
                 </MenuItem>
-                </NavDropdown>
-              )}
+              </NavDropdown>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>

@@ -21,7 +21,8 @@ import {
 } from "../../../helpers";
 import {
   statusLevelInt,
-  statusLevelString
+  statusLevelString,
+  UserHasPermissions
 } from "../../../helpers/userPermissions";
 import Moment from "react-moment";
 import { ExperienceBar } from "../../../components/ExperienceBar";
@@ -93,7 +94,7 @@ class PublicProfile extends PureComponent {
 
   render() {
     const CurrentUser = this.props.User;
-    const { is_superuser, is_staff, is_moderator } = CurrentUser;
+    const { is_staff, is_moderator } = CurrentUser;
     const { User, history } = this.state;
     const { id } = this.props.match.params;
     const {
@@ -118,7 +119,9 @@ class PublicProfile extends PureComponent {
             className="ActionToolbar cardActions"
             componentClass={ButtonToolbar}
           >
-            {(is_superuser || is_staff || is_moderator) && (
+            {(UserHasPermissions(CurrentUser, "change_user") ||
+              is_staff ||
+              is_moderator) && (
               <Button
                 onClick={() => history.push(`/admin/edit/user/${id}/`)}
                 className="pull-right"

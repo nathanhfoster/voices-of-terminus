@@ -439,7 +439,7 @@ class UserProfile extends Component {
     );
     const MainCharacter = MainAltCharacter(Admin.User, "main");
     const AltCharacter = MainAltCharacter(Admin.User, "alt");
-    return UserHasPermissions(User, "change_user") ? (
+    return UserHasPermissions(User, "change_user") || User.is_staff ? (
       Admin.User ? (
         <Grid className="UserProfile Container">
           <Row>
