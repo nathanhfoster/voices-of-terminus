@@ -144,7 +144,7 @@ textarea {
 }
 
 textarea {
-  min-height: calc(var(--inputButtonHeight) * 2);
+  min-height: calc(var(--inputButtonHeight) * 2.25) !important;
   resize: none;
 }
 
