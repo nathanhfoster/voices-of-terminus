@@ -400,8 +400,8 @@ const guildRoster = Users => {
     { color: "#f00", title: "General Officers", members: [] },
     { color: "#f00", title: "Officers", members: [] },
     { color: "#0f0", title: "Senior Members", members: [] },
-    { color: "#0f0", title: "Junior Members", members: [] },
-    { color: "#0f0", title: "Recruits", members: [] }
+    { color: "#0f0", title: "Junior Members", members: [] }
+    // { color: "#0f0", title: "Recruits", members: [] }
   ];
   const { length } = Users;
 
@@ -446,10 +446,10 @@ const guildRoster = Users => {
       guildRoster[6].members.push(user);
       continue;
     }
-    if (is_recruit) {
-      guildRoster[7].members.push(user);
-      continue;
-    }
+    // if (is_recruit) {
+    //   guildRoster[7].members.push(user);
+    //   continue;
+    // }
   }
   return guildRoster;
 };
