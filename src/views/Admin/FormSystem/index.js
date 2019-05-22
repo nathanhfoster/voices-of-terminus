@@ -467,7 +467,7 @@ class FormSystem extends Component {
 
   showStats = (userMultipleBoolResponses, uniqueUserResponses) => (
     <div className="responseStats">
-      <span>
+      <span className="responseStatsPercentage">
         {this.responsePercentage(
           userMultipleBoolResponses,
           uniqueUserResponses.length

@@ -30,6 +30,10 @@
   background-color: var(--slate_grey);
 }
 
+.responseStatsPercentage {
+  color: var(--primaryColor);
+}
+
 .borderedRow .SelectedChoice {
   border: 1px solid var(--primaryColor) !important;
 }

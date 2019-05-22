@@ -23,7 +23,7 @@ import { getCharacters } from "../../../actions/User";
 import { Link } from "react-router-dom";
 import Moment from "react-moment";
 import { roleClassIcon } from "../../../helpers";
-import { UserHasPermissions } from '../../../helpers/userPermissions'
+import { UserHasPermissions } from "../../../helpers/userPermissions";
 import { classOptions } from "../../../helpers/options";
 import ConfirmAction from "../../../components/ConfirmAction";
 
@@ -172,11 +172,11 @@ class EventDetails extends PureComponent {
             onClick={e =>
               !UserAlreadySignedUp && User.id
                 ? this.setState({
-                  show: true,
-                  memberId,
-                  MatchedCharacters: Characters,
-                  rolePreference
-                })
+                    show: true,
+                    memberId,
+                    MatchedCharacters: Characters,
+                    rolePreference
+                  })
                 : editEventGroupMember(memberId, User, { filled: null })
             }
             className={
@@ -198,8 +198,7 @@ class EventDetails extends PureComponent {
       for (let i = 0; i < classPreferences.length; i++) {
         const classPreference = classPreferences[i];
         const UserCharacterCandidates = Characters.filter(
-          c =>
-            c.role == rolePreference && c.character_class == classPreference
+          c => c.role == rolePreference && c.character_class == classPreference
         );
         const roleMatch = UserCharacterCandidates.length > 0;
         if (roleMatch) {
@@ -215,14 +214,14 @@ class EventDetails extends PureComponent {
                 onClick={e =>
                   !UserAlreadySignedUp
                     ? this.setState({
-                      show: true,
-                      memberId,
-                      MatchedCharacters: UserCharacterCandidates,
-                      rolePreference
-                    })
+                        show: true,
+                        memberId,
+                        MatchedCharacters: UserCharacterCandidates,
+                        rolePreference
+                      })
                     : editEventGroupMember(memberId, User, {
-                      filled: null
-                    })
+                        filled: null
+                      })
                 }
                 className={
                   !UserAlreadySignedUp
@@ -297,8 +296,8 @@ class EventDetails extends PureComponent {
               Title={name}
             />
           ) : (
-              <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
-            )}
+            <Link to={`/profile/${author}`}>{`${author_username}`}</Link>
+          )}
         </Col>
       </Row>
     );
@@ -408,17 +407,22 @@ class EventDetails extends PureComponent {
             <i className="far fa-clock" />{" "}
             <Moment fromNow>{date_created}</Moment>
           </Col>
-          <Col xs={12}>
-            <i className="fas fa-pencil-alt" />{" "}
-            <Link to={`/profile/${last_modified_by}`}>
-              {last_modified_by_username}
-            </Link>{" "}
-            <i className="far fa-clock" />{" "}
-            <Moment fromNow>{last_modified}</Moment>
-          </Col>
+          {author != last_modified_by && (
+            <Col xs={12}>
+              <i className="fas fa-pencil-alt" />{" "}
+              <Link to={`/profile/${last_modified_by}`}>
+                {last_modified_by_username}
+              </Link>{" "}
+              <i className="far fa-clock" />{" "}
+              <Moment fromNow>{last_modified}</Moment>
+            </Col>
+          )}
           {url && (
             <Col xs={12}>
-              <i className="fas fa-link" /> <Link to={`${url}`}>{url}</Link>
+              <i className="fas fa-link" />{" "}
+              <a href={`${url}`} target="_blank">
+                {url}
+              </a>
             </Col>
           )}
           <Col xs={12}>
