@@ -17,7 +17,7 @@ export const Admin = (
   const { type, payload } = action;
   switch (type) {
     case C.GET_USERS:
-      return { ...state, Users: [...state.Users, ...payload] };
+      return { ...state, Users: payload };
     case C.UPDATE_USERS_LOADING:
       return {
         ...state,

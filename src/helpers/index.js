@@ -132,7 +132,10 @@ const MainAltCharacter = (User, MainOrAlt) => {
     return DEFAULT;
   }
 
-  return Characters.reduce((a, c) => (a = c[MainOrAlt] ? c : DEFAULT), DEFAULT);
+  const characterIndex = Characters.findIndex(c => c[MainOrAlt]);
+  const character = characterIndex != -1 ? Characters[characterIndex] : DEFAULT;
+
+  return character;
 };
 
 /**
