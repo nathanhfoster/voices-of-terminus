@@ -3,46 +3,6 @@ import { Axios, AxiosForm } from "./Axios";
 import qs from "qs";
 import { DeepCopy, GetUserPermissions } from "../helpers";
 
-const changeGroups = (token, id, payload) => (dispatch, getState) => {
-  const { Users } = getState().Admin;
-  let usersPayload = DeepCopy(Users);
-  return Axios(token)
-    .post(`user-groups/${id}/add/`, qs.stringify(payload))
-    .then(res => {
-      const userIndex = usersPayload.findIndex(user => user.id == id);
-      usersPayload[userIndex].groups = JSON.parse(res.data);
-      dispatch({
-        type: C.UPDATE_USERS_SUCCESS,
-        payload: usersPayload
-      });
-      dispatch({
-        type: C.GET_USER,
-        payload: usersPayload[userIndex]
-      });
-    })
-    .catch(e => console.log(e));
-};
-
-const changePermissions = (token, id, payload) => (dispatch, getState) => {
-  const { Users } = getState().Admin;
-  let usersPayload = DeepCopy(Users);
-  return Axios(token)
-    .post(`user-permissions/${id}/add/`, qs.stringify(payload))
-    .then(res => {
-      const userIndex = usersPayload.findIndex(user => user.id == id);
-      usersPayload[userIndex].user_permissions = JSON.parse(res.data);
-      dispatch({
-        type: C.UPDATE_USERS_SUCCESS,
-        payload: usersPayload
-      });
-      dispatch({
-        type: C.GET_USER,
-        payload: usersPayload[userIndex]
-      });
-    })
-    .catch(e => console.log(e));
-};
-
 const getUsersWithProfileImages = () => dispatch =>
   Axios()
     .get("users/")
@@ -88,15 +48,23 @@ const clearAdminApi = () => dispatch =>
     type: C.CLEAR_ADMIN_API
   });
 
-const updateUserProfile = (id, token, payload) => (dispatch, getState) => {
+const updateUserProfile = (
+  id,
+  token,
+  userProfilePayload,
+  userGroupsPayload,
+  userPermissionsPayload
+) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_USERS_LOADING });
   const { Users } = getState().Admin;
   let usersPayload = DeepCopy(Users);
   return Axios(token)
-    .patch(`users/${id}/`, qs.stringify(payload))
+    .patch(`users/${id}/`, qs.stringify(userProfilePayload))
     .then(res => {
       const userIndex = usersPayload.findIndex(user => user.id == res.data.id);
       usersPayload[userIndex] = res.data;
+      dispatch(changeGroups(token, id, userGroupsPayload));
+      dispatch(changePermissions(token, id, userPermissionsPayload));
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
         payload: usersPayload
@@ -112,6 +80,46 @@ const updateUserProfile = (id, token, payload) => (dispatch, getState) => {
         payload: e.response
       })
     );
+};
+
+const changeGroups = (token, id, payload) => (dispatch, getState) => {
+  const { Users } = getState().Admin;
+  let usersPayload = DeepCopy(Users);
+  return Axios(token)
+    .post(`user-groups/${id}/add/`, qs.stringify(payload))
+    .then(res => {
+      const userIndex = usersPayload.findIndex(user => user.id == id);
+      usersPayload[userIndex].groups = JSON.parse(res.data);
+      dispatch({
+        type: C.UPDATE_USERS_SUCCESS,
+        payload: usersPayload
+      });
+      dispatch({
+        type: C.GET_USER,
+        payload: usersPayload[userIndex]
+      });
+    })
+    .catch(e => console.log(e));
+};
+
+const changePermissions = (token, id, payload) => (dispatch, getState) => {
+  const { Users } = getState().Admin;
+  let usersPayload = DeepCopy(Users);
+  return Axios(token)
+    .post(`user-permissions/${id}/add/`, qs.stringify(payload))
+    .then(res => {
+      const userIndex = usersPayload.findIndex(user => user.id == id);
+      usersPayload[userIndex].user_permissions = JSON.parse(res.data);
+      dispatch({
+        type: C.UPDATE_USERS_SUCCESS,
+        payload: usersPayload
+      });
+      dispatch({
+        type: C.GET_USER,
+        payload: usersPayload[userIndex]
+      });
+    })
+    .catch(e => console.log(e));
 };
 
 const createUser = payload => (dispatch, getState) =>

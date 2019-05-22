@@ -17,7 +17,7 @@ export const Admin = (
   const { type, payload } = action;
   switch (type) {
     case C.GET_USERS:
-      return { ...state, Users: payload };
+      return { ...state, Users: [...state.Users, ...payload] };
     case C.UPDATE_USERS_LOADING:
       return {
         ...state,
@@ -33,7 +33,7 @@ export const Admin = (
         error: null
       };
     case C.GET_USER:
-      return { ...state, User: payload };
+      return { ...state, User: { ...state.User, ...payload } };
     case C.CLEAR_USER:
       return {
         ...state,

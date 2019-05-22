@@ -13,12 +13,7 @@ import {
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import { Redirect } from "react-router-dom";
-import {
-  changeGroups,
-  changePermissions,
-  clearUser,
-  updateUserProfile
-} from "../../../actions/Admin";
+import { clearUser, updateUserProfile } from "../../../actions/Admin";
 import { getUser } from "../../../actions/App";
 import Moment from "react-moment";
 import "./styles.css";
@@ -51,9 +46,7 @@ const mapStateToProps = ({ AuthenticationAndAuthorization, Admin, User }) => ({
 const mapDispatchToProps = {
   getUser,
   clearUser,
-  updateUserProfile,
-  changeGroups,
-  changePermissions
+  updateUserProfile
 };
 
 class UserProfile extends Component {
@@ -66,8 +59,6 @@ class UserProfile extends Component {
   }
 
   static propTypes = {
-    changeGroups: PropTypes.func.isRequired,
-    changePermissions: PropTypes.func.isRequired,
     clearUser: PropTypes.func.isRequired,
     updateUserProfile: PropTypes.func.isRequired
   };
@@ -247,7 +238,7 @@ class UserProfile extends Component {
   };
 
   updateUserProfile = () => {
-    const { updateUserProfile, changeGroups, changePermissions } = this.props;
+    const { updateUserProfile } = this.props;
     const { User } = this.state;
     const {
       id,
@@ -282,7 +273,7 @@ class UserProfile extends Component {
       is_lore_master
     } = this.state.Admin.User;
 
-    const payload = {
+    const userProfilePayload = {
       primary_race,
       primary_role,
       primary_class,
@@ -311,14 +302,19 @@ class UserProfile extends Component {
       is_host,
       is_lore_master
     };
-    updateUserProfile(id, User.token, payload);
 
     const userGroupsPayload = { groups: JSON.stringify(groups) };
     const userPermissionsPayload = {
       user_permissions: JSON.stringify(user_permissions)
     };
-    changeGroups(User.token, id, userGroupsPayload);
-    changePermissions(User.token, id, userPermissionsPayload);
+
+    updateUserProfile(
+      id,
+      User.token,
+      userProfilePayload,
+      userGroupsPayload,
+      userPermissionsPayload
+    );
   };
 
   renderDividedText = text =>
