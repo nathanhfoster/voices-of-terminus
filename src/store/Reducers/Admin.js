@@ -1,4 +1,4 @@
-import C from "../../constants/reducerDispatchers";
+import C from "../../constants.js";
 
 const defaultState = {
   Users: [],
