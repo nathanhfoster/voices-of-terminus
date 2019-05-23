@@ -212,14 +212,14 @@ class App extends PureComponent {
   static defaultProps = {};
 
   componentWillMount() {
-    // const { ResetRedux } = this.props;
-    // const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
-    // const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
+    const { ResetRedux } = this.props;
+    const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
+    const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
 
-    // if (shouldResetStore) {
-    //   Cookies.set("STORE_UPDATED", new Date());
-    //   ResetRedux();
-    // }
+    if (shouldResetStore) {
+      Cookies.set("STORE_UPDATED", new Date());
+      ResetRedux();
+    }
 
     this.getState(this.props);
   }
