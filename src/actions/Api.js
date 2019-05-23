@@ -14,6 +14,7 @@ const ytube = new YTube(REACT_APP_YOUTUBE_API_KEY);
 
 /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
 const shouldUpdate = lastApiCall => {
+  if (!lastApiCall) return true;
   const shouldUpdate = MomentJS().diff(MomentJS(lastApiCall), "hours") > 12;
   // console.log(lastApiCall);
   // console.log(shouldUpdate);

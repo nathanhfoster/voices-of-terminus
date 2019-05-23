@@ -2,7 +2,7 @@ import C from "../../constants.js";
 
 export const VotAllYouTubeChannelData = (
   state = {
-    lastApiCall: new Date(),
+    lastApiCall: null,
     publishedAt: null,
     channelId: null,
     title: null,

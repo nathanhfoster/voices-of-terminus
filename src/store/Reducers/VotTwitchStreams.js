@@ -1,7 +1,7 @@
 import C from "../../constants.js";
 
 export const VotTwitchStreams = (
-  state = { lastApiCall: new Date(), _total: null, _links: {}, videos: [] },
+  state = { lastApiCall: null, _total: null, _links: {}, videos: [] },
   action
 ) => {
   state.lastApiCall = new Date();

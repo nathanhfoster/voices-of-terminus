@@ -2,7 +2,7 @@ import C from "../../constants.js";
 
 export const VRYouTubeChannelData = (
   state = {
-    lastApiCall: new Date(),
+    lastApiCall: null,
     latest: [],
     totalResults: null,
     resultsPerPage: null

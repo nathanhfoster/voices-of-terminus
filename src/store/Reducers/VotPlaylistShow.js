@@ -2,7 +2,7 @@ import C from "../../constants.js";
 
 export const VotPlaylistShow = (
   state = {
-    lastApiCall: new Date(),
+    lastApiCall: null,
     latest: []
   },
   action
