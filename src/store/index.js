@@ -2,7 +2,7 @@ import { appReducer } from "./reducers";
 import thunk from "redux-thunk";
 import { createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-const ENV = process.env.NODE_ENV;
+const { NODE_ENV, REACT_APP_API_URL } = process.env;
 
 const consoleMessages = store => next => action => {
   const result = next(action);
@@ -14,10 +14,13 @@ const consoleMessages = store => next => action => {
   return result;
 };
 
-export default (initialState = {}) =>
-  ENV == "development"
+export default (initialState = {}) => {
+  const inDevelopmentMode = REACT_APP_API_URL.includes("localhost");
+  // NODE_ENV == "development"
+  return inDevelopmentMode
     ? composeWithDevTools(applyMiddleware(thunk))(createStore)(
         appReducer,
         initialState
       )
     : applyMiddleware(thunk)(createStore)(appReducer, initialState);
+};
