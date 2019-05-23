@@ -12,9 +12,12 @@ const {
 
 const ytube = new YTube(REACT_APP_YOUTUBE_API_KEY);
 
-/* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
 const shouldUpdate = lastApiCall => {
-  if (!lastApiCall) return true;
+  if (!lastApiCall) {
+    // console.log("!lastApiCall: ", !lastApiCall);
+    // console.log("lastApiCall: ", lastApiCall);
+    return true;
+  }
   const shouldUpdate = MomentJS().diff(MomentJS(lastApiCall), "hours") > 12;
   // console.log(lastApiCall);
   // console.log(shouldUpdate);
@@ -29,7 +32,6 @@ const getVoTYouTubeChannelData = () => (dispatch, getState) => {
     ytube
       .getChannelsLatestVideos(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
       .then(res => {
-        res.lastApiCall = new Date();
         dispatch({
           type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
           payload: res
@@ -47,7 +49,6 @@ const getVotChannelsPlayLists = () => (dispatch, getState) => {
     ytube
       .getChannelsPlayLists(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
       .then(res => {
-        res.lastApiCall = new Date();
         dispatch({
           type: C.GET_VOT_CHANNELS_PLAYLISTS,
           payload: res
@@ -65,7 +66,6 @@ const getVotPlaylistShow = () => (dispatch, getState) => {
     ytube
       .getPlaylistVideos(REACT_APP_VOT_PLAYLIST_ID_SHOW, 50)
       .then(res => {
-        res.lastApiCall = new Date();
         dispatch({
           type: C.GET_VOT_PLAYLIST_SHOW,
           payload: res
@@ -85,8 +85,7 @@ const getVotTwitchStreams = () => (dispatch, getState) => {
     )
       .then(response => response.json())
       .then(res => {
-        res.lastApiCall = new Date();
-        dispatch({
+        return dispatch({
           type: C.GET_VOT_TWITCH_STREAMS,
           payload: res
         });
@@ -101,7 +100,6 @@ const getAllVotYouTube = () => (dispatch, getState) => {
     ytube
       .fetchAllYouTube("Voices of Terminus")
       .then(res => {
-        res.lastApiCall = new Date();
         dispatch({
           type: C.GET_ALL_VOT_YOUTUBE_CHANNEL_DATA,
           payload: res
@@ -118,7 +116,6 @@ const getVRYouTubeChannelData = () => (dispatch, getState) => {
     ytube
       .getChannelsLatestVideos(REACT_APP_VR_YOUTUBE_CHANNEL_ID, 50)
       .then(res => {
-        res.lastApiCall = new Date();
         dispatch({
           type: C.GET_VR_YOUTUBE_CHANNEL_DATA,
           payload: res

@@ -1,10 +1,15 @@
 import C from "../../constants.js";
 
-export const ApiResponse = (state = {}, action) =>
-  action.type == C.SET_API_RESPONSE
-    ? action
-      ? action.payload
-      : {}
-    : action.type == C.CLEAR_API_RESPONSE
-    ? {}
-    : state;
+const defaultState = null;
+
+export const ApiResponse = (state = defaultState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case C.SET_API_RESPONSE:
+      return payload;
+    case C.RESET_REDUX:
+      return defaultState;
+    default:
+      return state;
+  }
+};

@@ -1,15 +1,14 @@
 import C from "../../constants.js";
 
-export const User = (
-  state = {
-    groups: [],
-    user_permissions: [],
-    Characters: [],
-    Tickets: [],
-    Settings: { show_footer: false, push_messages: false }
-  },
-  action
-) => {
+const defaultState = {
+  groups: [],
+  user_permissions: [],
+  Characters: [],
+  Tickets: [],
+  Settings: { show_footer: false, push_messages: false }
+};
+
+export const User = (state = defaultState, action) => {
   const { type, payload } = action;
   switch (type) {
     case C.SET_LOGIN_TOKEN:
@@ -59,6 +58,8 @@ export const User = (
         Characters: [],
         Settings: { show_footer: false, push_messages: false }
       };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return { ...state };
   }

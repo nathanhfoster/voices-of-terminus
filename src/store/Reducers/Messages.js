@@ -1,17 +1,16 @@
 import C from "../../constants.js";
 
-export const Messages = (
-  state = {
-    count: null,
-    next: null,
-    previous: null,
-    results: [],
-    messageRecipients: [],
-    messageDetails: { count: null, next: null, previous: null, results: [] }
-  },
-  action
-) => {
-  const { id, type, payload } = action;
+const defaultState = {
+  count: null,
+  next: null,
+  previous: null,
+  results: [],
+  messageRecipients: [],
+  messageDetails: { count: null, next: null, previous: null, results: [] }
+};
+
+export const Messages = (state = defaultState, action) => {
+  const { type, payload } = action;
   switch (type) {
     case C.GET_MESSAGES:
       return {
@@ -31,6 +30,8 @@ export const Messages = (
         messageRecipients: [],
         messageDetails: { count: null, next: null, previous: null, results: [] }
       };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return state;
   }

@@ -1,19 +1,18 @@
-import C from "../../constants.js";
+import C from "../../constants/reducerDispatchers";
 
-export const Admin = (
-  state = {
-    Users: [],
-    User: { Characters: [], groups: [], user_permissions: [] },
-    Tickets: [],
-    Ticket: { StatusChanges: [], Notes: [] },
-    posting: false,
-    posted: false,
-    updating: false,
-    updated: false,
-    error: null
-  },
-  action
-) => {
+const defaultState = {
+  Users: [],
+  User: { Characters: [], groups: [], user_permissions: [] },
+  Tickets: [],
+  Ticket: { StatusChanges: [], Notes: [] },
+  posting: false,
+  posted: false,
+  updating: false,
+  updated: false,
+  error: null
+};
+
+export const Admin = (state = defaultState, action) => {
   const { type, payload } = action;
   switch (type) {
     case C.GET_USERS:
@@ -83,6 +82,8 @@ export const Admin = (
       };
     case C.SET_LOGOUT:
       return { ...state };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return state;
   }

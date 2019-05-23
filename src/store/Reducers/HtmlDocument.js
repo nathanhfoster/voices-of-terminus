@@ -1,8 +1,17 @@
 import C from "../../constants.js";
 
-export const HtmlDocument = (state = null, action) =>
-  action.type == C.GET_HTML_DOCUMENT
-    ? action.payload
-    : action.type == C.CLEAR_HTML_DOCUMENT
-    ? null
-    : state;
+const defaultState = null;
+
+export const HtmlDocument = (state = defaultState, action) => {
+  const { type, payload } = action;
+  switch (type) {
+    case C.GET_HTML_DOCUMENT:
+      return payload;
+    case C.CLEAR_HTML_DOCUMENT:
+      return null;
+    case C.RESET_REDUX:
+      return defaultState;
+    default:
+      return state;
+  }
+};

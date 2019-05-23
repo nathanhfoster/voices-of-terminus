@@ -19,7 +19,8 @@ class Streams extends PureComponent {
   }
 
   static propTypes = {
-    VotTwitchStreams: PropTypes.array
+    VotTwitchStreams: PropTypes.array,
+    getVotTwitchStreams: PropTypes.func.isRequired
   };
 
   static defaultProps = {};

@@ -1,6 +1,8 @@
 import C from "../../constants.js";
 
-export const Galleries = (state = { results: [], Gallery: {} }, action) => {
+const defaultState = { results: [], Gallery: {} };
+
+export const Galleries = (state = defaultState, action) => {
   const { type, payload } = action;
   switch (type) {
     case C.GET_GALLERIES_LOADING:
@@ -49,6 +51,8 @@ export const Galleries = (state = { results: [], Gallery: {} }, action) => {
         ...state,
         Gallery: { ...state.Gallery, results: [] }
       };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return state;
   }

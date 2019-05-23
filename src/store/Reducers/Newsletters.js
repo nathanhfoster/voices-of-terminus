@@ -1,6 +1,8 @@
 import C from "../../constants.js";
 
-export const Newsletters = (state = { results: [] }, action) => {
+const defaultState = { results: [] };
+
+export const Newsletters = (state = defaultState, action) => {
   const { type, payload } = action;
   switch (type) {
     case C.GET_NEWSLETTERS_LOADING:
@@ -62,6 +64,8 @@ export const Newsletters = (state = { results: [] }, action) => {
         updating: false,
         updated: false
       };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return state;
   }

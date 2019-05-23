@@ -39,6 +39,8 @@ const Logout = () => dispatch => {
   });
 };
 
+const ResetRedux = () => dispatch => dispatch({ type: C.RESET_REDUX });
+
 const setApiResponse = response => ({
   type: C.SET_API_RESPONSE,
   payload: response
@@ -78,6 +80,7 @@ const refreshPatchUser = (token, id) => dispatch =>
     .get(`users/${id}/refresh/`)
     .then(res => {
       res.data.permissions = GetUserPermissions(res.data.user_permissions);
+      Cookies.set("User_LastLogin", new Date());
       dispatch({
         type: C.SET_LOGIN_TOKEN,
         payload: res.data
@@ -106,6 +109,7 @@ export {
   setWindow,
   login,
   Logout,
+  ResetRedux,
   setApiResponse,
   clearApiResponse,
   setUser,

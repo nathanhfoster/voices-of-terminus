@@ -3,11 +3,9 @@ import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import { withAlert } from "react-alert";
 import Cookies from "js-cookie";
-
 import "regenerator-runtime/runtime";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
 import { Image } from "react-bootstrap";
-
 import Admin from "./views/Admin";
 import FormSystem from "./views/Admin/FormSystem";
 import TicketDetails from "./views/Admin/TicketsTable/TicketDetails";
@@ -40,12 +38,13 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import Settings from "./views/Settings";
 import References from "./views/References";
 import ReferenceDetails from "./views/References/ReferenceDetails";
-import { clearApiResponse, setWindow, Logout } from "./actions/App";
+import { clearApiResponse, setWindow, Logout, ResetRedux } from "./actions/App";
 import {
   getVoTYouTubeChannelData,
   getVotChannelsPlayLists,
   getAllVotYouTube,
-  getVRYouTubeChannelData
+  getVRYouTubeChannelData,
+  getVotTwitchStreams
 } from "./actions/Api";
 import {
   getAllUserGroups,
@@ -58,6 +57,7 @@ import { getUserSettings } from "./actions/Settings";
 import "moment-timezone";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
+import MomentJS from "moment";
 
 const mapStateToProps = ({
   Admin,
@@ -82,7 +82,9 @@ const mapDispatchToProps = {
   getVotChannelsPlayLists,
   getAllVotYouTube,
   getVRYouTubeChannelData,
+  getVotTwitchStreams,
   Logout,
+  ResetRedux,
   refreshPatchUser,
   getUserMessages,
   getUsers,
@@ -183,38 +185,54 @@ class App extends PureComponent {
   }
 
   static propTypes = {
+    clearApiResponse: PropTypes.func.isRequired,
     setWindow: PropTypes.func.isRequired,
+    getVoTYouTubeChannelData: PropTypes.func.isRequired,
+    getVotChannelsPlayLists: PropTypes.func.isRequired,
+    getAllVotYouTube: PropTypes.func.isRequired,
+    getVRYouTubeChannelData: PropTypes.func.isRequired,
+    getVotTwitchStreams: PropTypes.func.isRequired,
+    Logout: PropTypes.func.isRequired,
+    ResetRedux: PropTypes.func.isRequired,
+    refreshPatchUser: PropTypes.func.isRequired,
+    getUserMessages: PropTypes.func.isRequired,
+    getUsers: PropTypes.func.isRequired,
+    getAllUserGroups: PropTypes.func.isRequired,
+    getAllUserPermissions: PropTypes.func.isRequired,
+    getUserSettings: PropTypes.func.isRequired,
     width: PropTypes.number,
     height: PropTypes.number,
     isMobile: PropTypes.bool,
     User: PropTypes.object,
-    getVoTYouTubeChannelData: PropTypes.func.isRequired,
-    getAllVotYouTube: PropTypes.func.isRequired,
-    getVRYouTubeChannelData: PropTypes.func.isRequired,
     routeItems: PropTypes.array,
     images: PropTypes.array,
     imagesMobile: PropTypes.array,
-    Settings: PropTypes.object,
-    getAllUserGroups: PropTypes.func.isRequired,
-    getAllUserPermissions: PropTypes.func.isRequired
+    Settings: PropTypes.object
   };
 
-  static defaultProps = {};
+  static defaultProps = { LastStoreUpdated: new Date("2019-5-22-8:30") };
 
   componentWillMount() {
-    //localStorage.clear(); // Clear local storage
+    const { ResetRedux, LastStoreUpdated } = this.props;
+    const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
+    const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
+
+    if (shouldResetStore) {
+      Cookies.set("STORE_UPDATED", new Date());
+      ResetRedux();
+    }
+
     this.getState(this.props);
   }
 
   componentDidMount() {
     const {
       User,
-      VoTYouTubeChannelData,
-      VRYouTubeChannelData,
       getUsers,
       getVoTYouTubeChannelData,
       getAllVotYouTube,
       getVRYouTubeChannelData,
+      getVotTwitchStreams,
       getVotChannelsPlayLists,
       Logout,
       getAllUserGroups,
@@ -227,6 +245,7 @@ class App extends PureComponent {
     getVoTYouTubeChannelData();
     getAllVotYouTube();
     getVRYouTubeChannelData();
+    getVotTwitchStreams();
     getVotChannelsPlayLists();
     this.updateWindowDimensions();
     window.addEventListener("resize", this.updateWindowDimensions);

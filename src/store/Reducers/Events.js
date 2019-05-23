@@ -1,26 +1,25 @@
 import C from "../../constants.js";
 
-export const Events = (
-  state = {
-    results: [],
-    Event: {
-      title: null,
-      start_date: new Date(),
-      end_date: new Date(),
-      url: null,
-      description: null,
-      tags: null,
-      sub_tags: null,
-      min_level: 1,
-      max_level: 60,
-      locations: null,
-      group_size: null
-    },
-    Groups: [],
-    GroupMembers: []
+const defaultState = {
+  results: [],
+  Event: {
+    title: null,
+    start_date: new Date(),
+    end_date: new Date(),
+    url: null,
+    description: null,
+    tags: null,
+    sub_tags: null,
+    min_level: 1,
+    max_level: 60,
+    locations: null,
+    group_size: null
   },
-  action
-) => {
+  Groups: [],
+  GroupMembers: []
+};
+
+export const Events = (state = defaultState, action) => {
   const { id, type, payload } = action;
   switch (type) {
     case C.GET_EVENTS_LOADING:
@@ -106,6 +105,8 @@ export const Events = (
         Groups: [],
         GroupMembers: []
       };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return { ...state };
   }

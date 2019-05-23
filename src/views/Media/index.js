@@ -12,8 +12,6 @@ import {
   Tab
 } from "react-bootstrap";
 import "./styles.css";
-import Moment from "react-moment";
-import { LinkContainer } from "react-router-bootstrap";
 import Images from "./Images";
 import Videos from "./Videos";
 import Streams from "./Streams";

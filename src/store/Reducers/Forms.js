@@ -1,16 +1,15 @@
 import C from "../../constants.js";
 
-export const Forms = (
-  state = {
-    results: [],
-    Form: {},
-    Questions: [],
-    Choices: [],
-    Responses: { results: [] },
-    Recipients: []
-  },
-  action
-) => {
+const defaultState = {
+  results: [],
+  Form: {},
+  Questions: [],
+  Choices: [],
+  Responses: { results: [] },
+  Recipients: []
+};
+
+export const Forms = (state = defaultState, action) => {
   const { id, type, payload } = action;
   switch (type) {
     case C.GET_FORMS_LOADING:
@@ -128,6 +127,8 @@ export const Forms = (
         error: null,
         Form: {}
       };
+    case C.RESET_REDUX:
+      return defaultState;
     default:
       return { ...state };
   }
