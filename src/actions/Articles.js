@@ -95,7 +95,7 @@ const getArticleHtml = id => (dispatch, getState) => {
       const updatedIndex = payload.results.findIndex(
         article => article.id == id
       );
-      payload.results[updatedIndex].html = html;
+      if (updatedIndex != -1) payload.results[updatedIndex].html = html;
       dispatch({
         type: C.GET_ARTICLES_SUCCESS,
         payload: payload
@@ -104,8 +104,17 @@ const getArticleHtml = id => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-const getArticle = id => dispatch =>
-  Axios()
+const getArticle = id => (dispatch, getState) => {
+  const { Articles } = getState();
+  let cachedArticles = { ...Articles };
+  const updatedIndex = cachedArticles.results.findIndex(
+    article => article.id == id
+  );
+  dispatch({
+    type: C.GET_HTML_DOCUMENT,
+    payload: cachedArticles.results[updatedIndex]
+  });
+  return Axios()
     .get(`articles/${id}/`)
     .then(res => {
       dispatch({
@@ -114,6 +123,7 @@ const getArticle = id => dispatch =>
       });
     })
     .catch(e => console.log(e));
+};
 
 const viewArticle = id => (dispatch, getState) =>
   Axios()
@@ -204,7 +214,7 @@ const updateArticleLike = (id, User, payload) => (dispatch, getState) =>
       const updatedIndex = payload.likes.results.findIndex(
         like => like.author == res.data.author
       );
-      payload.likes.results[updatedIndex] = res.data;
+      if (updatedIndex != -1) payload.likes.results[updatedIndex] = res.data;
       dispatch({
         type: C.GET_HTML_DOCUMENT,
         payload: payload
@@ -258,7 +268,7 @@ const updateArticle = (id, token, recipients, payload) => (
       const { Articles } = getState();
       let payload = { ...Articles };
       const updatedIndex = payload.results.findIndex(i => i.id == res.data.id);
-      payload.results[updatedIndex] = res.data;
+      if (updatedIndex != -1) payload.results[updatedIndex] = res.data;
       dispatch({ type: C.UPDATE_ARTICLES_SUCCESS });
       dispatch({
         type: C.GET_HTML_DOCUMENT,

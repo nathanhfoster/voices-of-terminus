@@ -100,10 +100,7 @@ const setHtmlDocument = Document => ({
   payload: Document
 });
 
-const clearHtmlDocument = () => ({
-  type: C.CLEAR_HTML_DOCUMENT,
-  payload: null
-});
+const clearHtmlDocument = () => ({ type: C.CLEAR_HTML_DOCUMENT });
 
 export {
   setWindow,

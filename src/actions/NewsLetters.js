@@ -95,7 +95,7 @@ const getNewsletterHtml = id => (dispatch, getState) => {
       const updatedIndex = payload.results.findIndex(
         newsletter => newsletter.id == id
       );
-      payload.results[updatedIndex].html = html;
+      if (updatedIndex != -1) payload.results[updatedIndex].html = html;
       dispatch({
         type: C.GET_NEWSLETTERS_SUCCESS,
         payload: payload
@@ -104,8 +104,17 @@ const getNewsletterHtml = id => (dispatch, getState) => {
     .catch(e => console.log(e));
 };
 
-const getNewsletter = id => dispatch =>
-  Axios()
+const getNewsletter = id => (dispatch, getState) => {
+  const { Newsletters } = getState();
+  let cachedNewsletters = { ...Newsletters };
+  const updatedIndex = cachedNewsletters.results.findIndex(
+    newsletter => newsletter.id == id
+  );
+  dispatch({
+    type: C.GET_HTML_DOCUMENT,
+    payload: cachedNewsletters.results[updatedIndex]
+  });
+  return Axios()
     .get(`newsletters/${id}/`)
     .then(res => {
       dispatch({
@@ -114,6 +123,7 @@ const getNewsletter = id => dispatch =>
       });
     })
     .catch(e => console.log(e));
+};
 
 const viewNewsletter = id => (dispatch, getState) =>
   Axios()
@@ -192,7 +202,7 @@ const updateNewsletterLike = (id, token, payload) => (dispatch, getState) =>
       const updatedIndex = payload.likes.results.findIndex(
         like => like.author == res.data.author
       );
-      payload.likes.results[updatedIndex] = res.data;
+      if (updatedIndex != -1) payload.likes.results[updatedIndex] = res.data;
       dispatch({
         type: C.GET_HTML_DOCUMENT,
         payload: payload
@@ -243,7 +253,7 @@ const updateNewsLetter = (id, token, payload) => (dispatch, getState) => {
       const { Newsletters } = getState();
       let payload = { ...Newsletters };
       const updatedIndex = payload.results.findIndex(i => i.id == res.data.id);
-      payload.results[updatedIndex] = res.data;
+      if (updatedIndex != -1) payload.results[updatedIndex] = res.data;
       dispatch({ type: C.UPDATE_NEWSLETTERS_SUCCESS });
       dispatch({
         type: C.GET_HTML_DOCUMENT,

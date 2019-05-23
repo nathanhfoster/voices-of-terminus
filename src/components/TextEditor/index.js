@@ -91,7 +91,14 @@ class TextEditor extends Component {
   }
 
   static propTypes = {
-    editorState: PropTypes.func.isRequired
+    editorState: PropTypes.func.isRequired,
+    getArticle: PropTypes.func.isRequired,
+    postArticle: PropTypes.func.isRequired,
+    setEditorState: PropTypes.func.isRequired,
+    updateArticle: PropTypes.func.isRequired,
+    clearHtmlDocument: PropTypes.func.isRequired,
+    getUsers: PropTypes.func.isRequired,
+    clearArticlesApi: PropTypes.func.isRequired
   };
 
   static defaultProps = { editorState: EditorState.createEmpty() };
@@ -140,9 +147,9 @@ class TextEditor extends Component {
     );
     const { User, HtmlDocument, match } = props;
     const Leader = User.is_leader || User.is_council;
-    const { author, title } = HtmlDocument ? HtmlDocument : "";
+    const { author, title } = HtmlDocument;
     let { tags } = this.state;
-    if (HtmlDocument)
+    if (HtmlDocument.tags)
       tags = HtmlDocument.tags
         .split("|")
         .map(i => (i = { value: i, label: i, isFixed: i == "Article" }));
@@ -156,7 +163,7 @@ class TextEditor extends Component {
     );
 
     // If HTML Document has been loaded from Redux and editing a Article
-    if (HtmlDocument && path.includes("edit")) {
+    if (HtmlDocument.html && path.includes("edit")) {
       const { html } = HtmlDocument;
       editorState = this.htmlToEditorState(html);
     }

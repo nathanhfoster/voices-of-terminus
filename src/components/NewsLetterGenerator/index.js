@@ -83,7 +83,15 @@ class NewsLetterGenerator extends PureComponent {
 
   static propTypes = {};
 
-  static defaultProps = {};
+  static defaultProps = {
+    postNewsletter: PropTypes.func.isRequired,
+    getNewsletters: PropTypes.func.isRequired,
+    getNewsletter: PropTypes.func.isRequired,
+    deleteNewsLetter: PropTypes.func.isRequired,
+    updateNewsLetter: PropTypes.func.isRequired,
+    clearHtmlDocument: PropTypes.func.isRequired,
+    clearNewsletterApi: PropTypes.func.isRequired
+  };
 
   componentWillMount() {
     this.getState(this.props);
@@ -102,11 +110,10 @@ class NewsLetterGenerator extends PureComponent {
 
   getState = props => {
     const { User, Newsletters, HtmlDocument } = props;
-    const { author, title } = HtmlDocument ? HtmlDocument : this.state;
+    const { author, title } = HtmlDocument.author ? HtmlDocument : this.state;
     const { id } = props.match.params;
     let { tags } = this.state;
-    if (HtmlDocument) tags = splitString(HtmlDocument.tags);
-
+    if (HtmlDocument.tags) tags = splitString(HtmlDocument.tags);
     const currentTags = Newsletters.results
       .map(e => splitString(e.tags))
       .flat(1);
@@ -115,8 +122,7 @@ class NewsLetterGenerator extends PureComponent {
       "value"
     );
     let design = null;
-    if (HtmlDocument && HtmlDocument.design)
-      design = JSON.parse(HtmlDocument.design);
+    if (HtmlDocument.design) design = JSON.parse(HtmlDocument.design);
 
     this.setState({
       design,
@@ -133,7 +139,6 @@ class NewsLetterGenerator extends PureComponent {
 
   componentWillUnmount() {
     const { clearHtmlDocument, clearNewsletterApi } = this.props;
-    this.setState({ HtmlDocument: null });
     clearHtmlDocument();
     clearNewsletterApi();
   }
@@ -158,11 +163,7 @@ class NewsLetterGenerator extends PureComponent {
 
   loadNewsletterDesign = design => {
     this.editor.loadDesign(design);
-    this.setState({
-      title: "",
-      newsletterLoaded: true,
-      tags: [newsletterSelectOptions[0]]
-    });
+    this.setState({ newsletterLoaded: true });
   };
 
   loadFormDesign = () => window.unlayer.loadTemplate(4447);
@@ -228,7 +229,7 @@ class NewsLetterGenerator extends PureComponent {
     const { getNewsletter, history } = this.props;
     if (id) {
       getNewsletter(id);
-      history.push(`/newsletter/edit/${id}`);
+      history.push(`/edit/newsletter/${id}`);
     }
     this.setState({ show: false });
   };
@@ -269,6 +270,7 @@ class NewsLetterGenerator extends PureComponent {
       show,
       TagOptions
     } = this.state;
+
     const { posting, posted, updating, updated, error } = Newsletters;
     // Set {id} = HtmlDocument if loaded from redux else set {id} = match.params from the url
     // Set {design} = JSON.parse(HtmlDocument.design) if loaded from redux else set {design} = null because you are not editing an existing one

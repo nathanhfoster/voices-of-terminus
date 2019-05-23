@@ -167,13 +167,15 @@ const UserHasPermissions = (User, Codename, AuthorId, OtherUser) => {
     const groupPermissions = GroupsMap[group] ? GroupsMap[group] : [];
     for (let i = 0; i < groupPermissions.length; i++) {
       const permission = groupPermissions[i];
-      if (PermissionMap[permission] == Codename) return true;
+      const hasPermission = PermissionMap[permission] == Codename;
+      if (hasPermission) return true;
     }
   }
 
   for (let i = 0; i < user_permissions.length; i++) {
     const permission = user_permissions[i];
-    if (PermissionMap[permission] == Codename) return true;
+    const hasPermission = PermissionMap[permission] == Codename;
+    if (hasPermission) return true;
   }
   return false;
 };

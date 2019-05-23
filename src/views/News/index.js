@@ -18,14 +18,12 @@ import "./stylesM.css";
 import { clearHtmlDocument } from "../../actions/App";
 import {
   getArticles,
-  getArticle,
   getArticleHtml,
   deleteArticle,
   nextArticles
 } from "../../actions/Articles";
 import {
   getNewsletters,
-  getNewsletter,
   getNewsletterHtml,
   deleteNewsLetter,
   nextNewsletters
@@ -48,12 +46,10 @@ const mapStateToProps = ({ User, Settings, Articles, Newsletters }) => ({
 
 const mapDispatchToProps = {
   getArticles,
-  getArticle,
   getArticleHtml,
   deleteArticle,
   nextArticles,
   getNewsletters,
-  getNewsletter,
   getNewsletterHtml,
   deleteNewsLetter,
   nextNewsletters,
@@ -72,7 +68,15 @@ class News extends Component {
   }
 
   static propTypes = {
-    getNewsletters: PropTypes.func.isRequired
+    getArticles: PropTypes.func.isRequired,
+    getArticleHtml: PropTypes.func.isRequired,
+    deleteArticle: PropTypes.func.isRequired,
+    nextArticles: PropTypes.func.isRequired,
+    getNewsletters: PropTypes.func.isRequired,
+    getNewsletterHtml: PropTypes.func.isRequired,
+    deleteNewsLetter: PropTypes.func.isRequired,
+    nextNewsletters: PropTypes.func.isRequired,
+    clearHtmlDocument: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -136,8 +140,10 @@ class News extends Component {
   }
 
   redirect = (history, path) => {
-    if (path == "/articles/") return history.push("/articles/latest");
-    if (path == "/news/") return history.push("/news/latest");
+    if (path == "/articles/" || path == "/articles")
+      return history.push("/articles/latest");
+    if (path == "/news/" || path == "/news")
+      return history.push("/news/latest");
 
     return true;
   };
@@ -208,21 +214,13 @@ class News extends Component {
       .filter(tabFilter)
       .sort(sort)
       .map(card => {
-        const {
-          User,
-          history,
-          getArticle,
-          deleteArticle,
-          getNewsletter,
-          deleteNewsLetter
-        } = this.props;
+        const { User, history, deleteArticle, deleteNewsLetter } = this.props;
         let click = null;
         let editCard = null;
         let deleteCard = null;
         let className = "CardContainer ";
-        const documentType = card.tags.includes("Article")
-          ? "article"
-          : "newsletter";
+        const documentType = card.tags.split("|")[0].toLowerCase();
+
         let deletePermission = (deletePermission = UserHasPermissions(
           User,
           `delete_${documentType}`,
@@ -236,13 +234,13 @@ class News extends Component {
 
         if (card.tags.includes("Article")) {
           click = () => history.push(`/view/article/${card.id}`);
-          editCard = () => history.push(`/article/edit/${card.id}`);
+          editCard = () => history.push(`/edit/article/${card.id}`);
           deleteCard = deleteArticle;
           className += "CardContainerArticle";
         }
         if (card.tags.includes("Newsletter")) {
           click = () => history.push(`/view/newsletter/${card.id}`);
-          editCard = () => history.push(`/newsletter/edit/${card.id}`);
+          editCard = () => history.push(`/edit/newsletter/${card.id}`);
           deleteCard = deleteNewsLetter;
           className += "CardContainerNewsletter";
         }

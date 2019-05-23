@@ -8,6 +8,8 @@ import registerServiceWorker from "./registerServiceWorker";
 import storeFactory from "./store";
 import { Provider } from "react-redux";
 import { BrowserRouter as Router } from "react-router-dom";
+import Cookies from "js-cookie";
+import { LastStoreUpdated } from "./helpers/variables";
 import "./index.css";
 import "./App.css";
 import "./AppM.css";
@@ -31,11 +33,24 @@ if ("serviceWorker" in navigator) {
     .catch(e => console.log("Service Worker Did Not Register"));
 }
 
-const initialState = localStorage["redux-store"]
-  ? JSON.parse(localStorage["redux-store"])
-  : {};
+const getState = () => {
+  const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
+  const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
+  if (shouldResetStore) {
+    localStorage.clear();
+    Cookies.set("STORE_UPDATED", new Date());
+  } else if (localStorage["redux-store"]) {
+    return JSON.parse(localStorage["redux-store"]);
+  }
+  return {};
+};
+
+const initialState = getState();
+
 const store = storeFactory(initialState);
+
 export const ReduxStore = store;
+
 const Clean = array => {
   for (let i = 0; i < array.length; i++) {
     const item = array[i];

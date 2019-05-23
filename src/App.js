@@ -129,16 +129,16 @@ class App extends PureComponent {
           path: ["/view/article/:id", "/view/newsletter/:id"],
           component: ViewHtmlDocument
         },
-        { path: ["/article/new", "/article/edit/:id"], component: TextEditor },
+        { path: ["/article/new", "/edit/article/:id"], component: TextEditor },
         { path: "/calendar", component: GuildCalendar },
         {
           path: ["/calendar/new/event", "/calendar/edit/event/:id"],
           component: Event
         },
         { path: "/calendar/event/:id", component: EventDetails },
-        { path: ["/articles/*", "/news/*"], component: News },
+        { path: ["/articles*", "/news", "/news/*"], component: News },
         {
-          path: ["/newsletter/new", "/newsletter/edit/:id"],
+          path: ["/newsletter/new", "/edit/newsletter/:id"],
           component: NewsLetterGenerator
         },
         { path: "/forums", component: Forums },
@@ -212,14 +212,14 @@ class App extends PureComponent {
   static defaultProps = {};
 
   componentWillMount() {
-    const { ResetRedux } = this.props;
-    const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
-    const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
+    // const { ResetRedux } = this.props;
+    // const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
+    // const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
 
-    if (shouldResetStore) {
-      Cookies.set("STORE_UPDATED", new Date());
-      ResetRedux();
-    }
+    // if (shouldResetStore) {
+    //   Cookies.set("STORE_UPDATED", new Date());
+    //   ResetRedux();
+    // }
 
     this.getState(this.props);
   }
