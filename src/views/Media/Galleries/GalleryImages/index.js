@@ -72,7 +72,19 @@ class GalleryImages extends PureComponent {
     };
   }
 
-  static propTypes = {};
+  static propTypes = {
+    selectValue: PropTypes.array,
+    search: PropTypes.string,
+    show: PropTypes.bool,
+    editing: PropTypes.bool,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    image: PropTypes.string,
+    image_id: PropTypes.number,
+    photoIndex: PropTypes.number,
+    isOpen: PropTypes.bool,
+    cardHovered: PropTypes.bool
+  };
 
   static defaultProps = {};
 
@@ -181,7 +193,7 @@ class GalleryImages extends PureComponent {
 
   createGalleryImage = e => {
     e.preventDefault();
-    const { User } = this.props;
+    const { User, postGalleryImage } = this.props;
     const { id } = this.state;
     const { image, title, description } = this.state;
     let { tags } = this.state;
@@ -195,7 +207,7 @@ class GalleryImages extends PureComponent {
       description,
       last_modified_by: User.id
     };
-    this.props.postGalleryImage(User.token, payload);
+    postGalleryImage(User.token, payload);
     this.setState({ show: false });
   };
 
@@ -219,6 +231,7 @@ class GalleryImages extends PureComponent {
   };
 
   renderGalleryImages = (images, filter, dontFilter) => {
+    const { deleteGalleryImage } = this.props;
     const { User } = this.state;
     const canDelete = UserHasPermissions(User, "delete_galleryimages");
     const canUpdate = UserHasPermissions(User, "change_galleryimages");
@@ -226,28 +239,36 @@ class GalleryImages extends PureComponent {
       .filter(img =>
         dontFilter ? img : isEquivalent(img.tags.split("|"), filter)
       )
-      .map((image, index) => {
+      .map((galleryImage, index) => {
+        const {
+          id,
+          title,
+          description,
+          image,
+          tags,
+          author,
+          author_username,
+          date_created
+        } = galleryImage;
         return (
           <Col md={3} xs={12} className="galleryCardContainer">
             <div
-              key={image.id}
+              key={id}
               className="Clickable galleryCard Hover"
               onClick={() => this.setState({ isOpen: true, photoIndex: index })}
-              onMouseEnter={() => this.setState({ cardHovered: image.id })}
+              onMouseEnter={() => this.setState({ cardHovered: id })}
               onMouseLeave={() => this.setState({ cardHovered: null })}
             >
               <div className="cardActions">
                 <PopOver User={User}>
                   <ConfirmAction
-                    Action={e =>
-                      this.props.deleteGalleryImage(image.id, User.token)
-                    }
+                    Action={e => deleteGalleryImage(id, User.token)}
                     Disabled={false}
                     Icon={<i className="fas fa-trash" />}
                     hasPermission={canDelete}
                     Size=""
                     Class="pull-right"
-                    Title={image.title}
+                    Title={title}
                   />
                   {canUpdate ? (
                     <Button
@@ -256,13 +277,13 @@ class GalleryImages extends PureComponent {
                         this.setState({
                           show: true,
                           editing: true,
-                          image_id: image.id,
-                          title: image.title,
-                          description: image.description,
-                          tags: image.tags
+                          image_id: id,
+                          title: title,
+                          description: description,
+                          tags: tags
                             .split("|")
                             .map(i => (i = { value: i, label: i })),
-                          image: image.image
+                          image: image
                         });
                       }}
                       bsSize=""
@@ -273,16 +294,16 @@ class GalleryImages extends PureComponent {
                   ) : null}
                 </PopOver>
               </div>
-              {image.image ? (
-                <Image src={image.image} />
+              {image ? (
+                <Image src={image} />
               ) : (
                 <div style={{ position: "absolute", top: "25%", right: "50%" }}>
                   <i className="fa fa-spinner fa-spin" />
                 </div>
               )}
               <div className="gallerySummary">
-                <h4>{image.title}</h4>
-                <span>{image.description}</span>
+                <h4 className="inlineNoWrap">{title}</h4>
+                <p className="inlineNoWrap">{description}</p>
                 <div className="cardInfo">
                   <div
                     className="inlineNoWrap"
@@ -291,13 +312,13 @@ class GalleryImages extends PureComponent {
                     }}
                   >
                     <Link
-                      to={`/profile/${image.author}`}
+                      to={`/profile/${author}`}
                       onClick={e => e.stopPropagation()}
                     >
-                      {image.author_username}
+                      {author_username}
                     </Link>{" "}
                     <i className="far fa-clock" />
-                    <Moment fromNow>{image.date_created}</Moment>
+                    <Moment fromNow>{date_created}</Moment>
                   </div>
                 </div>
               </div>
@@ -308,6 +329,7 @@ class GalleryImages extends PureComponent {
   };
 
   render() {
+    const { deleteGalleryImage } = this.props;
     const {
       User,
       GalleryTitle,
@@ -415,9 +437,7 @@ class GalleryImages extends PureComponent {
                         image_id: images[photoIndex].id,
                         title: images[photoIndex].title,
                         description: images[photoIndex].description,
-                        tags: images[photoIndex].tags
-                          .split("|")
-                          .map(i => (i = { value: i, label: i })),
+                        tags: splitString(images[photoIndex].tags),
                         image: images[photoIndex].image
                       });
                     }}
@@ -427,10 +447,7 @@ class GalleryImages extends PureComponent {
                 ),
                 <ConfirmAction
                   Action={e => {
-                    this.props.deleteGalleryImage(
-                      images[photoIndex].id,
-                      User.token
-                    );
+                    deleteGalleryImage(images[photoIndex].id, User.token);
                     this.setState({
                       isOpen: false,
                       images: images.filter(

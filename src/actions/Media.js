@@ -40,7 +40,7 @@ const getGalleryImage = id => (dispatch, getState) =>
       const updatedIndex = payload.results.findIndex(
         gallery => gallery.id == id
       );
-      payload.results[updatedIndex].image = image;
+      if (updatedIndex != -1) payload.results[updatedIndex].image = image;
       dispatch({
         type: C.GET_GALLERIES,
         payload: payload
@@ -57,7 +57,7 @@ const updateGallery = (id, token, payload) => (dispatch, getState) =>
       const updatedIndex = payload.results.findIndex(
         gallery => gallery.id == res.data.id
       );
-      payload.results[updatedIndex] = res.data;
+      if (updatedIndex != -1) payload.results[updatedIndex] = res.data;
       dispatch({
         type: C.GET_GALLERIES,
         payload: payload
@@ -145,7 +145,7 @@ const viewGalleryImage = id => (dispatch, getState) => {
       const updatedIndex = payload.results.findIndex(
         gallery => gallery.id == id
       );
-      payload.results[updatedIndex].image = image;
+      if (updatedIndex != -1) payload.results[updatedIndex].image = image;
       dispatch({
         type: C.GET_GALLERY,
         payload: payload
@@ -182,7 +182,7 @@ const updateGalleryImage = (id, token, payload) => (dispatch, getState) =>
       const updatedIndex = payload.results.findIndex(
         gallery => gallery.id == res.data.id
       );
-      payload.results[updatedIndex] = res.data;
+      if (updatedIndex != -1) payload.results[updatedIndex] = res.data;
       dispatch({
         type: C.GET_GALLERY,
         payload: payload

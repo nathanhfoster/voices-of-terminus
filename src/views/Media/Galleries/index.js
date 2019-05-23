@@ -64,7 +64,16 @@ class Galleries extends PureComponent {
     };
   }
 
-  static propTypes = {};
+  static propTypes = {
+    selectValue: PropTypes.array,
+    search: PropTypes.string,
+    show: PropTypes.bool,
+    editing: PropTypes.bool,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    gallery_image: PropTypes.string,
+    gallery_id: PropTypes.number
+  };
 
   static defaultProps = {};
 
@@ -252,8 +261,8 @@ class Galleries extends PureComponent {
               </div>
             )}
             <div className="gallerySummary">
-              <h4>{gallery.title}</h4>
-              <span>{gallery.description}</span>
+              <h4 className="inlineNoWrap">{gallery.title}</h4>
+              <p className="inlineNoWrap">{gallery.description}</p>
               <div className="cardInfo">
                 <div
                   className="inlineNoWrap"

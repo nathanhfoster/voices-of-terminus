@@ -1,3 +1,6 @@
+.GalleryImages p {
+  margin: 0;
+}
 .LightboxButton {
   margin: 4px;
 }
