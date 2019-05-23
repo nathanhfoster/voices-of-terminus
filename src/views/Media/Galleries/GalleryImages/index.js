@@ -362,7 +362,7 @@ class GalleryImages extends PureComponent {
     return (
       <Grid className="GalleryImages Container">
         <Row>
-          <PageHeader className="pageHeader">GalleryImages</PageHeader>
+          <PageHeader className="pageHeader">Images</PageHeader>
         </Row>
         <Row className="Center">
           <Col xs={12}>
