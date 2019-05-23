@@ -50,8 +50,12 @@ class Home extends PureComponent {
 
   getState = props => {
     const { User } = props;
-    const votLatestVideo = props.VoTYouTubeChannelData.find(e => e.videoId);
-    const vrLatestVideo = props.VRYouTubeChannelData.find(e => e.videoId);
+    const votLatestVideo = props.VoTYouTubeChannelData.latest.find(
+      e => e.videoId
+    );
+    const vrLatestVideo = props.VRYouTubeChannelData.latest.find(
+      e => e.videoId
+    );
     this.setState({ User, votLatestVideo, vrLatestVideo });
   };
 

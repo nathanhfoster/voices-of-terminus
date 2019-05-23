@@ -40,15 +40,13 @@ import PrivacyPolicy from "./components/PrivacyPolicy";
 import Settings from "./views/Settings";
 import References from "./views/References";
 import ReferenceDetails from "./views/References/ReferenceDetails";
+import { clearApiResponse, setWindow, Logout } from "./actions/App";
 import {
-  clearApiResponse,
-  setWindow,
   getVoTYouTubeChannelData,
   getVotChannelsPlayLists,
   getAllVotYouTube,
-  getVRYouTubeChannelData,
-  Logout
-} from "./actions/App";
+  getVRYouTubeChannelData
+} from "./actions/Api";
 import {
   getAllUserGroups,
   getAllUserPermissions
@@ -58,7 +56,6 @@ import { getUserMessages } from "./actions/Messages";
 import { refreshPatchUser } from "./actions/App";
 import { getUserSettings } from "./actions/Settings";
 import "moment-timezone";
-import MomentJS from "moment";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
 
@@ -106,23 +103,71 @@ class App extends PureComponent {
       User: {},
       routeItems: [
         { path: "/home", component: Home },
-        { path: ["/admin", "/admin/overview", "/admin/permissions", "/admin/tickets"], component: Admin },
+        {
+          path: [
+            "/admin",
+            "/admin/overview",
+            "/admin/permissions",
+            "/admin/tickets"
+          ],
+          component: Admin
+        },
         { path: "/admin/view/ticket/:id", component: TicketDetails },
         { path: "/admin/edit/user/:id", component: UserProfile },
-        { path: ["/forms", "/forms/:id", "/forms/:id/questions", "/forms/:id/results"], component: FormSystem },
+        {
+          path: [
+            "/forms",
+            "/forms/:id",
+            "/forms/:id/questions",
+            "/forms/:id/results"
+          ],
+          component: FormSystem
+        },
         { path: ["/form/new/", "/form/edit/:id"], component: FormGenerator },
-        { path: ["/view/article/:id", "/view/newsletter/:id"], component: ViewHtmlDocument },
+        {
+          path: ["/view/article/:id", "/view/newsletter/:id"],
+          component: ViewHtmlDocument
+        },
         { path: ["/article/new", "/article/edit/:id"], component: TextEditor },
         { path: "/calendar", component: GuildCalendar },
-        { path: ["/calendar/new/event", "/calendar/edit/event/:id"], component: Event },
+        {
+          path: ["/calendar/new/event", "/calendar/edit/event/:id"],
+          component: Event
+        },
         { path: "/calendar/event/:id", component: EventDetails },
         { path: ["/articles/*", "/news/*"], component: News },
-        { path: ["/newsletter/new", "/newsletter/edit/:id"], component: NewsLetterGenerator },
+        {
+          path: ["/newsletter/new", "/newsletter/edit/:id"],
+          component: NewsLetterGenerator
+        },
         { path: "/forums", component: Forums },
-        { path: ["/guild/about", "/guild/donate", "/guild/roster", "/guild/charters", "/guild/lore", "/guild/contests", "/guild/team", "/guild/join"], component: Guild },
-        { path: ["/media/images", "/media/videos", "/media/streams", "/media/podcasts"], component: Media },
+        {
+          path: [
+            "/guild/about",
+            "/guild/donate",
+            "/guild/roster",
+            "/guild/charters",
+            "/guild/lore",
+            "/guild/contests",
+            "/guild/team",
+            "/guild/join"
+          ],
+          component: Guild
+        },
+        {
+          path: [
+            "/media/images",
+            "/media/videos",
+            "/media/streams",
+            "/media/podcasts"
+          ],
+          component: Media
+        },
         { path: "/media/images/gallery/:id", component: Gallery },
-        { path: ["/media/videos/:id/:type", "/media/podcasts/:id/:type"], component: VideoPlayer },
+        {
+          path: ["/media/videos/:id/:type", "/media/podcasts/:id/:type"],
+          component: VideoPlayer
+        },
         { path: "/profile", component: Profile },
         { path: "/profile/:id/", component: PublicProfile },
         { path: "/tickets", component: TicketSystem },
@@ -179,8 +224,8 @@ class App extends PureComponent {
     getUsers();
     getAllUserGroups();
     getAllUserPermissions();
-    if (this.shouldUpdate(VoTYouTubeChannelData[0])) getVoTYouTubeChannelData();
-    if (this.shouldUpdate(VRYouTubeChannelData[0])) getAllVotYouTube();
+    getVoTYouTubeChannelData();
+    getAllVotYouTube();
     getVRYouTubeChannelData();
     getVotChannelsPlayLists();
     this.updateWindowDimensions();
@@ -189,12 +234,6 @@ class App extends PureComponent {
     // if cookie is expired and redux has User data remove it by logging out
     if (!Cookies.get("User_LoginToken") && User.token) Logout();
   }
-
-  /* If youtubeData exists ? update it if the latest video is 3 days old : else update it */
-  shouldUpdate = youtubeData =>
-    youtubeData
-      ? MomentJS().diff(MomentJS(youtubeData.publishedAt), "days") > 3
-      : true;
 
   componentWillReceiveProps(nextProps) {
     clearInterval(this.interval);
@@ -299,21 +338,21 @@ class App extends PureComponent {
     return location.pathname == "/" ? (
       <Redirect to="/home" />
     ) : (
-        <div className="App">
-          <NavBar history={history} location={location} match={match} />
-          <BackgroundImage history={history} location={location} match={match} />
-          <div
-            className="routeOverlay"
-            style={{ bottom: show_footer ? "var(--navBarHeight)" : 0 }}
-          >
-            <Switch>
-              {this.renderRouteItems(routeItems)}
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-          <Footer history={history} location={location} match={match} />
+      <div className="App">
+        <NavBar history={history} location={location} match={match} />
+        <BackgroundImage history={history} location={location} match={match} />
+        <div
+          className="routeOverlay"
+          style={{ bottom: show_footer ? "var(--navBarHeight)" : 0 }}
+        >
+          <Switch>
+            {this.renderRouteItems(routeItems)}
+            <Route component={PageNotFound} />
+          </Switch>
         </div>
-      );
+        <Footer history={history} location={location} match={match} />
+      </div>
+    );
   }
 }
 

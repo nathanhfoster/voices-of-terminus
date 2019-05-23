@@ -5,7 +5,7 @@ import { Grid } from "react-bootstrap";
 import "./styles.css";
 import "./stylesM.css";
 import PodcastCard from "./PodcastCard";
-import { getVotPlaylistShow } from "../../../actions/App";
+import { getVotPlaylistShow } from "../../../actions/Api";
 
 const mapStateToProps = ({ VotPlaylistShow }) => ({
   VotPlaylistShow
@@ -40,10 +40,12 @@ class Podcasts extends PureComponent {
 
   getState = props => {
     let { VotPlaylistShow } = props;
-    VotPlaylistShow = VotPlaylistShow.filter(p => p.thumbnail).map(p => {
-      p.videoId = p.thumbnail.split("/")[4];
-      return p;
-    });
+    VotPlaylistShow = VotPlaylistShow.latest
+      .filter(p => p.thumbnail)
+      .map(p => {
+        p.videoId = p.thumbnail.split("/")[4];
+        return p;
+      });
     this.setState({ VotPlaylistShow });
   };
 

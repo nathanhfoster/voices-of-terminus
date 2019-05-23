@@ -1,84 +1,8 @@
 import C from "../constants";
 import { Axios } from "./Axios";
 import Cookies from "js-cookie";
-import YTube from "ytube";
 import qs from "qs";
 import { GetUserPermissions } from "../helpers";
-const {
-  REACT_APP_YOUTUBE_API_KEY,
-  REACT_APP_TWITCH_CLIENT_ID,
-  REACT_APP_VOT_YOUTUBE_CHANNEL_ID,
-  REACT_APP_VR_YOUTUBE_CHANNEL_ID,
-  REACT_APP_VOT_PLAYLIST_ID_SHOW
-} = process.env;
-const ytube = new YTube(REACT_APP_YOUTUBE_API_KEY);
-
-const getVoTYouTubeChannelData = () => dispatch =>
-  ytube
-    .getChannelsLatestVideos(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
-    .then(res => {
-      dispatch({
-        type: C.GET_VOT_YOUTUBE_CHANNEL_DATA,
-        payload: res.latest
-      });
-    })
-    .catch(e => console.log("getVoTYouTubeChannelData: ", e));
-
-const getVotChannelsPlayLists = () => dispatch =>
-  ytube
-    .getChannelsPlayLists(REACT_APP_VOT_YOUTUBE_CHANNEL_ID, 50)
-    .then(res => {
-      dispatch({
-        type: C.GET_VOT_CHANNELS_PLAYLISTS,
-        payload: res
-      });
-    })
-    .catch(e => console.log("getVotChannelsPlayLists: ", e));
-
-const getVotPlaylistShow = () => dispatch =>
-  ytube
-    .getPlaylistVideos(REACT_APP_VOT_PLAYLIST_ID_SHOW, 50)
-    .then(res => {
-      dispatch({
-        type: C.GET_VOT_PLAYLIST_SHOW,
-        payload: res
-      });
-    })
-    .catch(e => console.log("getVotPlaylistShow: ", e));
-
-const getVotTwitchStreams = () => dispatch =>
-  fetch(
-    `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
-  )
-    .then(response => response.json())
-    .then(res =>
-      dispatch({
-        type: C.GET_VOT_TWITCH_STREAMS,
-        payload: res
-      })
-    );
-
-const getAllVotYouTube = () => dispatch =>
-  ytube
-    .fetchAllYouTube("Voices of Terminus")
-    .then(res => {
-      dispatch({
-        type: C.GET_ALL_VOT_YOUTUBE_CHANNEL_DATA,
-        payload: res
-      });
-    })
-    .catch(e => console.log("getAllVotYouTube: ", e));
-
-const getVRYouTubeChannelData = () => dispatch =>
-  ytube
-    .getChannelsLatestVideos(REACT_APP_VR_YOUTUBE_CHANNEL_ID, 50)
-    .then(res => {
-      dispatch({
-        type: C.GET_VR_YOUTUBE_CHANNEL_DATA,
-        payload: res.latest
-      });
-    })
-    .catch(e => console.log("getVRYouTubeChannelData: ", e));
 
 const setWindow = Window => ({
   type: C.SET_WINDOW,
@@ -93,8 +17,8 @@ const login = (username, password, rememberMe) => dispatch =>
       rememberMe
         ? Cookies.set("User_LoginToken", res.data.token)
         : Cookies.set("User_LoginToken", res.data.token, {
-          expires: eightHours
-        });
+            expires: eightHours
+          });
       dispatch({
         type: C.SET_LOGIN_TOKEN,
         payload: res.data
@@ -162,9 +86,9 @@ const refreshPatchUser = (token, id) => dispatch =>
     .catch(e =>
       e.response && e.response.status == 401
         ? dispatch({
-          type: C.SET_LOGOUT,
-          payload: null
-        })
+            type: C.SET_LOGOUT,
+            payload: null
+          })
         : console.log(e)
     );
 
@@ -179,12 +103,6 @@ const clearHtmlDocument = () => ({
 });
 
 export {
-  getVoTYouTubeChannelData,
-  getVotChannelsPlayLists,
-  getVotPlaylistShow,
-  getVotTwitchStreams,
-  getAllVotYouTube,
-  getVRYouTubeChannelData,
   setWindow,
   login,
   Logout,

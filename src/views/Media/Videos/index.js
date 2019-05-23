@@ -1,17 +1,16 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
-import { Grid, Row, Col, Image, NavItem } from "react-bootstrap";
+import { Grid } from "react-bootstrap";
 import "./styles.css";
-import Moment from "react-moment";
-import { LinkContainer } from "react-router-bootstrap";
 import VideoCard from "./VideoCard";
+import { getVoTYouTubeChannelData } from "../../../actions/Api";
 
 const mapStateToProps = ({ VoTYouTubeChannelData }) => ({
   VoTYouTubeChannelData
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = { getVoTYouTubeChannelData };
 
 class Videos extends PureComponent {
   constructor(props) {
@@ -36,7 +35,10 @@ class Videos extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { getVoTYouTubeChannelData } = this.props;
+    getVoTYouTubeChannelData();
+  }
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -44,7 +46,9 @@ class Videos extends PureComponent {
 
   getState = props => {
     let { VoTYouTubeChannelData } = props;
-    VoTYouTubeChannelData = VoTYouTubeChannelData.filter(e => e.videoId);
+    VoTYouTubeChannelData.latest = VoTYouTubeChannelData.latest.filter(
+      e => e.videoId
+    );
     this.setState({ VoTYouTubeChannelData });
   };
 
@@ -52,9 +56,10 @@ class Videos extends PureComponent {
 
   render() {
     const { VoTYouTubeChannelData } = this.state;
+    const { latest } = VoTYouTubeChannelData;
     return (
       <Grid className="Videos Container fadeIn">
-        {this.renderVideos(VoTYouTubeChannelData)}
+        {this.renderVideos(latest)}
       </Grid>
     );
   }

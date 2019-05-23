@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
 import "./stylesM.css";
-import { getVotTwitchStreams } from "../../../actions/App";
+import { getVotTwitchStreams } from "../../../actions/Api";
 import { Grid } from "react-bootstrap";
 import StreamCard from "./StreamCard";
 

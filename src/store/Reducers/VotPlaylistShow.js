@@ -1,4 +1,17 @@
 import C from "../../constants.js";
 
-export const VotPlaylistShow = (state = [], action) =>
-  action.type == C.GET_VOT_PLAYLIST_SHOW ? action.payload : state;
+export const VotPlaylistShow = (
+  state = {
+    lastApiCall: new Date(),
+    latest: []
+  },
+  action
+) => {
+  const { type, payload } = action;
+  switch (type) {
+    case C.GET_VOT_PLAYLIST_SHOW:
+      return { ...state, latest: payload };
+    default:
+      return state;
+  }
+};
