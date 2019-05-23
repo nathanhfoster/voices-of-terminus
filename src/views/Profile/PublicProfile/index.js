@@ -28,7 +28,6 @@ import Moment from "react-moment";
 import { ExperienceBar } from "../../../components/ExperienceBar";
 import { CharacterCard } from "../../../components/CharacterCard";
 import "./styles.css";
-import "./stylesM.css";
 
 const mapStateToProps = ({ User, Admin }) => ({
   User,

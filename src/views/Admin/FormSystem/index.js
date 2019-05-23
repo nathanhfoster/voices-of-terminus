@@ -23,7 +23,6 @@ import { formOptions } from "../../../helpers/options";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
-import "./stylesM.css";
 import {
   GetForm,
   GetFormQuestions,

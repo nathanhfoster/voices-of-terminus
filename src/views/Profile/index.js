@@ -27,7 +27,6 @@ import {
 } from "../../actions/User";
 import Select from "react-select";
 import "./styles.css";
-import "./stylesM.css";
 import { hasCharAfterSpace, roleClassIcon } from "../../helpers";
 import {
   raceRoleClassOptions,
@@ -41,7 +40,7 @@ import { withAlert } from "react-alert";
 import { ExperienceBar } from "../../components/ExperienceBar";
 import ConfirmAction from "../../components/ConfirmAction";
 import Tooltip from "rc-tooltip";
-import Slider, { Range } from "rc-slider";
+import Slider from "rc-slider";
 import PendingAction from '../../components/PendingAction'
 
 const mapStateToProps = ({ User }) => ({

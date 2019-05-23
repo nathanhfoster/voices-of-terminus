@@ -29,7 +29,6 @@ import { getUsers } from "../../../actions/Admin";
 import { Redirect } from "react-router-dom";
 import Moment from "react-moment";
 import "./styles.css";
-import "./stylesM.css";
 import matchSorter from "match-sorter";
 import Select from "react-select";
 import { selectGuildRecipients, RemoveArrayDuplicates } from "../../../helpers";

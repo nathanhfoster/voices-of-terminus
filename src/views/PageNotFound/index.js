@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import { Grid, Row, Col, Image } from "react-bootstrap";
 import "./styles.css";
-import "./stylesM.css";
 import skar from "../../images/backgrounds/skar.png";
 
 const mapStateToProps = ({}) => ({});

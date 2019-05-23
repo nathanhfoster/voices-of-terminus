@@ -4,7 +4,6 @@ import { connect as reduxConnect } from "react-redux";
 import { Grid, Row, Col } from "react-bootstrap";
 import Draggable, { DraggableCore } from "react-draggable";
 import "./styles.css";
-import "./stylesM.css";
 
 const mapStateToProps = ({}) => ({});
 

@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Grid, Row, Col, PageHeader } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
-import "./stylesM.css";
 
 const mapStateToProps = ({ User }) => ({ User });
 

@@ -34,7 +34,6 @@ import {
 import Moment from "react-moment";
 import matchSorter from "match-sorter";
 import "./styles.css";
-import "./stylesM.css";
 import ConfirmAction from "../../../../components/ConfirmAction";
 import Lightbox from "react-image-lightbox";
 import { withAlert } from "react-alert";

@@ -17,7 +17,6 @@ import { clearUser, updateUserProfile } from "../../../actions/Admin";
 import { getUser } from "../../../actions/App";
 import Moment from "react-moment";
 import "./styles.css";
-import "./stylesM.css";
 import {
   isOnline,
   MainAltCharacter,

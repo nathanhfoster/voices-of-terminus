@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import { Grid } from "react-bootstrap";
 import "./styles.css";
-import "./stylesM.css";
 import PodcastCard from "./PodcastCard";
 import { getVotPlaylistShow } from "../../../actions/Api";
 

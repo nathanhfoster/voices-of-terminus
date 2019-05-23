@@ -15,7 +15,6 @@ import {
 } from "react-bootstrap";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
-import "./stylesM.css";
 import ConfirmAction from "../ConfirmAction";
 import Select from "react-select";
 import {

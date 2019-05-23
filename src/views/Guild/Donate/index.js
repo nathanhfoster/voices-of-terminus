@@ -1,8 +1,7 @@
 import React, { PureComponent } from "react";
 import { connect as reduxConnect } from "react-redux";
-import { Grid, Row, Col, Button, PageHeader } from "react-bootstrap";
+import { Grid, Row, Col, Button } from "react-bootstrap";
 import "./styles.css";
-import "./stylesM.css";
 
 const mapStateToProps = ({}) => ({});
 

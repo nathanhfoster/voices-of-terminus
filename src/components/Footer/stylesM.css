@@ -1,12 +1,3 @@
-/* 	The Bootstrap grid system has four classes:
-xs (for phones - screens less than 768px wide)
-sm (for tablets - screens equal to or greater than 768px wide)
-md (for small laptops - screens equal to or greater than 992px wide)
-lg (for laptops and desktops - screens equal to or greater than 1200px wide)
-
-max-width: 767px = “If [device width] is less than or equal to 767px, then do {…}”
-min-width: 767px = “If [device width] is greater than or equal to 767px, then do {…}”
-*/
 @media (max-width: 767px) {
   .footerImages {
     display: none;
@@ -20,7 +11,7 @@ min-width: 767px = “If [device width] is greater than or equal to 767px, then 
     display: none;
   }
   .MainFooter {
-      font-size: .75em;
+    font-size: 0.75em;
   }
 }
 @media (min-width: 768px) {

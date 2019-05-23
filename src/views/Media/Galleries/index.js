@@ -18,7 +18,6 @@ import {
   ControlLabel
 } from "react-bootstrap";
 import "./styles.css";
-import "./stylesM.css";
 import { joinStrings, splitString, isEquivalent } from "../../../helpers";
 import { UserHasPermissions } from "../../../helpers/userPermissions";
 import { galleryImageTags } from "../../../helpers/options";

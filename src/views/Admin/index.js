@@ -21,7 +21,6 @@ import {
   Tab
 } from "react-bootstrap";
 import "./styles.css";
-import "./stylesM.css";
 import {
   changeGroups,
   changePermissions,
