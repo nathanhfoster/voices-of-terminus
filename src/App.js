@@ -26,7 +26,7 @@ import ViewHtmlDocument from "./components/ViewHtmlDocument";
 import Forums from "./views/Forums";
 import Guild from "./views/Guild";
 import Media from "./views/Media";
-import Gallery from "./views/Media/Images/Gallery";
+import GalleryImages from "./views/Media/Galleries/GalleryImages";
 import VideoPlayer from "./components/VideoPlayer";
 import Profile from "./views/Profile";
 import PublicProfile from "./views/Profile/PublicProfile";
@@ -57,7 +57,6 @@ import { getUserSettings } from "./actions/Settings";
 import "moment-timezone";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
 import { userRefreshDelay } from "./helpers/variables";
-import MomentJS from "moment";
 
 const mapStateToProps = ({
   Admin,
@@ -158,14 +157,14 @@ class App extends PureComponent {
         },
         {
           path: [
-            "/media/images",
+            "/media/galleries",
             "/media/videos",
             "/media/streams",
             "/media/podcasts"
           ],
           component: Media
         },
-        { path: "/media/images/gallery/:id", component: Gallery },
+        { path: "/media/galleries/images/:id", component: GalleryImages },
         {
           path: ["/media/videos/:id/:type", "/media/podcasts/:id/:type"],
           component: VideoPlayer

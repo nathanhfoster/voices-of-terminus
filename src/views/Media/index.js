@@ -12,7 +12,7 @@ import {
   Tab
 } from "react-bootstrap";
 import "./styles.css";
-import Images from "./Images";
+import Galleries from "./Galleries";
 import Videos from "./Videos";
 import Streams from "./Streams";
 import Podcasts from "./Podcasts";
@@ -44,9 +44,9 @@ class Media extends Component {
     YouTubeChannelData: [],
     TabItems: [
       {
-        eventKey: "/media/images",
-        Title: <i className="fas fa-images"> IMAGES</i>,
-        Component: Images
+        eventKey: "/media/galleries",
+        Title: <i className="fas fa-images"> GALLERIES</i>,
+        Component: Galleries
       },
       {
         eventKey: "/media/videos",

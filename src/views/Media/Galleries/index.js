@@ -49,7 +49,7 @@ const mapDispatchToProps = {
   deleteGallery
 };
 
-class Images extends PureComponent {
+class Galleries extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -73,7 +73,8 @@ class Images extends PureComponent {
     this.getState(this.props);
   }
   componentDidMount() {
-    this.props.getGalleries();
+    const { getGalleries } = this.props;
+    getGalleries();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -201,7 +202,9 @@ class Images extends PureComponent {
           <div
             key={gallery.id}
             className="Clickable galleryCard Hover"
-            onClick={() => history.push(`/media/images/gallery/${gallery.id}`)}
+            onClick={() =>
+              history.push(`/media/galleries/images/${gallery.id}`)
+            }
           >
             <div className="cardActions">
               <PopOver User={User}>
@@ -301,7 +304,7 @@ class Images extends PureComponent {
     const maxlength = galleryImageTags.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
-      <Grid className="Images Container">
+      <Grid className="Galleries Container">
         <Row className="ActionToolbarRow">
           <Col
             md={3}
@@ -451,4 +454,4 @@ class Images extends PureComponent {
     );
   }
 }
-export default reduxConnect(mapStateToProps, mapDispatchToProps)(Images);
+export default reduxConnect(mapStateToProps, mapDispatchToProps)(Galleries);

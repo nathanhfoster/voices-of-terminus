@@ -40,7 +40,7 @@ class Footer extends PureComponent {
     this.getState(this.props);
   }
 
-  componentDidMount() { }
+  componentDidMount() {}
 
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
@@ -93,7 +93,7 @@ class Footer extends PureComponent {
         return elves;
       case "/login":
         return humans;
-      case "/media/images":
+      case "/media/galleries":
         return halflings;
       case "/media/videos":
         return humans;
@@ -137,17 +137,17 @@ class Footer extends PureComponent {
           </div>
           {shouldShow
             ? [
-              <Image
-                key={1}
-                className="Female footerImages"
-                src={femaleImage}
-              />,
-              <Image key={2} className="Male footerImages" src={maleImage} />
-            ]
+                <Image
+                  key={1}
+                  className="Female footerImages"
+                  src={femaleImage}
+                />,
+                <Image key={2} className="Male footerImages" src={maleImage} />
+              ]
             : null}
         </footer>
       </Collapse>
-    )
+    );
   }
 }
 export default reduxConnect(mapStateToProps, mapDispatchToProps)(Footer);

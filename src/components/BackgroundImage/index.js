@@ -106,7 +106,7 @@ class BackgroundImage extends PureComponent {
         return bg9;
       case "/login":
         return bg7;
-      case "/media/images":
+      case "/media/galleries":
         return bg12;
       case "/media/videos":
         return bg12;

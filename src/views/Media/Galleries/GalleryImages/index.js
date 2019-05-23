@@ -54,7 +54,7 @@ const mapDispatchToProps = {
   clearGalleryImages
 };
 
-class Gallery extends PureComponent {
+class GalleryImages extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -101,14 +101,16 @@ class Gallery extends PureComponent {
       Galleries.results && Galleries.results[GalleryTitleIndex]
         ? Galleries.results[GalleryTitleIndex].title
         : null;
-    const { Gallery } = Galleries;
-    const currentTags = Gallery.results.map(e => splitString(e.tags)).flat(1);
-    this.getGalleryImage(Gallery);
+    const { GalleryImages } = Galleries;
+    const currentTags = GalleryImages.results
+      .map(e => splitString(e.tags))
+      .flat(1);
+    this.getGalleryImage(GalleryImages);
     this.setState({
       User,
       id,
       GalleryTitle,
-      Gallery,
+      GalleryImages,
       currentTags
     });
   };
@@ -118,13 +120,14 @@ class Gallery extends PureComponent {
     clearGalleryImages();
   }
 
-  getGalleryImage = Gallery => {
-    const { loading, results } = Gallery;
+  getGalleryImage = GalleryImages => {
+    const { viewGalleryImage } = this.props;
+    const { loading, results } = GalleryImages;
     const emptyGalleryImage = results.findIndex(
       gallery => !gallery.hasOwnProperty("image")
     );
     if (emptyGalleryImage != -1 && !loading)
-      return this.props.viewGalleryImage(results[emptyGalleryImage].id);
+      return viewGalleryImage(results[emptyGalleryImage].id);
     return null;
   };
 
@@ -309,7 +312,7 @@ class Gallery extends PureComponent {
     const {
       User,
       GalleryTitle,
-      Gallery,
+      GalleryImages,
       title,
       description,
       image,
@@ -321,7 +324,7 @@ class Gallery extends PureComponent {
       tags,
       currentTags
     } = this.state;
-    let images = Gallery ? Gallery.results : [];
+    let images = GalleryImages ? GalleryImages.results : [];
     images = search
       ? matchSorter(images, search, {
           keys: ["title", "author_username", "description"]
@@ -335,9 +338,9 @@ class Gallery extends PureComponent {
     const maxlength = galleryImageTags.length;
     const dontFilter = filter.length == maxlength || filter.length == 0;
     return (
-      <Grid className="Gallery Container">
+      <Grid className="GalleryImages Container">
         <Row>
-          <PageHeader className="pageHeader">Gallery</PageHeader>
+          <PageHeader className="pageHeader">GalleryImages</PageHeader>
         </Row>
         <Row className="Center">
           <Col xs={12}>
@@ -367,7 +370,7 @@ class Gallery extends PureComponent {
                 name="search"
                 placeholder="Filter by Title or Author..."
                 value={search}
-                onChange={filter => this.onChange(filter, Gallery)}
+                onChange={filter => this.onChange(filter, GalleryImages)}
               />
             </InputGroup>
           </Col>
@@ -490,7 +493,7 @@ class Gallery extends PureComponent {
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-lg">
-                  Gallery Creation
+                  GalleryImages Creation
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
@@ -551,7 +554,7 @@ class Gallery extends PureComponent {
                         responsive
                         rounded
                       />
-                      <ControlLabel>Gallery Picture</ControlLabel>
+                      <ControlLabel>GalleryImages Picture</ControlLabel>
                       <FormControl
                         style={{ margin: "auto" }}
                         type="file"
@@ -580,5 +583,5 @@ class Gallery extends PureComponent {
   }
 }
 export default withAlert(
-  reduxConnect(mapStateToProps, mapDispatchToProps)(Gallery)
+  reduxConnect(mapStateToProps, mapDispatchToProps)(GalleryImages)
 );

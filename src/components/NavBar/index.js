@@ -169,8 +169,8 @@ class NavBar extends PureComponent {
               </LinkContainer>
             </NavDropdown>
             <NavDropdown eventKey={8} title="MEDIA" id="basic-nav-dropdown">
-              <LinkContainer to="/media/images">
-                <NavItem eventKey={8.1}>IMAGES</NavItem>
+              <LinkContainer to="/media/galleries">
+                <NavItem eventKey={8.1}>GALLERIES</NavItem>
               </LinkContainer>
               <LinkContainer to="/media/videos">
                 <NavItem eventKey={8.2}>VIDEOS</NavItem>

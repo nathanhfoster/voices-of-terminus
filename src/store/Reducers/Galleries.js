@@ -1,6 +1,6 @@
 import C from "../../constants.js";
 
-const defaultState = { results: [], Gallery: {} };
+const defaultState = { results: [], GalleryImages: { results: [] } };
 
 export const Galleries = (state = defaultState, action) => {
   const { type, payload } = action;
@@ -17,7 +17,7 @@ export const Galleries = (state = defaultState, action) => {
         loading: false,
         loaded: true,
         error: null,
-        Gallery: { results: [] }
+        GalleryImages: { results: [] }
       };
 
     case C.GET_GALLERY_LOADING:
@@ -30,7 +30,7 @@ export const Galleries = (state = defaultState, action) => {
     case C.GET_GALLERY:
       return {
         ...state,
-        Gallery: {
+        GalleryImages: {
           ...payload,
           loading: false,
           loaded: true,
@@ -49,7 +49,7 @@ export const Galleries = (state = defaultState, action) => {
     case C.CLEAR_GALLERY:
       return {
         ...state,
-        Gallery: { ...state.Gallery, results: [] }
+        GalleryImages: { ...state.GalleryImages, results: [] }
       };
     case C.RESET_REDUX:
       return defaultState;

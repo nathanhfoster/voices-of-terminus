@@ -109,20 +109,20 @@ const viewGalleryImages = id => (dispatch, getState) => {
   Axios()
     .get(`gallery/images/${id}/view/`)
     .then(gallery => {
-      const { Gallery } = getState().Galleries;
-      const hasImage = Gallery.results.every(gallery => gallery.image);
+      const { GalleryImages } = getState().Galleries;
+      const hasImage = GalleryImages.results.every(gallery => gallery.image);
       if (
         !hasImage ||
         !isEquivalent(
-          Gallery.results.map(k => k.id),
+          GalleryImages.results.map(k => k.id),
           gallery.data.results.map(k => k.id)
         ) ||
         !isEquivalent(
-          Gallery.results.map(k => k.last_modified),
+          GalleryImages.results.map(k => k.last_modified),
           gallery.data.results.map(k => k.last_modified)
         ) ||
         !isEquivalent(
-          Gallery.results.map(k => k.views),
+          GalleryImages.results.map(k => k.views),
           gallery.data.results.map(k => k.views)
         )
       ) {
@@ -140,8 +140,8 @@ const viewGalleryImage = id => (dispatch, getState) => {
     .get(`gallery/images/${id}/image/`)
     .then(res => {
       const { id, image } = res.data;
-      const { Gallery } = getState().Galleries;
-      let payload = { ...Gallery };
+      const { GalleryImages } = getState().Galleries;
+      let payload = { ...GalleryImages };
       const updatedIndex = payload.results.findIndex(
         gallery => gallery.id == id
       );
@@ -158,8 +158,8 @@ const postGalleryImage = (token, payload) => (dispatch, getState) =>
   Axios(token)
     .post(`gallery/images/`, qs.stringify(payload))
     .then(res => {
-      const { Gallery } = getState().Galleries;
-      let payload = { ...Gallery };
+      const { GalleryImages } = getState().Galleries;
+      let payload = { ...GalleryImages };
       payload.results.unshift(res.data);
       dispatch({
         type: C.GET_GALLERY,
@@ -177,8 +177,8 @@ const updateGalleryImage = (id, token, payload) => (dispatch, getState) =>
   Axios(token)
     .patch(`gallery/images/${id}/`, qs.stringify(payload))
     .then(res => {
-      const { Gallery } = getState().Galleries;
-      let payload = { ...Gallery };
+      const { GalleryImages } = getState().Galleries;
+      let payload = { ...GalleryImages };
       const updatedIndex = payload.results.findIndex(
         gallery => gallery.id == res.data.id
       );
@@ -199,8 +199,8 @@ const deleteGalleryImage = (id, token) => (dispatch, getState) =>
   Axios(token)
     .delete(`gallery/images/${id}/`)
     .then(res => {
-      const { Gallery } = getState().Galleries;
-      res.data = { ...Gallery };
+      const { GalleryImages } = getState().Galleries;
+      res.data = { ...GalleryImages };
       res.data.results = res.data.results.filter(gallery => gallery.id != id);
       dispatch({
         type: C.GET_GALLERY,
