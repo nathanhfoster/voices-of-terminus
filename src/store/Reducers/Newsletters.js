@@ -1,6 +1,18 @@
 import C from "../../constants.js";
 
-const defaultState = { results: [] };
+const defaultState = {
+  count: null,
+  error: null,
+  loaded: null,
+  loading: null,
+  next: null,
+  posted: null,
+  posting: null,
+  previous: null,
+  results: [],
+  updated: null,
+  updating: null
+};
 
 export const Newsletters = (state = defaultState, action) => {
   const { type, payload } = action;

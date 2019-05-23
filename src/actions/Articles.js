@@ -62,10 +62,11 @@ const nextArticles = paginator => (dispatch, getState) => {
     .get()
     .then(res => {
       const { Articles } = getState();
-      res.data.results = Articles.results.concat(res.data.results);
+      let payload = { ...Articles };
+      payload.results = Articles.results.concat(res.data.results);
       dispatch({
         type: C.GET_ARTICLES_SUCCESS,
-        payload: res.data
+        payload: payload
       });
     })
     .catch(e => console.log(e));
@@ -292,11 +293,12 @@ const deleteArticle = (id, token) => (dispatch, getState) =>
     .delete(`articles/${id}/`)
     .then(res => {
       const { Articles } = getState();
-      res.data = { ...Articles };
-      res.data.results = res.data.results.filter(article => article.id != id);
+      let payload = { ...Articles };
+      payload.count--;
+      payload.results = payload.results.filter(article => article.id != id);
       dispatch({
         type: C.GET_ARTICLES_SUCCESS,
-        payload: res.data
+        payload: payload
       });
     })
     .catch(e => console.log(e));
