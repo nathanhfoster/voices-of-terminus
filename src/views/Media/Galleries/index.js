@@ -91,8 +91,10 @@ class Galleries extends PureComponent {
 
   getState = props => {
     const { User, Galleries } = props;
-    const currentTags =
-      Galleries.results.map(e => splitString(e.tags)).flat(1) || [];
+    const currentTags = [
+      ...galleryImageTags,
+      ...Galleries.results.map(e => splitString(e.tags)).flat(1)
+    ].filter(e => e.value);
     this.getGalleryImage(Galleries);
     this.setState({
       User,

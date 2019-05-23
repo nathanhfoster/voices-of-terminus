@@ -56,7 +56,7 @@ import { refreshPatchUser } from "./actions/App";
 import { getUserSettings } from "./actions/Settings";
 import "moment-timezone";
 import "react-image-lightbox/style.css"; // This only needs to be imported once in your app
-import { userRefreshDelay } from "./helpers/variables";
+import { LastStoreUpdated, userRefreshDelay } from "./helpers/variables";
 
 const mapStateToProps = ({
   Admin,
@@ -209,10 +209,10 @@ class App extends PureComponent {
     Settings: PropTypes.object
   };
 
-  static defaultProps = { LastStoreUpdated: new Date("2019-5-22-8:30") };
+  static defaultProps = {};
 
   componentWillMount() {
-    const { ResetRedux, LastStoreUpdated } = this.props;
+    const { ResetRedux } = this.props;
     const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
     const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
 

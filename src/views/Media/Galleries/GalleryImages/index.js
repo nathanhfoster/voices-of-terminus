@@ -113,9 +113,10 @@ class GalleryImages extends PureComponent {
         ? Galleries.results[GalleryTitleIndex].title
         : null;
     const { GalleryImages } = Galleries;
-    const currentTags = GalleryImages.results
-      .map(e => splitString(e.tags))
-      .flat(1);
+    const currentTags = [
+      ...galleryImageTags,
+      ...GalleryImages.results.map(e => splitString(e.tags)).flat(1)
+    ].filter(e => e.value);
     this.getGalleryImage(GalleryImages);
     this.setState({
       User,
@@ -509,7 +510,7 @@ class GalleryImages extends PureComponent {
             >
               <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-lg">
-                  GalleryImages Creation
+                  Image Creation
                 </Modal.Title>
               </Modal.Header>
               <Modal.Body>
