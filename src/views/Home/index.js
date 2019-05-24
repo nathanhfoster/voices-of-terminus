@@ -24,16 +24,14 @@ class Home extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      votLatestVideo: {},
-      vrLatestVideo: {}
-    };
+    this.state = {};
   }
 
   static propTypes = {
     VoTYouTubeChannelData: PropTypes.object,
     VRYouTubeChannelData: PropTypes.object,
-    votLatestVideo: PropTypes.object
+    votLatestVideo: PropTypes.object,
+    vrLatestVideo: PropTypes.object
   };
 
   static defaultProps = {};

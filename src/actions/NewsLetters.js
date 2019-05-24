@@ -62,8 +62,8 @@ const nextNewsletters = paginator => (dispatch, getState) => {
     .get()
     .then(res => {
       const { Newsletters } = getState();
-      let payload = { ...Newsletters };
-      payload.results = payload.results.concat(res.data.results);
+      let payload = { ...Newsletters, ...res.data };
+      payload.results = [...Newsletters.results, ...res.data.results];
       dispatch({
         type: C.GET_NEWSLETTERS_SUCCESS,
         payload: payload
