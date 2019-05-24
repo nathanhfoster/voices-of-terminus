@@ -8,7 +8,7 @@ import "./styles.css";
 import "./stylesM.css";
 import { eventLabelColor } from "../../helpers";
 
-const mapStateToProps = ({ }) => ({});
+const mapStateToProps = ({}) => ({});
 
 const mapDispatchToProps = {};
 
@@ -36,9 +36,9 @@ class EventList extends PureComponent {
     this.getState(this.props);
   }
 
-  componentWillUpdate() { }
+  componentWillUpdate() {}
 
-  componentDidMount() { }
+  componentDidMount() {}
   componentWillReceiveProps(nextProps) {
     this.getState(nextProps);
   }
@@ -51,9 +51,9 @@ class EventList extends PureComponent {
     });
   };
 
-  componentDidUpdate() { }
+  componentDidUpdate() {}
 
-  componentWillUnmount() { }
+  componentWillUnmount() {}
 
   renderItems = (date, events, history) =>
     events.map((e, i) => {
