@@ -136,8 +136,8 @@ class ViewHtmlDocument extends Component {
                   <i className="fas fa-pencil-alt" />
                 </Button>
                 <ConfirmAction
-                  Action={e => {
-                    deleteAction(documentId, User.token);
+                  Action={async e => {
+                    await deleteAction(documentId, User.token);
                     history.push(goBackUrl);
                   }}
                   Disabled={false}
