@@ -298,6 +298,7 @@ class NewsLetterGenerator extends PureComponent {
             componentClass={ButtonToolbar}
           >
             <PendingAction
+              Disabled={!title}
               Click={this.postNewsletter}
               ActionPending={posting}
               ActionComplete={posted}
@@ -305,7 +306,7 @@ class NewsLetterGenerator extends PureComponent {
               ActionName={"POST"}
             />
             <PendingAction
-              ShouldShow={id}
+              ShouldShow={id ? true : false}
               Disabled={!(title && design)}
               Click={this.updateNewsletter}
               ActionPending={updating}

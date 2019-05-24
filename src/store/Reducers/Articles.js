@@ -26,6 +26,7 @@ export const Articles = (state = defaultState, action) => {
     case C.GET_ARTICLES_SUCCESS:
       const { posting, posted, updating, updated } = state;
       return {
+        ...state,
         ...payload,
         loading: false,
         loaded: true,

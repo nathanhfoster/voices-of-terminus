@@ -5,7 +5,7 @@ import { isEquivalent } from "../helpers";
 
 const getNewsletters = () => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
-  return Axios()
+  Axios()
     .get("newsletters/all/")
     .then(newsletters => {
       Axios()
@@ -58,7 +58,7 @@ const getNewsletters = () => (dispatch, getState) => {
 
 const nextNewsletters = paginator => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
-  return Axios(null, paginator)
+  Axios(null, paginator)
     .get()
     .then(res => {
       const { Newsletters } = getState();
@@ -74,7 +74,7 @@ const nextNewsletters = paginator => (dispatch, getState) => {
 
 const getNewslettersAllHtml = () => dispatch => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
-  return Axios()
+  Axios()
     .get(`newsletters/allhtml/`)
     .then(res => {
       dispatch({
@@ -87,7 +87,7 @@ const getNewslettersAllHtml = () => dispatch => {
 
 const getNewsletterHtml = id => (dispatch, getState) => {
   dispatch({ type: C.GET_NEWSLETTERS_LOADING });
-  return Axios()
+  Axios()
     .get(`newsletters/${id}/html/`)
     .then(res => {
       const { id, html } = res.data;
@@ -115,7 +115,7 @@ const getNewsletter = id => (dispatch, getState) => {
     type: C.GET_HTML_DOCUMENT,
     payload: cachedNewsletters.results[updatedIndex]
   });
-  return Axios()
+  Axios()
     .get(`newsletters/${id}/`)
     .then(res => {
       dispatch({
@@ -160,7 +160,7 @@ const viewNewsletter = id => (dispatch, getState) =>
 
 const postNewsletter = (token, payload) => (dispatch, getState) => {
   dispatch({ type: C.POST_NEWSLETTERS_LOADING });
-  return Axios(token)
+  Axios(token)
     .post("newsletters/", qs.stringify(payload))
     .then(res => {
       const { Newsletters } = getState();
@@ -248,7 +248,7 @@ const deleteNewsletterComment = (id, token) => (dispatch, getState) =>
 
 const updateNewsLetter = (id, token, payload) => (dispatch, getState) => {
   dispatch({ type: C.UPDATE_NEWSLETTERS_LOADING });
-  return Axios(token)
+  Axios(token)
     .patch(`newsletters/${id}/`, qs.stringify(payload))
     .then(res => {
       const { Newsletters } = getState();
@@ -273,8 +273,8 @@ const updateNewsLetter = (id, token, payload) => (dispatch, getState) => {
     );
 };
 
-const deleteNewsLetter = (id, token) => (dispatch, getState) =>
-  Axios(token)
+const deleteNewsLetter = (id, token) => async (dispatch, getState) =>
+  await Axios(token)
     .delete(`newsletters/${id}/`)
     .then(res => {
       const { Newsletters } = getState();

@@ -49,20 +49,11 @@ class Home extends PureComponent {
   }
 
   getState = props => {
-    const { User } = props;
-    const votLatestVideo = props.VoTYouTubeChannelData.latest.find(
-      e => e.videoId
-    );
-    const vrLatestVideo = props.VRYouTubeChannelData.latest.find(
-      e => e.videoId
-    );
+    const { User, VoTYouTubeChannelData, VRYouTubeChannelData } = props;
+    const votLatestVideo = VoTYouTubeChannelData.latest.find(e => e.videoId);
+    const vrLatestVideo = VRYouTubeChannelData.latest.find(e => e.videoId);
     this.setState({ User, votLatestVideo, vrLatestVideo });
   };
-
-  _onReady(event) {
-    // access to player in all event handlers via event.target
-    event.target.pauseVideo();
-  }
 
   render() {
     const { User, votLatestVideo, vrLatestVideo } = this.state;
@@ -105,10 +96,10 @@ class Home extends PureComponent {
             </div>
           </Col>
           <Col lg={6} md={6} className="newsFeed">
-            <h1>Latest From VoT</h1>
-            {votLatestVideo ? (
+            <h1 className="LatestVideoHeader">Latest From VoT</h1>
+            {votLatestVideo && (
               <ReactPlayer
-                className="Clickable"
+                className="Clickable LatestVideo"
                 url={`https://www.youtube.com/watch?v=${
                   votLatestVideo.videoId
                 }`}
@@ -121,12 +112,12 @@ class Home extends PureComponent {
                   }
                 }}
               />
-            ) : null}
+            )}
 
-            <h1>Latest From VR</h1>
-            {vrLatestVideo ? (
+            <h1 className="LatestVideoHeader">Latest From VR</h1>
+            {vrLatestVideo && (
               <ReactPlayer
-                className="Clickable"
+                className="Clickable LatestVideo"
                 url={`https://www.youtube.com/watch?v=${vrLatestVideo.videoId}`}
                 playing={false}
                 width="100%"
@@ -137,7 +128,7 @@ class Home extends PureComponent {
                   }
                 }}
               />
-            ) : null}
+            )}
           </Col>
           <Col lg={3} md={3} sm={12} className="newsFeed">
             <iframe

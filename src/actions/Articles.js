@@ -5,7 +5,7 @@ import { createMessageGroup } from "./Messages";
 
 const getArticles = () => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
-  return Axios()
+  Axios()
     .get("articles/all/")
     .then(articles => {
       Axios()
@@ -58,7 +58,7 @@ const getArticles = () => (dispatch, getState) => {
 
 const nextArticles = paginator => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
-  return Axios(null, paginator)
+  Axios(null, paginator)
     .get()
     .then(res => {
       const { Articles } = getState();
@@ -74,7 +74,7 @@ const nextArticles = paginator => (dispatch, getState) => {
 
 const getArticlesAllHtml = () => dispatch => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
-  return Axios()
+  Axios()
     .get(`articles/allhtml/`)
     .then(res => {
       dispatch({
@@ -87,7 +87,7 @@ const getArticlesAllHtml = () => dispatch => {
 
 const getArticleHtml = id => (dispatch, getState) => {
   dispatch({ type: C.GET_ARTICLES_LOADING });
-  return Axios()
+  Axios()
     .get(`articles/${id}/html/`)
     .then(res => {
       const { id, html } = res.data;
@@ -115,7 +115,7 @@ const getArticle = id => (dispatch, getState) => {
     type: C.GET_HTML_DOCUMENT,
     payload: cachedArticles.results[updatedIndex]
   });
-  return Axios()
+  Axios()
     .get(`articles/${id}/`)
     .then(res => {
       dispatch({
@@ -160,7 +160,7 @@ const viewArticle = id => (dispatch, getState) =>
 
 const postArticle = (token, recipients, payload) => (dispatch, getState) => {
   dispatch({ type: C.POST_ARTICLES_LOADING });
-  return Axios(token)
+  Axios(token)
     .post("articles/", qs.stringify(payload))
     .then(res => {
       const { Articles } = getState();
@@ -263,7 +263,7 @@ const updateArticle = (id, token, recipients, payload) => (
   getState
 ) => {
   dispatch({ type: C.UPDATE_ARTICLES_LOADING });
-  return Axios(token)
+  Axios(token)
     .patch(`articles/${id}/`, qs.stringify(payload))
     .then(res => {
       const { Articles } = getState();
@@ -288,8 +288,8 @@ const updateArticle = (id, token, recipients, payload) => (
     );
 };
 
-const deleteArticle = (id, token) => (dispatch, getState) =>
-  Axios(token)
+const deleteArticle = (id, token) => async (dispatch, getState) =>
+  await Axios(token)
     .delete(`articles/${id}/`)
     .then(res => {
       const { Articles } = getState();

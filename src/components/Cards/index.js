@@ -90,9 +90,9 @@ class Cards extends PureComponent {
     } = this.state.props;
     return (
       <div
+        key={id}
         className="Clickable Card Hover"
         onClick={click}
-        key={id}
         // onMouseEnter={() => this.setState({ isHovered: true })}
         // onMouseLeave={() => this.setState({ isHovered: false })}
       >
