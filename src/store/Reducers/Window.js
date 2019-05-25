@@ -1,6 +1,6 @@
 import C from "../../constants.js";
 
-const defaultState = {};
+const defaultState = { innerHeight: null, innerWidth: null, isMobile: null };
 
 export const Window = (state = defaultState, action) => {
   const { type, payload } = action;

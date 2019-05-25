@@ -321,9 +321,10 @@ class App extends PureComponent {
   };
 
   updateWindowDimensions() {
+    const { setWindow } = this.props
     const { innerHeight, innerWidth } = window;
     const isMobile = innerWidth < 768;
-    this.props.setWindow({ innerHeight, innerWidth, isMobile });
+    setWindow({ innerHeight, innerWidth, isMobile });
     this.setState({ height: innerHeight, width: innerWidth, isMobile });
   }
 
@@ -356,21 +357,21 @@ class App extends PureComponent {
     return location.pathname == "/" ? (
       <Redirect to="/home" />
     ) : (
-      <div className="App">
-        <NavBar history={history} location={location} match={match} />
-        <BackgroundImage history={history} location={location} match={match} />
-        <div
-          className="routeOverlay"
-          style={{ bottom: show_footer ? "var(--navBarHeight)" : 0 }}
-        >
-          <Switch>
-            {this.renderRouteItems(routeItems)}
-            <Route component={PageNotFound} />
-          </Switch>
+        <div className="App">
+          <NavBar history={history} location={location} match={match} />
+          <BackgroundImage history={history} location={location} match={match} />
+          <div
+            className="routeOverlay"
+            style={{ bottom: show_footer ? "var(--navBarHeight)" : 0 }}
+          >
+            <Switch>
+              {this.renderRouteItems(routeItems)}
+              <Route component={PageNotFound} />
+            </Switch>
+          </div>
+          <Footer history={history} location={location} match={match} />
         </div>
-        <Footer history={history} location={location} match={match} />
-      </div>
-    );
+      );
   }
 }
 
