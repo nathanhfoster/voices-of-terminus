@@ -361,7 +361,7 @@ class TicketDetails extends PureComponent {
               </Col>
             )}
             {/* User.id != Ticket.author && */}
-            {UserHasPermissions(User, "add_ticket", Ticket.author) && (
+            {UserHasPermissions(User, "add_statuschange", Ticket.author) && (
               <Col xs={12} className="UpdateTicketStatus">
                 <ControlLabel>Update status</ControlLabel>
                 <Select
@@ -381,7 +381,7 @@ class TicketDetails extends PureComponent {
                 />
               </Col>
             )}
-            {UserHasPermissions(User, "change_ticket", Ticket.author) && (
+            {UserHasPermissions(User, "add_note", Ticket.author) && (
               <Col xs={12} className="UpdateTicketStatus">
                 <ControlLabel>
                   <i className="fas fa-sticky-note" /> Notes
