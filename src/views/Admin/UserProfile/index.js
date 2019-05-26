@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import {
   Grid,
@@ -48,7 +48,7 @@ const mapDispatchToProps = {
   updateUserProfile
 };
 
-class UserProfile extends Component {
+class UserProfile extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -62,36 +62,7 @@ class UserProfile extends Component {
     updateUserProfile: PropTypes.func.isRequired
   };
 
-  static defaultProps = {
-    User: {
-      experience_points: "",
-      is_active: "",
-      is_superuser: "",
-      is_staff: "",
-      is_moderator: "",
-      primary_class: "",
-      primary_role: "",
-      secondary_class: "",
-      secondary_role: "",
-      profession: "",
-      profession_specialization: "",
-
-      username: "",
-      bio: "",
-      date_joined: "",
-      email: "",
-      first_name: "",
-      last_name: "",
-      id: null,
-      last_login: "",
-      password: "",
-      profile_image: null,
-      discord_url: "",
-      twitch_url: "",
-      twitter_url: "",
-      youtube_url: ""
-    }
-  };
+  static defaultProps = {};
 
   componentWillMount() {
     this.getState(this.props);

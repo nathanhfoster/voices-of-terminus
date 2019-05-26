@@ -22,7 +22,7 @@ import CreatableSelect from "react-select/lib/Creatable";
 import { joinStrings } from "../../../../helpers";
 import { ticketTypeOptions } from "../../../../helpers/options";
 import { selectStyles } from "../../../../helpers/styles";
-import PendingAction from '../../../../components/PendingAction'
+import PendingAction from "../../../../components/PendingAction";
 import "./styles.css";
 
 const mapStateToProps = ({ Admin, User }) => ({ Admin, User });
@@ -61,7 +61,6 @@ class Ticket extends Component {
     return shouldUpdate;
   }
 
-
   componentDidMount() {
     const { getUsers, clearAdminApi } = this.props;
     getUsers();
@@ -76,9 +75,9 @@ class Ticket extends Component {
     const { Admin, ticketTypeOptions } = props;
 
     const peoplOptions = Admin.Users
-      ? Admin.Users.map(i => (i = { value: i.username, label: i.username })).sort(
-        (a, b) => a.label.localeCompare(b.label)
-      )
+      ? Admin.Users.map(
+          i => (i = { value: i.username, label: i.username })
+        ).sort((a, b) => a.label.localeCompare(b.label))
       : [];
     const { posting, posted, updating, updated, error } = Admin;
     this.setState({
@@ -191,11 +190,7 @@ class Ticket extends Component {
             componentClass={ButtonToolbar}
           >
             <PendingAction
-              Disabled={!(offenders &&
-                corroborators &&
-                others_involved &&
-                description &&
-                ticket_type)}
+              Disabled={!(description && ticket_type)}
               Click={e => this.postTicket()}
               ActionPending={posting}
               ActionComplete={posted}
@@ -310,7 +305,7 @@ class Ticket extends Component {
             />
           </Col>
         </Row>
-      </Grid >
+      </Grid>
     );
   }
 }

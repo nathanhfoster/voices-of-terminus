@@ -63,7 +63,7 @@ const postTicket = (token, payload) => dispatch => {
 
 const editTicket = (token, id, payload) => dispatch => {
   dispatch({ type: C.POST_TICKETS_LOADING });
-  return Axios(token)
+  Axios(token)
     .patch(`tickets/${id}/`, qs.stringify(payload))
     .then(res => {
       dispatch({ type: C.POST_TICKETS_SUCCESS });

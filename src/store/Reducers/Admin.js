@@ -32,7 +32,7 @@ export const Admin = (state = defaultState, action) => {
         error: null
       };
     case C.GET_USER:
-      return { ...state, User: { ...state.User, ...payload } };
+      return { ...state, User: { ...payload } };
     case C.CLEAR_USER:
       return {
         ...state,

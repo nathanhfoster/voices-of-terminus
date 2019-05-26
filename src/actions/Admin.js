@@ -54,17 +54,17 @@ const updateUserProfile = (
   userProfilePayload,
   userGroupsPayload,
   userPermissionsPayload
-) => (dispatch, getState) => {
-  dispatch({ type: C.UPDATE_USERS_LOADING });
+) => async (dispatch, getState) => {
+  await dispatch({ type: C.UPDATE_USERS_LOADING });
+  await dispatch(changeGroups(token, id, userGroupsPayload));
+  await dispatch(changePermissions(token, id, userPermissionsPayload));
   const { Users } = getState().Admin;
   let usersPayload = DeepCopy(Users);
-  return Axios(token)
+  await Axios(token)
     .patch(`users/${id}/`, qs.stringify(userProfilePayload))
     .then(res => {
       const userIndex = usersPayload.findIndex(user => user.id == res.data.id);
       usersPayload[userIndex] = res.data;
-      dispatch(changeGroups(token, id, userGroupsPayload));
-      dispatch(changePermissions(token, id, userPermissionsPayload));
       dispatch({
         type: C.UPDATE_USERS_SUCCESS,
         payload: usersPayload
