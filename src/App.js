@@ -266,7 +266,7 @@ class App extends PureComponent {
     /* Check if User permissions have changed every 10 seconds */
     if (
       Cookies.get("User_LoginToken") &&
-      User.id &&
+      User.token &&
       !["/edit/", "/new/"].some(e => location.pathname.includes(e))
     )
       this.interval = setInterval(
