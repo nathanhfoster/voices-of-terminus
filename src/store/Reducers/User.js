@@ -45,7 +45,7 @@ const defaultState = {
   user_permissions: [],
   Characters: [],
   Tickets: [],
-  Settings: { show_footer: false, push_messages: false }
+  Settings: { show_footer: true, push_messages: false }
 };
 
 export const User = (state = defaultState, action) => {
