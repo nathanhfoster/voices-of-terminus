@@ -2,3 +2,7 @@
   background: var(--grey);
   cursor: var(--cursor);
 }
+
+.TicketTable .TicketStatusCell {
+  height: 100%;
+}

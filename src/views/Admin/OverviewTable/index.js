@@ -34,7 +34,7 @@ const OverviewTable = (Users, User, deleteThisUser) => {
               Header: <i className="fas fa-trash" />,
               accessor: "id",
               filterable: false,
-              maxWidth: 48,
+              maxWidth: 42,
               Cell: props => (
                 <ConfirmAction
                   Action={e => deleteThisUser(token, props.value)}

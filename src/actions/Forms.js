@@ -65,7 +65,7 @@ const GetFormRecipients = (token, pollId) => async dispatch =>
 
 const GetForms = token => dispatch => {
   dispatch({ type: C.GET_FORMS_LOADING });
-  return Axios(token)
+  Axios(token)
     .get("/forms/")
     .then(forms => {
       dispatch({ type: C.GET_FORMS_SUCCESS, payload: forms.data });
@@ -83,29 +83,23 @@ const PostForm = (
   form_type,
   Questions,
   Recipients
-) => (dispatch, getState) => {
+) => async (dispatch, getState) => {
   const pollPayload = { author, title, expiration_date, form_type };
-  dispatch({ type: C.POST_FORMS_LOADING });
+  await dispatch({ type: C.POST_FORMS_LOADING });
   const { Forms } = getState();
   let payload = { ...Forms };
-  return Axios(token)
+  await Axios(token)
     .post("/forms/", qs.stringify(pollPayload))
-    .then(form => {
+    .then(async form => {
       const { id } = form.data;
-
       payload.results.unshift(form.data);
 
-      // dispatch({
-      //   type: C.GET_FORMS_SUCCESS,
-      //   payload: payload
-      // });
-
-      dispatch(PostQuestions(author, id, token, Questions));
-      dispatch(PostRecipients(id, token, Recipients));
+      await dispatch(PostQuestions(author, id, token, Questions));
+      await dispatch(PostRecipients(id, token, Recipients));
 
       const uri = `/forms/${id}/questions`;
       const MessageGroupRecipients = Recipients.map(r => r.recipient);
-      dispatch(
+      await dispatch(
         createMessageGroup(
           token,
           author,
@@ -115,7 +109,7 @@ const PostForm = (
           body
         )
       );
-      dispatch({ type: C.POST_FORMS_SUCCESS });
+      await dispatch({ type: C.POST_FORMS_SUCCESS });
     })
     .catch(e => console.log(e));
 };
@@ -138,17 +132,13 @@ const PostQuestions = (author, form_id, token, Questions) => async (
 
     await Axios(token)
       .post("form/questions/", qs.stringify(pollQuestionPayload))
-      .then(question => {
+      .then(async question => {
         const question_id = question.data.id;
         payload.push(question.data);
-        dispatch(PostChoices(author, question_id, token, Choices));
+        await dispatch(PostChoices(author, question_id, token, Choices));
       })
       .catch(e => console.log(e, "pollQuestionPayload: ", pollQuestionPayload));
   }
-  // dispatch({
-  //   type: C.GET_QUESTIONS,
-  //   payload: payload
-  // });
 };
 
 const PostChoices = (author, question_id, token, Choices) => async (
@@ -263,7 +253,7 @@ const UpdateForm = (
     tags
   };
 
-  dispatch({ type: C.UPDATE_FORMS_LOADING });
+  await dispatch({ type: C.UPDATE_FORMS_LOADING });
   const { Forms } = getState();
   let payload = { ...Forms };
   const currentQuestions = Forms.Questions;
@@ -274,20 +264,22 @@ const UpdateForm = (
   );
   await Axios(token)
     .patch(`/forms/${pollId}/`, qs.stringify(pollPayload))
-    .then(form => {
+    .then(async form => {
       const indexToUpdate = payload.results.findIndex(p => p.id == pollId);
       payload.Form = form.data;
       payload.results[indexToUpdate] = form.data;
 
-      dispatch(PostQuestions(author, pollId, token, questionsToPost));
+      await dispatch(UpdateQuestions(author, pollId, token, questionsToUpdate));
 
-      dispatch(UpdateQuestions(author, pollId, token, questionsToUpdate));
+      await dispatch(DeleteQuestions(token, questionsToDelete));
 
-      dispatch(DeleteQuestions(token, questionsToDelete));
+      await dispatch(UpdateRecipients(pollId, token, Recipients));
 
-      dispatch(UpdateRecipients(pollId, token, Recipients));
+      await dispatch(PostQuestions(author, pollId, token, questionsToPost));
 
-      dispatch({ type: C.UPDATE_FORMS_SUCCESS, payload: payload });
+      // await dispatch({ type: C.UPDATE_FORMS_SUCCESS, payload: payload });
+
+      await dispatch(GetForm(token, pollId));
     })
     .catch(e => console.log(e));
 };
@@ -312,12 +304,14 @@ const UpdateQuestions = (author, form_id, token, Questions) => async (
 
     await Axios(token)
       .patch(`form/questions/${id}/`, qs.stringify(pollQuestionPayload))
-      .then(question => {
+      .then(async question => {
         const question_id = question.data.id;
         const updateIndex = payload.findIndex(q => q.id == question.id);
         payload[updateIndex] = question.data;
-        dispatch({ type: C.GET_QUESTIONS, payload: payload });
-        dispatch(UpdateChoices(author, question_id, token, Choices, Questions));
+        await dispatch({ type: C.GET_QUESTIONS, payload: payload });
+        await dispatch(
+          UpdateChoices(author, question_id, token, Choices, Questions)
+        );
       })
       .catch(e => console.log(e, "UpdateQuestions: ", pollQuestionPayload));
   }
@@ -353,8 +347,6 @@ const UpdateChoices = (
     c => !Choices.some(e => e.id == c.id)
   );
 
-  let payload = [...getState().Forms.Choices];
-
   for (let i = 0; i < choicesToUpdate.length; i++) {
     const { id, title, position } = choicesToUpdate[i];
     const choicePayload = {
@@ -369,9 +361,9 @@ const UpdateChoices = (
       .then(choice => {})
       .catch(e => console.log(e, "choicePayload: ", choicePayload));
   }
-  dispatch(PostChoices(author, question_id, token, choicesToPost));
-  dispatch(DeleteChoices(token, choicesToDelete));
-  dispatch(GetQuestionChoices(token, Questions));
+  await dispatch(DeleteChoices(token, choicesToDelete));
+  await dispatch(PostChoices(author, question_id, token, choicesToPost));
+  await dispatch(GetQuestionChoices(token, Questions));
 };
 
 const DeleteChoices = (token, Choices) => async (dispatch, getState) => {
@@ -389,7 +381,7 @@ const DeleteChoices = (token, Choices) => async (dispatch, getState) => {
   }
 };
 
-const UpdateRecipients = (recipient_poll_id, token, Recipients) => (
+const UpdateRecipients = (recipient_poll_id, token, Recipients) => async (
   dispatch,
   getState
 ) => {
@@ -403,8 +395,8 @@ const UpdateRecipients = (recipient_poll_id, token, Recipients) => (
     c => !Recipients.some(e => e.recipient == c.recipient)
   );
 
-  dispatch(PostRecipients(recipient_poll_id, token, recipientsToPost));
-  dispatch(deleteRecipients(token, recipientsToDelete));
+  await dispatch(deleteRecipients(token, recipientsToDelete));
+  await dispatch(PostRecipients(recipient_poll_id, token, recipientsToPost));
 };
 
 const deleteRecipients = (token, Recipients) => async (dispatch, getState) => {
@@ -414,9 +406,9 @@ const deleteRecipients = (token, Recipients) => async (dispatch, getState) => {
     const { id, recipient } = Recipients[i];
     await Axios(token)
       .delete(`form/recipients/${id}/`)
-      .then(res => {
+      .then(async res => {
         payload = payload.filter(r => r.recipient != recipient);
-        dispatch({ type: C.GET_RECIPIENTS, payload: payload });
+        await dispatch({ type: C.GET_RECIPIENTS, payload: payload });
       })
       .catch(e => console.log("deleteRecipients: ", e));
   }

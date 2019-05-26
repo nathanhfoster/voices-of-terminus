@@ -177,7 +177,7 @@ class TicketDetails extends PureComponent {
           text
         } = s;
         return (
-          <Col xs={12} className="StatusChangeNoteCard">
+          <Col xs={12} className="StatusChangeContainer">
             <Col xs={6}>
               <span>
                 <i className="far fa-clock" />{" "}
@@ -208,8 +208,8 @@ class TicketDetails extends PureComponent {
         );
       })
     ) : (
-      <div className="StatusChangeNoteCard">
-        <span>None</span>
+      <div className="StatusChangeContainer Center">
+        <h1 className="Center">None</h1>
       </div>
     );
 
@@ -362,7 +362,7 @@ class TicketDetails extends PureComponent {
             )}
             {/* User.id != Ticket.author && */}
             {UserHasPermissions(User, "add_ticket", Ticket.author) && (
-              <Col xs={12}>
+              <Col xs={12} className="UpdateTicketStatus">
                 <ControlLabel>Update status</ControlLabel>
                 <Select
                   name="ticket_type"
@@ -382,21 +382,19 @@ class TicketDetails extends PureComponent {
               </Col>
             )}
             {UserHasPermissions(User, "change_ticket", Ticket.author) && (
-              <Col xs={12}>
-                <FormGroup>
-                  <ControlLabel>
-                    <i className="fas fa-sticky-note" /> Notes
-                  </ControlLabel>
-                  <FormControl
-                    value={notes}
-                    componentClass="textarea"
-                    type="textarea"
-                    name="notes"
-                    wrap="hard"
-                    placeholder="Notes..."
-                    onChange={this.onChange}
-                  />
-                </FormGroup>
+              <Col xs={12} className="UpdateTicketStatus">
+                <ControlLabel>
+                  <i className="fas fa-sticky-note" /> Notes
+                </ControlLabel>
+                <FormControl
+                  value={notes}
+                  componentClass="textarea"
+                  type="textarea"
+                  name="notes"
+                  wrap="hard"
+                  placeholder="Notes..."
+                  onChange={this.onChange}
+                />
               </Col>
             )}
           </Row>

@@ -21,6 +21,7 @@ const TicketTable = (Tickets, history, pathname) => {
             {
               Header: "Status",
               accessor: "status",
+              minWidth: 120,
               filterMethod: (filter, rows) =>
                 matchSorter(rows, filter.value, {
                   keys: [filter.id]
@@ -28,6 +29,7 @@ const TicketTable = (Tickets, history, pathname) => {
               filterAll: true,
               Cell: props => (
                 <div
+                  className="TicketStatusCell"
                   onClick={e =>
                     history.push(`/admin/view/ticket/${props.original.id}`)
                   }
@@ -83,19 +85,19 @@ const TicketTable = (Tickets, history, pathname) => {
       multiSort={true}
       previousText={<i className="fas fa-arrow-left" />}
       nextText={<i className="fas fa-arrow-right" />}
-    // getTrProps={(state, rowInfo, column, instance) => {
-    //   console.log(state);
-    //   return {
-    //     onClick: e =>
-    //       history.push(`/admin/view/ticket/${rowInfo.original.id}`),
-    //     style: {
-    //       background: rowInfo && rowInfo.row.selected ? "green" : "red"
-    //       background:
-    //         rowInfo.index == this.state.selected ? "#00afec" : "white",
-    //       color: rowInfo.index == this.state.selected ? "white" : "black"
-    //     }
-    //   };
-    // }}
+      // getTrProps={(state, rowInfo, column, instance) => {
+      //   console.log(state);
+      //   return {
+      //     onClick: e =>
+      //       history.push(`/admin/view/ticket/${rowInfo.original.id}`),
+      //     style: {
+      //       background: rowInfo && rowInfo.row.selected ? "green" : "red"
+      //       background:
+      //         rowInfo.index == this.state.selected ? "#00afec" : "white",
+      //       color: rowInfo.index == this.state.selected ? "white" : "black"
+      //     }
+      //   };
+      // }}
     />
   );
 };
@@ -120,13 +122,12 @@ const AdminUserInfoColumns = [
     id: "offenders",
     accessor: Tickets => Tickets.offenders,
     filterable: true,
-    Cell: props => props.value
+    Cell: props => props.value,
     // return (
     //   <Link to={`/admin/edit/user/${props.original.offenders}`}>
     //     {props.value}
     //   </Link>
     // )
-    ,
     Footer: Offenders => {
       const User = TopKFrequentStrings(Offenders.data, "offenders", 1);
       return (

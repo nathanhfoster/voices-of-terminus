@@ -49,6 +49,11 @@ div.-sort-desc::after {
   outline: none;
 }
 
+.ReactTable .rt-th,
+.ReactTable .rt-td {
+  padding: 4px;
+}
+
 .ReactTable .rt-thead .rt-th,
 .ReactTable .rt-thead .rt-td,
 .ReactTable .rt-thead.-filters,

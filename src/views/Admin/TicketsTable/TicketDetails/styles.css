@@ -1,7 +1,7 @@
 .TicketDetails {
 }
 
-.detailRow [class*="col-"]:nth-child(-n+10) {
+.detailRow [class*="col-"]:nth-child(-n + 11) {
   border: 1px solid var(--grey);
   border-radius: 4px;
   margin: 4px;
@@ -39,21 +39,22 @@
 }
 
 .StatusChangeContainer {
-  height: calc(var(--inputButtonHeight) * 5);
-  overflow-y: auto;
-}
-
-.StatusChangeNoteCard {
   height: calc(var(--inputButtonHeight) * 2);
+  overflow-y: auto;
   border-radius: 4px;
   background-color: var(--grey);
-  margin: 2px 0;
+  margin: 4px 0;
 }
 
-.StatusChangeNoteCard [class*="col-"] {
+.StatusChangeContainer [class*="col-"] {
   padding: 8px;
 }
 
 .noteText {
   overflow-y: auto;
+}
+
+.UpdateTicketStatus {
+  margin: 0;
+  padding: 4px;
 }
