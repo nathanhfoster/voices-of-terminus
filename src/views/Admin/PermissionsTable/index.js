@@ -87,7 +87,7 @@ const PermissionsTable = (Users, User, changePermissions) => {
                 return (
                   <Checkbox
                     checked={userHasPermission}
-                    onClick={e =>
+                    onClick={() =>
                       changePermissions(
                         User.token,
                         userId,

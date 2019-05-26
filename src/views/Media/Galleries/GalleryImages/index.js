@@ -447,7 +447,7 @@ class GalleryImages extends PureComponent {
                   </Button>
                 ),
                 <ConfirmAction
-                  Action={e => {
+                  Action={() => {
                     deleteGalleryImage(images[photoIndex].id, User.token);
                     this.setState({
                       isOpen: false,

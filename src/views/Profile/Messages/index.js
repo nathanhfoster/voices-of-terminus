@@ -224,8 +224,7 @@ class Messages extends PureComponent {
         messages
       } = group;
       const is_read = this.hasUnreadMessage(messages);
-      const recentMessage =
-        messages.length > 0 ? messages[0] : {};
+      const recentMessage = messages.length > 0 ? messages[0] : {};
       const {
         //id,
         //is_read,
@@ -460,7 +459,7 @@ class Messages extends PureComponent {
                     <Row>
                       <Col xs={12} className="ActionToolbarRow Center">
                         <Button
-                          onClick={e =>
+                          onClick={() =>
                             this.setState({
                               Recipients: selectGuildRecipients(
                                 Recipients,
@@ -578,7 +577,7 @@ class Messages extends PureComponent {
                           </Button>
                         )}
                         <ConfirmAction
-                          Action={e => {
+                          Action={() => {
                             const { id } = messageRecipients.filter(
                               r => r.recipient_id == User.id
                             )[0];

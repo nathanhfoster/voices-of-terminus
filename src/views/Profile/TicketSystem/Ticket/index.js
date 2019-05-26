@@ -163,6 +163,7 @@ class Ticket extends Component {
   };
 
   render() {
+    const { history } = this.props;
     const {
       offenders,
       corroborators,
@@ -191,11 +192,12 @@ class Ticket extends Component {
           >
             <PendingAction
               Disabled={!(description && ticket_type)}
-              Click={e => this.postTicket()}
+              Click={() => this.postTicket()}
               ActionPending={posting}
               ActionComplete={posted}
               ActionError={error}
               ActionName={"POST"}
+              Redirect={() => history.push("/tickets")}
             />
           </Col>
         </Row>

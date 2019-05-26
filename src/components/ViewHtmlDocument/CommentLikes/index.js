@@ -185,7 +185,7 @@ class CommentLikes extends PureComponent {
           </Col>
           <Col xs={2} className="pull-right">
             <ConfirmAction
-              Action={e => this.deleteComment(com.id, User.token)}
+              Action={() => this.deleteComment(com.id, User.token)}
               Disabled={false}
               Icon={<i className="fas fa-trash" />}
               hasPermission={UserHasPermissions(

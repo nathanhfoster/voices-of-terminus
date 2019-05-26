@@ -161,7 +161,7 @@ class GuildCalendar extends PureComponent {
 
               return view == "month" && eventFound && !isMobile ? (
                 <div
-                  onClick={e => history.push(`/calendar/event/${id}`)}
+                  onClick={() => history.push(`/calendar/event/${id}`)}
                   className="hasEventsContainer"
                   data-for={`${id}`}
                   data-tip={i}
@@ -203,7 +203,7 @@ class GuildCalendar extends PureComponent {
           >
             {UserHasPermissions(User, "add_event") && (
               <Button
-                onClick={e => history.push("/calendar/new/event")}
+                onClick={() => history.push("/calendar/new/event")}
                 className="todayButton"
               >
                 <i className="far fa-calendar-plus" /> Event

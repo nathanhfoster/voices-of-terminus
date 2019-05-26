@@ -49,7 +49,7 @@ class HomeCarousel extends PureComponent {
       <Carousel.Item
         animateIn={true}
         animateOut={true}
-        onClick={e => this.setState({ photoIndex: i, isOpen: true })}
+        onClick={() => this.setState({ photoIndex: i, isOpen: true })}
       >
         <img className="CarouselImage Center" src={img.image} />
         <Carousel.Caption>
@@ -59,6 +59,7 @@ class HomeCarousel extends PureComponent {
     ));
 
   render() {
+    const { deleteGalleryImage } = this.props;
     const {
       images,
       GalleryTitle,
@@ -104,11 +105,8 @@ class HomeCarousel extends PureComponent {
               </Button>
             ) : null,
             <ConfirmAction
-              Action={e => {
-                this.props.deleteGalleryImage(
-                  images[photoIndex].id,
-                  User.token
-                );
+              Action={() => {
+                deleteGalleryImage(images[photoIndex].id, User.token);
                 this.setState({
                   isOpen: false,
                   images: images.filter(img => img.id != images[photoIndex].id)

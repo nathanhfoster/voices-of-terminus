@@ -35,16 +35,21 @@ class PendingAction extends PureComponent {
       ActionPending,
       ActionComplete,
       ActionError,
-      ActionName
+      ActionName,
+      Redirect
     } = props;
+    const Pending = ActionPending && !ActionComplete;
+    const Completed = !ActionPending && ActionComplete && !ActionError;
+    const shouldRedirect = Redirect && Completed;
+    if (shouldRedirect) Redirect();
+
     this.setState({
       ShouldShow,
       Disabled,
       Click,
-      ActionPending,
-      ActionComplete,
-      ActionError,
-      ActionName
+      ActionName,
+      Pending,
+      Completed
     });
   };
 
@@ -65,11 +70,11 @@ class PendingAction extends PureComponent {
       ShouldShow,
       Disabled,
       Click,
-      ActionPending,
-      ActionComplete,
-      ActionError,
-      ActionName
+      ActionName,
+      Pending,
+      Completed
     } = this.state;
+
     return ShouldShow ? (
       <Button
         className="PendingAction"
@@ -77,9 +82,9 @@ class PendingAction extends PureComponent {
         type="submit"
         onClick={Click}
       >
-        {ActionPending && !ActionComplete
+        {Pending
           ? [<i className="fa fa-spinner fa-spin" />, ActionName]
-          : !ActionPending && ActionComplete && !ActionError
+          : Completed
           ? [
               <i
                 className="fas fa-check"

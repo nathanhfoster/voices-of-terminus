@@ -110,7 +110,7 @@ class Cards extends PureComponent {
             </Button>
           ) : null}
           <ConfirmAction
-            Action={e => deleteCard(id, User.token)}
+            Action={() => deleteCard(id, User.token)}
             Disabled={false}
             Icon={<i className="fas fa-trash" />}
             hasPermission={canDelete}
@@ -149,18 +149,6 @@ class Cards extends PureComponent {
                 <i className="far fa-clock" />
                 <Moment fromNow>{date_created}</Moment>
               </div>
-              {/* <div>
-                <i className="fas fa-pencil-alt" />
-                <Link
-                  to={`/profile/${last_modified_by}`}
-                  onClick={e => e.stopPropagation()}
-                >
-                  {last_modified_by_username}
-                </Link>{" "}
-                <i className="far fa-clock" />
-                <Moment fromNow>{last_modified}</Moment>
-             </div>*/}
-              {/* <div>[{tags}]</div> */}
             </div>
             <div className="cardStats">
               <div>

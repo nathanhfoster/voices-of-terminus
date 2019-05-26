@@ -168,7 +168,7 @@ class EventDetails extends PureComponent {
         <div>
           <span
             key={memberId}
-            onClick={e =>
+            onClick={() =>
               !UserAlreadySignedUp && User.id
                 ? this.setState({
                     show: true,
@@ -210,7 +210,7 @@ class EventDetails extends PureComponent {
               />
               <span
                 key={memberId}
-                onClick={e =>
+                onClick={() =>
                   !UserAlreadySignedUp
                     ? this.setState({
                         show: true,
@@ -284,7 +284,7 @@ class EventDetails extends PureComponent {
         <Col xs={1}>
           {isUsersCharacter ? (
             <ConfirmAction
-              Action={e =>
+              Action={() =>
                 editEventGroupMember(memberId, User, { filled: null })
               }
               Disabled={false}
@@ -319,7 +319,7 @@ class EventDetails extends PureComponent {
       return (
         <Row
           key={id}
-          onClick={e => {
+          onClick={() => {
             editEventGroupMember(memberId, User, payload);
             this.setState({ show: false });
           }}
@@ -386,7 +386,7 @@ class EventDetails extends PureComponent {
           >
             {/* TODO <Button disabled={!canEdit} onClick={e => history.push(`/calendar/edit/event/${id}`)}><i className="fa fa-pencil-alt" /></Button> */}
             <ConfirmAction
-              Action={e => {
+              Action={() => {
                 deleteEvent(id, User.token);
                 history.goBack();
               }}

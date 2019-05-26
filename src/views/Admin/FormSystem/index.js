@@ -173,7 +173,7 @@ class FormSystem extends Component {
               componentClass={ButtonToolbar}
             >
               <ConfirmAction
-                Action={e => DeleteForm(User.token, id)}
+                Action={() => DeleteForm(User.token, id)}
                 Disabled={false}
                 Icon={<i className="fas fa-trash" />}
                 hasPermission={UserHasPermissions(User, "delete_form", author)}
@@ -425,7 +425,7 @@ class FormSystem extends Component {
             <InputGroup.Addon>
               <PendingAction
                 Disabled={expired}
-                Click={e =>
+                Click={() =>
                   !response
                     ? PostResponse(User.token, payload)
                     : EditResponse(User.token, responseId, payload)

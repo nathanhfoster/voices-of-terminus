@@ -202,7 +202,7 @@ class Galleries extends PureComponent {
 
   renderGalleries = (galleries, filter, dontFilter) => {
     const { User } = this.state;
-    const { history } = this.props;
+    const { history, deleteGallery } = this.props;
     return galleries
       .filter(gal =>
         dontFilter ? gal : isEquivalent(gal.tags.split("|"), filter)
@@ -224,7 +224,7 @@ class Galleries extends PureComponent {
                     "delete_gallery",
                     gallery.author
                   )}
-                  Action={e => this.props.deleteGallery(gallery.id, User.token)}
+                  Action={() => deleteGallery(gallery.id, User.token)}
                   Disabled={false}
                   Icon={<i className="fas fa-trash" />}
                   Size=""

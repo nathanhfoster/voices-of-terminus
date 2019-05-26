@@ -331,7 +331,7 @@ class TextEditor extends Component {
               key={2}
               Disabled={!id || canPostOrUpdate}
               ShouldShow={id ? true : false}
-              Click={e => this.updateArticle(id)}
+              Click={() => this.updateArticle(id)}
               ActionPending={updating}
               ActionComplete={updated}
               ActionError={error}
