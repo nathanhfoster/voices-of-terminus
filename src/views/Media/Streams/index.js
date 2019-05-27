@@ -2,13 +2,16 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect as reduxConnect } from "react-redux";
 import "./styles.css";
-import { getVotTwitchStreams } from "../../../actions/Api";
+import {
+  getVotTwitchStreams,
+  getChannelSubscribers
+} from "../../../actions/APIs/Twitch";
 import { Grid } from "react-bootstrap";
 import StreamCard from "./StreamCard";
 
 const mapStateToProps = ({ VotTwitchStreams }) => ({ VotTwitchStreams });
 
-const mapDispatchToProps = { getVotTwitchStreams };
+const mapDispatchToProps = { getVotTwitchStreams, getChannelSubscribers };
 
 class Streams extends PureComponent {
   constructor(props) {
@@ -19,7 +22,8 @@ class Streams extends PureComponent {
 
   static propTypes = {
     VotTwitchStreams: PropTypes.array,
-    getVotTwitchStreams: PropTypes.func.isRequired
+    getVotTwitchStreams: PropTypes.func.isRequired,
+    getChannelSubscribers: PropTypes.func.isRequired
   };
 
   static defaultProps = {};
@@ -29,8 +33,10 @@ class Streams extends PureComponent {
   }
 
   componentDidMount() {
-    const { getVotTwitchStreams } = this.props;
+    const { getVotTwitchStreams, getChannelSubscribers } = this.props;
     getVotTwitchStreams();
+    // TODO
+    // getChannelSubscribers();
   }
 
   componentWillReceiveProps(nextProps) {

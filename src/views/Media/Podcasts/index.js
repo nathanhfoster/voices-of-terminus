@@ -4,7 +4,7 @@ import { connect as reduxConnect } from "react-redux";
 import { Grid } from "react-bootstrap";
 import "./styles.css";
 import PodcastCard from "./PodcastCard";
-import { getVotPlaylistShow } from "../../../actions/Api";
+import { getVotPlaylistShow } from "../../../actions/APIs/YouTube";
 
 const mapStateToProps = ({ VotPlaylistShow }) => ({
   VotPlaylistShow

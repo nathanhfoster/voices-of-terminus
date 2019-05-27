@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios } from "./Axios";
+import { Axios } from ".";
 import qs from "qs";
 
 const getUserMessages = (userId, token) => dispatch => {

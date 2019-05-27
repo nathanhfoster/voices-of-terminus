@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios, AxiosForm } from "./Axios";
+import { Axios, AxiosForm } from ".";
 import qs from "qs";
 
 const getTickets = () => dispatch => {

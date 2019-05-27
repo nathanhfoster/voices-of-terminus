@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios } from "./Axios";
+import { Axios } from ".";
 import Cookies from "js-cookie";
 import qs from "qs";
 import { GetUserPermissions } from "../helpers";

@@ -1,28 +1,15 @@
-import C from "../constants";
+import C from "../../constants";
 import YTube from "ytube";
-import MomentJS from "moment";
+import { shouldUpdate } from "./index";
 
 const {
   REACT_APP_YOUTUBE_API_KEY,
-  REACT_APP_TWITCH_CLIENT_ID,
   REACT_APP_VOT_YOUTUBE_CHANNEL_ID,
   REACT_APP_VR_YOUTUBE_CHANNEL_ID,
   REACT_APP_VOT_PLAYLIST_ID_SHOW
 } = process.env;
 
 const ytube = new YTube(REACT_APP_YOUTUBE_API_KEY);
-
-const shouldUpdate = lastApiCall => {
-  if (!lastApiCall) {
-    // console.log("!lastApiCall: ", !lastApiCall);
-    // console.log("lastApiCall: ", lastApiCall);
-    return true;
-  }
-  const shouldUpdate = MomentJS().diff(MomentJS(lastApiCall), "hours") > 12;
-  // console.log(lastApiCall);
-  // console.log(shouldUpdate);
-  return shouldUpdate;
-};
 
 const getVoTYouTubeChannelData = () => (dispatch, getState) => {
   const { lastApiCall } = getState().VoTYouTubeChannelData;
@@ -75,24 +62,6 @@ const getVotPlaylistShow = () => (dispatch, getState) => {
   );
 };
 
-const getVotTwitchStreams = () => (dispatch, getState) => {
-  const { lastApiCall } = getState().VotTwitchStreams;
-
-  return (
-    shouldUpdate(lastApiCall) &&
-    fetch(
-      `https://api.twitch.tv/kraken/channels/pantheon_vot/videos?broadcasts=true&limit=20&client_id=${REACT_APP_TWITCH_CLIENT_ID}`
-    )
-      .then(response => response.json())
-      .then(res => {
-        return dispatch({
-          type: C.GET_VOT_TWITCH_STREAMS,
-          payload: res
-        });
-      })
-  );
-};
-
 const getAllVotYouTube = () => (dispatch, getState) => {
   const { lastApiCall } = getState().VotAllYouTubeChannelData;
   return (
@@ -129,7 +98,6 @@ export {
   getVoTYouTubeChannelData,
   getVotChannelsPlayLists,
   getVotPlaylistShow,
-  getVotTwitchStreams,
   getAllVotYouTube,
   getVRYouTubeChannelData
 };

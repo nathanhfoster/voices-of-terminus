@@ -4,7 +4,7 @@ import { connect as reduxConnect } from "react-redux";
 import { Grid } from "react-bootstrap";
 import "./styles.css";
 import VideoCard from "./VideoCard";
-import { getVoTYouTubeChannelData } from "../../../actions/Api";
+import { getVoTYouTubeChannelData } from "../../../actions/APIs/YouTube";
 
 const mapStateToProps = ({ VoTYouTubeChannelData }) => ({
   VoTYouTubeChannelData

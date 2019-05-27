@@ -1,5 +1,5 @@
 import C from "../constants";
-import { Axios } from "./Axios";
+import { Axios } from ".";
 import { createMessageGroup } from "./Messages";
 import qs from "qs";
 
