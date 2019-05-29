@@ -34,15 +34,17 @@ if ("serviceWorker" in navigator) {
 }
 
 const getState = () => {
+  let State = {};
+  const localState = localStorage["redux-store"];
   const UserLastActive = new Date(Cookies.get("STORE_UPDATED") || 0);
   const shouldResetStore = UserLastActive - LastStoreUpdated < 0;
   if (shouldResetStore) {
-    localStorage.clear();
+    //localStorage.clear();
     Cookies.set("STORE_UPDATED", new Date());
-  } else if (localStorage["redux-store"]) {
-    return JSON.parse(localStorage["redux-store"]);
+  } else if (localState) {
+    State = JSON.parse(localState);
   }
-  return {};
+  return State;
 };
 
 const initialState = getState();
