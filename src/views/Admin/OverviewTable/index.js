@@ -123,7 +123,7 @@ const OverviewTable = (Users, User, deleteThisUser) => {
                 <span>
                   <i className="fab fa-fort-awesome" />{" "}
                   <strong style={{ color: "var(--primaryColor)" }}>
-                    {Users.data.filter(user => user.status > 0).length}
+                    {Users.data.reduce((acc, user) => acc + (user.status > 0), 0)}
                   </strong>
                 </span>
               ),

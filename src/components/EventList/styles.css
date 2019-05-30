@@ -7,7 +7,6 @@
   font-size: 20px;
   line-height: 22px;
   height: 22px;
-  background-color: var(--grey);
   background: var(--secondaryColor); /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to right,
