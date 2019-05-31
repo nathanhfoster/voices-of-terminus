@@ -13,6 +13,7 @@ const login = (username, password, rememberMe) => dispatch =>
   Axios()
     .post("login/", qs.stringify({ username, password }))
     .then(res => {
+      const { id, token } = res.data;
       const eightHours = 1 / 3;
       rememberMe
         ? Cookies.set("User_LoginToken", res.data.token)
@@ -23,6 +24,7 @@ const login = (username, password, rememberMe) => dispatch =>
         type: C.SET_LOGIN_TOKEN,
         payload: res.data
       });
+      dispatch(refreshPatchUser(token, id));
     })
     .catch(e =>
       dispatch({
