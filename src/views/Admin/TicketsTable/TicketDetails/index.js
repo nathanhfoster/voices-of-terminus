@@ -277,7 +277,11 @@ class TicketDetails extends PureComponent {
               componentClass={ButtonToolbar}
             >
               <PendingAction
-                ShouldShow={UserHasPermissions(User, "change_ticket")}
+                ShouldShow={UserHasPermissions(
+                  User,
+                  "change_ticket",
+                  Ticket.author
+                )}
                 Click={e => this.editTicketStatus()}
                 ActionPending={posting}
                 ActionComplete={posted}
