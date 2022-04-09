@@ -12,7 +12,7 @@
     "immutable": "^3.8.2",
     "js-cookie": "^2.2.0",
     "match-sorter": "^3.0.0",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "moment-timezone": "^0.5.25",
     "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
