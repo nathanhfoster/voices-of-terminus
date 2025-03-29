@@ -13,7 +13,7 @@
     "js-cookie": "^2.2.0",
     "match-sorter": "^3.0.0",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.25",
+    "moment-timezone": "^0.5.35",
     "normalize.css": "^8.0.1",
     "qs": "^6.7.0",
     "rc-slider": "^8.6.11",
